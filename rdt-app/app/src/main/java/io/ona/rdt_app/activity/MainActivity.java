@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageQualityActivity;
+import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 
 public class MainActivity extends AppCompatActivity {
