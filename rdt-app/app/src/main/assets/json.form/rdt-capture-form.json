@@ -50,6 +50,13 @@
     "title": "Capture RDT image",
     "display_back_button": "true",
     "fields": [
+      {
+        "key": "rdt_capture",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "rdt_capture"
+      }
     ]
   }
 }
