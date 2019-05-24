@@ -1,4 +1,4 @@
-package io.ona.rdt_app.activity.util;
+package util;
 
 import android.app.Activity;
 import android.content.Context;
