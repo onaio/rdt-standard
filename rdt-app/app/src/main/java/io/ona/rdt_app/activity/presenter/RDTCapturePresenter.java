@@ -2,6 +2,7 @@ package io.ona.rdt_app.activity.presenter;
 
 import android.content.Context;
 
+import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.activity.RDTCaptureActivity;
 import io.ona.rdt_app.activity.interactor.RDTCaptureInteractor;
 
@@ -18,7 +19,7 @@ public class RDTCapturePresenter {
         this.interactor = new RDTCaptureInteractor(this);
     }
 
-    public String saveImage(Context context, byte[] imageByteArray, long timeTaken) {
-        return interactor.saveImage(context, imageByteArray, timeTaken);
+    public void saveImage(Context context, byte[] imageByteArray, long timeTaken, OnImageSavedCallBack onImageSavedCallBack) {
+        interactor.saveImage(context, imageByteArray, timeTaken, onImageSavedCallBack);
     }
 }
