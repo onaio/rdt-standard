@@ -31,6 +31,11 @@ public class RDTCaptureActivity extends ImageQualityActivity implements Activity
 
     @Override
     public void onImageSaved(String imageLocation) {
+        if (imageLocation != null) {
+            // todo: do something
+        } else {
+            Log.e(TAG, "Could not save null image path");
+        }
         finish();
     }
 }

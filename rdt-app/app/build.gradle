@@ -19,12 +19,31 @@ android {
 }
 
 dependencies {
-    implementation('io.ona.rdt-capture:lib:0.1') {
+    implementation('io.ona.rdt-capture:lib:0.7') {
         exclude group: 'com.android.support.constraint', module: 'constraint-layout'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support.test', module: 'runner'
         exclude group: 'com.android.support.test.espresso', module: 'espresso-core'
+    }
+    implementation('org.smartregister:opensrp-client-native-form:1.6.6-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+    }
+    implementation('org.smartregister:opensrp-client-core:1.6.26-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
+        exclude group: 'com.google.android.gms', module: 'play-services-vision'
+        exclude group: 'com.github.ybq', module: 'Android-SpinKit'
+        exclude group: 'org.apache.httpcomponents', module: 'httpmime'
+        exclude group: 'com.github.ybq', module: 'Android-SpinKit'
     }
     implementation 'com.android.support:animated-vector-drawable:28.0.0'
     implementation 'com.android.support:support-media-compat:28.0.0'
