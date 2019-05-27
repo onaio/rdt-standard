@@ -1,5 +1,5 @@
 {
-  "count": "1",
+  "count": "2",
   "encounter_type": "Spray",
   "entity_id": "",
   "metadata": {
@@ -49,6 +49,7 @@
   "step1": {
     "title": "Capture RDT image",
     "display_back_button": "true",
+    "next": "step2",
     "fields": [
       {
         "key": "rdt_capture",
@@ -56,6 +57,39 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Select RDT reader result",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "rdt_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Select RDT reader result",
+        "options": [
+          {
+            "key": "positive",
+            "text": "positive"
+          },
+          {
+            "key": "negative",
+            "text": "negative"
+          },
+          {
+            "key": "invalid",
+            "text": "invalid"
+          }
+        ],
+        "value": "negative",
+        "v_required": {
+          "value": "true",
+          "err": "Please select the RDT reader result"
+        }
       }
     ]
   }
