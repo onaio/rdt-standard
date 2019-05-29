@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
@@ -35,5 +36,16 @@ public class RDTCaptureJsonFormUtils {
     public JSONObject getFormJsonObject(String formName, Context context) throws JSONException {
         String formString = AssetHandler.readFileFromAssetsFolder(formName, context);
         return new JSONObject(formString);
+    }
+
+    public void showToast(final Activity activity, final String text) {
+        if (activity != null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }
