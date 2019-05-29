@@ -1,9 +1,11 @@
 package io.ona.rdt_app.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
@@ -27,8 +29,10 @@ public class RDTJsonFormActivity extends JsonFormActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
         if (requestCode == REQUEST_CAMERA_PERMISSION && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 this.propertyManager.grantPhoneStatePermission();
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                initializeFormFragment();
             } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 Intent resultIntent = new Intent();
                 setResult(RESULT_CANCELED, resultIntent);
