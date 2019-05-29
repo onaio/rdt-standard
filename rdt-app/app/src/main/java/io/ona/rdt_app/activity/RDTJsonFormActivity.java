@@ -45,4 +45,9 @@ public class RDTJsonFormActivity extends JsonFormActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+    @Override
+    public void showPermissionDeniedDialog() {
+        // do nothing
+    }
 }
