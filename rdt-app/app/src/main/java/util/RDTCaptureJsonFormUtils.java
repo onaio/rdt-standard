@@ -11,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.util.AssetHandler;
 
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
+
 import static io.ona.rdt_app.activity.Constants.JSON_FORM_PARAM_JSON;
 
 /**
@@ -21,7 +23,7 @@ public class RDTCaptureJsonFormUtils {
     private static final String TAG = RDTCaptureJsonFormUtils.class.getName();
 
     public void startJsonForm(JSONObject form, Activity context, int requestCode) {
-        Intent intent = new Intent(context, JsonFormActivity.class);
+        Intent intent = new Intent(context, RDTJsonFormActivity.class);
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
             context.startActivityForResult(intent, requestCode);
