@@ -34,7 +34,7 @@
             android:background="@android:color/transparent"
             android:gravity="center"
             android:text="@string/clients_register_title"
-            android:textSize="32sp"
+            android:textSize="26sp"
             tools:ignore="PrivateResource" />
 
 
@@ -52,9 +52,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_below="@+id/register_nav_bar_container"
-        android:text="Search"
-        android:textColor="#C3C3C3"
         android:textSize="22sp"
+        android:textColor="@color/black"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -62,6 +61,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp"
+        android:hint="Search"
+        android:textColorHint="#C3C3C3"/>
 
 </RelativeLayout>

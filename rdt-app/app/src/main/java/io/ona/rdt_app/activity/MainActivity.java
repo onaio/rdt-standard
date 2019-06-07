@@ -2,6 +2,7 @@ package io.ona.rdt_app.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RDTCaptureJsonFormUtils jsonFormUtils;
     private final String TAG = MainActivity.class.getName();
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         jsonFormUtils = new RDTCaptureJsonFormUtils();
+        context = getApplicationContext();
 
         findViewById(R.id.btn_launch_rdt_reader).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, e.getStackTrace().toString());
                 }
             }
+        });
+
+        findViewById(R.id.btn_launch_register_activity).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(context, PatientRegisterActivity.class);
+               startActivity(intent);
+           }
         });
         requestPermissions();
     }

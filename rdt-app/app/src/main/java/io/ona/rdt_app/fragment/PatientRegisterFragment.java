@@ -70,11 +70,6 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
     }
 
     @Override
-    public String getString(int i) {
-        return null;
-    }
-
-    @Override
     public void showNotFoundPopup(String s) {
 
     }
