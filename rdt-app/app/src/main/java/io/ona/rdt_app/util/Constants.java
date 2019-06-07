@@ -1,4 +1,4 @@
-package io.ona.rdt_app.activity;
+package io.ona.rdt_app.util;
 
 /**
  * Created by Vincent Karuri on 23/05/2019

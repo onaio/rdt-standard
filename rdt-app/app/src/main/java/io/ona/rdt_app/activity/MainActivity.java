@@ -17,9 +17,10 @@ import org.json.JSONObject;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.util.Constants;
 import util.RDTCaptureJsonFormUtils;
 
-import static io.ona.rdt_app.activity.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
 public class MainActivity extends AppCompatActivity {
 

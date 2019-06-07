@@ -6,15 +6,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.util.AssetHandler;
 
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 
-import static io.ona.rdt_app.activity.Constants.JSON_FORM_PARAM_JSON;
+import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
