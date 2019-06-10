@@ -31,17 +31,17 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected void initializePresenter() {
-
+        // TODO: implement this
     }
 
     @Override
     public void setUniqueID(String s) {
-
+        // TODO: implement this
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-
+        // TODO: implement this
     }
 
     @Override
@@ -56,12 +56,12 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected void startRegistration() {
-
+        // TODO: implement this
     }
 
     @Override
     protected void onViewClicked(View view) {
-
+        // TODO: implement this
     }
 
     @Override
@@ -71,6 +71,6 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     public void showNotFoundPopup(String s) {
-
+        // TODO: implement this
     }
 }

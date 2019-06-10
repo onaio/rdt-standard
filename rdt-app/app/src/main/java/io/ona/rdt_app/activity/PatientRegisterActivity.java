@@ -9,6 +9,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt_app.R;
@@ -24,8 +25,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        PatientRegisterFragment fragment = new PatientRegisterFragment();
-        return fragment;
+        return new PatientRegisterFragment();
     }
 
     @Override
@@ -35,27 +35,27 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void startFormActivity(String s, String s1, String s2) {
-
+        // TODO: implement this
     }
 
     @Override
     public void startFormActivity(JSONObject jsonObject) {
-
+        // TODO: implement this
     }
 
     @Override
     protected void onActivityResultExtended(int i, int i1, Intent intent) {
-
+        // TODO: implement this
     }
 
     @Override
     public List<String> getViewIdentifiers() {
-        return null;
+        return new ArrayList<>();         // TODO: implement this
     }
 
     @Override
     public void startRegistration() {
-
+        // TODO: implement this
     }
 
     @Override

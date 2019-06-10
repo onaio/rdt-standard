@@ -1,6 +1,7 @@
 package io.ona.rdt_app.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RDTCaptureJsonFormUtils jsonFormUtils;
     private final String TAG = MainActivity.class.getName();
-    private Context context;
+    private Activity context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         jsonFormUtils = new RDTCaptureJsonFormUtils();
-        context = getApplicationContext();
+        context = this;
 
         findViewById(R.id.btn_launch_rdt_reader).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Context context = getApplicationContext();
                     JSONObject formJsonObject = jsonFormUtils.getFormJsonObject("json.form/rdt-capture-form.json", context);
-                    jsonFormUtils.startJsonForm(formJsonObject, MainActivity.this, REQUEST_CODE_GET_JSON);
+                    jsonFormUtils.startJsonForm(formJsonObject, context, REQUEST_CODE_GET_JSON);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getStackTrace().toString());
                 }

@@ -1,11 +1,11 @@
 package io.ona.rdt_app.repository;
 
 import android.content.Context;
-import net.sqlcipher.database.SQLiteDatabase;
 import android.util.Log;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.AllConstants;
-import org.smartregister.BuildConfig;
 import org.smartregister.repository.Repository;
 
 /**
