@@ -2,17 +2,26 @@ package io.ona.rdt_app.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
+import util.RDTCaptureJsonFormUtils;
 
 public class PatientRegisterFragment extends BaseRegisterFragment {
+
+    private final String TAG = PatientRegisterFragment.class.getName();
+
+    private RDTCaptureJsonFormUtils formUtils;
 
     public PatientRegisterFragment() {
         // Required empty public constructor
@@ -21,17 +30,16 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_patient_register, container, false);
+        formUtils = new RDTCaptureJsonFormUtils();
     }
 
     @Override
     protected void initializePresenter() {
         // TODO: implement this
+        if (getActivity() == null) {
+            return;
+        }
+        presenter = new PatientRegisterFragmentPresenter();
     }
 
     @Override
@@ -72,5 +80,24 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
     @Override
     public void showNotFoundPopup(String s) {
         // TODO: implement this
+    }
+
+    @Override
+    public void setupViews(View view) {
+        rootView.findViewById(R.id.btn_register_patient).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               try {
+                   JSONObject formJsonObject = formUtils.getFormJsonObject("json.form/patient-registration-form.json", getContext());
+                   formUtils.startJsonForm(formJsonObject, getActivity(), 1);
+               } catch (JSONException e) {
+                   Log.e(TAG, e.getStackTrace().toString());
+               }
+           }
+        });
+    }
+
+    protected int getLayout() {
+        return R.layout.fragment_patient_register;
     }
 }

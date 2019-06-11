@@ -39,6 +39,7 @@
 
 
         <ImageView
+            android:id="@+id/btn_register_patient"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_add_box"

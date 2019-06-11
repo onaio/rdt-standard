@@ -1,6 +1,6 @@
 {
   "count": "2",
-  "encounter_type": "Spray",
+  "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
     "start": {
