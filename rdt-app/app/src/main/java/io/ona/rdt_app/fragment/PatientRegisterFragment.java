@@ -66,7 +66,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     public Context getContext() {
-        return null;
+        return getActivity();
     }
 
     @Override
