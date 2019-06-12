@@ -8,8 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
+import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import util.RDTCaptureJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
@@ -27,6 +29,13 @@ public class RDTJsonFormActivity extends JsonFormActivity {
         new ImageUtil().requestCameraPermission(this);
         super.onCreate(savedInstanceState);
         this.isFormFragmentInitialized = false;
+    }
+
+    @Override
+    public void initializeFormFragment() {
+        this.isFormFragmentInitialized = true;
+        RDTJsonFormFragment jsonFormFragment = (RDTJsonFormFragment) RDTJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, jsonFormFragment).commit();
     }
 
     @Override
