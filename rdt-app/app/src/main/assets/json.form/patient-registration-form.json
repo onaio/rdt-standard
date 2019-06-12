@@ -55,6 +55,7 @@
     "bottom_navigation_orientation": "vertical",
     "previous": "",
     "next": "",
+    "next_type": "submit",
     "fields": [
       {
         "key": "patient_name_label",
@@ -192,28 +193,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text"
-      },
-      {
-        "key": "btn_save_and_rdt",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "btn_text_color": "#FFFFFF",
-        "btn_text_size ": 20,
-        "btn_bg_color": "#1390D4",
-        "hint": "SAVE AND CONDUCT RDT",
-        "type": "button"
-      },
-      {
-        "key": "btn_save_and_exit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "btn_text_color": "#737373",
-        "btn_text_size ": 20,
-        "btn_bg_color": "#FFFFFF",
-        "hint": "SAVE AND EXIT",
-        "type": "button"
       }
     ]
   }
