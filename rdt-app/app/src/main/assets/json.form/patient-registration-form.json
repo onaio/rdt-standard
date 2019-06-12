@@ -49,6 +49,12 @@
   "step1": {
     "title": "New client record",
     "display_back_button": "true",
+    "next_label": "SAVE AND CONDUCT RDT",
+    "previous_label": "SAVE AND EXIT",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "previous": "",
+    "next": "",
     "fields": [
       {
         "key": "patient_name_label",
