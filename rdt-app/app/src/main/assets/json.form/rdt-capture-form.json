@@ -47,9 +47,22 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Capture RDT image",
+    "title": "RDT",
     "display_back_button": "true",
     "next": "step2",
+    "fields": [
+      {
+        "key": "lbl_which_rdt",
+        "type": "label",
+        "text": "Which RDT?",
+        "text_color": "#000000"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Capture RDT image",
+    "display_back_button": "true",
+    "next": "step3",
     "fields": [
       {
         "key": "rdt_capture",
@@ -60,7 +73,7 @@
       }
     ]
   },
-  "step2": {
+  "step3": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "fields": [
