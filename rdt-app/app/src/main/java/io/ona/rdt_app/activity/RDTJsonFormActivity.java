@@ -35,7 +35,7 @@ public class RDTJsonFormActivity extends JsonFormActivity {
     public void initializeFormFragment() {
         this.isFormFragmentInitialized = true;
         RDTJsonFormFragment jsonFormFragment = (RDTJsonFormFragment) RDTJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, jsonFormFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, jsonFormFragment).commitAllowingStateLoss();
     }
 
     @Override
