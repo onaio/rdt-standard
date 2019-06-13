@@ -61,10 +61,7 @@
         "key": "patient_name_label",
         "type": "label",
         "text": "Name",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
+        "text_color": "#000000"
       },
       {
         "key": "patient_name",
@@ -72,23 +69,28 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify patient name"
+        }
       },
       {
         "key": "patient_age_label",
         "type": "label",
         "text": "Age",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
+        "text_color": "#000000"
       },
       {
         "key": "patient_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify patient age"
+        }
       },
       {
         "key": "sex",
@@ -182,10 +184,7 @@
         "key": "other_symptoms_label",
         "type": "label",
         "text": "Other symptoms?",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
+        "text_color": "#000000"
       },
       {
         "key": "other_symptoms",

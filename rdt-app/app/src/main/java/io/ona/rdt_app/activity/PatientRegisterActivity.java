@@ -1,6 +1,9 @@
 package io.ona.rdt_app.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import org.json.JSONObject;
@@ -77,5 +80,13 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
         // TODO: implement this
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            String jsonString = data.getStringExtra("json");
+            Log.d(TAG, jsonString);
+        }
     }
 }

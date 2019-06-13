@@ -26,13 +26,13 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Clicked previous button!");
+                save(false);
             }
         });
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Clicked next button!");
+                next();
             }
         });
     }
