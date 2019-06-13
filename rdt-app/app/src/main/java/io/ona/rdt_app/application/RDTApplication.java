@@ -24,6 +24,7 @@ public class RDTApplication extends DrishtiApplication {
         // Initialize Modules
         CoreLibrary.init(context, null);
         SyncStatusBroadcastReceiver.init(this);
+        context.initRepository();
     }
 
     @Override
@@ -42,5 +43,10 @@ public class RDTApplication extends DrishtiApplication {
 
         }
         return repository;
+    }
+
+    @Override
+    public String getPassword() {
+        return "sample_pass1";
     }
 }

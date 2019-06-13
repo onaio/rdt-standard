@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,9 +17,12 @@ import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.CoreLibrary;
+import org.smartregister.repository.EventClientRepository;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.util.Constants;
 import util.RDTCaptureJsonFormUtils;
 
@@ -61,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
            }
         });
         requestPermissions();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CoreLibrary.getInstance().context().getEventClientRepository().fetchEventClientsByRowId(1);
     }
 
     public void requestPermissions() {

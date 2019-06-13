@@ -1,0 +1,61 @@
+{
+  "case_classification_rules": [
+    {
+      "comment": "Spray: This rule checks whether a given case belongs to Sprayed Structures",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "Spray",
+            "creates_case": [
+              "sprayed_structures"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Register_Structure",
+            "creates_case": [
+              "sprayed_structures"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Registration",
+            "creates_case": [
+              "ec_family"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Member Registration",
+            "creates_case": [
+              "ec_family_member"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "mosquito_collection",
+            "creates_case": [
+              "mosquito_collections"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "larval_dipping",
+            "creates_case": [
+              "larval_dippings"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "bednet_distribution",
+            "creates_case": [
+              "bednet_distribution"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

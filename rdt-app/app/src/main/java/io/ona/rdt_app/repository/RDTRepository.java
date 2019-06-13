@@ -6,6 +6,7 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 
 /**
@@ -24,7 +25,8 @@ public class RDTRepository extends Repository {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-
+        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
     }
 
     @Override
@@ -47,4 +49,6 @@ public class RDTRepository extends Repository {
         }
         return writableDatabase;
     }
+
+
 }
