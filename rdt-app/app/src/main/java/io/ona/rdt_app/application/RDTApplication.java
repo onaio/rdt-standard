@@ -15,6 +15,10 @@ import static org.smartregister.util.Log.logError;
  */
 public class RDTApplication extends DrishtiApplication {
 
+    public static synchronized RDTApplication getInstance() {
+        return (RDTApplication) mInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -48,5 +52,9 @@ public class RDTApplication extends DrishtiApplication {
     @Override
     public String getPassword() {
         return "sample_pass1";
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

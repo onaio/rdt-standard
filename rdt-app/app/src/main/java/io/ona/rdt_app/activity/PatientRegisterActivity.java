@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -87,10 +88,14 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
-            String jsonForm = data.getStringExtra("json");
-            Log.d(TAG, jsonForm);
-            BaseRegisterFragmentContract.Presenter presenter = ((PatientRegisterFragment) mBaseFragment).getPresenter();
-            ((PatientRegisterFragmentPresenter) presenter).saveForm(jsonForm);
+            try {
+                String jsonForm = data.getStringExtra("json");
+                Log.d(TAG, jsonForm);
+                BaseRegisterFragmentContract.Presenter presenter = ((PatientRegisterFragment) mBaseFragment).getPresenter();
+                ((PatientRegisterFragmentPresenter) presenter).saveForm(jsonForm);
+            } catch (JSONException e) {
+                Log.e(TAG, e.getStackTrace().toString());
+            }
         }
     }
 }
