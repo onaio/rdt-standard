@@ -1,15 +1,13 @@
 package io.ona.rdt_app.fragment;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.view.contract.BaseRegisterFragmentContract;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
@@ -100,5 +98,9 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     protected int getLayout() {
         return R.layout.fragment_patient_register;
+    }
+    
+    public BaseRegisterFragmentContract.Presenter getPresenter() {
+        return presenter;
     }
 }

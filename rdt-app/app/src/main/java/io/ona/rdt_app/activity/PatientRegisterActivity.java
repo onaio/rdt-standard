@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
+import org.smartregister.view.contract.BaseRegisterFragmentContract;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
+import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener {
 
@@ -58,7 +60,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void startRegistration() {
-        // TODO: implement this
+        // do this in register fragment
     }
 
     @Override
@@ -85,8 +87,10 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
-            String jsonString = data.getStringExtra("json");
-            Log.d(TAG, jsonString);
+            String jsonForm = data.getStringExtra("json");
+            Log.d(TAG, jsonForm);
+            BaseRegisterFragmentContract.Presenter presenter = ((PatientRegisterFragment) mBaseFragment).getPresenter();
+            ((PatientRegisterFragmentPresenter) presenter).saveForm(jsonForm);
         }
     }
 }
