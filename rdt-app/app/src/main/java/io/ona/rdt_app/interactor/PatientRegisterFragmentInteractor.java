@@ -62,6 +62,7 @@ public class PatientRegisterFragmentInteractor {
                 try {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     org.smartregister.domain.db.Event event = saveEvent(jsonForm, encounterType, PATIENTS);
+                    event.setBaseEntityId(UUID.randomUUID().toString());
                     clientProcessor.processClient(Collections.singletonList(new EventClient(event, new Client(UUID.randomUUID().toString()))));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving patient registration event", e);
