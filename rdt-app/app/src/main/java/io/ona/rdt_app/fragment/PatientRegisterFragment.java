@@ -23,7 +23,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
     private RDTCaptureJsonFormUtils formUtils;
 
     public PatientRegisterFragment() {
-        // Required empty public constructor
+        initializePresenter();
     }
 
     @Override
@@ -34,10 +34,6 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected void initializePresenter() {
-        // TODO: implement this
-        if (getActivity() == null) {
-            return;
-        }
         presenter = new PatientRegisterFragmentPresenter();
     }
 

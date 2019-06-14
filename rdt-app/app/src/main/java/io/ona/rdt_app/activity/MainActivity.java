@@ -2,10 +2,8 @@ package io.ona.rdt_app.activity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,16 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.crashlytics.android.Crashlytics;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.CoreLibrary;
-import org.smartregister.repository.EventClientRepository;
 
-import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.R;
-import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.util.Constants;
 import util.RDTCaptureJsonFormUtils;
 
@@ -37,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Fabric.with(this, new Crashlytics());
 
         setContentView(R.layout.activity_main);
 
@@ -65,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
            }
         });
         requestPermissions();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        CoreLibrary.getInstance().context().getEventClientRepository().fetchEventClientsByRowId(1);
     }
 
     public void requestPermissions() {

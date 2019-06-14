@@ -11,5 +11,5 @@ public interface Constants {
     String METADATA = "metadata";
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
-    String PATIENT = "patient";
+    String PATIENTS = "patients";
 }

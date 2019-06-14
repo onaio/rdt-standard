@@ -12,21 +12,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
+import org.smartregister.domain.db.Client;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.ClientProcessor;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.DateTimeTypeConverter;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.PropertiesConverter;
 
 import java.util.Collections;
+import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.METADATA;
-import static io.ona.rdt_app.util.Constants.PATIENT;
+import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
 import static org.smartregister.util.JsonFormUtils.getString;
@@ -37,9 +40,9 @@ import static org.smartregister.util.JsonFormUtils.getString;
 public class PatientRegisterFragmentInteractor {
 
     private EventClientRepository eventClientRepository;
-    private ClientProcessor clientProcessor;
+    private ClientProcessorForJava clientProcessor;
 
-    public static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
             .registerTypeAdapter(LocationProperty.class, new PropertiesConverter()).create();
 
@@ -47,7 +50,7 @@ public class PatientRegisterFragmentInteractor {
 
     public PatientRegisterFragmentInteractor() {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
-        clientProcessor = ClientProcessor.getInstance(RDTApplication.getInstance().getApplicationContext());
+        clientProcessor = ClientProcessorForJava.getInstance(RDTApplication.getInstance().getApplicationContext());
     }
 
 
@@ -58,8 +61,8 @@ public class PatientRegisterFragmentInteractor {
             protected Void doInBackground(Void... voids) {
                 try {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    JSONObject event = saveEvent(jsonForm, encounterType, PATIENT);
-                    clientProcessor.processClient(Collections.singletonList(event));
+                    org.smartregister.domain.db.Event event = saveEvent(jsonForm, encounterType, PATIENTS);
+                    clientProcessor.processClient(Collections.singletonList(new EventClient(event, new Client(UUID.randomUUID().toString()))));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving patient registration event", e);
                 }
@@ -69,7 +72,7 @@ public class PatientRegisterFragmentInteractor {
         new SaveFormTask().execute();
     }
 
-    private JSONObject saveEvent(JSONObject jsonForm, String encounterType, String bindType) throws JSONException {
+    private org.smartregister.domain.db.Event saveEvent(JSONObject jsonForm, String encounterType, String bindType) throws JSONException {
         String entityId = getString(jsonForm, ENTITY_ID);
         JSONArray fields = JsonFormUtils.fields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
@@ -84,6 +87,6 @@ public class PatientRegisterFragmentInteractor {
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
         eventClientRepository.addEvent(entityId, eventJson);
 
-        return eventJson;
+        return gson.fromJson(eventJson.toString(), org.smartregister.domain.db.Event.class);
     }
 }

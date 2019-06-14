@@ -1,13 +1,27 @@
 package io.ona.rdt_app.application;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
+
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.SyncConfiguration;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
+import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import io.ona.rdt_app.repository.RDTRepository;
+import java.util.Arrays;
+import java.util.HashSet;
 
+import io.fabric.sdk.android.Fabric;
+import io.ona.rdt_app.BuildConfig;
+import io.ona.rdt_app.repository.RDTRepository;
+import io.ona.rdt_app.util.RDTSyncConfiguration;
+
+import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static org.smartregister.util.Log.logError;
 
 /**
@@ -26,9 +40,13 @@ public class RDTApplication extends DrishtiApplication {
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         // Initialize Modules
-        CoreLibrary.init(context, null);
+        CoreLibrary.init(context, new RDTSyncConfiguration());
         SyncStatusBroadcastReceiver.init(this);
-        context.initRepository();
+
+        // Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+
+        getRepository();
     }
 
     @Override
@@ -41,6 +59,8 @@ public class RDTApplication extends DrishtiApplication {
         try {
             if (repository == null) {
                 repository = new RDTRepository(getInstance().getApplicationContext(), context);
+                SQLiteDatabase db = repository.getWritableDatabase();
+                DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList(PATIENTS)), null);
             }
         } catch (UnsatisfiedLinkError e) {
             logError("Error on getRepository: " + e);
@@ -51,7 +71,7 @@ public class RDTApplication extends DrishtiApplication {
 
     @Override
     public String getPassword() {
-        return "sample_pass1";
+        return "password";
     }
 
     public Context getContext() {

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
@@ -91,7 +92,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             try {
                 String jsonForm = data.getStringExtra("json");
                 Log.d(TAG, jsonForm);
-                BaseRegisterFragmentContract.Presenter presenter = ((PatientRegisterFragment) mBaseFragment).getPresenter();
+                BaseRegisterFragmentContract.Presenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
                 ((PatientRegisterFragmentPresenter) presenter).saveForm(jsonForm);
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());

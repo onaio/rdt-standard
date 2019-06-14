@@ -11,6 +11,14 @@
           }
         },
         {
+          "column_name": "patient_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "patient_name"
+          }
+        },
+        {
           "column_name": "patient_age",
           "type": "Event",
           "json_mapping": {
