@@ -29,7 +29,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".activity.RDTJsonFormActivity" />
+        <activity android:name=".activity.RDTJsonFormActivity"
+            android:windowSoftInputMode="adjustPan"  />
         <activity android:name=".activity.PatientRegisterActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
