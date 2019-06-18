@@ -11,6 +11,8 @@ import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
 
+import static io.ona.rdt_app.util.Constants.PATIENTS;
+
 /**
  * Created by Vincent Karuri on 11/06/2019
  */
@@ -30,7 +32,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = "patients";
+        String tableName = PATIENTS;
         String countSelect = countSelect(tableName, mainCondition);
         String mainSelect = mainSelect(tableName, mainCondition);
         patientRegisterFragment.initializeQueryParams(tableName, countSelect, mainSelect);
@@ -73,6 +75,6 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s = '%s'", "id", "c4ebe8e9-9f48-4749-bc67-654e9ebd628c");
+        return String.format(" %s != '%s'", "id", "");
     }
 }
