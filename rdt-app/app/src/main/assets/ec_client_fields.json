@@ -11,7 +11,7 @@
           }
         },
         {
-          "column_name": "patient_name",
+          "column_name": "name",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -19,11 +19,19 @@
           }
         },
         {
-          "column_name": "patient_age",
+          "column_name": "age",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "patient_age"
+          }
+        },
+        {
+          "column_name": "sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sex"
           }
         },
         {

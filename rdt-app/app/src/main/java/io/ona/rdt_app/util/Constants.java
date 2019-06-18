@@ -12,4 +12,10 @@ public interface Constants {
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
     String PATIENTS = "patients";
+
+    interface DBConstants {
+        String NAME = "name";
+        String AGE = "age";
+        String SEX = "sex";
+    }
 }

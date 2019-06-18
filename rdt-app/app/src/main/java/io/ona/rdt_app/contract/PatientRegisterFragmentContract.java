@@ -9,5 +9,13 @@ public interface PatientRegisterFragmentContract {
 
     interface Presenter {
         void saveForm(String jsonForm) throws JSONException;
+
+        String getMainCondition();
+    }
+
+    interface View {
+        void initializeAdapter();
     }
 }
+
+

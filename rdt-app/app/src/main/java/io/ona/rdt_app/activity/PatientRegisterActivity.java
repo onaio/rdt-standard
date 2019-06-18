@@ -92,8 +92,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             try {
                 String jsonForm = data.getStringExtra("json");
                 Log.d(TAG, jsonForm);
-                BaseRegisterFragmentContract.Presenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-                ((PatientRegisterFragmentPresenter) presenter).saveForm(jsonForm);
+                PatientRegisterFragmentPresenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
+                presenter.saveForm(jsonForm);
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             }

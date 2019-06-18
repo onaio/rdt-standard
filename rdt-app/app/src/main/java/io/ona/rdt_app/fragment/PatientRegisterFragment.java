@@ -2,21 +2,28 @@ package io.ona.rdt_app.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.view.contract.BaseRegisterFragmentContract;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
+import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
 import util.RDTCaptureJsonFormUtils;
 
-public class PatientRegisterFragment extends BaseRegisterFragment {
+public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View {
 
     private final String TAG = PatientRegisterFragment.class.getName();
 
@@ -33,8 +40,16 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        setRefreshList(true);
+        onResumption();
+        return view;
+    }
+
+    @Override
     protected void initializePresenter() {
-        presenter = new PatientRegisterFragmentPresenter();
+        presenter = new PatientRegisterFragmentPresenter(this);
     }
 
     @Override
@@ -49,7 +64,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return null;
+        return getPresenter().getMainCondition();
     }
 
     @Override
@@ -79,6 +94,20 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     public void setupViews(View view) {
+        clientsProgressView = view.findViewById(R.id.client_list_progress);
+        clientsView = view.findViewById(R.id.recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        clientsView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        clientsView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration itemDecor = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        clientsView.addItemDecoration(itemDecor);
+
         rootView.findViewById(R.id.btn_register_patient).setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -90,13 +119,23 @@ public class PatientRegisterFragment extends BaseRegisterFragment {
                }
            }
         });
+
+        initializeAdapter();
+    }
+
+    @Override
+    public void initializeAdapter() {
+        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(), registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, viewHolder, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     protected int getLayout() {
         return R.layout.fragment_patient_register;
     }
     
-    public BaseRegisterFragmentContract.Presenter getPresenter() {
-        return presenter;
+    public PatientRegisterFragmentPresenter getPresenter() {
+        return (PatientRegisterFragmentPresenter) presenter;
     }
 }
