@@ -2,13 +2,10 @@ package io.ona.rdt_app.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,11 +37,10 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+    public void onResume() {
+        super.onResume();
         setRefreshList(true);
         onResumption();
-        return view;
     }
 
     @Override

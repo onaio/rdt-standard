@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnFormSavedCallback;
 
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
@@ -54,7 +55,7 @@ public class PatientRegisterFragmentInteractor {
     }
 
 
-    public void saveRegistrationForm(final JSONObject jsonForm) {
+    public void saveRegistrationForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
 
         class SaveFormTask extends AsyncTask<Void, Void, Void> {
             @Override
@@ -68,6 +69,11 @@ public class PatientRegisterFragmentInteractor {
                     Log.e(TAG, "Error saving patient registration event", e);
                 }
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                onFormSavedCallback.onFormSaved();
             }
         }
         new SaveFormTask().execute();

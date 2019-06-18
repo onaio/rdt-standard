@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
+import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
@@ -52,8 +53,8 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     }
 
     @Override
-    public void saveForm(String jsonForm) throws JSONException {
-        interactor.saveRegistrationForm(new JSONObject(jsonForm));
+    public void saveForm(String jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
+        interactor.saveRegistrationForm(new JSONObject(jsonForm), onFormSavedCallback);
     }
 
     public String countSelect(String tableName, String mainCondition) {

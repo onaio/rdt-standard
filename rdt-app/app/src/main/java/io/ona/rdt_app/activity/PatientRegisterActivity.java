@@ -19,11 +19,12 @@ import java.util.List;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 
-public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener {
+public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
 
     @Override
     protected void initializePresenter() {
@@ -93,10 +94,17 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 String jsonForm = data.getStringExtra("json");
                 Log.d(TAG, jsonForm);
                 PatientRegisterFragmentPresenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-                presenter.saveForm(jsonForm);
+                presenter.saveForm(jsonForm, this);
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             }
+        }
+    }
+
+    @Override
+    public void onFormSaved() {
+        if (mBaseFragment != null && mBaseFragment.getActivity() != null) {
+            mBaseFragment.refreshListView();
         }
     }
 }
