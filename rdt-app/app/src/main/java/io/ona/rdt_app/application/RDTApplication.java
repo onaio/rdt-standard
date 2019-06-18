@@ -2,6 +2,7 @@ package io.ona.rdt_app.application;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.evernote.android.job.JobManager;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -12,17 +13,20 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
+import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
+import io.ona.rdt_app.job.RDTJobCreater;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
 
 /**
  * Created by Vincent Karuri on 07/06/2019
@@ -47,6 +51,8 @@ public class RDTApplication extends DrishtiApplication {
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         getRepository();
+
+        JobManager.create(this).addJobCreator(new RDTJobCreater());
     }
 
     @Override
@@ -76,5 +82,13 @@ public class RDTApplication extends DrishtiApplication {
 
     public Context getContext() {
         return context;
+    }
+
+    @Override
+    public void onTerminate() {
+        logInfo("Application is terminating. Stopping Sync scheduler and resetting isSyncInProgress setting.");
+        TimeChangedBroadcastReceiver.destroy(this);
+        SyncStatusBroadcastReceiver.destroy(this);
+        super.onTerminate();
     }
 }
