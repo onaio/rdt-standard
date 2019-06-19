@@ -1,0 +1,19 @@
+{
+  "case_classification_rules": [
+    {
+      "comment": "Patient details",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "patient_registration",
+            "creates_case": [
+              "patients"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

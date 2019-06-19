@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="patient_register_toolbar_background">#007CD7</color>
+    <color name="form_fragment_toolbar_color">#585858</color>
 </resources>
