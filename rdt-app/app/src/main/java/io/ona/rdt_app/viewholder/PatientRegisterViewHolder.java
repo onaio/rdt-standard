@@ -82,7 +82,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
 
     @Override
     public void onServiceModeSelected(ServiceModeOption serviceModeOption) {
-
+        // won't implement
     }
 
     @Override

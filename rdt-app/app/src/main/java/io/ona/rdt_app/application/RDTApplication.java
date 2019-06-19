@@ -8,7 +8,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.SyncConfiguration;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;

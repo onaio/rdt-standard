@@ -4,12 +4,14 @@ import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
+import io.ona.rdt_app.activity.PatientRegisterActivity;
+
 /**
  * Created by Vincent Karuri on 07/06/2019
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter {
 
-    public PatientRegisterActivityPresenter(BaseRegisterContract.View view) {
+    public PatientRegisterActivityPresenter(PatientRegisterActivity activity) {
         // TODO: implement this
     }
 

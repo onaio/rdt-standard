@@ -1,7 +1,5 @@
 package io.ona.rdt_app.presenter;
 
-import android.view.View;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -28,7 +26,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     @Override
     public void processViewConfigurations() {
-
+        // won't implement
     }
 
     @Override
@@ -44,12 +42,12 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     @Override
     public void startSync() {
-
+        // todo: implement this
     }
 
     @Override
     public void searchGlobally(String uniqueId) {
-
+        // todo: implement this
     }
 
     @Override
