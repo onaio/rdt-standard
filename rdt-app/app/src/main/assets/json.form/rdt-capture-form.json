@@ -55,7 +55,30 @@
         "key": "lbl_which_rdt",
         "type": "label",
         "text": "Which RDT?",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "text_size": "25px",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_scan_qr_code",
+        "type": "label",
+        "text": "Scan QR Code",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_care_start",
+        "type": "label",
+        "text": "CareStart Malaria",
+        "top_margin": "15dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff"
       }
     ]
   },
