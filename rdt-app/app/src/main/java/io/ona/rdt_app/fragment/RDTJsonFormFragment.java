@@ -5,10 +5,13 @@ import android.util.Log;
 import android.view.View;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.ona.rdt_app.interactor.RDTJsonFormFragmentPresenter;
+import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import util.RDTCaptureJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
@@ -57,5 +60,11 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     @Override
     public boolean save(boolean skipValidation) {
         return super.save(skipValidation) && presenter.isFormValid();
+    }
+
+    @Override
+    protected JsonFormFragmentPresenter createPresenter() {
+        presenter = new RDTJsonFormFragmentPresenter(this, new RDTJsonFormInteractor());
+        return presenter;
     }
 }
