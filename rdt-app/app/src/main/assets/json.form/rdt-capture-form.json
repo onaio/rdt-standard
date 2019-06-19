@@ -60,9 +60,60 @@
     ]
   },
   "step2": {
+    "title": "Collect blood sample",
+    "next": "step3",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "illustration_text_description",
+        "type": "image_view",
+        "text": "Collect the blood sample (5㎕) using a pipette provided or micropipette.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "collect_blood_sample.jpg"
+      }
+    ]
+  },
+  "step3": {
+    "title": "Add blood",
+    "next": "step4",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_blood",
+        "type": "image_view",
+        "text": "Add 5 ㎕ of whole blood into the 'S' well.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_blood.jpg"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Add buffer solution",
+    "next": "step5",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_buffer_solution",
+        "type": "image_view",
+        "text": "Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \"A\" well.\nStart a timer.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_buffer_solution.jpg"
+      }
+    ]
+  },
+  "step5": {
     "title": "Capture RDT image",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step6",
     "fields": [
       {
         "key": "rdt_capture",
@@ -73,7 +124,7 @@
       }
     ]
   },
-  "step3": {
+  "step6": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "fields": [
