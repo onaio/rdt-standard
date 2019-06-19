@@ -31,12 +31,14 @@ public class RDTBarcodeFactory extends BarcodeFactory {
 
     private RelativeLayout rootLayout;
     private JSONObject jsonObject;
+    private JsonFormFragment formFragment;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
         this.jsonObject = jsonObject;
+        this.formFragment = formFragment;
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener);
 
@@ -52,6 +54,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                        JsonFormFragment formFragment, final JSONObject jsonObject,
                                        CommonListener listener, boolean popup) {
         this.jsonObject = jsonObject;
+        this.formFragment = formFragment;
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
@@ -84,6 +87,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                         Log.d("Scanned QR Code", barcode.displayValue);
                                         jsonObject.put(VALUE, barcode.displayValue.split(",")[0]);
+                                        formFragment.next();
                                     } catch (JSONException e) {
                                         Log.e(TAG, e.getStackTrace().toString());
                                     }

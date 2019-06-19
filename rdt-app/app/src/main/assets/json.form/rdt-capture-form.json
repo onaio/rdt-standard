@@ -60,9 +60,35 @@
     ]
   },
   "step2": {
-    "title": "Capture RDT image",
+    "title": "RDT",
     "display_back_button": "true",
     "next": "step3",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "RDT ID *",
+        "scanButtonText": "Scan QR Code",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the RDT ID"
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step4",
     "fields": [
       {
         "key": "rdt_capture",
@@ -73,7 +99,7 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "fields": [

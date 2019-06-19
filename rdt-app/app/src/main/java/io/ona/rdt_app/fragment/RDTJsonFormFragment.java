@@ -10,7 +10,7 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.ona.rdt_app.interactor.RDTJsonFormFragmentPresenter;
+import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import util.RDTCaptureJsonFormUtils;
 
@@ -61,7 +61,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     public boolean save(boolean skipValidation) {
         return super.save(skipValidation) && presenter.isFormValid();
     }
-
+    
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
         presenter = new RDTJsonFormFragmentPresenter(this, new RDTJsonFormInteractor());
