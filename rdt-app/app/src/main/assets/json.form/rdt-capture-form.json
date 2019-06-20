@@ -77,7 +77,7 @@
         "key": "lbl_care_start",
         "type": "label",
         "text": "CareStart Malaria",
-        "top_margin": "15dp",
+        "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
         "has_drawable_end": true,

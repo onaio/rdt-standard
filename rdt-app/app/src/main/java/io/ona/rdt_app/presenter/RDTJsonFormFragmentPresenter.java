@@ -47,4 +47,10 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
         this.getView().hideKeyBoard();
         this.getView().transactThis(next);
     }
+
+    @Override
+    public void setUpToolBar() {
+        super.setUpToolBar();
+        getView().updateVisibilityOfNextAndSave(false, false);
+    }
 }

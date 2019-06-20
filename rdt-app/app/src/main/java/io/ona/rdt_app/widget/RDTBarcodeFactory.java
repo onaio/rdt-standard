@@ -1,5 +1,6 @@
 package io.ona.rdt_app.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 
@@ -79,8 +81,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
             jsonApi.addOnActivityResultListener(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE,
                     new OnActivityResultListener() {
                         @Override
-                        public void onActivityResult(int requestCode,
-                                                     int resultCode, Intent data) {
+                        public void onActivityResult(int requestCode, int resultCode, Intent data) {
                             if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK) {
                                 if (data != null) {
                                     try {
@@ -94,6 +95,8 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                 } else {
                                     Log.i("", "No result for qr code");
                                 }
+                            } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+                                ((Activity) context).finish();
                             }
                         }
                     });
