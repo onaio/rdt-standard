@@ -69,7 +69,6 @@ public class RDTApplication extends DrishtiApplication {
             }
         } catch (UnsatisfiedLinkError e) {
             logError("Error on getRepository: " + e);
-
         }
         return repository;
     }
