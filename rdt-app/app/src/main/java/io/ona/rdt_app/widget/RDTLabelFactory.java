@@ -1,5 +1,6 @@
 package io.ona.rdt_app.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -14,6 +15,9 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import util.RDTCaptureJsonFormUtils;
+
+import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 
 /**
  * Created by Vincent Karuri on 20/06/2019
@@ -23,8 +27,8 @@ public class RDTLabelFactory extends LabelFactory {
     private String HAS_DRAWABLE_END = "has_drawable_end";
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment,
-                                       JSONObject jsonObject, CommonListener
+    public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment,
+                                       final JSONObject jsonObject, CommonListener
                                                listener, boolean popup) throws Exception {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
@@ -32,20 +36,32 @@ public class RDTLabelFactory extends LabelFactory {
         CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
         if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
             labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+            labelText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new RDTCaptureJsonFormUtils().showToast((Activity) context, "Moving to next step: " + jsonObject.optString(NEXT));
+                }
+            });
         }
 
         return views;
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment,
-                                       JSONObject jsonObject, CommonListener listener) throws Exception {
+    public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment,
+                                       final JSONObject jsonObject, CommonListener listener) throws Exception {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
 
         ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
         CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
         if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
             labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+            labelText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new RDTCaptureJsonFormUtils().showToast((Activity) context, "Moving to next step: " + jsonObject.optString(NEXT));
+                }
+            });
         }
 
         return views;
