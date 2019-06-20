@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import util.RDTCaptureJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
@@ -27,7 +28,7 @@ public class RDTLabelFactory extends LabelFactory {
     private String HAS_DRAWABLE_END = "has_drawable_end";
 
     @Override
-    public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment,
+    public List<View> getViewsFromJson(String stepName, final Context context, final JsonFormFragment formFragment,
                                        final JSONObject jsonObject, CommonListener
                                                listener, boolean popup) throws Exception {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
@@ -39,7 +40,7 @@ public class RDTLabelFactory extends LabelFactory {
             labelText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new RDTCaptureJsonFormUtils().showToast((Activity) context, "Moving to next step: " + jsonObject.optString(NEXT));
+                    ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
                 }
             });
         }
@@ -48,7 +49,7 @@ public class RDTLabelFactory extends LabelFactory {
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment,
+    public List<View> getViewsFromJson(String stepName, final Context context, final JsonFormFragment formFragment,
                                        final JSONObject jsonObject, CommonListener listener) throws Exception {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
 
@@ -59,7 +60,7 @@ public class RDTLabelFactory extends LabelFactory {
             labelText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new RDTCaptureJsonFormUtils().showToast((Activity) context, "Moving to next step: " + jsonObject.optString(NEXT));
+                    ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
                 }
             });
         }

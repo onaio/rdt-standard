@@ -41,4 +41,10 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
             return false;
         }
     }
+
+    public void moveToNextStep(String stepName) {
+        JsonFormFragment next = RDTJsonFormFragment.getFormFragment(stepName);
+        this.getView().hideKeyBoard();
+        this.getView().transactThis(next);
+    }
 }
