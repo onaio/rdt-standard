@@ -25,8 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ExpirationDateActivity;
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.activity.RDTExpirationDateActivity;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -142,7 +142,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
         @Override
         protected Void doInBackground(Void... voids) {
             Activity activity = (Activity) widgetArgs.getContext();
-            Intent intent = new Intent(activity, ExpirationDateActivity.class);
+            Intent intent = new Intent(activity, RDTExpirationDateActivity.class);
             activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
             return null;
         }
