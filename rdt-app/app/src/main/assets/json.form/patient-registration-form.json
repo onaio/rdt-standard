@@ -49,13 +49,12 @@
   "step1": {
     "title": "New client record",
     "display_back_button": "true",
-    "next_label": "SAVE AND CONDUCT RDT",
     "previous_label": "SAVE AND EXIT",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "previous": "",
-    "next": "",
     "next_type": "submit",
+    "submit_label": "SAVE AND CONDUCT RDT",
     "fields": [
       {
         "key": "patient_name_label",
@@ -66,8 +65,8 @@
       {
         "key": "patient_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "edit_type": "name",
         "v_required": {
@@ -88,8 +87,8 @@
       {
         "key": "patient_age",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
         "type": "edit_text",
         "v_required": {
           "value": "true",
@@ -103,8 +102,8 @@
       {
         "key": "sex",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
         "type": "native_radio",
         "label": "Sex",
         "options": [
