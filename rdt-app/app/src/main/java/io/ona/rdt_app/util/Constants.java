@@ -17,5 +17,7 @@ public interface Constants {
         String NAME = "name";
         String AGE = "age";
         String SEX = "sex";
+        String ID = "id";
+        String BASE_ENTITY_ID = "base_entity_id";
     }
 }
