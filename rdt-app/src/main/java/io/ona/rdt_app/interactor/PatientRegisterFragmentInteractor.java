@@ -21,6 +21,7 @@ import org.smartregister.util.DateTimeTypeConverter;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.PropertiesConverter;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -28,11 +29,15 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 
 import static io.ona.rdt_app.util.Constants.DETAILS;
+import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.KEY;
+import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
 import static org.smartregister.util.JsonFormUtils.getString;
 
@@ -65,6 +70,7 @@ public class PatientRegisterFragmentInteractor {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     String baseEntityId = UUID.randomUUID().toString();
                     jsonForm.put(ENTITY_ID, baseEntityId);
+                    populateApproxDOB(jsonForm);
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, PATIENTS);
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
@@ -81,6 +87,25 @@ public class PatientRegisterFragmentInteractor {
         new SaveFormTask().execute();
     }
 
+    private void populateApproxDOB(JSONObject jsonForm) throws JSONException {
+        JSONArray fields = JsonFormUtils.fields(jsonForm);
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            int age = 0;
+            if (PATIENT_AGE.equals(field.get(KEY))) {
+                age = field.getInt(VALUE);
+            }
+            if (DOB.equals(field.get(KEY))) {
+                long currentTime = System.currentTimeMillis();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(currentTime);
+                int birthYear = calendar.get(Calendar.YEAR) - age;
+                String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+                field.put(VALUE, date);
+            }
+        }
+    }
+
     private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException {
         String entityId = getString(jsonForm, ENTITY_ID);
         JSONArray fields = JsonFormUtils.fields(jsonForm);
@@ -92,10 +117,9 @@ public class PatientRegisterFragmentInteractor {
         formTag.teamId = "";
         formTag.team = "";
 
-        Client client;
         org.smartregister.domain.db.Client dbClient = null;
         if (PATIENT_REGISTRATION.equals(encounterType)) {
-            client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
+            Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
             JSONObject clientJson = new JSONObject(gson.toJson(client));
             eventClientRepository.addorUpdateClient(entityId, clientJson);
             dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);

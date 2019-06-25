@@ -203,6 +203,21 @@
           "value": "[^([0-9]*)$]*",
           "err": "Please enter a valid symptom"
         }
+      },
+      {
+        "key": "estimated_dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate_estimated",
+        "type": "hidden",
+        "value":"true"
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "hidden"
       }
     ]
   }

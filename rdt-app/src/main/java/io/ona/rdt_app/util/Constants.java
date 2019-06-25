@@ -12,8 +12,9 @@ public interface Constants {
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
     String PATIENTS = "patients";
-
     String PATIENT_REGISTRATION = "patient_registration";
+    String DOB = "dob";
+    String PATIENT_AGE = "patient_age";
 
     interface DBConstants {
         String NAME = "name";
