@@ -1,0 +1,224 @@
+{
+  "count": "2",
+  "encounter_type": "patient_registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "New client record",
+    "display_back_button": "true",
+    "previous_label": "SAVE AND EXIT",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "previous": "",
+    "next_type": "submit",
+    "submit_label": "SAVE AND CONDUCT RDT",
+    "fields": [
+      {
+        "key": "patient_name_label",
+        "type": "label",
+        "text": "Name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify patient name"
+        },
+        "v_regex": {
+          "value": "[^([0-9]*)$]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "patient_age_label",
+        "type": "label",
+        "text": "Age",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify patient age"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Age must be a rounded number"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "native_radio",
+        "label": "Sex",
+        "options": [
+          {
+            "key": "Female",
+            "text": "Female"
+          },
+          {
+            "key": "Male",
+            "text": "Male"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify sex"
+        }
+      },
+      {
+        "key": "is_fever",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Signs of fever in the last 3 days?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has patient had a fever in last 3 days"
+        }
+      },
+      {
+        "key": "is_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Had malaria in the last year?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has patient had malaria in the last year"
+        }
+      },
+      {
+        "key": "is_treated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Have been treated for malaria within last 3 months?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has patient been treated for malaria within last 3 months"
+        }
+      },
+      {
+        "key": "other_symptoms_label",
+        "type": "label",
+        "text": "Other symptoms?",
+        "text_color": "#000000"
+      },
+      {
+        "key": "other_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_regex": {
+          "value": "[^([0-9]*)$]*",
+          "err": "Please enter a valid symptom"
+        }
+      },
+      {
+        "key": "estimated_dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate_estimated",
+        "type": "hidden",
+        "value":"true"
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "hidden"
+      }
+    ]
+  }
+}

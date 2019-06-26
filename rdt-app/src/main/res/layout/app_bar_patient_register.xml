@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:background="@color/patient_register_toolbar_background">
+
+    <LinearLayout
+        android:id="@+id/register_nav_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/drawerMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/client_register_toolbar_margin"
+            android:contentDescription="@string/hamburger_menu"
+            android:gravity="center"
+            android:src="@drawable/ic_action_menu" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/txt_title_label"
+            style="@style/CustomFontTextViewStyle.NavBar.Black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/clients_register_title"
+            android:textSize="26sp"
+            tools:ignore="PrivateResource" />
+
+
+        <ImageView
+            android:id="@+id/btn_register_patient"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add_box"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/client_register_toolbar_margin"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_below="@+id/register_nav_bar_container"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="10dp"
+        android:hint="Search"
+        android:textColorHint="#C3C3C3"/>
+
+</RelativeLayout>
