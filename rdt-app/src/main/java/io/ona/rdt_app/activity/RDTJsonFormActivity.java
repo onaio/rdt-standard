@@ -15,7 +15,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
-import util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.REQUEST_CAMERA_PERMISSION;

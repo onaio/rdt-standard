@@ -22,6 +22,8 @@ import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
 
     @Override
@@ -87,7 +89,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 String jsonForm = data.getStringExtra("json");
                 Log.d(TAG, jsonForm);
