@@ -17,9 +17,9 @@ import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 /**
  * Created by Vincent Karuri on 24/05/2019
  */
-public class RDTCaptureJsonFormUtils {
+public class RDTJsonFormUtils {
 
-    private static final String TAG = RDTCaptureJsonFormUtils.class.getName();
+    private static final String TAG = RDTJsonFormUtils.class.getName();
 
     public void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, RDTJsonFormActivity.class);

@@ -19,7 +19,7 @@ import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
-import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
@@ -27,7 +27,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     private final String TAG = PatientRegisterFragment.class.getName();
 
-    private RDTCaptureJsonFormUtils formUtils;
+    private RDTJsonFormUtils formUtils;
 
     public PatientRegisterFragment() {
         initializePresenter();
@@ -36,7 +36,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        formUtils = new RDTCaptureJsonFormUtils();
+        formUtils = new RDTJsonFormUtils();
     }
 
     @Override
