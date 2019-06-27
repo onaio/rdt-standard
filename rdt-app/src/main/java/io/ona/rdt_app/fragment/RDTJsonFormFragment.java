@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
-import util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
