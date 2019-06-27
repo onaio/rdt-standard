@@ -16,7 +16,7 @@ import java.util.List;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
-import util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 
