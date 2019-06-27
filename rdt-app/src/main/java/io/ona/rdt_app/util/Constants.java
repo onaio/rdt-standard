@@ -15,6 +15,7 @@ public interface Constants {
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
+    String PROFILE_PIC = "profilepic";
 
     interface DBConstants {
         String NAME = "name";

@@ -3,16 +3,30 @@ package io.ona.rdt_app.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.domain.ProfileImage;
+import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.view.activity.DrishtiApplication;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.UUID;
 
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
+import io.ona.rdt_app.application.RDTApplication;
 
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
+import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -44,6 +58,49 @@ public class RDTJsonFormUtils {
                     Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
                 }
             });
+        }
+    }
+
+    private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
+        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+            return;
+        }
+
+        OutputStream os = null;
+        try {
+            if (!StringUtils.isBlank(entityId)) {
+                final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+
+                File outputFile = new File(absoluteFileName);
+                os = new FileOutputStream(outputFile);
+                Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
+                if (compressFormat != null) {
+                    image.compress(compressFormat, 100, os);
+                } else {
+                    throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
+                            + absoluteFileName);
+                }
+                // insert into the db
+                ProfileImage profileImage = new ProfileImage();
+                profileImage.setImageid(UUID.randomUUID().toString());
+                profileImage.setAnmId(providerId);
+                profileImage.setEntityID(entityId);
+                profileImage.setFilepath(absoluteFileName);
+                profileImage.setFilecategory(PROFILE_PIC);
+                profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
+                imageRepo.add(profileImage);
+            }
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "Failed to save static image to disk");
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                }
+            }
         }
     }
 }
