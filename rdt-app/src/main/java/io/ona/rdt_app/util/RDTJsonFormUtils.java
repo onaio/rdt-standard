@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 
@@ -61,46 +64,65 @@ public class RDTJsonFormUtils {
         }
     }
 
-    private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
+    public static void saveStaticImageToDisk(final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             return;
         }
 
-        OutputStream os = null;
-        try {
-            if (!StringUtils.isBlank(entityId)) {
-                final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+        class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
 
-                File outputFile = new File(absoluteFileName);
-                os = new FileOutputStream(outputFile);
-                Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-                if (compressFormat != null) {
-                    image.compress(compressFormat, 100, os);
-                } else {
-                    throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
-                            + absoluteFileName);
-                }
-                // insert into the db
+            @Override
+            protected ProfileImage doInBackground(Void... voids) {
+
                 ProfileImage profileImage = new ProfileImage();
-                profileImage.setImageid(UUID.randomUUID().toString());
-                profileImage.setAnmId(providerId);
-                profileImage.setEntityID(entityId);
-                profileImage.setFilepath(absoluteFileName);
-                profileImage.setFilecategory(PROFILE_PIC);
-                profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
-                imageRepo.add(profileImage);
-            }
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Failed to save static image to disk");
-        } finally {
-            if (os != null) {
+                OutputStream os = null;
                 try {
-                    os.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                    if (!StringUtils.isBlank(entityId)) {
+                        final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+
+                        File outputFile = new File(absoluteFileName);
+                        os = new FileOutputStream(outputFile);
+                        Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
+                        if (compressFormat != null) {
+                            image.compress(compressFormat, 100, os);
+                        } else {
+                            throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
+                                    + absoluteFileName);
+                        }
+                        // insert into the db
+                        profileImage.setImageid(UUID.randomUUID().toString());
+                        profileImage.setAnmId(providerId);
+                        profileImage.setEntityID(entityId);
+                        profileImage.setFilepath(absoluteFileName);
+                        profileImage.setFilecategory(PROFILE_PIC);
+                        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                        ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
+                        imageRepo.add(profileImage);
+                    }
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "Failed to save static image to disk");
+                } finally {
+                    if (os != null) {
+                        try {
+                            os.close();
+                        } catch (IOException e) {
+                            Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                        }
+                    }
                 }
+                return profileImage;
+            }
+
+            @Override
+            protected void onPostExecute(ProfileImage profileImage) {
+                onImageSavedCallBack.onImageSaved(profileImage.getFilepath());
             }
         }
+
+        new SaveImageTask().execute();
+    }
+
+    public static Bitmap convertByteArrayToBitmap(byte[] src){
+        return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 }
