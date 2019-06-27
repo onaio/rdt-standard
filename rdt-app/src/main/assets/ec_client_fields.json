@@ -12,26 +12,23 @@
         },
         {
           "column_name": "name",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "patient_name"
+            "field": "firstName"
           }
         },
         {
           "column_name": "age",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "patient_age"
+            "field": "attributes.age"
           }
         },
         {
           "column_name": "sex",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "sex"
+            "field": "gender"
           }
         },
         {
