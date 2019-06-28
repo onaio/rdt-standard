@@ -17,10 +17,12 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.job.RDTJobCreater;
+import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
+import io.ona.rdt_app.job.RDTJobCreator;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
@@ -56,7 +58,8 @@ public class RDTApplication extends DrishtiApplication {
 
         getRepository();
 
-        JobManager.create(this).addJobCreator(new RDTJobCreater());
+        JobManager.create(this).addJobCreator(new RDTJobCreator());
+        scheduleJobsPeriodically();
     }
 
     @Override
@@ -114,5 +117,23 @@ public class RDTApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.BASE_ENTITY_ID, Constants.DBConstants.ID, Constants.DBConstants.NAME};
+    }
+
+
+    protected void scheduleJobsPeriodically() {
+        ImageUploadSyncServiceJob
+                .scheduleJob(ImageUploadSyncServiceJob.TAG,
+                TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
+                getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+    }
+
+    protected long getFlexValue(int value) {
+        final int MINIMUM_JOB_FLEX_VALUE = 1;
+        int minutes = MINIMUM_JOB_FLEX_VALUE;
+        if (value > MINIMUM_JOB_FLEX_VALUE) {
+            minutes = (int) Math.ceil(value / 3);
+        }
+
+        return TimeUnit.MINUTES.toMillis(minutes);
     }
 }

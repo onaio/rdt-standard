@@ -37,6 +37,7 @@
                 android:value=".activity.MainActivity" />
         </activity>
         <activity android:name=".activity.RDTExpirationDateActivity" />
+        <activity android:name=".activity.CustomRDTCaptureActivity" />
     </application>
 
 </manifest>
