@@ -66,6 +66,7 @@ public class RDTJsonFormUtils {
 
     public static void saveStaticImageToDisk(final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+            onImageSavedCallBack.onImageSaved(null);
             return;
         }
 
