@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.job.SyncServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;
@@ -125,6 +126,11 @@ public class RDTApplication extends DrishtiApplication {
                 .scheduleJob(ImageUploadSyncServiceJob.TAG,
                 TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
                 getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+
+        SyncServiceJob
+                .scheduleJob(SyncServiceJob.TAG,
+                        TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
+                        getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
     protected long getFlexValue(int value) {

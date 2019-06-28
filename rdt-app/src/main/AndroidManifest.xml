@@ -38,6 +38,9 @@
         </activity>
         <activity android:name=".activity.RDTExpirationDateActivity" />
         <activity android:name=".activity.CustomRDTCaptureActivity" />
+
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.service.ImageUploadSyncService" />
     </application>
 
 </manifest>
