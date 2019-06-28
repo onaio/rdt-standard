@@ -5,9 +5,13 @@ import android.util.Log;
 
 import org.opencv.core.Mat;
 
+import java.util.UUID;
+
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
+import io.ona.rdt_app.BuildConfig;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
@@ -20,8 +24,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity {
     private static final String TAG = CustomRDTCaptureActivity.class.getName();
 
     private CustomRDTCapturePresenter presenter;
-    private String baseEntityId;
-    private String providerId;
+    private String baseEntityId = BuildConfig.BASE_ENTITY_ID; // todo remove this
+    private String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM(); // todo remove this
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

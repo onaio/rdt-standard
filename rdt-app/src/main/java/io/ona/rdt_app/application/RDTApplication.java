@@ -11,6 +11,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -60,8 +61,12 @@ public class RDTApplication extends DrishtiApplication {
         getRepository();
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
+
+
+        getContext().userService(); // todo: can be removed when login screen is added
+        initializeSharedPreferences(); // todo: can be removed when login screen is added
+
         scheduleJobsPeriodically();
-        getContext().userService();
     }
 
     @Override
@@ -134,7 +139,7 @@ public class RDTApplication extends DrishtiApplication {
                         getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
-    protected long getFlexValue(int value) {
+    private long getFlexValue(int value) {
         final int MINIMUM_JOB_FLEX_VALUE = 1;
         int minutes = MINIMUM_JOB_FLEX_VALUE;
         if (value > MINIMUM_JOB_FLEX_VALUE) {
@@ -142,5 +147,11 @@ public class RDTApplication extends DrishtiApplication {
         }
 
         return TimeUnit.MINUTES.toMillis(minutes);
+    }
+
+    private void initializeSharedPreferences() {
+        AllSharedPreferences allSharedPreferences = getContext().allSharedPreferences();
+        getContext().allSettings().registerANM(BuildConfig.ANM_ID, BuildConfig.ANM_PASSWORD);
+        allSharedPreferences.updateUrl(BuildConfig.BASE_URL);
     }
 }
