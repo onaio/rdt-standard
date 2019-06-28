@@ -61,6 +61,7 @@ public class RDTApplication extends DrishtiApplication {
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
         scheduleJobsPeriodically();
+        getContext().userService();
     }
 
     @Override
