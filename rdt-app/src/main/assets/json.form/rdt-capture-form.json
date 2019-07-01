@@ -49,83 +49,46 @@
   "step1": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step2",
     "fields": [
       {
         "key": "lbl_which_rdt",
         "type": "label",
         "text": "Which RDT?",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_scan_qr_code",
+        "type": "label",
+        "text": "Scan QR Code",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff",
+        "next": "step2"
+      },
+      {
+        "key": "lbl_care_start",
+        "type": "label",
+        "text": "CareStart Malaria",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff",
+        "next": "step4"
       }
     ]
   },
   "step2": {
     "title": "RDT",
-    "next": "step3",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "CONTINUE",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "illustration_text_description",
-        "type": "image_view",
-        "text": "Collect the blood sample (5㎕) using a pipette provided or micropipette.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "collect_blood_sample.jpg"
-      }
-    ]
-  },
-  "step3": {
-    "title": "RDT",
-    "next": "step4",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "CONTINUE",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "add_blood",
-        "type": "image_view",
-        "text": "Add 5 ㎕ of whole blood into the 'S' well.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "add_blood.jpg"
-      }
-    ]
-  },
-  "step4": {
-    "title": "RDT",
-    "next": "step5",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "START 20 MINUTE TIMER",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "add_buffer_solution",
-        "type": "image_view",
-        "text": "Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \"A\" well.\nStart a timer.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "add_buffer_solution.jpg"
-      }
-    ]
-  },
-  "step5": {
-    "title": "Capture RDT image",
     "display_back_button": "true",
-    "next": "step6",
+    "next": "step3",
     "fields": [
       {
         "key": "rdt_capture",
@@ -136,9 +99,10 @@
       }
     ]
   },
-  "step6": {
+  "step3": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
+    "next": "step4",
     "fields": [
       {
         "key": "rdt_result",
@@ -165,6 +129,94 @@
         "v_required": {
           "value": "true",
           "err": "Please select the RDT reader result"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "RDT",
+    "next": "step5",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "illustration_text_description",
+        "type": "image_view",
+        "text": "Collect the blood sample (5㎕) using a pipette provided or micropipette.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "collect_blood_sample.jpg"
+      }
+    ]
+  },
+  "step5": {
+    "title": "RDT",
+    "next": "step6",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_blood",
+        "type": "image_view",
+        "text": "Add 5 ㎕ of whole blood into the 'S' well.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_blood.jpg"
+      }
+    ]
+  },
+  "step6": {
+    "title": "RDT",
+    "next": "step7",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "START 20 MINUTE TIMER",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_buffer_solution",
+        "type": "image_view",
+        "text": "Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \"A\" well.\nStart a timer.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_buffer_solution.jpg"
+      }
+    ]
+  },
+  "step7": {
+    "title": "Capture RDT image",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "RDT ID *",
+        "scanButtonText": "Scan QR Code",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the RDT ID"
         }
       }
     ]
