@@ -1,6 +1,5 @@
 package io.ona.rdt_app.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -16,7 +15,6 @@ import java.util.List;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 
