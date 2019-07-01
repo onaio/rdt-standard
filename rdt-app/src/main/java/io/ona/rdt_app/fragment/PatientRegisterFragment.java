@@ -18,7 +18,7 @@ import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
-import util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
