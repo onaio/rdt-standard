@@ -60,8 +60,12 @@
     ]
   },
   "step2": {
-    "title": "Collect blood sample",
+    "title": "RDT",
     "next": "step3",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "openmrs_entity_parent": "",
@@ -77,8 +81,12 @@
     ]
   },
   "step3": {
-    "title": "Add blood",
+    "title": "RDT",
     "next": "step4",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "openmrs_entity_parent": "",
@@ -94,8 +102,12 @@
     ]
   },
   "step4": {
-    "title": "Add buffer solution",
+    "title": "RDT",
     "next": "step5",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "START 20 MINUTE TIMER",
     "fields": [
       {
         "openmrs_entity_parent": "",
