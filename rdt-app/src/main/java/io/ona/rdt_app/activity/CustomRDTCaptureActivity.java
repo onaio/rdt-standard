@@ -3,12 +3,7 @@ package io.ona.rdt_app.activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.opencv.core.Mat;
-
-import java.util.UUID;
-
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
@@ -34,9 +29,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity {
     }
 
     @Override
-    protected void useCapturedImage(Mat result, ImageProcessor.InterpretationResult interpretationResult) {
+    protected void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-        byte[] byteArray = ImageUtil.matToRotatedByteArray(result);
-        presenter.saveImage(convertByteArrayToBitmap(byteArray), providerId, baseEntityId, this);
+        presenter.saveImage(convertByteArrayToBitmap(captureByteArray), providerId, baseEntityId, this);
     }
 }
