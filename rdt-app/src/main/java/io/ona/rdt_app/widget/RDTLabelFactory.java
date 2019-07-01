@@ -51,20 +51,6 @@ public class RDTLabelFactory extends LabelFactory {
     @Override
     public List<View> getViewsFromJson(String stepName, final Context context, final JsonFormFragment formFragment,
                                        final JSONObject jsonObject, CommonListener listener) throws Exception {
-        List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
-
-        ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
-        CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
-        if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
-            labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
-            labelText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
-                }
-            });
-        }
-
-        return views;
+        return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
     }
 }
