@@ -147,6 +147,8 @@
   "step5": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
+    "bottom_navigation": "true",
+    "next_type": "submit",
     "fields": [
       {
         "key": "rdt_result",
