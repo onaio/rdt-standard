@@ -30,6 +30,7 @@ import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static org.smartregister.AllConstants.DRISHTI_BASE_URL;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -153,5 +154,6 @@ public class RDTApplication extends DrishtiApplication {
         AllSharedPreferences allSharedPreferences = getContext().allSharedPreferences();
         getContext().allSettings().registerANM(BuildConfig.ANM_ID, BuildConfig.ANM_PASSWORD);
         allSharedPreferences.updateUrl(BuildConfig.BASE_URL);
+        allSharedPreferences.savePreference(DRISHTI_BASE_URL, BuildConfig.BASE_URL);
     }
 }

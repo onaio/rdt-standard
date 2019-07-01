@@ -48,19 +48,6 @@
   },
   "step1": {
     "title": "New client record",
-    "next": "step2",
-    "fields": [
-      {
-        "key": "expiration_date_capture",
-        "type": "expiration_date_capture",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": ""
-      }
-    ]
-  },
-  "step2": {
-    "title": "New client record",
     "display_back_button": "true",
     "previous_label": "SAVE AND EXIT",
     "bottom_navigation": "true",
