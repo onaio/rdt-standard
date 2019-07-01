@@ -2,6 +2,9 @@ package io.ona.rdt_app.util;
 
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
+import org.smartregister.repository.AllSharedPreferences;
+
+import io.ona.rdt_app.application.RDTApplication;
 
 /**
  * Created by Vincent Karuri on 14/06/2019
@@ -14,12 +17,13 @@ public class RDTSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getSyncFilterParam() {
-        return null;
+        return SyncFilter.PROVIDER;
     }
 
     @Override
     public String getSyncFilterValue() {
-        return null;
+        AllSharedPreferences sharedPreferences = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        return sharedPreferences.fetchRegisteredANM();
     }
 
     @Override
