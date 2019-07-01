@@ -20,6 +20,8 @@ import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
 import util.RDTCaptureJsonFormUtils;
 
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View {
 
     private final String TAG = PatientRegisterFragment.class.getName();
@@ -109,7 +111,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
            public void onClick(View v) {
                try {
                    JSONObject formJsonObject = formUtils.getFormJsonObject("json.form/patient-registration-form.json", getContext());
-                   formUtils.startJsonForm(formJsonObject, getActivity(), 1);
+                   formUtils.startJsonForm(formJsonObject, getActivity(), REQUEST_CODE_GET_JSON);
                } catch (JSONException e) {
                    Log.e(TAG, e.getStackTrace().toString());
                }
