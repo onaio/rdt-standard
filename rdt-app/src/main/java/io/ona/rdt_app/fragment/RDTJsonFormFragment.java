@@ -10,11 +10,11 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
+import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
-import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -47,8 +47,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
                 boolean isSaved = save(false);
                 if (isSaved) {
                     try {
-                        JSONObject formJsonObject = jsonFormUtils.getFormJsonObject("json.form/rdt-capture-form.json", getContext());
-                        jsonFormUtils.startJsonForm(formJsonObject, getActivity(), REQUEST_CODE_GET_JSON);
+                        jsonFormUtils.launchForm(getActivity(), RDT_TEST_FORM);
                     } catch (JSONException e) {
                         Log.e(TAG, e.getStackTrace().toString());
                     }

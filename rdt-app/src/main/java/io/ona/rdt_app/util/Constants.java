@@ -24,4 +24,9 @@ public interface Constants {
         String ID = "id";
         String BASE_ENTITY_ID = "base_entity_id";
     }
+
+    interface Form {
+        String PATIENT_REGISTRATION_FORM = "json.form/patient-registration-form.json";
+        String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
+    }
 }

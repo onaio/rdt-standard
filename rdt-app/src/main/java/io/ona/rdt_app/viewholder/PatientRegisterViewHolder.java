@@ -28,6 +28,8 @@ import io.ona.rdt_app.R;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
+
 /**
  * Created by Vincent Karuri on 17/06/2019
  */
@@ -108,7 +110,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
             @Override
             public void onClick(View v) {
                 try {
-                    new RDTJsonFormUtils().launchRDTTestForm((Activity) context);
+                    new RDTJsonFormUtils().launchForm((Activity) context, RDT_TEST_FORM);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getStackTrace().toString());
                 }

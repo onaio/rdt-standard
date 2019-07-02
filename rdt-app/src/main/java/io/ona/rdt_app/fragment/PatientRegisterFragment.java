@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -18,10 +17,10 @@ import java.util.HashMap;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
-import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
 
-import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View {
 
@@ -111,7 +110,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
            @Override
            public void onClick(View v) {
                try {
-                 formUtils.launchRDTTestForm(getActivity());
+                 formUtils.launchForm(getActivity(), PATIENT_REGISTRATION_FORM);
                } catch (JSONException e) {
                    Log.e(TAG, e.getStackTrace().toString());
                }

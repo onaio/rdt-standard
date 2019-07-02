@@ -41,7 +41,7 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public void startJsonForm(JSONObject form, Activity context, int requestCode) {
+    private void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, RDTJsonFormActivity.class);
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
@@ -143,8 +143,8 @@ public class RDTJsonFormUtils {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 
-    public void launchRDTTestForm(Activity activity) throws JSONException {
-        JSONObject formJsonObject = getFormJsonObject("json.form/patient-registration-form.json", activity);
+    public void launchForm(Activity activity, String formName) throws JSONException {
+        JSONObject formJsonObject = getFormJsonObject(formName, activity);
         startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
     }
 }
