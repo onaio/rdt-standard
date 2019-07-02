@@ -17,6 +17,7 @@ import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
@@ -64,7 +66,7 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public static void saveStaticImageToDisk(final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
+    public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
             return;
@@ -99,6 +101,8 @@ public class RDTJsonFormUtils {
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
+
+//                        saveImageToGallery(context, image); // todo: only enable this in debug apks
                     }
                 } catch (FileNotFoundException e) {
                     Log.e(TAG, "Failed to save static image to disk");
@@ -121,6 +125,17 @@ public class RDTJsonFormUtils {
         }
 
         new SaveImageTask().execute();
+    }
+
+    private static void saveImageToGallery(Context context, Bitmap image) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        ImageUtil.saveImage(context, stream.toByteArray(), 0, new OnImageSavedCallBack() {
+            @Override
+            public void onImageSaved(String imageLocation) {
+                // do nothing
+            }
+        });
     }
 
     public static Bitmap convertByteArrayToBitmap(byte[] src){

@@ -1,5 +1,6 @@
 package io.ona.rdt_app.interactor;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
@@ -16,7 +17,7 @@ public class CustomRDTCaptureInteractor {
         this.presenter = presenter;
     }
 
-    public void saveImage(Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
-        RDTJsonFormUtils.saveStaticImageToDisk(image, providerId, baseEntityId, onImageSavedCallBack);
+    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
+        RDTJsonFormUtils.saveStaticImageToDisk(context, image, providerId, baseEntityId, onImageSavedCallBack);
     }
 }

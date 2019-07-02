@@ -31,6 +31,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity {
     @Override
     protected void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-        presenter.saveImage(convertByteArrayToBitmap(captureByteArray), providerId, baseEntityId, this);
+        presenter.saveImage(this, convertByteArrayToBitmap(captureByteArray), providerId, baseEntityId, this);
     }
 }

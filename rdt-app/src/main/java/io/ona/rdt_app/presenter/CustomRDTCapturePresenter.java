@@ -1,5 +1,6 @@
 package io.ona.rdt_app.presenter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
@@ -18,7 +19,7 @@ public class CustomRDTCapturePresenter {
         this.interactor = new CustomRDTCaptureInteractor(this);
     }
 
-    public void saveImage(Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
-        interactor.saveImage(image, providerId, baseEntityId, onImageSavedCallBack);
+    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
+        interactor.saveImage(context, image, providerId, baseEntityId, onImageSavedCallBack);
     }
 }
