@@ -1,5 +1,7 @@
 package io.ona.rdt_app.application;
 
+import android.widget.ImageView;
+
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
@@ -23,8 +25,10 @@ import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
 import io.ona.rdt_app.job.RDTJobCreator;
+import io.ona.rdt_app.listener.RDTImageListener;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
@@ -40,6 +44,7 @@ import static org.smartregister.util.Log.logInfo;
 public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
+    private AllSharedPreferences allSharedPreferences;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -48,10 +53,12 @@ public class RDTApplication extends DrishtiApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration());
         SyncStatusBroadcastReceiver.init(this);
@@ -63,11 +70,15 @@ public class RDTApplication extends DrishtiApplication {
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
-
         getContext().userService(); // todo: can be removed when login screen is added
+
+        allSharedPreferences = getContext().allSharedPreferences();
         initializeSharedPreferences(); // todo: can be removed when login screen is added
 
         scheduleJobsPeriodically();
+
+        // todo: remove this
+        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(BuildConfig.BASE_ENTITY_ID, new RDTImageListener(new ImageView(getApplicationContext()), R.drawable.avatar_woman, R.drawable.avatar_woman));
     }
 
     @Override
@@ -151,7 +162,6 @@ public class RDTApplication extends DrishtiApplication {
     }
 
     private void initializeSharedPreferences() {
-        AllSharedPreferences allSharedPreferences = getContext().allSharedPreferences();
         getContext().allSettings().registerANM(BuildConfig.ANM_ID, BuildConfig.ANM_PASSWORD);
         allSharedPreferences.updateUrl(BuildConfig.BASE_URL);
         allSharedPreferences.savePreference(DRISHTI_BASE_URL, BuildConfig.BASE_URL);
