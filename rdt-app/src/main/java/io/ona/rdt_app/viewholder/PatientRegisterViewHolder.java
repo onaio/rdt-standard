@@ -1,14 +1,17 @@
 package io.ona.rdt_app.viewholder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.util.Utils;
@@ -23,11 +26,14 @@ import java.text.MessageFormat;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 /**
  * Created by Vincent Karuri on 17/06/2019
  */
 public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRegisterViewHolder.RegisterViewHolder> {
+
+    private final String TAG = PatientRegisterViewHolder.class.getName();
 
     private Context context;
     private final View.OnClickListener registerActionHandler;
@@ -98,6 +104,17 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
         View view = inflater().inflate(R.layout.register_row_item, parent, false);
+        view.findViewById(R.id.btn_record_rdt_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    new RDTJsonFormUtils().launchRDTTestForm((Activity) context);
+                } catch (JSONException e) {
+                    Log.e(TAG, e.getStackTrace().toString());
+                }
+            }
+        });
+
         return new RegisterViewHolder(view);
     }
 

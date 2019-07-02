@@ -111,8 +111,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
            @Override
            public void onClick(View v) {
                try {
-                   JSONObject formJsonObject = formUtils.getFormJsonObject("json.form/patient-registration-form.json", getContext());
-                   formUtils.startJsonForm(formJsonObject, getActivity(), REQUEST_CODE_GET_JSON);
+                 formUtils.launchRDTTestForm(getActivity());
                } catch (JSONException e) {
                    Log.e(TAG, e.getStackTrace().toString());
                }

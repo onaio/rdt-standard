@@ -32,6 +32,7 @@ import io.ona.rdt_app.application.RDTApplication;
 
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -140,5 +141,10 @@ public class RDTJsonFormUtils {
 
     public static Bitmap convertByteArrayToBitmap(byte[] src){
         return BitmapFactory.decodeByteArray(src, 0, src.length);
+    }
+
+    public void launchRDTTestForm(Activity activity) throws JSONException {
+        JSONObject formJsonObject = getFormJsonObject("json.form/patient-registration-form.json", activity);
+        startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
     }
 }
