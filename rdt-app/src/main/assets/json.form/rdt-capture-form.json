@@ -1,5 +1,5 @@
 {
-  "count": "2",
+  "count": "7",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -49,6 +49,7 @@
   "step1": {
     "title": "RDT",
     "display_back_button": "true",
+    "next": "step2",
     "fields": [
       {
         "key": "lbl_which_rdt",
@@ -81,7 +82,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step4"
+        "next": "step2"
       }
     ]
   },
@@ -89,6 +90,32 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step3",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "RDT ID *",
+        "scanButtonText": "Scan QR Code",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the RDT ID"
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step4",
     "fields": [
       {
         "key": "rdt_capture",
@@ -99,10 +126,10 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step5",
     "fields": [
       {
         "key": "rdt_result",
@@ -133,9 +160,10 @@
       }
     ]
   },
-  "step4": {
+  "step5": {
     "title": "RDT",
     "next": "step5",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -154,9 +182,10 @@
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "RDT",
     "next": "step6",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -175,9 +204,9 @@
       }
     ]
   },
-  "step6": {
+  "step7": {
     "title": "RDT",
-    "next": "step7",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -193,31 +222,6 @@
         "label_text_size": "18sp",
         "text_color": "#000000",
         "image_file": "add_buffer_solution.jpg"
-      }
-    ]
-  },
-  "step7": {
-    "title": "Capture RDT image",
-    "display_back_button": "true",
-    "fields": [
-      {
-        "key": "qr_code_reader",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "RDT ID *",
-        "scanButtonText": "Scan QR Code",
-        "value": "0",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the RDT ID"
-        }
       }
     ]
   }
