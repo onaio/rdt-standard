@@ -11,7 +11,8 @@ import io.ona.rdt_app.util.RDTJsonFormUtils;
  * Created by Vincent Karuri on 27/06/2019
  */
 public class CustomRDTCaptureInteractor {
-    CustomRDTCapturePresenter presenter;
+
+    private CustomRDTCapturePresenter presenter;
 
     public CustomRDTCaptureInteractor(CustomRDTCapturePresenter presenter) {
         this.presenter = presenter;

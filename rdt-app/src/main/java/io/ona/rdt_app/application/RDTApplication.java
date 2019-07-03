@@ -1,7 +1,5 @@
 package io.ona.rdt_app.application;
 
-import android.widget.ImageView;
-
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
@@ -25,10 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.R;
 import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
 import io.ona.rdt_app.job.RDTJobCreator;
-import io.ona.rdt_app.listener.RDTImageListener;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
@@ -78,7 +74,7 @@ public class RDTApplication extends DrishtiApplication {
         scheduleJobsPeriodically();
 
         // todo: remove this
-        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(BuildConfig.BASE_ENTITY_ID, new RDTImageListener(new ImageView(getApplicationContext()), R.drawable.avatar_woman, R.drawable.avatar_woman));
+//        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(BuildConfig.BASE_ENTITY_ID, new RDTImageListener(new ImageView(getApplicationContext()), R.drawable.avatar_woman, R.drawable.avatar_woman));
     }
 
     @Override
