@@ -76,7 +76,7 @@
       {
         "key": "lbl_care_start",
         "type": "label",
-        "text": "CareStart Malaria",
+        "text": "Scan Carestart Exp. Date",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,

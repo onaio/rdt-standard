@@ -74,6 +74,6 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s != '%s'", "id", "");
+        return String.format(" %s != '%s'", "name", "");
     }
 }
