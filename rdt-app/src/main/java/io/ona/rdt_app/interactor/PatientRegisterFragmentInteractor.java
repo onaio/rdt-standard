@@ -61,7 +61,7 @@ public class PatientRegisterFragmentInteractor {
     }
 
 
-    public void saveRegistrationForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
+    public void saveForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
 
         class SaveFormTask extends AsyncTask<Void, Void, Void> {
             @Override
