@@ -109,10 +109,10 @@ public class RDTApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{Constants.DBConstants.BASE_ENTITY_ID, Constants.DBConstants.ID, Constants.DBConstants.NAME};
+        return new String[]{Constants.DBConstants.NAME};
     }
 
     private static String[] getFtsSortFields() {
-       return new String[]{Constants.DBConstants.BASE_ENTITY_ID, Constants.DBConstants.ID, Constants.DBConstants.NAME};
+       return new String[]{Constants.DBConstants.NAME};
     }
 }
