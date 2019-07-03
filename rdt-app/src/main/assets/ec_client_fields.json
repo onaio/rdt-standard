@@ -40,6 +40,73 @@
           }
         }
       ]
+    },
+    {
+      "name": "rdt_tests",
+      "columns": [
+        {
+          "column_name": "rdt_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "lbl_rdt_id"
+          }
+        },
+        {
+          "column_name": "patient_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "event_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventId"
+          }
+        },
+        {
+          "column_name": "exp_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "expiration_date_capture"
+          }
+        },
+        {
+          "column_name": "image_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "capture"
+          }
+        },
+        {
+          "column_name": "result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "lbl_result"
+          }
+        },
+        {
+          "column_name": "time_test_ended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "timer"
+          }
+        },
+        {
+          "column_name": "time_picture_taken",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "time_img_saved"
+          }
+        }
+      ]
     }
   ]
 }
