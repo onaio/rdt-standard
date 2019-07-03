@@ -15,6 +15,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.DateTimeTypeConverter;
@@ -28,6 +29,7 @@ import java.util.UUID;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
@@ -38,7 +40,9 @@ import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
+import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 import static org.smartregister.util.JsonFormUtils.getString;
 
 /**
@@ -74,7 +78,7 @@ public class PatientRegisterFragmentInteractor {
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, PATIENTS);
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
-                    Log.e(TAG, "Error saving patient registration event", e);
+                    Log.e(TAG, "Error saving event", e);
                 }
                 return null;
             }
@@ -106,9 +110,9 @@ public class PatientRegisterFragmentInteractor {
         }
     }
 
-    private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException {
+    private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
         String entityId = getString(jsonForm, ENTITY_ID);
-        JSONArray fields = JsonFormUtils.fields(jsonForm);
+        JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
         FormTag formTag = new FormTag();
@@ -117,12 +121,11 @@ public class PatientRegisterFragmentInteractor {
         formTag.teamId = "";
         formTag.team = "";
 
-        org.smartregister.domain.db.Client dbClient = null;
+        Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
+        JSONObject clientJson = new JSONObject(gson.toJson(client));
+        org.smartregister.domain.db.Client dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
         if (PATIENT_REGISTRATION.equals(encounterType)) {
-            Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
-            JSONObject clientJson = new JSONObject(gson.toJson(client));
             eventClientRepository.addorUpdateClient(entityId, clientJson);
-            dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
         }
 
         String providerId = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
