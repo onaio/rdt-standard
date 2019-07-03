@@ -53,7 +53,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String patientName = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.NAME, true);
         String patientAge = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.AGE, true);
         String sex = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.SEX, true);
-        String baseEntityId = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.BASE_ENTITY_ID, true);
+        String baseEntityId = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants._ID, true);
         String nameAndAge = createNameAndAgeLabel(patientName, patientAge);
 
         viewHolder.patientNameAndAge.setText(nameAndAge);
@@ -107,12 +107,12 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
 
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
-        View view = inflater().inflate(R.layout.register_row_item, parent, false);
+        final View view = inflater().inflate(R.layout.register_row_item, parent, false);
         view.findViewById(R.id.btn_record_rdt_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    new RDTJsonFormUtils().launchForm((Activity) context, RDT_TEST_FORM);
+                    new RDTJsonFormUtils().launchForm((Activity) context, RDT_TEST_FORM, view.getTag(R.id.base_entity_id).toString());
                 } catch (JSONException e) {
                     Log.e(TAG, e.getStackTrace().toString());
                 }

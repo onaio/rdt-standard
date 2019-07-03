@@ -33,6 +33,7 @@ import io.ona.rdt_app.application.RDTApplication;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -144,7 +145,12 @@ public class RDTJsonFormUtils {
     }
 
     public void launchForm(Activity activity, String formName) throws JSONException {
+        launchForm(activity, formName, null);
+    }
+
+    public void launchForm(Activity activity, String formName, String entityId) throws JSONException {
         JSONObject formJsonObject = getFormJsonObject(formName, activity);
+        formJsonObject.put(ENTITY_ID, entityId);
         startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
     }
 }

@@ -23,6 +23,7 @@ public interface Constants {
         String SEX = "sex";
         String ID = "id";
         String BASE_ENTITY_ID = "base_entity_id";
+        String _ID = "_id";
     }
 
     interface Form {
