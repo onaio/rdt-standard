@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import io.ona.rdt_app.util.Constants;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
@@ -77,7 +79,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     protected void addOnBarCodeResultListeners(final Context context, final MaterialEditText editText) {
         editText.setVisibility(View.GONE);
         if (context instanceof JsonApi) {
-            JsonApi jsonApi = (JsonApi) context;
+            final JsonApi jsonApi = (JsonApi) context;
             jsonApi.addOnActivityResultListener(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE,
                     new OnActivityResultListener() {
                         @Override
@@ -90,6 +92,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         String[] barcodeValues = barcode.displayValue.split(",");
                                         String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
                                         jsonObject.put(VALUE, idAndExpDate);
+                                        jsonApi.writeValue("step5", Constants.Form.LBL_RDT_ID, barcodeValues[0], "", "", "", false);
                                         formFragment.next();
                                     } catch (JSONException e) {
                                         Log.e(TAG, e.getStackTrace().toString());

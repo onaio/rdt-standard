@@ -170,7 +170,7 @@ public class RDTJsonFormUtils {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
-            if ("lbl_rdt_id".equals(field.getString(KEY))) {
+            if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
                 field.put(VALUE, rdtId);
                 field.put("text", "ID: " + rdtId);
             }

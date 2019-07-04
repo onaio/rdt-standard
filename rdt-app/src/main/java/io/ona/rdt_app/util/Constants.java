@@ -29,5 +29,6 @@ public interface Constants {
     interface Form {
         String PATIENT_REGISTRATION_FORM = "json.form/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
+        String LBL_RDT_ID = "lbl_rdt_id";
     }
 }
