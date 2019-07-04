@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
@@ -28,8 +29,8 @@ import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
+import io.ona.rdt_app.util.Constants;
 
-import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
@@ -37,11 +38,11 @@ import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.RDT_TEST;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 import static org.smartregister.util.JsonFormUtils.getString;
@@ -135,6 +136,16 @@ public class PatientRegisterFragmentInteractor {
 
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
+
+        if (RDT_TEST.equals(encounterType)) {
+            // set client base entity id to rdt id to allow multiple rdt tests for a single patient
+            for (Obs obs : event.getObs()) {
+                if (Constants.Form.LBL_RDT_ID.equals(obs.getFieldCode())) {
+                    client.setBaseEntityId(obs.getValue().toString());
+                }
+            }
+        }
+
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
         eventClientRepository.addEvent(entityId, eventJson);

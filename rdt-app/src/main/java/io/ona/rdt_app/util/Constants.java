@@ -14,6 +14,7 @@ public interface Constants {
     String PATIENTS = "patients";
     String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
+    String RDT_TEST = "rdt_test";
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
     String PROFILE_PIC = "profilepic";
