@@ -74,7 +74,7 @@ public class PatientRegisterFragmentInteractor {
             protected Void doInBackground(Void... voids) {
                 try {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    String baseEntityId = UUID.randomUUID().toString();
+                    String baseEntityId = "48453646-a5c8-4834-9a4b-5ca2b8c6ffaf"; // todo remove this
                     jsonForm.put(ENTITY_ID, baseEntityId);
                     populateApproxDOB(jsonForm);
 
@@ -136,15 +136,6 @@ public class PatientRegisterFragmentInteractor {
 
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
-
-        if (RDT_TEST.equals(encounterType)) {
-            // set client base entity id to rdt id to allow multiple rdt tests for a single patient
-            for (Obs obs : event.getObs()) {
-                if (Constants.Form.LBL_RDT_ID.equals(obs.getFieldCode())) {
-                    client.setBaseEntityId(obs.getValue().toString());
-                }
-            }
-        }
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
