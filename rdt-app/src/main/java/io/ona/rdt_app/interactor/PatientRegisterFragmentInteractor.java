@@ -37,6 +37,7 @@ import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -75,7 +76,9 @@ public class PatientRegisterFragmentInteractor {
                     String baseEntityId = UUID.randomUUID().toString();
                     jsonForm.put(ENTITY_ID, baseEntityId);
                     populateApproxDOB(jsonForm);
-                    EventClient eventClient = saveEventClient(jsonForm, encounterType, PATIENTS);
+
+                    String bindType = PATIENT_REGISTRATION .equals(encounterType) ? PATIENTS : RDT_TESTS;
+                    EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);

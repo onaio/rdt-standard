@@ -193,6 +193,22 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "positive"
+      },
+      {
+        "key": "timer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "834912438"
       }
     ]
   }
