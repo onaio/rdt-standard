@@ -93,6 +93,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
                                         jsonObject.put(VALUE, idAndExpDate);
                                         jsonApi.writeValue("step5", Constants.Form.LBL_RDT_ID, barcodeValues[0], "", "", "", false);
+                                        jsonApi.writeValue("step2", Constants.Form.EXPIRATION_DATE_READER, barcodeValues[1], "", "", "", false);
                                         formFragment.next();
                                     } catch (JSONException e) {
                                         Log.e(TAG, e.getStackTrace().toString());

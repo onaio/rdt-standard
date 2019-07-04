@@ -60,13 +60,6 @@
           }
         },
         {
-          "column_name": "event_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "eventId"
-          }
-        },
-        {
           "column_name": "exp_date",
           "type": "Event",
           "json_mapping": {
