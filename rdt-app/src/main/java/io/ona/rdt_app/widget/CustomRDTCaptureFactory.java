@@ -40,19 +40,19 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private final String TAG = CustomRDTCaptureFactory.class.getName();
 
     private Context context;
+    private JsonFormFragment formFragment;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.context = context;
+        this.formFragment = formFragment;
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         return views;
     }
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
-        this.context = context;
-        List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener);
-        return views;
+        return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
     }
 
     private class LaunchRDTCameraTask extends AsyncTask<Void, Void, Void> {
@@ -95,10 +95,12 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         } catch (JSONException e) {
                             Log.e(TAG, e.getStackTrace().toString());
                         }
+                        if (!formFragment.next()) {
+                            formFragment.save(true);
+                        }
                     } else {
                         Log.i(TAG, "No result data for RDT capture!");
                     }
-
                 } else if (resultCode == RESULT_CANCELED) {
                     ((Activity) context).finish();
                 }
