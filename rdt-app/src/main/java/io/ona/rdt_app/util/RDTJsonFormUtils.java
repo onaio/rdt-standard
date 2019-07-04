@@ -128,7 +128,7 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(ProfileImage profileImage) {
-                onImageSavedCallBack.onImageSaved(profileImage.getFilepath());
+                onImageSavedCallBack.onImageSaved(profileImage.getImageid());
             }
         }
 

@@ -87,7 +87,9 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                     try {
                                         Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                         Log.d("Scanned QR Code", barcode.displayValue);
-                                        jsonObject.put(VALUE, barcode.displayValue.split(",")[0]);
+                                        String[] barcodeValues = barcode.displayValue.split(",");
+                                        String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
+                                        jsonObject.put(VALUE, idAndExpDate);
                                         formFragment.next();
                                     } catch (JSONException e) {
                                         Log.e(TAG, e.getStackTrace().toString());
