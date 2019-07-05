@@ -24,6 +24,7 @@ import org.smartregister.util.PropertiesConverter;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
@@ -71,8 +72,6 @@ public class PatientRegisterFragmentInteractor {
             protected Void doInBackground(Void... voids) {
                 try {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    String baseEntityId = jsonForm.optString(Constants.Form.BASE_ENTITY_ID, "");
-                    jsonForm.put(ENTITY_ID, baseEntityId);
                     populateApproxDOB(jsonForm);
 
                     String bindType = PATIENT_REGISTRATION .equals(encounterType) ? PATIENTS : RDT_TESTS;
@@ -113,6 +112,8 @@ public class PatientRegisterFragmentInteractor {
 
     private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
         String entityId = getString(jsonForm, ENTITY_ID);
+        entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
+
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
@@ -130,7 +131,6 @@ public class PatientRegisterFragmentInteractor {
         }
 
         String providerId = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
-
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
 

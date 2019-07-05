@@ -14,7 +14,6 @@ public interface Constants {
     String PATIENTS = "patients";
     String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
-    String RDT_TEST = "rdt_test";
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
     String PROFILE_PIC = "profilepic";
@@ -35,6 +34,5 @@ public interface Constants {
         String EXPIRATION_DATE_READER = "expiration_date_reader";
         String RDT_CAPTURE = "rdt_capture";
         String TIME_IMG_SAVED = "time_img_saved";
-        String BASE_ENTITY_ID = "baseEntityId";
     }
 }
