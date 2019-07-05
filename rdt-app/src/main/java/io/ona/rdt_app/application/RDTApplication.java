@@ -141,24 +141,22 @@ public class RDTApplication extends DrishtiApplication {
 
     protected void scheduleJobsPeriodically() {
         ImageUploadSyncServiceJob
-                .scheduleJob(ImageUploadSyncServiceJob.TAG,
-                TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
-                getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+                .scheduleJob(ImageUploadSyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
+                        getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
 
         SyncServiceJob
-                .scheduleJob(SyncServiceJob.TAG,
-                        TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
+                .scheduleJob(SyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                         getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
-    private long getFlexValue(int value) {
-        final int MINIMUM_JOB_FLEX_VALUE = 1;
-        int minutes = MINIMUM_JOB_FLEX_VALUE;
+    private long getFlexValue(long value) {
+        final long MINIMUM_JOB_FLEX_VALUE = 1;
+        long minutes = MINIMUM_JOB_FLEX_VALUE;
         if (value > MINIMUM_JOB_FLEX_VALUE) {
-            minutes = (int) Math.ceil(value / 3);
+            minutes = (long) Math.ceil(value / 3);
         }
 
-        return TimeUnit.MINUTES.toMillis(minutes);
+        return minutes;
     }
 
     private void initializeSharedPreferences() {
