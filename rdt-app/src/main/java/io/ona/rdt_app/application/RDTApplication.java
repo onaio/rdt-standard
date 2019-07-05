@@ -21,7 +21,6 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;

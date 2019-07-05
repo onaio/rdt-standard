@@ -123,20 +123,22 @@ public class PatientRegisterFragmentInteractor {
         formTag.teamId = "";
         formTag.team = "";
 
-        Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
+        String clientBaseEntityId = new String(entityId);
+        Client client = JsonFormUtils.createBaseClient(fields, formTag, clientBaseEntityId);
         JSONObject clientJson = new JSONObject(gson.toJson(client));
         org.smartregister.domain.db.Client dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
         if (PATIENT_REGISTRATION.equals(encounterType)) {
-            eventClientRepository.addorUpdateClient(entityId, clientJson);
+            eventClientRepository.addorUpdateClient(clientBaseEntityId, clientJson);
         }
 
+        String eventBaseEntityId = new String(entityId);
         String providerId = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
-        Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
+        Event event = JsonFormUtils.createEvent(fields, metadata, formTag, eventBaseEntityId, encounterType, bindType);
         event.setProviderId(providerId);
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
-        eventClientRepository.addEvent(entityId, eventJson);
+        eventClientRepository.addEvent(eventBaseEntityId, eventJson);
         org.smartregister.domain.db.Event dbEvent = gson.fromJson(eventJson.toString(), org.smartregister.domain.db.Event.class);
 
         return new EventClient(dbEvent, dbClient);
