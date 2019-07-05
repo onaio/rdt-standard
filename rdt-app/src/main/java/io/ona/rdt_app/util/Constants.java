@@ -35,5 +35,6 @@ public interface Constants {
         String EXPIRATION_DATE_READER = "expiration_date_reader";
         String RDT_CAPTURE = "rdt_capture";
         String TIME_IMG_SAVED = "time_img_saved";
+        String BASE_ENTITY_ID = "baseEntityId";
     }
 }

@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
@@ -25,7 +24,6 @@ import org.smartregister.util.PropertiesConverter;
 
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
@@ -38,7 +36,6 @@ import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
-import static io.ona.rdt_app.util.Constants.RDT_TEST;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -74,7 +71,7 @@ public class PatientRegisterFragmentInteractor {
             protected Void doInBackground(Void... voids) {
                 try {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    String baseEntityId = "48453646-a5c8-4834-9a4b-5ca2b8c6ffaf"; // todo remove this
+                    String baseEntityId = jsonForm.optString(Constants.Form.BASE_ENTITY_ID, "");
                     jsonForm.put(ENTITY_ID, baseEntityId);
                     populateApproxDOB(jsonForm);
 
