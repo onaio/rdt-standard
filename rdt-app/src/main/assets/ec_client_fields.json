@@ -56,8 +56,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "formSubmissionId"
+            "field": "formSubmissionId"
           }
         },
         {
