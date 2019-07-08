@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.json.JSONException;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.util.Utils;
@@ -25,6 +26,7 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.text.MessageFormat;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -112,7 +114,12 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
             @Override
             public void onClick(View v) {
                 try {
-                    new RDTJsonFormUtils().launchForm((Activity) context, RDT_TEST_FORM, view.getTag(R.id.base_entity_id).toString());
+                    String patientNameAndAge = ((TextView) view.findViewById(R.id.tv_patient_name_and_age)).getText().toString();
+                    String patientName = patientNameAndAge.split(",")[0];
+                    String patientSex = ((TextView) view.findViewById(R.id.tv_sex)).getText().toString();
+                    String baseEntityId = view.getTag(R.id.base_entity_id).toString().split("-")[0];
+                    final Patient patient = new Patient(patientName, patientSex, baseEntityId);
+                    new RDTJsonFormUtils().launchForm((Activity) context, RDT_TEST_FORM, patient);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getStackTrace().toString());
                 }

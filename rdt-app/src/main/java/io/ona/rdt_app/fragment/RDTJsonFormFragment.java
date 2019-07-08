@@ -23,6 +23,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
     private RDTJsonFormUtils jsonFormUtils = new RDTJsonFormUtils();
+    private String NEXT_FORM = "next_form";
 
     public static JsonFormFragment getFormFragment(String stepName) {
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
@@ -33,7 +34,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     }
 
     @Override
-    protected void initializeBottomNavigation(JSONObject step, View rootView) {
+    protected void initializeBottomNavigation(final JSONObject step, View rootView) {
         super.initializeBottomNavigation(step, rootView);
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,14 +45,20 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isSaved = save(false);
-                if (isSaved) {
-                    try {
-                        jsonFormUtils.launchForm(getActivity(), RDT_TEST_FORM);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getStackTrace().toString());
+                String nextForm = step.optString(NEXT_FORM, "");
+                if (!nextForm.isEmpty()) {
+                    boolean isSaved = save(false);
+                    if (isSaved) {
+                        try {
+                            jsonFormUtils.launchForm(getActivity(), nextForm);
+                        } catch (JSONException e) {
+                            Log.e(TAG, e.getStackTrace().toString());
+                        }
                     }
+                } else {
+                    next();
                 }
+                // todo: handle submit button
             }
         });
     }

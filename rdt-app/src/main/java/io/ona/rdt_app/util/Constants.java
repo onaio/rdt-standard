@@ -24,7 +24,6 @@ public interface Constants {
         String SEX = "sex";
         String ID = "id";
         String BASE_ENTITY_ID = "base_entity_id";
-        String _ID = "_id";
     }
 
     interface Form {
@@ -34,5 +33,7 @@ public interface Constants {
         String EXPIRATION_DATE_READER = "expiration_date_reader";
         String RDT_CAPTURE = "rdt_capture";
         String TIME_IMG_SAVED = "time_img_saved";
+        String LBL_PATIENT_NAME = "lbl_patient_name";
+        String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
     }
 }

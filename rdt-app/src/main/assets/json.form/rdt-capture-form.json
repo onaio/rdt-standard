@@ -1,5 +1,5 @@
 {
-  "count": "5",
+  "count": "6",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -50,6 +50,36 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step2",
+    "bottom_navigation" : "true",
+    "next_label": "RDT",
+    "fields": [
+      {
+        "key": "lbl_patient_name",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "15sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      },
+      {
+        "key": "lbl_patient_gender_and_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      }
+    ]
+  },
+  "step2": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step3",
     "fields": [
       {
         "key": "lbl_which_rdt",
@@ -86,10 +116,10 @@
       }
     ]
   },
-  "step2": {
+  "step3": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step5",
     "fields": [
       {
         "key": "expiration_date_reader",
@@ -104,10 +134,10 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step5",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -130,10 +160,10 @@
       }
     ]
   },
-  "step4": {
+  "step5": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step6",
     "fields": [
       {
         "key": "rdt_capture",
@@ -144,7 +174,7 @@
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",
