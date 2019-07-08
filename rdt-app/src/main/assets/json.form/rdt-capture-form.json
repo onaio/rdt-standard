@@ -1,5 +1,5 @@
 {
-  "count": "8",
+  "count": "10",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -101,7 +101,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step3"
+        "next": "step4"
       },
       {
         "key": "lbl_care_start",
@@ -119,7 +119,7 @@
   "step3": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step6",
     "fields": [
       {
         "key": "expiration_date_reader",
@@ -163,7 +163,7 @@
   "step5": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step6",
+    "next": "step1",
     "bottom_navigation": "true",
     "next_label": "OK",
     "fields": [
@@ -226,6 +226,66 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step8",
+    "bottom_navigation": "true",
+    "next_label": "BLOT PAPER COMPLETE",
+    "fields": [
+      {
+        "key": "lbl_blot_paper",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Blot X uL on filter paper. Place blood spot in a tube labelled with:"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      }
+    ]
+  },
+  "step8": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "next_label": "MICROSCOPY SLIDE COMPLETE",
+    "fields": [
+      {
+        "key": "lbl_microscopy_slide",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Collect X uL on microscopy slide. Label slide with:"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      }
+    ]
+  },
+  "step9": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step10",
     "fields": [
       {
         "key": "rdt_capture",
@@ -236,7 +296,7 @@
       }
     ]
   },
-  "step8": {
+  "step10": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",

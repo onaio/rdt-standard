@@ -128,7 +128,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
         Context context = widgetArgs.getContext();
         if (context instanceof JsonApi) {
             final JsonApi jsonApi = (JsonApi) context;
-            jsonApi.addOnActivityResultListener(JsonFormConstants.RDT_CAPTURE_CODE , createOnActivityResultListener());
+            jsonApi.addOnActivityResultListener(JsonFormConstants.RDT_CAPTURE_CODE, createOnActivityResultListener());
         }
     }
 

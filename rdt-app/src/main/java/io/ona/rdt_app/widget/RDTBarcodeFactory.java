@@ -91,8 +91,11 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         Log.d("Scanned QR Code", barcode.displayValue);
                                         String[] barcodeValues = barcode.displayValue.split(",");
                                         String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
+                                        String rdtLabel = "RDT ID: " + barcodeValues[0];
                                         jsonObject.put(VALUE, idAndExpDate);
-                                        jsonApi.writeValue("step6", Constants.Form.LBL_RDT_ID, barcodeValues[0], "", "", "", false);
+                                        jsonApi.writeValue("step6", Constants.Form.LBL_RDT_ID, rdtLabel, "", "", "", false);
+                                        jsonApi.writeValue("step7", Constants.Form.LBL_RDT_ID, rdtLabel, "", "", "", false);
+                                        jsonApi.writeValue("step8", Constants.Form.LBL_RDT_ID, rdtLabel, "", "", "", false);
                                         jsonApi.writeValue("step5", Constants.Form.EXPIRATION_DATE_READER, barcodeValues[1], "", "", "", false);
                                         formFragment.next();
                                     } catch (JSONException e) {
