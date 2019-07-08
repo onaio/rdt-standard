@@ -125,7 +125,10 @@ public class PatientRegisterFragmentInteractor {
             dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
         }
 
+        String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
+        event.setProviderId(providerId);
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
         eventClientRepository.addEvent(entityId, eventJson);

@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
-import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
@@ -22,7 +22,7 @@ import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 public class RDTJsonFormFragment extends JsonFormFragment {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
-    private RDTCaptureJsonFormUtils jsonFormUtils = new RDTCaptureJsonFormUtils();
+    private RDTJsonFormUtils jsonFormUtils = new RDTJsonFormUtils();
 
     public static JsonFormFragment getFormFragment(String stepName) {
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();

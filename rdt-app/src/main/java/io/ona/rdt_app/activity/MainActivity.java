@@ -16,13 +16,13 @@ import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.util.Constants;
-import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RDTCaptureJsonFormUtils jsonFormUtils;
+    private RDTJsonFormUtils jsonFormUtils;
     private final String TAG = MainActivity.class.getName();
     private Activity context;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        jsonFormUtils = new RDTCaptureJsonFormUtils();
+        jsonFormUtils = new RDTJsonFormUtils();
         context = this;
 
         findViewById(R.id.btn_launch_rdt_reader).setOnClickListener(new View.OnClickListener() {

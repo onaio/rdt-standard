@@ -17,7 +17,21 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "int", "SYNC_INTERVAL_MINUTES", '1'
+            buildConfigField "String", "ANM_ID", "\"demotester\""
+            buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
+            buildConfigField "String", "BASE_ENTITY_ID", "\"fad4f2f7-aad0-13f2-f358-60aef0e9e564\""
+            buildConfigField "String", "BASE_URL", "\"http://10.20.25.218:8080/opensrp\""
+//            buildConfigField "String", "BASE_URL", "\"http://192.168.0.10:8080/opensrp\""
+        }
         release {
+            buildConfigField "int", "SYNC_INTERVAL_MINUTES", '15'
+            buildConfigField "String", "ANM_ID", "\"demotester\""
+            buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
+            buildConfigField "String", "BASE_ENTITY_ID", "\"fad4f2f7-aad0-13f2-f358-60aef0e9e564\""
+            buildConfigField "String", "BASE_URL", "\"http://10.20.25.218:8080/opensrp\""
+//            buildConfigField "String", "BASE_URL", "\"http://192.168.0.10:8080/opensrp\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -25,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.6.16-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.19-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
@@ -34,7 +48,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.31-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.36-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

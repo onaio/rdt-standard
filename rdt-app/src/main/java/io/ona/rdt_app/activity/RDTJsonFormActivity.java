@@ -15,19 +15,19 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
-import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.REQUEST_CAMERA_PERMISSION;
 
 public class RDTJsonFormActivity extends JsonFormActivity {
 
-    private RDTCaptureJsonFormUtils formUtils;
+    private RDTJsonFormUtils formUtils;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        formUtils = new RDTCaptureJsonFormUtils();
+        formUtils = new RDTJsonFormUtils();
         new ImageUtil().requestCameraPermission(this);
         super.onCreate(savedInstanceState);
         this.isFormFragmentInitialized = false;

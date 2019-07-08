@@ -9,7 +9,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.job.SyncServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -17,15 +19,18 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.job.RDTJobCreater;
+import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
+import io.ona.rdt_app.job.RDTJobCreator;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static org.smartregister.AllConstants.DRISHTI_BASE_URL;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -35,6 +40,7 @@ import static org.smartregister.util.Log.logInfo;
 public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
+    private AllSharedPreferences allSharedPreferences;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -43,10 +49,12 @@ public class RDTApplication extends DrishtiApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration());
         SyncStatusBroadcastReceiver.init(this);
@@ -56,7 +64,15 @@ public class RDTApplication extends DrishtiApplication {
 
         getRepository();
 
-        JobManager.create(this).addJobCreator(new RDTJobCreater());
+        JobManager.create(this).addJobCreator(new RDTJobCreator());
+
+        getContext().userService(); // todo: can be removed when login screen is added
+
+        allSharedPreferences = getContext().allSharedPreferences();
+        initializeSharedPreferences(); // todo: can be removed when login screen is added
+
+        scheduleJobsImmediately();
+        scheduleJobsPeriodically();
     }
 
     @Override
@@ -114,5 +130,42 @@ public class RDTApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.NAME};
+    }
+
+
+    protected void scheduleJobsPeriodically() {
+        ImageUploadSyncServiceJob
+                .scheduleJob(ImageUploadSyncServiceJob.TAG,
+                TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
+                getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+
+        SyncServiceJob
+                .scheduleJob(SyncServiceJob.TAG,
+                        TimeUnit.MINUTES.toMillis(BuildConfig.SYNC_INTERVAL_MINUTES),
+                        getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+    }
+
+    public void scheduleJobsImmediately() {
+        ImageUploadSyncServiceJob
+                .scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
+
+        SyncServiceJob
+                .scheduleJobImmediately(SyncServiceJob.TAG);
+    }
+
+    private long getFlexValue(int value) {
+        final int MINIMUM_JOB_FLEX_VALUE = 1;
+        int minutes = MINIMUM_JOB_FLEX_VALUE;
+        if (value > MINIMUM_JOB_FLEX_VALUE) {
+            minutes = (int) Math.ceil(value / 3);
+        }
+
+        return TimeUnit.MINUTES.toMillis(minutes);
+    }
+
+    private void initializeSharedPreferences() {
+        getContext().allSettings().registerANM(BuildConfig.ANM_ID, BuildConfig.ANM_PASSWORD);
+        allSharedPreferences.updateUrl(BuildConfig.BASE_URL);
+        allSharedPreferences.savePreference(DRISHTI_BASE_URL, BuildConfig.BASE_URL);
     }
 }
