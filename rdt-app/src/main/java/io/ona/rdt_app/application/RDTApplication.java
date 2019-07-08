@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;
@@ -21,6 +22,7 @@ import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.job.RDTJobCreater;
 import io.ona.rdt_app.repository.RDTRepository;
+import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
@@ -32,6 +34,8 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class RDTApplication extends DrishtiApplication {
 
+    private static CommonFtsObject commonFtsObject;
+
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
     }
@@ -42,6 +46,7 @@ public class RDTApplication extends DrishtiApplication {
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration());
         SyncStatusBroadcastReceiver.init(this);
@@ -88,5 +93,26 @@ public class RDTApplication extends DrishtiApplication {
         TimeChangedBroadcastReceiver.destroy(this);
         SyncStatusBroadcastReceiver.destroy(this);
         super.onTerminate();
+    }
+
+    public static CommonFtsObject createCommonFtsObject() {
+        if (commonFtsObject == null) {
+            commonFtsObject = new CommonFtsObject(getFtsTables());
+            commonFtsObject.updateSearchFields(PATIENTS, getFtsSearchFields());
+            commonFtsObject.updateSortFields(PATIENTS, getFtsSortFields());
+        }
+        return commonFtsObject;
+    }
+
+    private static String[] getFtsTables() {
+        return new String[]{PATIENTS};
+    }
+
+    private static String[] getFtsSearchFields() {
+        return new String[]{Constants.DBConstants.NAME};
+    }
+
+    private static String[] getFtsSortFields() {
+       return new String[]{Constants.DBConstants.NAME};
     }
 }

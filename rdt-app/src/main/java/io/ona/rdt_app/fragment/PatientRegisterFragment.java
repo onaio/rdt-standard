@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,11 +130,22 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
         clientsView.setAdapter(clientAdapter);
     }
 
+    @Override
     protected int getLayout() {
         return R.layout.fragment_patient_register;
     }
-    
+
     public PatientRegisterFragmentPresenter getPresenter() {
         return (PatientRegisterFragmentPresenter) presenter;
+    }
+
+    @Override
+    public EditText getSearchView() {
+        return rootView.findViewById(R.id.edit_text_search);
+    }
+
+    @Override
+    public View getSearchCancelView() {
+        return rootView.findViewById(org.smartregister.R.id.btn_search_cancel);
     }
 }
