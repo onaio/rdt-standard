@@ -1,5 +1,5 @@
 {
-  "count": "7",
+  "count": "8",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -147,7 +147,7 @@
   "step5": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step6",
     "fields": [
       {
         "key": "rdt_result",
@@ -178,9 +178,9 @@
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "RDT",
-    "next": "step5",
+    "next": "step7",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -200,9 +200,9 @@
       }
     ]
   },
-  "step6": {
+  "step7": {
     "title": "RDT",
-    "next": "step6",
+    "next": "step8",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -222,7 +222,7 @@
       }
     ]
   },
-  "step7": {
+  "step8": {
     "title": "RDT",
     "display_back_button": "true",
     "bottom_navigation": "true",
