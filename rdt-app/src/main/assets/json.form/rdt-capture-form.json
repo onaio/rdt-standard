@@ -137,7 +137,7 @@
   "step4": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step6",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -217,7 +217,6 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "center_label": "true",
         "text": "Write this number on back of RDT."
       }
     ]
@@ -247,8 +246,7 @@
         "text_size": "12sp",
         "top_margin": "15dp",
         "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true"
+        "bg_color": "#ffffff"
       }
     ]
   },
@@ -277,8 +275,7 @@
         "text_size": "12sp",
         "top_margin": "15dp",
         "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true"
+        "bg_color": "#ffffff"
       }
     ]
   },
@@ -301,6 +298,7 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "next_type": "submit",
+    "submit_label": "SAVE RDT RESULT",
     "fields": [
       {
         "key": "rdt_result",
