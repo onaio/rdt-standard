@@ -39,16 +39,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
-        this.jsonObject = jsonObject;
-        this.formFragment = formFragment;
-
-        List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener);
-
-        this.rootLayout = (RelativeLayout) views.get(0);
-
-        hideAndClickScanButton();
-
-        return views;
+        return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
     }
 
     @Override
