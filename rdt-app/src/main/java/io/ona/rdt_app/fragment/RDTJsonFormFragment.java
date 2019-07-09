@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
@@ -44,12 +45,17 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isSaved = save(false);
-                if (isSaved) {
-                    try {
-                        jsonFormUtils.launchForm(getActivity(), RDT_TEST_FORM);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getStackTrace().toString());
+                Object isSubmit = v.getTag(R.id.submit);
+                if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
+                    boolean isSaved = save(false);
+                    if (isSaved) {
+                        try {
+                            jsonFormUtils.launchForm(getActivity(), RDT_TEST_FORM);
+                        } catch (JSONException e) {
+                            Log.e(TAG, e.getStackTrace().toString());
+                        }
+                    } else {
+                        next();
                     }
                 } else {
                     next();
