@@ -94,13 +94,8 @@ public class RDTJsonFormUtils {
 
                         File outputFile = new File(absoluteFileName);
                         os = new FileOutputStream(outputFile);
-                        Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-                        if (compressFormat != null) {
-                            image.compress(compressFormat, 100, os);
-                        } else {
-                            throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
-                                    + absoluteFileName);
-                        }
+                        image.compress(Bitmap.CompressFormat.JPEG, 100, os);
+
                         // insert into the db
                         profileImage.setImageid(UUID.randomUUID().toString());
                         profileImage.setAnmId(providerId);

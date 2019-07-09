@@ -17,21 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/black"/>
 
-    <Button
-        android:id="@+id/btn_launch_rdt_reader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Launch RDT reader"
-        android:textColor="#6E6E6E"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/rounded_gray_outline"/>
 
     <Button
         android:id="@+id/btn_launch_register_activity"
@@ -46,7 +31,8 @@
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_launch_rdt_reader"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/rounded_gray_outline"/>
 
     <Button
