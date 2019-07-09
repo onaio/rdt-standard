@@ -23,5 +23,11 @@ public interface Constants {
         String SEX = "sex";
         String ID = "id";
         String BASE_ENTITY_ID = "base_entity_id";
+        String _ID = "_id";
+    }
+
+    interface Form {
+        String PATIENT_REGISTRATION_FORM = "json.form/patient-registration-form.json";
+        String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
     }
 }

@@ -32,6 +32,8 @@ import io.ona.rdt_app.application.RDTApplication;
 
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -40,7 +42,7 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public void startJsonForm(JSONObject form, Activity context, int requestCode) {
+    private void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, RDTJsonFormActivity.class);
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
@@ -85,13 +87,8 @@ public class RDTJsonFormUtils {
 
                         File outputFile = new File(absoluteFileName);
                         os = new FileOutputStream(outputFile);
-                        Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-                        if (compressFormat != null) {
-                            image.compress(compressFormat, 100, os);
-                        } else {
-                            throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
-                                    + absoluteFileName);
-                        }
+                        image.compress(Bitmap.CompressFormat.JPEG, 100, os);
+
                         // insert into the db
                         profileImage.setImageid(UUID.randomUUID().toString());
                         profileImage.setAnmId(providerId);
@@ -140,5 +137,15 @@ public class RDTJsonFormUtils {
 
     public static Bitmap convertByteArrayToBitmap(byte[] src){
         return BitmapFactory.decodeByteArray(src, 0, src.length);
+    }
+
+    public void launchForm(Activity activity, String formName) throws JSONException {
+        launchForm(activity, formName, null);
+    }
+
+    public void launchForm(Activity activity, String formName, String entityId) throws JSONException {
+        JSONObject formJsonObject = getFormJsonObject(formName, activity);
+        formJsonObject.put(ENTITY_ID, entityId);
+        startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
     }
 }

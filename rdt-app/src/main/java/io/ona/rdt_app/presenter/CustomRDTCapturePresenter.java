@@ -11,6 +11,7 @@ import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
  * Created by Vincent Karuri on 27/06/2019
  */
 public class CustomRDTCapturePresenter {
+
     private CustomRDTCaptureActivity activity;
     private CustomRDTCaptureInteractor interactor;
 

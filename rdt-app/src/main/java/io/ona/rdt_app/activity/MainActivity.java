@@ -12,13 +12,12 @@ import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
-import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,18 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         jsonFormUtils = new RDTJsonFormUtils();
         context = this;
-
-        findViewById(R.id.btn_launch_rdt_reader).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    JSONObject formJsonObject = jsonFormUtils.getFormJsonObject("json.form/rdt-capture-form.json", context);
-                    jsonFormUtils.startJsonForm(formJsonObject, context, REQUEST_CODE_GET_JSON);
-                } catch (JSONException e) {
-                    Log.e(TAG, e.getStackTrace().toString());
-                }
-            }
-        });
 
         findViewById(R.id.btn_launch_register_activity).setOnClickListener(new View.OnClickListener() {
            @Override
