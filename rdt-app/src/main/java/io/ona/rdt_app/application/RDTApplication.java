@@ -1,7 +1,5 @@
 package io.ona.rdt_app.application;
 
-import android.widget.ImageView;
-
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
@@ -24,10 +22,8 @@ import java.util.HashSet;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.R;
 import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
 import io.ona.rdt_app.job.RDTJobCreator;
-import io.ona.rdt_app.listener.RDTImageListener;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
@@ -74,10 +70,8 @@ public class RDTApplication extends DrishtiApplication {
         allSharedPreferences = getContext().allSharedPreferences();
         initializeSharedPreferences(); // todo: can be removed when login screen is added
 
+        scheduleJobsImmediately();
         scheduleJobsPeriodically();
-
-        // todo: remove this
-        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(BuildConfig.BASE_ENTITY_ID, new RDTImageListener(new ImageView(getApplicationContext()), R.drawable.avatar_woman, R.drawable.avatar_woman));
     }
 
     @Override
@@ -130,11 +124,11 @@ public class RDTApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{Constants.DBConstants.BASE_ENTITY_ID, Constants.DBConstants.ID, Constants.DBConstants.NAME};
+        return new String[]{Constants.DBConstants.NAME};
     }
 
     private static String[] getFtsSortFields() {
-       return new String[]{Constants.DBConstants.BASE_ENTITY_ID, Constants.DBConstants.ID, Constants.DBConstants.NAME};
+       return new String[]{Constants.DBConstants.NAME};
     }
 
 
@@ -162,7 +156,6 @@ public class RDTApplication extends DrishtiApplication {
         if (value > MINIMUM_JOB_FLEX_VALUE) {
             minutes = (long) Math.ceil(value / 3);
         }
-
         return minutes;
     }
 

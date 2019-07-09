@@ -35,17 +35,6 @@ public class MainActivity extends AppCompatActivity {
         jsonFormUtils = new RDTJsonFormUtils();
         context = this;
 
-        findViewById(R.id.btn_launch_rdt_reader).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    jsonFormUtils.launchForm(MainActivity.this, RDT_TEST_FORM);
-                } catch (JSONException e) {
-                    Log.e(TAG, e.getStackTrace().toString());
-                }
-            }
-        });
-
         findViewById(R.id.btn_launch_register_activity).setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

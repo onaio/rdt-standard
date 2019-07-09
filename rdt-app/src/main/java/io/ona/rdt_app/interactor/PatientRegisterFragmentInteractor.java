@@ -130,7 +130,7 @@ public class PatientRegisterFragmentInteractor {
             eventClientRepository.addorUpdateClient(entityId, clientJson);
         }
 
-        String providerId = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+        String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
 

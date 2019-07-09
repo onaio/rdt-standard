@@ -21,9 +21,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
     public boolean onNextClick(LinearLayout mainView) {
         this.validateAndWriteValues();
         boolean validateOnSubmit = this.validateOnSubmit();
-        if (validateOnSubmit) {
-            return this.moveToNextStep();
-        } else if (this.isFormValid()) {
+        if (validateOnSubmit || this.isFormValid()) {
             return this.moveToNextStep();
         } else {
             this.getView().showSnackBar(this.getView().getContext().getResources().getString(com.vijay.jsonwizard.R.string.json_form_on_next_error_msg));
@@ -32,7 +30,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
     }
 
     private boolean moveToNextStep() {
-        if (!"".equals(this.mStepDetails.optString("next"))) {
+        if (!mStepDetails.optString("next").isEmpty()) {
             JsonFormFragment next = RDTJsonFormFragment.getFormFragment(this.mStepDetails.optString("next"));
             this.getView().hideKeyBoard();
             this.getView().transactThis(next);
