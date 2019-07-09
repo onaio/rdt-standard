@@ -147,7 +147,8 @@
   "step5": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
-    "next": "step6",
+    "bottom_navigation": "true",
+    "next_type": "submit",
     "fields": [
       {
         "key": "rdt_result",
@@ -175,6 +176,13 @@
           "value": "true",
           "err": "Please select the RDT reader result"
         }
+      },
+      {
+        "key": "time_img_saved",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

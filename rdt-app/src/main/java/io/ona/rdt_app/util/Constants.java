@@ -15,6 +15,7 @@ public interface Constants {
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
+    String PROFILE_PIC = "profilepic";
 
     interface DBConstants {
         String NAME = "name";
@@ -22,5 +23,11 @@ public interface Constants {
         String SEX = "sex";
         String ID = "id";
         String BASE_ENTITY_ID = "base_entity_id";
+        String _ID = "_id";
+    }
+
+    interface Form {
+        String PATIENT_REGISTRATION_FORM = "json.form/patient-registration-form.json";
+        String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
     }
 }

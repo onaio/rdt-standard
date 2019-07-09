@@ -10,12 +10,11 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.ona.rdt_app.R;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt_app.util.RDTCaptureJsonFormUtils;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
-import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -23,7 +22,7 @@ import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 public class RDTJsonFormFragment extends JsonFormFragment {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
-    private RDTCaptureJsonFormUtils jsonFormUtils = new RDTCaptureJsonFormUtils();
+    private RDTJsonFormUtils jsonFormUtils = new RDTJsonFormUtils();
 
     public static JsonFormFragment getFormFragment(String stepName) {
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
@@ -45,16 +44,12 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Object isSubmit = v.getTag(R.id.submit);
-                if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
-                    boolean isSaved = save(false);
-                    if (isSaved) {
-                        try {
-                            JSONObject formJsonObject = jsonFormUtils.getFormJsonObject("json.form/rdt-capture-form.json", getContext());
-                            jsonFormUtils.startJsonForm(formJsonObject, getActivity(), REQUEST_CODE_GET_JSON);
-                        } catch (JSONException e) {
-                            Log.e(TAG, e.getStackTrace().toString());
-                        }
+                boolean isSaved = save(false);
+                if (isSaved) {
+                    try {
+                        jsonFormUtils.launchForm(getActivity(), RDT_TEST_FORM);
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else {
                     next();
