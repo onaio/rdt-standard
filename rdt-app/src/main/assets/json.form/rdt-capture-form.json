@@ -71,7 +71,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step4"
+        "next": "step3"
       },
       {
         "key": "lbl_care_start",
@@ -176,8 +176,30 @@
   },
   "step6": {
     "title": "RDT",
-    "display_back_button": "true",
     "next": "step7",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "START 20 MINUTE TIMER",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_buffer_solution",
+        "type": "image_view",
+        "text": "Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \"A\" well.\nStart a timer.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_buffer_solution.jpg"
+      }
+    ]
+  },
+  "step7": {
+    "title": "RDT",
+    "next": "step8",
+    "display_back_button": "true",
     "fields": [
       {
         "key": "rdt_capture",
@@ -188,7 +210,7 @@
       }
     ]
   },
-  "step7": {
+  "step8": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",
@@ -227,27 +249,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
-      }
-    ]
-  },
-  "step8": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "START 20 MINUTE TIMER",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "add_buffer_solution",
-        "type": "image_view",
-        "text": "Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \"A\" well.\nStart a timer.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "add_buffer_solution.jpg"
       }
     ]
   }

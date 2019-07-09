@@ -1,21 +1,17 @@
 package io.ona.rdt_app.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
-
-import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -47,16 +43,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
             public void onClick(View v) {
                 Object isSubmit = v.getTag(R.id.submit);
                 if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
-                    boolean isSaved = save(false);
-                    if (isSaved) {
-                        try {
-                            jsonFormUtils.launchForm(getActivity(), RDT_TEST_FORM);
-                        } catch (JSONException e) {
-                            Log.e(TAG, e.getStackTrace().toString());
-                        }
-                    } else {
-                        next();
-                    }
+                    save(false);
                 } else {
                     next();
                 }
