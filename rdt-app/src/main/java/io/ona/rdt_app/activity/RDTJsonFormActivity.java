@@ -28,10 +28,10 @@ public class RDTJsonFormActivity extends JsonFormActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         formUtils = new RDTJsonFormUtils();
-        new ImageUtil().requestCameraPermission(this);
         super.onCreate(savedInstanceState);
-        this.isFormFragmentInitialized = false;
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            new ImageUtil().requestCameraPermission(this);
+        }
         modifyActionBarAppearance();
     }
 
@@ -43,29 +43,22 @@ public class RDTJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void initializeFormFragment() {
-        this.isFormFragmentInitialized = true;
         RDTJsonFormFragment jsonFormFragment = (RDTJsonFormFragment) RDTJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, jsonFormFragment).commitAllowingStateLoss();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        if (requestCode == REQUEST_CAMERA_PERMISSION && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                this.propertyManager.grantPhoneStatePermission();
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                Intent resultIntent = new Intent();
-                setResult(RESULT_CANCELED, resultIntent);
-                formUtils.showToast(this, "RDT image capture requires camera permission");
-                finish();
-            }
-        } else if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && !isFormFragmentInitialized) {
-                initializeFormFragment();
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                formUtils.showToast(this, "Phone state permissions are required to submit this form");
-                finish();
-            }
+        if (requestCode == REQUEST_CAMERA_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            Intent resultIntent = new Intent();
+            setResult(RESULT_CANCELED, resultIntent);
+            formUtils.showToast(this, getApplicationContext().getString(R.string.camera_permissions_required));
+            finish();
+        } else if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            Intent resultIntent = new Intent();
+            setResult(RESULT_CANCELED, resultIntent);
+            formUtils.showToast(this, getApplicationContext().getString(R.string.phone_state_permissions_required));
+            finish();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
