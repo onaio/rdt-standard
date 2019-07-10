@@ -1,1 +1,1 @@
-include ':rdt-app'
+include ':rdt-app', ':circle-progressbar'

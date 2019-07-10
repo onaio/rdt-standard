@@ -197,8 +197,30 @@
     ]
   },
   "step7": {
-    "title": "RDT",
+    "title": "RDT Timer",
     "next": "step8",
+    "fields": [
+      {
+        "key": "countdown_timer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Read results in 20 minutes.",
+        "label_text_size": "8sp",
+        "label_text_color": "#4b4b4b",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "20",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#a1a1a1",
+        "progressbar_color": "#f0e71b",
+        "progressbar_text_color": "#4b4b4b"
+      }
+    ]
+  },
+  "step8": {
+    "title": "RDT",
+    "next": "step9",
     "display_back_button": "true",
     "fields": [
       {
@@ -210,7 +232,7 @@
       }
     ]
   },
-  "step8": {
+  "step9": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",
