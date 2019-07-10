@@ -38,7 +38,6 @@ import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.fillAddressFields;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
