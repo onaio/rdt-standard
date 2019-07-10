@@ -37,7 +37,7 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
-    private final String IMAGE_ID_ADDRESS = "image_id_address ";
+    private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
 
     private Context context;
@@ -101,11 +101,11 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                             String[] stepAndId;
                             if (!imgIdAddress.isEmpty()) {
                                 stepAndId = imgIdAddress.split(":");
-                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[0], "", "", "", false); // step4
+                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[0], "", "", "", false);
                             }
                             if (!imgTimeStampAddress.isEmpty()) {
                                 stepAndId = imgTimeStampAddress.split(":");
-                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[1], "", "", "", false); // step5
+                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[1], "", "", "", false);
                             }
                             if (!formFragment.next()) {
                                 formFragment.save(true);
