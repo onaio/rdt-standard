@@ -27,13 +27,14 @@ import java.util.List;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.activity.RDTExpirationDateActivity;
+import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
-import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_FILE_PATH;
+import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -43,12 +44,16 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
     public static final String EXPIRATION_DATE_CAPTURE = "expiration_date_capture";
 
     private static final String TAG = RDTExpirationDateReaderFactory.class.getName();
+    private final String EXPIRED_PAGE_ADDRESS = "expired_page_address";
+
     private WidgetArgs widgetArgs;
     private View rootLayout;
+    private JSONObject jsonObject;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
-        widgetArgs = new WidgetArgs();
+        this.jsonObject = jsonObject;
+        this.widgetArgs = new WidgetArgs();
         widgetArgs.withStepName(stepName)
                 .withContext(context)
                 .withFormFragment(formFragment)
@@ -56,7 +61,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                 .withListener(listener)
                 .withPopup(popup);
 
-        rootLayout = LayoutInflater.from(context).inflate(getLayout(), null);
+        this.rootLayout = LayoutInflater.from(context).inflate(getLayout(), null);
 
         addWidgetTags(jsonObject);
         setUpRDTExpirationDateActivity();
@@ -97,15 +102,26 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK) {
                     if (data != null) {
                         try {
-                            String imageFilePath = data.getExtras().getString(SAVED_IMAGE_FILE_PATH);
-                            widgetArgs.getJsonObject().put(VALUE, imageFilePath);
-                            // write image path as widget value
+                            Boolean isNotExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
+                            widgetArgs.getJsonObject().put(VALUE, isNotExpired);
+                            // write expiration date result as widget value
                             String key = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.key);
                             String openMrsEntityParent = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent);
                             String openMrsEntity = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity);
                             String openMrsEntityId = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_id);
-                            jsonApi.writeValue(widgetArgs.getStepName(), key, imageFilePath, openMrsEntityParent,
+                            jsonApi.writeValue(widgetArgs.getStepName(), key, isNotExpired.toString(), openMrsEntityParent,
                                     openMrsEntity, openMrsEntityId, widgetArgs.isPopup());
+
+                            // conditionally move to next step
+                            JsonFormFragment formFragment = widgetArgs.getFormFragment();
+                            if (!isNotExpired && !formFragment.next()) {
+                                formFragment.save(true);
+                            } else {
+                                String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS,
+                                        jsonObject.optString("next", ""));
+                                formFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+                                formFragment.transactThis(formFragment);
+                            }
                         } catch (JSONException e) {
                             Log.e(TAG, e.getStackTrace().toString());
                         }

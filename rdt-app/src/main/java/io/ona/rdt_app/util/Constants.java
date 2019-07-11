@@ -17,6 +17,7 @@ public interface Constants {
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
     String PROFILE_PIC = "profilepic";
+    String EXPIRATION_DATE_RESULT = "expiration_date_result";
 
     interface DBConstants {
         String NAME = "name";
