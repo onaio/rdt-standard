@@ -8,17 +8,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-
-import org.json.JSONException;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
-
-import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void requestPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_STORAGE_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_RDT_PERMISSIONS);
         }
     }
 }

@@ -5,5 +5,5 @@
     <string name="hamburger_menu">Hamburger menu</string>
     <string name="launching_expiration_date_widget">Launching expiration date widget</string>
     <string name="phone_state_permissions_required">Phone state permissions are required to submit this form</string>
-    <string name="camera_permissions_required">RDT image capture requires camera permission</string>
+    <string name="rdt_permissions_required">RDT image capture requires camera and storage permissions</string>
 </resources>
