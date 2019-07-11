@@ -17,7 +17,7 @@
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.PatientRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,11 +31,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".activity.RDTJsonFormActivity"
             android:windowSoftInputMode="adjustPan"  />
-        <activity android:name=".activity.PatientRegisterActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
-        </activity>
+
         <activity android:name=".activity.RDTExpirationDateActivity" />
         <activity android:name=".activity.CustomRDTCaptureActivity" />
 
