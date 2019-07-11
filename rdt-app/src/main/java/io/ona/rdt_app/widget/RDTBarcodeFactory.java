@@ -81,7 +81,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                         Log.d("Scanned QR Code", barcode.displayValue);
                                         String[] barcodeValues = barcode.displayValue.split(",");
-                                        if (barcodeValues.length == 2) {
+                                        if (barcodeValues.length >= 2) {
                                             String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
                                             String rdtLabel = "RDT ID: " + barcodeValues[0];
                                             jsonObject.put(VALUE, idAndExpDate);
