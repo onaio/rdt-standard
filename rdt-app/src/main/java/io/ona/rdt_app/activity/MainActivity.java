@@ -14,6 +14,7 @@ import android.view.View;
 import org.json.JSONException;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -41,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
                startActivity(intent);
            }
         });
+
+        findViewById(R.id.btn_manual_sync).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RDTApplication.getInstance().scheduleJobsImmediately();
+            }
+        });
+
         requestPermissions();
     }
 

@@ -52,7 +52,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     @Override
     public void saveForm(String jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveRegistrationForm(new JSONObject(jsonForm), onFormSavedCallback);
+        interactor.saveForm(new JSONObject(jsonForm), onFormSavedCallback);
     }
 
     public String countSelect(String tableName, String mainCondition) {

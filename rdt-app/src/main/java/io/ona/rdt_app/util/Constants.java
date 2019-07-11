@@ -12,6 +12,7 @@ public interface Constants {
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
     String PATIENTS = "patients";
+    String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
@@ -29,5 +30,9 @@ public interface Constants {
     interface Form {
         String PATIENT_REGISTRATION_FORM = "json.form/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
+        String LBL_RDT_ID = "lbl_rdt_id";
+        String EXPIRATION_DATE_READER = "expiration_date_reader";
+        String RDT_CAPTURE = "rdt_capture";
+        String TIME_IMG_SAVED = "time_img_saved";
     }
 }

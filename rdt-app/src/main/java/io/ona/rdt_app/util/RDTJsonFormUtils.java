@@ -10,9 +10,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -34,6 +36,9 @@ import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.KEY;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -117,7 +122,7 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(ProfileImage profileImage) {
-                onImageSavedCallBack.onImageSaved(profileImage.getFilepath());
+                onImageSavedCallBack.onImageSaved(profileImage.getImageid() + "," + System.currentTimeMillis());
             }
         }
 
@@ -144,8 +149,25 @@ public class RDTJsonFormUtils {
     }
 
     public void launchForm(Activity activity, String formName, String entityId) throws JSONException {
-        JSONObject formJsonObject = getFormJsonObject(formName, activity);
-        formJsonObject.put(ENTITY_ID, entityId);
-        startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
+        try {
+            JSONObject formJsonObject = getFormJsonObject(formName, activity);
+            String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
+            prePopulateFormFields(formJsonObject, entityId, rdtId);
+            startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
+        } catch (JsonFormMissingStepCountException e) {
+            Log.e(TAG, e.getStackTrace().toString());
+        }
+    }
+
+    public void prePopulateFormFields(JSONObject jsonForm, String entityId, String rdtId) throws JSONException, JsonFormMissingStepCountException{
+        jsonForm.put(ENTITY_ID, entityId);
+        JSONArray fields = getMultiStepFormFields(jsonForm);
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
+                field.put(VALUE, rdtId);
+                field.put("text", "ID: " + rdtId);
+            }
+        }
     }
 }

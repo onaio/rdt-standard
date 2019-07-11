@@ -119,6 +119,8 @@
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
+        "rdt_id_address": "step8:lbl_rdt_id",
+        "expiration_date_address": "step2:expiration_date_reader",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -206,7 +208,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "rdt_capture"
+        "type": "rdt_capture",
+        "image_id_address": "step7:rdt_capture",
+        "image_timestamp_address": "step8:time_img_saved"
       }
     ]
   },
@@ -249,6 +253,32 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "positive"
+      },
+      {
+        "key": "timer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "834912438"
       }
     ]
   }

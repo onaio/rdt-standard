@@ -15,6 +15,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.DateTimeTypeConverter;
@@ -35,10 +36,12 @@ import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
+import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 import static org.smartregister.util.JsonFormUtils.getString;
 
 /**
@@ -61,20 +64,20 @@ public class PatientRegisterFragmentInteractor {
     }
 
 
-    public void saveRegistrationForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
+    public void saveForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
 
         class SaveFormTask extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    String baseEntityId = UUID.randomUUID().toString();
-                    jsonForm.put(ENTITY_ID, baseEntityId);
                     populateApproxDOB(jsonForm);
-                    EventClient eventClient = saveEventClient(jsonForm, encounterType, PATIENTS);
+
+                    String bindType = PATIENT_REGISTRATION .equals(encounterType) ? PATIENTS : RDT_TESTS;
+                    EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
-                    Log.e(TAG, "Error saving patient registration event", e);
+                    Log.e(TAG, "Error saving event", e);
                 }
                 return null;
             }
@@ -106,9 +109,11 @@ public class PatientRegisterFragmentInteractor {
         }
     }
 
-    private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException {
+    private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
         String entityId = getString(jsonForm, ENTITY_ID);
-        JSONArray fields = JsonFormUtils.fields(jsonForm);
+        entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
+
+        JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
         FormTag formTag = new FormTag();
@@ -117,18 +122,17 @@ public class PatientRegisterFragmentInteractor {
         formTag.teamId = "";
         formTag.team = "";
 
-        org.smartregister.domain.db.Client dbClient = null;
+        Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
+        JSONObject clientJson = new JSONObject(gson.toJson(client));
+        org.smartregister.domain.db.Client dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
         if (PATIENT_REGISTRATION.equals(encounterType)) {
-            Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
-            JSONObject clientJson = new JSONObject(gson.toJson(client));
             eventClientRepository.addorUpdateClient(entityId, clientJson);
-            dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
         }
 
         String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
-
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
+
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
         eventClientRepository.addEvent(entityId, eventJson);

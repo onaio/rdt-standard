@@ -14,6 +14,21 @@
           }
         ]
       }
+    },
+    {
+      "comment": "RDT test info",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "rdt_test",
+            "creates_case": [
+              "rdt_tests"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
