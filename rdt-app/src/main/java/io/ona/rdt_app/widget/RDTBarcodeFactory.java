@@ -81,20 +81,25 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                         Log.d("Scanned QR Code", barcode.displayValue);
                                         String[] barcodeValues = barcode.displayValue.split(",");
-                                        String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
-                                        jsonObject.put(VALUE, idAndExpDate);
+                                        if (barcodeValues.length >= 2) {
+                                            String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
+                                            jsonObject.put(VALUE, idAndExpDate);
 
-                                        String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
-                                        String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
-                                        String[] stepAndId;
-                                        if (!rdtIdAddress.isEmpty()) {
-                                            stepAndId = rdtIdAddress.split(":");
-                                            jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[0], "", "", "", false); // step5
+                                            String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
+                                            String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
+                                            String[] stepAndId = new String[0];
+
+                                            stepAndId = rdtIdAddress.isEmpty() ? stepAndId : rdtIdAddress.split(":");
+                                            if (stepAndId.length == 2) {
+                                                jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[0], "", "", "", false); // step5
+                                            }
+
+                                            stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
+                                            if (stepAndId.length == 2) {
+                                                jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[1], "", "", "", false);
+                                            }
                                         }
-                                        if (!expirationDateAddress.isEmpty()) {
-                                            stepAndId = expirationDateAddress.split(":");
-                                            jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[1], "", "", "", false);
-                                        }
+
                                         if (!formFragment.next()) {
                                             formFragment.save(true);
                                         }

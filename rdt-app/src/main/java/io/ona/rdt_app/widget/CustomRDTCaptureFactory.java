@@ -98,15 +98,18 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                             String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
                             String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                             String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
-                            String[] stepAndId;
-                            if (!imgIdAddress.isEmpty()) {
-                                stepAndId = imgIdAddress.split(":");
+                            String[] stepAndId = new String[0];
+
+                            stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
+                            if (stepAndId.length == 2) {
                                 jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[0], "", "", "", false);
                             }
-                            if (!imgTimeStampAddress.isEmpty()) {
-                                stepAndId = imgTimeStampAddress.split(":");
+
+                            stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
+                            if (stepAndId.length == 2) {
                                 jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[1], "", "", "", false);
                             }
+
                             if (!formFragment.next()) {
                                 formFragment.save(true);
                             }
