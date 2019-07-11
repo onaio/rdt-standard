@@ -114,11 +114,12 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
 
                             // conditionally move to next step
                             JsonFormFragment formFragment = widgetArgs.getFormFragment();
-                            if (!isNotExpired && !formFragment.next()) {
-                                formFragment.save(true);
+                            if (isNotExpired) {
+                                if (!formFragment.next()) {
+                                    formFragment.save(true);
+                                }
                             } else {
-                                String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS,
-                                        jsonObject.optString("next", ""));
+                                String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
                                 formFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
                                 formFragment.transactThis(formFragment);
                             }
@@ -127,9 +128,6 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                         }
                     } else {
                         Log.i(TAG, "No result data for RDT capture!");
-                    }
-                    if (!widgetArgs.getFormFragment().next()) {
-                        widgetArgs.getFormFragment().save(true);
                     }
                 } else if (resultCode == RESULT_CANCELED) {
                     ((Activity) widgetArgs.getContext()).finish();
