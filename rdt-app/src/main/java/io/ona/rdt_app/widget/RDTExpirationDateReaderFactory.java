@@ -120,8 +120,8 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                                 }
                             } else {
                                 String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
-                                formFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-                                formFragment.transactThis(formFragment);
+                                JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+                                formFragment.transactThis(nextFragment);
                             }
                         } catch (JSONException e) {
                             Log.e(TAG, e.getStackTrace().toString());
