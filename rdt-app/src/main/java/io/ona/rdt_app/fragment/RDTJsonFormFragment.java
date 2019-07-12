@@ -50,6 +50,8 @@ public class RDTJsonFormFragment extends JsonFormFragment {
                     if (Constants.CARESTART_RDT.equals(rdtType)) {
                         JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step12");
                         transactThis(nextFragment);
+                    } else {
+                        next();
                     }
                 } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                     save(false);
