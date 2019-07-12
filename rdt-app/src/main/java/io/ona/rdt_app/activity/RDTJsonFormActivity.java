@@ -15,10 +15,12 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
+import static io.ona.rdt_app.util.Constants.ONA_RDT;
 
 public class RDTJsonFormActivity extends JsonFormActivity {
 
     private RDTJsonFormUtils formUtils;
+    private String rdtType = ONA_RDT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +55,13 @@ public class RDTJsonFormActivity extends JsonFormActivity {
     @Override
     public void showPermissionDeniedDialog() {
         // do nothing
+    }
+
+    public String getRdtType() {
+        return rdtType;
+    }
+
+    public void setRdtType(String rdtType) {
+        this.rdtType = rdtType;
     }
 }

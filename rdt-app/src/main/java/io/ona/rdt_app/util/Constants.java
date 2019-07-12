@@ -18,6 +18,9 @@ public interface Constants {
     String PATIENT_AGE = "patient_age";
     String PROFILE_PIC = "profilepic";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
+    String ONA_RDT = "ona_rdt";
+    String CARESTART_RDT = "carestart_rdt";
+    String LBL_CARE_START = "lbl_care_start";
 
     interface DBConstants {
         String NAME = "name";

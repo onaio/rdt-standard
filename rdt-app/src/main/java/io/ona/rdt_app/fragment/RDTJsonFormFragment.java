@@ -9,20 +9,21 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt_app.util.RDTJsonFormUtils;
+import io.ona.rdt_app.util.Constants;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
  */
 public class RDTJsonFormFragment extends JsonFormFragment {
 
-    private final String TAG = RDTJsonFormFragment.class.getName();
-    private RDTJsonFormUtils jsonFormUtils = new RDTJsonFormUtils();
-    private String NEXT_FORM = "next_form";
+    private static int currentStep;
 
     public static JsonFormFragment getFormFragment(String stepName) {
+        String stepNum = stepName.substring(stepName.length() - 1, stepName.length());
+        currentStep = Integer.valueOf(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", stepName);
@@ -43,7 +44,14 @@ public class RDTJsonFormFragment extends JsonFormFragment {
             @Override
             public void onClick(View v) {
                 Object isSubmit = v.getTag(R.id.submit);
-                if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
+                String currStep = "step" + currentStep;
+                if ("step8".equals(currStep)) {
+                    String rdtType = ((RDTJsonFormActivity) getActivity()).getRdtType();
+                    if (Constants.CARESTART_RDT.equals(rdtType)) {
+                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step12");
+                        transactThis(nextFragment);
+                    }
+                } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                     save(false);
                 } else {
                     next();

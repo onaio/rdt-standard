@@ -15,8 +15,11 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
+import io.ona.rdt_app.util.Constants;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 
 /**
@@ -40,10 +43,14 @@ public class RDTLabelFactory extends LabelFactory {
         }
 
         if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
+            final String key = jsonObject.getString(KEY);
             labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
             labelText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Constants.LBL_CARE_START.equals(key)) {
+                        ((RDTJsonFormActivity) formFragment.getActivity()).setRdtType(Constants.CARESTART_RDT);
+                    }
                     ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
                 }
             });
