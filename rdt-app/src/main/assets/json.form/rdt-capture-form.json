@@ -231,7 +231,7 @@
     "next_label": "TAKE IMAGE OF RDT",
     "fields": [
       {
-        "key": "countdown_timer",
+        "key": "countdown_timer_results_ready",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "timer",
