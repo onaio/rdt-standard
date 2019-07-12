@@ -19,6 +19,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
 
     @Override
     public boolean onNextClick(LinearLayout mainView) {
+        checkAndStopCountdownAlarm();
         this.validateAndWriteValues();
         boolean validateOnSubmit = this.validateOnSubmit();
         if (validateOnSubmit || this.isFormValid()) {
