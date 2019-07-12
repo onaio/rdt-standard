@@ -22,8 +22,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.ona.rdt_app.util.Constants;
-
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
@@ -38,6 +36,8 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private JsonFormFragment formFragment;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
+    private final String RDT_ID_ADDRESS = "rdt_id_address";
+    private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
@@ -83,13 +83,25 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         String[] barcodeValues = barcode.displayValue.split(",");
                                         if (barcodeValues.length >= 2) {
                                             String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
-                                            String rdtLabel = "RDT ID: " + barcodeValues[0];
                                             jsonObject.put(VALUE, idAndExpDate);
-                                            jsonApi.writeValue("step6", Constants.Form.LBL_RDT_ID, rdtLabel, "", "", "", false);
-                                            jsonApi.writeValue("step7", Constants.Form.LBL_RDT_ID, rdtLabel, "", "", "", false);
-                                            jsonApi.writeValue("step8", Constants.Form.LBL_RDT_ID, rdtLabel, "", "", "", false);
-                                            jsonApi.writeValue("step5", Constants.Form.EXPIRATION_DATE_READER, barcodeValues[1], "", "", "", false);
-                                            formFragment.next();
+
+                                            String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
+                                            String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
+                                            String[] stepAndId = new String[0];
+
+                                            stepAndId = rdtIdAddress.isEmpty() ? stepAndId : rdtIdAddress.split(":");
+                                            if (stepAndId.length == 2) {
+                                                jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[0], "", "", "", false); // step5
+                                            }
+
+                                            stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
+                                            if (stepAndId.length == 2) {
+                                                jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[1], "", "", "", false);
+                                            }
+                                        }
+
+                                        if (!formFragment.next()) {
+                                            formFragment.save(true);
                                         }
                                     } catch (JSONException e) {
                                         Log.e(TAG, e.getStackTrace().toString());

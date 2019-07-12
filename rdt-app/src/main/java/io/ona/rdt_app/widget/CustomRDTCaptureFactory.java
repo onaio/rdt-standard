@@ -29,8 +29,6 @@ import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_FILE_PATH;
-import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE;
-import static io.ona.rdt_app.util.Constants.Form.TIME_IMG_SAVED;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -39,15 +37,20 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
+    private final String IMAGE_ID_ADDRESS = "image_id_address";
+    private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
 
     private Context context;
     private JsonFormFragment formFragment;
     private String baseEntityId;
+    private JSONObject jsonObject;
+
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.context = context;
         this.formFragment = formFragment;
+        this.jsonObject = jsonObject;
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(ENTITY_ID);
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         return views;
@@ -94,13 +97,25 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                     if (data != null) {
                         try {
                             String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
-                            jsonApi.writeValue("step4", RDT_CAPTURE, imgIDAndTimeStamp[0], "", "", "", false);
-                            jsonApi.writeValue("step5", TIME_IMG_SAVED, imgIDAndTimeStamp[1], "", "", "", false);
+                            String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
+                            String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
+                            String[] stepAndId = new String[0];
+
+                            stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
+                            if (stepAndId.length == 2) {
+                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[0], "", "", "", false);
+                            }
+
+                            stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
+                            if (stepAndId.length == 2) {
+                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[1], "", "", "", false);
+                            }
+
+                            if (!formFragment.next()) {
+                                formFragment.save(true);
+                            }
                         } catch (JSONException e) {
                             Log.e(TAG, e.getStackTrace().toString());
-                        }
-                        if (!formFragment.next()) {
-                            formFragment.save(true);
                         }
                     } else {
                         Log.i(TAG, "No result data for RDT capture!");
