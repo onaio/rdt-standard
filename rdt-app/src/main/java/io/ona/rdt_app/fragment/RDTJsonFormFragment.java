@@ -47,10 +47,8 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         boolean buttonEnabled = true;
         if ("step7".equals(currStep)) {
             buttonEnabled = false;
-            setNextButtonState(rootView, buttonEnabled);
-        } else if ("step8".equals(currStep)) {
-            setNextButtonState(rootView, buttonEnabled);
         }
+        setNextButtonState(rootView, buttonEnabled);
 
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +71,9 @@ public class RDTJsonFormFragment extends JsonFormFragment {
 
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
         Button button = rootView.findViewById(com.vijay.jsonwizard.R.id.next_button);
+        if (button.isEnabled() == buttonEnabled) {
+            return;
+        }
         button.setEnabled(buttonEnabled);
         int bgColor;
         if (!buttonEnabled) {
