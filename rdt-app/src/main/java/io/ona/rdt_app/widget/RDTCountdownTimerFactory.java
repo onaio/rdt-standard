@@ -36,7 +36,6 @@ public class RDTCountdownTimerFactory extends CountDownTimerFactory {
         super.onCountdownFinish(context);
         if (stepObject.optString(JsonFormConstants.KEY).equals(COUNTDOWN_TIMER_RESULT_READY_KEY)) {
             ((TextView) rootLayout.findViewById(R.id.timerLabel)).setText(context.getString(R.string.time_expired));
-            stopAlarm();
         } else {
             formFragment.next();
         }
