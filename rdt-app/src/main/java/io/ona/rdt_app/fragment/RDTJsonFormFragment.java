@@ -1,7 +1,13 @@
 package io.ona.rdt_app.fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -18,10 +24,14 @@ import io.ona.rdt_app.util.RDTJsonFormUtils;
  */
 public class RDTJsonFormFragment extends JsonFormFragment {
 
+    private static int currentStep;
+
     private final String TAG = RDTJsonFormFragment.class.getName();
     private RDTJsonFormUtils jsonFormUtils = new RDTJsonFormUtils();
 
     public static JsonFormFragment getFormFragment(String stepName) {
+        String stepNum = stepName.substring(stepName.length() - 1);
+        currentStep = Integer.valueOf(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", stepName);
@@ -30,8 +40,18 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     }
 
     @Override
-    protected void initializeBottomNavigation(JSONObject step, View rootView) {
+    protected void initializeBottomNavigation(final JSONObject step, final View rootView) {
         super.initializeBottomNavigation(step, rootView);
+        // Handle initialization of the countdown timer bottom navigation
+        String currStep = "step" + currentStep;
+        boolean buttonEnabled = true;
+        if ("step7".equals(currStep)) {
+            buttonEnabled = false;
+            setNextButtonState(rootView, buttonEnabled);
+        } else if ("step8".equals(currStep)) {
+            setNextButtonState(rootView, buttonEnabled);
+        }
+
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +69,25 @@ public class RDTJsonFormFragment extends JsonFormFragment {
                 }
             }
         });
+    }
+
+    public void setNextButtonState(View rootView, boolean buttonEnabled) {
+        Button button = rootView.findViewById(com.vijay.jsonwizard.R.id.next_button);
+        button.setEnabled(buttonEnabled);
+        int bgColor;
+        if (!buttonEnabled) {
+            bgColor = Color.parseColor("#D1D1D1");
+        } else {
+            bgColor = Color.parseColor("#0192D4");
+        }
+        Drawable background = button.getBackground();
+        if (background instanceof ShapeDrawable) {
+            ((ShapeDrawable) background).getPaint().setColor(bgColor);
+        } else if (background instanceof GradientDrawable) {
+            ((GradientDrawable) background).setColor(bgColor);
+        } else if (background instanceof ColorDrawable) {
+            ((ColorDrawable) background).setColor(bgColor);
+        }
     }
 
     @Override
