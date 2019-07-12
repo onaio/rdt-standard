@@ -16,6 +16,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError false
+    }
     buildTypes {
         debug {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
