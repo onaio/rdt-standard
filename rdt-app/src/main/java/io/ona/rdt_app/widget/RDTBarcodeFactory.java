@@ -94,7 +94,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         for (String addr : rdtIdAddrs) {
                                             stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
                                             if (stepAndId.length == 2) {
-                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[0].trim(), "", "", "", false);
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[0].trim(), "", "", "", false);
                                             }
                                         }
 

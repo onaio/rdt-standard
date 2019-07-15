@@ -205,16 +205,6 @@
     "next_label": "Continue",
     "fields": [
       {
-        "key": "lbl_record_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "8sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Write this number on back of RDT."
-      },
-      {
         "key": "lbl_rdt_id",
         "type": "label",
         "text_color": "#000000",
@@ -223,6 +213,16 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_record_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Write this number on back of RDT."
       }
     ]
   },
