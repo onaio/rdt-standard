@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -26,11 +25,8 @@ public class RDTJsonFormFragment extends JsonFormFragment {
 
     private static int currentStep;
 
-    private final String TAG = RDTJsonFormFragment.class.getName();
-    private RDTJsonFormUtils jsonFormUtils = new RDTJsonFormUtils();
-
     public static JsonFormFragment getFormFragment(String stepName) {
-        String stepNum = stepName.substring(stepName.length() - 1);
+        String stepNum = stepName.substring(4);
         currentStep = Integer.valueOf(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
@@ -40,7 +36,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     }
 
     @Override
-    protected void initializeBottomNavigation(final JSONObject step, final View rootView) {
+    protected void initializeBottomNavigation(final JSONObject step, View rootView) {
         super.initializeBottomNavigation(step, rootView);
         // Handle initialization of the countdown timer bottom navigation
         String currStep = "step" + currentStep;
@@ -71,9 +67,6 @@ public class RDTJsonFormFragment extends JsonFormFragment {
 
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
         Button button = rootView.findViewById(com.vijay.jsonwizard.R.id.next_button);
-        if (button.isEnabled() == buttonEnabled) {
-            return;
-        }
         button.setEnabled(buttonEnabled);
         int bgColor;
         if (!buttonEnabled) {
