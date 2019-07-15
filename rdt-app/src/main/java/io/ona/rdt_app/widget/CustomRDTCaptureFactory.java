@@ -102,12 +102,12 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
                         stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
                         if (stepAndId.length == 2) {
-                            jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[0], "", "", "", false);
+                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[0], "", "", "", false);
                         }
 
                         stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
                         if (stepAndId.length == 2) {
-                            jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[1], "", "", "", false);
+                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
                         }
 
                         if (!formFragment.next()) {
