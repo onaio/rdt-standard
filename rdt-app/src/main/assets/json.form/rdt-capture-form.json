@@ -152,8 +152,6 @@
         "scanButtonText": "Scan QR Code",
         "value": "0",
         "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id",
-        "expiration_date_address": "step2:expiration_date_reader",
-        "rdt_id_address": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id",
         "expiration_date_address": "step3:expiration_date_reader",
         "v_numeric": {
           "value": "true",
