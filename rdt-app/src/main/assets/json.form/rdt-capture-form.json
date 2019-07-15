@@ -1,5 +1,5 @@
 {
-  "count": "8",
+  "count": "10",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -199,8 +199,60 @@
     ]
   },
   "step7": {
-    "title": "RDT",
+    "title": "RDT Timer",
     "next": "step8",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "TAKE IMAGE OF RDT",
+    "fields": [
+      {
+        "key": "countdown_timer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Read results in 20 minutes.",
+        "label_text_size": "8sp",
+        "label_text_color": "#525252",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "20",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#e2e2e2",
+        "progressbar_color": "#E9D61E",
+        "progressbar_text_color": "#505050"
+      }
+    ]
+  },
+  "step8": {
+    "title": "RDT Result Ready",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "TAKE IMAGE OF RDT",
+    "fields": [
+      {
+        "key": "countdown_timer_results_ready",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Read results within 10 minutes.",
+        "label_text_size": "8sp",
+        "label_text_color": "#4b4b4b",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "10",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#e2e2e2",
+        "progressbar_color": "#3EBB22",
+        "progressbar_text_color": "#505050"
+      }
+    ]
+  },
+  "step9": {
+    "title": "RDT",
+    "next": "step10",
     "display_back_button": "true",
     "fields": [
       {
@@ -214,7 +266,7 @@
       }
     ]
   },
-  "step8": {
+  "step10": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",
