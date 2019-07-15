@@ -99,38 +99,36 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
             public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 hideProgressDialog();
                 final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-                if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK) {
-                    if (data != null) {
-                        try {
-                            Boolean isNotExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
-                            widgetArgs.getJsonObject().put(VALUE, isNotExpired);
-                            // write expiration date result as widget value
-                            String key = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.key);
-                            String openMrsEntityParent = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent);
-                            String openMrsEntity = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity);
-                            String openMrsEntityId = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_id);
-                            jsonApi.writeValue(widgetArgs.getStepName(), key, isNotExpired.toString(), openMrsEntityParent,
-                                    openMrsEntity, openMrsEntityId, widgetArgs.isPopup());
+                if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
+                    try {
+                        Boolean isNotExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
+                        widgetArgs.getJsonObject().put(VALUE, isNotExpired);
+                        // write expiration date result as widget value
+                        String key = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.key);
+                        String openMrsEntityParent = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent);
+                        String openMrsEntity = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity);
+                        String openMrsEntityId = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_id);
+                        jsonApi.writeValue(widgetArgs.getStepName(), key, isNotExpired.toString(), openMrsEntityParent,
+                                openMrsEntity, openMrsEntityId, widgetArgs.isPopup());
 
-                            // conditionally move to next step
-                            JsonFormFragment formFragment = widgetArgs.getFormFragment();
-                            if (isNotExpired) {
-                                if (!formFragment.next()) {
-                                    formFragment.save(true);
-                                }
-                            } else {
-                                String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
-                                JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-                                formFragment.transactThis(nextFragment);
+                        // conditionally move to next step
+                        JsonFormFragment formFragment = widgetArgs.getFormFragment();
+                        if (isNotExpired) {
+                            if (!formFragment.next()) {
+                                formFragment.save(true);
                             }
-                        } catch (JSONException e) {
-                            Log.e(TAG, e.getStackTrace().toString());
+                        } else {
+                            String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
+                            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+                            formFragment.transactThis(nextFragment);
                         }
-                    } else {
-                        Log.i(TAG, "No result data for RDT capture!");
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
                     ((Activity) widgetArgs.getContext()).finish();
+                } else if (data == null) {
+                    Log.i(TAG, "No result data for expiration date capture!");
                 }
             }
         };
