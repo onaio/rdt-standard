@@ -151,7 +151,7 @@
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
-        "rdt_id_address": "step8:lbl_rdt_id",
+        "rdt_id_addresses": "step6:lbl_rdt_id,step7:lbl_rdt_id,step8:lbl_rdt_id",
         "expiration_date_address": "step2:expiration_date_reader",
         "v_numeric": {
           "value": "true",
@@ -205,16 +205,6 @@
     "next_label": "Continue",
     "fields": [
       {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "label_text_style": "bold",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff"
-      },
-      {
         "key": "lbl_record_rdt_id",
         "type": "label",
         "text_color": "#000000",
@@ -223,6 +213,16 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "text": "Write this number on back of RDT."
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
       }
     ]
   },
@@ -364,8 +364,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
-        "image_id_address": "step7:rdt_capture",
-        "image_timestamp_address": "step8:time_img_saved"
+        "image_id_address": "step12:rdt_capture",
+        "image_timestamp_address": "step13:time_img_saved"
       }
     ]
   },

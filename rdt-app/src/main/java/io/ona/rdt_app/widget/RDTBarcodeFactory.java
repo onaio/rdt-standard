@@ -36,7 +36,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private JsonFormFragment formFragment;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
-    private final String RDT_ID_ADDRESS = "rdt_id_address";
+    private final String RDT_ID_ADDRESSES = "rdt_id_addresses";
     private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
 
     @Override
@@ -84,18 +84,24 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
                                         jsonObject.put(VALUE, idAndExpDate);
 
-                                        String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
+                                        // write barcode values to relevant widgets
+                                        String rdtIdAddresses = jsonObject.optString(RDT_ID_ADDRESSES, "");
                                         String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
-                                        String[] stepAndId = new String[0];
+                                        String[] stepAndId;
 
-                                        stepAndId = rdtIdAddress.isEmpty() ? stepAndId : rdtIdAddress.split(":");
-                                        if (stepAndId.length == 2) {
-                                            jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[0], "", "", "", false); // step5
+                                        // populate rdt id to all relevant txt labels
+                                        String[] rdtIdAddrs = rdtIdAddresses.isEmpty() ? new String[0] : rdtIdAddresses.split(",");
+                                        for (String addr : rdtIdAddrs) {
+                                            stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
+                                            if (stepAndId.length == 2) {
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[0].trim(), "", "", "", false);
+                                            }
                                         }
 
+                                        // populate exp. date to expiration date widget value
                                         stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
                                         if (stepAndId.length == 2) {
-                                            jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[1], "", "", "", false);
+                                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[1].trim(), "", "", "", false);
                                         }
                                     }
                                     // move to next step or save form if last step

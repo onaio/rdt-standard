@@ -153,7 +153,7 @@ public class RDTJsonFormUtils {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
-            prePopulateFormFields(formJsonObject, patient, rdtId, 3);
+            prePopulateFormFields(formJsonObject, patient, rdtId, 5);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
             Log.e(TAG, e.getStackTrace().toString());
