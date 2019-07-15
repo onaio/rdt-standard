@@ -153,6 +153,8 @@
         "value": "0",
         "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id",
         "expiration_date_address": "step2:expiration_date_reader",
+        "rdt_id_address": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id",
+        "expiration_date_address": "step3:expiration_date_reader",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -354,8 +356,60 @@
     ]
   },
   "step12": {
-    "title": "RDT",
+    "title": "RDT Timer",
     "next": "step13",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "TAKE IMAGE OF RDT",
+    "fields": [
+      {
+        "key": "countdown_timer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Read results in 20 minutes.",
+        "label_text_size": "8sp",
+        "label_text_color": "#525252",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "20",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#e2e2e2",
+        "progressbar_color": "#E9D61E",
+        "progressbar_text_color": "#505050"
+      }
+    ]
+  },
+  "step13": {
+    "title": "RDT Result Ready",
+    "next": "step14",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "TAKE IMAGE OF RDT",
+    "fields": [
+      {
+        "key": "countdown_timer_results_ready",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Read results within 10 minutes.",
+        "label_text_size": "8sp",
+        "label_text_color": "#4b4b4b",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "10",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#e2e2e2",
+        "progressbar_color": "#3EBB22",
+        "progressbar_text_color": "#505050"
+      }
+    ]
+  },
+  "step14": {
+    "title": "RDT",
+    "next": "step15",
     "display_back_button": "true",
     "fields": [
       {
@@ -364,12 +418,12 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
-        "image_id_address": "step12:rdt_capture",
-        "image_timestamp_address": "step13:time_img_saved"
+        "image_id_address": "step14:rdt_capture",
+        "image_timestamp_address": "step15:time_img_saved"
       }
     ]
   },
-  "step13": {
+  "step15": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",
