@@ -21,6 +21,7 @@ public interface Constants {
     String ONA_RDT = "ona_rdt";
     String CARESTART_RDT = "carestart_rdt";
     String LBL_CARE_START = "lbl_care_start";
+    String BULLET_DOT = " \u00B7 ";
 
     interface DBConstants {
         String NAME = "name";

@@ -33,6 +33,7 @@ import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 
+import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
@@ -179,7 +180,7 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, rdtId);
-                    field.put("text", patient.getPatientSex() + "." + "ID: " + patient.getBaseEntityId());
+                    field.put("text", patient.getPatientSex() + BULLET_DOT+ "ID: " + patient.getBaseEntityId());
                     fieldsPopulated++;
                 }
             }
