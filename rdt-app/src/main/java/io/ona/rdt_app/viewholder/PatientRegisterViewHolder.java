@@ -50,16 +50,18 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
 
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
-        CommonPersonObjectClient patient = (CommonPersonObjectClient) client;
-        String patientName = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.NAME, true);
-        String patientAge = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.AGE, true);
-        String sex = Utils.getValue(patient.getColumnmaps(), Constants.DBConstants.SEX, true);
-        String baseEntityId = patient.getCaseId();
+        CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) client;
+        String patientName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.NAME, true);
+        String patientAge = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.AGE, true);
+        String sex = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.SEX, true);
+        String baseEntityId = commonPersonObjectClient.getCaseId().split("-")[0];;
         String nameAndAge = createNameAndAgeLabel(patientName, patientAge);
 
+        final Patient patient = new Patient(patientName, sex, baseEntityId);
         viewHolder.patientNameAndAge.setText(nameAndAge);
         viewHolder.patientSex.setText(sex);
         viewHolder.rowItem.setTag(R.id.base_entity_id, baseEntityId);
+        viewHolder.rowItem.setTag(R.id.patient_tag, patient);
 
         attachPatientOnclickListener(viewHolder.rowItem);
     }
@@ -109,22 +111,6 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
         final View view = inflater().inflate(R.layout.register_row_item, parent, false);
-        view.findViewById(R.id.btn_record_rdt_test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String patientNameAndAge = ((TextView) view.findViewById(R.id.tv_patient_name_and_age)).getText().toString();
-                    String patientName = patientNameAndAge.split(",")[0];
-                    String patientSex = ((TextView) view.findViewById(R.id.tv_sex)).getText().toString();
-                    String baseEntityId = view.getTag(R.id.base_entity_id).toString().split("-")[0];
-                    final Patient patient = new Patient(patientName, patientSex, baseEntityId);
-                    new RDTJsonFormUtils().launchForm((Activity) context, RDT_TEST_FORM, patient);
-                } catch (JSONException e) {
-                    Log.e(TAG, e.getStackTrace().toString());
-                }
-            }
-        });
-
         return new RegisterViewHolder(view);
     }
 
