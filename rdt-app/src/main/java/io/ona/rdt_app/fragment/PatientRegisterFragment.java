@@ -1,6 +1,5 @@
 package io.ona.rdt_app.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
