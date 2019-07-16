@@ -1,5 +1,8 @@
 package io.ona.rdt_app.presenter;
 
+import android.view.ViewTreeObserver;
+import android.widget.ScrollView;
+
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.login.presenter.BaseLoginPresenter;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -27,5 +30,10 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     @Override
     public boolean isServerSettingsSet() {
         return false;
+    }
+
+    @Override
+    public void canvasGlobalLayoutListenerProcessor(ScrollView canvasSV, ViewTreeObserver.OnGlobalLayoutListener layoutListener) {
+        // do nothing
     }
 }

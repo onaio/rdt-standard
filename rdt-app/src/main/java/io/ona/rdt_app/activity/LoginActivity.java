@@ -6,6 +6,7 @@ import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.presenter.LoginPresenter;
 
 /**
@@ -15,7 +16,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     protected int getContentView() {
-        return org.smartregister.R.layout.activity_login; // todo: change this to rdt login layout
+        return R.layout.activity_login; // todo: change this to rdt login layout
     }
 
     @Override
