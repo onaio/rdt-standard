@@ -43,7 +43,7 @@ public class RDTSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getEncryptionParam() {
-        return SyncFilter.PROVIDER;
+        return SyncFilter.TEAM_ID;
     }
 
     @Override

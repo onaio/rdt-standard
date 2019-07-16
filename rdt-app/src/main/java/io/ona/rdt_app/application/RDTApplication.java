@@ -1,5 +1,7 @@
 package io.ona.rdt_app.application;
 
+import android.content.Intent;
+
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
@@ -21,6 +23,7 @@ import java.util.HashSet;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
+import io.ona.rdt_app.activity.LoginActivity;
 import io.ona.rdt_app.job.RDTJobCreator;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
@@ -67,7 +70,13 @@ public class RDTApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
-        // do nothing
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
 
     @Override
