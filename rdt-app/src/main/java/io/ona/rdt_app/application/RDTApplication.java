@@ -38,6 +38,8 @@ public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
 
+    private String password;
+
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
     }
@@ -58,10 +60,9 @@ public class RDTApplication extends DrishtiApplication {
 
         SyncStatusBroadcastReceiver.init(this);
 
-        // Fabric.with(this, new Crashlytics());
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
-        getRepository();
+//        getRepository();
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
     }
@@ -76,8 +77,8 @@ public class RDTApplication extends DrishtiApplication {
         try {
             if (repository == null) {
                 repository = new RDTRepository(getInstance().getApplicationContext(), context);
-                SQLiteDatabase db = repository.getWritableDatabase();
-                DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList(PATIENTS)), null);
+//                SQLiteDatabase db = repository.getWritableDatabase();
+//                DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList(PATIENTS)), null);
             }
         } catch (UnsatisfiedLinkError e) {
             logError("Error on getRepository: " + e);
@@ -87,7 +88,11 @@ public class RDTApplication extends DrishtiApplication {
 
     @Override
     public String getPassword() {
-        return "password";
+        if (password == null) {
+            String username = getContext().allSharedPreferences().fetchRegisteredANM();
+            password = getContext().userService().getGroupId(username);
+        }
+        return password;
     }
 
     public Context getContext() {
