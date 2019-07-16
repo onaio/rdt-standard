@@ -9,14 +9,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
+import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -58,11 +64,32 @@ public class RDTJsonFormFragment extends JsonFormFragment {
                 Object isSubmit = v.getTag(R.id.submit);
                 if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                     save(false);
+                    checkIfContinuingToRdt();
+                    // Check if we need to continue to RDT
                 } else {
                     next();
                 }
             }
         });
+    }
+
+    public void checkIfContinuingToRdt() {
+        String step1 = "step1";
+        if (step1.equals("step"+currentStep)) {
+            JSONArray formFields = JsonFormUtils.fields(getJsonApi().getmJSONObject());
+            for (int i=0; i < formFields.length(); i++) {
+                if(formFields.optJSONObject(i).optString(JsonFormConstants.KEY).equals("conditional_save")) {
+                    boolean continueToRdt = Boolean.parseBoolean(formFields.optJSONObject(i).optString(JsonFormConstants.VALUE));
+                    if (continueToRdt){
+                        try {
+                            new RDTJsonFormUtils().launchForm(getActivity(), RDT_CAPTURE);
+                        }catch (JSONException je) {
+                            je.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
