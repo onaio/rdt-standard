@@ -62,8 +62,6 @@ public class RDTApplication extends DrishtiApplication {
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
-//        getRepository();
-
         JobManager.create(this).addJobCreator(new RDTJobCreator());
     }
 
@@ -77,8 +75,6 @@ public class RDTApplication extends DrishtiApplication {
         try {
             if (repository == null) {
                 repository = new RDTRepository(getInstance().getApplicationContext(), context);
-//                SQLiteDatabase db = repository.getWritableDatabase();
-//                DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList(PATIENTS)), null);
             }
         } catch (UnsatisfiedLinkError e) {
             logError("Error on getRepository: " + e);
