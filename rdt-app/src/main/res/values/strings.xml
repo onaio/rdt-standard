@@ -7,4 +7,5 @@
     <string name="phone_state_permissions_required">Phone state permissions are required to submit this form</string>
     <string name="rdt_permissions_required">RDT image capture requires camera and storage permissions</string>
     <string name="time_expired">Time has expired.\nRead RDT result.</string>
+    <string name="opensrp_url" translatable="false">@string/opensrp_base_url</string>
 </resources>

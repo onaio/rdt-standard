@@ -26,14 +26,14 @@ android {
             buildConfigField "String", "ANM_ID", "\"indtester1\""
             buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
             buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
-            buildConfigField "String", "BASE_URL", "\"https://rdt-stage.smartregister.org/opensrp\""
+            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
         }
         release {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
             buildConfigField "String", "ANM_ID", "\"indtester1\""
             buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
             buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
-            buildConfigField "String", "BASE_URL", "\"https://rdt-stage.smartregister.org/opensrp\""
+            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -23,6 +23,14 @@ public interface Constants {
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
 
+    interface Tags {
+        String COUNTRY = "Country";
+        String PROVINCE = "Province";
+        String DISTRICT = "District";
+        String HEALTH_CENTER = "Rural Health Centre";
+        String VILLAGE = "Village";
+    }
+
     interface DBConstants {
         String NAME = "name";
         String AGE = "age";

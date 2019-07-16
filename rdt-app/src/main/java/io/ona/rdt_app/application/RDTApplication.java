@@ -9,9 +9,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
-import org.smartregister.job.SyncServiceJob;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -22,14 +21,13 @@ import java.util.HashSet;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
 import io.ona.rdt_app.job.RDTJobCreator;
 import io.ona.rdt_app.repository.RDTRepository;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
+import io.ona.rdt_app.util.Utils;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
-import static org.smartregister.AllConstants.DRISHTI_BASE_URL;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -39,7 +37,6 @@ import static org.smartregister.util.Log.logInfo;
 public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
-    private AllSharedPreferences allSharedPreferences;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -56,6 +53,9 @@ public class RDTApplication extends DrishtiApplication {
 
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration());
+
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
+
         SyncStatusBroadcastReceiver.init(this);
 
         // Fabric.with(this, new Crashlytics());
@@ -64,11 +64,6 @@ public class RDTApplication extends DrishtiApplication {
         getRepository();
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
-
-        getContext().userService(); // todo: can be removed when login screen is added
-
-        allSharedPreferences = getContext().allSharedPreferences();
-        initializeSharedPreferences(); // todo: can be removed when login screen is added
     }
 
     @Override
@@ -126,11 +121,5 @@ public class RDTApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.NAME};
-    }
-
-    private void initializeSharedPreferences() {
-        getContext().allSettings().registerANM(BuildConfig.ANM_ID, BuildConfig.ANM_PASSWORD);
-        allSharedPreferences.updateUrl(BuildConfig.BASE_URL);
-        allSharedPreferences.savePreference(DRISHTI_BASE_URL, BuildConfig.BASE_URL);
     }
 }
