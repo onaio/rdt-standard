@@ -69,9 +69,6 @@ public class RDTApplication extends DrishtiApplication {
 
         allSharedPreferences = getContext().allSharedPreferences();
         initializeSharedPreferences(); // todo: can be removed when login screen is added
-
-        scheduleJobsImmediately();
-        scheduleJobsPeriodically();
     }
 
     @Override
@@ -129,34 +126,6 @@ public class RDTApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.NAME};
-    }
-
-
-    protected void scheduleJobsPeriodically() {
-        ImageUploadSyncServiceJob
-                .scheduleJob(ImageUploadSyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
-                        getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
-
-        SyncServiceJob
-                .scheduleJob(SyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
-                        getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
-    }
-
-    public void scheduleJobsImmediately() {
-        ImageUploadSyncServiceJob
-                .scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
-
-        SyncServiceJob
-                .scheduleJobImmediately(SyncServiceJob.TAG);
-    }
-
-    private long getFlexValue(long value) {
-        final long MINIMUM_JOB_FLEX_VALUE = 1;
-        long minutes = MINIMUM_JOB_FLEX_VALUE;
-        if (value > MINIMUM_JOB_FLEX_VALUE) {
-            minutes = (long) Math.ceil(value / 3);
-        }
-        return minutes;
     }
 
     private void initializeSharedPreferences() {
