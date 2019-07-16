@@ -1,8 +1,13 @@
 package io.ona.rdt_app.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -21,10 +26,34 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestPermissions();
+    }
+
+    public void requestPermissions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, REQUEST_RDT_PERMISSIONS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+        if (requestCode == REQUEST_RDT_PERMISSIONS && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            new RDTJsonFormUtils().showToast(this, getApplicationContext().getString(R.string.rdt_permissions_required));
+            finish();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     protected void initializePresenter() {
