@@ -45,6 +45,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private String baseEntityId;
     private JSONObject jsonObject;
 
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.context = context;
@@ -92,35 +93,33 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 hideProgressDialog();
                 final JsonApi jsonApi = (JsonApi) context;
-                if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK) {
-                    if (data != null) {
-                        try {
-                            String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
-                            String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
-                            String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
-                            String[] stepAndId = new String[0];
+                if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
+                    try {
+                        String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
+                        String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
+                        String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
+                        String[] stepAndId = new String[0];
 
-                            stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
-                            if (stepAndId.length == 2) {
-                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[0], "", "", "", false);
-                            }
-
-                            stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
-                            if (stepAndId.length == 2) {
-                                jsonApi.writeValue(stepAndId[0], stepAndId[1], imgIDAndTimeStamp[1], "", "", "", false);
-                            }
-
-                            if (!formFragment.next()) {
-                                formFragment.save(true);
-                            }
-                        } catch (JSONException e) {
-                            Log.e(TAG, e.getStackTrace().toString());
+                        stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
+                        if (stepAndId.length == 2) {
+                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[0], "", "", "", false);
                         }
-                    } else {
-                        Log.i(TAG, "No result data for RDT capture!");
+
+                        stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
+                        if (stepAndId.length == 2) {
+                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
+                        }
+
+                        if (!formFragment.next()) {
+                            formFragment.save(true);
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
                     ((Activity) context).finish();
+                } else if (data == null) {
+                    Log.i(TAG, "No result data for RDT capture!");
                 }
             }
         };

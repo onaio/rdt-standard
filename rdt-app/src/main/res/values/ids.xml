@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="base_entity_id" type="id" />
+    <item name="patient_tag" type="id" />
 </resources>

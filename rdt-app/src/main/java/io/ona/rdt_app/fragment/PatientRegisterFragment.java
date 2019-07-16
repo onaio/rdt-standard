@@ -16,11 +16,13 @@ import java.util.HashMap;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
+import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
 
 import static io.ona.rdt_app.util.Constants.Form.PATIENT_REGISTRATION_FORM;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View {
 
@@ -77,7 +79,12 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void onViewClicked(View view) {
-        // TODO: implement this
+        try {
+            final Patient patient = (Patient) view.getTag(R.id.patient_tag);
+            new RDTJsonFormUtils().launchForm(getActivity(), RDT_TEST_FORM, patient);
+        } catch (JSONException e) {
+            Log.e(TAG, e.getStackTrace().toString());
+        }
     }
 
     @Override

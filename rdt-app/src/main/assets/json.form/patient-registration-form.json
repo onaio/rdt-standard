@@ -55,6 +55,7 @@
     "previous": "",
     "next_type": "submit",
     "submit_label": "SAVE AND CONDUCT RDT",
+    "next_form": "json.form/patient-registration-form.json",
     "fields": [
       {
         "key": "patient_name_label",

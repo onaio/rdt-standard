@@ -36,7 +36,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private JsonFormFragment formFragment;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
-    private final String RDT_ID_ADDRESS = "rdt_id_address";
+    private final String RDT_ID_ADDRESSES = "rdt_id_addresses";
     private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
 
     @Override
@@ -75,42 +75,46 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                     new OnActivityResultListener() {
                         @Override
                         public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                            if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK) {
-                                if (data != null) {
-                                    try {
-                                        Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
-                                        Log.d("Scanned QR Code", barcode.displayValue);
-                                        String[] barcodeValues = barcode.displayValue.split(",");
-                                        if (barcodeValues.length >= 2) {
-                                            String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
-                                            jsonObject.put(VALUE, idAndExpDate);
+                            if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+                                try {
+                                    Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
+                                    Log.d("Scanned QR Code", barcode.displayValue);
+                                    String[] barcodeValues = barcode.displayValue.split(",");
+                                    if (barcodeValues.length >= 2) {
+                                        String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
+                                        jsonObject.put(VALUE, idAndExpDate);
 
-                                            String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
-                                            String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
-                                            String[] stepAndId = new String[0];
+                                        // write barcode values to relevant widgets
+                                        String rdtIdAddresses = jsonObject.optString(RDT_ID_ADDRESSES, "");
+                                        String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
+                                        String[] stepAndId;
 
-                                            stepAndId = rdtIdAddress.isEmpty() ? stepAndId : rdtIdAddress.split(":");
+                                        // populate rdt id to all relevant txt labels
+                                        String[] rdtIdAddrs = rdtIdAddresses.isEmpty() ? new String[0] : rdtIdAddresses.split(",");
+                                        for (String addr : rdtIdAddrs) {
+                                            stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
                                             if (stepAndId.length == 2) {
-                                                jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[0], "", "", "", false); // step5
-                                            }
-
-                                            stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
-                                            if (stepAndId.length == 2) {
-                                                jsonApi.writeValue(stepAndId[0], stepAndId[1], barcodeValues[1], "", "", "", false);
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[0].trim(), "", "", "", false);
                                             }
                                         }
 
-                                        if (!formFragment.next()) {
-                                            formFragment.save(true);
+                                        // populate exp. date to expiration date widget value
+                                        stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
+                                        if (stepAndId.length == 2) {
+                                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[1].trim(), "", "", "", false);
                                         }
-                                    } catch (JSONException e) {
-                                        Log.e(TAG, e.getStackTrace().toString());
                                     }
-                                } else {
-                                    Log.i("", "No result for qr code");
+                                    // move to next step or save form if last step
+                                    if (!formFragment.next()) {
+                                        formFragment.save(true);
+                                    }
+                                } catch (JSONException e) {
+                                    Log.e(TAG, e.getStackTrace().toString());
                                 }
                             } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
                                 ((Activity) context).finish();
+                            } else if (data == null) {
+                                Log.i("", "No result for qr code");
                             }
                         }
                     });

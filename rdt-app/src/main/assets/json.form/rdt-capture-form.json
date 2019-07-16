@@ -1,5 +1,5 @@
 {
-  "count": "10",
+  "count": "13",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -50,6 +50,37 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step2",
+    "bottom_navigation" : "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "RDT",
+    "fields": [
+      {
+        "key": "lbl_patient_name",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      },
+      {
+        "key": "lbl_patient_gender_and_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      }
+    ]
+  },
+  "step2": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step3",
     "fields": [
       {
         "key": "lbl_which_rdt",
@@ -71,7 +102,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step3"
+        "next": "step4"
       },
       {
         "key": "lbl_care_start",
@@ -82,14 +113,14 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step2"
+        "next": "step3"
       }
     ]
   },
-  "step2": {
+  "step3": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step6",
     "fields": [
       {
         "key": "expiration_date_reader",
@@ -97,6 +128,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "expiration_date_capture",
+        "expired_page_address": "step5",
         "v_required": {
           "value": "true",
           "err": "Please enter the RDT ID"
@@ -104,10 +136,10 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step6",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -119,8 +151,8 @@
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
-        "rdt_id_address": "step8:lbl_rdt_id",
-        "expiration_date_address": "step2:expiration_date_reader",
+        "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id",
+        "expiration_date_address": "step3:expiration_date_reader",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -132,9 +164,132 @@
       }
     ]
   },
-  "step4": {
+  "step5": {
     "title": "RDT",
-    "next": "step5",
+    "display_back_button": "true",
+    "next": "step1",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_rdt_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "text": "RDT has expired"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "text": "Use new test and rescan"
+      }
+    ]
+  },
+  "step6": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step7",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "Continue",
+    "fields": [
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_record_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Write this number on back of RDT."
+      }
+    ]
+  },
+  "step7": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step8",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "BLOT PAPER COMPLETE",
+    "fields": [
+      {
+        "key": "lbl_blot_paper",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Blot X uL on filter paper. Place blood spot in a tube labelled with:"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step8": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "MICROSCOPY SLIDE COMPLETE",
+    "fields": [
+      {
+        "key": "lbl_microscopy_slide",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Collect X uL on microscopy slide. Label slide with:"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step9": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step10",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -154,9 +309,9 @@
       }
     ]
   },
-  "step5": {
+  "step10": {
     "title": "RDT",
-    "next": "step6",
+    "next": "step11",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -176,9 +331,9 @@
       }
     ]
   },
-  "step6": {
+  "step11": {
     "title": "RDT",
-    "next": "step7",
+    "next": "step12",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -198,9 +353,9 @@
       }
     ]
   },
-  "step7": {
+  "step12": {
     "title": "RDT Timer",
-    "next": "step8",
+    "next": "step13",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -224,9 +379,9 @@
       }
     ]
   },
-  "step8": {
+  "step13": {
     "title": "RDT Result Ready",
-    "next": "step9",
+    "next": "step14",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -250,9 +405,9 @@
       }
     ]
   },
-  "step9": {
+  "step14": {
     "title": "RDT",
-    "next": "step10",
+    "next": "step15",
     "display_back_button": "true",
     "fields": [
       {
@@ -261,16 +416,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
-        "image_id_address": "step7:rdt_capture",
-        "image_timestamp_address": "step8:time_img_saved"
+        "image_id_address": "step14:rdt_capture",
+        "image_timestamp_address": "step15:time_img_saved"
       }
     ]
   },
-  "step10": {
+  "step15": {
     "title": "Select RDT reader result",
     "display_back_button": "true",
     "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
+    "submit_label": "SAVE RDT RESULT",
     "fields": [
       {
         "key": "rdt_result",
@@ -305,16 +462,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "label_text_style": "bold",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff"
       },
       {
         "key": "lbl_result",

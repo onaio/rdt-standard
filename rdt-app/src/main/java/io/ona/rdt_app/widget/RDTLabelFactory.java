@@ -2,6 +2,7 @@ package io.ona.rdt_app.widget;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
+import android.view.Gravity;
 import android.view.View;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -14,8 +15,11 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
+import io.ona.rdt_app.util.Constants;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 
 /**
@@ -24,6 +28,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 public class RDTLabelFactory extends LabelFactory {
 
     private String HAS_DRAWABLE_END = "has_drawable_end";
+    private String CENTER_LABEL = "center_label";
 
     @Override
     public List<View> getViewsFromJson(String stepName, final Context context, final JsonFormFragment formFragment,
@@ -33,11 +38,19 @@ public class RDTLabelFactory extends LabelFactory {
 
         ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
         CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
+        if (jsonObject.optBoolean(CENTER_LABEL)) {
+            labelText.setGravity(Gravity.CENTER);
+        }
+
         if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
+            final String key = jsonObject.getString(KEY);
             labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
             labelText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Constants.LBL_CARE_START.equals(key)) {
+                        ((RDTJsonFormActivity) formFragment.getActivity()).setRdtType(Constants.CARESTART_RDT);
+                    }
                     ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
                 }
             });

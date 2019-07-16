@@ -31,7 +31,9 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.model.Patient;
 
+import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
@@ -148,25 +150,43 @@ public class RDTJsonFormUtils {
         launchForm(activity, formName, null);
     }
 
-    public void launchForm(Activity activity, String formName, String entityId) throws JSONException {
+    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
-            prePopulateFormFields(formJsonObject, entityId, rdtId);
+            prePopulateFormFields(formJsonObject, patient, rdtId, 5);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
             Log.e(TAG, e.getStackTrace().toString());
         }
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, String entityId, String rdtId) throws JSONException, JsonFormMissingStepCountException{
-        jsonForm.put(ENTITY_ID, entityId);
+    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException, JsonFormMissingStepCountException{
+        jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
+        int fieldsPopulated = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
                 field.put(VALUE, rdtId);
                 field.put("text", "ID: " + rdtId);
+                fieldsPopulated++;
+            }
+            // pre-populate patient fields
+            if (patient != null) {
+                if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+                    field.put(VALUE, rdtId);
+                    field.put("text", patient.getPatientName());
+                    fieldsPopulated++;
+                } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+                    field.put(VALUE, rdtId);
+                    field.put("text", patient.getPatientSex() + BULLET_DOT+ "ID: " + patient.getBaseEntityId());
+                    fieldsPopulated++;
+                }
+            }
+            // save cpu time
+            if (fieldsPopulated == numFields) {
+                break;
             }
         }
     }

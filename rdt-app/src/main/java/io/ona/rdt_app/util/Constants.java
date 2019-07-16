@@ -4,7 +4,7 @@ package io.ona.rdt_app.util;
  * Created by Vincent Karuri on 23/05/2019
  */
 public interface Constants {
-    int REQUEST_STORAGE_PERMISSION = 1000;
+    int REQUEST_RDT_PERMISSIONS = 1000;
     int REQUEST_CODE_GET_JSON = 9388;
 
     String JSON_FORM_PARAM_JSON = "json";
@@ -17,6 +17,11 @@ public interface Constants {
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
     String PROFILE_PIC = "profilepic";
+    String EXPIRATION_DATE_RESULT = "expiration_date_result";
+    String ONA_RDT = "ona_rdt";
+    String CARESTART_RDT = "carestart_rdt";
+    String LBL_CARE_START = "lbl_care_start";
+    String BULLET_DOT = " \u00B7 ";
 
     interface DBConstants {
         String NAME = "name";
@@ -24,7 +29,6 @@ public interface Constants {
         String SEX = "sex";
         String ID = "id";
         String BASE_ENTITY_ID = "base_entity_id";
-        String _ID = "_id";
     }
 
     interface Form {
@@ -34,5 +38,7 @@ public interface Constants {
         String EXPIRATION_DATE_READER = "expiration_date_reader";
         String RDT_CAPTURE = "rdt_capture";
         String TIME_IMG_SAVED = "time_img_saved";
+        String LBL_PATIENT_NAME = "lbl_patient_name";
+        String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
     }
 }

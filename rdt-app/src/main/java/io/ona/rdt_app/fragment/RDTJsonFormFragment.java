@@ -15,8 +15,10 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
+import io.ona.rdt_app.util.Constants;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -41,7 +43,7 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         // Handle initialization of the countdown timer bottom navigation
         String currStep = "step" + currentStep;
         boolean buttonEnabled = true;
-        if ("step7".equals(currStep)) {
+        if ("step12".equals(currStep)) {
             buttonEnabled = false;
         }
         setNextButtonState(rootView, buttonEnabled);
@@ -56,7 +58,16 @@ public class RDTJsonFormFragment extends JsonFormFragment {
             @Override
             public void onClick(View v) {
                 Object isSubmit = v.getTag(R.id.submit);
-                if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
+                String currStep = "step" + currentStep;
+                if ("step8".equals(currStep)) {
+                    String rdtType = ((RDTJsonFormActivity) getActivity()).getRdtType();
+                    if (Constants.CARESTART_RDT.equals(rdtType)) {
+                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step14");
+                        transactThis(nextFragment);
+                    } else {
+                        next();
+                    }
+                } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                     save(false);
                 } else {
                     next();
