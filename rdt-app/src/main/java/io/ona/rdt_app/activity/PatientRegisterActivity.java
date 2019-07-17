@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 
@@ -23,6 +25,7 @@ import java.util.List;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
+import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
@@ -31,11 +34,14 @@ import io.ona.rdt_app.util.RDTJsonFormUtils;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
-public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
+public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
+
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        drawerLayout = findViewById(R.id.drawer_layout);
         requestPermissions();
     }
 
@@ -135,5 +141,13 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         if (mBaseFragment != null && mBaseFragment.getActivity() != null) {
             mBaseFragment.refreshListView();
         }
+    }
+
+    public void openDrawerLayout() {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void closeDrawerLayout() {
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 }

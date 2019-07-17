@@ -1,6 +1,5 @@
 package io.ona.rdt_app.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -17,6 +15,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.HashMap;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
@@ -26,7 +25,7 @@ import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
 import static io.ona.rdt_app.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
-public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View {
+public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View, View.OnClickListener {
 
     private final String TAG = PatientRegisterFragment.class.getName();
 
@@ -115,16 +114,8 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
         DividerItemDecoration itemDecor = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         clientsView.addItemDecoration(itemDecor);
 
-        rootView.findViewById(R.id.btn_register_patient).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               try {
-                 formUtils.launchForm(getActivity(), PATIENT_REGISTRATION_FORM);
-               } catch (JSONException e) {
-                   Log.e(TAG, e.getStackTrace().toString());
-               }
-           }
-        });
+        rootView.findViewById(R.id.btn_register_patient).setOnClickListener(this);
+        rootView.findViewById(R.id.drawerMenu).setOnClickListener(this);
 
         initializeAdapter();
     }
@@ -154,5 +145,24 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     @Override
     public View getSearchCancelView() {
         return rootView.findViewById(org.smartregister.R.id.btn_search_cancel);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_register_patient:
+                try {
+                    formUtils.launchForm(getActivity(), PATIENT_REGISTRATION_FORM);
+                } catch (JSONException e) {
+                    Log.e(TAG, e.getStackTrace().toString());
+                }
+                break;
+            case R.id.drawerMenu:
+                getParentView().openDrawerLayout();
+        }
+    }
+
+    private PatientRegisterActivityContract.View getParentView() {
+        return ((PatientRegisterActivityContract.View) getActivity());
     }
 }
