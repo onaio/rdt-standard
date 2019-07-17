@@ -7,11 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,12 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import io.ona.rdt_app.util.Utils;
 
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
@@ -37,11 +43,14 @@ import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        setupDrawerContent(navigationView);
         requestPermissions();
     }
 
@@ -149,5 +158,28 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     public void closeDrawerLayout() {
         drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        switch(menuItem.getItemId()) {
+            case R.id.menu_item_sync:
+                Utils.scheduleJobsImmediately();
+                break;
+            case R.id.menu_item_logout:
+                RDTApplication.getInstance().logoutCurrentUser();
+                break;
+            case R.id.menu_item_toggle_img_sync:
+        }
     }
 }
