@@ -3,4 +3,4 @@ description: Save and exit or save and continue to capture RDT form.
 priority: 1
 condition: "step1_patient_age < 5"
 actions:
-  - "calculation = 1"
+  - 'calculation = 1'

@@ -1,5 +1,5 @@
 {
-  "count": "2",
+  "count": "1",
   "encounter_type": "patient_registration",
   "entity_id": "",
   "metadata": {
@@ -211,7 +211,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate_estimated",
         "type": "hidden",
-        "value":"true"
+        "value": "true"
       },
       {
         "key": "dob",
@@ -229,7 +229,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "conditional_save_calculation.yml"
+              "rules-file": "conditional_save_rules.yml"
             }
           }
         }
