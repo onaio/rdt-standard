@@ -22,6 +22,7 @@ public interface Constants {
     String CARESTART_RDT = "carestart_rdt";
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
+    String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
 
     interface Tags {
         String COUNTRY = "Country";

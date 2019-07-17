@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -21,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -37,6 +39,7 @@ import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import io.ona.rdt_app.util.Utils;
 
+import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
@@ -161,14 +164,25 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
+        Menu menuNav = navigationView.getMenu();
+        MenuItem imgSyncToggle = menuNav.findItem(R.id.menu_item_toggle_img_sync);
+        View actionView = imgSyncToggle.getActionView();
+        Switch imgSyncToggleBtn = actionView.findViewById(R.id.img_sync_switch_button);
+        imgSyncToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                RDTApplication.getInstance().getContext()
+                        .allSharedPreferences()
+                        .savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(!Utils.isImageSyncEnabled()));
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                selectDrawerItem(menuItem);
+                return true;
+            }
+        });
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
