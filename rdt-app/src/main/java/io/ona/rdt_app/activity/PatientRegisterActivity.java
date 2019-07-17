@@ -188,6 +188,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     public void selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.menu_item_sync:
+                closeDrawerLayout();
                 Utils.scheduleJobsImmediately();
                 break;
             case R.id.menu_item_logout:
