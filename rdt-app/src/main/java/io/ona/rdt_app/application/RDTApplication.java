@@ -26,6 +26,8 @@ import io.ona.rdt_app.util.Utils;
 
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static io.ona.rdt_app.util.Utils.scheduleJobsImmediately;
+import static io.ona.rdt_app.util.Utils.scheduleJobsPeriodically;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -63,6 +65,9 @@ public class RDTApplication extends DrishtiApplication {
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
         getContext().allSharedPreferences().savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+
+        scheduleJobsImmediately();
+        scheduleJobsPeriodically();
     }
 
     @Override
