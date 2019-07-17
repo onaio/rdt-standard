@@ -194,7 +194,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             case R.id.menu_item_logout:
                 RDTApplication.getInstance().logoutCurrentUser();
                 break;
-            case R.id.menu_item_toggle_img_sync:
         }
     }
 }
