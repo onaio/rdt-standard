@@ -9,8 +9,7 @@
     </style>
 
     <style name="AppTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
     </style>
-
 </resources>

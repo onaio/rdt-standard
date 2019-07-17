@@ -19,7 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true" />
+        android:fitsSystemWindows="true"
+        app:menu="@menu/menu_patient_register"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        android:background="#2C2C2C" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
