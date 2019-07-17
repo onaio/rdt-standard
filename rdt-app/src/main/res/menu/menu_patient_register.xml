@@ -14,7 +14,7 @@
             android:id="@+id/menu_item_toggle_img_sync"
             android:title="Image sync"
             android:icon="@drawable/ic_photo"
-            app:actionViewClass="android.widget.Switch"
+            app:actionLayout="@layout/patient_register_switch_layout"
             android:checkable="true"
             android:checked="true" />
     </group>
