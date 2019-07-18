@@ -57,7 +57,7 @@ public class RDTApplication extends DrishtiApplication {
         context.updateCommonFtsObject(createCommonFtsObject());
 
         // Initialize Modules
-        CoreLibrary.init(context, new RDTSyncConfiguration());
+        CoreLibrary.init(context, new RDTSyncConfiguration(), System.currentTimeMillis());
 
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
