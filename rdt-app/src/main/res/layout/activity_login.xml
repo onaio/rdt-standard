@@ -97,9 +97,9 @@
                 android:background="@drawable/login_corner_edit_text"
                 android:gravity="center_vertical"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/checkbox_margin_top">
 
                 <CheckBox
@@ -108,7 +108,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleX="0.8"
-                    android:scaleY="0.8" />
+                    android:scaleY="0.8"
+                    android:background="@drawable/login_checkbox_bg"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
 
                 <TextView
                     android:id="@+id/login_show_password_text_view"
@@ -119,8 +122,9 @@
                     android:gravity="center_vertical"
                     android:text="@string/show_password_text"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/login_edit_text_textSize" />
-            </RelativeLayout>
+                    android:textSize="@dimen/login_edit_text_textSize"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/login_login_btn"
