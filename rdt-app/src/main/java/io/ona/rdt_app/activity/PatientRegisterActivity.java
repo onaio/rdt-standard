@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
@@ -123,19 +122,14 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 String jsonForm = data.getStringExtra("json");
-                Log.d(TAG, jsonForm);
+                Timber.d(TAG, jsonForm);
                 PatientRegisterFragmentPresenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
                 presenter.saveForm(jsonForm, this);
                 if (presenter.continueToRDT(jsonForm)) {
-                    try {
-                        new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM);
-                    } catch (JSONException je) {
-                        je.printStackTrace();
-                        Timber.e(TAG, "Could not launch RDT form");
-                    }
+                    new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM);
                 }
             } catch (JSONException e) {
-                Log.e(TAG, e.getStackTrace().toString());
+                Timber.e(TAG, e.getStackTrace().toString());
             }
         }
     }
