@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.joda.time.DateTime;
@@ -30,7 +29,6 @@ import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
-import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.DETAILS;
@@ -64,7 +62,6 @@ public class PatientRegisterFragmentInteractor {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
         clientProcessor = ClientProcessorForJava.getInstance(RDTApplication.getInstance().getApplicationContext());
     }
-
 
     public void saveForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
 
