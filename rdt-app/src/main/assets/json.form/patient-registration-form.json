@@ -52,9 +52,8 @@
     "previous_label": "SAVE AND EXIT",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "previous": "",
     "next_type": "submit",
-    "submit_label": "SAVE AND CONDUCT RDT",
+    "submit_label": "SAVE",
     "next_form": "json.form/patient-registration-form.json",
     "fields": [
       {
