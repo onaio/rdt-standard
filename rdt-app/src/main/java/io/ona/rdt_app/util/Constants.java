@@ -16,6 +16,7 @@ public interface Constants {
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
     String PATIENT_AGE = "patient_age";
+    String CONDITIONAL_SAVE = "conditional_save";
     String PROFILE_PIC = "profilepic";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
     String ONA_RDT = "ona_rdt";

@@ -1,5 +1,7 @@
 package io.ona.rdt_app.presenter;
 
+import android.app.Activity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -9,7 +11,10 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 
 /**
@@ -17,8 +22,10 @@ import static io.ona.rdt_app.util.Constants.PATIENTS;
  */
 public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentContract.Presenter, PatientRegisterFragmentContract.Presenter {
 
+    private final String TAG = PatientRegisterFragmentPresenter.class.getName();
     private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
     private PatientRegisterFragment patientRegisterFragment;
+
 
     public PatientRegisterFragmentPresenter(PatientRegisterFragment patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
@@ -75,5 +82,9 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     @Override
     public String getMainCondition() {
         return String.format(" %s != '%s'", "name", "");
+    }
+
+    public boolean continueToRDT(String jsonForm) throws JSONException {
+        return interactor.continuingToRDTForm(jsonForm);
     }
 }

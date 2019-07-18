@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -28,7 +30,9 @@ import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
+import timber.log.Timber;
 
+import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
@@ -49,14 +53,12 @@ import static org.smartregister.util.JsonFormUtils.getString;
  */
 public class PatientRegisterFragmentInteractor {
 
-    private EventClientRepository eventClientRepository;
-    private ClientProcessorForJava clientProcessor;
-
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
             .registerTypeAdapter(LocationProperty.class, new PropertiesConverter()).create();
-
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
+    private EventClientRepository eventClientRepository;
+    private ClientProcessorForJava clientProcessor;
 
     public PatientRegisterFragmentInteractor() {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
@@ -73,7 +75,7 @@ public class PatientRegisterFragmentInteractor {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     populateApproxDOB(jsonForm);
 
-                    String bindType = PATIENT_REGISTRATION .equals(encounterType) ? PATIENTS : RDT_TESTS;
+                    String bindType = PATIENT_REGISTRATION.equals(encounterType) ? PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
@@ -140,4 +142,26 @@ public class PatientRegisterFragmentInteractor {
 
         return new EventClient(dbEvent, dbClient);
     }
+
+    /**
+     * Check whether to save and return to the patient register of save and proceed to Start RDT capture form
+     *
+     * @param jsonForm The form's JSONObject string representation
+     * @return true if continuing to RDT form else, return false
+     */
+    public boolean continuingToRDTForm(String jsonForm) throws JSONException {
+        JSONObject formJsonObject = new JSONObject(jsonForm);
+        if (PATIENT_REGISTRATION.equals(formJsonObject.optString(ENCOUNTER_TYPE))) {
+            JSONArray formFields = JsonFormUtils.fields(formJsonObject);
+            JSONObject fieldJsonObject;
+            for (int i = 0; i < formFields.length(); i++) {
+                fieldJsonObject = formFields.getJSONObject(i);
+                if (CONDITIONAL_SAVE.equals(fieldJsonObject.optString(JsonFormConstants.KEY))) {
+                    return Integer.parseInt(fieldJsonObject.optString(JsonFormConstants.VALUE)) == 1;
+                }
+            }
+        }
+        return false;
+    }
+
 }

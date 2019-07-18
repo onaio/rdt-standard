@@ -27,7 +27,9 @@ import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
@@ -47,7 +49,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_RDT_PERMISSIONS && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
             new RDTJsonFormUtils().showToast(this, getApplicationContext().getString(R.string.rdt_permissions_required));
             finish();
@@ -124,6 +126,14 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 Log.d(TAG, jsonForm);
                 PatientRegisterFragmentPresenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
                 presenter.saveForm(jsonForm, this);
+                if (presenter.continueToRDT(jsonForm)) {
+                    try {
+                        new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM);
+                    } catch (JSONException je) {
+                        je.printStackTrace();
+                        Timber.e(TAG, "Could not launch RDT form");
+                    }
+                }
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             }
