@@ -1,6 +1,7 @@
 package io.ona.rdt_app.interactor;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -60,7 +61,7 @@ public class PatientRegisterFragmentInteractor {
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
-    private String entityId;
+    private String entityId = "";
     private JSONObject jsonFormObject;
 
     public PatientRegisterFragmentInteractor() {
@@ -76,6 +77,7 @@ public class PatientRegisterFragmentInteractor {
             protected void onPreExecute() {
                 jsonFormObject = jsonForm;
             }
+
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
@@ -151,13 +153,14 @@ public class PatientRegisterFragmentInteractor {
     }
 
     /**
+     * Get Patient for RDT
      *
-     * @return Patient object for which the RDT capture is to be done
+     * @return Patient object for which the RDT capture is to be done.
      * @throws JSONException
      */
     public Patient getPatientForRDT() throws JSONException {
         Patient rdtPatient = null;
-        if (PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
+        if (jsonFormObject != null && PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
             JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
             JSONObject fieldJsonObject;
             for (int i = 0; i < formFields.length(); i++) {
