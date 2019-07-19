@@ -1,7 +1,6 @@
 package io.ona.rdt_app.interactor;
 
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -32,6 +31,7 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.model.Patient;
 
+import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
@@ -43,7 +43,6 @@ import static io.ona.rdt_app.util.Constants.PATIENT_NAME;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static io.ona.rdt_app.util.Constants.SEX;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
@@ -61,7 +60,6 @@ public class PatientRegisterFragmentInteractor {
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
-    private String entityId = "";
     private JSONObject jsonFormObject;
 
     public PatientRegisterFragmentInteractor() {
@@ -121,8 +119,9 @@ public class PatientRegisterFragmentInteractor {
     }
 
     private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
-        entityId = getString(jsonForm, ENTITY_ID);
+        String entityId = getString(jsonForm, ENTITY_ID);
         entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
+        jsonForm.put(ENTITY_ID, entityId);
 
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
@@ -169,7 +168,7 @@ public class PatientRegisterFragmentInteractor {
                         Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
                     String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                     String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                    String baseEntityId = entityId.split("-")[0];
+                    String baseEntityId = jsonFormObject.optString(ENTITY_ID).split("-")[0];
                     rdtPatient = new Patient(name, sex, baseEntityId);
                 }
             }

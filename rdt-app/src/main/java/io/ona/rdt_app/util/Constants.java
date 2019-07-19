@@ -8,6 +8,7 @@ public interface Constants {
     int REQUEST_CODE_GET_JSON = 9388;
 
     String JSON_FORM_PARAM_JSON = "json";
+    String ENTITY_ID = "entity_id";
     String METADATA = "metadata";
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
