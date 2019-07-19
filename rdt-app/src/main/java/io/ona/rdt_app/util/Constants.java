@@ -15,6 +15,8 @@ public interface Constants {
     String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
+    String PATIENT_NAME = "patient_name";
+    String SEX = "sex";
     String PATIENT_AGE = "patient_age";
     String CONDITIONAL_SAVE = "conditional_save";
     String PROFILE_PIC = "profilepic";
