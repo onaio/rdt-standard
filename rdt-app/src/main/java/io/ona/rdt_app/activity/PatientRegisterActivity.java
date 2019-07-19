@@ -23,6 +23,7 @@ import java.util.List;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
+import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
@@ -33,6 +34,8 @@ import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
+
+    private PatientRegisterFragmentPresenter patientRegisterFragmentPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +126,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             try {
                 String jsonForm = data.getStringExtra("json");
                 Timber.d(TAG, jsonForm);
-                PatientRegisterFragmentPresenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-                presenter.saveForm(jsonForm, this);
-                if (presenter.continueToRDT(jsonForm)) {
-                    new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM);
-                }
+                patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
+                patientRegisterFragmentPresenter.saveForm(jsonForm, this);
             } catch (JSONException e) {
                 Timber.e(TAG, e.getStackTrace().toString());
             }
@@ -136,6 +136,15 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void onFormSaved() {
+        try {
+            Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient();
+            if (rdtPatient != null) {
+                new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM, rdtPatient);
+            }
+        } catch (JSONException je) {
+            je.printStackTrace();
+            Timber.w(TAG, "Could not launch RDT Test Form");
+        }
         if (mBaseFragment != null && mBaseFragment.getActivity() != null) {
             mBaseFragment.refreshListView();
         }
