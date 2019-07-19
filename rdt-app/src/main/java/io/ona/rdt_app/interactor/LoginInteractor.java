@@ -1,12 +1,8 @@
 package io.ona.rdt_app.interactor;
 
-import org.slf4j.helpers.Util;
-import org.smartregister.job.SyncServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
 
-import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
 import io.ona.rdt_app.util.Utils;
 
 /**

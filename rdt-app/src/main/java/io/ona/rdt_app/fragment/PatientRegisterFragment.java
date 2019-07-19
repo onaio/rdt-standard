@@ -159,6 +159,9 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
                 break;
             case R.id.drawerMenu:
                 getParentView().openDrawerLayout();
+                break;
+            default:
+                // do nothing
         }
     }
 

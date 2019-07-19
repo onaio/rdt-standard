@@ -22,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -46,13 +45,12 @@ import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         setupDrawerContent(navigationView);
         requestPermissions();
     }
@@ -194,6 +192,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             case R.id.menu_item_logout:
                 RDTApplication.getInstance().logoutCurrentUser();
                 break;
+            default:
+                // do nothing
         }
     }
 }
