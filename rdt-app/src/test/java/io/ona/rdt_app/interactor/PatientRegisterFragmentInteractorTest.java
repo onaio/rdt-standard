@@ -84,6 +84,7 @@ public class PatientRegisterFragmentInteractorTest {
         Assert.assertNotNull(rdtpatient);
         Assert.assertEquals(rdtpatient.getPatientName(), patientName);
         Assert.assertEquals(rdtpatient.getPatientSex(), patientGender);
+        Assert.assertNotNull(rdtpatient.getBaseEntityId());
     }
 
 }
