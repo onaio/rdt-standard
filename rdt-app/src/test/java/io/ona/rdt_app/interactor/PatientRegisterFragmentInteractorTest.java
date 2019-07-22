@@ -25,7 +25,7 @@ import io.ona.rdt_app.util.RDTJsonFormUtils;
 public class PatientRegisterFragmentInteractorTest {
 
     @Mock
-    RDTApplication rdtApplication;
+    private RDTApplication rdtApplication;
     @Mock
     private org.smartregister.Context applicationContext;
     @Mock
@@ -35,8 +35,6 @@ public class PatientRegisterFragmentInteractorTest {
 
     @Mock
     private ClientProcessorForJava clientProcessor;
-
-    private PatientRegisterFragmentInteractor interactorSpy;
 
     @Before
     public void setUp() {
@@ -75,7 +73,7 @@ public class PatientRegisterFragmentInteractorTest {
         PowerMockito.when(rdtApplication.getContext()).thenReturn(applicationContext);
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
         PowerMockito.when(ClientProcessorForJava.getInstance(context)).thenReturn(clientProcessor);
-        interactorSpy = PowerMockito.spy(new PatientRegisterFragmentInteractor());
+        PatientRegisterFragmentInteractor interactorSpy = PowerMockito.spy(new PatientRegisterFragmentInteractor());
 
         JSONObject jsonFormObject = new JSONObject(jsonForm);
         RDTJsonFormUtils.appendEntityId(jsonFormObject);
