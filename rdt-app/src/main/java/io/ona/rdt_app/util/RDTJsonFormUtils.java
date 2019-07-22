@@ -41,6 +41,7 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
+import static org.smartregister.util.JsonFormUtils.getString;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -48,32 +49,6 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
-
-    private void startJsonForm(JSONObject form, Activity context, int requestCode) {
-        Intent intent = new Intent(context, RDTJsonFormActivity.class);
-        try {
-            intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
-            context.startActivityForResult(intent, requestCode);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
-    public JSONObject getFormJsonObject(String formName, Context context) throws JSONException {
-        String formString = AssetHandler.readFileFromAssetsFolder(formName, context);
-        return new JSONObject(formString);
-    }
-
-    public void showToast(final Activity activity, final String text) {
-        if (activity != null) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    }
 
     public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
@@ -142,8 +117,34 @@ public class RDTJsonFormUtils {
         });
     }
 
-    public static Bitmap convertByteArrayToBitmap(byte[] src){
+    public static Bitmap convertByteArrayToBitmap(byte[] src) {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
+    }
+
+    private void startJsonForm(JSONObject form, Activity context, int requestCode) {
+        Intent intent = new Intent(context, RDTJsonFormActivity.class);
+        try {
+            intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
+            context.startActivityForResult(intent, requestCode);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public JSONObject getFormJsonObject(String formName, Context context) throws JSONException {
+        String formString = AssetHandler.readFileFromAssetsFolder(formName, context);
+        return new JSONObject(formString);
+    }
+
+    public void showToast(final Activity activity, final String text) {
+        if (activity != null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     public void launchForm(Activity activity, String formName) throws JSONException {
@@ -161,7 +162,7 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException, JsonFormMissingStepCountException{
+    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException, JsonFormMissingStepCountException {
         jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
         int fieldsPopulated = 0;
@@ -180,7 +181,7 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, rdtId);
-                    field.put("text", patient.getPatientSex() + BULLET_DOT+ "ID: " + patient.getBaseEntityId());
+                    field.put("text", patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
                     fieldsPopulated++;
                 }
             }
@@ -189,5 +190,11 @@ public class RDTJsonFormUtils {
                 break;
             }
         }
+    }
+
+    public static void appendEntityId(JSONObject jsonForm) throws JSONException {
+        String entityId = getString(jsonForm, Constants.ENTITY_ID);
+        entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
+        jsonForm.put(Constants.ENTITY_ID, entityId);
     }
 }

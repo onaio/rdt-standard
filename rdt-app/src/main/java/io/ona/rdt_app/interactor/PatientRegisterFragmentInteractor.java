@@ -25,7 +25,6 @@ import org.smartregister.util.PropertiesConverter;
 
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
@@ -47,7 +46,6 @@ import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
-import static org.smartregister.util.JsonFormUtils.getString;
 
 /**
  * Created by Vincent Karuri on 13/06/2019
@@ -60,7 +58,6 @@ public class PatientRegisterFragmentInteractor {
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
-    private String entityId = "";
 
     public PatientRegisterFragmentInteractor() {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
@@ -114,11 +111,9 @@ public class PatientRegisterFragmentInteractor {
     }
 
     private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
-        entityId = getString(jsonForm, ENTITY_ID);
-        entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
-
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
+        String entityId = jsonForm.getString(ENTITY_ID);
 
         FormTag formTag = new FormTag();
         formTag.providerId = "";
@@ -148,13 +143,12 @@ public class PatientRegisterFragmentInteractor {
     /**
      * Get the patient for whom the RDT is to be conducted
      *
-     * @param jsonForm The patient form JSON String
+     * @param jsonFormObject The patient form JSON
      * @return the initialized Patient if proceeding to RDT capture otherwise return null patient
      * @throws JSONException
      */
-    public Patient getPatientForRDT(String jsonForm) throws JSONException {
+    public Patient getPatientForRDT(JSONObject jsonFormObject) throws JSONException {
         Patient rdtPatient = null;
-        JSONObject jsonFormObject = new JSONObject(jsonForm);
         if (PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
             JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
             JSONObject fieldJsonObject;
@@ -164,7 +158,7 @@ public class PatientRegisterFragmentInteractor {
                         Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
                     String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                     String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                    String baseEntityId = entityId.split("-")[0];
+                    String baseEntityId = jsonFormObject.getString(ENTITY_ID).split("-")[0];
                     rdtPatient = new Patient(name, sex, baseEntityId);
                 }
             }

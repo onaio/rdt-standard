@@ -35,9 +35,6 @@ import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
 
-    private PatientRegisterFragmentPresenter patientRegisterFragmentPresenter;
-    private String jsonForm;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,11 +122,15 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             try {
-                synchronized (this) {
-                    jsonForm = data.getStringExtra("json");
-                    Timber.d(TAG, jsonForm);
-                    patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-                    patientRegisterFragmentPresenter.saveForm(jsonForm, this);
+                String jsonForm = data.getStringExtra("json");
+                Timber.d(TAG, jsonForm);
+                PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
+                JSONObject jsonFormObject = new JSONObject(jsonForm);
+                RDTJsonFormUtils.appendEntityId(jsonFormObject);
+                patientRegisterFragmentPresenter.saveForm(jsonFormObject, this);
+                Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonFormObject);
+                if (rdtPatient != null) {
+                    new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM, rdtPatient);
                 }
             } catch (JSONException e) {
                 Timber.e(TAG, e.getStackTrace().toString());
@@ -139,15 +140,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void onFormSaved() {
-        try {
-            Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonForm);
-            if (rdtPatient != null) {
-                new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM, rdtPatient);
-            }
-        } catch (JSONException je) {
-            je.printStackTrace();
-            Timber.w(TAG, "Could not launch RDT Test Form");
-        }
         if (mBaseFragment != null && mBaseFragment.getActivity() != null) {
             mBaseFragment.refreshListView();
         }

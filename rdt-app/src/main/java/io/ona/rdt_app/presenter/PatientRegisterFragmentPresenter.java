@@ -53,8 +53,8 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     }
 
     @Override
-    public void saveForm(String jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveForm(new JSONObject(jsonForm), onFormSavedCallback);
+    public void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
+        interactor.saveForm(jsonForm, onFormSavedCallback);
     }
 
     public String countSelect(String tableName, String mainCondition) {
@@ -79,7 +79,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
         return String.format(" %s != '%s'", "name", "");
     }
 
-    public Patient getRDTPatient(String jsonForm) throws JSONException {
+    public Patient getRDTPatient(JSONObject jsonForm) throws JSONException {
         return interactor.getPatientForRDT(jsonForm);
     }
 }
