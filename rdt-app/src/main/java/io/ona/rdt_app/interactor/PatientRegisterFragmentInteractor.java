@@ -46,6 +46,7 @@ import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
+import static org.smartregister.util.JsonFormUtils.getString;
 
 /**
  * Created by Vincent Karuri on 13/06/2019
@@ -113,7 +114,7 @@ public class PatientRegisterFragmentInteractor {
     private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
-        String entityId = jsonForm.getString(ENTITY_ID);
+        String entityId = getString(jsonForm, ENTITY_ID);
 
         FormTag formTag = new FormTag();
         formTag.providerId = "";
@@ -158,7 +159,7 @@ public class PatientRegisterFragmentInteractor {
                         Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
                     String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                     String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                    String baseEntityId = jsonFormObject.getString(ENTITY_ID).split("-")[0];
+                    String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
                     rdtPatient = new Patient(name, sex, baseEntityId);
                 }
             }
