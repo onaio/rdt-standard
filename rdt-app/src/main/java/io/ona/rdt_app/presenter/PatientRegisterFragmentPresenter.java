@@ -79,7 +79,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
         return String.format(" %s != '%s'", "name", "");
     }
 
-    public Patient getRDTPatient() throws JSONException {
-        return interactor.getPatientForRDT();
+    public Patient getRDTPatient(String jsonForm) throws JSONException {
+        return interactor.getPatientForRDT(jsonForm);
     }
 }

@@ -31,11 +31,11 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.model.Patient;
 
-import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
+import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
@@ -60,7 +60,7 @@ public class PatientRegisterFragmentInteractor {
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
-    private JSONObject jsonFormObject;
+    private String entityId = "";
 
     public PatientRegisterFragmentInteractor() {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
@@ -70,11 +70,6 @@ public class PatientRegisterFragmentInteractor {
     public void saveForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
 
         class SaveFormTask extends AsyncTask<Void, Void, Void> {
-
-            @Override
-            protected void onPreExecute() {
-                jsonFormObject = jsonForm;
-            }
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -119,9 +114,8 @@ public class PatientRegisterFragmentInteractor {
     }
 
     private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
-        String entityId = getString(jsonForm, ENTITY_ID);
+        entityId = getString(jsonForm, ENTITY_ID);
         entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
-        jsonForm.put(ENTITY_ID, entityId);
 
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
@@ -152,14 +146,16 @@ public class PatientRegisterFragmentInteractor {
     }
 
     /**
-     * Get Patient for RDT
+     * Get the patient for whom the RDT is to be conducted
      *
-     * @return Patient object for which the RDT capture is to be done.
+     * @param jsonForm The patient form JSON String
+     * @return the initialized Patient if proceeding to RDT capture otherwise return null patient
      * @throws JSONException
      */
-    public Patient getPatientForRDT() throws JSONException {
+    public Patient getPatientForRDT(String jsonForm) throws JSONException {
         Patient rdtPatient = null;
-        if (jsonFormObject != null && PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
+        JSONObject jsonFormObject = new JSONObject(jsonForm);
+        if (PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
             JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
             JSONObject fieldJsonObject;
             for (int i = 0; i < formFields.length(); i++) {
@@ -168,7 +164,7 @@ public class PatientRegisterFragmentInteractor {
                         Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
                     String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                     String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                    String baseEntityId = jsonFormObject.optString(ENTITY_ID).split("-")[0];
+                    String baseEntityId = entityId.split("-")[0];
                     rdtPatient = new Patient(name, sex, baseEntityId);
                 }
             }
