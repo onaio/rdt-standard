@@ -9,6 +9,7 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 
@@ -19,6 +20,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
     private PatientRegisterFragment patientRegisterFragment;
+
 
     public PatientRegisterFragmentPresenter(PatientRegisterFragment patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
@@ -51,8 +53,8 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     }
 
     @Override
-    public void saveForm(String jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveForm(new JSONObject(jsonForm), onFormSavedCallback);
+    public void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
+        interactor.saveForm(jsonForm, onFormSavedCallback);
     }
 
     public String countSelect(String tableName, String mainCondition) {
@@ -75,5 +77,9 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     @Override
     public String getMainCondition() {
         return String.format(" %s != '%s'", "name", "");
+    }
+
+    public Patient getRDTPatient(JSONObject jsonForm) throws JSONException {
+        return interactor.getPatientForRDT(jsonForm);
     }
 }

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
@@ -24,10 +23,13 @@ import java.util.List;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
+import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
@@ -47,7 +49,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_RDT_PERMISSIONS && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
             new RDTJsonFormUtils().showToast(this, getApplicationContext().getString(R.string.rdt_permissions_required));
             finish();
@@ -121,11 +123,17 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 String jsonForm = data.getStringExtra("json");
-                Log.d(TAG, jsonForm);
-                PatientRegisterFragmentPresenter presenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-                presenter.saveForm(jsonForm, this);
+                Timber.d(TAG, jsonForm);
+                PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
+                JSONObject jsonFormObject = new JSONObject(jsonForm);
+                RDTJsonFormUtils.appendEntityId(jsonFormObject);
+                patientRegisterFragmentPresenter.saveForm(jsonFormObject, this);
+                Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonFormObject);
+                if (rdtPatient != null) {
+                    new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM, rdtPatient);
+                }
             } catch (JSONException e) {
-                Log.e(TAG, e.getStackTrace().toString());
+                Timber.e(TAG, e.getStackTrace().toString());
             }
         }
     }
