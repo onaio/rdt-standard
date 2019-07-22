@@ -3,6 +3,7 @@ package io.ona.rdt_app.interactor;
 import android.content.Context;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class, ClientProcessorForJava.class})
@@ -75,10 +77,13 @@ public class PatientRegisterFragmentInteractorTest {
         PowerMockito.when(ClientProcessorForJava.getInstance(context)).thenReturn(clientProcessor);
         interactorSpy = PowerMockito.spy(new PatientRegisterFragmentInteractor());
 
-        Patient rdtpatient = interactorSpy.getPatientForRDT(jsonForm);
+        JSONObject jsonFormObject = new JSONObject(jsonForm);
+        RDTJsonFormUtils.appendEntityId(jsonFormObject);
+        Patient rdtpatient = interactorSpy.getPatientForRDT(jsonFormObject);
+
         Assert.assertNotNull(rdtpatient);
-        Assert.assertEquals(rdtpatient.getPatientName(), "Mr. Patient");
-        Assert.assertEquals(rdtpatient.getPatientSex(), "Male");
+        Assert.assertEquals(rdtpatient.getPatientName(), patientName);
+        Assert.assertEquals(rdtpatient.getPatientSex(), patientGender);
     }
 
 }
