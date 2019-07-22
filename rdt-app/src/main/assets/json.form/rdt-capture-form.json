@@ -1,5 +1,5 @@
 {
-  "count": "13",
+  "count": "18",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -151,7 +151,7 @@
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
-        "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id",
+        "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id, step17:lbl_rdt_id, step18:lbl_rdt_id",
         "expiration_date_address": "step3:expiration_date_reader",
         "v_numeric": {
           "value": "true",
@@ -202,13 +202,13 @@
     "next": "step7",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "Continue",
+    "next_label": "CONTINUE TO MICROSCOPY",
     "fields": [
       {
         "key": "lbl_rdt_id",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "10sp",
+        "text_size": "12sp",
         "label_text_style": "bold",
         "top_margin": "15dp",
         "has_bg": true,
@@ -218,7 +218,7 @@
         "key": "lbl_record_rdt_id",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "8sp",
+        "text_size": "10sp",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
@@ -232,27 +232,37 @@
     "next": "step8",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "BLOT PAPER COMPLETE",
+    "next_label": "MICROSCOPY SLIDE COMPLETE",
     "fields": [
       {
-        "key": "lbl_blot_paper",
+        "key": "lbl_microscopy_slide_instruction",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
-        "label_text_style": "bold",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Blot X uL on filter paper. Place blood spot in a tube labelled with:"
+        "text": "Collect Thick and Thin Bloodsmear on Microscopy Slide"
+      },
+      {
+        "key": "lbl_microscopy_slide",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Label slide with:"
       },
       {
         "key": "lbl_rdt_id",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "8sp",
+        "text_size": "12sp",
         "top_margin": "15dp",
         "has_bg": true,
-        "bg_color": "#ffffff"
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
       }
     ]
   },
@@ -262,27 +272,37 @@
     "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "MICROSCOPY SLIDE COMPLETE",
+    "next_label": "BLOT PAPER COMPLETE",
     "fields": [
       {
-        "key": "lbl_microscopy_slide",
+        "key": "lbl_blot_paper_instructions",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
-        "label_text_style": "bold",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Collect X uL on microscopy slide. Label slide with:"
+        "text": "Saturate the Filter Paper Bloodspot Circle"
+      },
+      {
+        "key": "lbl_blot_paper",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Place Bloodspot in a labeled tube with ID number displayed. Do Not Close top of Bloodspot until dry."
       },
       {
         "key": "lbl_rdt_id",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "8sp",
+        "text_size": "12sp",
         "top_margin": "15dp",
         "has_bg": true,
-        "bg_color": "#ffffff"
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
       }
     ]
   },
@@ -381,7 +401,7 @@
   },
   "step13": {
     "title": "RDT Result Ready",
-    "next": "step14",
+    "next": "step15",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -406,8 +426,38 @@
     ]
   },
   "step14": {
-    "title": "RDT",
+    "title": "Carestart RDT",
     "next": "step15",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "TAKE IMAGE OF RDT",
+    "fields": [
+      {
+        "key": "lbl_conduct_carestart",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Conduct Carestart RDT"
+      },
+      {
+        "key": "lbl_conduct_carestart",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Take image of RDT once test is complete"
+      }
+    ]
+  },
+  "step15": {
+    "title": "RDT",
+    "next": "step16",
     "display_back_button": "true",
     "fields": [
       {
@@ -416,18 +466,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
-        "image_id_address": "step14:rdt_capture",
-        "image_timestamp_address": "step15:time_img_saved"
+        "image_id_address": "step15:rdt_capture",
+        "image_timestamp_address": "step16:time_img_saved"
       }
     ]
   },
-  "step15": {
-    "title": "Select RDT reader result",
+  "step16": {
+    "title": "RDT Test Result",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SAVE RDT RESULT",
+    "next_label": "SAVE RDT RESULT",
+    "next": "step17",
     "fields": [
       {
         "key": "rdt_result",
@@ -464,20 +514,73 @@
         "type": "hidden"
       },
       {
-        "key": "lbl_result",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "positive"
-      },
-      {
         "key": "timer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "value": "834912438"
+      }
+    ]
+  },
+  "step17": {
+    "title": "Confirm Labels",
+    "display_back_button": "true",
+    "next": "step18",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONFIRM",
+    "fields": [
+      {
+        "key": "lbl_confirm_labels",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Ensure Microscopy slide, Bloodspot and RDT labels are"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      }
+    ]
+  },
+  "step18": {
+    "title": "Sterile Storage",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "END TEST",
+    "fields": [
+      {
+        "key": "lbl_confirm_labels",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Place RDT, Blood spot and Microscopy slide in a provided Sterile Storage and affix"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
       }
     ]
   }
