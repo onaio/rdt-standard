@@ -1,0 +1,6 @@
+name: step1_conditional_save
+description: Save and exit or save and continue to capture RDT form.
+priority: 1
+condition: "step1_patient_age < 5 || step1_is_fever == 'Yes'"
+actions:
+  - 'calculation = 1'
