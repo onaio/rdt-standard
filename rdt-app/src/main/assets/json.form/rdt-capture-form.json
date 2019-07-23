@@ -128,6 +128,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "expiration_date_capture",
+        "previous": "step2",
         "expired_page_address": "step5",
         "v_required": {
           "value": "true",
@@ -148,6 +149,7 @@
         "openmrs_entity_id": "",
         "type": "barcode",
         "barcode_type": "qrcode",
+        "previous": "step2",
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
@@ -466,6 +468,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
+        "carestart_rdt_prev": "step14",
         "image_id_address": "step15:rdt_capture",
         "image_timestamp_address": "step16:time_img_saved"
       }

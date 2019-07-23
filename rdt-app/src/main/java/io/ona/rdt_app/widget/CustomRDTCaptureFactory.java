@@ -23,9 +23,12 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
+import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_FILE_PATH;
@@ -39,12 +42,13 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
+    private final String CARESTART_RDT_PREV = "carestart_rdt_prev";
+    private final String ONA_RDT_PREV = "ona_rdt_prev";
 
     private Context context;
     private JsonFormFragment formFragment;
     private String baseEntityId;
     private JSONObject jsonObject;
-
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
@@ -117,7 +121,16 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    ((Activity) context).finish();
+                    RDTJsonFormActivity activity = (RDTJsonFormActivity) context;
+                    String rdtType = activity.getRdtType();
+                    String prevStep = CARESTART_RDT_PREV.equals(rdtType) ? jsonObject.optString(CARESTART_RDT_PREV, "")
+                            : jsonObject.optString(ONA_RDT_PREV, "");
+                    // handle on back-press
+                    if (!prevStep.isEmpty()) {
+                        formFragment.transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
+                    } else {
+                        activity.finish();
+                    }
                 } else if (data == null) {
                     Log.i(TAG, "No result data for RDT capture!");
                 }
