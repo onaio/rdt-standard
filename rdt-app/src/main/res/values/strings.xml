@@ -8,7 +8,7 @@
     <string name="rdt_permissions_required">RDT image capture requires camera and storage permissions</string>
     <string name="time_expired">Time has expired.\nRead RDT result.</string>
     <string name="opensrp_url" translatable="false">@string/opensrp_base_url</string>
-    <string name="login_app_name">RDT Open \nGuidelines</string>
+    <string name="login_app_name">RDT Open \nReader</string>
     <string name="login_enter_username">Enter username</string>
     <string name="login_enter_password">Enter password</string>
     <string name="login_attributions">An <![CDATA[<b><font color=#467690>Ona</font></b>]]> deployment <![CDATA[<br/>]]>powered by <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]></string>
