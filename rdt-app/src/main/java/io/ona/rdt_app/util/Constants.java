@@ -22,8 +22,8 @@ public interface Constants {
     String CONDITIONAL_SAVE = "conditional_save";
     String RDT_IMAGE = "rdt_image";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
-    String ONA_RDT = "ona_rdt";
-    String CARESTART_RDT = "carestart_rdt";
+    String ONA_RDT = "experimental";
+    String CARESTART_RDT = "carestart";
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";

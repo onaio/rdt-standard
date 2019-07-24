@@ -11,6 +11,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -26,8 +27,6 @@ import io.ona.rdt_app.util.Utils;
 
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
-import static io.ona.rdt_app.util.Utils.scheduleJobsImmediately;
-import static io.ona.rdt_app.util.Utils.scheduleJobsPeriodically;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -54,7 +53,7 @@ public class RDTApplication extends DrishtiApplication {
         context.updateCommonFtsObject(createCommonFtsObject());
 
         // Initialize Modules
-        CoreLibrary.init(context, new RDTSyncConfiguration());
+        CoreLibrary.init(context, new RDTSyncConfiguration(), System.currentTimeMillis());
 
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
@@ -64,10 +63,10 @@ public class RDTApplication extends DrishtiApplication {
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
-        getContext().allSharedPreferences().savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
-
-        scheduleJobsImmediately();
-        scheduleJobsPeriodically();
+        AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
+        if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
+            sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+        }
     }
 
     @Override

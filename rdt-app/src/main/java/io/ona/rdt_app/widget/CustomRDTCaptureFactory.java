@@ -28,7 +28,6 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_FILE_PATH;
@@ -44,6 +43,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
     private final String CARESTART_RDT_PREV = "carestart_rdt_prev";
     private final String ONA_RDT_PREV = "ona_rdt_prev";
+    private final String RDT_NAME = "rdt_name";
 
     private Context context;
     private JsonFormFragment formFragment;
@@ -85,6 +85,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(ENTITY_ID, baseEntityId);
+            intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
             new LaunchRDTCameraTask().execute(intent);
         }
     }

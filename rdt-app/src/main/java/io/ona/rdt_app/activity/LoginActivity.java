@@ -1,6 +1,9 @@
 package io.ona.rdt_app.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Html;
+import android.widget.TextView;
 
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
@@ -14,6 +17,13 @@ import io.ona.rdt_app.presenter.LoginPresenter;
  */
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
+        String attributionsTxt = getResources().getString(R.string.login_attributions);
+        tvLoginAttributions.setText(Html.fromHtml(attributionsTxt));
+    }
     @Override
     protected int getContentView() {
         return R.layout.activity_login; // todo: change this to rdt login layout
