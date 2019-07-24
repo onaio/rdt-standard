@@ -65,7 +65,7 @@ public class RDTJsonFormUtils {
                 OutputStream os = null;
                 try {
                     if (!StringUtils.isBlank(entityId)) {
-                        final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+                        final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + "-" + UUID.randomUUID() + ".JPEG";
 
                         File outputFile = new File(absoluteFileName);
                         os = new FileOutputStream(outputFile);
