@@ -8,6 +8,7 @@ public interface Constants {
     int REQUEST_CODE_GET_JSON = 9388;
 
     String JSON_FORM_PARAM_JSON = "json";
+    String ENTITY_ID = "entity_id";
     String METADATA = "metadata";
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
@@ -15,11 +16,14 @@ public interface Constants {
     String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
+    String PATIENT_NAME = "patient_name";
+    String SEX = "sex";
     String PATIENT_AGE = "patient_age";
+    String CONDITIONAL_SAVE = "conditional_save";
     String PROFILE_PIC = "profilepic";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
-    String ONA_RDT = "ona_rdt";
-    String CARESTART_RDT = "carestart_rdt";
+    String ONA_RDT = "experimental";
+    String CARESTART_RDT = "carestart";
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";

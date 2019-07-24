@@ -54,7 +54,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String patientName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.NAME, true);
         String patientAge = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.AGE, true);
         String sex = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.SEX, true);
-        String baseEntityId = commonPersonObjectClient.getCaseId().split("-")[0];;
+        String baseEntityId = commonPersonObjectClient.getCaseId().split("-")[0];
         String nameAndAge = createNameAndAgeLabel(patientName, patientAge);
 
         final Patient patient = new Patient(patientName, sex, baseEntityId);
