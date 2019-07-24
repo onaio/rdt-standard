@@ -14,10 +14,12 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         super(loginPresenter);
     }
 
+    @Override
     protected void scheduleJobsPeriodically() {
         Utils.scheduleJobsPeriodically();
     }
 
+    @Override
     public void scheduleJobsImmediately() {
         Utils.scheduleJobsImmediately();
     }

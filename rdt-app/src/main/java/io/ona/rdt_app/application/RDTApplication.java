@@ -65,9 +65,6 @@ public class RDTApplication extends DrishtiApplication {
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
         getContext().allSharedPreferences().savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
-
-        scheduleJobsImmediately();
-        scheduleJobsPeriodically();
     }
 
     @Override
