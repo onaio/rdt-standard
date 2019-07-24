@@ -11,6 +11,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -64,7 +65,10 @@ public class RDTApplication extends DrishtiApplication {
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
-        getContext().allSharedPreferences().savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+        AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
+        if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
+            sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+        }
     }
 
     @Override
