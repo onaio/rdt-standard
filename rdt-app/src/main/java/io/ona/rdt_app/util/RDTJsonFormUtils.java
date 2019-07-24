@@ -35,7 +35,7 @@ import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
-import static io.ona.rdt_app.util.Constants.PROFILE_PIC;
+import static io.ona.rdt_app.util.Constants.RDT_IMAGE;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -76,7 +76,7 @@ public class RDTJsonFormUtils {
                         profileImage.setAnmId(providerId);
                         profileImage.setEntityID(entityId);
                         profileImage.setFilepath(absoluteFileName);
-                        profileImage.setFilecategory(PROFILE_PIC);
+                        profileImage.setFilecategory(RDT_IMAGE);
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
@@ -155,7 +155,7 @@ public class RDTJsonFormUtils {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
-            prePopulateFormFields(formJsonObject, patient, rdtId, 5);
+            prePopulateFormFields(formJsonObject, patient, rdtId, 7);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
             Log.e(TAG, e.getStackTrace().toString());
@@ -170,7 +170,7 @@ public class RDTJsonFormUtils {
             JSONObject field = fields.getJSONObject(i);
             if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
                 field.put(VALUE, rdtId);
-                field.put("text", "ID: " + rdtId);
+                field.put("text", "RDT ID: " + rdtId);
                 fieldsPopulated++;
             }
             // pre-populate patient fields
