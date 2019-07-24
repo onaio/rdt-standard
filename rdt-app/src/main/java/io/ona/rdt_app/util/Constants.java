@@ -22,10 +22,18 @@ public interface Constants {
     String CONDITIONAL_SAVE = "conditional_save";
     String PROFILE_PIC = "profilepic";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
-    String ONA_RDT = "ona_rdt";
-    String CARESTART_RDT = "carestart_rdt";
+    String ONA_RDT = "experimental";
+    String CARESTART_RDT = "carestart";
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
+
+    interface Tags {
+        String COUNTRY = "Country";
+        String PROVINCE = "Province";
+        String DISTRICT = "District";
+        String HEALTH_CENTER = "Rural Health Centre";
+        String VILLAGE = "Village";
+    }
 
     interface DBConstants {
         String NAME = "name";

@@ -38,13 +38,6 @@ public class MainActivity extends AppCompatActivity {
            }
         });
 
-        findViewById(R.id.btn_manual_sync).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RDTApplication.getInstance().scheduleJobsImmediately();
-            }
-        });
-
         requestPermissions();
     }
 

@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -39,6 +40,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
+    private final String RDT_NAME = "rdt_name";
 
     private Context context;
     private JsonFormFragment formFragment;
@@ -81,6 +83,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(ENTITY_ID, baseEntityId);
+            intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
             new LaunchRDTCameraTask().execute(intent);
         }
     }
