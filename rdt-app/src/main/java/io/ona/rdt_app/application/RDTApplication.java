@@ -6,20 +6,15 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
-import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
-
-import java.util.Arrays;
-import java.util.HashSet;
 
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
@@ -30,6 +25,7 @@ import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
 import io.ona.rdt_app.util.Utils;
 
+import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
@@ -66,6 +62,11 @@ public class RDTApplication extends DrishtiApplication {
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
+
+        AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
+        if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
+            sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+        }
     }
 
     @Override

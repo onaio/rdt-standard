@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="patient_register_toolbar_background">#007CD7</color>
     <color name="form_fragment_toolbar_color">#585858</color>
+    <color name="activated_toggle_btn_color">#1390D4</color>
 </resources>

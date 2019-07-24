@@ -7,8 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,23 +28,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
+import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import io.ona.rdt_app.util.Utils;
 import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 
-public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback {
+public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
+
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        setupDrawerContent(navigationView);
         requestPermissions();
     }
 
@@ -142,6 +158,50 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     public void onFormSaved() {
         if (mBaseFragment != null && mBaseFragment.getActivity() != null) {
             mBaseFragment.refreshListView();
+        }
+    }
+
+    public void openDrawerLayout() {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void closeDrawerLayout() {
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        Menu menuNav = navigationView.getMenu();
+        MenuItem imgSyncToggle = menuNav.findItem(R.id.menu_item_toggle_img_sync);
+        View actionView = imgSyncToggle.getActionView();
+        Switch imgSyncToggleBtn = actionView.findViewById(R.id.img_sync_switch_button);
+        imgSyncToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                RDTApplication.getInstance().getContext()
+                        .allSharedPreferences()
+                        .savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(!Utils.isImageSyncEnabled()));
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                selectDrawerItem(menuItem);
+                return true;
+            }
+        });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        switch(menuItem.getItemId()) {
+            case R.id.menu_item_sync:
+                closeDrawerLayout();
+                Utils.scheduleJobsImmediately();
+                break;
+            case R.id.menu_item_logout:
+                RDTApplication.getInstance().logoutCurrentUser();
+                break;
+            default:
+                // do nothing
         }
     }
 }
