@@ -20,7 +20,7 @@ public interface Constants {
     String SEX = "sex";
     String PATIENT_AGE = "patient_age";
     String CONDITIONAL_SAVE = "conditional_save";
-    String PROFILE_PIC = "profilepic";
+    String RDT_IMAGE = "rdt_image";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
     String ONA_RDT = "ona_rdt";
     String CARESTART_RDT = "carestart_rdt";
