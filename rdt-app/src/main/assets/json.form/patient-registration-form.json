@@ -537,23 +537,6 @@
         }
       },
       {
-        "key": "other_symptoms_label",
-        "type": "label",
-        "text": "Other symptoms?",
-        "text_color": "#000000"
-      },
-      {
-        "key": "other_symptoms",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_regex": {
-          "value": "[^([0-9]*)$]*",
-          "err": "Please enter a valid symptom"
-        }
-      },
-      {
         "key": "estimated_dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -588,6 +571,27 @@
         "v_required": {
           "value": "true",
           "err": "Does the patient have a history of visiting Malaria endemic areas in Indonesia?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "conditional_save",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "conditional_save",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "conditional_save_calculation_rules.yml"
+            }
+          }
         }
       }
     ]

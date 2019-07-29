@@ -1,0 +1,6 @@
+name:
+description:
+priority: 1
+condition: ""
+actions:
+  - 'calculation = 1'
