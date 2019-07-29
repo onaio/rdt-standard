@@ -79,33 +79,12 @@
         }
       },
       {
-        "key": "patient_age_label",
-        "type": "label",
-        "text": "Age",
-        "text_color": "#000000"
-      },
-      {
-        "key": "patient_age",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify patient age"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Age must be a rounded number"
-        }
-      },
-      {
-        "key": "sex",
+        "key": "patient_gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "native_radio",
-        "label": "Sex",
+        "label": "Gender",
         "options": [
           {
             "key": "Female",
@@ -118,16 +97,56 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify sex"
+          "err": "Please specify gender"
         }
       },
       {
-        "key": "is_fever",
+        "key": "patient_dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Patient's date of birth ",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        }
+      },
+      {
+        "key": "patient_occupation_label",
+        "type": "label",
+        "text": "Occupation",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "occupation",
+        "type": "edit_text",
+        "edit_type": "occupation",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify occupation"
+        },
+        "v_regex": {
+          "value": "[^([0-9]*)$]*",
+          "err": "Please enter a valid occupation"
+        }
+      },
+      {
+        "key": "been_treated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Signs of fever in the last 3 days?",
+        "label": "Has been treated for malaria in the past 3 months?",
         "options": [
           {
             "key": "Yes",
@@ -140,11 +159,11 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has patient had a fever in last 3 days"
+          "err": "Has the patient been treated for malaria in the past 3 months?"
         }
       },
       {
-        "key": "is_malaria",
+        "key": "had_malaria",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -162,16 +181,16 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has patient had malaria in the last year"
+          "err": "Has patient had malaria in the last year?"
         }
       },
       {
-        "key": "is_treated",
+        "key": "had_fever",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Have been treated for malaria within last 3 months?",
+        "label": "Had a fever (temperature ≥ 37.5°C) in the last 3 days?",
         "options": [
           {
             "key": "Yes",
@@ -184,7 +203,337 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has patient been treated for malaria within last 3 months"
+          "err": "Has the patient had a fever (temperature ≥ 37.5°C) in the past 3 days?"
+        }
+      },
+      {
+        "key": "experienced_abnormal_headaches",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Experienced abnormal headaches in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient experienced abnormal headaches in the 48 hours?"
+        }
+      },
+      {
+        "key": "felt_nausea",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Felt nausea in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient felt nausea in the last 48 hours?"
+        }
+      },
+      {
+        "key": "has_vomited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has vomited in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient vomited in the last 48 hours?"
+        }
+      },
+      {
+        "key": "experienced_diarrhea",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has experienced diarrhea in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient experienced diarrhea in the last 48 hours?"
+        }
+      },
+      {
+        "key": "experienced_chills",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has experienced chills in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient experienced chills in the last 48 hours?"
+        }
+      },
+      {
+        "key": "felt_aches",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has felt body aches in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient felt body aches in the last 48 hours?"
+        }
+      },
+      {
+        "key": "had_muscle_pain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Had muscle pain in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient had muscle pain in the  last 48 hours?"
+        }
+      },
+      {
+        "key": "had_chest_pain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Had chest pain in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient had chest pain in the  last 48 hours?"
+        }
+      },
+      {
+        "key": "felt_abnormal_fatigue",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has felt abnormal fatigue in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient felt abnormal fatigue in the last 48 hours?"
+        }
+      },
+      {
+        "key": "had_breathing_problems",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Had breathing problems in the last 48 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the patient had breathing problems in the  last 48 hours?"
+        }
+      },
+      {
+        "key": "poor_feeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Poor feeding been seen in the past 3 days?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has poor feeding been seen in the past 3 days?"
+        }
+      },
+      {
+        "key": "coughing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Coughing in the past 3 days?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has the child been coughing in the past 3 days?"
+        }
+      },
+      {
+        "key": "anyone_else_diagnosed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Anyone else in the household diagnosed with malaria in the last 3 months?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Has anyone else in the household been diagnosed with malaria in the last 3 months?"
+        }
+      },
+      {
+        "key": "sprayed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Was household/compound sprayed in the last 3 months?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Was the household/compound sprayed in the last 3 months?"
+        }
+      },
+      {
+        "key": "lives_in_endemic_area",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Lives in Malaria endemic area?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Does the patient live in a Malaria endemic area?"
         }
       },
       {
@@ -220,17 +569,25 @@
         "type": "hidden"
       },
       {
-        "key": "conditional_save",
+        "key": "history_of_visiting_endemic_areas",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "conditional_save",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "conditional_save_rules.yml"
-            }
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has a history of visiting Malaria endemic areas in Indonesia?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
           }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Does the patient have a history of visiting Malaria endemic areas in Indonesia?"
         }
       }
     ]
