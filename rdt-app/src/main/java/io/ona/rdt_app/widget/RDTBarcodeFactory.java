@@ -117,7 +117,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                             } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
                                 String prevStep = jsonObject.optString(PREVIOUS, "");
                                 if (!prevStep.isEmpty()) {
-                                    formFragment.transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
+                                    ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
                                 } else {
                                     ((Activity) context).finish();
                                 }

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
@@ -55,6 +56,11 @@ public class RDTJsonFormActivity extends JsonFormActivity {
     @Override
     public void showPermissionDeniedDialog() {
         // do nothing
+    }
+
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().popBackStack();
     }
 
     public String getRdtType() {

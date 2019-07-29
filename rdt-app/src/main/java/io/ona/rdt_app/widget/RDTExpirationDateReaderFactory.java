@@ -129,7 +129,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                 } else if (resultCode == RESULT_CANCELED) {
                     String prevStep = jsonObject.optString(PREVIOUS, "");
                     if (!prevStep.isEmpty()) {
-                        widgetArgs.getFormFragment().transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
+                        ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
                     } else {
                         ((Activity) widgetArgs.getContext()).finish();
                     }

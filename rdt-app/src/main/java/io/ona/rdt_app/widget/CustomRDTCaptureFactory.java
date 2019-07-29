@@ -128,7 +128,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                             : jsonObject.optString(ONA_RDT_PREV, "");
                     // handle on back-press
                     if (!prevStep.isEmpty()) {
-                        formFragment.transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
+                        ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
                     } else {
                         activity.finish();
                     }

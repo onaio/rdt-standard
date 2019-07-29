@@ -1,16 +1,21 @@
 package io.ona.rdt_app.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
+import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
 import org.json.JSONObject;
 
@@ -25,7 +30,18 @@ import io.ona.rdt_app.util.Constants;
  */
 public class RDTJsonFormFragment extends JsonFormFragment {
 
+    private final String TAG = RDTJsonFormFragment.class.getName();
     private static int currentStep;
+    private boolean moveBackOneStep = false;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isMoveBackOneStep()) {
+            getActivity().onBackPressed();
+            moveBackOneStep = false;
+        }
+    }
 
     public static JsonFormFragment getFormFragment(String stepName) {
         String stepNum = stepName.substring(4);
@@ -104,5 +120,32 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     protected JsonFormFragmentPresenter createPresenter() {
         presenter = new RDTJsonFormFragmentPresenter(this, new RDTJsonFormInteractor());
         return presenter;
+    }
+
+    @Override
+    public void backClick() {
+        AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog).setTitle(R.string.confirm_close_title)
+                .setMessage(R.string.confirm_close_msg).setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                        CountDownTimerFactory.stopAlarm();
+                    }
+                }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName());
+                    }
+                }).create();
+
+        dialog.show();
+    }
+
+    public boolean isMoveBackOneStep() {
+        return moveBackOneStep;
+    }
+
+    public void setMoveBackOneStep(boolean moveBackOneStep) {
+        this.moveBackOneStep = moveBackOneStep;
     }
 }
