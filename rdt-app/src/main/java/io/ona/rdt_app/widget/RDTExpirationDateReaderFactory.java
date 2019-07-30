@@ -31,7 +31,6 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;

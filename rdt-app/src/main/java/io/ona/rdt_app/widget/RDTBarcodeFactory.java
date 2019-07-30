@@ -1,6 +1,5 @@
 package io.ona.rdt_app.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -26,7 +25,6 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 
 /**
