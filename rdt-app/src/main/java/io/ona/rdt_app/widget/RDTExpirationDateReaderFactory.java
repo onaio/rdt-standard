@@ -127,12 +127,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    String prevStep = jsonObject.optString(PREVIOUS, "");
-                    if (!prevStep.isEmpty()) {
-                        ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
-                    } else {
-                        ((Activity) widgetArgs.getContext()).finish();
-                    }
+                    ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
                 } else if (data == null) {
                     Log.i(TAG, "No result data for expiration date capture!");
                 }

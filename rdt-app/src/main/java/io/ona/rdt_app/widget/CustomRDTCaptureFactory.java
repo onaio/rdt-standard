@@ -122,16 +122,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    RDTJsonFormActivity activity = (RDTJsonFormActivity) context;
-                    String rdtType = activity.getRdtType();
-                    String prevStep = CARESTART_RDT_PREV.equals(rdtType) ? jsonObject.optString(CARESTART_RDT_PREV, "")
-                            : jsonObject.optString(ONA_RDT_PREV, "");
-                    // handle on back-press
-                    if (!prevStep.isEmpty()) {
-                        ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
-                    } else {
-                        activity.finish();
-                    }
+                    ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
                 } else if (data == null) {
                     Log.i(TAG, "No result data for RDT capture!");
                 }

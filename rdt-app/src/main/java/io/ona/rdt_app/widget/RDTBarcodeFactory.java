@@ -115,12 +115,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                     Log.e(TAG, e.getStackTrace().toString());
                                 }
                             } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-                                String prevStep = jsonObject.optString(PREVIOUS, "");
-                                if (!prevStep.isEmpty()) {
-                                    ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
-                                } else {
-                                    ((Activity) context).finish();
-                                }
+                                ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
                             } else if (data == null) {
                                 Log.i("", "No result for qr code");
                             }
