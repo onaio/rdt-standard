@@ -116,16 +116,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                             }
                                         }
                                     }
-
-                                    if (!isRDTExpired(expDate)) {
-                                        if (!formFragment.next()) {
-                                            formFragment.save(true);
-                                        }
-                                    } else {
-                                        String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
-                                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-                                        formFragment.transactThis(nextFragment);
-                                    }
+                                    moveToNextStep(expDate);
                                 } catch (JSONException e) {
                                     Log.e(TAG, e.getStackTrace().toString());
                                 }
@@ -136,6 +127,18 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                             }
                         }
                     });
+        }
+    }
+
+    private void moveToNextStep(Date expDate) {
+        if (!isRDTExpired(expDate)) {
+            if (!formFragment.next()) {
+                formFragment.save(true);
+            }
+        } else {
+            String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
+            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+            formFragment.transactThis(nextFragment);
         }
     }
 
