@@ -17,6 +17,7 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.widgets.BarcodeFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -147,16 +148,12 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     }
 
     private Date convertDate(String dateStr) throws ParseException {
-        if (TextUtils.isEmpty(dateStr)) {
+        if (StringUtils.isEmpty(dateStr)) {
             return null;
         }
 
-        String day = dateStr.substring(0, 2);
-        String month = dateStr.substring(2, 4);
-        String year = dateStr.substring(4);
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
-        return simpleDateFormat.parse(day + "/" + month + "/" + year);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyy");
+        return simpleDateFormat.parse(dateStr);
     }
 
     private boolean isRDTExpired(Date date) {
