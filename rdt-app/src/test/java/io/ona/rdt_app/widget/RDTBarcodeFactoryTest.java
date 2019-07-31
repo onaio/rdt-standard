@@ -10,6 +10,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -73,17 +74,13 @@ public class RDTBarcodeFactoryTest {
 
     @Test
     public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {
-        Date date = barcodeFactory.convertDate("201217");
-        boolean result = Whitebox.invokeMethod(barcodeFactory,  "isRDTExpired", date);
+        boolean result = Whitebox.invokeMethod(barcodeFactory,  "isRDTExpired", getPastDate());
         assertTrue(result);
     }
 
     @Test
     public void testIsRDTExpiredShouldReturnFalseForValidRDT() throws Exception {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.YEAR, 1);
-        boolean result = Whitebox.invokeMethod(barcodeFactory, "isRDTExpired", calendar.getTime());
+        boolean result = Whitebox.invokeMethod(barcodeFactory, "isRDTExpired", getFutureDate());
         assertFalse(result);
     }
 
@@ -91,10 +88,7 @@ public class RDTBarcodeFactoryTest {
     public void testMoveToNextStepShouldMoveToNextStepOrSubmitForValidRDT() throws Exception {
         JsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
         Whitebox.setInternalState(barcodeFactory, "formFragment", formFragment);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.YEAR, 1);
-        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", calendar.getTime());
+        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getFutureDate());
         verify(formFragment).next();
     }
 
@@ -109,8 +103,18 @@ public class RDTBarcodeFactoryTest {
         RDTJsonFormFragment rdtJsonFormFragment = mock(RDTJsonFormFragment.class);
         doReturn(rdtJsonFormFragment).when(RDTJsonFormFragment.class, "getFormFragment", isNull());
 
-        Date date = barcodeFactory.convertDate("201217");
-        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", date);
+        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getPastDate());
         verify(formFragment).transactThis(eq(rdtJsonFormFragment));
+    }
+
+    private Date getFutureDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.YEAR, 1);
+        return calendar.getTime();
+    }
+
+    private Date getPastDate() throws ParseException {
+        return barcodeFactory.convertDate("201217");
     }
 }
