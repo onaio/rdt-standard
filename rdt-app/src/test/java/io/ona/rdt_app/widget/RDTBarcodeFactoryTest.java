@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,14 +40,14 @@ public class RDTBarcodeFactoryTest {
     @Test
     public void testConvertDateShouldReturnNullDateForNullDateStr() throws Exception {
         String dateStr = null;
-        Date result = Whitebox.invokeMethod(barcodeFactory, "convertDate", dateStr);
+        Date result = barcodeFactory.convertDate(dateStr);
         assertNull(result);
     }
 
     @Test
     public void testConvertDateShouldReturnCorrectDateForValidDateFormat() throws Exception {
         String dateStr = "201217";
-        Date result = Whitebox.invokeMethod(barcodeFactory, "convertDate", dateStr);
+        Date result = barcodeFactory.convertDate(dateStr);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(result);
         assertEquals(calendar.get(Calendar.DATE), 20);
@@ -56,15 +55,19 @@ public class RDTBarcodeFactoryTest {
         assertEquals(calendar.get(Calendar.YEAR), 2017);
     }
 
-//    @Test
-//    public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {
-//        boolean result = Whitebox.invokeMethod(barcodeFactory,  "isRDTExpired", new Date(1999, 12, 9));
-//        assertTrue(result);
-//    }
-//
-//    @Test
-//    public void testIsRDTExpiredShouldReturnFalseForValidRDT() throws Exception {
-//        boolean result = Whitebox.invokeMethod(barcodeFactory, "isRDTExpired", new Date());
-//        assertFalse(result);
-//    }
+    @Test
+    public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {
+        Date date = barcodeFactory.convertDate("201217");
+        boolean result = Whitebox.invokeMethod(barcodeFactory,  "isRDTExpired", date);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsRDTExpiredShouldReturnFalseForValidRDT() throws Exception {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.YEAR, 1);
+        boolean result = Whitebox.invokeMethod(barcodeFactory, "isRDTExpired", calendar.getTime());
+        assertFalse(result);
+    }
 }

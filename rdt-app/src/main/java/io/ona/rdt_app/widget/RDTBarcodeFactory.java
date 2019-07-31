@@ -147,7 +147,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
         return date == null ? "" : date.toString();
     }
 
-    private Date convertDate(String dateStr) throws ParseException {
+    public Date convertDate(String dateStr) throws ParseException {
         if (StringUtils.isEmpty(dateStr)) {
             return null;
         }
