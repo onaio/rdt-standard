@@ -2,6 +2,7 @@ package io.ona.rdt_app.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,9 @@ import com.vijay.jsonwizard.widgets.BarcodeFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
@@ -26,6 +30,7 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
@@ -78,6 +83,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                         public void onActivityResult(int requestCode, int resultCode, Intent data) {
                             if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
                                 try {
+                                    Date expDate = null;
                                     Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                     Log.d("Scanned QR Code", barcode.displayValue);
                                     String[] barcodeValues = barcode.displayValue.split(",");
@@ -95,19 +101,30 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         for (String addr : rdtIdAddrs) {
                                             stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
                                             if (stepAndId.length == 2) {
-                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[0].trim(), "", "", "", false);
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[2].trim(), "", "", "", false);
                                             }
                                         }
 
                                         // populate exp. date to expiration date widget value
                                         stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
                                         if (stepAndId.length == 2) {
-                                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[1].trim(), "", "", "", false);
+                                            try {
+                                                expDate = convertDate(barcodeValues[1].trim());
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), getDateStr(expDate), "", "", "", false);
+                                            } catch (ParseException e) {
+                                                Log.e(TAG, e.getStackTrace().toString());
+                                            }
                                         }
                                     }
-                                    // move to next step or save form if last step
-                                    if (!formFragment.next()) {
-                                        formFragment.save(true);
+
+                                    if (!isRDTExpired(expDate)) {
+                                        if (!formFragment.next()) {
+                                            formFragment.save(true);
+                                        }
+                                    } else {
+                                        String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
+                                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+                                        formFragment.transactThis(nextFragment);
                                     }
                                 } catch (JSONException e) {
                                     Log.e(TAG, e.getStackTrace().toString());
@@ -120,5 +137,26 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                         }
                     });
         }
+    }
+
+    private String getDateStr(Date date) {
+        return date == null ? "" : date.toString();
+    }
+
+    private Date convertDate(String dateStr) throws ParseException {
+        if (TextUtils.isEmpty(dateStr)) {
+            return null;
+        }
+
+        String day = dateStr.substring(0, 2);
+        String month = dateStr.substring(2, 4);
+        String year = dateStr.substring(4);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+        return simpleDateFormat.parse(day + "/" + month + "/" + year);
+    }
+
+    private boolean isRDTExpired(Date date) {
+        return date == null ? true : new Date().after(date);
     }
 }

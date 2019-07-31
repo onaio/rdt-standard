@@ -153,6 +153,7 @@
         "value": "0",
         "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id, step17:lbl_rdt_id, step18:lbl_rdt_id",
         "expiration_date_address": "step3:expiration_date_reader",
+        "expired_page_address": "step5",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"

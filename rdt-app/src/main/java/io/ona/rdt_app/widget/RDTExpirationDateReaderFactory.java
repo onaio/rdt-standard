@@ -35,6 +35,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
+import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -44,7 +45,6 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
     public static final String EXPIRATION_DATE_CAPTURE = "expiration_date_capture";
 
     private static final String TAG = RDTExpirationDateReaderFactory.class.getName();
-    private final String EXPIRED_PAGE_ADDRESS = "expired_page_address";
 
     private WidgetArgs widgetArgs;
     private View rootLayout;
