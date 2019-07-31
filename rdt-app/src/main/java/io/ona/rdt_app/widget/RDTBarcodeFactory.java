@@ -16,12 +16,10 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.widgets.BarcodeFactory;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +29,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt_app.util.Utils.convertDate;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
@@ -44,6 +43,8 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private static final String TAG = RDTBarcodeFactory.class.getName();
     private final String RDT_ID_ADDRESSES = "rdt_id_addresses";
     private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
+
+    public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
@@ -109,7 +110,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
                                         if (stepAndId.length == 2) {
                                             try {
-                                                expDate = convertDate(barcodeValues[1].trim());
+                                                expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
                                                 jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), getDateStr(expDate), "", "", "", false);
                                             } catch (ParseException e) {
                                                 Log.e(TAG, e.getStackTrace().toString());
@@ -144,15 +145,6 @@ public class RDTBarcodeFactory extends BarcodeFactory {
 
     private String getDateStr(Date date) {
         return date == null ? "" : date.toString();
-    }
-
-    public Date convertDate(String dateStr) throws ParseException {
-        if (StringUtils.isEmpty(dateStr)) {
-            return null;
-        }
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyy");
-        return simpleDateFormat.parse(dateStr);
     }
 
     private boolean isRDTExpired(Date date) {

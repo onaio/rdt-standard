@@ -16,9 +16,10 @@ import java.util.Date;
 
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
+import static io.ona.rdt_app.util.Utils.convertDate;
+import static io.ona.rdt_app.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -52,24 +53,6 @@ public class RDTBarcodeFactoryTest {
         Date now = new Date();
         String result = Whitebox.invokeMethod(barcodeFactory, "getDateStr", now);
         assertEquals(result, now.toString());
-    }
-
-    @Test
-    public void testConvertDateShouldReturnNullDateForNullDateStr() throws Exception {
-        String dateStr = null;
-        Date result = barcodeFactory.convertDate(dateStr);
-        assertNull(result);
-    }
-
-    @Test
-    public void testConvertDateShouldReturnCorrectDateForValidDateFormat() throws Exception {
-        String dateStr = "201217";
-        Date result = barcodeFactory.convertDate(dateStr);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(result);
-        assertEquals(calendar.get(Calendar.DATE), 20);
-        assertEquals(calendar.get(Calendar.MONTH), 11); // month is 0-indexed
-        assertEquals(calendar.get(Calendar.YEAR), 2017);
     }
 
     @Test
@@ -115,6 +98,6 @@ public class RDTBarcodeFactoryTest {
     }
 
     private Date getPastDate() throws ParseException {
-        return barcodeFactory.convertDate("201217");
+        return convertDate("201217", OPEN_RDT_DATE_FORMAT);
     }
 }
