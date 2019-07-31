@@ -537,21 +537,6 @@
         }
       },
       {
-        "key": "estimated_dob",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate_estimated",
-        "type": "hidden",
-        "value": "true"
-      },
-      {
-        "key": "dob",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
-        "type": "hidden"
-      },
-      {
         "key": "history_of_visiting_endemic_areas",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -573,10 +558,9 @@
           "err": "Does the patient have a history of visiting Malaria endemic areas in Indonesia?"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
-            }
+          "step1:lives_in_endemic_area": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
