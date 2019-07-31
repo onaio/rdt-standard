@@ -41,7 +41,7 @@ import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_NAME;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
-import static io.ona.rdt_app.util.Constants.SEX;
+import static io.ona.rdt_app.util.Constants.PATIENT_GENDER;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
@@ -158,7 +158,7 @@ public class PatientRegisterFragmentInteractor {
                 if (CONDITIONAL_SAVE.equals(fieldJsonObject.optString(KEY)) &&
                         Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
                     String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
-                    String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
+                    String sex = FormUtils.getFieldJSONObject(formFields, PATIENT_GENDER).optString(VALUE);
                     String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
                     rdtPatient = new Patient(name, sex, baseEntityId);
                 }
