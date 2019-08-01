@@ -17,10 +17,17 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
     }
+
     lintOptions {
         lintConfig file("lint.xml")
         abortOnError false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         debug {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
