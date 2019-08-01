@@ -13,6 +13,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -38,6 +39,7 @@ public class RDTApplication extends DrishtiApplication {
     private static CommonFtsObject commonFtsObject;
 
     private String password;
+    private UniqueIdRepository uniqueIdRepository;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -132,5 +134,12 @@ public class RDTApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.NAME};
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (uniqueIdRepository == null) {
+            uniqueIdRepository = new UniqueIdRepository(getRepository());
+        }
+        return uniqueIdRepository;
     }
 }
