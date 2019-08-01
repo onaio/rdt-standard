@@ -185,6 +185,7 @@ public class RDTJsonFormUtils {
             protected UniqueId doInBackground(Void... voids) {
                 return RDTApplication.getInstance().getUniqueIdRepository().getNextUniqueId();
             }
+
             @Override
             protected void onPostExecute(UniqueId result) {
                 callBack.onUniqueIdFetched(args, result);

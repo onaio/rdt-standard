@@ -28,6 +28,7 @@ import org.smartregister.util.PropertiesConverter;
 import java.util.Calendar;
 import java.util.Collections;
 
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
@@ -195,13 +196,14 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
     }
 
     @Override
-    public void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) {
+    public synchronized void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) {
         try {
             Activity activity = args.getActivity();
-            String id = uniqueId == null ? "" : uniqueId.getId();
+            String id = uniqueId == null ? "" : uniqueId.getOpenmrsId().replace("-", "");
             if (id.isEmpty()) {
-                showToast(activity, "Sorry, no unique rdt ids could be fetched. Please turn on your network connection and perform a manual sync.");
+                showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
             } else {
+                RDTApplication.getInstance().getUniqueIdRepository().close(id);
                 JSONObject formJSONObj = args.getFormJsonObject();
                 formUtils.prePopulateFormFields(formJSONObj, args.getPatient(), id, 7);
                 formUtils.startJsonForm(formJSONObj, activity, REQUEST_CODE_GET_JSON);
