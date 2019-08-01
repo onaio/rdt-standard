@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
@@ -194,14 +195,15 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
     }
 
     @Override
-    public void onUniqueIdFetched(FormLaunchArgs args, String uniqueId) {
+    public void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) {
         try {
             Activity activity = args.getActivity();
-            if (uniqueId.isEmpty()) {
+            String id = uniqueId == null ? "" : uniqueId.getId();
+            if (id.isEmpty()) {
                 showToast(activity, "Sorry, no unique rdt ids could be fetched. Please turn on your network connection and perform a manual sync.");
             } else {
                 JSONObject formJSONObj = args.getFormJsonObject();
-                formUtils.prePopulateFormFields(formJSONObj, args.getPatient(), uniqueId, 7);
+                formUtils.prePopulateFormFields(formJSONObj, args.getPatient(), id, 7);
                 formUtils.startJsonForm(formJSONObj, activity, REQUEST_CODE_GET_JSON);
             }
         } catch (JsonFormMissingStepCountException e) {
