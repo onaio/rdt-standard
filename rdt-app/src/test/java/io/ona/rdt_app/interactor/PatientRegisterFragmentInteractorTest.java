@@ -47,6 +47,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -95,7 +97,7 @@ public class PatientRegisterFragmentInteractorTest {
             "\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"conditional_save_rules.yml\"}}},\"value\":\"1\"}]}}";
 
     @Before
-    public void setUp() throws JSONException, JsonFormMissingStepCountException {
+    public void setUp() throws JsonFormMissingStepCountException {
         MockitoAnnotations.initMocks(this);
         mockStaticMethods();
         interactor = new PatientRegisterFragmentInteractor();
@@ -114,7 +116,7 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-    public void testPopulateApproxDOB() throws Exception {
+    public void testPopulateApproxDOBShouldPopulateCorrectDate() throws Exception {
         JSONObject formJsonObj = new JSONObject(jsonForm);
         Whitebox.invokeMethod(interactor, "populateApproxDOB", formJsonObj);
         JSONArray fields = JsonFormUtils.fields(formJsonObj);
@@ -129,7 +131,23 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-    public void testLaunchForm() throws JSONException {
+    public void testLaunchFormShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        JSONObject jsonForm = new JSONObject();
+        final String FORM_NAME = "form";
+
+        doReturn(jsonForm).when(formUtils).getFormJsonObject(anyString(), any(Activity.class));
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, null);
+
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(""), eq(2));
+        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
+    }
+
+
+    @Test
+    public void testLaunchFormShouldFetchUniqueIdBeforeFormLaunch() throws JSONException {
         RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
         Activity activity = mock(Activity.class);
         final String FORM_NAME = "form";
@@ -145,7 +163,7 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-    public void testOnUniqueIdFetched() throws JSONException, JsonFormMissingStepCountException {
+    public void testOnUniqueIdFetchedShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
         FormLaunchArgs args = new FormLaunchArgs();
         Activity activity = mock(Activity.class);
         Patient patient = mock(Patient.class);
@@ -165,7 +183,7 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-    public void testSaveEventClient() throws Exception {
+    public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
         JSONObject formJsonObj = new JSONObject(jsonForm);
         Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
