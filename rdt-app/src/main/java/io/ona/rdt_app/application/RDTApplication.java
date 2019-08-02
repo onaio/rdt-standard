@@ -135,11 +135,4 @@ public class RDTApplication extends DrishtiApplication {
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.NAME};
     }
-
-    public UniqueIdRepository getUniqueIdRepository() {
-        if (uniqueIdRepository == null) {
-            uniqueIdRepository = new UniqueIdRepository(getRepository());
-        }
-        return uniqueIdRepository;
-    }
 }

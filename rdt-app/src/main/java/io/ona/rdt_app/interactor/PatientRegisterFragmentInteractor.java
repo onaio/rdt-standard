@@ -201,7 +201,7 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
             if (id.isEmpty()) {
                 showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
             } else {
-                RDTApplication.getInstance().getUniqueIdRepository().close(id);
+                RDTApplication.getInstance().getContext().getUniqueIdRepository().close(id);
                 JSONObject formJSONObj = args.getFormJsonObject();
                 formUtils.prePopulateFormFields(formJSONObj, args.getPatient(), id, 7);
                 formUtils.startJsonForm(formJSONObj, activity, REQUEST_CODE_GET_JSON);

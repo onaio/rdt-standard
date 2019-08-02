@@ -183,7 +183,7 @@ public class RDTJsonFormUtils {
         class FetchUniqueIdTask extends AsyncTask<Void, Void, UniqueId> {
             @Override
             protected UniqueId doInBackground(Void... voids) {
-                return RDTApplication.getInstance().getUniqueIdRepository().getNextUniqueId();
+                return RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId();
             }
 
             @Override

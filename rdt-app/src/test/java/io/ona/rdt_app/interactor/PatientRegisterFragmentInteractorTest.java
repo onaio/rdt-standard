@@ -18,7 +18,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.domain.UniqueId;
+import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.JsonFormUtils;
 
@@ -32,6 +35,7 @@ import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -129,6 +133,26 @@ public class PatientRegisterFragmentInteractorTest {
         assertEquals(args.getPatient(), patient);
     }
 
+    @Test
+    public void testOnUniqueIdFetched() throws JSONException, JsonFormMissingStepCountException {
+        FormLaunchArgs args = new FormLaunchArgs();
+        Activity activity = mock(Activity.class);
+        Patient patient = mock(Patient.class);
+        JSONObject jsonForm = new JSONObject();
+        args.withActivity(activity)
+            .withFormJsonObj(jsonForm)
+            .withPatient(patient);
+
+        UniqueId uniqueId = new UniqueId("id", "openmrs_id", null, null, null);
+
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.onUniqueIdFetched(args, uniqueId);
+
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), eq(patient), eq("openmrs_id"), eq(7));
+        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
+    }
+
     private void mockStaticMethods() {
         PowerMockito.mockStatic(RDTApplication.class);
         PowerMockito.mockStatic(ClientProcessorForJava.class);
@@ -136,6 +160,7 @@ public class PatientRegisterFragmentInteractorTest {
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
         PowerMockito.when(rdtApplication.getContext()).thenReturn(applicationContext);
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
+        PowerMockito.when(applicationContext.getUniqueIdRepository()).thenReturn(mock(UniqueIdRepository.class));
         PowerMockito.when(ClientProcessorForJava.getInstance(context)).thenReturn(clientProcessor);
     }
 }
