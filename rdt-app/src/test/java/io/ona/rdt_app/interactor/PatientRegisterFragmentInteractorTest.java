@@ -18,14 +18,19 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
+import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.JsonFormUtils;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
@@ -35,14 +40,19 @@ import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTApplication.class, ClientProcessorForJava.class})
+@PrepareForTest({RDTApplication.class, ClientProcessorForJava.class, JsonFormUtils.class})
 public class PatientRegisterFragmentInteractorTest {
 
     @Mock
@@ -60,10 +70,11 @@ public class PatientRegisterFragmentInteractorTest {
 
     private final String PATIENT_NAME = "Mr. Patient";
     private final String PATIENT_GENDER = "Male";
+    private final String PATIENT_BASE_ENTITY_ID = "2b66831d-d3e9-4727-a147-6f7336cbc7a1";
     private final int PATIENT_AGE = 20;
     private PatientRegisterFragmentInteractor interactor;
 
-    private final String jsonForm = "{\"count\":\"1\",\"encounter_type\":\"patient_registration\",\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
+    private final String jsonForm = "{\"count\":\"1\",\"baseEntityId\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
             "\"fields\":[{\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
             "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
@@ -84,7 +95,7 @@ public class PatientRegisterFragmentInteractorTest {
             "\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"conditional_save_rules.yml\"}}},\"value\":\"1\"}]}}";
 
     @Before
-    public void setUp() {
+    public void setUp() throws JSONException, JsonFormMissingStepCountException {
         MockitoAnnotations.initMocks(this);
         mockStaticMethods();
         interactor = new PatientRegisterFragmentInteractor();
@@ -153,14 +164,35 @@ public class PatientRegisterFragmentInteractorTest {
         verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
     }
 
-    private void mockStaticMethods() {
-        PowerMockito.mockStatic(RDTApplication.class);
-        PowerMockito.mockStatic(ClientProcessorForJava.class);
+    @Test
+    public void testSaveEventClient() throws Exception {
+        JSONObject formJsonObj = new JSONObject(jsonForm);
+        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
+        verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
+        verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
+    }
 
+    private void mockStaticMethods() throws JsonFormMissingStepCountException {
+        // mock RDTApplication and Drishti context
+        PowerMockito.mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
         PowerMockito.when(rdtApplication.getContext()).thenReturn(applicationContext);
+
+        // mock repositories
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
         PowerMockito.when(applicationContext.getUniqueIdRepository()).thenReturn(mock(UniqueIdRepository.class));
+        PowerMockito.when(applicationContext.allSharedPreferences()).thenReturn(mock(AllSharedPreferences.class));
+
+        // mock client processor
+        PowerMockito.mockStatic(ClientProcessorForJava.class);
         PowerMockito.when(ClientProcessorForJava.getInstance(context)).thenReturn(clientProcessor);
+
+        // mock JsonFormUtils
+        PowerMockito.mockStatic(JsonFormUtils.class);
+        when(JsonFormUtils.getMultiStepFormFields(any(JSONObject.class))).thenReturn(new JSONArray());
+        when(JsonFormUtils.getJSONObject(any(JSONObject.class), anyString())).thenReturn(new JSONObject());
+        when(JsonFormUtils.getString(any(JSONObject.class), anyString())).thenReturn(PATIENT_BASE_ENTITY_ID);
+        when(JsonFormUtils.createBaseClient(any(JSONArray.class), any(FormTag.class), anyString())).thenReturn(new Client(UUID.randomUUID().toString()));
+        when(JsonFormUtils.createEvent(any(JSONArray.class), any(JSONObject.class), any(FormTag.class), anyString(), anyString(), anyString())).thenReturn(new Event());
     }
 }
