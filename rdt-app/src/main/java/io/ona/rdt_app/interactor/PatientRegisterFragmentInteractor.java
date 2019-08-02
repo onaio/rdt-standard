@@ -105,16 +105,14 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
 
     private void populateApproxDOB(JSONObject jsonForm) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonForm);
+        int age = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
-            int age = 0;
             if (PATIENT_AGE.equals(field.get(KEY))) {
                 age = field.getInt(VALUE);
             }
             if (DOB.equals(field.get(KEY))) {
-                long currentTime = System.currentTimeMillis();
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(currentTime);
                 int birthYear = calendar.get(Calendar.YEAR) - age;
                 String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
                 field.put(VALUE, date);
