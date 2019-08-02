@@ -1,5 +1,6 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -9,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -24,11 +27,15 @@ import java.util.Calendar;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.FormLaunchArgs;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class, ClientProcessorForJava.class})
@@ -44,6 +51,8 @@ public class PatientRegisterFragmentInteractorTest {
     private EventClientRepository eventClientRepository;
     @Mock
     private ClientProcessorForJava clientProcessor;
+    @Captor
+    private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
 
     private final String PATIENT_NAME = "Mr. Patient";
     private final String PATIENT_GENDER = "Male";
@@ -102,6 +111,22 @@ public class PatientRegisterFragmentInteractorTest {
                 assertEquals(year + "-" + today.get(Calendar.MONTH) + "-" + today.get(Calendar.DAY_OF_MONTH), field.get(VALUE));
             }
         }
+    }
+
+    @Test
+    public void testLaunchForm() throws JSONException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        final String FORM_NAME = "form";
+        Patient patient = mock(Patient.class);
+
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, patient);
+        verify(formUtils).getNextUniqueId(formLaunchArgsArgumentCaptor.capture(), eq(interactor));
+
+        FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
+        assertEquals(args.getActivity(), activity);
+        assertEquals(args.getPatient(), patient);
     }
 
     private void mockStaticMethods() {
