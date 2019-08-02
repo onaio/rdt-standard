@@ -37,7 +37,7 @@ import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
-import static io.ona.rdt_app.util.Constants.RDT_IMAGE;
+import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -66,7 +66,8 @@ public class RDTJsonFormUtils {
                 OutputStream os = null;
                 try {
                     if (!StringUtils.isBlank(entityId)) {
-                        final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+                        final String absoluteFileName = DrishtiApplication.getAppDir()
+                                + File.separator + entityId + File.separator + UUID.randomUUID() + ".JPEG";
 
                         File outputFile = new File(absoluteFileName);
                         os = new FileOutputStream(outputFile);
@@ -77,7 +78,7 @@ public class RDTJsonFormUtils {
                         profileImage.setAnmId(providerId);
                         profileImage.setEntityID(entityId);
                         profileImage.setFilepath(absoluteFileName);
-                        profileImage.setFilecategory(RDT_IMAGE);
+                        profileImage.setFilecategory(MULTI_VERSION);
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
