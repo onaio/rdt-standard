@@ -33,6 +33,7 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
+import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import io.ona.rdt_app.util.Utils;
 import timber.log.Timber;
@@ -78,6 +79,11 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     public BaseRegisterFragment getRegisterFragment() {
         return new PatientRegisterFragment();
+    }
+
+    @Override
+    public PatientRegisterFragmentPresenter getRegisterFragmentPresenter() {
+        return ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
     }
 
     @Override
@@ -197,5 +203,10 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     private PatientRegisterActivityPresenter getPresenter() {
         return (PatientRegisterActivityPresenter) this.presenter;
+    }
+
+    @Override
+    public PatientRegisterActivity getView() {
+        return this;
     }
 }

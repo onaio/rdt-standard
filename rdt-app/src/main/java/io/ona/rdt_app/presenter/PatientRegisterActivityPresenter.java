@@ -8,7 +8,6 @@ import java.util.List;
 
 import io.ona.rdt_app.activity.PatientRegisterActivity;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
-import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -19,9 +18,9 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
-    private PatientRegisterActivity activity;
+    private PatientRegisterActivityContract.View activity;
 
-    public PatientRegisterActivityPresenter(PatientRegisterActivity activity) {
+    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
     }
 
@@ -47,7 +46,7 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
 
     @Override
     public void saveForm(String jsonForm) throws JSONException {
-        PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = ((PatientRegisterFragment) getView().getRegisterFragment()).getPresenter();
+        PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = getView().getRegisterFragmentPresenter();
         JSONObject jsonFormObject = new JSONObject(jsonForm);
         RDTJsonFormUtils.appendEntityId(jsonFormObject);
         patientRegisterFragmentPresenter.saveForm(jsonFormObject, getView());
@@ -58,6 +57,6 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     }
 
     private PatientRegisterActivity getView() {
-        return this.activity;
+        return activity.getView();
     }
 }
