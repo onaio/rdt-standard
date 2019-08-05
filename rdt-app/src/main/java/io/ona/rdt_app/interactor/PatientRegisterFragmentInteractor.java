@@ -86,7 +86,9 @@ public class PatientRegisterFragmentInteractor {
 
             @Override
             protected void onPostExecute(Void result) {
-                onFormSavedCallback.onFormSaved();
+                if (onFormSavedCallback != null) {
+                    onFormSavedCallback.onFormSaved();
+                }
             }
         }
         new SaveFormTask().execute();
