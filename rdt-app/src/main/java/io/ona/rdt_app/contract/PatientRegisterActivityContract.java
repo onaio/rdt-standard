@@ -1,7 +1,5 @@
 package io.ona.rdt_app.contract;
 
-import android.app.Activity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

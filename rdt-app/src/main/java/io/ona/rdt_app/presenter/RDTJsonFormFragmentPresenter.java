@@ -18,7 +18,7 @@ import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
 
-    RDTJsonFormInteractor interactor;
+    private RDTJsonFormInteractor interactor;
 
     public RDTJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);

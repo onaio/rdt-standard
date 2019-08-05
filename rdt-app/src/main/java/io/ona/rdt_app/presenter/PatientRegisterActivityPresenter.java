@@ -16,8 +16,8 @@ import io.ona.rdt_app.model.Patient;
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
-    PatientRegisterActivityContract.View view;
-    PatientRegisterActivityInteractor interactor;
+    private PatientRegisterActivityContract.View view;
+    private PatientRegisterActivityInteractor interactor;
 
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View view) {
         this.view = view;

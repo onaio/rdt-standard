@@ -2,7 +2,6 @@ package io.ona.rdt_app.interactor;
 
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt_app.widget.CustomRDTCaptureFactory;
