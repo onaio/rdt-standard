@@ -9,6 +9,7 @@ import org.smartregister.view.contract.BaseRegisterContract;
 import java.util.List;
 
 import io.ona.rdt_app.activity.PatientRegisterActivity;
+import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
@@ -53,7 +54,7 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     }
 
     @Override
-    public void saveForm(JSONObject jsonForm, Activity activity) {
-        interactor.saveForm(jsonForm, activity);
+    public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
+        interactor.saveForm(jsonForm, callback);
     }
 }
