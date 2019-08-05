@@ -1,7 +1,5 @@
 package io.ona.rdt_app.interactor;
 
-import android.app.Activity;
-
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;

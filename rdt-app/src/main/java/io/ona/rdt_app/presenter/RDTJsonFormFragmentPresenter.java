@@ -11,7 +11,6 @@ import org.json.JSONObject;
 
 import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
-import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
 import io.ona.rdt_app.interactor.RDTJsonFormFragmentInteractor;
 
 /**

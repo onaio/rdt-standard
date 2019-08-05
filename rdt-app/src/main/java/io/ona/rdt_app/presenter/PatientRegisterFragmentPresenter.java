@@ -1,15 +1,11 @@
 package io.ona.rdt_app.presenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
-import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
-import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 
