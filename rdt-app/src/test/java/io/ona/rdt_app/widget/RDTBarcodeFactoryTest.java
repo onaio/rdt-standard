@@ -1,5 +1,7 @@
 package io.ona.rdt_app.widget;
 
+import android.os.Bundle;
+
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import org.json.JSONObject;
@@ -16,23 +18,22 @@ import java.util.Date;
 
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
+import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt_app.util.Utils.convertDate;
 import static io.ona.rdt_app.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.doReturn;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 /**
  * Created by Vincent Karuri on 31/07/2019
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class})
+@PrepareForTest({RDTJsonFormFragment.class, Bundle.class})
 public class RDTBarcodeFactoryTest {
 
     private RDTBarcodeFactory barcodeFactory;
@@ -79,15 +80,15 @@ public class RDTBarcodeFactoryTest {
     public void testMoveToNextStepShouldMoveToExpPageForExpiredRDT() throws Exception {
         JsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
         Whitebox.setInternalState(barcodeFactory, "formFragment", formFragment);
-        Whitebox.setInternalState(barcodeFactory, "jsonObject", mock(JSONObject.class));
 
-        mockStatic(RDTJsonFormFragment.class);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(EXPIRED_PAGE_ADDRESS, "step2");
+        Whitebox.setInternalState(barcodeFactory, "jsonObject", jsonObject);
 
-        RDTJsonFormFragment rdtJsonFormFragment = mock(RDTJsonFormFragment.class);
-        doReturn(rdtJsonFormFragment).when(RDTJsonFormFragment.class, "getFormFragment", isNull());
+        whenNew(Bundle.class).withNoArguments().thenReturn(mock(Bundle.class));
 
         Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getPastDate());
-        verify(formFragment).transactThis(eq(rdtJsonFormFragment));
+        verify(formFragment).transactThis(any(RDTJsonFormFragment.class));
     }
 
     private Date getFutureDate() {
