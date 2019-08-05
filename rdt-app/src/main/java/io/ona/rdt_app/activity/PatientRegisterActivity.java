@@ -73,7 +73,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void initializePresenter() {
-        presenter = new PatientRegisterActivityPresenter(this);
+        presenter = new PatientRegisterActivityPresenter(this, this);
     }
 
     @Override
@@ -203,10 +203,5 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     private PatientRegisterActivityPresenter getPresenter() {
         return (PatientRegisterActivityPresenter) this.presenter;
-    }
-
-    @Override
-    public PatientRegisterActivity getView() {
-        return this;
     }
 }

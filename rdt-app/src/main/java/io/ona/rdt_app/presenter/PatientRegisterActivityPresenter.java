@@ -1,12 +1,14 @@
 package io.ona.rdt_app.presenter;
 
+import android.app.Activity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
-import io.ona.rdt_app.activity.PatientRegisterActivity;
+import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
@@ -18,9 +20,11 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
-    private PatientRegisterActivityContract.View activity;
+    private PatientRegisterActivityContract.View view;
+    private Activity activity;
 
-    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
+    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View view, Activity activity) {
+        this.view = view;
         this.activity = activity;
     }
 
@@ -46,17 +50,13 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
 
     @Override
     public void saveForm(String jsonForm) throws JSONException {
-        PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = getView().getRegisterFragmentPresenter();
+        PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = view.getRegisterFragmentPresenter();
         JSONObject jsonFormObject = new JSONObject(jsonForm);
         RDTJsonFormUtils.appendEntityId(jsonFormObject);
-        patientRegisterFragmentPresenter.saveForm(jsonFormObject, getView());
+        patientRegisterFragmentPresenter.saveForm(jsonFormObject, view);
         Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonFormObject);
         if (rdtPatient != null) {
-            patientRegisterFragmentPresenter.launchForm(getView(), RDT_TEST_FORM, rdtPatient);
+            patientRegisterFragmentPresenter.launchForm(activity, RDT_TEST_FORM, rdtPatient);
         }
-    }
-
-    private PatientRegisterActivity getView() {
-        return activity.getView();
     }
 }
