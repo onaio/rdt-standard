@@ -12,11 +12,14 @@ import org.json.JSONObject;
 import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt_app.interactor.RDTJsonFormFragmentInteractor;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
+
+    RDTJsonFormFragmentInteractor interactor;
 
     public RDTJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
@@ -60,7 +63,6 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void saveForm() throws JSONException {
-        PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
-        interactor.saveForm(new JSONObject(getView().getCurrentJsonState()), null);
+        interactor.saveForm(new JSONObject(getView().getCurrentJsonState()));
     }
 }
