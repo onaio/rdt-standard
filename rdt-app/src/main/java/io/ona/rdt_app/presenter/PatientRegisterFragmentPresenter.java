@@ -71,11 +71,6 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     }
 
     @Override
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveForm(jsonForm, onFormSavedCallback);
-    }
-
-    @Override
     public String getMainCondition() {
         return String.format(" %s != '%s'", "name", "");
     }

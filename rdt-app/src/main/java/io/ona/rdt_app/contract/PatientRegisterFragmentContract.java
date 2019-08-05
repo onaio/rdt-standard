@@ -11,8 +11,6 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 public interface PatientRegisterFragmentContract {
 
     interface Presenter {
-        void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException;
-
         String getMainCondition();
     }
 
