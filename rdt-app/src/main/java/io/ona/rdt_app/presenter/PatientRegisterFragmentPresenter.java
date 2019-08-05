@@ -52,10 +52,6 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
         // todo: implement this
     }
 
-    @Override
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveForm(jsonForm, onFormSavedCallback);
-    }
 
     public String countSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
@@ -77,9 +73,5 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     @Override
     public String getMainCondition() {
         return String.format(" %s != '%s'", "name", "");
-    }
-
-    public Patient getRDTPatient(JSONObject jsonForm) throws JSONException {
-        return interactor.getPatientForRDT(jsonForm);
     }
 }

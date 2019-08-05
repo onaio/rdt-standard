@@ -32,9 +32,9 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
+import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
-import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import io.ona.rdt_app.util.Utils;
 import timber.log.Timber;
@@ -47,6 +47,7 @@ import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     private DrawerLayout drawerLayout;
+    private PatientRegisterActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,11 +141,10 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             try {
                 String jsonForm = data.getStringExtra("json");
                 Timber.d(TAG, jsonForm);
-                PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
                 JSONObject jsonFormObject = new JSONObject(jsonForm);
                 RDTJsonFormUtils.appendEntityId(jsonFormObject);
-                patientRegisterFragmentPresenter.saveForm(jsonFormObject, this);
-                Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonFormObject);
+                getPresenter().saveForm(jsonFormObject, this);
+                Patient rdtPatient = getPresenter().getRDTPatient(jsonFormObject);
                 if (rdtPatient != null) {
                     new RDTJsonFormUtils().launchForm(this, RDT_TEST_FORM, rdtPatient);
                 }
@@ -203,5 +203,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             default:
                 // do nothing
         }
+    }
+
+    public PatientRegisterActivityContract.Presenter getPresenter() {
+        return presenter;
     }
 }
