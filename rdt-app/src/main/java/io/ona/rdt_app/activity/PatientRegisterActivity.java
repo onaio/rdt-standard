@@ -47,7 +47,6 @@ import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     private DrawerLayout drawerLayout;
-    private PatientRegisterActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +205,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     public PatientRegisterActivityContract.Presenter getPresenter() {
-        return presenter;
+        return (PatientRegisterActivityContract.Presenter) presenter;
     }
 }
