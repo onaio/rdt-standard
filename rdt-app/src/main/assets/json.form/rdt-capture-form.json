@@ -168,7 +168,7 @@
   "step5": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step1",
+    "next": "step2",
     "bottom_navigation": "true",
     "next_label": "OK",
     "fields": [
