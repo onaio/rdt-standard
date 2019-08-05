@@ -6,8 +6,8 @@ import android.content.Context;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -44,6 +44,7 @@ import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -72,8 +73,11 @@ public class PatientRegisterFragmentInteractorTest {
 
     private static final String PATIENT_NAME = "Mr. Patient";
     private static final String PATIENT_GENDER = "Male";
-    private static final String PATIENT_BASE_ENTITY_ID = "2b66831d-d3e9-4727-a147-6f7336cbc7a1";
+    private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
     private static final int PATIENT_AGE = 20;
+
+    public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
+
     private PatientRegisterFragmentInteractor interactor;
 
     public static final String JSON_FORM = "{\"count\":\"1\",\"baseEntityId\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
@@ -96,8 +100,17 @@ public class PatientRegisterFragmentInteractorTest {
             "\"type\":\"hidden\",\"value\":\"\"},{\"key\":\"conditional_save\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"conditional_save\",\"type\":\"hidden\"," +
             "\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"conditional_save_rules.yml\"}}},\"value\":\"1\"}]}}";
 
+    private static JSONArray formFields;
+    private static JSONObject formJsonObj;
+
+    @BeforeClass
+    public static void init() throws JSONException {
+        formFields = getFormFields(new JSONObject(JSON_FORM));
+        formJsonObj = new JSONObject(JSON_FORM);
+    }
+
     @Before
-    public void setUp() throws JsonFormMissingStepCountException {
+    public void setUp() throws JsonFormMissingStepCountException, JSONException {
         MockitoAnnotations.initMocks(this);
         mockStaticMethods();
         interactor = new PatientRegisterFragmentInteractor();
@@ -105,23 +118,20 @@ public class PatientRegisterFragmentInteractorTest {
 
     @Test
     public void getPatientForRDTReturnsValidPatient() throws JSONException {
-        JSONObject jsonFormObject = new JSONObject(JSON_FORM);
-        RDTJsonFormUtils.appendEntityId(jsonFormObject);
-        Patient rdtPatient = interactor.getPatientForRDT(jsonFormObject);
+        RDTJsonFormUtils.appendEntityId(formJsonObj);
+        Patient rdtPatient = interactor.getPatientForRDT(formJsonObj);
 
-        Assert.assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), PATIENT_NAME);
-        assertEquals(rdtPatient.getPatientSex(), PATIENT_GENDER);
-        Assert.assertNotNull(rdtPatient.getBaseEntityId());
+        assertNotNull(rdtPatient);
+        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
+        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
     }
 
     @Test
     public void testPopulateApproxDOBShouldPopulateCorrectDate() throws Exception {
-        JSONObject formJsonObj = new JSONObject(JSON_FORM);
-        Whitebox.invokeMethod(interactor, "populateApproxDOB", formJsonObj);
-        JSONArray fields = JsonFormUtils.fields(formJsonObj);
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
+        Whitebox.invokeMethod(interactor, "populateApproxDOB", formFields);
+        for (int i = 0; i < formFields.length(); i++) {
+            JSONObject field = formFields.getJSONObject(i);
             if (Constants.DOB.equals(field.get(KEY))) {
                 Calendar today = Calendar.getInstance();
                 int year = today.get(Calendar.YEAR) - PATIENT_AGE;
@@ -184,13 +194,12 @@ public class PatientRegisterFragmentInteractorTest {
 
     @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
-        JSONObject formJsonObj = new JSONObject(JSON_FORM);
         Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
         verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
     }
 
-    private void mockStaticMethods() throws JsonFormMissingStepCountException {
+    private void mockStaticMethods() throws JsonFormMissingStepCountException, JSONException {
         // mock RDTApplication and Drishti context
         PowerMockito.mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
@@ -212,5 +221,10 @@ public class PatientRegisterFragmentInteractorTest {
         when(JsonFormUtils.getString(any(JSONObject.class), anyString())).thenReturn(PATIENT_BASE_ENTITY_ID);
         when(JsonFormUtils.createBaseClient(any(JSONArray.class), any(FormTag.class), anyString())).thenReturn(new Client(UUID.randomUUID().toString()));
         when(JsonFormUtils.createEvent(any(JSONArray.class), any(JSONObject.class), any(FormTag.class), anyString(), anyString(), anyString())).thenReturn(new Event());
+        when(JsonFormUtils.fields(any(JSONObject.class))).thenReturn(formFields);
+    }
+
+    private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {
+        return formJsonObj.getJSONObject("step1").getJSONArray("fields");
     }
 }

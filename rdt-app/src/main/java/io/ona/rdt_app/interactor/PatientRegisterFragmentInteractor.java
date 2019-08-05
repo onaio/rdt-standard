@@ -84,7 +84,7 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    populateApproxDOB(jsonForm);
+                    populateApproxDOB(JsonFormUtils.fields(jsonForm));
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     String bindType = PATIENT_REGISTRATION.equals(encounterType) ? PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
@@ -103,8 +103,7 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
         new SaveFormTask().execute();
     }
 
-    private void populateApproxDOB(JSONObject jsonForm) throws JSONException {
-        JSONArray fields = JsonFormUtils.fields(jsonForm);
+    private void populateApproxDOB(JSONArray fields) throws JSONException {
         int age = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
