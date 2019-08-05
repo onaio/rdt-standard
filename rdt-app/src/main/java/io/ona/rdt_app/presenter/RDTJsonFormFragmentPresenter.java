@@ -11,17 +11,18 @@ import org.json.JSONObject;
 
 import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
-import io.ona.rdt_app.interactor.RDTJsonFormFragmentInteractor;
+import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
 
-    RDTJsonFormFragmentInteractor interactor;
+    RDTJsonFormInteractor interactor;
 
     public RDTJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
+        interactor = (RDTJsonFormInteractor) jsonFormInteractor;
     }
 
     @Override
