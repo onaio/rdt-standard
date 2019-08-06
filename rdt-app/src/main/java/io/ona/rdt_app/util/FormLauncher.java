@@ -27,7 +27,7 @@ public class FormLauncher implements OnUniqueIdFetchedCallback {
         if (patient != null) {
             FormLaunchArgs args = new FormLaunchArgs();
             args.withActivity(activity)
-                    .withFormJsonObj(new JSONObject(formName))
+                    .withFormJsonObj(formUtils.getFormJsonObject(formName, activity))
                     .withPatient(patient);
             formUtils.getNextUniqueId(args, this);
         } else {
