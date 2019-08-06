@@ -50,7 +50,6 @@ public class PatientRegisterActivityInteractorTest {
     @Test
     public void getPatientForRDTReturnsValidPatient() throws JSONException {
         Patient rdtPatient = interactor.getPatientForRDT(formJsonObj);
-
         assertNotNull(rdtPatient);
         assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
         assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
