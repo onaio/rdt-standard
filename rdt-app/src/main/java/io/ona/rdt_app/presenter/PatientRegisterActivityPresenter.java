@@ -14,7 +14,7 @@ import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
-import static io.ona.rdt_app.util.Constants.Form.PATIENT_REGISTRATION_FORM;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 /**
  * Created by Vincent Karuri on 07/06/2019
@@ -52,17 +52,12 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     }
 
     @Override
-    public Patient getRDTPatient(JSONObject jsonFormObject) throws JSONException {
-        return interactor.getPatientForRDT(jsonFormObject);
-    }
-
-    @Override
     public void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException {
         JSONObject jsonFormObj = new JSONObject(jsonForm);
         interactor.saveForm(jsonFormObj, callback);
-        Patient patient = getRDTPatient(jsonFormObj);
+        Patient patient = interactor.getPatientForRDT(jsonFormObj);
         if (patient != null) {
-            new RDTJsonFormUtils().launchForm(activity, PATIENT_REGISTRATION_FORM , patient, null);
+            new RDTJsonFormUtils().launchForm(activity, RDT_TEST_FORM, patient, null);
         }
     }
 }
