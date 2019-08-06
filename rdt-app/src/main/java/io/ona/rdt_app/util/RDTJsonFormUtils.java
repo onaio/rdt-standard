@@ -151,10 +151,9 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
+    public void launchForm(Activity activity, String formName, Patient patient, String rdtId) throws JSONException {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
-            String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
             prePopulateFormFields(formJsonObject, patient, rdtId, 8);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
@@ -209,7 +208,7 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(UniqueId result) {
-                callBack.onUniqueIdFetched(args, result);
+                callBack.onUniqueIdFetched(args, result == null ? new UniqueId() : result);
             }
         }
         new FetchUniqueIdTask().execute();

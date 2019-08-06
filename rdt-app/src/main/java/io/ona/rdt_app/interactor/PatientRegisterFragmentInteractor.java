@@ -1,11 +1,13 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
@@ -25,15 +28,20 @@ import org.smartregister.util.PropertiesConverter;
 import java.util.Calendar;
 import java.util.Collections;
 
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
+import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.FormLaunchArgs;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
+import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.ENTITY_ID;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
@@ -138,5 +146,28 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
         org.smartregister.domain.db.Event dbEvent = gson.fromJson(eventJson.toString(), org.smartregister.domain.db.Event.class);
 
         return new EventClient(dbEvent, dbClient);
+    }
+
+    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
+        if (patient != null) {
+            FormLaunchArgs args = new FormLaunchArgs();
+            args.withActivity(activity)
+                    .withFormJsonObj(new JSONObject(formName))
+                    .withPatient(patient);
+            formUtils.getNextUniqueId(args, this);
+        } else {
+            formUtils.launchForm(activity, formName, patient, null);
+        }
+    }
+
+    @Override
+    public synchronized void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) throws JSONException {
+        String rdtId = uniqueId.getOpenmrsId();
+        Activity activity = args.getActivity();
+        if (!StringUtils.isBlank(rdtId)) {
+            formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), rdtId);
+        } else {
+            showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
+        }
     }
 }

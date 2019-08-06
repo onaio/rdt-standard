@@ -4,12 +4,10 @@ import android.app.Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.util.FormUtils;
 import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
-import io.ona.rdt_app.activity.PatientRegisterActivity;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
@@ -64,7 +62,7 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
         interactor.saveForm(jsonFormObj, callback);
         Patient patient = getRDTPatient(jsonFormObj);
         if (patient != null) {
-            new RDTJsonFormUtils().launchForm(activity, PATIENT_REGISTRATION_FORM , patient);
+            new RDTJsonFormUtils().launchForm(activity, PATIENT_REGISTRATION_FORM , patient, null);
         }
     }
 }
