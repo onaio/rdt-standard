@@ -151,7 +151,8 @@
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
-        "rdt_id_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id, step17:lbl_rdt_id, step18:lbl_rdt_id",
+        "rdt_id_lbl_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id, step17:lbl_rdt_id, step18:lbl_rdt_id",
+        "rdt_id_address": "step16:rdt_id",
         "expiration_date_address": "step3:expiration_date_reader",
         "expired_page_address": "step5",
         "v_numeric": {
@@ -168,7 +169,7 @@
   "step5": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step1",
+    "next": "step2",
     "bottom_navigation": "true",
     "next_label": "OK",
     "fields": [
@@ -522,6 +523,13 @@
         "openmrs_entity_id": "",
         "type": "hidden",
         "value": "834912438"
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

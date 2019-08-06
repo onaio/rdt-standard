@@ -1,17 +1,14 @@
 package io.ona.rdt_app.presenter;
 
 import android.app.Activity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
-import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
-import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 
@@ -54,10 +51,6 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
         // todo: implement this
     }
 
-    @Override
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveForm(jsonForm, onFormSavedCallback);
-    }
 
     public String countSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
@@ -79,13 +72,5 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
     @Override
     public String getMainCondition() {
         return String.format(" %s != '%s'", "name", "");
-    }
-
-    public Patient getRDTPatient(JSONObject jsonForm) throws JSONException {
-        return interactor.getPatientForRDT(jsonForm);
-    }
-
-    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        interactor.launchForm(activity, formName, patient);
     }
 }
