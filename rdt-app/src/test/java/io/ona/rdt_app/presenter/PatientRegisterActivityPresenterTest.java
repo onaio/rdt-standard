@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -26,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -42,6 +45,8 @@ public class PatientRegisterActivityPresenterTest {
     private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityPresenter presenter;
     private Activity context = mock(Activity.class);
+
+    @Mock
     private PatientRegisterActivityInteractor interactor;
 
     @Captor
@@ -49,18 +54,18 @@ public class PatientRegisterActivityPresenterTest {
 
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         activity = spy(new PatientRegisterActivityStub());
         presenter = new PatientRegisterActivityPresenter(activity, context);
-        interactor = new PatientRegisterActivityInteractor();
     }
 
     @Test
     public void testSaveFormShouldSaveForm() throws JSONException {
         Whitebox.setInternalState(presenter, "interactor", interactor);
-        when(interactor.getPatientForRDT(any(JSONObject.class))).thenReturn(expectedPatient);
+        doReturn(expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
         mockStatic(RDTJsonFormUtils.class);
 
-        presenter.saveForm(JSON_FORM, null);
+        presenter.saveForm(JSON_FORM, activity);
         verify(interactor).saveForm(any(JSONObject.class), eq(activity));
         verify(interactor).getPatientForRDT(any(JSONObject.class));
         verify(interactor).launchForm(eq(context), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());

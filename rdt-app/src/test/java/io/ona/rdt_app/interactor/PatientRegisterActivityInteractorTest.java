@@ -30,17 +30,6 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class, ClientProcessorForJava.class})
 public class PatientRegisterActivityInteractorTest {
-    @Mock
-    private RDTApplication rdtApplication;
-    @Mock
-    private org.smartregister.Context applicationContext;
-    @Mock
-    private Context context;
-    @Mock
-    private EventClientRepository eventClientRepository;
-
-    @Mock
-    private ClientProcessorForJava clientProcessor;
 
     private PatientRegisterActivityInteractor interactor;
     private static JSONArray formFields;
