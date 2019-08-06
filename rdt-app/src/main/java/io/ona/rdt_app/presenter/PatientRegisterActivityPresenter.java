@@ -12,7 +12,6 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
-import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 

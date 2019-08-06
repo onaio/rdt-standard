@@ -1,6 +1,5 @@
 package io.ona.rdt_app.callback;
 
-import org.json.JSONException;
 import org.smartregister.domain.UniqueId;
 
 import io.ona.rdt_app.util.FormLaunchArgs;

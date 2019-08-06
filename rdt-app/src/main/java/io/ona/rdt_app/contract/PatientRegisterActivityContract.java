@@ -1,11 +1,8 @@
 package io.ona.rdt_app.contract;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
-import io.ona.rdt_app.model.Patient;
-import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 
 
 /**

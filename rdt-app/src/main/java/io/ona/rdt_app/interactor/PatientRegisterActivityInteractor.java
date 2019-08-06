@@ -1,7 +1,5 @@
 package io.ona.rdt_app.interactor;
 
-import android.app.Activity;
-
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;
@@ -12,7 +10,6 @@ import org.smartregister.util.JsonFormUtils;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.FormLauncher;
-import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
