@@ -1,15 +1,22 @@
 package io.ona.rdt_app.presenter;
 
+import android.app.Activity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.util.FormUtils;
 import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
+import io.ona.rdt_app.activity.PatientRegisterActivity;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
+
+import static io.ona.rdt_app.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 
 /**
  * Created by Vincent Karuri on 07/06/2019
@@ -17,10 +24,12 @@ import io.ona.rdt_app.model.Patient;
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
     private PatientRegisterActivityContract.View view;
+    private Activity activity;
     private PatientRegisterActivityInteractor interactor;
 
-    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View view) {
+    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View view, Activity activity) {
         this.view = view;
+        this.activity = activity;
         interactor = new PatientRegisterActivityInteractor();
     }
 
@@ -50,7 +59,12 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     }
 
     @Override
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
-        interactor.saveForm(jsonForm, callback);
+    public void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException {
+        JSONObject jsonFormObj = new JSONObject(jsonForm);
+        interactor.saveForm(jsonFormObj, callback);
+        Patient patient = getRDTPatient(jsonFormObj);
+        if (patient != null) {
+            new RDTJsonFormUtils().launchForm(activity, PATIENT_REGISTRATION_FORM , patient);
+        }
     }
 }

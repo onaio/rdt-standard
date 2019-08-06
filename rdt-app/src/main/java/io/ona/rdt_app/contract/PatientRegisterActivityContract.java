@@ -23,6 +23,6 @@ public interface PatientRegisterActivityContract {
     interface Presenter {
         Patient getRDTPatient(JSONObject jsonFormObject) throws JSONException;
 
-        void saveForm(JSONObject jsonForm, OnFormSavedCallback callback);
+        void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException;
     }
 }

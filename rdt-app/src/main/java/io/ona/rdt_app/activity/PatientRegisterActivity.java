@@ -80,10 +80,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         return new PatientRegisterFragment();
     }
 
-    @Override
-    public PatientRegisterFragmentPresenter getRegisterFragmentPresenter() {
-        return ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-    }
 
     @Override
     protected android.support.v4.app.Fragment[] getOtherFragments() {
@@ -142,7 +138,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             try {
                 String jsonForm = data.getStringExtra("json");
                 Timber.d(TAG, jsonForm);
-                getPresenter().saveForm(jsonForm);
+                getPresenter().saveForm(jsonForm, this);
             } catch (JSONException e) {
                 Timber.e(TAG, e.getStackTrace().toString());
             }

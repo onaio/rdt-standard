@@ -39,6 +39,7 @@ import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -148,10 +149,6 @@ public class RDTJsonFormUtils {
                 }
             });
         }
-    }
-
-    public void launchForm(Activity activity, String formName) throws JSONException {
-        launchForm(activity, formName, null);
     }
 
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
