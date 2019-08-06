@@ -14,6 +14,7 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
@@ -57,11 +58,7 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     @Override
     public void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException {
         JSONObject jsonFormObj = new JSONObject(jsonForm);
-        String entityId = getString(jsonForm, ENTITY_ID);
-        if (StringUtils.isBlank(entityId)) {
-            jsonFormObj.put(ENTITY_ID, UUID.randomUUID().toString());
-        }
-
+        RDTJsonFormUtils.appendEntityId(jsonFormObj);
         interactor.saveForm(jsonFormObj, callback);
         Patient patient = interactor.getPatientForRDT(jsonFormObj);
         if (patient != null) {
