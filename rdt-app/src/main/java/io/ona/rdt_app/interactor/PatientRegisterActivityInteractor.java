@@ -1,5 +1,7 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
+
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;
@@ -9,6 +11,8 @@ import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.FormLauncher;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
@@ -23,7 +27,7 @@ import static org.smartregister.util.JsonFormUtils.getString;
 /**
  * Created by Vincent Karuri on 05/08/2019
  */
-public class PatientRegisterActivityInteractor {
+public class PatientRegisterActivityInteractor extends FormLauncher {
     /**
      * Get the patient for whom the RDT is to be conducted
      *

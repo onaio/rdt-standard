@@ -38,7 +38,6 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
     }
 
     public void saveForm(JSONObject jsonForm) {
-        PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
-        interactor.saveForm(jsonForm, null);
+        new PatientRegisterFragmentInteractor().saveForm(jsonForm, null);
     }
 }

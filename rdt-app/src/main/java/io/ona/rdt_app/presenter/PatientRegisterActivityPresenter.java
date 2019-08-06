@@ -57,7 +57,7 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
         interactor.saveForm(jsonFormObj, callback);
         Patient patient = interactor.getPatientForRDT(jsonFormObj);
         if (patient != null) {
-            new RDTJsonFormUtils().launchForm(activity, RDT_TEST_FORM, patient, null);
+            interactor.launchForm(activity, RDT_TEST_FORM, patient);
         }
     }
 }
