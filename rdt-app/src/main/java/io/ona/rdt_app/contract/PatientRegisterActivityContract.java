@@ -16,8 +16,6 @@ public interface PatientRegisterActivityContract {
         void openDrawerLayout();
 
         void closeDrawerLayout();
-
-        PatientRegisterFragmentPresenter getRegisterFragmentPresenter();
     }
 
     interface Presenter {
