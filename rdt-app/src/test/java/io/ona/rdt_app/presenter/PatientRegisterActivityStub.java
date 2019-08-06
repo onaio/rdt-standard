@@ -23,14 +23,6 @@ public class PatientRegisterActivityStub implements PatientRegisterActivityContr
     }
 
     @Override
-    public PatientRegisterFragmentPresenter getRegisterFragmentPresenter() {
-        if (fragmentPresenter == null) {
-            fragmentPresenter = Mockito.mock(PatientRegisterFragmentPresenter.class);
-        }
-        return fragmentPresenter;
-    }
-
-    @Override
     public void onFormSaved() {
         // do nothing
     }

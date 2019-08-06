@@ -117,17 +117,6 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-    public void getPatientForRDTReturnsValidPatient() throws JSONException {
-        RDTJsonFormUtils.appendEntityId(formJsonObj);
-        Patient rdtPatient = interactor.getPatientForRDT(formJsonObj);
-
-        assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
-        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
-        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
-    }
-
-    @Test
     public void testPopulateApproxDOBShouldPopulateCorrectDate() throws Exception {
         Whitebox.invokeMethod(interactor, "populateApproxDOB", formFields);
         for (int i = 0; i < formFields.length(); i++) {
