@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.domain.UniqueId;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
 import timber.log.Timber;
@@ -41,6 +42,8 @@ public class FormLauncher implements OnUniqueIdFetchedCallback {
             String rdtId = uniqueId.getOpenmrsId();
             Activity activity = args.getActivity();
             if (!StringUtils.isBlank(rdtId)) {
+                RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+                rdtId = rdtId.replace("-", "");
                 formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), rdtId);
             } else {
                 showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
