@@ -119,6 +119,21 @@
         }
       },
       {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_age",
+        "openmrs_entity_id": "age",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "conditional_save_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "patient_occupation_label",
         "type": "label",
         "text": "Occupation",
@@ -132,8 +147,8 @@
         "type": "edit_text",
         "edit_type": "occupation",
         "v_required": {
-          "value": "true",
-          "err": "Please specify occupation"
+          "value": "false",
+          "err": ""
         },
         "v_regex": {
           "value": "[^([0-9]*)$]*",
@@ -446,6 +461,13 @@
         "v_required": {
           "value": "true",
           "err": "Has poor feeding been seen in the past 3 days?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -454,7 +476,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Coughing in the past 3 days?",
+        "label": "Child coughing in the past 3 days?",
         "options": [
           {
             "key": "Yes",
@@ -468,6 +490,13 @@
         "v_required": {
           "value": "true",
           "err": "Has the child been coughing in the past 3 days?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -558,9 +587,10 @@
           "err": "Does the patient have a history of visiting Malaria endemic areas in Indonesia?"
         },
         "relevance": {
-          "step1:lives_in_endemic_area": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
           }
         }
       },
