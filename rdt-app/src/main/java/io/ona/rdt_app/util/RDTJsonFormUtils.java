@@ -208,7 +208,9 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(UniqueId result) {
-                callBack.onUniqueIdFetched(args, result == null ? new UniqueId() : result);
+                if (callBack != null) {
+                    callBack.onUniqueIdFetched(args, result == null ? new UniqueId() : result);
+                }
             }
         }
         new FetchUniqueIdTask().execute();

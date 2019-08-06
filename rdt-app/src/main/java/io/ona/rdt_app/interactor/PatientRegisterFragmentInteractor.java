@@ -35,6 +35,7 @@ import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.FormLaunchArgs;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt_app.util.Constants.DETAILS;
@@ -161,13 +162,17 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
     }
 
     @Override
-    public synchronized void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) throws JSONException {
-        String rdtId = uniqueId.getOpenmrsId();
-        Activity activity = args.getActivity();
-        if (!StringUtils.isBlank(rdtId)) {
-            formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), rdtId);
-        } else {
-            showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
+    public synchronized void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) {
+        try {
+            String rdtId = uniqueId.getOpenmrsId();
+            Activity activity = args.getActivity();
+            if (!StringUtils.isBlank(rdtId)) {
+                formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), rdtId);
+            } else {
+                showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
+            }
+        } catch (JSONException e) {
+            Timber.e(TAG, e.getStackTrace().toString());
         }
     }
 }
