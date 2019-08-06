@@ -34,6 +34,7 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
+import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.RDT_IMAGE;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
@@ -155,7 +156,7 @@ public class RDTJsonFormUtils {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
-            prePopulateFormFields(formJsonObject, patient, rdtId, 7);
+            prePopulateFormFields(formJsonObject, patient, rdtId, 8);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
             Log.e(TAG, e.getStackTrace().toString());
@@ -168,11 +169,18 @@ public class RDTJsonFormUtils {
         int fieldsPopulated = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
+            // pre-populate rdt id labels
             if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
-                field.put(VALUE, rdtId);
                 field.put("text", "RDT ID: " + rdtId);
                 fieldsPopulated++;
             }
+
+            // pre-populate rdt id field
+            if (RDT_ID.equals(field.getString(KEY))) {
+                field.put(VALUE, rdtId);
+                fieldsPopulated++;
+            }
+
             // pre-populate patient fields
             if (patient != null) {
                 if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
@@ -185,6 +193,7 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 }
             }
+
             // save cpu time
             if (fieldsPopulated == numFields) {
                 break;
