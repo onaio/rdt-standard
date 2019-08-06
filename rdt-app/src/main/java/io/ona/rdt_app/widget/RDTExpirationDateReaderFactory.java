@@ -27,6 +27,7 @@ import java.util.List;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.activity.RDTExpirationDateActivity;
+import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -36,6 +37,7 @@ import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
 import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt_app.util.Constants.ONA_RDT;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -126,6 +128,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
+                    ((RDTJsonFormActivity) widgetArgs.getContext()).setRdtType(ONA_RDT);
                     ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
                 } else if (data == null) {
                     Log.i(TAG, "No result data for expiration date capture!");
