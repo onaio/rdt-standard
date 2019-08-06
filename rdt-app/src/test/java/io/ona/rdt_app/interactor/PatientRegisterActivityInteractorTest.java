@@ -20,6 +20,7 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
+import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -45,12 +46,6 @@ public class PatientRegisterActivityInteractorTest {
     private static JSONArray formFields;
     private static JSONObject formJsonObj;
 
-    private static final String PATIENT_NAME = "Mr. Patient";
-    private static final String PATIENT_GENDER = "Male";
-    private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
-
-    public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
-
     @BeforeClass
     public static void init() throws JSONException {
         formFields = getFormFields(new JSONObject(PatientRegisterFragmentInteractorTest.JSON_FORM));
@@ -65,7 +60,6 @@ public class PatientRegisterActivityInteractorTest {
 
     @Test
     public void getPatientForRDTReturnsValidPatient() throws JSONException {
-        RDTJsonFormUtils.appendEntityId(formJsonObj);
         Patient rdtPatient = interactor.getPatientForRDT(formJsonObj);
 
         assertNotNull(rdtPatient);
