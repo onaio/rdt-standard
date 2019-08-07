@@ -36,6 +36,7 @@ import io.ona.rdt_app.model.Patient;
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
+import static io.ona.rdt_app.util.Constants.PROVIDER_ID;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -193,9 +194,10 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public static void appendEntityId(JSONObject jsonForm) throws JSONException {
+    public static void appendProviderAndEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = getString(jsonForm, Constants.ENTITY_ID);
         entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.ENTITY_ID, entityId);
+        jsonForm.put(PROVIDER_ID, RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM());
     }
 }

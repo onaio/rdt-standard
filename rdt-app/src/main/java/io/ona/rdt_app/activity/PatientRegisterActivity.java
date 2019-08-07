@@ -142,7 +142,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 Timber.d(TAG, jsonForm);
                 PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
                 JSONObject jsonFormObject = new JSONObject(jsonForm);
-                RDTJsonFormUtils.appendEntityId(jsonFormObject);
+                RDTJsonFormUtils.appendProviderAndEntityId(jsonFormObject);
                 patientRegisterFragmentPresenter.saveForm(jsonFormObject, this);
                 Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonFormObject);
                 if (rdtPatient != null) {

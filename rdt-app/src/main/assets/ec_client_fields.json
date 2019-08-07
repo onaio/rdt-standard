@@ -60,6 +60,13 @@
           }
         },
         {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "provider_id"
+          }
+        },
+        {
           "column_name": "patient_id",
           "type": "Event",
           "json_mapping": {
@@ -104,6 +111,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "time_img_saved"
+          }
+        },
+        {
+          "column_name": "time_form_opened",
+          "type": "Event",
+          "json_mapping": {
+            "field": "metadata.fieldCode",
+            "concept": "start"
+          }
+        },
+        {
+          "column_name": "time_form_closed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "metadata.fieldCode",
+            "concept": "end"
           }
         }
       ]

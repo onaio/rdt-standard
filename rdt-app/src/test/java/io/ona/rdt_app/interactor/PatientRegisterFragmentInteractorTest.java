@@ -76,7 +76,7 @@ public class PatientRegisterFragmentInteractorTest {
         PatientRegisterFragmentInteractor interactorSpy = PowerMockito.spy(new PatientRegisterFragmentInteractor());
 
         JSONObject jsonFormObject = new JSONObject(jsonForm);
-        RDTJsonFormUtils.appendEntityId(jsonFormObject);
+        RDTJsonFormUtils.appendProviderAndEntityId(jsonFormObject);
         Patient rdtpatient = interactorSpy.getPatientForRDT(jsonFormObject);
 
         Assert.assertNotNull(rdtpatient);
