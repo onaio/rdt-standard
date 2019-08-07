@@ -1,9 +1,5 @@
 package io.ona.rdt_app.presenter;
 
-import android.app.Activity;
-
-import org.mockito.Mockito;
-
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 
 /**

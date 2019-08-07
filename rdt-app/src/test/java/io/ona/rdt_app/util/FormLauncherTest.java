@@ -26,7 +26,6 @@ import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.JSON_FORM;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

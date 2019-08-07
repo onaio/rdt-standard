@@ -1,7 +1,5 @@
 package io.ona.rdt_app.interactor;
 
-import android.content.Context;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,16 +7,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
-import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static org.junit.Assert.assertEquals;

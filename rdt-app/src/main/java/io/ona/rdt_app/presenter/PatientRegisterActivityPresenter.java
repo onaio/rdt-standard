@@ -2,13 +2,11 @@ package io.ona.rdt_app.presenter;
 
 import android.app.Activity;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
-import java.util.UUID;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
@@ -16,9 +14,7 @@ import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
-import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
-import static org.smartregister.util.JsonFormUtils.getString;
 
 /**
  * Created by Vincent Karuri on 07/06/2019
