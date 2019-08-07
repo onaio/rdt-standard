@@ -21,12 +21,10 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
-    private PatientRegisterActivityContract.View view;
     private Activity activity;
     private PatientRegisterActivityInteractor interactor;
 
-    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View view, Activity activity) {
-        this.view = view;
+    public PatientRegisterActivityPresenter(Activity activity) {
         this.activity = activity;
         interactor = new PatientRegisterActivityInteractor();
     }

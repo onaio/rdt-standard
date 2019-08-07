@@ -72,7 +72,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void initializePresenter() {
-        presenter = new PatientRegisterActivityPresenter(this, this);
+        presenter = new PatientRegisterActivityPresenter(this);
     }
 
     @Override

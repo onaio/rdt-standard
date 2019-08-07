@@ -28,7 +28,6 @@ import java.util.Collections;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.util.FormLauncher;
-import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
@@ -58,12 +57,10 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
-    private  RDTJsonFormUtils formUtils;
 
     public PatientRegisterFragmentInteractor() {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
         clientProcessor = ClientProcessorForJava.getInstance(RDTApplication.getInstance().getApplicationContext());
-        formUtils = new RDTJsonFormUtils();
     }
 
     public void saveForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {

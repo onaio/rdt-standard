@@ -55,7 +55,7 @@ public class PatientRegisterActivityPresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         activity = spy(new PatientRegisterActivityStub());
-        presenter = new PatientRegisterActivityPresenter(activity, context);
+        presenter = new PatientRegisterActivityPresenter(context);
     }
 
     @Test

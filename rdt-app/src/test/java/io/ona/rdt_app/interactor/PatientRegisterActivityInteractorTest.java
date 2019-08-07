@@ -27,12 +27,10 @@ import static org.junit.Assert.assertNotNull;
 public class PatientRegisterActivityInteractorTest {
 
     private PatientRegisterActivityInteractor interactor;
-    private static JSONArray formFields;
     private static JSONObject formJsonObj;
 
     @BeforeClass
     public static void init() throws JSONException {
-        formFields = getFormFields(new JSONObject(PatientRegisterFragmentInteractorTest.JSON_FORM));
         formJsonObj = new JSONObject(PatientRegisterFragmentInteractorTest.JSON_FORM);
     }
 

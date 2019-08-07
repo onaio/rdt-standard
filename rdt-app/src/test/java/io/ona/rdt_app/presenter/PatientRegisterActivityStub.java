@@ -6,7 +6,8 @@ import io.ona.rdt_app.contract.PatientRegisterActivityContract;
  * Created by Vincent Karuri on 02/08/2019
  */
 public class PatientRegisterActivityStub implements PatientRegisterActivityContract.View {
-    PatientRegisterFragmentPresenter fragmentPresenter;
+
+    private PatientRegisterFragmentPresenter fragmentPresenter;
 
     @Override
     public void openDrawerLayout() {
