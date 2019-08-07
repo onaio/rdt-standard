@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
+import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
 
 /**
@@ -102,14 +104,17 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                 final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
                     try {
-                        Boolean isNotExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
-                        widgetArgs.getJsonObject().put(VALUE, isNotExpired);
+                        Bundle bundle = data.getExtras();
+                        Boolean isNotExpired = bundle.getBoolean(EXPIRATION_DATE_RESULT);
+                        String expDate = bundle.getString(EXPIRATION_DATE, "");
+                        widgetArgs.getJsonObject().put(VALUE, expDate);
+
                         // write expiration date result as widget value
                         String key = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.key);
                         String openMrsEntityParent = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent);
                         String openMrsEntity = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity);
                         String openMrsEntityId = (String) rootLayout.getTag(com.vijay.jsonwizard.R.id.openmrs_entity_id);
-                        jsonApi.writeValue(widgetArgs.getStepName(), key, isNotExpired.toString(), openMrsEntityParent,
+                        jsonApi.writeValue(widgetArgs.getStepName(), key, expDate, openMrsEntityParent,
                                 openMrsEntity, openMrsEntityId, widgetArgs.isPopup());
 
                         // conditionally move to next step

@@ -22,6 +22,7 @@ public interface Constants {
     String CONDITIONAL_SAVE = "conditional_save";
     String MULTI_VERSION = "multi_version";
     String EXPIRATION_DATE_RESULT = "expiration_date_result";
+    String EXPIRATION_DATE = "expiration_date";
     String ONA_RDT = "experimental";
     String CARESTART_RDT = "carestart";
     String LBL_CARE_START = "lbl_care_start";
