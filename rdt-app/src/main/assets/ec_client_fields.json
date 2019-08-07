@@ -117,7 +117,7 @@
           "column_name": "time_form_opened",
           "type": "Event",
           "json_mapping": {
-            "field": "metadata.fieldCode",
+            "field": "obs.fieldCode",
             "concept": "start"
           }
         },
@@ -125,7 +125,7 @@
           "column_name": "time_form_closed",
           "type": "Event",
           "json_mapping": {
-            "field": "metadata.fieldCode",
+            "field": "obs.fieldCode",
             "concept": "end"
           }
         }
