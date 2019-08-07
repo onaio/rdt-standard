@@ -194,10 +194,9 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public static void appendProviderAndEntityId(JSONObject jsonForm) throws JSONException {
+    public static void appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = getString(jsonForm, Constants.ENTITY_ID);
         entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.ENTITY_ID, entityId);
-        jsonForm.put(PROVIDER_ID, RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM());
     }
 }

@@ -63,7 +63,7 @@
           "column_name": "provider_id",
           "type": "Event",
           "json_mapping": {
-            "field": "provider_id"
+            "field": "providerId"
           }
         },
         {
