@@ -109,13 +109,12 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                     try {
                         String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
-                        String[] stepAndId = new String[0];
 
                         // write image id to self
                         jsonApi.writeValue(widgetArgs.getStepName(), widgetArgs.getJsonObject().getString(KEY), imgIDAndTimeStamp[0], "", "", "", false);
 
                         // write image save timestamp to hidden field
-                        stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
+                        String[] stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
                         if (stepAndId.length == 2) {
                             jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
                         }
