@@ -94,7 +94,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "lbl_result"
+            "concept": "rdt_result"
           }
         },
         {
@@ -118,7 +118,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "start"
+            "concept": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -126,7 +126,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "end"
+            "concept": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         }
       ]
