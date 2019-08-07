@@ -515,14 +515,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
-      },
-      {
-        "key": "timer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "834912438"
       }
     ]
   },

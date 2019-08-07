@@ -98,14 +98,6 @@
           }
         },
         {
-          "column_name": "time_test_ended",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "timer"
-          }
-        },
-        {
           "column_name": "time_picture_taken",
           "type": "Event",
           "json_mapping": {
