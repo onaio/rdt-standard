@@ -128,7 +128,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "expiration_date_capture",
-        "previous": "step2",
         "expired_page_address": "step5",
         "v_required": {
           "value": "true",
@@ -149,7 +148,6 @@
         "openmrs_entity_id": "",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "previous": "step2",
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",

@@ -1,6 +1,5 @@
 package io.ona.rdt_app.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -26,7 +25,6 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 
 /**
@@ -115,12 +113,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                     Log.e(TAG, e.getStackTrace().toString());
                                 }
                             } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-                                String prevStep = jsonObject.optString(PREVIOUS, "");
-                                if (!prevStep.isEmpty()) {
-                                    formFragment.transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
-                                } else {
-                                    ((Activity) context).finish();
-                                }
+                                ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
                             } else if (data == null) {
                                 Log.i("", "No result for qr code");
                             }

@@ -31,7 +31,6 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
@@ -127,12 +126,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    String prevStep = jsonObject.optString(PREVIOUS, "");
-                    if (!prevStep.isEmpty()) {
-                        widgetArgs.getFormFragment().transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
-                    } else {
-                        ((Activity) widgetArgs.getContext()).finish();
-                    }
+                    ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
                 } else if (data == null) {
                     Log.i(TAG, "No result data for expiration date capture!");
                 }
