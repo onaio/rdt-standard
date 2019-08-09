@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
@@ -31,12 +32,12 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
-import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -122,7 +123,7 @@ public class RDTJsonFormUtils {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 
-    private void startJsonForm(JSONObject form, Activity context, int requestCode) {
+    public void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, RDTJsonFormActivity.class);
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
@@ -145,21 +146,6 @@ public class RDTJsonFormUtils {
                     Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
                 }
             });
-        }
-    }
-
-    public void launchForm(Activity activity, String formName) throws JSONException {
-        launchForm(activity, formName, null);
-    }
-
-    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        try {
-            JSONObject formJsonObject = getFormJsonObject(formName, activity);
-            String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
-            prePopulateFormFields(formJsonObject, patient, rdtId, 7);
-            startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
-        } catch (JsonFormMissingStepCountException e) {
-            Log.e(TAG, e.getStackTrace().toString());
         }
     }
 
@@ -191,6 +177,21 @@ public class RDTJsonFormUtils {
                 break;
             }
         }
+    }
+
+    public synchronized void getNextUniqueId(final FormLaunchArgs args, final OnUniqueIdFetchedCallback callBack) {
+        class FetchUniqueIdTask extends AsyncTask<Void, Void, UniqueId> {
+            @Override
+            protected UniqueId doInBackground(Void... voids) {
+                return RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId();
+            }
+
+            @Override
+            protected void onPostExecute(UniqueId result) {
+                callBack.onUniqueIdFetched(args, result);
+            }
+        }
+        new FetchUniqueIdTask().execute();
     }
 
     public static void appendEntityId(JSONObject jsonForm) throws JSONException {

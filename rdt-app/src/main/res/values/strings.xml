@@ -14,4 +14,5 @@
     <string name="login_attributions">An <![CDATA[<b><font color=#467690>Ona</font></b>]]> deployment <![CDATA[<br/>]]>powered by <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]></string>
     <string name="confirm_close_msg">Are you sure you want to exit the form? All data entered on this form will be lost.</string>
     <string name="confirm_close_title">Please confirm</string>
+    <string name="unique_id_fetch_error_msg">"Sorry, no unique rdt ids could be fetched. Please turn on your network connection and perform a manual sync."</string>
 </resources>
