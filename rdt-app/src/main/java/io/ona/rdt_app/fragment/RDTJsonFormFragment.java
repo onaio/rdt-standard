@@ -17,10 +17,12 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
+import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.util.Constants;
@@ -70,18 +72,26 @@ public class RDTJsonFormFragment extends JsonFormFragment {
                 save(false);
             }
         });
+
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Object isSubmit = v.getTag(R.id.submit);
-                String currStep = "step" + currentStep;
-                if ("step8".equals(currStep)) {
+                String currStepStr = "step" + currentStep;
+                if ("step8".equals(currStepStr)) {
                     String rdtType = ((RDTJsonFormActivity) getActivity()).getRdtType();
                     if (Constants.CARESTART_RDT.equals(rdtType)) {
                         JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step14");
                         transactThis(nextFragment);
                     } else {
                         next();
+                    }
+                } else if ("step5".equals(currStepStr)) {
+                    try {
+                        ((RDTJsonFormFragmentContract.Presenter) presenter).saveForm();
+                        next();
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                     save(false);

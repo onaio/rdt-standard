@@ -32,14 +32,11 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.fragment.PatientRegisterFragment;
-import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterActivityPresenter;
-import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import io.ona.rdt_app.util.Utils;
 import timber.log.Timber;
 
-import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt_app.util.Constants.REQUEST_RDT_PERMISSIONS;
@@ -79,9 +76,10 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
+    public BaseRegisterFragment getRegisterFragment() {
         return new PatientRegisterFragment();
     }
+
 
     @Override
     protected android.support.v4.app.Fragment[] getOtherFragments() {
@@ -140,14 +138,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             try {
                 String jsonForm = data.getStringExtra("json");
                 Timber.d(TAG, jsonForm);
-                PatientRegisterFragmentPresenter patientRegisterFragmentPresenter = ((PatientRegisterFragment) getRegisterFragment()).getPresenter();
-                JSONObject jsonFormObject = new JSONObject(jsonForm);
-                RDTJsonFormUtils.appendEntityId(jsonFormObject);
-                patientRegisterFragmentPresenter.saveForm(jsonFormObject, this);
-                Patient rdtPatient = patientRegisterFragmentPresenter.getRDTPatient(jsonFormObject);
-                if (rdtPatient != null) {
-                    patientRegisterFragmentPresenter.launchForm(this, RDT_TEST_FORM, rdtPatient);
-                }
+                getPresenter().saveForm(jsonForm, this);
             } catch (JSONException e) {
                 Timber.e(TAG, e.getStackTrace().toString());
             }
@@ -203,5 +194,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             default:
                 // do nothing
         }
+    }
+
+    private PatientRegisterActivityPresenter getPresenter() {
+        return (PatientRegisterActivityPresenter) this.presenter;
     }
 }

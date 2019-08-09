@@ -6,15 +6,23 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
+import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
  */
-public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
+public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
+
+    private RDTJsonFormInteractor interactor;
 
     public RDTJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
+        interactor = (RDTJsonFormInteractor) jsonFormInteractor;
     }
 
     @Override
@@ -51,5 +59,10 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
     public void setUpToolBar() {
         super.setUpToolBar();
         getView().updateVisibilityOfNextAndSave(false, false);
+    }
+
+    @Override
+    public void saveForm() throws JSONException {
+        interactor.saveForm(new JSONObject(getView().getCurrentJsonState()));
     }
 }
