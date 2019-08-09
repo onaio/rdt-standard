@@ -19,6 +19,9 @@ import com.vijay.jsonwizard.widgets.BarcodeFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
@@ -26,6 +29,8 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt_app.util.Utils.convertDate;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
@@ -39,6 +44,8 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private static final String TAG = RDTBarcodeFactory.class.getName();
     private final String RDT_ID_ADDRESSES = "rdt_id_addresses";
     private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
+
+    public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
@@ -78,6 +85,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                         public void onActivityResult(int requestCode, int resultCode, Intent data) {
                             if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
                                 try {
+                                    Date expDate = null;
                                     Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                     Log.d("Scanned QR Code", barcode.displayValue);
                                     String[] barcodeValues = barcode.displayValue.split(",");
@@ -95,20 +103,22 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         for (String addr : rdtIdAddrs) {
                                             stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
                                             if (stepAndId.length == 2) {
-                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[0].trim(), "", "", "", false);
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[2].trim(), "", "", "", false);
                                             }
                                         }
 
                                         // populate exp. date to expiration date widget value
                                         stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
                                         if (stepAndId.length == 2) {
-                                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[1].trim(), "", "", "", false);
+                                            try {
+                                                expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
+                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), getDateStr(expDate), "", "", "", false);
+                                            } catch (ParseException e) {
+                                                Log.e(TAG, e.getStackTrace().toString());
+                                            }
                                         }
                                     }
-                                    // move to next step or save form if last step
-                                    if (!formFragment.next()) {
-                                        formFragment.save(true);
-                                    }
+                                    moveToNextStep(expDate);
                                 } catch (JSONException e) {
                                     Log.e(TAG, e.getStackTrace().toString());
                                 }
@@ -120,5 +130,26 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                         }
                     });
         }
+    }
+
+    private void moveToNextStep(Date expDate) {
+        if (!isRDTExpired(expDate)) {
+            if (!formFragment.next()) {
+                formFragment.save(true);
+            }
+        } else {
+            String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
+            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+            formFragment.transactThis(nextFragment);
+        }
+    }
+
+    private String getDateStr(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        return date == null ? "" : simpleDateFormat.format(date);
+    }
+
+    private boolean isRDTExpired(Date date) {
+        return date == null ? true : new Date().after(date);
     }
 }
