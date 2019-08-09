@@ -12,7 +12,7 @@ public interface Constants {
     String METADATA = "metadata";
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
-    String PATIENTS = "patients";
+    String RDT_PATIENTS = "rdt_patients";
     String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";

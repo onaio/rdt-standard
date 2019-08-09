@@ -36,7 +36,7 @@ import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.METADATA;
-import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_NAME;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
@@ -75,7 +75,7 @@ public class PatientRegisterFragmentInteractor {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     populateApproxDOB(jsonForm);
 
-                    String bindType = PATIENT_REGISTRATION.equals(encounterType) ? PATIENTS : RDT_TESTS;
+                    String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
