@@ -70,7 +70,7 @@ public class PatientRegisterFragmentInteractorTest {
 
     private PatientRegisterFragmentInteractor interactor;
 
-    public static final String JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
+    public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
             "\"fields\":[{\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
             "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
@@ -95,8 +95,8 @@ public class PatientRegisterFragmentInteractorTest {
 
     @BeforeClass
     public static void init() throws JSONException {
-        formFields = getFormFields(new JSONObject(JSON_FORM));
-        formJsonObj = new JSONObject(JSON_FORM);
+        formFields = getFormFields(new JSONObject(PATIENT_REGISTRATION_JSON_FORM));
+        formJsonObj = new JSONObject(PATIENT_REGISTRATION_JSON_FORM);
     }
 
     @Before
@@ -152,7 +152,7 @@ public class PatientRegisterFragmentInteractorTest {
 
         // mock AssetHandler
         mockStatic(AssetHandler.class);
-        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(JSON_FORM);
+        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
     }
 
     private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {

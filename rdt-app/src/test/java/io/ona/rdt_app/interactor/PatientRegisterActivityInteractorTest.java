@@ -31,7 +31,7 @@ public class PatientRegisterActivityInteractorTest {
 
     @BeforeClass
     public static void init() throws JSONException {
-        formJsonObj = new JSONObject(PatientRegisterFragmentInteractorTest.JSON_FORM);
+        formJsonObj = new JSONObject(PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM);
     }
 
     @Before

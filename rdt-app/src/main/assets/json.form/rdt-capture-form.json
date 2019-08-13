@@ -312,7 +312,6 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step10",
-    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",

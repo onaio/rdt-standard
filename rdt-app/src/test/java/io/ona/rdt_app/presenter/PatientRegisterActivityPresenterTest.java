@@ -21,7 +21,7 @@ import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
-import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.JSON_FORM;
+import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static org.junit.Assert.assertEquals;
@@ -64,7 +64,7 @@ public class PatientRegisterActivityPresenterTest {
         doReturn(expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
         mockStatic(RDTJsonFormUtils.class);
 
-        presenter.saveForm(JSON_FORM, activity);
+        presenter.saveForm(PATIENT_REGISTRATION_JSON_FORM, activity);
         verify(interactor).saveForm(any(JSONObject.class), eq(activity));
         verify(interactor).getPatientForRDT(any(JSONObject.class));
         verify(interactor).launchForm(eq(context), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());
