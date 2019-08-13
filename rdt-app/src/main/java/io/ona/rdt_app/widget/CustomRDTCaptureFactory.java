@@ -41,8 +41,6 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
-    private final String CARESTART_RDT_PREV = "carestart_rdt_prev";
-    private final String ONA_RDT_PREV = "ona_rdt_prev";
     private final String RDT_NAME = "rdt_name";
 
     private Context context;
@@ -97,24 +95,13 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             @Override
             public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 hideProgressDialog();
-                final JsonApi jsonApi = (JsonApi) context;
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
                     try {
                         String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
                         String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
-                        String[] stepAndId = new String[0];
 
-                        stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
-                        if (stepAndId.length == 2) {
-                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[0], "", "", "", false);
-                        }
-
-                        stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
-                        if (stepAndId.length == 2) {
-                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
-                        }
-
+                        populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, (JsonApi) context);
                         if (!formFragment.next()) {
                             formFragment.save(true);
                         }
@@ -130,6 +117,20 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         };
 
         return resultListener;
+    }
+
+    private void populateRelevantFields(String[] imgIDAndTimeStamp, String imgIdAddress,  String imgTimeStampAddress, JsonApi jsonApi) throws JSONException {
+        String[] stepAndId = new String[0];
+
+        stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
+        if (stepAndId.length == 2) {
+            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[0], "", "", "", false);
+        }
+
+        stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
+        if (stepAndId.length == 2) {
+            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
+        }
     }
 
     @Override
