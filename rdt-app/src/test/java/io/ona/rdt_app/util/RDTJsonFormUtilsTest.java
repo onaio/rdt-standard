@@ -9,7 +9,6 @@ import org.smartregister.exception.JsonFormMissingStepCountException;
 
 import io.ona.rdt_app.model.Patient;
 
-import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static org.junit.Assert.assertEquals;
