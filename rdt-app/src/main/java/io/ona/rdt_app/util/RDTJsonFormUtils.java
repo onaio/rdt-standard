@@ -30,6 +30,7 @@ import java.util.UUID;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
@@ -60,7 +61,6 @@ public class RDTJsonFormUtils {
         }
 
         class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
-
             @Override
             protected ProfileImage doInBackground(Void... voids) {
 
@@ -85,16 +85,18 @@ public class RDTJsonFormUtils {
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
 
-//                        saveImageToGallery(context, image); // todo: only enable this in debug apks
+                        if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                            saveImageToGallery(context, image);
+                        }
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e(TAG, "Failed to save static image to disk");
+                    Log.e(TAG, e.getStackTrace().toString());
                 } finally {
                     if (os != null) {
                         try {
                             os.close();
                         } catch (IOException e) {
-                            Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                            Log.e(TAG, e.getStackTrace().toString());
                         }
                     }
                 }
@@ -172,13 +174,11 @@ public class RDTJsonFormUtils {
                 field.put("text", "RDT ID: " + rdtId);
                 fieldsPopulated++;
             }
-
             // pre-populate rdt id field
             if (RDT_ID.equals(field.getString(KEY))) {
                 field.put(VALUE, rdtId);
                 fieldsPopulated++;
             }
-
             // pre-populate patient fields
             if (patient != null) {
                 if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
@@ -191,7 +191,6 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 }
             }
-
             // save cpu time
             if (fieldsPopulated == numFields) {
                 break;
