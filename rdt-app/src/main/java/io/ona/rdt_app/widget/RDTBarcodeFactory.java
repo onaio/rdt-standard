@@ -41,9 +41,9 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private JsonFormFragment formFragment;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
-    private final String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
-    private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
-    private final String RDT_ID_ADDRESS = "rdt_id_address";
+    public static final String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
+    public static final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
+    public static final String RDT_ID_ADDRESS = "rdt_id_address";
 
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 

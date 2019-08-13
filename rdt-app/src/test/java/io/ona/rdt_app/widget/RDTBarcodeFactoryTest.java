@@ -3,6 +3,7 @@ package io.ona.rdt_app.widget;
 import android.os.Bundle;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -20,12 +21,18 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt_app.util.Utils.convertDate;
+import static io.ona.rdt_app.widget.RDTBarcodeFactory.EXPIRATION_DATE_ADDRESS;
 import static io.ona.rdt_app.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
+import static io.ona.rdt_app.widget.RDTBarcodeFactory.RDT_ID_ADDRESS;
+import static io.ona.rdt_app.widget.RDTBarcodeFactory.RDT_ID_LBL_ADDRESSES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
@@ -89,6 +96,24 @@ public class RDTBarcodeFactoryTest {
 
         Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getPastDate());
         verify(formFragment).transactThis(any(RDTJsonFormFragment.class));
+    }
+
+    @Test
+    public void testPopulateRelevantFieldsShouldPopulateCorrectValues() throws Exception {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(RDT_ID_LBL_ADDRESSES, "step1:lbl_address1");
+        jsonObject.put(RDT_ID_ADDRESS, "step2:rdt_id_addr");
+        jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
+        Whitebox.setInternalState(barcodeFactory, "jsonObject", jsonObject);
+
+        JsonApi jsonApi = spy(new TestJsonApi());
+        String[] barcodeVals = new String[]{"step1", "key", "rdt_id"};
+        Date expDate = new Date();
+        Whitebox.invokeMethod(barcodeFactory, "populateRelevantFields", barcodeVals, jsonApi, expDate);
+
+        verify(jsonApi).writeValue(eq("step1"), eq("lbl_address1"), eq("RDT ID: " + barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonApi).writeValue(eq("step2"), eq("rdt_id_addr"), eq(barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonApi).writeValue(eq("step3"), eq("exp_date_addr"), anyString(), eq(""), eq(""), eq(""), eq(false));
     }
 
     private Date getFutureDate() {
