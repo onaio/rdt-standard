@@ -56,7 +56,7 @@ public class RDTCountdownTimerFactoryTest {
         JSONObject jsonObject = new JSONObject();
         Whitebox.setInternalState(countdownTimerFactory, "stepObject", jsonObject);
 
-        Whitebox.invokeMethod(countdownTimerFactory, "performOnExpiredAction", mock(Context.class));
+        Whitebox.invokeMethod(countdownTimerFactory, "performOnExpiredAction", mock(Context.class), mock(TextView.class));
         verify(formFragment).next();
     }
 }
