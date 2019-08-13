@@ -85,48 +85,19 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                         public void onActivityResult(int requestCode, int resultCode, Intent data) {
                             if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
                                 try {
-                                    Date expDate = null;
                                     Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                                     Log.d("Scanned QR Code", barcode.displayValue);
                                     String[] barcodeValues = barcode.displayValue.split(",");
+
+                                    Date expDate = null;
                                     if (barcodeValues.length >= 2) {
-                                        String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
-                                        jsonObject.put(VALUE, idAndExpDate);
-
-                                        // write barcode values to relevant widgets
-                                        String rdtIdLblAddresses = jsonObject.optString(RDT_ID_LBL_ADDRESSES, "");
-                                        String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
-                                        String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
-                                        String[] stepAndId;
-
-                                        // populate rdt id to all relevant txt labels
-                                        String[] rdtIdAddresses = rdtIdLblAddresses.isEmpty() ? new String[0] : rdtIdLblAddresses.split(",");
-                                        for (String addr : rdtIdAddresses) {
-                                            stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
-                                            if (stepAndId.length == 2) {
-                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[2].trim(), "", "", "", false);
-                                            }
-                                        }
-
-                                        // write rdt id to hidden rdt id field
-                                        stepAndId = rdtIdAddress.isEmpty() ? new String[0] : rdtIdAddress.split(":");
-                                        if (stepAndId.length == 2) {
-                                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[2].trim(), "", "", "", false);
-                                        }
-
-                                        // populate exp. date to expiration date widget value
-                                        stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
-                                        if (stepAndId.length == 2) {
-                                            try {
-                                                expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
-                                                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), getDateStr(expDate), "", "", "", false);
-                                            } catch (ParseException e) {
-                                                Log.e(TAG, e.getStackTrace().toString());
-                                            }
-                                        }
+                                        expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
+                                        populateRelevantFields(barcodeValues, jsonApi, expDate);
                                     }
                                     moveToNextStep(expDate);
                                 } catch (JSONException e) {
+                                    Log.e(TAG, e.getStackTrace().toString());
+                                } catch (ParseException e) {
                                     Log.e(TAG, e.getStackTrace().toString());
                                 }
                             } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
@@ -136,6 +107,38 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                             }
                         }
                     });
+        }
+    }
+
+    private void populateRelevantFields(String[] barcodeValues, JsonApi jsonApi, Date expDate) throws JSONException {
+        String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
+        jsonObject.put(VALUE, idAndExpDate);
+
+        // write barcode values to relevant widgets
+        String rdtIdLblAddresses = jsonObject.optString(RDT_ID_LBL_ADDRESSES, "");
+        String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
+        String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
+        String[] stepAndId;
+
+        // populate rdt id to all relevant txt labels
+        String[] rdtIdAddresses = rdtIdLblAddresses.isEmpty() ? new String[0] : rdtIdLblAddresses.split(",");
+        for (String addr : rdtIdAddresses) {
+            stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
+            if (stepAndId.length == 2) {
+                jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[2].trim(), "", "", "", false);
+            }
+        }
+
+        // write rdt id to hidden rdt id field
+        stepAndId = rdtIdAddress.isEmpty() ? new String[0] : rdtIdAddress.split(":");
+        if (stepAndId.length == 2) {
+            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[2].trim(), "", "", "", false);
+        }
+
+        // populate exp. date to expiration date widget value
+        stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
+        if (stepAndId.length == 2) {
+            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), getDateStr(expDate), "", "", "", false);
         }
     }
 
