@@ -13,6 +13,7 @@ import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.PA
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
@@ -632,23 +633,32 @@ public class RDTJsonFormUtilsTest {
         Patient patient = new Patient("patient", "female", "entity_id");
         formUtils.prePopulateFormFields(formObject, patient, "rdt_id", 8);
 
+        boolean populatedLblRDTId = false;
+        boolean populatedRDTId = false;
+        boolean populatedPatientName = false;
+        boolean populatedPatientSex = false;
         JSONArray fields = getMultiStepFormFields(formObject);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // test rdt id labels are populated
             if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
                assertEquals(field.getString("text"), "RDT ID: " + "rdt_id");
+               populatedLblRDTId = true;
             }
             // test rdt id is populated
             if (RDT_ID.equals(field.getString(KEY))) {
                 assertEquals(field.getString(VALUE), "rdt_id");
+                populatedRDTId = true;
             }
             // test patient fields are populated
             if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
                 assertEquals(field.getString("text"), patient.getPatientName());
+                populatedPatientName = true;
             } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                 assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
+                populatedPatientSex = true;
             }
         }
+        assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId && populatedPatientSex);
     }
 }
