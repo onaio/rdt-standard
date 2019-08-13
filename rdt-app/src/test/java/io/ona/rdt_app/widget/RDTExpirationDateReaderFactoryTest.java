@@ -6,19 +6,31 @@ import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import io.ona.rdt_app.fragment.RDTJsonFormFragment;
+
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({RDTJsonFormFragment.class})
 public class RDTExpirationDateReaderFactoryTest {
 
     private RDTExpirationDateReaderFactory readerFactory;
@@ -59,7 +71,18 @@ public class RDTExpirationDateReaderFactoryTest {
     }
 
     @Test
-    public void testConditionallyMoveToNextStepShouldMoveToStep1() {
+    public void testConditionallyMoveToNextStepShouldMoveToStep1() throws Exception {
+        JsonFormFragment formFragment = mock(JsonFormFragment.class);
+        WidgetArgs args = new WidgetArgs();
+        args.withFormFragment(formFragment);
+        Whitebox.setInternalState(readerFactory, "widgetArgs", args);
 
+        Whitebox.setInternalState(readerFactory, "jsonObject", new JSONObject());
+
+        mockStatic(RDTJsonFormFragment.class);
+        when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
+
+        Whitebox.invokeMethod(readerFactory, "conditionallyMoveToNextStep", false);
+        verify(formFragment).transactThis(eq(formFragment));
     }
 }
