@@ -3,6 +3,7 @@ package io.ona.rdt_app.widget;
 import android.view.View;
 
 import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.junit.Before;
@@ -44,5 +45,21 @@ public class RDTExpirationDateReaderFactoryTest {
         Whitebox.invokeMethod(readerFactory, "populateRelevantFields", jsonApi, "value");
 
         verify(jsonApi).writeValue(eq("step1"), eq("key"), eq("value"), eq("entity_parent"), eq("openmrs_entity"), eq("openmrs_entity_id"), eq(false));
+    }
+
+    @Test
+    public void testConditionallyMoveToNextStepShouldMoveToNextStep() throws Exception {
+        JsonFormFragment formFragment = mock(JsonFormFragment.class);
+        WidgetArgs args = new WidgetArgs();
+        args.withFormFragment(formFragment);
+        Whitebox.setInternalState(readerFactory, "widgetArgs", args);
+
+        Whitebox.invokeMethod(readerFactory, "conditionallyMoveToNextStep", true);
+        verify(formFragment).next();
+    }
+
+    @Test
+    public void testConditionallyMoveToNextStepShouldMoveToStep1() {
+
     }
 }
