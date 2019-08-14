@@ -34,6 +34,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
+import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
 import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt_app.util.Constants.ONA_RDT;
@@ -103,7 +104,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                     try {
                         final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
                         Boolean isNotExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
-                        String expirationDate = data.getExtras().getString(EXPIRATION_DATE_RESULT);
+                        String expirationDate = data.getExtras().getString(EXPIRATION_DATE);
                         populateRelevantFields(jsonApi, expirationDate);
                         conditionallyMoveToNextStep(isNotExpired);
                     } catch (JSONException e) {
