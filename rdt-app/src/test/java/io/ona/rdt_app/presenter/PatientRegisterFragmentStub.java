@@ -7,6 +7,8 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 
+import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
+
 /**
  * Created by Vincent Karuri on 14/08/2019
  */
@@ -40,5 +42,10 @@ public class PatientRegisterFragmentStub extends JsonFormFragment implements RDT
     @Override
     public JsonApi getJsonApi() {
         return new JsonApiStub();
+    }
+
+    @Override
+    public String getCurrentJsonState() {
+        return PATIENT_REGISTRATION_JSON_FORM ;
     }
 }

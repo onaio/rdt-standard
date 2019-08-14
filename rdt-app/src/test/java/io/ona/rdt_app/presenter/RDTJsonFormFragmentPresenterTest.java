@@ -2,6 +2,7 @@ package io.ona.rdt_app.presenter;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.util.Constants;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -42,9 +44,10 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-//        presenter.performNextButtonAction("5", null);
-//        verify(interactor).saveForm(any(JSONObject.class));
-//        verify(fragment).moveToNextStep();
+        presenter.attachView((JsonFormFragment) fragment);
+        presenter.performNextButtonAction("5", null);
+        verify(interactor).saveForm(any(JSONObject.class));
+        verify(fragment).moveToNextStep();
     }
 
     @Test
