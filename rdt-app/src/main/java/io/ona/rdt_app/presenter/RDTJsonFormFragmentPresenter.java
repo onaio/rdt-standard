@@ -26,7 +26,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     private RDTJsonFormFragmentContract.View formFragment;
 
     public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View formFragment, JsonFormInteractor jsonFormInteractor) {
-        super((RDTJsonFormFragment) formFragment, jsonFormInteractor);
+        super((JsonFormFragment) formFragment, jsonFormInteractor);
         this.interactor = (RDTJsonFormInteractor) jsonFormInteractor;
         this.formFragment = formFragment;
     }
