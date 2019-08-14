@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
-import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
 
