@@ -19,10 +19,10 @@ import static io.ona.rdt_app.util.Constants.PATIENTS;
 public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentContract.Presenter, PatientRegisterFragmentContract.Presenter {
 
     private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
-    private PatientRegisterFragment patientRegisterFragment;
+    private PatientRegisterFragmentContract.View patientRegisterFragment;
 
 
-    public PatientRegisterFragmentPresenter(PatientRegisterFragment patientRegisterFragment) {
+    public PatientRegisterFragmentPresenter(PatientRegisterFragmentContract.View patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
     }
 
