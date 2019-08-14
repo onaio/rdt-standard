@@ -101,7 +101,7 @@ public class RDTBarcodeFactoryTest {
     @Test
     public void testPopulateRelevantFieldsShouldPopulateCorrectValues() throws Exception {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(RDT_ID_LBL_ADDRESSES, "step1:lbl_address1");
+        jsonObject.put(RDT_ID_LBL_ADDRESSES, "step1:lbl_address1,step5:lbl_address5,step6:lbl_address6,");
         jsonObject.put(RDT_ID_ADDRESS, "step2:rdt_id_addr");
         jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
         Whitebox.setInternalState(barcodeFactory, "jsonObject", jsonObject);
@@ -112,6 +112,8 @@ public class RDTBarcodeFactoryTest {
         Whitebox.invokeMethod(barcodeFactory, "populateRelevantFields", barcodeVals, jsonApi, expDate);
 
         verify(jsonApi).writeValue(eq("step1"), eq("lbl_address1"), eq("RDT ID: " + barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonApi).writeValue(eq("step5"), eq("lbl_address5"), eq("RDT ID: " + barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonApi).writeValue(eq("step6"), eq("lbl_address6"), eq("RDT ID: " + barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
         verify(jsonApi).writeValue(eq("step2"), eq("rdt_id_addr"), eq(barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
         verify(jsonApi).writeValue(eq("step3"), eq("exp_date_addr"), anyString(), eq(""), eq(""), eq(""), eq(false));
     }
