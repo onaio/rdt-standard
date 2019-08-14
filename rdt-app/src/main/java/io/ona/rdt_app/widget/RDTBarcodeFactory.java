@@ -145,7 +145,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     }
 
     private String getDateStr(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         return date == null ? "" : simpleDateFormat.format(date);
     }
 
