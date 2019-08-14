@@ -17,7 +17,6 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt_app.R;
@@ -25,12 +24,11 @@ import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
 import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt_app.util.Constants;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
  */
-public class RDTJsonFormFragment extends JsonFormFragment {
+public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
     private static int currentStep;
@@ -58,18 +56,19 @@ public class RDTJsonFormFragment extends JsonFormFragment {
     @Override
     protected void initializeBottomNavigation(final JSONObject step, View rootView) {
         super.initializeBottomNavigation(step, rootView);
-        // Handle initialization of the countdown timer bottom navigation
         String currStep = "step" + currentStep;
-        boolean buttonEnabled = true;
+
+        // Handle initialization of the countdown timer bottom navigation
+        boolean isNextButtonEnabled = true;
         if ("step12".equals(currStep)) {
-            buttonEnabled = false;
+            isNextButtonEnabled = false;
         }
-        setNextButtonState(rootView, buttonEnabled);
+        setNextButtonState(rootView, isNextButtonEnabled);
 
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save(false);
+                saveForm();
             }
         });
 
@@ -77,31 +76,12 @@ public class RDTJsonFormFragment extends JsonFormFragment {
             @Override
             public void onClick(View v) {
                 Object isSubmit = v.getTag(R.id.submit);
-                String currStepStr = "step" + currentStep;
-                if ("step8".equals(currStepStr)) {
-                    String rdtType = ((RDTJsonFormActivity) getActivity()).getRdtType();
-                    if (Constants.CARESTART_RDT.equals(rdtType)) {
-                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step14");
-                        transactThis(nextFragment);
-                    } else {
-                        next();
-                    }
-                } else if ("step5".equals(currStepStr)) {
-                    try {
-                        ((RDTJsonFormFragmentContract.Presenter) presenter).saveForm();
-                        next();
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getStackTrace().toString());
-                    }
-                } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
-                    save(false);
-                } else {
-                    next();
-                }
+                getFragmentPresenter().performNextButtonAction(currStep, isSubmit);
             }
         });
     }
 
+    @Override
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
         Button button = rootView.findViewById(com.vijay.jsonwizard.R.id.next_button);
         button.setEnabled(buttonEnabled);
@@ -119,6 +99,26 @@ public class RDTJsonFormFragment extends JsonFormFragment {
         } else if (background instanceof ColorDrawable) {
             ((ColorDrawable) background).setColor(bgColor);
         }
+    }
+
+    @Override
+    public void moveToNextStep() {
+        next();
+    }
+
+    @Override
+    public void saveForm() {
+        save(false);
+    }
+
+    @Override
+    public void transactFragment(JsonFormFragment nextFragment) {
+        transactThis(nextFragment);
+    }
+
+    @Override
+    public String getRDTType() {
+        return ((RDTJsonFormActivity) getActivity()).getRdtType();
     }
 
     @Override
@@ -157,5 +157,9 @@ public class RDTJsonFormFragment extends JsonFormFragment {
 
     public void setMoveBackOneStep(boolean moveBackOneStep) {
         this.moveBackOneStep = moveBackOneStep;
+    }
+
+    private RDTJsonFormFragmentContract.Presenter getFragmentPresenter() {
+        return (RDTJsonFormFragmentContract.Presenter) presenter;
     }
 }
