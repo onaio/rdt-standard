@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
+import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
 
 /**
@@ -12,10 +13,10 @@ import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
  */
 public class CustomRDTCapturePresenter {
 
-    private CustomRDTCaptureActivity activity;
+    private CustomRDTCaptureContract.View  activity;
     private CustomRDTCaptureInteractor interactor;
 
-    public CustomRDTCapturePresenter(CustomRDTCaptureActivity activity) {
+    public CustomRDTCapturePresenter(CustomRDTCaptureContract.View activity) {
         this.activity = activity;
         this.interactor = new CustomRDTCaptureInteractor(this);
     }
