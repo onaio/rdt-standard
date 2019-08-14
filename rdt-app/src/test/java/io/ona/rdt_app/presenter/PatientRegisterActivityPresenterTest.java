@@ -43,7 +43,6 @@ public class PatientRegisterActivityPresenterTest {
 
     private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityPresenter presenter;
-    private Activity context = mock(Activity.class);
 
     @Mock
     private PatientRegisterActivityInteractor interactor;
@@ -55,7 +54,7 @@ public class PatientRegisterActivityPresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         activity = spy(new PatientRegisterActivityStub());
-        presenter = new PatientRegisterActivityPresenter(context);
+        presenter = new PatientRegisterActivityPresenter(activity);
     }
 
     @Test
@@ -67,7 +66,7 @@ public class PatientRegisterActivityPresenterTest {
         presenter.saveForm(PATIENT_REGISTRATION_JSON_FORM, activity);
         verify(interactor).saveForm(any(JSONObject.class), eq(activity));
         verify(interactor).getPatientForRDT(any(JSONObject.class));
-        verify(interactor).launchForm(eq(context), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());
+        verify(interactor).launchForm(eq((Activity) activity), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());
 
         Patient rdtPatient = patientArgumentCaptor.getValue();
         assertNotNull(rdtPatient);
