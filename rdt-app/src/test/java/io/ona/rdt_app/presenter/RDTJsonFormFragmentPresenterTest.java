@@ -45,7 +45,7 @@ public class RDTJsonFormFragmentPresenterTest {
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
         presenter.attachView((JsonFormFragment) fragment);
-        presenter.performNextButtonAction("5", null);
+        presenter.performNextButtonAction("step5", null);
         verify(interactor).saveForm(any(JSONObject.class));
         verify(fragment).moveToNextStep();
     }
@@ -57,14 +57,14 @@ public class RDTJsonFormFragmentPresenterTest {
 
         JsonFormFragment formFragment = mock(JsonFormFragment.class);
         when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
-        presenter.performNextButtonAction("8", null);
+        presenter.performNextButtonAction("step8", null);
         verify(fragment).transactFragment(eq(formFragment));
     }
 
     @Test
     public void testPerformNextButtonActionShouldShowImageViewsForONARDT() {
         doReturn(Constants.ONA_RDT).when(fragment).getRDTType();
-        presenter.performNextButtonAction("8", null);
+        presenter.performNextButtonAction("step8", null);
         verify(fragment).moveToNextStep();
     }
 
