@@ -144,7 +144,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 getPresenter().saveForm(jsonFormObject, this);
                 Patient rdtPatient = getPresenter().getRDTPatient(jsonFormObject);
                 if (rdtPatient != null) {
-                    patientRegisterFragmentPresenter.launchForm(this, RDT_TEST_FORM, rdtPatient);
+                    ((PatientRegisterFragment) getRegisterFragment()).getPresenter()
+                            .launchForm(this, RDT_TEST_FORM, rdtPatient); // todo: change this to saveform after refactor & tests class merges
                 }
             } catch (JSONException e) {
                 Timber.e(TAG, e.getStackTrace().toString());
