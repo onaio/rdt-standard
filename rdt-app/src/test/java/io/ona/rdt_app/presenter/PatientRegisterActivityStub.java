@@ -9,8 +9,6 @@ import io.ona.rdt_app.contract.PatientRegisterActivityContract;
  */
 public class PatientRegisterActivityStub extends Activity implements PatientRegisterActivityContract.View {
 
-    private PatientRegisterFragmentPresenter fragmentPresenter;
-
     @Override
     public void openDrawerLayout() {
         // do nothing
