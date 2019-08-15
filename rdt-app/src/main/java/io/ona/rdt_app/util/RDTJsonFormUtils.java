@@ -84,10 +84,7 @@ public class RDTJsonFormUtils {
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
-
-                        if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
-                            saveImageToGallery(context, image);
-                        }
+                        // saveImageToGallery(context, image);
                     }
                 } catch (FileNotFoundException e) {
                     Log.e(TAG, e.getStackTrace().toString());
