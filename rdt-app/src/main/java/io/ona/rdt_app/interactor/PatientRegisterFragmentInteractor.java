@@ -109,7 +109,7 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
     private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
         Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
         if (rdtIdObs != null) {
-            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[0].trim();
             RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
         }
     }
