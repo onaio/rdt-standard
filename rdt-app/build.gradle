@@ -61,18 +61,15 @@ android {
 }
 
 dependencies {
-    implementation project(':circle-progressbar')
-
     implementation  'org.apache.commons:commons-lang3:3.9'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.6.24-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.30-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
         exclude group: 'com.android.support', module: 'support-media-compat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
-        exclude module: 'circle-progressbar'
     }
 
     implementation('org.smartregister:opensrp-client-core:1.7.3-SNAPSHOT@aar') {
