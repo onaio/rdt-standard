@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.model.Patient;
@@ -13,13 +14,13 @@ import io.ona.rdt_app.model.Patient;
  */
 public interface PatientRegisterFragmentContract {
 
-    interface Presenter {
+    interface Presenter extends BaseRegisterFragmentContract.Presenter {
         String getMainCondition();
 
         void launchForm(Activity activity, String formName, Patient patient) throws JSONException;
     }
 
-    interface View {
+    interface View extends BaseRegisterFragmentContract.View {
         void initializeAdapter();
     }
 }
