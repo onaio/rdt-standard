@@ -17,6 +17,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
@@ -33,6 +34,7 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.FormLaunchArgs;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -88,6 +90,7 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     String bindType = PATIENT_REGISTRATION.equals(encounterType) ? PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
+                    closeRDTId(eventClient.getEvent());
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
@@ -101,6 +104,14 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
             }
         }
         new SaveFormTask().execute();
+    }
+
+    private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
+        Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
+        if (rdtIdObs != null) {
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+        }
     }
 
     private void populateApproxDOB(JSONObject jsonForm) throws JSONException {
@@ -201,7 +212,6 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
             if (id.isEmpty()) {
                 showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
             } else {
-                RDTApplication.getInstance().getContext().getUniqueIdRepository().close(id);
                 JSONObject formJSONObj = args.getFormJsonObject();
                 formUtils.prePopulateFormFields(formJSONObj, args.getPatient(), id, 7);
                 formUtils.startJsonForm(formJSONObj, activity, REQUEST_CODE_GET_JSON);
