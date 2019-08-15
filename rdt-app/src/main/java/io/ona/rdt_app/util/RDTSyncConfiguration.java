@@ -4,6 +4,7 @@ import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.repository.AllSharedPreferences;
 
+import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
 
 /**
@@ -12,7 +13,7 @@ import io.ona.rdt_app.application.RDTApplication;
 public class RDTSyncConfiguration extends SyncConfiguration {
     @Override
     public int getSyncMaxRetries() {
-        return 0;
+        return BuildConfig.MAX_SYNC_RETRIES;
     }
 
     @Override
@@ -28,17 +29,17 @@ public class RDTSyncConfiguration extends SyncConfiguration {
 
     @Override
     public int getUniqueIdSource() {
-        return 0;
+        return BuildConfig.OPENMRS_UNIQUE_ID_SOURCE;
     }
 
     @Override
     public int getUniqueIdBatchSize() {
-        return 0;
+        return BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE;
     }
 
     @Override
     public int getUniqueIdInitialBatchSize() {
-        return 0;
+        return BuildConfig.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE;
     }
 
     @Override

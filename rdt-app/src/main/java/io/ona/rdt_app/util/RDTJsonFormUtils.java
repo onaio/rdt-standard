@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
@@ -29,14 +30,16 @@ import java.util.UUID;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
-import static io.ona.rdt_app.util.Constants.RDT_IMAGE;
+import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -58,7 +61,6 @@ public class RDTJsonFormUtils {
         }
 
         class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
-
             @Override
             protected ProfileImage doInBackground(Void... voids) {
 
@@ -66,7 +68,8 @@ public class RDTJsonFormUtils {
                 OutputStream os = null;
                 try {
                     if (!StringUtils.isBlank(entityId)) {
-                        final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+                        final String absoluteFileName = DrishtiApplication.getAppDir()
+                                + File.separator + entityId + File.separator + UUID.randomUUID() + ".JPEG";
 
                         File outputFile = new File(absoluteFileName);
                         os = new FileOutputStream(outputFile);
@@ -77,21 +80,23 @@ public class RDTJsonFormUtils {
                         profileImage.setAnmId(providerId);
                         profileImage.setEntityID(entityId);
                         profileImage.setFilepath(absoluteFileName);
-                        profileImage.setFilecategory(RDT_IMAGE);
+                        profileImage.setFilecategory(MULTI_VERSION);
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
 
-//                        saveImageToGallery(context, image); // todo: only enable this in debug apks
+                        if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                            saveImageToGallery(context, image);
+                        }
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e(TAG, "Failed to save static image to disk");
+                    Log.e(TAG, e.getStackTrace().toString());
                 } finally {
                     if (os != null) {
                         try {
                             os.close();
                         } catch (IOException e) {
-                            Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                            Log.e(TAG, e.getStackTrace().toString());
                         }
                     }
                 }
@@ -122,7 +127,7 @@ public class RDTJsonFormUtils {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 
-    private void startJsonForm(JSONObject form, Activity context, int requestCode) {
+    public void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, RDTJsonFormActivity.class);
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
@@ -148,14 +153,9 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void launchForm(Activity activity, String formName) throws JSONException {
-        launchForm(activity, formName, null);
-    }
-
-    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
+    public void launchForm(Activity activity, String formName, Patient patient, String rdtId) throws JSONException {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
-            String rdtId = Constants.Form.RDT_TEST_FORM.equals(formName) ? UUID.randomUUID().toString().substring(0, 5) : "";
             prePopulateFormFields(formJsonObject, patient, rdtId, 8);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
@@ -174,13 +174,11 @@ public class RDTJsonFormUtils {
                 field.put("text", "RDT ID: " + rdtId);
                 fieldsPopulated++;
             }
-
             // pre-populate rdt id field
             if (RDT_ID.equals(field.getString(KEY))) {
                 field.put(VALUE, rdtId);
                 fieldsPopulated++;
             }
-
             // pre-populate patient fields
             if (patient != null) {
                 if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
@@ -193,12 +191,28 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 }
             }
-
             // save cpu time
             if (fieldsPopulated == numFields) {
                 break;
             }
         }
+    }
+
+    public synchronized void getNextUniqueId(final FormLaunchArgs args, final OnUniqueIdFetchedCallback callBack) {
+        class FetchUniqueIdTask extends AsyncTask<Void, Void, UniqueId> {
+            @Override
+            protected UniqueId doInBackground(Void... voids) {
+                return RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId();
+            }
+
+            @Override
+            protected void onPostExecute(UniqueId result) {
+                if (callBack != null) {
+                    callBack.onUniqueIdFetched(args, result == null ? new UniqueId() : result);
+                }
+            }
+        }
+        new FetchUniqueIdTask().execute();
     }
 
     public static void appendEntityId(JSONObject jsonForm) throws JSONException {
