@@ -110,7 +110,7 @@ public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallb
         Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
         if (rdtIdObs != null) {
             // todo: extract rdt id directly from its hidden field in future
-            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[0].trim();
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[1].trim();
             RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
         }
     }
