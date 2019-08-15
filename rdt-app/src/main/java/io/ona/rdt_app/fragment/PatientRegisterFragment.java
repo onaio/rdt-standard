@@ -82,7 +82,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     protected void onViewClicked(View view) {
         try {
             final Patient patient = (Patient) view.getTag(R.id.patient_tag);
-            new RDTJsonFormUtils().launchForm(getActivity(), RDT_TEST_FORM, patient);
+            getPresenter().launchForm(getActivity(), RDT_TEST_FORM, patient);
         } catch (JSONException e) {
             Log.e(TAG, e.getStackTrace().toString());
         }
@@ -152,7 +152,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
         switch (v.getId()) {
             case R.id.btn_register_patient:
                 try {
-                    formUtils.launchForm(getActivity(), PATIENT_REGISTRATION_FORM);
+                    getPresenter().launchForm(getActivity(), PATIENT_REGISTRATION_FORM, null);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getStackTrace().toString());
                 }

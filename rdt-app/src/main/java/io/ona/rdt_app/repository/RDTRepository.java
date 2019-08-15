@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.AllConstants;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.UniqueIdRepository;
 
 import io.ona.rdt_app.application.RDTApplication;
 
@@ -30,6 +31,7 @@ public class RDTRepository extends Repository {
         super.onCreate(database);
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+        UniqueIdRepository.createTable(database);
     }
 
     @Override
