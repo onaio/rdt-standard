@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -70,13 +71,13 @@ public class PatientRegisterFragmentInteractorTest {
     @Captor
     private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
 
-    private final String PATIENT_NAME = "Mr. Patient";
-    private final String PATIENT_GENDER = "Male";
-    private final String PATIENT_BASE_ENTITY_ID = "2b66831d-d3e9-4727-a147-6f7336cbc7a1";
-    private final int PATIENT_AGE = 20;
+    private static final String PATIENT_NAME = "Mr. Patient";
+    private static final String PATIENT_GENDER = "Male";
+    private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
+    private static final int PATIENT_AGE = 20;
     private PatientRegisterFragmentInteractor interactor;
 
-    private final String jsonForm = "{\"count\":\"1\",\"baseEntityId\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
+    public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
             "\"fields\":[{\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
             "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
@@ -96,38 +97,20 @@ public class PatientRegisterFragmentInteractorTest {
             "\"type\":\"hidden\",\"value\":\"\"},{\"key\":\"conditional_save\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"conditional_save\",\"type\":\"hidden\"," +
             "\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"conditional_save_rules.yml\"}}},\"value\":\"1\"}]}}";
 
+    private static JSONArray formFields;
+    private static JSONObject formJsonObj;
+
+    @BeforeClass
+    public static void init() throws JSONException {
+        formFields = getFormFields(new JSONObject(PATIENT_REGISTRATION_JSON_FORM));
+        formJsonObj = new JSONObject(PATIENT_REGISTRATION_JSON_FORM);
+    }
+
     @Before
     public void setUp() throws JsonFormMissingStepCountException {
         MockitoAnnotations.initMocks(this);
         mockStaticMethods();
         interactor = new PatientRegisterFragmentInteractor();
-    }
-
-    @Test
-    public void getPatientForRDTReturnsValidPatient() throws JSONException {
-        JSONObject jsonFormObject = new JSONObject(jsonForm);
-        RDTJsonFormUtils.appendEntityId(jsonFormObject);
-        Patient rdtPatient = interactor.getPatientForRDT(jsonFormObject);
-
-        Assert.assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), PATIENT_NAME);
-        assertEquals(rdtPatient.getPatientSex(), PATIENT_GENDER);
-        Assert.assertNotNull(rdtPatient.getBaseEntityId());
-    }
-
-    @Test
-    public void testPopulateApproxDOBShouldPopulateCorrectDate() throws Exception {
-        JSONObject formJsonObj = new JSONObject(jsonForm);
-        Whitebox.invokeMethod(interactor, "populateApproxDOB", formJsonObj);
-        JSONArray fields = JsonFormUtils.fields(formJsonObj);
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-            if (Constants.DOB.equals(field.get(KEY))) {
-                Calendar today = Calendar.getInstance();
-                int year = today.get(Calendar.YEAR) - PATIENT_AGE;
-                assertEquals(year + "-" + today.get(Calendar.MONTH) + "-" + today.get(Calendar.DAY_OF_MONTH), field.get(VALUE));
-            }
-        }
     }
 
     @Test
@@ -184,7 +167,7 @@ public class PatientRegisterFragmentInteractorTest {
 
     @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
-        JSONObject formJsonObj = new JSONObject(jsonForm);
+        JSONObject formJsonObj = new JSONObject(PATIENT_REGISTRATION_JSON_FORM);
         Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
         verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
@@ -212,5 +195,9 @@ public class PatientRegisterFragmentInteractorTest {
         when(JsonFormUtils.getString(any(JSONObject.class), anyString())).thenReturn(PATIENT_BASE_ENTITY_ID);
         when(JsonFormUtils.createBaseClient(any(JSONArray.class), any(FormTag.class), anyString())).thenReturn(new Client(UUID.randomUUID().toString()));
         when(JsonFormUtils.createEvent(any(JSONArray.class), any(JSONObject.class), any(FormTag.class), anyString(), anyString(), anyString())).thenReturn(new Event());
+    }
+
+    private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {
+        return formJsonObj.getJSONObject("step1").getJSONArray("fields");
     }
 }
