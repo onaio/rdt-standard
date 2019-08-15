@@ -18,7 +18,7 @@ public class CustomRDTCaptureInteractor {
         this.presenter = presenter;
     }
 
-    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
-        RDTJsonFormUtils.saveStaticImageToDisk(context, image, providerId, baseEntityId, onImageSavedCallBack);
+    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, boolean testResult, OnImageSavedCallBack onImageSavedCallBack) {
+        RDTJsonFormUtils.saveStaticImageToDisk(context, image, providerId, baseEntityId, testResult,  onImageSavedCallBack);
     }
 }

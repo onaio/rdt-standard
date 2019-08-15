@@ -29,6 +29,7 @@ public interface Constants {
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
     String EXPIRED_PAGE_ADDRESS = "expired_page_address";
+    String SAVED_IMG_ID_AND_TIME_STAMP = "saved_img_id_and_time_stamp";
 
     interface Tags {
         String COUNTRY = "Country";

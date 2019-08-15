@@ -20,7 +20,7 @@ public class CustomRDTCapturePresenter {
         this.interactor = new CustomRDTCaptureInteractor(this);
     }
 
-    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
-        interactor.saveImage(context, image, providerId, baseEntityId, onImageSavedCallBack);
+    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, boolean testResult, OnImageSavedCallBack onImageSavedCallBack) {
+        interactor.saveImage(context, image, providerId, baseEntityId, testResult, onImageSavedCallBack);
     }
 }
