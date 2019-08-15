@@ -74,8 +74,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
-        String currStepStr = "step" + currentStep;
-        if ("step8".equals(currStepStr)) {
+        if ("step8".equals(currentStep)) {
             String rdtType = formFragment.getRDTType();
             if (Constants.CARESTART_RDT.equals(rdtType)) {
                 JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step14");
@@ -83,7 +82,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             } else {
                 formFragment.moveToNextStep();
             }
-        } else if ("step5".equals(currStepStr)) {
+        } else if ("step5".equals(currentStep)) {
             try {
                 saveForm();
                 formFragment.moveToNextStep();
