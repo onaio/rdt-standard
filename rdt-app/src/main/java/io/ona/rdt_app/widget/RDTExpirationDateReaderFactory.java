@@ -31,11 +31,11 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.PREVIOUS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
+import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -45,7 +45,6 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
     public static final String EXPIRATION_DATE_CAPTURE = "expiration_date_capture";
 
     private static final String TAG = RDTExpirationDateReaderFactory.class.getName();
-    private final String EXPIRED_PAGE_ADDRESS = "expired_page_address";
 
     private WidgetArgs widgetArgs;
     private View rootLayout;
@@ -127,12 +126,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    String prevStep = jsonObject.optString(PREVIOUS, "");
-                    if (!prevStep.isEmpty()) {
-                        widgetArgs.getFormFragment().transactThis(RDTJsonFormFragment.getFormFragment(prevStep));
-                    } else {
-                        ((Activity) widgetArgs.getContext()).finish();
-                    }
+                    ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
                 } else if (data == null) {
                     Log.i(TAG, "No result data for expiration date capture!");
                 }

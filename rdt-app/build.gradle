@@ -15,11 +15,19 @@ android {
         versionCode 1
         versionName "0.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "int", "MAX_SYNC_RETRIES", '3'
     }
+
     lintOptions {
         lintConfig file("lint.xml")
         abortOnError false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         debug {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
@@ -27,6 +35,9 @@ android {
             buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
             buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
             resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '3'
         }
         release {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
@@ -36,6 +47,9 @@ android {
             resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '3'
         }
     }
 
@@ -49,6 +63,8 @@ android {
 dependencies {
     implementation project(':circle-progressbar')
 
+    implementation  'org.apache.commons:commons-lang3:3.9'
+
     implementation('org.smartregister:opensrp-client-native-form:1.6.24-PREVIEW-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -59,7 +75,7 @@ dependencies {
         exclude module: 'circle-progressbar'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.45-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.7.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

@@ -1,5 +1,6 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,7 +15,9 @@ import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
@@ -26,9 +29,14 @@ import org.smartregister.util.PropertiesConverter;
 import java.util.Calendar;
 import java.util.Collections;
 
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
+import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.FormLaunchArgs;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.DETAILS;
@@ -42,27 +50,33 @@ import static io.ona.rdt_app.util.Constants.PATIENT_NAME;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_GENDER;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 import static org.smartregister.util.JsonFormUtils.getString;
+import static org.smartregister.util.Utils.showToast;
 
 /**
  * Created by Vincent Karuri on 13/06/2019
  */
-public class PatientRegisterFragmentInteractor {
+public class PatientRegisterFragmentInteractor implements OnUniqueIdFetchedCallback {
 
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
             .registerTypeAdapter(LocationProperty.class, new PropertiesConverter()).create();
+
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
+
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
+    private  RDTJsonFormUtils formUtils;
 
     public PatientRegisterFragmentInteractor() {
         eventClientRepository = RDTApplication.getInstance().getContext().getEventClientRepository();
         clientProcessor = ClientProcessorForJava.getInstance(RDTApplication.getInstance().getApplicationContext());
+        formUtils = new RDTJsonFormUtils();
     }
 
     public void saveForm(final JSONObject jsonForm, final OnFormSavedCallback onFormSavedCallback) {
@@ -72,11 +86,11 @@ public class PatientRegisterFragmentInteractor {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     populateApproxDOB(jsonForm);
-
+                    final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     String bindType = PATIENT_REGISTRATION.equals(encounterType) ? PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
+                    closeRDTId(eventClient.getEvent());
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
@@ -92,18 +106,25 @@ public class PatientRegisterFragmentInteractor {
         new SaveFormTask().execute();
     }
 
+    private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
+        Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
+        if (rdtIdObs != null) {
+            // todo: extract rdt id directly from its hidden field in future
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[1].trim();
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+        }
+    }
+
     private void populateApproxDOB(JSONObject jsonForm) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonForm);
+        int age = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
-            int age = 0;
             if (PATIENT_AGE.equals(field.get(KEY))) {
                 age = field.getInt(VALUE);
             }
             if (DOB.equals(field.get(KEY))) {
-                long currentTime = System.currentTimeMillis();
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(currentTime);
                 int birthYear = calendar.get(Calendar.YEAR) - age;
                 String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
                 field.put(VALUE, date);
@@ -167,4 +188,39 @@ public class PatientRegisterFragmentInteractor {
         return rdtPatient;
     }
 
+    public synchronized void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
+        try {
+            JSONObject formJsonObject = formUtils.getFormJsonObject(formName, activity);
+            if (patient != null) {
+                FormLaunchArgs args = new FormLaunchArgs().withActivity(activity)
+                        .withPatient(patient)
+                        .withFormJsonObj(formJsonObject);
+                formUtils.getNextUniqueId(args, this);
+            } else {
+                formUtils.prePopulateFormFields(formJsonObject, patient, "", 2); // todo: see if numfields is correct here
+                formUtils.startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
+            }
+        } catch (JsonFormMissingStepCountException e) {
+            Log.e(TAG, e.getStackTrace().toString());
+        }
+    }
+
+    @Override
+    public synchronized void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) {
+        try {
+            Activity activity = args.getActivity();
+            String id = uniqueId == null ? "" : uniqueId.getOpenmrsId().replace("-", "");
+            if (id.isEmpty()) {
+                showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
+            } else {
+                JSONObject formJSONObj = args.getFormJsonObject();
+                formUtils.prePopulateFormFields(formJSONObj, args.getPatient(), id, 7);
+                formUtils.startJsonForm(formJSONObj, activity, REQUEST_CODE_GET_JSON);
+            }
+        } catch (JsonFormMissingStepCountException e) {
+            Log.e(TAG, e.getStackTrace().toString());
+        } catch (JSONException e) {
+            Log.e(TAG, e.getStackTrace().toString());
+        }
+    }
 }

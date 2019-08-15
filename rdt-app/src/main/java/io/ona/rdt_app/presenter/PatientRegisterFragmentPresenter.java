@@ -1,5 +1,7 @@
 package io.ona.rdt_app.presenter;
 
+import android.app.Activity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -81,5 +83,9 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
 
     public Patient getRDTPatient(JSONObject jsonForm) throws JSONException {
         return interactor.getPatientForRDT(jsonForm);
+    }
+
+    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
+        interactor.launchForm(activity, formName, patient);
     }
 }
