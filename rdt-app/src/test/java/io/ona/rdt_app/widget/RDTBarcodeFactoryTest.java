@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
+import io.ona.rdt_app.presenter.JsonApiStub;
 
 import static io.ona.rdt_app.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt_app.util.Utils.convertDate;
@@ -106,7 +107,7 @@ public class RDTBarcodeFactoryTest {
         jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
         Whitebox.setInternalState(barcodeFactory, "jsonObject", jsonObject);
 
-        JsonApi jsonApi = spy(new TestJsonApi());
+        JsonApi jsonApi = spy(new JsonApiStub());
         String[] barcodeVals = new String[]{"step1", "key", "rdt_id"};
         Date expDate = new Date();
         Whitebox.invokeMethod(barcodeFactory, "populateRelevantFields", barcodeVals, jsonApi, expDate);

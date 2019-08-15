@@ -16,22 +16,22 @@ public class PatientRegisterFragmentStub extends JsonFormFragment implements RDT
 
     @Override
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
-
+        // do nothing
     }
 
     @Override
     public void moveToNextStep() {
-
+        // do nothing
     }
 
     @Override
     public void saveForm() {
-
+        // do nothing
     }
 
     @Override
     public void transactFragment(JsonFormFragment nextFragment) {
-
+        // do nothing
     }
 
     @Override

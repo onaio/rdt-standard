@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
+import io.ona.rdt_app.presenter.JsonApiStub;
+
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -24,7 +26,7 @@ public class CustomRDTCaptureFactoryTest {
 
     @Test
     public void testPopulateRelevantFieldsShouldPopulateWithCorrectValues() throws Exception {
-        JsonApi jsonApi = spy(new TestJsonApi());
+        JsonApi jsonApi = spy(new JsonApiStub());
         String[] imgIDAndTimeStamp = new String[]{"image_id", "3894391"};
         String imgIdAddress = "step1:img_id";
         String imgTimeStampAddress = "step1:img_timestamp";

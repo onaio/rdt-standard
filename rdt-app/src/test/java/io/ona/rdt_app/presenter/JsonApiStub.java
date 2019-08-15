@@ -27,27 +27,27 @@ public class JsonApiStub implements JsonApi {
 
     @Override
     public void writeValue(String s, String s1, String s2, String s3, String s4, String s5, boolean b) throws JSONException {
-
+        // do nothing
     }
 
     @Override
     public void writeValue(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7, boolean b) throws JSONException {
-
+        // do nothing
     }
 
     @Override
     public void writeValue(String s, String s1, String s2, String s3, String s4, String s5) throws JSONException {
-
+        // do nothing
     }
 
     @Override
     public void writeValue(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7) throws JSONException {
-
+        // do nothing
     }
 
     @Override
     public void writeMetaDataValue(String s, Map<String, String> map) throws JSONException {
-
+        // do nothing
     }
 
     @Override
@@ -62,72 +62,72 @@ public class JsonApiStub implements JsonApi {
 
     @Override
     public void onFormStart() {
-
+        // do nothing
     }
 
     @Override
     public void onFormFinish() {
-
+        // do nothing
     }
 
     @Override
     public void clearSkipLogicViews() {
-
+        // do nothing
     }
 
     @Override
     public void clearCalculationLogicViews() {
-
+        // do nothing
     }
 
     @Override
     public void clearConstrainedViews() {
-
+        // do nothing
     }
 
     @Override
     public void clearFormDataViews() {
-
+        // do nothing
     }
 
     @Override
     public void addSkipLogicView(View view) {
-
+        // do nothing
     }
 
     @Override
     public void addCalculationLogicView(View view) {
-
+        // do nothing
     }
 
     @Override
     public void addConstrainedView(View view) {
-
+        // do nothing
     }
 
     @Override
     public void refreshHiddenViews(boolean b) {
-
+        // do nothing
     }
 
     @Override
     public void refreshSkipLogic(String s, String s1, boolean b) {
-
+        // do nothing
     }
 
     @Override
     public void refreshCalculationLogic(String s, String s1, boolean b) {
-
+        // do nothing
     }
 
     @Override
     public void invokeRefreshLogic(String s, boolean b, String s1, String s2) {
-
+        // do nothing
     }
 
     @Override
     public void addFormDataView(View view) {
-
+        // do nothing
     }
 
     @Override
@@ -147,27 +147,27 @@ public class JsonApiStub implements JsonApi {
 
     @Override
     public void refreshConstraints(String s, String s1, boolean b) {
-
+        // do nothing
     }
 
     @Override
     public void addOnActivityResultListener(Integer integer, OnActivityResultListener onActivityResultListener) {
-
+        // do nothing
     }
 
     @Override
     public void addOnActivityRequestPermissionResultListener(Integer integer, OnActivityRequestPermissionResultListener onActivityRequestPermissionResultListener) {
-
+        // do nothing
     }
 
     @Override
     public void removeOnActivityRequestPermissionResultListener(Integer integer) {
-
+        // do nothing
     }
 
     @Override
     public void resetFocus() {
-
+        // do nothing
     }
 
     @Override
@@ -177,27 +177,27 @@ public class JsonApiStub implements JsonApi {
 
     @Override
     public void setmJSONObject(JSONObject jsonObject) {
-
+        // do nothing
     }
 
     @Override
     public void updateGenericPopupSecondaryValues(JSONArray jsonArray) {
-
+        // do nothing
     }
 
     @Override
     public void registerLifecycleListener(LifeCycleListener lifeCycleListener) {
-
+        // do nothing
     }
 
     @Override
     public void unregisterLifecycleListener(LifeCycleListener lifeCycleListener) {
-
+        // do nothing
     }
 
     @Override
     public void setGenericPopup(GenericPopupDialog genericPopupDialog) {
-
+        // do nothing
     }
 
     @Override
@@ -212,7 +212,7 @@ public class JsonApiStub implements JsonApi {
 
     @Override
     public void setConfirmCloseMessage(String s) {
-
+        // do nothing
     }
 
     @Override
@@ -222,11 +222,11 @@ public class JsonApiStub implements JsonApi {
 
     @Override
     public void setConfirmCloseTitle(String s) {
-
+        // do nothing
     }
 
     @Override
     public void showPermissionDeniedDialog() {
-
+        // do nothing
     }
 }

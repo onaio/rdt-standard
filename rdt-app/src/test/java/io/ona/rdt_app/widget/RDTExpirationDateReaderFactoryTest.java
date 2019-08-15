@@ -15,6 +15,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
+import io.ona.rdt_app.presenter.JsonApiStub;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -53,7 +54,7 @@ public class RDTExpirationDateReaderFactoryTest {
         widgetArgs.withStepName("step1").withPopup(false);
         Whitebox.setInternalState(readerFactory, "widgetArgs", widgetArgs);
 
-        JsonApi jsonApi = spy(new TestJsonApi());
+        JsonApi jsonApi = spy(new JsonApiStub());
         Whitebox.invokeMethod(readerFactory, "populateRelevantFields", jsonApi, "value");
 
         verify(jsonApi).writeValue(eq("step1"), eq("key"), eq("value"), eq("entity_parent"), eq("openmrs_entity"), eq("openmrs_entity_id"), eq(false));
