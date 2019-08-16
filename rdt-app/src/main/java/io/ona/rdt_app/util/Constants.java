@@ -57,5 +57,6 @@ public interface Constants {
         String TIME_IMG_SAVED = "time_img_saved";
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
+        String RDT_CAPTURE_RESULT = "rdt_capture_result";
     }
 }

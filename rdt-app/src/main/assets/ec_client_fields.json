@@ -83,11 +83,19 @@
           }
         },
         {
-          "column_name": "result",
+          "column_name": "chw_result",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "lbl_result"
+            "concept": "chw_result"
+          }
+        },
+        {
+          "column_name": "rdt_capture_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rdt_capture_result"
           }
         },
         {
