@@ -118,28 +118,32 @@
           "column_name": "phone_model",
           "type": "Event",
           "json_mapping": {
-            "field": "phone_model"
+            "field": "obs.fieldCode",
+            "concept": "phone_model"
           }
         },
         {
           "column_name": "phone_manufacturer",
           "type": "Event",
           "json_mapping": {
-            "field": "phone_manufacturer"
+            "field": "obs.fieldCode",
+            "concept": "phone_manufacturer"
           }
         },
         {
           "column_name": "phone_os_version",
           "type": "Event",
           "json_mapping": {
-            "field": "phone_os_version"
+            "field": "obs.fieldCode",
+            "concept": "phone_os_version"
           }
         },
         {
           "column_name": "app_version",
           "type": "Event",
           "json_mapping": {
-            "field": "app_version"
+            "field": "obs.fieldCode",
+            "concept": "app_version"
           }
         }
       ]
