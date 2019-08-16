@@ -113,7 +113,28 @@
             "field": "obs.fieldCode",
             "concept": "time_img_saved"
           }
-        }
+        },
+        {
+          "column_name": "phone_model",
+          "type": "Event",
+          "json_mapping": {
+            "field": "phone_model"
+          }
+        },
+        {
+          "column_name": "phone_manufacturer",
+          "type": "Event",
+          "json_mapping": {
+            "field": "phone_manufacturer"
+          }
+        },
+        {
+          "column_name": "phone_os_version",
+          "type": "Event",
+          "json_mapping": {
+            "field": "phone_os_version"
+          }
+        },
       ]
     }
   ]
