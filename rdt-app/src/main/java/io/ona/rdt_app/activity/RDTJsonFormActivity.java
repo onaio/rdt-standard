@@ -11,21 +11,26 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.contract.RDTJsonFormActivityContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
+import io.ona.rdt_app.presenter.RDTJsonFormActivityPresenter;
+import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static io.ona.rdt_app.util.Constants.ONA_RDT;
 
-public class RDTJsonFormActivity extends JsonFormActivity {
+public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonFormActivityContract.View {
 
     private RDTJsonFormUtils formUtils;
     private String rdtType = ONA_RDT;
+    private RDTJsonFormActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         formUtils = new RDTJsonFormUtils();
+        presenter = new RDTJsonFormActivityPresenter(this);
         modifyActionBarAppearance();
     }
 
@@ -59,6 +64,11 @@ public class RDTJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void onBackPressed() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onBackPress() {
         getSupportFragmentManager().popBackStack();
     }
 
