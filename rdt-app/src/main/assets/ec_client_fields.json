@@ -135,6 +135,13 @@
             "field": "phone_os_version"
           }
         },
+        {
+          "column_name": "app_version",
+          "type": "Event",
+          "json_mapping": {
+            "field": "app_version"
+          }
+        }
       ]
     }
   ]

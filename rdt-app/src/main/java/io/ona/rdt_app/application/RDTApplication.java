@@ -29,6 +29,7 @@ import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTSyncConfiguration;
 import io.ona.rdt_app.util.Utils;
 
+import static io.ona.rdt_app.util.Constants.APP_VERSION;
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PHONE_MANUFACTURER;
@@ -148,6 +149,7 @@ public class RDTApplication extends DrishtiApplication {
             phoneProperties.put(PHONE_MANUFACTURER, Build.MANUFACTURER);
             phoneProperties.put(PHONE_MODEL, Build.MODEL);
             phoneProperties.put(PHONE_OS_VERSION, Build.VERSION.RELEASE);
+            phoneProperties.put(APP_VERSION, BuildConfig.VERSION_NAME);
         }
         return phoneProperties;
     }

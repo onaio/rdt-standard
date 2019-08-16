@@ -34,6 +34,7 @@ public interface Constants {
     String PHONE_MODEL = "phone_model";
     String PHONE_OS_VERSION = "phone_os_version";
     String PHONE_MANUFACTURER = "phone_manufacturer";
+    String APP_VERSION = "app_version";
 
     interface Tags {
         String COUNTRY = "Country";
