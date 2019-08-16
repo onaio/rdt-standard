@@ -29,7 +29,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.PatientRegisterActivity"/>
+        <activity android:name=".activity.PatientRegisterActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
@@ -37,10 +38,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".activity.RDTJsonFormActivity"
-            android:windowSoftInputMode="adjustPan"  />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.RDTExpirationDateActivity" />
-        <activity android:name=".activity.CustomRDTCaptureActivity" />
+        <activity android:name=".activity.RDTExpirationDateActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.CustomRDTCaptureActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
