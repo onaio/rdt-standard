@@ -24,6 +24,7 @@ import org.smartregister.util.PropertiesConverter;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Map;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
@@ -131,9 +132,16 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
+        populatePhoneMetadata(eventJson);
         eventClientRepository.addEvent(entityId, eventJson);
         org.smartregister.domain.db.Event dbEvent = gson.fromJson(eventJson.toString(), org.smartregister.domain.db.Event.class);
 
         return new EventClient(dbEvent, dbClient);
+    }
+
+    private void populatePhoneMetadata(JSONObject event) throws JSONException {
+        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPhoneProperties().entrySet()) {
+            event.put(phoneProperty.getKey(), phoneProperty.getValue());
+        }
     }
 }
