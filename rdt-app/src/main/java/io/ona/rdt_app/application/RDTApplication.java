@@ -1,6 +1,7 @@
 package io.ona.rdt_app.application;
 
 import android.content.Intent;
+import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -16,6 +17,9 @@ import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.LoginActivity;
@@ -27,6 +31,9 @@ import io.ona.rdt_app.util.Utils;
 
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
+import static io.ona.rdt_app.util.Constants.PHONE_MANUFACTURER;
+import static io.ona.rdt_app.util.Constants.PHONE_MODEL;
+import static io.ona.rdt_app.util.Constants.PHONE_OS_VERSION;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -37,6 +44,7 @@ public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
     private String password;
+    private Map<String, String> phoneProperties;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -46,6 +54,7 @@ public class RDTApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
+        phoneProperties = new HashMap<>();
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
@@ -131,5 +140,15 @@ public class RDTApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields() {
        return new String[]{Constants.DBConstants.NAME};
+    }
+
+
+    public Map<String, String> getPhoneProperties() {
+        if (phoneProperties.size() == 0) {
+            phoneProperties.put(PHONE_MANUFACTURER, Build.MANUFACTURER);
+            phoneProperties.put(PHONE_MODEL, Build.MODEL);
+            phoneProperties.put(PHONE_OS_VERSION, Build.VERSION.RELEASE);
+        }
+        return phoneProperties;
     }
 }

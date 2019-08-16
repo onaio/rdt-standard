@@ -31,6 +31,10 @@ public interface Constants {
     String EXPIRED_PAGE_ADDRESS = "expired_page_address";
     String SAVED_IMG_ID_AND_TIME_STAMP = "saved_img_id_and_time_stamp";
 
+    String PHONE_MODEL = "phone_model";
+    String PHONE_OS_VERSION = "phone_os_version";
+    String PHONE_MANUFACTURER = "phone_manufacturer";
+
     interface Tags {
         String COUNTRY = "Country";
         String PROVINCE = "Province";
