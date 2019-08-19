@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.rey.material.widget.Button;
+import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.widgets.GpsFactory;
@@ -15,10 +16,14 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import io.ona.rdt_app.util.RDTGpsDialog;
+
 /**
  * Created by Vincent Karuri on 19/08/2019
  */
 public class RDTGpsFactory extends GpsFactory {
+
+    private WidgetArgs widgetArgs;
 
     @Override
     public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment, JSONObject jsonObject,
@@ -26,6 +31,14 @@ public class RDTGpsFactory extends GpsFactory {
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         View rootLayout = views.get(0);
+
+        widgetArgs = new WidgetArgs();
+        widgetArgs.withStepName(stepName)
+                .withContext(context)
+                .withFormFragment(formFragment)
+                .withJsonObject(jsonObject)
+                .withListener(listener)
+                .withPopup(popup);
 
         Pair<Integer, Integer> screenDimens = getScreenDimens(context);
         rootLayout.setLayoutParams(new RelativeLayout.LayoutParams(screenDimens.first, screenDimens.second));
@@ -37,16 +50,12 @@ public class RDTGpsFactory extends GpsFactory {
         float dpWidth = displayMetrics.widthPixels;
         float dpHeight = displayMetrics.heightPixels;
 
-        return new Pair<>((int) (dpWidth - (50 * displayMetrics.density)), (int) (dpHeight - (100 * displayMetrics.density)));
+        return new Pair<>((int) (dpWidth - (40 * displayMetrics.density)), (int) (dpHeight - (100 * displayMetrics.density)));
     }
 
     @Override
     protected void customizeViews(Button recordButton, Context context) {
-        // do nothing
-    }
-
-    @Override
-    protected void showGpsDialog() {
-        super.showGpsDialog();
+        gpsDialog = new RDTGpsDialog(gpsDialog);
+        ((RDTGpsDialog) gpsDialog).setFormFragment(widgetArgs.getFormFragment());
     }
 }
