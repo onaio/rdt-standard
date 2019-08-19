@@ -40,7 +40,7 @@ public class RDTGpsFactory extends GpsFactory {
         float dpWidth = displayMetrics.widthPixels;
         float dpHeight = displayMetrics.heightPixels;
 
-        return new Pair<>((int) dpWidth, (int) dpHeight);
+        return new Pair<>((int) (dpWidth - (30 * displayMetrics.density)), (int) (dpHeight - (95 * displayMetrics.density)));
     }
 
     @Override
