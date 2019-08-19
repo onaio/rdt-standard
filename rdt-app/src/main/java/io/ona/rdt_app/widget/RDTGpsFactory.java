@@ -3,7 +3,6 @@ package io.ona.rdt_app.widget;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Pair;
-import android.view.Display;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -15,8 +14,6 @@ import com.vijay.jsonwizard.widgets.GpsFactory;
 import org.json.JSONObject;
 
 import java.util.List;
-
-import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 /**
  * Created by Vincent Karuri on 19/08/2019
@@ -30,17 +27,17 @@ public class RDTGpsFactory extends GpsFactory {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         View rootLayout = views.get(0);
 
-        Pair<Integer, Integer> screenDimens = getScreenDimens(context, formFragment);
+        Pair<Integer, Integer> screenDimens = getScreenDimens(context);
         rootLayout.setLayoutParams(new RelativeLayout.LayoutParams(screenDimens.first, screenDimens.second));
         return views;
     }
 
-    private Pair<Integer, Integer> getScreenDimens(Context context, JsonFormFragment formFragment) {
+    private Pair<Integer, Integer> getScreenDimens(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels;
         float dpHeight = displayMetrics.heightPixels;
 
-        return new Pair<>((int) (dpWidth - (30 * displayMetrics.density)), (int) (dpHeight - (95 * displayMetrics.density)));
+        return new Pair<>((int) (dpWidth - (50 * displayMetrics.density)), (int) (dpHeight - (100 * displayMetrics.density)));
     }
 
     @Override
