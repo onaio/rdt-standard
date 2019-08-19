@@ -29,9 +29,6 @@ public class RDTGpsFactory extends GpsFactory {
     public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment, JSONObject jsonObject,
                                        CommonListener listener, boolean popup) throws Exception {
 
-        List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
-        View rootLayout = views.get(0);
-
         widgetArgs = new WidgetArgs();
         widgetArgs.withStepName(stepName)
                 .withContext(context)
@@ -39,6 +36,9 @@ public class RDTGpsFactory extends GpsFactory {
                 .withJsonObject(jsonObject)
                 .withListener(listener)
                 .withPopup(popup);
+
+        List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
+        View rootLayout = views.get(0);
 
         Pair<Integer, Integer> screenDimens = getScreenDimens(context);
         rootLayout.setLayoutParams(new RelativeLayout.LayoutParams(screenDimens.first, screenDimens.second));
