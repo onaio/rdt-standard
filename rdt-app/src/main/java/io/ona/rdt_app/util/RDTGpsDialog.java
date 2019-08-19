@@ -15,12 +15,8 @@ public class RDTGpsDialog extends GpsDialog {
 
     private JsonFormFragment formFragment;
 
-    public RDTGpsDialog(Context context, View dataView, TextView latitudeTV, TextView longitudeTV, TextView altitudeTV, TextView accuracyTV) {
-       super(context, dataView, latitudeTV, longitudeTV, altitudeTV, accuracyTV);
-    }
-
     public RDTGpsDialog(GpsDialog gpsDialog) {
-        RDTGpsDialog(gpsDialog.getContext(), gpsDialog.getDataView(), gpsDialog.getLatitudeTV(), gpsDialog.getLongitudeTV(), gpsDialog.getAltitudeTV(), gpsDialog.getAccuracyTV());
+        super(gpsDialog.getContext(), gpsDialog.getDataView(), gpsDialog.getLatitudeTV(), gpsDialog.getLongitudeTV(), gpsDialog.getAltitudeTV(), gpsDialog.getAccuracyTV());
     }
 
     @Override
