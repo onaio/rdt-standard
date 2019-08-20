@@ -56,9 +56,9 @@ public class RDTCountdownTimerFactory extends CountDownTimerFactory {
     private void vibrate() {
         Vibrator vibrator = (Vibrator) widgetArgs.getContext().getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibrator.vibrate(VibrationEffect.createOneShot(3000, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
-            vibrator.vibrate(500);
+            vibrator.vibrate(3000);
         }
     }
 }
