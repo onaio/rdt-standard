@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:id="@+id/location_generation_instructions"
         android:layout_width="wrap_content"
@@ -70,6 +69,7 @@
         android:textSize="@dimen/button_text_size"
         android:textColor="@android:color/white"
         android:text="@string/txt_record_btn"
-        android:background="@drawable/login_button_bg"
-        android:layout_alignParentBottom="true"/>
+        android:background="@drawable/btn_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
