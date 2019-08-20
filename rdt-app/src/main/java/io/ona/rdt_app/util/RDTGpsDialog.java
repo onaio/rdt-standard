@@ -1,6 +1,7 @@
 package io.ona.rdt_app.util;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,7 +28,13 @@ public class RDTGpsDialog extends GpsDialog {
             @Override
             public void onClick(View view) {
                 saveAndDismiss();
-                getFormFragment().next();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getFormFragment().next();
+                    }
+                }, 760);
             }
         });
     }
