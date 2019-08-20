@@ -5,10 +5,12 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.RDTJsonFormActivityContract;
@@ -69,6 +71,10 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     @Override
     public void onBackPress() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        String stepName = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
+        int stepNum = Integer.valueOf(stepName.substring(4));
+        RDTJsonFormFragment.setCurrentStep(stepNum);
         getSupportFragmentManager().popBackStack();
     }
 

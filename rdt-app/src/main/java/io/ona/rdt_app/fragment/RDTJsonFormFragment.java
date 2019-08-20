@@ -31,7 +31,8 @@ import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
-    private static int currentStep;
+    private static int currentStep = 1;
+    private static int prevStep;
     private boolean moveBackOneStep = false;
 
     @Override
@@ -45,6 +46,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     public static JsonFormFragment getFormFragment(String stepName) {
         String stepNum = stepName.substring(4);
+        prevStep = currentStep;
         currentStep = Integer.valueOf(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
@@ -165,5 +167,17 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     public static int getCurrentStep() {
         return currentStep;
+    }
+
+    public static void setCurrentStep(int currStep) {
+        currentStep = currStep;
+    }
+
+    @Override
+    public void transactThis(JsonFormFragment next) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(com.vijay.jsonwizard.R.anim.enter_from_right, com.vijay.jsonwizard.R.anim.exit_to_left, com.vijay.jsonwizard.R.anim.enter_from_left,
+                        com.vijay.jsonwizard.R.anim.exit_to_right).replace(com.vijay.jsonwizard.R.id.container, next).addToBackStack("step" + prevStep)
+                .commitAllowingStateLoss(); // use https://stackoverflow.com/a/10261449/9782187
     }
 }
