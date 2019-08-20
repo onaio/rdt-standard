@@ -18,7 +18,7 @@ public class RDTJsonFormActivityPresenter implements RDTJsonFormActivityContract
     public void onBackPress() {
         int currStep = RDTJsonFormFragment.getCurrentStep();
         // disable backpress for timer screens
-        if (currStep != 12 && currStep != 13) {
+        if (currStep != 13 && currStep != 14) {
             activity.onBackPress();
         }
     }
