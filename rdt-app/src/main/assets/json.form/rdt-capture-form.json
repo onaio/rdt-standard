@@ -116,7 +116,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step4"
+        "next": "step5"
       },
       {
         "key": "lbl_care_start",
@@ -127,7 +127,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step3"
+        "next": "step4"
       }
     ]
   },
