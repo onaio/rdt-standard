@@ -17,5 +17,5 @@
     <string name="unique_id_fetch_error_msg">"Sorry, no unique rdt ids could be fetched. Please turn on your network connection and perform a manual sync."</string>
     <string name="txt_record_btn">Locate me</string>
     <string name="txt_location_generation_instructions">We\'ll need your location before proceeding to the test.
-Please click on the Locate Me button at the bottom of the screen and we will automatically determine your location.</string>
+Please click on the <i>Locate Me</i> button at the bottom of the screen and we will automatically determine your location.</string>
 </resources>
