@@ -23,7 +23,7 @@ public class RDTCountdownTimerFactory extends CountDownTimerFactory {
 
     public static final String COUNTDOWN_TIMER_RESULT_READY_KEY = "countdown_timer_results_ready";
     private View rootLayout;
-    WidgetArgs widgetArgs;
+    private WidgetArgs widgetArgs;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {

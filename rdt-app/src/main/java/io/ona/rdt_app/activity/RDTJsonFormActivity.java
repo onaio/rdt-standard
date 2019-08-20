@@ -10,13 +10,11 @@ import android.support.v7.app.ActionBar;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.RDTJsonFormActivityContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.presenter.RDTJsonFormActivityPresenter;
-import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
