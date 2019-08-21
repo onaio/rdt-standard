@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import android.view.WindowManager;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -32,6 +33,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
         formUtils = new RDTJsonFormUtils();
         presenter = new RDTJsonFormActivityPresenter(this);
         modifyActionBarAppearance();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     private void modifyActionBarAppearance() {
