@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
@@ -33,8 +34,14 @@ import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_RESULT;
+import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
+import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
+import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_RESULT;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -108,12 +115,20 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
                     try {
                         Bundle extras = data.getExtras();
-                        String testResult = extras.getString(SAVED_IMAGE_RESULT);
+                        String controlResult = extras.getString(TEST_CONTROL_RESULT);
+                        String pvResult = extras.getString(TEST_PV_RESULT);
+                        String pfResult = extras.getString(TEST_PF_RESULT);
+
+
                         String[] imgIDAndTimeStamp = extras.getString(SAVED_IMG_ID_AND_TIME_STAMP).split(",");
                         String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
-
-                        populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, testResult, (JsonApi) widgetArgs.getContext());
+                        // todo: modify this after upgrading rdt capture lib to top, mid, bottom
+                        ImageProcessor.InterpretationResult interpretationResult = new ImageProcessor.InterpretationResult();
+                        interpretationResult.control = Boolean.valueOf(controlResult);
+                        interpretationResult.testA = Boolean.valueOf(pvResult);
+                        interpretationResult.testB = Boolean.valueOf(pfResult);
+                        populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, (JsonApi) widgetArgs.getContext());
                         if (!formFragment.next()) {
                             formFragment.save(true);
                         }
@@ -131,7 +146,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         return resultListener;
     }
 
-    private void populateRelevantFields(String[] imgIDAndTimeStamp, String imgIdAddress, String imgTimeStampAddress, String testResult, JsonApi jsonApi) throws JSONException {
+    private void populateRelevantFields(String[] imgIDAndTimeStamp, String imgIdAddress, String imgTimeStampAddress, ImageProcessor.InterpretationResult testResult, JsonApi jsonApi) throws JSONException {
         String[] stepAndId = new String[0];
 
         stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
@@ -144,7 +159,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
         }
 
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_RESULT, testResult, "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(testResult.control), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(testResult.testA), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(testResult.testB), "", "", "", false);
     }
 
     @Override

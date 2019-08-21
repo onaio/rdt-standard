@@ -472,7 +472,21 @@
         "image_timestamp_address": "step16:time_img_saved"
       },
       {
-        "key": "rdt_capture_result",
+        "key": "rdt_capture_control_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_pv_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_pf_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
