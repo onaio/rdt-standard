@@ -59,4 +59,10 @@ public interface Constants {
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
         String RDT_CAPTURE_RESULT = "rdt_capture_result";
     }
+
+    interface Test {
+        String TEST_CONTROL_RESULT = "test_control_result";
+        String TEST_PV_RESULT = "test_pv_result";
+        String TEST_PF_RESULT = "test_pf_result";
+    }
 }
