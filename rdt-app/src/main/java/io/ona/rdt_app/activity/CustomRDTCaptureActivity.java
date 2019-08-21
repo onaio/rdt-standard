@@ -1,6 +1,5 @@
 package io.ona.rdt_app.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,7 +12,6 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
-import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_RESULT;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
