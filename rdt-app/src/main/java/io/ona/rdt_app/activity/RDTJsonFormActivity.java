@@ -72,10 +72,13 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     @Override
     public void onBackPress() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        String stepName = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
-        int stepNum = Integer.valueOf(stepName.substring(4));
-        RDTJsonFormFragment.setCurrentStep(stepNum);
-        getSupportFragmentManager().popBackStack();
+        int backStackSize = fragmentManager.getBackStackEntryCount();
+        if (backStackSize > 0) {
+            String stepName = fragmentManager.getBackStackEntryAt(backStackSize - 1).getName();
+            int stepNum = Integer.valueOf(stepName.substring(4));
+            RDTJsonFormFragment.setCurrentStep(stepNum);
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     public String getRdtType() {
