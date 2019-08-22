@@ -8,6 +8,7 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
 import io.ona.rdt_app.model.Patient;
+import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 
@@ -16,9 +17,10 @@ import static io.ona.rdt_app.util.Constants.PATIENTS;
  */
 public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
 
+    private final String TAG = PatientRegisterFragmentPresenter.class.getName();
+
     private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
     private PatientRegisterFragmentContract.View patientRegisterFragment;
-
 
     public PatientRegisterFragmentPresenter(PatientRegisterFragmentContract.View patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
@@ -74,7 +76,11 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     @Override
-    public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        interactor.launchForm(activity, formName, patient);
+    public void launchForm(Activity activity, String formName, Patient patient) {
+        try {
+            interactor.launchForm(activity, formName, patient);
+        } catch (JSONException e) {
+            Timber.e(TAG, e);
+        }
     }
 }

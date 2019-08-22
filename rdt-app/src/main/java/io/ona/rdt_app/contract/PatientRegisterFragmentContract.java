@@ -15,7 +15,7 @@ public interface PatientRegisterFragmentContract {
     interface Presenter extends BaseRegisterFragmentContract.Presenter {
         String getMainCondition();
 
-        void launchForm(Activity activity, String formName, Patient patient) throws JSONException;
+        void launchForm(Activity activity, String formName, Patient patient);
     }
 
     interface View extends BaseRegisterFragmentContract.View {
