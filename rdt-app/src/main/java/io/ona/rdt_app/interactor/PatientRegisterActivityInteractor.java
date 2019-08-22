@@ -35,16 +35,12 @@ public class PatientRegisterActivityInteractor {
         Patient rdtPatient = null;
         if (PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
             JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
-            JSONObject fieldJsonObject;
-            for (int i = 0; i < formFields.length(); i++) {
-                fieldJsonObject = formFields.getJSONObject(i);
-                if (CONDITIONAL_SAVE.equals(fieldJsonObject.optString(KEY)) &&
-                        Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
-                    String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
-                    String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                    String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
-                    rdtPatient = new Patient(name, sex, baseEntityId);
-                }
+            JSONObject conditionalSave = FormUtils.getFieldJSONObject(formFields, CONDITIONAL_SAVE);
+            if (conditionalSave != null && conditionalSave.optInt(VALUE) == 1){
+                String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
+                String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
+                String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
+                rdtPatient = new Patient(name, sex, baseEntityId);
             }
         }
         return rdtPatient;
