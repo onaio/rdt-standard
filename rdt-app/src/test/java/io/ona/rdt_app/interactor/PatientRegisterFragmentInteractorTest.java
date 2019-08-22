@@ -164,26 +164,6 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-    public void testOnUniqueIdFetchedShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
-        FormLaunchArgs args = new FormLaunchArgs();
-        Activity activity = mock(Activity.class);
-        Patient patient = mock(Patient.class);
-        JSONObject jsonForm = new JSONObject();
-        args.withActivity(activity)
-            .withFormJsonObj(jsonForm)
-            .withPatient(patient);
-
-        UniqueId uniqueId = new UniqueId("id", "openmrs_id", null, null, null);
-
-        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
-        Whitebox.setInternalState(interactor, "formUtils", formUtils);
-        interactor.onUniqueIdFetched(args, uniqueId);
-
-        verify(formUtils).prePopulateFormFields(eq(jsonForm), eq(patient), eq("openmrs_id"), eq(7));
-        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
-    }
-
-    @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
         Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
