@@ -58,6 +58,11 @@ android {
             includeAndroidResources = true
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -81,6 +86,7 @@ dependencies {
         exclude group: 'com.google.android.gms', module: 'play-services-vision'
         exclude group: 'com.github.ybq', module: 'Android-SpinKit'
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {

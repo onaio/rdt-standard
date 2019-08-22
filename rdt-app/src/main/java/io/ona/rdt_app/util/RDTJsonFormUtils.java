@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,10 +33,13 @@ import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
+import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
+import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -58,7 +60,6 @@ public class RDTJsonFormUtils {
         }
 
         class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
-
             @Override
             protected ProfileImage doInBackground(Void... voids) {
 
@@ -82,17 +83,16 @@ public class RDTJsonFormUtils {
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
-
-//                        saveImageToGallery(context, image); // todo: only enable this in debug apks
+                        // saveImageToGallery(context, image);
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e(TAG, "Failed to save static image to disk");
+                    Timber.e(TAG, e);
                 } finally {
                     if (os != null) {
                         try {
                             os.close();
                         } catch (IOException e) {
-                            Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                            Timber.e(TAG, e);
                         }
                     }
                 }
@@ -129,7 +129,7 @@ public class RDTJsonFormUtils {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
             context.startActivityForResult(intent, requestCode);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(TAG, e);
         }
     }
 
@@ -149,15 +149,30 @@ public class RDTJsonFormUtils {
         }
     }
 
+    public void launchForm(Activity activity, String formName, Patient patient, String rdtId) throws JSONException {
+        try {
+            JSONObject formJsonObject = getFormJsonObject(formName, activity);
+            prePopulateFormFields(formJsonObject, patient, rdtId, 8);
+            startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
+        } catch (JsonFormMissingStepCountException e) {
+            Timber.e(TAG, e);
+        }
+    }
+
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException, JsonFormMissingStepCountException {
         jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
         int fieldsPopulated = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
+            // pre-populate rdt id labels
             if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
-                field.put(VALUE, rdtId);
                 field.put("text", "RDT ID: " + rdtId);
+                fieldsPopulated++;
+            }
+            // pre-populate rdt id field
+            if (RDT_ID.equals(field.getString(KEY))) {
+                field.put(VALUE, rdtId);
                 fieldsPopulated++;
             }
             // pre-populate patient fields
@@ -188,7 +203,9 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(UniqueId result) {
-                callBack.onUniqueIdFetched(args, result);
+                if (callBack != null) {
+                    callBack.onUniqueIdFetched(args, result == null ? new UniqueId() : result);
+                }
             }
         }
         new FetchUniqueIdTask().execute();

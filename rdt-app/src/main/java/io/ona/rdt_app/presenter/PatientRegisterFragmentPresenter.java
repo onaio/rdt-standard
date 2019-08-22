@@ -3,13 +3,9 @@ package io.ona.rdt_app.presenter;
 import android.app.Activity;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
-import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
-import io.ona.rdt_app.fragment.PatientRegisterFragment;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
 import io.ona.rdt_app.model.Patient;
 
@@ -18,13 +14,13 @@ import static io.ona.rdt_app.util.Constants.PATIENTS;
 /**
  * Created by Vincent Karuri on 11/06/2019
  */
-public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentContract.Presenter, PatientRegisterFragmentContract.Presenter {
+public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
 
     private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
-    private PatientRegisterFragment patientRegisterFragment;
+    private PatientRegisterFragmentContract.View patientRegisterFragment;
 
 
-    public PatientRegisterFragmentPresenter(PatientRegisterFragment patientRegisterFragment) {
+    public PatientRegisterFragmentPresenter(PatientRegisterFragmentContract.View patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
     }
 
@@ -54,10 +50,6 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
         // todo: implement this
     }
 
-    @Override
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException {
-        interactor.saveForm(jsonForm, onFormSavedCallback);
-    }
 
     public String countSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
@@ -81,10 +73,7 @@ public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentCon
         return String.format(" %s != '%s'", "name", "");
     }
 
-    public Patient getRDTPatient(JSONObject jsonForm) throws JSONException {
-        return interactor.getPatientForRDT(jsonForm);
-    }
-
+    @Override
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
         interactor.launchForm(activity, formName, patient);
     }
