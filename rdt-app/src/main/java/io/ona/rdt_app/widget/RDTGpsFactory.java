@@ -1,9 +1,11 @@
 package io.ona.rdt_app.widget;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.rey.material.widget.Button;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.util.RDTGpsDialog;
 
 /**
@@ -56,6 +59,7 @@ public class RDTGpsFactory extends GpsFactory {
     @Override
     protected void customizeViews(Button recordButton, Context context) {
         gpsDialog = new RDTGpsDialog(gpsDialog);
+        gpsDialog.setTitle("Please wait");
         ((RDTGpsDialog) gpsDialog).setFormFragment(widgetArgs.getFormFragment());
     }
 }

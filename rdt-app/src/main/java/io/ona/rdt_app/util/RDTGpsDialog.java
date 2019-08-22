@@ -1,6 +1,8 @@
 package io.ona.rdt_app.util;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.location.Location;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -45,5 +47,18 @@ public class RDTGpsDialog extends GpsDialog {
 
     public void setFormFragment(JsonFormFragment formFragment) {
         this.formFragment = formFragment;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        super.onLocationChanged(location);
+        saveAndDismiss();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getFormFragment().next();
+            }
+        }, 760);
     }
 }
