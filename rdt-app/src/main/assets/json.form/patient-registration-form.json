@@ -166,6 +166,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -188,6 +192,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -210,6 +218,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -232,6 +244,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -254,6 +270,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -276,6 +296,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -298,6 +322,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -320,6 +348,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -342,6 +374,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -364,6 +400,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -386,6 +426,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -408,6 +452,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -430,6 +478,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -452,6 +504,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -481,6 +537,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -510,6 +570,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -532,6 +596,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -554,6 +622,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -576,6 +648,10 @@
           {
             "key": "No",
             "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
           }
         ],
         "v_required": {
@@ -588,6 +664,32 @@
               "rules-file": "patient_registration_relevance_rules.yml"
             }
           }
+        }
+      },
+      {
+        "key": "sleeps_under_bednet",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Sleeps under a bednet?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Not Answered"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Does the patient sleep under a bednet?"
         }
       },
       {
