@@ -42,8 +42,9 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     private JsonFormFragment formFragment;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
-    private final String RDT_ID_ADDRESSES = "rdt_id_addresses";
+    private final String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
     private final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
+    private final String RDT_ID_ADDRESS = "rdt_id_address";
 
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
@@ -94,17 +95,24 @@ public class RDTBarcodeFactory extends BarcodeFactory {
                                         jsonObject.put(VALUE, idAndExpDate);
 
                                         // write barcode values to relevant widgets
-                                        String rdtIdAddresses = jsonObject.optString(RDT_ID_ADDRESSES, "");
+                                        String rdtIdLblAddresses = jsonObject.optString(RDT_ID_LBL_ADDRESSES, "");
                                         String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
+                                        String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
                                         String[] stepAndId;
 
                                         // populate rdt id to all relevant txt labels
-                                        String[] rdtIdAddrs = rdtIdAddresses.isEmpty() ? new String[0] : rdtIdAddresses.split(",");
-                                        for (String addr : rdtIdAddrs) {
+                                        String[] rdtIdAddresses = rdtIdLblAddresses.isEmpty() ? new String[0] : rdtIdLblAddresses.split(",");
+                                        for (String addr : rdtIdAddresses) {
                                             stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
                                             if (stepAndId.length == 2) {
                                                 jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[2].trim(), "", "", "", false);
                                             }
+                                        }
+
+                                        // write rdt id to hidden rdt id field
+                                        stepAndId = rdtIdAddress.isEmpty() ? new String[0] : rdtIdAddress.split(":");
+                                        if (stepAndId.length == 2) {
+                                            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[2].trim(), "", "", "", false);
                                         }
 
                                         // populate exp. date to expiration date widget value
@@ -145,7 +153,7 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     }
 
     private String getDateStr(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         return date == null ? "" : simpleDateFormat.format(date);
     }
 

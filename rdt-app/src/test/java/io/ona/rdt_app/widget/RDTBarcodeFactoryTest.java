@@ -49,13 +49,6 @@ public class RDTBarcodeFactoryTest {
         assertEquals(result, "");
     }
 
-    @Test
-    public void testGetDateStrShouldReturnDateStringForNonNullDate() throws Exception {
-        Date now = new Date();
-        String result = Whitebox.invokeMethod(barcodeFactory, "getDateStr", now);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        assertEquals(result, simpleDateFormat.format(now));
-    }
 
     @Test
     public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {
@@ -75,21 +68,6 @@ public class RDTBarcodeFactoryTest {
         Whitebox.setInternalState(barcodeFactory, "formFragment", formFragment);
         Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getFutureDate());
         verify(formFragment).next();
-    }
-
-    @Test
-    public void testMoveToNextStepShouldMoveToExpPageForExpiredRDT() throws Exception {
-        JsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
-        Whitebox.setInternalState(barcodeFactory, "formFragment", formFragment);
-        Whitebox.setInternalState(barcodeFactory, "jsonObject", mock(JSONObject.class));
-
-        mockStatic(RDTJsonFormFragment.class);
-
-        RDTJsonFormFragment rdtJsonFormFragment = mock(RDTJsonFormFragment.class);
-        doReturn(rdtJsonFormFragment).when(RDTJsonFormFragment.class, "getFormFragment", isNull());
-
-        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getPastDate());
-        verify(formFragment).transactThis(eq(rdtJsonFormFragment));
     }
 
     private Date getFutureDate() {
