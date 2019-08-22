@@ -3,10 +3,8 @@ package io.ona.rdt_app.contract;
 import android.app.Activity;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
-import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.model.Patient;
 
 /**
