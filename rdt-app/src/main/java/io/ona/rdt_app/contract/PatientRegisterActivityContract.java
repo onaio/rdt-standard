@@ -17,6 +17,6 @@ public interface PatientRegisterActivityContract {
 
     interface Presenter {
 
-        void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException;
+        void saveForm(String jsonForm, OnFormSavedCallback callback);
     }
 }
