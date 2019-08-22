@@ -7,7 +7,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/extra_bottom_margin"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal">
         <ProgressBar
@@ -15,8 +14,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:layout_marginStart="30dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:padding="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,9 +29,9 @@
                 android:id="@+id/accuracy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/default_text_size"
+                android:textSize="16sp"
                 android:text="Finding your location"
-                android:textColor="@color/black"/>
+                android:textColor="#696969"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
