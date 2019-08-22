@@ -1,7 +1,5 @@
 package io.ona.rdt_app.contract;
 
-import org.json.JSONException;
-
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 
 

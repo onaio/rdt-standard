@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
