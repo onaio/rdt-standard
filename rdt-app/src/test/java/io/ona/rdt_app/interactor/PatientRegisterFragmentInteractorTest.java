@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -18,6 +20,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.AllSharedPreferences;
@@ -40,12 +43,15 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
@@ -63,6 +69,9 @@ public class PatientRegisterFragmentInteractorTest {
     private EventClientRepository eventClientRepository;
     @Mock
     private ClientProcessorForJava clientProcessor;
+
+    @Captor
+    private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
 
     private static final String PATIENT_NAME = "Mr. Patient";
     private static final String PATIENT_GENDER = "Male";
@@ -111,7 +120,6 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void testPopulateApproxDOBShouldPopulateCorrectDate() throws Exception {
         Whitebox.invokeMethod(interactor, "populateApproxDOB", formFields);
         for (int i = 0; i < formFields.length(); i++) {
