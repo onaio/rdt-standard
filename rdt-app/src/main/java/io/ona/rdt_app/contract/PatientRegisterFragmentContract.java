@@ -12,7 +12,7 @@ import io.ona.rdt_app.model.Patient;
  */
 public interface PatientRegisterFragmentContract {
 
-    interface Presenter {
+    interface Presenter extends BaseRegisterFragmentContract.Presenter {
         String getMainCondition();
 
         void launchForm(Activity activity, String formName, Patient patient) throws JSONException;

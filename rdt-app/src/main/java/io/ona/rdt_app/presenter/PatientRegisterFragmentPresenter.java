@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import org.json.JSONException;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
@@ -15,7 +14,7 @@ import static io.ona.rdt_app.util.Constants.PATIENTS;
 /**
  * Created by Vincent Karuri on 11/06/2019
  */
-public class PatientRegisterFragmentPresenter implements BaseRegisterFragmentContract.Presenter, PatientRegisterFragmentContract.Presenter {
+public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
 
     private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
     private PatientRegisterFragmentContract.View patientRegisterFragment;

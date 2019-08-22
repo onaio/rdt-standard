@@ -14,6 +14,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,12 +58,6 @@ public class RDTBarcodeFactoryTest {
         assertEquals(result, "");
     }
 
-    @Test
-    public void testGetDateStrShouldReturnDateStringForNonNullDate() throws Exception {
-        Date now = new Date();
-        String result = Whitebox.invokeMethod(barcodeFactory, "getDateStr", now);
-        assertEquals(result, now.toString());
-    }
 
     @Test
     public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {

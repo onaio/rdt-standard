@@ -1,5 +1,6 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -32,6 +33,8 @@ import java.util.UUID;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.FormLaunchArgs;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
@@ -67,6 +70,7 @@ public class PatientRegisterFragmentInteractorTest {
     private static final int PATIENT_AGE = 20;
 
     public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
+
 
     private PatientRegisterFragmentInteractor interactor;
 
@@ -107,6 +111,7 @@ public class PatientRegisterFragmentInteractorTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void testPopulateApproxDOBShouldPopulateCorrectDate() throws Exception {
         Whitebox.invokeMethod(interactor, "populateApproxDOB", formFields);
         for (int i = 0; i < formFields.length(); i++) {
@@ -117,6 +122,57 @@ public class PatientRegisterFragmentInteractorTest {
                 assertEquals(year + "-" + today.get(Calendar.MONTH) + "-" + today.get(Calendar.DAY_OF_MONTH), field.get(VALUE));
             }
         }
+    }
+
+    public void testLaunchFormShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        JSONObject jsonForm = new JSONObject();
+        final String FORM_NAME = "form";
+
+        doReturn(jsonForm).when(formUtils).getFormJsonObject(anyString(), any(Activity.class));
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, null);
+
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(""), eq(2));
+        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
+    }
+
+
+    @Test
+    public void testLaunchFormShouldFetchUniqueIdBeforeFormLaunch() throws JSONException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        final String FORM_NAME = "form";
+        Patient patient = mock(Patient.class);
+
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, patient);
+        verify(formUtils).getNextUniqueId(formLaunchArgsArgumentCaptor.capture(), eq(interactor));
+
+        FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
+        assertEquals(args.getActivity(), activity);
+        assertEquals(args.getPatient(), patient);
+    }
+
+    @Test
+    public void testOnUniqueIdFetchedShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
+        FormLaunchArgs args = new FormLaunchArgs();
+        Activity activity = mock(Activity.class);
+        Patient patient = mock(Patient.class);
+        JSONObject jsonForm = new JSONObject();
+        args.withActivity(activity)
+            .withFormJsonObj(jsonForm)
+            .withPatient(patient);
+
+        UniqueId uniqueId = new UniqueId("id", "openmrs_id", null, null, null);
+
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.onUniqueIdFetched(args, uniqueId);
+
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), eq(patient), eq("openmrs_id"), eq(7));
+        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
     }
 
     @Test

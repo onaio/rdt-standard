@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +34,7 @@ import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
+import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
@@ -90,13 +90,13 @@ public class RDTJsonFormUtils {
                         }
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e(TAG, e.getStackTrace().toString());
+                    Timber.e(TAG, e);
                 } finally {
                     if (os != null) {
                         try {
                             os.close();
                         } catch (IOException e) {
-                            Log.e(TAG, e.getStackTrace().toString());
+                            Timber.e(TAG, e);
                         }
                     }
                 }
@@ -133,7 +133,7 @@ public class RDTJsonFormUtils {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
             context.startActivityForResult(intent, requestCode);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(TAG, e);
         }
     }
 
@@ -159,7 +159,7 @@ public class RDTJsonFormUtils {
             prePopulateFormFields(formJsonObject, patient, rdtId, 8);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
-            Log.e(TAG, e.getStackTrace().toString());
+            Timber.e(TAG, e);
         }
     }
 
