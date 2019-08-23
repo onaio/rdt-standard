@@ -49,8 +49,6 @@ public interface Constants {
         String NAME = "name";
         String AGE = "age";
         String SEX = "sex";
-        String ID = "id";
-        String BASE_ENTITY_ID = "base_entity_id";
     }
 
     interface Form {
@@ -58,11 +56,16 @@ public interface Constants {
         String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
         String LBL_RDT_ID = "lbl_rdt_id";
         String RDT_ID = "rdt_id";
-        String EXPIRATION_DATE_READER = "expiration_date_reader";
-        String RDT_CAPTURE = "rdt_capture";
-        String TIME_IMG_SAVED = "time_img_saved";
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
-        String RDT_CAPTURE_RESULT = "rdt_capture_result";
+        String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
+        String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
+        String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
+    }
+
+    interface Test {
+        String TEST_CONTROL_RESULT = "test_control_result";
+        String TEST_PV_RESULT = "test_pv_result";
+        String TEST_PF_RESULT = "test_pf_result";
     }
 }

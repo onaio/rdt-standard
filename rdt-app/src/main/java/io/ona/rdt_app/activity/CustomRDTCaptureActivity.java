@@ -12,8 +12,10 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
-import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_RESULT;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
@@ -39,7 +41,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     protected void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-        presenter.saveImage(this, convertByteArrayToBitmap(captureByteArray), providerID, baseEntityId, interpretTestResult(interpretationResult), this);
+        presenter.saveImage(this, convertByteArrayToBitmap(captureByteArray), providerID, baseEntityId, interpretationResult, this);
     }
 
     @Override
@@ -48,7 +50,9 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             Map<String, String> keyVals = new HashMap();
             String[] vals = imageMetaData.split(",");
             keyVals.put(SAVED_IMG_ID_AND_TIME_STAMP, vals[0] + "," + vals[1]);
-            keyVals.put(SAVED_IMAGE_RESULT, vals[2]);
+            keyVals.put(TEST_CONTROL_RESULT, vals[2]);
+            keyVals.put(TEST_PV_RESULT, vals[3]);
+            keyVals.put(TEST_PF_RESULT, vals[4]);
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");

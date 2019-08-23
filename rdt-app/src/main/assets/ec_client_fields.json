@@ -234,11 +234,27 @@
           }
         },
         {
-          "column_name": "capture_result",
+          "column_name": "capture_control_result",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "rdt_capture_result"
+            "concept": "rdt_capture_control_result"
+          }
+        },
+        {
+          "column_name": "capture_pv_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rdt_capture_pv_result"
+          }
+        },
+        {
+          "column_name": "capture_pf_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rdt_capture_pf_result"
           }
         },
         {
