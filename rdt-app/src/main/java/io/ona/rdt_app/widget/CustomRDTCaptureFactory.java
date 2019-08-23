@@ -33,7 +33,6 @@ import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.Constants.SAVED_IMAGE_FILE_PATH;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
-import static org.smartregister.util.JsonFormUtils.KEY;
 
 /**
  * Created by Vincent Karuri on 27/06/2019
