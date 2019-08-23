@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import io.ona.rdt_app.R;
-import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 

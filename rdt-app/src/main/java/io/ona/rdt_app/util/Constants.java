@@ -29,6 +29,7 @@ public interface Constants {
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
     String PROVIDER_ID = "provider_id";
+    String EXPIRED_PAGE_ADDRESS = "expired_page_address";
 
     interface Tags {
         String COUNTRY = "Country";
@@ -50,6 +51,7 @@ public interface Constants {
         String PATIENT_REGISTRATION_FORM = "json.form/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form/rdt-capture-form.json";
         String LBL_RDT_ID = "lbl_rdt_id";
+        String RDT_ID = "rdt_id";
         String EXPIRATION_DATE_READER = "expiration_date_reader";
         String RDT_CAPTURE = "rdt_capture";
         String TIME_IMG_SAVED = "time_img_saved";

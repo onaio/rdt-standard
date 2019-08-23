@@ -36,7 +36,6 @@ import static org.smartregister.util.Log.logInfo;
 public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
-
     private String password;
 
     public static synchronized RDTApplication getInstance() {

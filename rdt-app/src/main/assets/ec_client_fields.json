@@ -185,7 +185,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "lbl_rdt_id"
+            "concept": "rdt_id"
           }
         },
         {

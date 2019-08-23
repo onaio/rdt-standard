@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -15,6 +14,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
@@ -28,9 +28,9 @@ import java.util.Collections;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.FormLauncher;
 
-import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
 import static io.ona.rdt_app.util.Constants.DETAILS;
 import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
@@ -38,10 +38,8 @@ import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
-import static io.ona.rdt_app.util.Constants.PATIENT_NAME;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
-import static io.ona.rdt_app.util.Constants.SEX;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
@@ -51,12 +49,14 @@ import static org.smartregister.util.JsonFormUtils.getString;
 /**
  * Created by Vincent Karuri on 13/06/2019
  */
-public class PatientRegisterFragmentInteractor {
+public class PatientRegisterFragmentInteractor extends FormLauncher {
 
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
             .registerTypeAdapter(LocationProperty.class, new PropertiesConverter()).create();
+
     private final String TAG = PatientRegisterFragmentInteractor.class.getName();
+
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
 
@@ -72,11 +72,11 @@ public class PatientRegisterFragmentInteractor {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
+                    populateApproxDOB(JsonFormUtils.fields(jsonForm));
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    populateApproxDOB(jsonForm);
-
                     String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
+                    closeRDTId(eventClient.getEvent());
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
@@ -92,22 +92,29 @@ public class PatientRegisterFragmentInteractor {
         new SaveFormTask().execute();
     }
 
-    private void populateApproxDOB(JSONObject jsonForm) throws JSONException {
-        JSONArray fields = JsonFormUtils.fields(jsonForm);
+
+    private void populateApproxDOB(JSONArray fields) throws JSONException {
+        int age = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
-            int age = 0;
             if (PATIENT_AGE.equals(field.get(KEY))) {
                 age = field.getInt(VALUE);
             }
             if (DOB.equals(field.get(KEY))) {
-                long currentTime = System.currentTimeMillis();
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(currentTime);
                 int birthYear = calendar.get(Calendar.YEAR) - age;
                 String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
                 field.put(VALUE, date);
             }
+        }
+    }
+
+    private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
+        Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
+        if (rdtIdObs != null) {
+            // todo: extract rdt id directly from its hidden field in future
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[1].trim();
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
         }
     }
 
@@ -140,31 +147,5 @@ public class PatientRegisterFragmentInteractor {
 
         return new EventClient(dbEvent, dbClient);
     }
-
-    /**
-     * Get the patient for whom the RDT is to be conducted
-     *
-     * @param jsonFormObject The patient form JSON
-     * @return the initialized Patient if proceeding to RDT capture otherwise return null patient
-     * @throws JSONException
-     */
-    public Patient getPatientForRDT(JSONObject jsonFormObject) throws JSONException {
-        Patient rdtPatient = null;
-        if (PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
-            JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
-            JSONObject fieldJsonObject;
-            for (int i = 0; i < formFields.length(); i++) {
-                fieldJsonObject = formFields.getJSONObject(i);
-                if (CONDITIONAL_SAVE.equals(fieldJsonObject.optString(KEY)) &&
-                        Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
-                    String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
-                    String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                    String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
-                    rdtPatient = new Patient(name, sex, baseEntityId);
-                }
-            }
-        }
-        return rdtPatient;
-    }
-
 }
+

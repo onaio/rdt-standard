@@ -1,22 +1,23 @@
 package io.ona.rdt_app.contract;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.app.Activity;
 
-import io.ona.rdt_app.callback.OnFormSavedCallback;
+import org.smartregister.view.contract.BaseRegisterFragmentContract;
+
+import io.ona.rdt_app.model.Patient;
 
 /**
  * Created by Vincent Karuri on 13/06/2019
  */
 public interface PatientRegisterFragmentContract {
 
-    interface Presenter {
-        void saveForm(JSONObject jsonForm, OnFormSavedCallback onFormSavedCallback) throws JSONException;
-
+    interface Presenter extends BaseRegisterFragmentContract.Presenter {
         String getMainCondition();
+
+        void launchForm(Activity activity, String formName, Patient patient);
     }
 
-    interface View {
+    interface View extends BaseRegisterFragmentContract.View {
         void initializeAdapter();
     }
 }

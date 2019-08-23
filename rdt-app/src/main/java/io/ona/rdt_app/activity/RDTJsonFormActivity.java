@@ -57,6 +57,11 @@ public class RDTJsonFormActivity extends JsonFormActivity {
         // do nothing
     }
 
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().popBackStack();
+    }
+
     public String getRdtType() {
         return rdtType;
     }

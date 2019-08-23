@@ -2,6 +2,8 @@ package io.ona.rdt_app.interactor;
 
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
+import org.json.JSONObject;
+
 import io.ona.rdt_app.widget.CustomRDTCaptureFactory;
 import io.ona.rdt_app.widget.RDTBarcodeFactory;
 import io.ona.rdt_app.widget.RDTCountdownTimerFactory;
@@ -33,5 +35,9 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
         map.put(EXPIRATION_DATE_CAPTURE, new RDTExpirationDateReaderFactory());
         map.put(RDT_CAPTURE, new CustomRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
+    }
+
+    public void saveForm(JSONObject jsonForm) {
+        new PatientRegisterFragmentInteractor().saveForm(jsonForm, null);
     }
 }

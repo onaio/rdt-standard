@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONException;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -81,12 +79,8 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void onViewClicked(View view) {
-        try {
-            final Patient patient = (Patient) view.getTag(R.id.patient_tag);
-            new RDTJsonFormUtils().launchForm(getActivity(), RDT_TEST_FORM, patient);
-        } catch (JSONException e) {
-            Log.e(TAG, e.getStackTrace().toString());
-        }
+        final Patient patient = (Patient) view.getTag(R.id.patient_tag);
+        getPresenter().launchForm(getActivity(), RDT_TEST_FORM, patient);
     }
 
     @Override
@@ -152,11 +146,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register_patient:
-                try {
-                    formUtils.launchForm(getActivity(), PATIENT_REGISTRATION_FORM);
-                } catch (JSONException e) {
-                    Log.e(TAG, e.getStackTrace().toString());
-                }
+                getPresenter().launchForm(getActivity(), PATIENT_REGISTRATION_FORM, null);
                 break;
             case R.id.drawerMenu:
                 getParentView().openDrawerLayout();

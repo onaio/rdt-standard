@@ -1,8 +1,13 @@
 package io.ona.rdt_app.util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
@@ -27,6 +32,9 @@ public class Utils {
     }
 
     public static void scheduleJobsPeriodically() {
+        PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
+                getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+
         if (isImageSyncEnabled()) {
             ImageUploadSyncServiceJob.scheduleJob(ImageUploadSyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                             getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
@@ -36,6 +44,7 @@ public class Utils {
     }
 
     public static void scheduleJobsImmediately() {
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
         if (isImageSyncEnabled()) {
             ImageUploadSyncServiceJob.scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
         }
@@ -53,5 +62,14 @@ public class Utils {
             minutes = (long) Math.ceil(value / 3);
         }
         return minutes;
+    }
+
+    public static Date convertDate(String dateStr, String format) throws ParseException {
+        if (StringUtils.isEmpty(dateStr)) {
+            return null;
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.parse(dateStr);
     }
 }

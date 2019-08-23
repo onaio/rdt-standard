@@ -8,6 +8,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
 
@@ -26,6 +27,8 @@ public class RDTJobCreator implements JobCreator {
                 return new SyncServiceJob(SyncIntentService.class);
             case ImageUploadSyncServiceJob.TAG:
                 return new ImageUploadServiceJob();
+            case PullUniqueIdsServiceJob.TAG:
+                    return new PullUniqueIdsServiceJob();
             default:
                 Log.w(TAG, tag + " is not declared in RevealJobCreator Job Creator");
                 return null;
