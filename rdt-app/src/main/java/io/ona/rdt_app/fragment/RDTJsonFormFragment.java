@@ -65,7 +65,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         if ("step13".equals(currStep)) {
             isNextButtonEnabled = false;
         }
-        setNextButtonState(rootView, isNextButtonEnabled);
+        setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,15 +85,15 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     @Override
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
-        Button button = rootView.findViewById(com.vijay.jsonwizard.R.id.next_button);
-        button.setEnabled(buttonEnabled);
+
+        rootView.setEnabled(buttonEnabled);
         int bgColor;
         if (!buttonEnabled) {
             bgColor = Color.parseColor("#D1D1D1");
         } else {
             bgColor = Color.parseColor("#0192D4");
         }
-        Drawable background = button.getBackground();
+        Drawable background = rootView.getBackground();
         if (background instanceof ShapeDrawable) {
             ((ShapeDrawable) background).getPaint().setColor(bgColor);
         } else if (background instanceof GradientDrawable) {
