@@ -73,7 +73,6 @@ android {
 }
 
 dependencies {
-    implementation project(':circle-progressbar')
 
     implementation  'org.apache.commons:commons-lang3:3.9'
 
@@ -84,7 +83,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-media-compat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
-        exclude module: 'circle-progressbar'
     }
 
     implementation('org.smartregister:opensrp-client-core:1.7.3-SNAPSHOT@aar') {
