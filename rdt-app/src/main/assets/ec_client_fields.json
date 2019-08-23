@@ -264,6 +264,38 @@
             "field": "obs.fieldCode",
             "concept": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        },
+        {
+          "column_name": "phone_model",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "phone_model"
+          }
+        },
+        {
+          "column_name": "phone_manufacturer",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "phone_manufacturer"
+          }
+        },
+        {
+          "column_name": "phone_os_version",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "phone_os_version"
+          }
+        },
+        {
+          "column_name": "app_version",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "app_version"
+          }
         }
       ]
     }

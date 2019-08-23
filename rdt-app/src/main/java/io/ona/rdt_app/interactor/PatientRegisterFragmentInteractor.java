@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.db.Obs;
@@ -25,6 +26,7 @@ import org.smartregister.util.PropertiesConverter;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Map;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
@@ -139,6 +141,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
+        populatePhoneMetadata(event);
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
@@ -146,6 +149,15 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         org.smartregister.domain.db.Event dbEvent = gson.fromJson(eventJson.toString(), org.smartregister.domain.db.Event.class);
 
         return new EventClient(dbEvent, dbClient);
+    }
+
+    private void populatePhoneMetadata(Event event) {
+        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPhoneProperties().entrySet()) {
+            Obs obs = new Obs();
+            obs.setFieldCode(phoneProperty.getKey());
+            obs.setValue(phoneProperty.getValue());
+            event.addObs(obs);
+        }
     }
 }
 
