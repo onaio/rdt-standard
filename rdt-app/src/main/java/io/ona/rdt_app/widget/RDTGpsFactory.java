@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.util.RDTGpsDialog;
 
 /**
@@ -45,6 +46,8 @@ public class RDTGpsFactory extends GpsFactory {
         rootLayout.setLayoutParams(new RelativeLayout.LayoutParams(screenDimens.first, screenDimens.second));
         rootLayout.findViewById(R.id.altitude).setVisibility(View.GONE);
         rootLayout.findViewById(R.id.accuracy).setVisibility(View.GONE);
+
+        new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
 
         return views;
     }
