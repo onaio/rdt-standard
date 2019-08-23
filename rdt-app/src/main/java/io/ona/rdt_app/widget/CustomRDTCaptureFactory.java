@@ -67,7 +67,8 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
     private class LaunchRDTCameraTask extends AsyncTask<Intent, Void, Void> {
 
-        Context context = widgetArgs.getContext();
+        private Context context = widgetArgs.getContext();
+
         @Override
         protected void onPreExecute() {
             showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, context);
