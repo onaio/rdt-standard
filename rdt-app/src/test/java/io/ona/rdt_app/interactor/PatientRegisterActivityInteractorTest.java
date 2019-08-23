@@ -1,6 +1,5 @@
 package io.ona.rdt_app.interactor;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -31,7 +30,7 @@ public class PatientRegisterActivityInteractorTest {
 
     @BeforeClass
     public static void init() throws JSONException {
-        formJsonObj = new JSONObject(PatientRegisterFragmentInteractorTest.JSON_FORM);
+        formJsonObj = new JSONObject(PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM);
     }
 
     @Before
@@ -47,9 +46,5 @@ public class PatientRegisterActivityInteractorTest {
         assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
         assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
         assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
-    }
-
-    private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {
-        return formJsonObj.getJSONObject("step1").getJSONArray("fields");
     }
 }

@@ -35,7 +35,8 @@ public class RDTImageListener extends OpenSRPImageListener {
         Bitmap image = response.getBitmap();
         RDTApplication application = RDTApplication.getInstance();
         if (image != null) {
-            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), image, application.getContext().allSharedPreferences().fetchRegisteredANM(), BuildConfig.BASE_ENTITY_ID, new OnImageSavedCallBack() {
+            // todo: this has a default false result
+            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), image, application.getContext().allSharedPreferences().fetchRegisteredANM(), BuildConfig.BASE_ENTITY_ID,  false, new OnImageSavedCallBack() {
                 @Override
                 public void onImageSaved(String imageLocation) {
                     // do nothing

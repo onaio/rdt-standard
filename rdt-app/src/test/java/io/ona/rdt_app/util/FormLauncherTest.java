@@ -24,7 +24,7 @@ import org.smartregister.util.AssetHandler;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 
-import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.JSON_FORM;
+import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -128,6 +128,6 @@ public class FormLauncherTest {
 
         // mock AssetHanler
         mockStatic(AssetHandler.class);
-        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(JSON_FORM);
+        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
     }
 }

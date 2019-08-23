@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
-import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
+import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
 
 /**
@@ -12,15 +12,15 @@ import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
  */
 public class CustomRDTCapturePresenter {
 
-    private CustomRDTCaptureActivity activity;
+    private CustomRDTCaptureContract.View  activity;
     private CustomRDTCaptureInteractor interactor;
 
-    public CustomRDTCapturePresenter(CustomRDTCaptureActivity activity) {
+    public CustomRDTCapturePresenter(CustomRDTCaptureContract.View activity) {
         this.activity = activity;
         this.interactor = new CustomRDTCaptureInteractor(this);
     }
 
-    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, OnImageSavedCallBack onImageSavedCallBack) {
-        interactor.saveImage(context, image, providerId, baseEntityId, onImageSavedCallBack);
+    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, boolean testResult, OnImageSavedCallBack onImageSavedCallBack) {
+        interactor.saveImage(context, image, providerId, baseEntityId, testResult, onImageSavedCallBack);
     }
 }

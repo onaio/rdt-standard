@@ -1,5 +1,6 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -9,6 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -32,17 +35,22 @@ import java.util.UUID;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.FormLaunchArgs;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
@@ -61,6 +69,9 @@ public class PatientRegisterFragmentInteractorTest {
     @Mock
     private ClientProcessorForJava clientProcessor;
 
+    @Captor
+    private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
+
     private static final String PATIENT_NAME = "Mr. Patient";
     private static final String PATIENT_GENDER = "Male";
     private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
@@ -68,9 +79,10 @@ public class PatientRegisterFragmentInteractorTest {
 
     public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
 
+
     private PatientRegisterFragmentInteractor interactor;
 
-    public static final String JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
+    public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
             "\"fields\":[{\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
             "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
@@ -95,8 +107,8 @@ public class PatientRegisterFragmentInteractorTest {
 
     @BeforeClass
     public static void init() throws JSONException {
-        formFields = getFormFields(new JSONObject(JSON_FORM));
-        formJsonObj = new JSONObject(JSON_FORM);
+        formFields = getFormFields(new JSONObject(PATIENT_REGISTRATION_JSON_FORM));
+        formJsonObj = new JSONObject(PATIENT_REGISTRATION_JSON_FORM);
     }
 
     @Before
@@ -119,9 +131,40 @@ public class PatientRegisterFragmentInteractorTest {
         }
     }
 
+    public void testLaunchFormShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        JSONObject jsonForm = new JSONObject();
+        final String FORM_NAME = "form";
+
+        doReturn(jsonForm).when(formUtils).getFormJsonObject(anyString(), any(Activity.class));
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, null);
+
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(""), eq(2));
+        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
+    }
+
+
+    @Test
+    public void testLaunchFormShouldFetchUniqueIdBeforeFormLaunch() throws JSONException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        final String FORM_NAME = "form";
+        Patient patient = mock(Patient.class);
+
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, patient);
+        verify(formUtils).getNextUniqueId(formLaunchArgsArgumentCaptor.capture(), eq(interactor));
+
+        FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
+        assertEquals(args.getActivity(), activity);
+        assertEquals(args.getPatient(), patient);
+    }
+
     @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
-        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
+        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, RDT_PATIENTS);
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
         verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
     }
@@ -152,7 +195,7 @@ public class PatientRegisterFragmentInteractorTest {
 
         // mock AssetHandler
         mockStatic(AssetHandler.class);
-        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(JSON_FORM);
+        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
     }
 
     private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {

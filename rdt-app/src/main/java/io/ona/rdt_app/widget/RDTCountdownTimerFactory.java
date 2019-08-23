@@ -17,7 +17,7 @@ import io.ona.rdt_app.R;
 
 public class RDTCountdownTimerFactory extends CountDownTimerFactory {
 
-    private static final String COUNTDOWN_TIMER_RESULT_READY_KEY = "countdown_timer_results_ready";
+    public static final String COUNTDOWN_TIMER_RESULT_READY_KEY = "countdown_timer_results_ready";
     private JsonFormFragment formFragment;
     private JSONObject stepObject;
     private View rootLayout;
@@ -34,8 +34,13 @@ public class RDTCountdownTimerFactory extends CountDownTimerFactory {
     @Override
     public void onCountdownFinish(Context context) {
         super.onCountdownFinish(context);
+        TextView tvInstructions = rootLayout.findViewById(R.id.timerLabel);
+        performOnExpiredAction(context, tvInstructions);
+    }
+
+    private void performOnExpiredAction(Context context, TextView tvInstructions) {
         if (stepObject.optString(JsonFormConstants.KEY).equals(COUNTDOWN_TIMER_RESULT_READY_KEY)) {
-            ((TextView) rootLayout.findViewById(R.id.timerLabel)).setText(context.getString(R.string.time_expired));
+            tvInstructions.setText(context.getString(R.string.time_expired));
         } else {
             formFragment.next();
         }

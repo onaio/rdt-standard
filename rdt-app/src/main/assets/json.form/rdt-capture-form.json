@@ -312,7 +312,6 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step10",
-    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -471,6 +470,13 @@
         "carestart_rdt_prev": "step14",
         "image_id_address": "step15:rdt_capture",
         "image_timestamp_address": "step16:time_img_saved"
+      },
+      {
+        "key": "rdt_capture_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },
@@ -483,7 +489,7 @@
     "next": "step17",
     "fields": [
       {
-        "key": "rdt_result",
+        "key": "chw_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -515,14 +521,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
-      },
-      {
-        "key": "timer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "834912438"
       },
       {
         "key": "rdt_id",

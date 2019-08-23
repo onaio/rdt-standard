@@ -13,6 +13,7 @@ import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
@@ -21,10 +22,12 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
-    private Activity activity;
+    private final String TAG = PatientRegisterActivityPresenter.class.getName();
+
+    private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityInteractor interactor;
 
-    public PatientRegisterActivityPresenter(Activity activity) {
+    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
         interactor = new PatientRegisterActivityInteractor();
     }
@@ -50,13 +53,17 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     }
 
     @Override
-    public void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException {
-        JSONObject jsonFormObj = new JSONObject(jsonForm);
-        RDTJsonFormUtils.appendEntityId(jsonFormObj);
-        interactor.saveForm(jsonFormObj, callback);
-        Patient patient = interactor.getPatientForRDT(jsonFormObj);
-        if (patient != null) {
-            interactor.launchForm(activity, RDT_TEST_FORM, patient);
+    public void saveForm(String jsonForm, OnFormSavedCallback callback) {
+        try {
+            JSONObject jsonFormObj = new JSONObject(jsonForm);
+            RDTJsonFormUtils.appendEntityId(jsonFormObj);
+            interactor.saveForm(jsonFormObj, callback);
+            Patient patient = interactor.getPatientForRDT(jsonFormObj);
+            if (patient != null) {
+                interactor.launchForm((Activity) activity, RDT_TEST_FORM, patient);
+            }
+        } catch (JSONException e) {
+            Timber.e(TAG, e);
         }
     }
 }

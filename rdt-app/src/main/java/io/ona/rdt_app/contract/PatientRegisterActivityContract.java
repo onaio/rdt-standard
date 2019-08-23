@@ -1,7 +1,5 @@
 package io.ona.rdt_app.contract;
 
-import org.json.JSONException;
-
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 
 
@@ -17,6 +15,6 @@ public interface PatientRegisterActivityContract {
 
     interface Presenter {
 
-        void saveForm(String jsonForm, OnFormSavedCallback callback) throws JSONException;
+        void saveForm(String jsonForm, OnFormSavedCallback callback);
     }
 }
