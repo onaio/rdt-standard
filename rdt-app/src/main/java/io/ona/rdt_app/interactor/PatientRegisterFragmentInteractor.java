@@ -12,10 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
@@ -39,6 +37,7 @@ import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.METADATA;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
+import static io.ona.rdt_app.util.Constants.PATIENT_GENDER;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
@@ -158,6 +157,32 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             obs.setValue(phoneProperty.getValue());
             event.addObs(obs);
         }
+    }
+
+    /**
+     * Get the patient for whom the RDT is to be conducted
+     *
+     * @param jsonFormObject The patient form JSON
+     * @return the initialized Patient if proceeding to RDT capture otherwise return null patient
+     * @throws JSONException
+     */
+    public Patient getPatientForRDT(JSONObject jsonFormObject) throws JSONException {
+        Patient rdtPatient = null;
+        if (PATIENT_REGISTRATION.equals(jsonFormObject.optString(ENCOUNTER_TYPE))) {
+            JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
+            JSONObject fieldJsonObject;
+            for (int i = 0; i < formFields.length(); i++) {
+                fieldJsonObject = formFields.getJSONObject(i);
+                if (CONDITIONAL_SAVE.equals(fieldJsonObject.optString(KEY)) &&
+                        Integer.parseInt(fieldJsonObject.optString(VALUE)) == 1) {
+                    String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
+                    String sex = FormUtils.getFieldJSONObject(formFields, PATIENT_GENDER).optString(VALUE);
+                    String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
+                    rdtPatient = new Patient(name, sex, baseEntityId);
+                }
+            }
+        }
+        return rdtPatient;
     }
 }
 

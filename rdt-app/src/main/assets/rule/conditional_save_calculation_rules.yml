@@ -1,0 +1,6 @@
+name: step1_conditional_save
+description: Save and exit or save and continue to capture RDT form.
+priority: 1
+condition: "step1_had_fever == 'Yes' || step1_experienced_abnormal_headaches == 'Yes' || step1_felt_nausea == 'Yes' || step1_has_vomited == 'Yes' || step1_experienced_diarrhea == 'Yes' || step1_experienced_chills == 'Yes' || step1_felt_aches == 'Yes' || step1_had_muscle_pain == 'Yes' || step1_had_chest_pain == 'Yes' || step1_felt_abnormal_fatigue == 'Yes' || step1_had_breathing_problems == 'Yes'"
+actions:
+  - 'calculation = 1'
