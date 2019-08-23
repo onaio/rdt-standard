@@ -62,7 +62,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
         // Handle initialization of the countdown timer bottom navigation
         boolean isNextButtonEnabled = true;
-        if ("step12".equals(currStep)) {
+        if ("step13".equals(currStep)) {
             isNextButtonEnabled = false;
         }
         setNextButtonState(rootView, isNextButtonEnabled);

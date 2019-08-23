@@ -1,13 +1,8 @@
 package io.ona.rdt_app.util;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
 
-import com.rey.material.widget.TextView;
 import com.vijay.jsonwizard.customviews.GpsDialog;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
