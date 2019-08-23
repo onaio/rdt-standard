@@ -22,25 +22,6 @@ public class RDTGpsDialog extends GpsDialog {
         super(gpsDialog.getContext(), gpsDialog.getDataView(), gpsDialog.getLatitudeTV(), gpsDialog.getLongitudeTV(), gpsDialog.getAltitudeTV(), gpsDialog.getAccuracyTV());
     }
 
-    @Override
-    protected void init() {
-        super.init();
-        Button okButton = this.findViewById(com.vijay.jsonwizard.R.id.ok_button);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveAndDismiss();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getFormFragment().next();
-                    }
-                }, 760);
-            }
-        });
-    }
-
     public JsonFormFragment getFormFragment() {
         return formFragment;
     }
@@ -59,6 +40,6 @@ public class RDTGpsDialog extends GpsDialog {
             public void run() {
                 getFormFragment().next();
             }
-        }, 760);
+        }, 900);
     }
 }
