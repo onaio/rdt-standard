@@ -9,7 +9,7 @@
             "field": "eventType",
             "field_value": "patient_registration",
             "creates_case": [
-              "patients"
+              "rdt_patients"
             ]
           }
         ]

@@ -37,6 +37,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         formUtils = new RDTJsonFormUtils();
+        this.tablename = "rdt_patients";
     }
 
     @Override

@@ -516,14 +516,6 @@
         "type": "hidden"
       },
       {
-        "key": "timer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "834912438"
-      },
-      {
         "key": "rdt_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
