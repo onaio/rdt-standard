@@ -18,11 +18,11 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
     }
 
     @Override
-    protected void onResult(String date, boolean isValid) {
-        super.onResult(date, isValid);
+    protected void onResult(String expDate, boolean isValid) {
+        super.onResult(expDate, isValid);
         Intent resultIntent = new Intent();
         resultIntent.putExtra(EXPIRATION_DATE_RESULT, isValid);
-        resultIntent.putExtra(EXPIRATION_DATE, date);
+        resultIntent.putExtra(EXPIRATION_DATE, expDate);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

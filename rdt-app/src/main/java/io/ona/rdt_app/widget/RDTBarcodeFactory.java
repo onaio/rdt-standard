@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -155,7 +156,8 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     }
 
     private String getDateStr(Date date) {
-        return date == null ? "" : date.toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        return date == null ? "" : simpleDateFormat.format(date);
     }
 
     private boolean isRDTExpired(Date date) {

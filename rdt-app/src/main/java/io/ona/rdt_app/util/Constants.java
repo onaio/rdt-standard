@@ -12,7 +12,7 @@ public interface Constants {
     String METADATA = "metadata";
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
-    String PATIENTS = "patients";
+    String RDT_PATIENTS = "rdt_patients";
     String RDT_TESTS = "rdt_tests";
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
@@ -28,6 +28,7 @@ public interface Constants {
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
+    String PROVIDER_ID = "provider_id";
     String EXPIRED_PAGE_ADDRESS = "expired_page_address";
     String SAVED_IMG_ID_AND_TIME_STAMP = "saved_img_id_and_time_stamp";
 

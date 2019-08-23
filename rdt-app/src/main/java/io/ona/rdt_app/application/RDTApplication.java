@@ -31,10 +31,10 @@ import io.ona.rdt_app.util.Utils;
 
 import static io.ona.rdt_app.util.Constants.APP_VERSION;
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
-import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PHONE_MANUFACTURER;
 import static io.ona.rdt_app.util.Constants.PHONE_MODEL;
 import static io.ona.rdt_app.util.Constants.PHONE_OS_VERSION;
+import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -125,14 +125,14 @@ public class RDTApplication extends DrishtiApplication {
     public static CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
-            commonFtsObject.updateSearchFields(PATIENTS, getFtsSearchFields());
-            commonFtsObject.updateSortFields(PATIENTS, getFtsSortFields());
+            commonFtsObject.updateSearchFields(RDT_PATIENTS, getFtsSearchFields());
+            commonFtsObject.updateSortFields(RDT_PATIENTS, getFtsSortFields());
         }
         return commonFtsObject;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{PATIENTS};
+        return new String[]{RDT_PATIENTS};
     }
 
     private static String[] getFtsSearchFields() {
