@@ -29,6 +29,7 @@ import java.util.UUID;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
@@ -83,7 +84,10 @@ public class RDTJsonFormUtils {
                         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
                         imageRepo.add(profileImage);
-                        // saveImageToGallery(context, image);
+
+                        if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                            saveImageToGallery(context, image);
+                        }
                     }
                 } catch (FileNotFoundException e) {
                     Timber.e(TAG, e);

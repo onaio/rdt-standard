@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ExpirationDateActivity;
 
+import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
 
 /**
@@ -21,6 +22,7 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
         super.onResult(date, isValid);
         Intent resultIntent = new Intent();
         resultIntent.putExtra(EXPIRATION_DATE_RESULT, isValid);
+        resultIntent.putExtra(EXPIRATION_DATE, date);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

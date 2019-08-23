@@ -1,5 +1,6 @@
 package io.ona.rdt_app.presenter;
 
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -12,17 +13,22 @@ import org.json.JSONObject;
 import io.ona.rdt_app.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.interactor.RDTJsonFormInteractor;
+import io.ona.rdt_app.util.Constants;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
 
-    private RDTJsonFormInteractor interactor;
+    private final String TAG = RDTJsonFormFragmentPresenter.class.getName();
 
-    public RDTJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
-        super(formFragment, jsonFormInteractor);
-        interactor = (RDTJsonFormInteractor) jsonFormInteractor;
+    private RDTJsonFormInteractor interactor;
+    private RDTJsonFormFragmentContract.View formFragment;
+
+    public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View formFragment, JsonFormInteractor jsonFormInteractor) {
+        super((JsonFormFragment) formFragment, jsonFormInteractor);
+        this.interactor = (RDTJsonFormInteractor) jsonFormInteractor;
+        this.formFragment = formFragment;
     }
 
     @Override
@@ -64,5 +70,30 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     @Override
     public void saveForm() throws JSONException {
         interactor.saveForm(new JSONObject(getView().getCurrentJsonState()));
+    }
+
+    @Override
+    public void performNextButtonAction(String currentStep, Object isSubmit) {
+        String currStepStr = "step" + currentStep;
+        if ("step8".equals(currStepStr)) {
+            String rdtType = formFragment.getRDTType();
+            if (Constants.CARESTART_RDT.equals(rdtType)) {
+                JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step14");
+                formFragment.transactFragment(nextFragment);
+            } else {
+                formFragment.moveToNextStep();
+            }
+        } else if ("step5".equals(currStepStr)) {
+            try {
+                saveForm();
+                formFragment.moveToNextStep();
+            } catch (JSONException e) {
+                Log.e(TAG, e.getStackTrace().toString());
+            }
+        } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
+            formFragment.saveForm();
+        } else {
+            formFragment.moveToNextStep();
+        }
     }
 }
