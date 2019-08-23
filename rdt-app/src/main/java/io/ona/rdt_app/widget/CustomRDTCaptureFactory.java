@@ -42,6 +42,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
+    private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String RDT_NAME = "rdt_name";
 
     private String baseEntityId;
@@ -106,6 +107,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                     try {
                         String[] imgIDAndTimeStamp = data.getExtras().getString(SAVED_IMAGE_FILE_PATH).split(",");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
+                        String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                         populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, (JsonApi) context);
                         if (!formFragment.next()) {
                             formFragment.save(true);

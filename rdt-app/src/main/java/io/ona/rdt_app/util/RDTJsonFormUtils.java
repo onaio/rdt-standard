@@ -127,7 +127,7 @@ public class RDTJsonFormUtils {
     private static void saveImageToGallery(Context context, Bitmap image) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        ImageUtil.saveImage(context, stream.toByteArray(), 0, new OnImageSavedCallBack() {
+        ImageUtil.saveImage(context, stream.toByteArray(), 0, false, new OnImageSavedCallBack() {
             @Override
             public void onImageSaved(String imageLocation) {
                 // do nothing
