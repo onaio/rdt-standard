@@ -30,6 +30,7 @@ public interface Constants {
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
     String PROVIDER_ID = "provider_id";
     String EXPIRED_PAGE_ADDRESS = "expired_page_address";
+    String SAVED_IMG_ID_AND_TIME_STAMP = "saved_img_id_and_time_stamp";
 
     interface Tags {
         String COUNTRY = "Country";
@@ -57,5 +58,6 @@ public interface Constants {
         String TIME_IMG_SAVED = "time_img_saved";
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
+        String RDT_CAPTURE_RESULT = "rdt_capture_result";
     }
 }

@@ -54,7 +54,8 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
+    public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId,
+                                             final String entityId, final boolean testResult, final OnImageSavedCallBack onImageSavedCallBack) {
 
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
@@ -117,7 +118,7 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(ProfileImage profileImage) {
-                onImageSavedCallBack.onImageSaved(profileImage.getImageid() + "," + System.currentTimeMillis());
+                onImageSavedCallBack.onImageSaved(profileImage.getImageid() + "," + System.currentTimeMillis() + "," + testResult);
             }
         }
 

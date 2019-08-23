@@ -162,4 +162,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     private RDTJsonFormFragmentContract.Presenter getFragmentPresenter() {
         return (RDTJsonFormFragmentContract.Presenter) presenter;
     }
+
+    public static int getCurrentStep() {
+        return currentStep;
+    }
 }

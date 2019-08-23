@@ -470,6 +470,13 @@
         "carestart_rdt_prev": "step14",
         "image_id_address": "step15:rdt_capture",
         "image_timestamp_address": "step16:time_img_saved"
+      },
+      {
+        "key": "rdt_capture_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },
@@ -482,7 +489,7 @@
     "next": "step17",
     "fields": [
       {
-        "key": "rdt_result",
+        "key": "chw_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
