@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -135,13 +134,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
-            try {
-                String jsonForm = data.getStringExtra("json");
-                Timber.d(TAG, jsonForm);
-                getPresenter().saveForm(jsonForm, this);
-            } catch (JSONException e) {
-                Timber.e(TAG, e.getStackTrace().toString());
-            }
+            String jsonForm = data.getStringExtra("json");
+            Timber.d(TAG, jsonForm);
+            getPresenter().saveForm(jsonForm, this);
         }
     }
 

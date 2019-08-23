@@ -1,7 +1,7 @@
 {
   "bindobjects": [
     {
-      "name": "patients",
+      "name": "rdt_patients",
       "columns": [
         {
           "column_name": "base_entity_id",
@@ -36,7 +36,143 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "is_fever"
+            "concept": "had_fever"
+          }
+        },
+        {
+          "column_name": "been_treated",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "been_treated"
+          }
+        },
+        {
+          "column_name": "occupation",
+          "type": "Client",
+          "json_mapping": {
+            "field": "occupation"
+          }
+        },
+        {
+          "column_name": "is_headaches",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "experienced_abnormal_headaches"
+          }
+        },
+        {
+          "column_name": "is_nausea",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "felt_nausea"
+          }
+        },
+        {
+          "column_name": "is_vomiting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "has_vomited"
+          }
+        },
+        {
+          "column_name": "is_diarrhoea",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "experienced_diarrhea"
+          }
+        },
+        {
+          "column_name": "is_chills",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "experienced_chills"
+          }
+        },
+        {
+          "column_name": "is_aches",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "felt_aches"
+          }
+        },
+        {
+          "column_name": "is_muscle_pain",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "had_muscle_pain"
+          }
+        },
+        {
+          "column_name": "is_chest_pain",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "had_chest_pain"
+          }
+        },
+        {
+          "column_name": "is_fatigue",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "felt_abnormal_fatigue"
+          }
+        },
+        {
+          "column_name": "is_breathing_problems",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "had_breathing_problems"
+          }
+        }
+      ,
+        {
+          "column_name": "is_poor_feeding",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "poor_feeding"
+          }
+        },
+        {
+          "column_name": "is_coughing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "coughing"
+          }
+        },
+        {
+          "column_name": "is_sprayed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sprayed"
+          }
+        },
+        {
+          "column_name": "is_endemic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "lives_in_endemic_area"
+          }
+        },
+        {
+          "column_name": "is_travel",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "history_of_visiting_endemic_areas"
           }
         }
       ]
@@ -57,6 +193,13 @@
           "type": "Event",
           "json_mapping": {
             "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
           }
         },
         {
@@ -91,19 +234,11 @@
           }
         },
         {
-          "column_name": "rdt_capture_result",
+          "column_name": "capture_result",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "rdt_capture_result"
-          }
-        },
-        {
-          "column_name": "time_test_ended",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "timer"
           }
         },
         {
@@ -112,6 +247,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "time_img_saved"
+          }
+        },
+        {
+          "column_name": "time_form_opened",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "time_form_closed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         }
       ]

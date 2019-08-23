@@ -1,5 +1,6 @@
 package io.ona.rdt_app.interactor;
 
+import android.app.Activity;
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -9,6 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -32,17 +35,22 @@ import java.util.UUID;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.model.Patient;
 import io.ona.rdt_app.util.Constants;
+import io.ona.rdt_app.util.FormLaunchArgs;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
+import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
@@ -61,12 +69,16 @@ public class PatientRegisterFragmentInteractorTest {
     @Mock
     private ClientProcessorForJava clientProcessor;
 
+    @Captor
+    private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
+
     private static final String PATIENT_NAME = "Mr. Patient";
     private static final String PATIENT_GENDER = "Male";
     private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
     private static final int PATIENT_AGE = 20;
 
     public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
+
 
     private PatientRegisterFragmentInteractor interactor;
 
@@ -119,9 +131,40 @@ public class PatientRegisterFragmentInteractorTest {
         }
     }
 
+    public void testLaunchFormShouldPrepopulateFieldsAndLaunchForm() throws JSONException, JsonFormMissingStepCountException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        JSONObject jsonForm = new JSONObject();
+        final String FORM_NAME = "form";
+
+        doReturn(jsonForm).when(formUtils).getFormJsonObject(anyString(), any(Activity.class));
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, null);
+
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(""), eq(2));
+        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
+    }
+
+
+    @Test
+    public void testLaunchFormShouldFetchUniqueIdBeforeFormLaunch() throws JSONException {
+        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
+        Activity activity = mock(Activity.class);
+        final String FORM_NAME = "form";
+        Patient patient = mock(Patient.class);
+
+        Whitebox.setInternalState(interactor, "formUtils", formUtils);
+        interactor.launchForm(activity, FORM_NAME, patient);
+        verify(formUtils).getNextUniqueId(formLaunchArgsArgumentCaptor.capture(), eq(interactor));
+
+        FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
+        assertEquals(args.getActivity(), activity);
+        assertEquals(args.getPatient(), patient);
+    }
+
     @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
-        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, PATIENTS);
+        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, RDT_PATIENTS);
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
         verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
     }
