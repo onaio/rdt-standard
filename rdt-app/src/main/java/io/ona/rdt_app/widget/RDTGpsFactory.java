@@ -1,11 +1,9 @@
 package io.ona.rdt_app.widget;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.rey.material.widget.Button;
@@ -45,6 +43,9 @@ public class RDTGpsFactory extends GpsFactory {
 
         Pair<Integer, Integer> screenDimens = getScreenDimens(context);
         rootLayout.setLayoutParams(new RelativeLayout.LayoutParams(screenDimens.first, screenDimens.second));
+        rootLayout.findViewById(R.id.altitude).setVisibility(View.GONE);
+        rootLayout.findViewById(R.id.accuracy).setVisibility(View.GONE);
+
         return views;
     }
 
