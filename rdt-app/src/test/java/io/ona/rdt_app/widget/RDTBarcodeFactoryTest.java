@@ -57,12 +57,6 @@ public class RDTBarcodeFactoryTest {
         assertEquals(result, "");
     }
 
-    @Test
-    public void testGetDateStrShouldReturnDateStringForNonNullDate() throws Exception {
-        Date now = new Date();
-        String result = Whitebox.invokeMethod(barcodeFactory, "getDateStr", now);
-        assertEquals(result, now.toString());
-    }
 
     @Test
     public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {
