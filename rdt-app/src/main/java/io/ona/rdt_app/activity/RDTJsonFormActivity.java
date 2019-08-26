@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.RDTJsonFormActivityContract;
