@@ -29,6 +29,7 @@ import java.util.UUID;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
@@ -53,55 +54,71 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId, final String entityId, final OnImageSavedCallBack onImageSavedCallBack) {
+    public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId,
+                                             final String entityId, final boolean testResult, final OnImageSavedCallBack onImageSavedCallBack) {
+
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
             return;
         }
 
         class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
+
             @Override
             protected ProfileImage doInBackground(Void... voids) {
-
                 ProfileImage profileImage = new ProfileImage();
-                OutputStream os = null;
+                OutputStream outputStream = null;
                 try {
                     if (!StringUtils.isBlank(entityId)) {
-                        final String absoluteFileName = DrishtiApplication.getAppDir()
-                                + File.separator + entityId + File.separator + UUID.randomUUID() + ".JPEG";
+                        final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
+                        final File imageFolder = new File(imgFolderPath);
+                        boolean success = true;
+                        if (!imageFolder.exists()) {
+                            success = imageFolder.mkdirs();
+                        }
+                        // save captured image
+                        if (success) {
+                            String absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
+                            File outputFile = new File(absoluteFilePath);
 
-                        File outputFile = new File(absoluteFileName);
-                        os = new FileOutputStream(outputFile);
-                        image.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                            outputStream = new FileOutputStream(outputFile);
+                            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
 
-                        // insert into the db
-                        profileImage.setImageid(UUID.randomUUID().toString());
-                        profileImage.setAnmId(providerId);
-                        profileImage.setEntityID(entityId);
-                        profileImage.setFilepath(absoluteFileName);
-                        profileImage.setFilecategory(MULTI_VERSION);
-                        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                        ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
-                        imageRepo.add(profileImage);
-                        // saveImageToGallery(context, image);
+                            // insert into db
+                            profileImage.setImageid(UUID.randomUUID().toString());
+                            profileImage.setAnmId(providerId);
+                            profileImage.setEntityID(entityId);
+                            profileImage.setFilepath(absoluteFilePath);
+                            profileImage.setFilecategory(MULTI_VERSION);
+                            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                            ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
+                            imageRepo.add(profileImage);
+                            if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                                saveImageToGallery(context, image);
+                            }
+                        } else {
+                            Timber.e(TAG, "Sorry, could not create image folder!");
+                        }
+
                     }
-                } catch (FileNotFoundException e) {
+                } catch(FileNotFoundException e){
                     Timber.e(TAG, e);
                 } finally {
-                    if (os != null) {
+                    if (outputStream != null) {
                         try {
-                            os.close();
+                            outputStream.close();
                         } catch (IOException e) {
                             Timber.e(TAG, e);
                         }
                     }
                 }
+
                 return profileImage;
             }
 
             @Override
             protected void onPostExecute(ProfileImage profileImage) {
-                onImageSavedCallBack.onImageSaved(profileImage.getImageid() + "," + System.currentTimeMillis());
+                onImageSavedCallBack.onImageSaved(profileImage.getImageid() + "," + System.currentTimeMillis() + "," + testResult);
             }
         }
 
@@ -111,7 +128,7 @@ public class RDTJsonFormUtils {
     private static void saveImageToGallery(Context context, Bitmap image) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        ImageUtil.saveImage(context, stream.toByteArray(), 0, new OnImageSavedCallBack() {
+        ImageUtil.saveImage(context, stream.toByteArray(), 0, false, new OnImageSavedCallBack() {
             @Override
             public void onImageSaved(String imageLocation) {
                 // do nothing

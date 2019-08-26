@@ -38,6 +38,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '3'
+            buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
         }
         release {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
@@ -50,6 +51,12 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '3'
+            buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
 
@@ -67,7 +74,6 @@ android {
 
 dependencies {
     implementation  'org.apache.commons:commons-lang3:3.9'
-
     implementation('org.smartregister:opensrp-client-native-form:1.6.33-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'

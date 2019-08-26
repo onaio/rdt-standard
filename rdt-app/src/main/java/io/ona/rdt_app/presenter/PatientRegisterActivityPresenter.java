@@ -1,5 +1,7 @@
 package io.ona.rdt_app.presenter;
 
+import android.app.Activity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.view.contract.BaseRegisterContract;
@@ -10,17 +12,23 @@ import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.util.RDTJsonFormUtils;
+import timber.log.Timber;
+
+import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;
 
 /**
  * Created by Vincent Karuri on 07/06/2019
  */
 public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
 
-    private PatientRegisterActivityContract.View view;
+    private final String TAG = PatientRegisterActivityPresenter.class.getName();
+
+    private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityInteractor interactor;
 
-    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View view) {
-        this.view = view;
+    public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
+        this.activity = activity;
         interactor = new PatientRegisterActivityInteractor();
     }
 
@@ -45,12 +53,17 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
     }
 
     @Override
-    public Patient getRDTPatient(JSONObject jsonFormObject) throws JSONException {
-        return interactor.getPatientForRDT(jsonFormObject);
-    }
-
-    @Override
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
-        interactor.saveForm(jsonForm, callback);
+    public void saveForm(String jsonForm, OnFormSavedCallback callback) {
+        try {
+            JSONObject jsonFormObj = new JSONObject(jsonForm);
+            RDTJsonFormUtils.appendEntityId(jsonFormObj);
+            interactor.saveForm(jsonFormObj, callback);
+            Patient patient = interactor.getPatientForRDT(jsonFormObj);
+            if (patient != null) {
+                interactor.launchForm((Activity) activity, RDT_TEST_FORM, patient);
+            }
+        } catch (JSONException e) {
+            Timber.e(TAG, e);
+        }
     }
 }

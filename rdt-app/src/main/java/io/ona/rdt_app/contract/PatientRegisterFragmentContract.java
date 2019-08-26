@@ -2,7 +2,6 @@ package io.ona.rdt_app.contract;
 
 import android.app.Activity;
 
-import org.json.JSONException;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
 import io.ona.rdt_app.model.Patient;
@@ -15,7 +14,7 @@ public interface PatientRegisterFragmentContract {
     interface Presenter extends BaseRegisterFragmentContract.Presenter {
         String getMainCondition();
 
-        void launchForm(Activity activity, String formName, Patient patient) throws JSONException;
+        void launchForm(Activity activity, String formName, Patient patient);
     }
 
     interface View extends BaseRegisterFragmentContract.View {
