@@ -30,8 +30,8 @@ import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
-    private static int currentStep = 1;
-    private static int prevStep;
+    private static int currentStep = 1; // step of the fragment coming into view
+    private static int prevStep; // step of the fragment coming out of view
     private boolean moveBackOneStep = false;
 
     @Override
@@ -172,6 +172,14 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         currentStep = currStep;
     }
 
+
+    /**
+     *
+     * Replace current fragment in container with the next {@link JsonFormFragment}
+     * Also uses the step name as the name of the fragment to be replaced and added to the backstack
+     *
+     * @param next
+     */
     @Override
     public void transactThis(JsonFormFragment next) {
         getActivity().getSupportFragmentManager().beginTransaction()
