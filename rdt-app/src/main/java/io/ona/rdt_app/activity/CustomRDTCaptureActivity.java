@@ -55,4 +55,9 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         }
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing
+    }
 }

@@ -15,7 +15,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
@@ -112,7 +111,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     }
 
     private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
-        Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
+        org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
         if (rdtIdObs != null) {
             // todo: extract rdt id directly from its hidden field in future
             String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[1].trim();
