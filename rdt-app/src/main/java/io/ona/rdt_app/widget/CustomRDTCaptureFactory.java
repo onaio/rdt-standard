@@ -48,22 +48,22 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
-    private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
+    private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String RDT_NAME = "rdt_name";
-
 
     private String baseEntityId;
     private WidgetArgs widgetArgs;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
-        widgetArgs = new WidgetArgs();
-        widgetArgs.withStepName(stepName)
-                .withContext(context)
-                .withFormFragment(formFragment)
-                .withJsonObject(jsonObject);
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(ENTITY_ID);
+        this.widgetArgs = new WidgetArgs();
+        widgetArgs.withFormFragment(formFragment)
+                .withJsonObject(jsonObject)
+                .withContext(context)
+                .withStepName(stepName);
+
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         return views;
     }
@@ -121,11 +121,13 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         String[] imgIDAndTimeStamp = extras.getString(SAVED_IMG_ID_AND_TIME_STAMP).split(",");
                         String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
+
                         // todo: modify this after upgrading rdt capture lib to top, mid, bottom
                         ImageProcessor.InterpretationResult interpretationResult = new ImageProcessor.InterpretationResult();
                         interpretationResult.control = Boolean.valueOf(controlResult);
                         interpretationResult.testA = Boolean.valueOf(pvResult);
                         interpretationResult.testB = Boolean.valueOf(pfResult);
+
                         populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, (JsonApi) widgetArgs.getContext());
                         if (!formFragment.next()) {
                             formFragment.save(true);

@@ -1,5 +1,5 @@
 {
-  "count": "18",
+  "count": "19",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -47,9 +47,23 @@
     "encounter_location": ""
   },
   "step1": {
+    "title": "Find location",
+    "next": "step2",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "gps",
+        "type": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": ""
+      }
+    ]
+  },
+  "step2": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step2",
+    "next": "step3",
     "bottom_navigation" : "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "RDT",
@@ -77,10 +91,10 @@
       }
     ]
   },
-  "step2": {
+  "step3": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step4",
     "fields": [
       {
         "key": "lbl_which_rdt",
@@ -102,7 +116,7 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step4"
+        "next": "step5"
       },
       {
         "key": "lbl_care_start",
@@ -113,14 +127,14 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff",
-        "next": "step3"
+        "next": "step4"
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step6",
+    "next": "step7",
     "fields": [
       {
         "key": "expiration_date_reader",
@@ -128,7 +142,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "expiration_date_capture",
-        "expired_page_address": "step5",
+        "expired_page_address": "step6",
         "v_required": {
           "value": "true",
           "err": "Please enter the RDT ID"
@@ -136,10 +150,10 @@
       }
     ]
   },
-  "step4": {
+  "step5": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step6",
+    "next": "step7",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -151,10 +165,10 @@
         "hint": "RDT ID *",
         "scanButtonText": "Scan QR Code",
         "value": "0",
-        "rdt_id_lbl_addresses": "step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id, step17:lbl_rdt_id, step18:lbl_rdt_id",
-        "rdt_id_address": "step16:rdt_id",
+        "rdt_id_lbl_addresses": "step7:lbl_rdt_id, step8:lbl_rdt_id, step9:lbl_rdt_id, step18:lbl_rdt_id, step19:lbl_rdt_id",
+        "rdt_id_address": "step17:rdt_id",
         "expiration_date_address": "step3:expiration_date_reader",
-        "expired_page_address": "step5",
+        "expired_page_address": "step6",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -166,10 +180,10 @@
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step2",
+    "next": "step3",
     "bottom_navigation": "true",
     "next_label": "OK",
     "fields": [
@@ -198,10 +212,10 @@
       }
     ]
   },
-  "step6": {
+  "step7": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step8",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE TO MICROSCOPY",
@@ -228,10 +242,10 @@
       }
     ]
   },
-  "step7": {
+  "step8": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step8",
+    "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "MICROSCOPY SLIDE COMPLETE",
@@ -268,10 +282,10 @@
       }
     ]
   },
-  "step8": {
+  "step9": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step9",
+    "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "BLOT PAPER COMPLETE",
@@ -308,10 +322,10 @@
       }
     ]
   },
-  "step9": {
+  "step10": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step10",
+    "next": "step11",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -330,9 +344,9 @@
       }
     ]
   },
-  "step10": {
+  "step11": {
     "title": "RDT",
-    "next": "step11",
+    "next": "step12",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -352,9 +366,9 @@
       }
     ]
   },
-  "step11": {
+  "step12": {
     "title": "RDT",
-    "next": "step12",
+    "next": "step13",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -374,9 +388,9 @@
       }
     ]
   },
-  "step12": {
+  "step13": {
     "title": "RDT Timer",
-    "next": "step13",
+    "next": "step14",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -400,9 +414,9 @@
       }
     ]
   },
-  "step13": {
+  "step14": {
     "title": "RDT Result Ready",
-    "next": "step15",
+    "next": "step16",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
@@ -426,9 +440,9 @@
       }
     ]
   },
-  "step14": {
+  "step15": {
     "title": "Carestart RDT",
-    "next": "step15",
+    "next": "step16",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -456,9 +470,9 @@
       }
     ]
   },
-  "step15": {
+  "step16": {
     "title": "RDT",
-    "next": "step16",
+    "next": "step17",
     "display_back_button": "true",
     "fields": [
       {
@@ -467,9 +481,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
-        "carestart_rdt_prev": "step14",
-        "image_id_address": "step15:rdt_capture",
-        "image_timestamp_address": "step16:time_img_saved"
+        "carestart_rdt_prev": "step15",
+        "image_id_address": "step16:rdt_capture",
+        "image_timestamp_address": "step17:time_img_saved"
       },
       {
         "key": "rdt_capture_control_result",
@@ -494,13 +508,13 @@
       }
     ]
   },
-  "step16": {
+  "step17": {
     "title": "RDT Test Result",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "SAVE RDT RESULT",
-    "next": "step17",
+    "next": "step18",
     "fields": [
       {
         "key": "chw_result",
@@ -537,14 +551,6 @@
         "type": "hidden"
       },
       {
-        "key": "timer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "834912438"
-      },
-      {
         "key": "rdt_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -553,10 +559,10 @@
       }
     ]
   },
-  "step17": {
+  "step18": {
     "title": "Confirm Labels",
     "display_back_button": "true",
-    "next": "step18",
+    "next": "step19",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONFIRM",
@@ -584,7 +590,7 @@
       }
     ]
   },
-  "step18": {
+  "step19": {
     "title": "Sterile Storage",
     "display_back_button": "true",
     "bottom_navigation": "true",

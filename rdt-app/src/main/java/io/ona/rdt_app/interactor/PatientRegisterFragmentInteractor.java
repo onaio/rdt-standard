@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
@@ -24,9 +25,11 @@ import org.smartregister.util.PropertiesConverter;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Map;
 
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnFormSavedCallback;
+import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.FormLauncher;
 
 import static io.ona.rdt_app.util.Constants.DETAILS;
@@ -34,9 +37,9 @@ import static io.ona.rdt_app.util.Constants.DOB;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.METADATA;
-import static io.ona.rdt_app.util.Constants.PATIENTS;
 import static io.ona.rdt_app.util.Constants.PATIENT_AGE;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt_app.util.Constants.RDT_TESTS;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -72,8 +75,9 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
                 try {
                     populateApproxDOB(JsonFormUtils.fields(jsonForm));
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    String bindType = PATIENT_REGISTRATION.equals(encounterType) ? PATIENTS : RDT_TESTS;
+                    String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
+                    closeRDTId(eventClient.getEvent());
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
@@ -83,13 +87,12 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
             @Override
             protected void onPostExecute(Void result) {
-                if (onFormSavedCallback != null) {
-                    onFormSavedCallback.onFormSaved();
-                }
+                onFormSavedCallback.onFormSaved();
             }
         }
         new SaveFormTask().execute();
     }
+
 
     private void populateApproxDOB(JSONArray fields) throws JSONException {
         int age = 0;
@@ -104,6 +107,15 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
                 String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
                 field.put(VALUE, date);
             }
+        }
+    }
+
+    private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
+        org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
+        if (rdtIdObs != null) {
+            // todo: extract rdt id directly from its hidden field in future
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[1].trim();
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
         }
     }
 
@@ -128,6 +140,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
+        populatePhoneMetadata(event);
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
@@ -136,4 +149,14 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
         return new EventClient(dbEvent, dbClient);
     }
+
+    private void populatePhoneMetadata(Event event) {
+        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPhoneProperties().entrySet()) {
+            Obs obs = new Obs();
+            obs.setFieldCode(phoneProperty.getKey());
+            obs.setValue(phoneProperty.getValue());
+            event.addObs(obs);
+        }
+    }
 }
+

@@ -5,28 +5,35 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import android.view.WindowManager;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.contract.RDTJsonFormActivityContract;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
+import io.ona.rdt_app.presenter.RDTJsonFormActivityPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static io.ona.rdt_app.util.Constants.ONA_RDT;
 
-public class RDTJsonFormActivity extends JsonFormActivity {
+public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonFormActivityContract.View {
 
     private RDTJsonFormUtils formUtils;
     private String rdtType = ONA_RDT;
+    private RDTJsonFormActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         formUtils = new RDTJsonFormUtils();
+        presenter = new RDTJsonFormActivityPresenter(this);
         modifyActionBarAppearance();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     private void modifyActionBarAppearance() {
@@ -59,7 +66,26 @@ public class RDTJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void onBackPressed() {
-        getSupportFragmentManager().popBackStack();
+        presenter.onBackPress();
+    }
+
+
+    /**
+     *
+     * Performs default Android backpress action
+     * but also updates the current step state to the step of the fragment about to be popped
+     * from the backstack
+     */
+    @Override
+    public void onBackPress() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        int backStackSize = fragmentManager.getBackStackEntryCount();
+        if (backStackSize > 0) {
+            String stepName = fragmentManager.getBackStackEntryAt(backStackSize - 1).getName();
+            int stepNum = Integer.valueOf(stepName.substring(4));
+            RDTJsonFormFragment.setCurrentStep(stepNum);
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     public String getRdtType() {

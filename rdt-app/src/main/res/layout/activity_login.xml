@@ -20,7 +20,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:orientation="vertical"
-            android:paddingTop="@dimen/login_logo_top_padding">
+            android:paddingTop="@dimen/login_logo_top_padding"
+            android:layout_marginTop="50dp">
+
+            <ImageView
+                android:id="@+id/login_logo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_logo_height"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:contentDescription="logo"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_rdt_login_logo" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -29,7 +40,6 @@
                 android:textAllCaps="false"
                 android:textSize="30sp"
                 android:gravity="center"
-                android:layout_marginTop="90dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
 

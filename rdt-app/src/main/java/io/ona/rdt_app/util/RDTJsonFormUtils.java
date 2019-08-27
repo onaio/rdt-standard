@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +35,7 @@ import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.model.Patient;
+import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
@@ -64,45 +64,56 @@ public class RDTJsonFormUtils {
         }
 
         class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
+
             @Override
             protected ProfileImage doInBackground(Void... voids) {
-
                 ProfileImage profileImage = new ProfileImage();
-                OutputStream os = null;
+                OutputStream outputStream = null;
                 try {
                     if (!StringUtils.isBlank(entityId)) {
-                        final String absoluteFileName = DrishtiApplication.getAppDir()
-                                + File.separator + entityId + File.separator + UUID.randomUUID() + ".JPEG";
-
-                        File outputFile = new File(absoluteFileName);
-                        os = new FileOutputStream(outputFile);
-                        image.compress(Bitmap.CompressFormat.JPEG, 100, os);
-
-                        // insert into the db
-                        profileImage.setImageid(UUID.randomUUID().toString());
-                        profileImage.setAnmId(providerId);
-                        profileImage.setEntityID(entityId);
-                        profileImage.setFilepath(absoluteFileName);
-                        profileImage.setFilecategory(MULTI_VERSION);
-                        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                        ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
-                        imageRepo.add(profileImage);
-
-                        if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
-                            saveImageToGallery(context, image);
+                        final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
+                        final File imageFolder = new File(imgFolderPath);
+                        boolean success = true;
+                        if (!imageFolder.exists()) {
+                            success = imageFolder.mkdirs();
                         }
+                        // save captured image
+                        if (success) {
+                            String absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
+                            File outputFile = new File(absoluteFilePath);
+
+                            outputStream = new FileOutputStream(outputFile);
+                            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+                            // insert into db
+                            profileImage.setImageid(UUID.randomUUID().toString());
+                            profileImage.setAnmId(providerId);
+                            profileImage.setEntityID(entityId);
+                            profileImage.setFilepath(absoluteFilePath);
+                            profileImage.setFilecategory(MULTI_VERSION);
+                            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                            ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
+                            imageRepo.add(profileImage);
+                            if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                                saveImageToGallery(context, image);
+                            }
+                        } else {
+                            Timber.e(TAG, "Sorry, could not create image folder!");
+                        }
+
                     }
-                } catch (FileNotFoundException e) {
-                    Log.e(TAG, e.getStackTrace().toString());
+                } catch(FileNotFoundException e){
+                    Timber.e(TAG, e);
                 } finally {
-                    if (os != null) {
+                    if (outputStream != null) {
                         try {
-                            os.close();
+                            outputStream.close();
                         } catch (IOException e) {
-                            Log.e(TAG, e.getStackTrace().toString());
+                            Timber.e(TAG, e);
                         }
                     }
                 }
+
                 return profileImage;
             }
 
@@ -141,7 +152,7 @@ public class RDTJsonFormUtils {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
             context.startActivityForResult(intent, requestCode);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(TAG, e);
         }
     }
 
@@ -167,7 +178,7 @@ public class RDTJsonFormUtils {
             prePopulateFormFields(formJsonObject, patient, rdtId, 8);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JsonFormMissingStepCountException e) {
-            Log.e(TAG, e.getStackTrace().toString());
+            Timber.e(TAG, e);
         }
     }
 

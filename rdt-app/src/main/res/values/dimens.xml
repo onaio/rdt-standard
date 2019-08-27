@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="client_register_toolbar_margin">20dp</dimen>
+    <dimen name="default_text_size">20sp</dimen>
+    <dimen name="login_logo_height">80dp</dimen>
 </resources>
