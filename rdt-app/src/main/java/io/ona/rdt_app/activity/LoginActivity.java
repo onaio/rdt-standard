@@ -24,6 +24,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         String attributionsTxt = getResources().getString(R.string.login_attributions);
         tvLoginAttributions.setText(Html.fromHtml(attributionsTxt));
     }
+
     @Override
     protected int getContentView() {
         return R.layout.activity_login;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+        <ProgressBar
+            android:id="@+id/gps_progress_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:padding="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="@dimen/inner_components_spacing"
+            android:layout_marginEnd="@dimen/inner_components_spacing"
+            android:orientation="vertical">
+            <com.rey.material.widget.TextView
+                android:id="@+id/accuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Finding your location"
+                android:textColor="#696969"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/extra_bottom_margin"
+        android:layout_marginBottom="@dimen/extra_bottom_margin"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="7.5dp"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="7.5dp"
+            android:layout_weight="1"
+            android:text="@string/ok" />
+    </LinearLayout>
+</LinearLayout>

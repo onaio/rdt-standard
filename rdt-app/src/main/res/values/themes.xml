@@ -8,5 +8,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorControlActivated">@color/activated_toggle_btn_color</item>
+        <item name="android:dialogTheme">@style/RDTDialog</item>
+        <item name="android:alertDialogTheme">@style/AppThemeAlertDialog</item>
     </style>
 </resources>
