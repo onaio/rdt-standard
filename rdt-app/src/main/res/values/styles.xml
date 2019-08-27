@@ -14,4 +14,10 @@
     <style name="RDTDialogTextAppearance">
         <item name="android:textSize">10sp</item>
     </style>
+
+    <style name="AppThemeAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/opensrp_primary</item>
+        <item name="colorPrimaryDark">@color/opensrp_primary_dark</item>
+        <item name="colorAccent">@color/opensrp_accent</item>
+    </style>
 </resources>
