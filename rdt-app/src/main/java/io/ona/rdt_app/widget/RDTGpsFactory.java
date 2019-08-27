@@ -56,14 +56,14 @@ public class RDTGpsFactory extends GpsFactory {
     }
 
     private void stretchWidgetToFullScreen(JsonFormFragment formFragment, Context context) {
-        int margin = convertDpToPixels(context, 8);
+        int margin = convertDpToPixels(context, context.getResources().getDimension(com.vijay.jsonwizard.R.dimen.bottom_navigation_margin));
         ScrollView scrollView = ((RDTJsonFormFragment) formFragment).getRootLayout().findViewById(com.vijay.jsonwizard.R.id.scroll_view);
         scrollView.setFillViewport(true);
         scrollView.setPadding(0, 0, 0, margin);
         scrollView.findViewById(com.vijay.jsonwizard.R.id.main_layout).setPadding(margin, 0, margin, 0);
     }
 
-    private int convertDpToPixels(Context context, int dp) {
+    private int convertDpToPixels(Context context, float dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
         return (int) (dp * displayMetrics.density);
