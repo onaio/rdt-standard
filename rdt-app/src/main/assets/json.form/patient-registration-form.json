@@ -145,7 +145,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": "occupation",
         "v_required": {
           "value": "false",
           "err": ""

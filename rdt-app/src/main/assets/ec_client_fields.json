@@ -21,7 +21,8 @@
           "column_name": "age",
           "type": "Event",
           "json_mapping": {
-            "field": "age"
+            "field": "obs.fieldCode",
+            "concept": "age"
           }
         },
         {
@@ -51,7 +52,8 @@
           "column_name": "occupation",
           "type": "Event",
           "json_mapping": {
-            "field": "patient_occupation"
+            "field": "obs.fieldCode",
+            "concept": "patient_occupation"
           }
         },
         {
