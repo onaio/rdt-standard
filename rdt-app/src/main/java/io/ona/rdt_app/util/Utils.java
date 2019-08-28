@@ -12,6 +12,7 @@ import java.util.Date;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
+import io.ona.rdt_app.job.RDTSyncServiceJob;
 
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 
@@ -35,13 +36,13 @@ public class Utils {
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                 getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
 
-        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
+        RDTSyncServiceJob.scheduleJob(RDTSyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                         getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
     public static void scheduleJobsImmediately() {
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        RDTSyncServiceJob.scheduleJobImmediately(RDTSyncServiceJob.TAG);
     }
 
     public static boolean isImageSyncEnabled() {
