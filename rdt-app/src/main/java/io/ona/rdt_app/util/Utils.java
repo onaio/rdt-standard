@@ -35,19 +35,12 @@ public class Utils {
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                 getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
 
-        if (isImageSyncEnabled()) {
-            ImageUploadSyncServiceJob.scheduleJob(ImageUploadSyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
-                            getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
-        }
         SyncServiceJob.scheduleJob(SyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                         getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
     public static void scheduleJobsImmediately() {
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        if (isImageSyncEnabled()) {
-            ImageUploadSyncServiceJob.scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
-        }
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
     }
 
