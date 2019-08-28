@@ -16,6 +16,6 @@ actions:
 name: step1_history_of_visiting_endemic_areas
 description: Has a history of visiting Malaria endemic areas in Indonesia
 priority: 1
-condition: "step1_lives_in_endemic_area == 'Yes'"
+condition: "step1_lives_in_endemic_area == 'No'"
 actions:
   - "isRelevant = true"
