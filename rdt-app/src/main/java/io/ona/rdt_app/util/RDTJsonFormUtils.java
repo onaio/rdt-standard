@@ -119,12 +119,11 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(ProfileImage profileImage) {
-                // todo: update this to top, middle, bottom after capture lib upgrade
                 onImageSavedCallBack.onImageSaved(profileImage.getImageid()
                         + "," + System.currentTimeMillis()
-                        + "," + testResult.control
-                        + "," + testResult.testA
-                        + "," + testResult.testB);
+                        + "," + testResult.topLine
+                        + "," + testResult.middleLine
+                        + "," + testResult.bottomLine);
             }
         }
 

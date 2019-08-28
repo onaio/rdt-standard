@@ -122,11 +122,10 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
 
-                        // todo: modify this after upgrading rdt capture lib to top, mid, bottom
                         ImageProcessor.InterpretationResult interpretationResult = new ImageProcessor.InterpretationResult();
-                        interpretationResult.control = Boolean.valueOf(controlResult);
-                        interpretationResult.testA = Boolean.valueOf(pvResult);
-                        interpretationResult.testB = Boolean.valueOf(pfResult);
+                        interpretationResult.topLine = Boolean.valueOf(controlResult);
+                        interpretationResult.middleLine = Boolean.valueOf(pvResult);
+                        interpretationResult.bottomLine = Boolean.valueOf(pfResult);
 
                         populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, (JsonApi) widgetArgs.getContext());
                         if (!formFragment.next()) {
@@ -159,9 +158,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
         }
 
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(testResult.control), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(testResult.testA), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(testResult.testB), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(testResult.topLine), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(testResult.middleLine), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(testResult.bottomLine), "", "", "", false);
     }
 
     @Override
