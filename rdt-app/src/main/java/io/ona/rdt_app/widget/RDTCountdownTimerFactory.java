@@ -1,10 +1,14 @@
 package io.ona.rdt_app.widget;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
@@ -18,14 +22,16 @@ import io.ona.rdt_app.R;
 public class RDTCountdownTimerFactory extends CountDownTimerFactory {
 
     public static final String COUNTDOWN_TIMER_RESULT_READY_KEY = "countdown_timer_results_ready";
-    private JsonFormFragment formFragment;
-    private JSONObject stepObject;
     private View rootLayout;
+    private WidgetArgs widgetArgs;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
-        this.formFragment = formFragment;
-        this.stepObject = jsonObject;
+        widgetArgs = new WidgetArgs();
+        widgetArgs.withFormFragment(formFragment)
+                .withJsonObject(jsonObject)
+                .withContext(context);
+
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         rootLayout = views.get(0);
         return views;
@@ -39,10 +45,20 @@ public class RDTCountdownTimerFactory extends CountDownTimerFactory {
     }
 
     private void performOnExpiredAction(Context context, TextView tvInstructions) {
-        if (stepObject.optString(JsonFormConstants.KEY).equals(COUNTDOWN_TIMER_RESULT_READY_KEY)) {
+        if (widgetArgs.getJsonObject().optString(JsonFormConstants.KEY).equals(COUNTDOWN_TIMER_RESULT_READY_KEY)) {
             tvInstructions.setText(context.getString(R.string.time_expired));
         } else {
-            formFragment.next();
+            widgetArgs.getFormFragment().next();
+        }
+        vibrate();
+    }
+
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) widgetArgs.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(3000, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            vibrator.vibrate(3000);
         }
     }
 }

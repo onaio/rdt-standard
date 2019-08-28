@@ -27,7 +27,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_login; // todo: change this to rdt login layout
+        return R.layout.activity_login;
     }
 
     @Override
