@@ -32,13 +32,7 @@
         <activity android:name=".activity.PatientRegisterActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
-        <activity android:name="activity.RDTJsonFormActivity"
+        <activity android:name=".activity.RDTJsonFormActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
 
