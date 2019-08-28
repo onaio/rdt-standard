@@ -296,6 +296,14 @@
             "field": "obs.fieldCode",
             "concept": "app_version"
           }
+        },
+        {
+          "column_name": "gps_coordinates",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "gps"
+          }
         }
       ]
     }

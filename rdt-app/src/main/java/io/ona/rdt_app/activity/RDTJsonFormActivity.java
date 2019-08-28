@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
@@ -66,9 +67,23 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
         presenter.onBackPress();
     }
 
+
+    /**
+     *
+     * Performs default Android backpress action
+     * but also updates the current step state to the step of the fragment about to be popped
+     * from the backstack
+     */
     @Override
     public void onBackPress() {
-        getSupportFragmentManager().popBackStack();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        int backStackSize = fragmentManager.getBackStackEntryCount();
+        if (backStackSize > 0) {
+            String stepName = fragmentManager.getBackStackEntryAt(backStackSize - 1).getName();
+            int stepNum = Integer.valueOf(stepName.substring(4));
+            RDTJsonFormFragment.setCurrentStep(stepNum);
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     public String getRdtType() {
