@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.util.Utils;
@@ -61,7 +62,8 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     }
 
     private String createNameAndAgeLabel(String name, String age) {
-        return name + ", " + age;
+        String formattedAge = StringUtils.isBlank(age) ? "10" : age.split(".")[0];
+        return name + ", " + formattedAge;
     }
 
     private void attachPatientOnclickListener(View view) {
