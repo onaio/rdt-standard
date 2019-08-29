@@ -8,9 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -31,9 +33,15 @@ import io.ona.rdt_app.presenter.RDTJsonFormFragmentPresenter;
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
     private final String TAG = RDTJsonFormFragment.class.getName();
-    private static int currentStep = 1;
-    private static int prevStep;
+    private static int currentStep = 1; // step of the fragment coming into view
+    private static int prevStep; // step of the fragment coming out of view
     private boolean moveBackOneStep = false;
+    private View rootLayout;
+
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+       rootLayout = super.onCreateView(inflater, container, savedInstanceState);
+       return rootLayout;
+    }
 
     @Override
     public void onResume() {
@@ -173,11 +181,23 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         currentStep = currStep;
     }
 
+
+    /**
+     *
+     * Replace current fragment in container with the next {@link JsonFormFragment}
+     * Also uses the step name as the name of the fragment to be replaced and added to the backstack
+     *
+     * @param next
+     */
     @Override
     public void transactThis(JsonFormFragment next) {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(com.vijay.jsonwizard.R.anim.enter_from_right, com.vijay.jsonwizard.R.anim.exit_to_left, com.vijay.jsonwizard.R.anim.enter_from_left,
                         com.vijay.jsonwizard.R.anim.exit_to_right).replace(com.vijay.jsonwizard.R.id.container, next).addToBackStack("step" + prevStep)
                 .commitAllowingStateLoss(); // use https://stackoverflow.com/a/10261449/9782187
+    }
+
+    public View getRootLayout() {
+        return rootLayout;
     }
 }
