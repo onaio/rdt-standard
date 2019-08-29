@@ -82,7 +82,7 @@
         "key": "sex",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "sex",
+        "openmrs_entity_id": "gender",
         "type": "native_radio",
         "label": "Gender",
         "options": [
@@ -121,8 +121,8 @@
       {
         "key": "age",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_age",
-        "openmrs_entity_id": "age",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "value": "",
         "calculation": {
@@ -142,8 +142,8 @@
       {
         "key": "patient_occupation",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "occupation",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "edit_type": "occupation",
         "v_required": {
