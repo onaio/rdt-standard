@@ -62,7 +62,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     }
 
     private String createNameAndAgeLabel(String name, String age) {
-        String formattedAge = StringUtils.isBlank(age) ? "10" : age.split(".")[0];
+        long formattedAge = StringUtils.isBlank(age) ? 10 : Math.round(Double.valueOf(age));
         return name + ", " + formattedAge;
     }
 
