@@ -8,6 +8,7 @@ import com.android.volley.toolbox.ImageLoader;
 
 import org.smartregister.util.OpenSRPImageListener;
 
+import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
@@ -36,7 +37,7 @@ public class RDTImageListener extends OpenSRPImageListener {
         RDTApplication application = RDTApplication.getInstance();
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), image, application.getContext().allSharedPreferences().fetchRegisteredANM(), BuildConfig.BASE_ENTITY_ID,  false, new OnImageSavedCallBack() {
+            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), image, application.getContext().allSharedPreferences().fetchRegisteredANM(), BuildConfig.BASE_ENTITY_ID,  new ImageProcessor.InterpretationResult(), new OnImageSavedCallBack() {
                 @Override
                 public void onImageSaved(String imageLocation) {
                     // do nothing

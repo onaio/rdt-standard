@@ -3,6 +3,7 @@ package io.ona.rdt_app.presenter;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
@@ -20,7 +21,7 @@ public class CustomRDTCapturePresenter {
         this.interactor = new CustomRDTCaptureInteractor(this);
     }
 
-    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, boolean testResult, OnImageSavedCallBack onImageSavedCallBack) {
+    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, ImageProcessor.InterpretationResult  testResult, OnImageSavedCallBack onImageSavedCallBack) {
         interactor.saveImage(context, image, providerId, baseEntityId, testResult, onImageSavedCallBack);
     }
 }
