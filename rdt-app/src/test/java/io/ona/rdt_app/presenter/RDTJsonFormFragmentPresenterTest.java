@@ -45,7 +45,7 @@ public class RDTJsonFormFragmentPresenterTest {
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
         presenter.attachView((JsonFormFragment) fragment);
-        presenter.performNextButtonAction("step5", null);
+        presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class));
         verify(fragment).moveToNextStep();
     }
@@ -57,7 +57,7 @@ public class RDTJsonFormFragmentPresenterTest {
 
         JsonFormFragment formFragment = mock(JsonFormFragment.class);
         when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
-        presenter.performNextButtonAction("step8", null);
+        presenter.performNextButtonAction("step9", null);
         verify(fragment).transactFragment(eq(formFragment));
     }
 

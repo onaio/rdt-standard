@@ -12,6 +12,8 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
 
+import io.ona.rdt_app.sync.RDTSyncIntentService;
+
 /**
  * Created by Vincent Karuri on 18/06/2019
  */
@@ -23,8 +25,8 @@ public class RDTJobCreator implements JobCreator {
     @Override
     public Job create(@NonNull String tag) {
         switch (tag) {
-            case SyncServiceJob.TAG:
-                return new SyncServiceJob(SyncIntentService.class);
+            case RDTSyncServiceJob.TAG:
+                return new RDTSyncServiceJob(RDTSyncIntentService.class);
             case ImageUploadSyncServiceJob.TAG:
                 return new ImageUploadServiceJob();
             case PullUniqueIdsServiceJob.TAG:
