@@ -79,10 +79,10 @@
         }
       },
       {
-        "key": "patient_gender",
+        "key": "sex",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
+        "openmrs_entity_id": "sex",
         "type": "native_radio",
         "label": "Gender",
         "options": [

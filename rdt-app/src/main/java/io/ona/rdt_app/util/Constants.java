@@ -17,7 +17,6 @@ public interface Constants {
     String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
     String PATIENT_NAME = "patient_name";
-    String PATIENT_GENDER = "patient_gender";
     String PATIENT_AGE = "patient_age";
     String CONDITIONAL_SAVE = "conditional_save";
     String MULTI_VERSION = "multi_version";
