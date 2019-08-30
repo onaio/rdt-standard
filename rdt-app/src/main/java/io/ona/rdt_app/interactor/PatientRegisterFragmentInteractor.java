@@ -87,7 +87,9 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
             @Override
             protected void onPostExecute(Void result) {
-                onFormSavedCallback.onFormSaved();
+                if (onFormSavedCallback != null) {
+                    onFormSavedCallback.onFormSaved();
+                }
             }
         }
         new SaveFormTask().execute();
