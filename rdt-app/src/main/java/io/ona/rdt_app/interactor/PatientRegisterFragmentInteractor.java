@@ -160,6 +160,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             Obs obs = new Obs();
             obs.setFieldCode(phoneProperty.getKey());
             obs.setValue(phoneProperty.getValue());
+            obs.setFormSubmissionField(phoneProperty.getKey());
             event.addObs(obs);
         }
     }
