@@ -110,7 +110,6 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
                 int birthYear = calendar.get(Calendar.YEAR) - age;
                 String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
                 field.put(VALUE, date);
-
             }
         }
     }
