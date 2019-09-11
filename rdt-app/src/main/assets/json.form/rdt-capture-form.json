@@ -537,7 +537,6 @@
             "text": "invalid"
           }
         ],
-        "value": "negative",
         "v_required": {
           "value": "true",
           "err": "Please select the RDT reader result"
