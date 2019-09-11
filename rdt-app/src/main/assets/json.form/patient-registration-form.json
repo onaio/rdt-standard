@@ -638,7 +638,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has a history of visiting Malaria endemic areas in Indonesia?",
+        "label": "Does the patient have a history of visiting Malaria endemic areas?",
         "options": [
           {
             "key": "Yes",
