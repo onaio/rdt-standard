@@ -14,4 +14,4 @@ description: Calculated Age
 priority: 1
 condition: "step1_patient_dob != ''"
 actions:
-  - 'calculation = helper.getDifferenceDays(step1_patient_dob) / 365.25'
+  - 'calculation = (int) (helper.getDifferenceDays(step1_patient_dob) / 365.25)'
