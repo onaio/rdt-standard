@@ -12,7 +12,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt_app.application.RDTApplication;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 
 import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static org.junit.Assert.assertEquals;

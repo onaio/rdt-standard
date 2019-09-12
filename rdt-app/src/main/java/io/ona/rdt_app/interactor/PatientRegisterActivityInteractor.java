@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import io.ona.rdt_app.util.FormLauncher;
 
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;

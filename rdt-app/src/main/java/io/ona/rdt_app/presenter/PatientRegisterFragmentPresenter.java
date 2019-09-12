@@ -7,7 +7,7 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
 import io.ona.rdt_app.interactor.PatientRegisterFragmentInteractor;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.RDT_PATIENTS;

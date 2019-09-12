@@ -23,7 +23,7 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.text.MessageFormat;
 
 import io.ona.rdt_app.R;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import io.ona.rdt_app.util.Constants;
 
 /**

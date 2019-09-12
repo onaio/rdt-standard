@@ -1,4 +1,4 @@
-package io.ona.rdt_app.model;
+package io.ona.rdt_app.domain;
 
 /**
  * Created by Vincent Karuri on 08/07/2019

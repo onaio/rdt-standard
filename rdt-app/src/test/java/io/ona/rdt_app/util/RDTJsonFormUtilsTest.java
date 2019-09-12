@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_ID;

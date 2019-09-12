@@ -34,7 +34,7 @@ import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import timber.log.Timber;
 
 import static io.ona.rdt_app.util.Constants.BULLET_DOT;

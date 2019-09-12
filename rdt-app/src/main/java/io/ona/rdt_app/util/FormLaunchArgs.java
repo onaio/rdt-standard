@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import org.json.JSONObject;
 
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 
 /**
  * Created by Vincent Karuri on 01/08/2019
