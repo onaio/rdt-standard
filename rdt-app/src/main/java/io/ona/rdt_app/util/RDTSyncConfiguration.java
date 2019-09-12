@@ -11,6 +11,10 @@ import io.ona.rdt_app.application.RDTApplication;
  * Created by Vincent Karuri on 14/06/2019
  */
 public class RDTSyncConfiguration extends SyncConfiguration {
+
+    final int CONNECT_TIMEOUT = 150000;
+    final int READ_TIMEOUT = 150000;
+
     @Override
     public int getSyncMaxRetries() {
         return BuildConfig.MAX_SYNC_RETRIES;
@@ -50,5 +54,15 @@ public class RDTSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean updateClientDetailsTable() {
         return false;
+    }
+
+    @Override
+    public int getReadTimeout() {
+        return READ_TIMEOUT;
+    }
+
+    @Override
+    public int getConnectTimeout() {
+        return CONNECT_TIMEOUT;
     }
 }

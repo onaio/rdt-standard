@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 
 /**
  * Created by Vincent Karuri on 13/06/2019

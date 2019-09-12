@@ -8,15 +8,15 @@ import org.json.JSONObject;
 import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import io.ona.rdt_app.util.FormLauncher;
 
 import static io.ona.rdt_app.util.Constants.CONDITIONAL_SAVE;
+import static io.ona.rdt_app.util.Constants.DBConstants.SEX;
 import static io.ona.rdt_app.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt_app.util.Constants.ENTITY_ID;
 import static io.ona.rdt_app.util.Constants.PATIENT_NAME;
 import static io.ona.rdt_app.util.Constants.PATIENT_REGISTRATION;
-import static io.ona.rdt_app.util.Constants.SEX;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getString;
 

@@ -167,7 +167,7 @@
         "value": "0",
         "rdt_id_lbl_addresses": "step7:lbl_rdt_id, step8:lbl_rdt_id, step9:lbl_rdt_id, step18:lbl_rdt_id, step19:lbl_rdt_id",
         "rdt_id_address": "step17:rdt_id",
-        "expiration_date_address": "step3:expiration_date_reader",
+        "expiration_date_address": "step4:expiration_date_reader",
         "expired_page_address": "step6",
         "v_numeric": {
           "value": "true",
@@ -537,7 +537,6 @@
             "text": "invalid"
           }
         ],
-        "value": "negative",
         "v_required": {
           "value": "true",
           "err": "Please select the RDT reader result"

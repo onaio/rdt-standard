@@ -77,7 +77,9 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
                     final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
                     String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
                     EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
-                    closeRDTId(eventClient.getEvent());
+                    if (RDT_TESTS.equals(bindType)) {
+                        closeRDTId(eventClient.getEvent());
+                    }
                     clientProcessor.processClient(Collections.singletonList(eventClient));
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
@@ -87,7 +89,9 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
             @Override
             protected void onPostExecute(Void result) {
-                onFormSavedCallback.onFormSaved();
+                if (onFormSavedCallback != null) {
+                    onFormSavedCallback.onFormSaved();
+                }
             }
         }
         new SaveFormTask().execute();
@@ -155,8 +159,8 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             Obs obs = new Obs();
             obs.setFieldCode(phoneProperty.getKey());
             obs.setValue(phoneProperty.getValue());
+            obs.setFormSubmissionField(phoneProperty.getKey());
             event.addObs(obs);
         }
     }
 }
-

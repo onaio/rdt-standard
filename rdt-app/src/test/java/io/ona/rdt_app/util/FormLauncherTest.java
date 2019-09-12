@@ -22,7 +22,7 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
 
 import io.ona.rdt_app.application.RDTApplication;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 
 import static io.ona.rdt_app.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TEST_FORM;

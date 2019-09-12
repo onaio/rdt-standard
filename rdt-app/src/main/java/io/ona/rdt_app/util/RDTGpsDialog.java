@@ -1,6 +1,5 @@
 package io.ona.rdt_app.util;
 
-
 import android.location.Location;
 import android.os.Handler;
 

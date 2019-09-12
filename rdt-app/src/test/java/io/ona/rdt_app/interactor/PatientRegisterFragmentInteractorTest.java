@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 import io.ona.rdt_app.application.RDTApplication;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import io.ona.rdt_app.util.Constants;
 import io.ona.rdt_app.util.FormLaunchArgs;
 import io.ona.rdt_app.util.RDTJsonFormUtils;

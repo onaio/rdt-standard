@@ -15,7 +15,7 @@ import java.util.HashMap;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
 import io.ona.rdt_app.contract.PatientRegisterFragmentContract;
-import io.ona.rdt_app.model.Patient;
+import io.ona.rdt_app.domain.Patient;
 import io.ona.rdt_app.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import io.ona.rdt_app.viewholder.PatientRegisterViewHolder;
