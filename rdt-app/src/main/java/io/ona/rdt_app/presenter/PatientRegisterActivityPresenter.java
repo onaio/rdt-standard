@@ -10,8 +10,8 @@ import java.util.List;
 
 import io.ona.rdt_app.callback.OnFormSavedCallback;
 import io.ona.rdt_app.contract.PatientRegisterActivityContract;
-import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.domain.Patient;
+import io.ona.rdt_app.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 import timber.log.Timber;
 

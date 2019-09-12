@@ -163,5 +163,4 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             event.addObs(obs);
         }
     }
-
 }

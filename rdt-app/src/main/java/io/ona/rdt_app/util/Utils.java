@@ -2,7 +2,6 @@ package io.ona.rdt_app.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.job.SyncServiceJob;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +10,6 @@ import java.util.Date;
 
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
-import io.ona.rdt_app.job.ImageUploadSyncServiceJob;
 import io.ona.rdt_app.job.RDTSyncServiceJob;
 
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;

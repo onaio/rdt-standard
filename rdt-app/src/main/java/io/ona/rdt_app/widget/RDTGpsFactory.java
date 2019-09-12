@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.rey.material.widget.Button;
 import com.vijay.jsonwizard.domain.WidgetArgs;

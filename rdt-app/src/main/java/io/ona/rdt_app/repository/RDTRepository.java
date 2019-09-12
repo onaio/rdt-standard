@@ -54,6 +54,4 @@ public class RDTRepository extends Repository {
         }
         return writableDatabase;
     }
-
-
 }
