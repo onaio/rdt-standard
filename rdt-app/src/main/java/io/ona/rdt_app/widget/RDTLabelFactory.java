@@ -50,6 +50,8 @@ public class RDTLabelFactory extends LabelFactory {
                 public void onClick(View v) {
                     if (Constants.LBL_CARE_START.equals(key)) {
                         ((RDTJsonFormActivity) formFragment.getActivity()).setRdtType(Constants.CARESTART_RDT);
+                    } else {
+                        ((RDTJsonFormActivity) formFragment.getActivity()).setRdtType(Constants.ONA_RDT);
                     }
                     ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
                 }

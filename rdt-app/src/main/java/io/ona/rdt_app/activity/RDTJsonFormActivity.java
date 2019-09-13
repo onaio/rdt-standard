@@ -95,4 +95,10 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     public void setRdtType(String rdtType) {
         this.rdtType = rdtType;
     }
+
+    @Override
+    public void onStop() {
+        setRdtType(ONA_RDT);
+        super.onStop();
+    }
 }
