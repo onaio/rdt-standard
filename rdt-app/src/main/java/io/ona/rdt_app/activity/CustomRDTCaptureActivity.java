@@ -14,6 +14,7 @@ import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
@@ -62,6 +63,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             keyVals.put(TEST_CONTROL_RESULT, vals[2]);
             keyVals.put(TEST_PV_RESULT, vals[3]);
             keyVals.put(TEST_PF_RESULT, vals[4]);
+            keyVals.put(RDT_CAPTURE_DURATION, vals[5]);
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");

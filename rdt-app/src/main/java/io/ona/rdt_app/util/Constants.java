@@ -66,5 +66,6 @@ public interface Constants {
         String TEST_CONTROL_RESULT = "test_control_result";
         String TEST_PV_RESULT = "test_pv_result";
         String TEST_PF_RESULT = "test_pf_result";
+        String RDT_CAPTURE_DURATION = "rdt_capture_duration";
     }
 }
