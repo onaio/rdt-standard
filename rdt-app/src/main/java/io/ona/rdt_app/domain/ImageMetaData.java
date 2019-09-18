@@ -13,6 +13,7 @@ public class ImageMetaData {
     private String providerId;
     private String baseEntityId;
     private ImageProcessor.InterpretationResult interpretationResult;
+    private long timeTaken;
 
     public Bitmap getImage() {
         return image;
@@ -30,6 +31,10 @@ public class ImageMetaData {
         return interpretationResult;
     }
 
+    public long getTimeTaken() {
+        return timeTaken;
+    }
+
     public void setImage(Bitmap image) {
         this.image = image;
     }
@@ -44,6 +49,10 @@ public class ImageMetaData {
 
     public void setInterpretationResult(ImageProcessor.InterpretationResult interpretationResult) {
         this.interpretationResult = interpretationResult;
+    }
+
+    public void setTimeTaken(long timeTaken) {
+        this.timeTaken = timeTaken;
     }
 
     public ImageMetaData withImage(Bitmap image) {
@@ -63,6 +72,11 @@ public class ImageMetaData {
 
     public ImageMetaData withInterpretationResult(ImageProcessor.InterpretationResult interpretationResult) {
         setInterpretationResult(interpretationResult);
+        return this;
+    }
+
+    public ImageMetaData withTimeTaken(long timeTaken) {
+        setTimeTaken(timeTaken);
         return this;
     }
 }

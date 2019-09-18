@@ -47,7 +47,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
-                .withInterpretationResult(interpretationResult);
+                .withInterpretationResult(interpretationResult)
+                .withTimeTaken(timeTaken);
 
         presenter.saveImage(this, imageMetaData, this);
     }

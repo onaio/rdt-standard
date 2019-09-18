@@ -128,7 +128,8 @@ public class RDTJsonFormUtils {
                         + "," + System.currentTimeMillis()
                         + "," + testResult.topLine
                         + "," + testResult.middleLine
-                        + "," + testResult.bottomLine);
+                        + "," + testResult.bottomLine
+                        + "," + imageMetaData.getTimeTaken());
             }
         }
 
