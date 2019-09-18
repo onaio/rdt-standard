@@ -34,6 +34,7 @@ import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
+import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.domain.Patient;
 import timber.log.Timber;
 
@@ -55,8 +56,12 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImageToDisk(final Context context, final Bitmap image, final String providerId,
-                                             final String entityId, final ImageProcessor.InterpretationResult testResult, final OnImageSavedCallBack onImageSavedCallBack) {
+    public static void saveStaticImageToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallBack onImageSavedCallBack) {
+
+        Bitmap image = imageMetaData.getImage();
+        String providerId = imageMetaData.getProviderId();
+        String entityId = imageMetaData.getBaseEntityId();
+        ImageProcessor.InterpretationResult testResult = imageMetaData.getInterpretationResult();
 
         if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);

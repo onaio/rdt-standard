@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -19,7 +20,7 @@ public class CustomRDTCaptureInteractor {
         this.presenter = presenter;
     }
 
-    public void saveImage(Context context, Bitmap image, String providerId, String baseEntityId, ImageProcessor.InterpretationResult testResult, OnImageSavedCallBack onImageSavedCallBack) {
-        RDTJsonFormUtils.saveStaticImageToDisk(context, image, providerId, baseEntityId, testResult,  onImageSavedCallBack);
+    public void saveImage(Context context, ImageMetaData imageMetaData, OnImageSavedCallBack onImageSavedCallBack) {
+        RDTJsonFormUtils.saveStaticImageToDisk(context, imageMetaData, onImageSavedCallBack);
     }
 }

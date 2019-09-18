@@ -10,6 +10,7 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
+import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
@@ -41,7 +42,14 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     protected void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-        presenter.saveImage(this, convertByteArrayToBitmap(captureByteArray), providerID, baseEntityId, interpretationResult, this);
+
+        ImageMetaData imageMetaData = new ImageMetaData();
+        imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
+                .withBaseEntityId(baseEntityId)
+                .withProviderId(providerID)
+                .withInterpretationResult(interpretationResult);
+
+        presenter.saveImage(this, imageMetaData, this);
     }
 
     @Override
