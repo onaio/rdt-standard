@@ -182,7 +182,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Had malaria in the last year?",
+        "label": "Had malaria in the past year?",
         "options": [
           {
             "key": "Yes",
@@ -199,7 +199,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has patient had malaria in the last year?"
+          "err": "Has patient had malaria in the past year?"
         }
       },
       {
@@ -208,7 +208,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Had a fever (temperature ≥ 37.5°C) in the last 3 days?",
+        "label": "Had a fever (temperature ≥ 37.5°C) in the past 3 days?",
         "options": [
           {
             "key": "Yes",
@@ -234,7 +234,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Experienced abnormal headaches in the last 48 hours?",
+        "label": "Experienced abnormal headaches in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -260,7 +260,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Felt nausea in the last 48 hours?",
+        "label": "Felt nausea in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -277,7 +277,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient felt nausea in the last 48 hours?"
+          "err": "Has the patient felt nausea in the past 48 hours?"
         }
       },
       {
@@ -286,7 +286,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has vomited in the last 48 hours?",
+        "label": "Has vomited in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -303,7 +303,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient vomited in the last 48 hours?"
+          "err": "Has the patient vomited in the past 48 hours?"
         }
       },
       {
@@ -312,7 +312,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has experienced diarrhea in the last 48 hours?",
+        "label": "Has experienced diarrhea in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -329,7 +329,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient experienced diarrhea in the last 48 hours?"
+          "err": "Has the patient experienced diarrhea in the past 48 hours?"
         }
       },
       {
@@ -338,7 +338,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has experienced chills in the last 48 hours?",
+        "label": "Has experienced chills in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -355,7 +355,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient experienced chills in the last 48 hours?"
+          "err": "Has the patient experienced chills in the past 48 hours?"
         }
       },
       {
@@ -364,7 +364,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has felt body aches in the last 48 hours?",
+        "label": "Has felt body aches in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -381,7 +381,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient felt body aches in the last 48 hours?"
+          "err": "Has the patient felt body aches in the past 48 hours?"
         }
       },
       {
@@ -390,7 +390,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Had muscle pain in the last 48 hours?",
+        "label": "Had muscle pain in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -407,7 +407,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient had muscle pain in the  last 48 hours?"
+          "err": "Has the patient had muscle pain in the  past 48 hours?"
         }
       },
       {
@@ -416,7 +416,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Had chest pain in the last 48 hours?",
+        "label": "Had chest pain in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -433,7 +433,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient had chest pain in the  last 48 hours?"
+          "err": "Has the patient had chest pain in the  past 48 hours?"
         }
       },
       {
@@ -442,7 +442,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has felt abnormal fatigue in the last 48 hours?",
+        "label": "Has felt abnormal fatigue in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -459,7 +459,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient felt abnormal fatigue in the last 48 hours?"
+          "err": "Has the patient felt abnormal fatigue in the past 48 hours?"
         }
       },
       {
@@ -468,7 +468,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Had breathing problems in the last 48 hours?",
+        "label": "Had breathing problems in the past 48 hours?",
         "options": [
           {
             "key": "Yes",
@@ -485,7 +485,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has the patient had breathing problems in the  last 48 hours?"
+          "err": "Has the patient had breathing problems in the  past 48 hours?"
         }
       },
       {
@@ -560,7 +560,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Anyone else in the household diagnosed with malaria in the last 3 months?",
+        "label": "Anyone else in the household diagnosed with malaria in the past 3 months?",
         "options": [
           {
             "key": "Yes",
@@ -577,7 +577,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Has anyone else in the household been diagnosed with malaria in the last 3 months?"
+          "err": "Has anyone else in the household been diagnosed with malaria in the past 3 months?"
         }
       },
       {
@@ -586,7 +586,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Was household/compound sprayed in the last 3 months?",
+        "label": "Was household/compound sprayed in the past 3 months?",
         "options": [
           {
             "key": "Yes",
@@ -603,7 +603,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Was the household/compound sprayed in the last 3 months?"
+          "err": "Was the household/compound sprayed in the past 3 months?"
         }
       },
       {
