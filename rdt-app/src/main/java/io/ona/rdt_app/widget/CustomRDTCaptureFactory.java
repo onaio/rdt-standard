@@ -37,6 +37,7 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
@@ -116,7 +117,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         String controlResult = extras.getString(TEST_CONTROL_RESULT);
                         String pvResult = extras.getString(TEST_PV_RESULT);
                         String pfResult = extras.getString(TEST_PF_RESULT);
-
+                        String imageCaptureDuration = extras.getString(RDT_CAPTURE_DURATION);
 
                         String[] imgIDAndTimeStamp = extras.getString(SAVED_IMG_ID_AND_TIME_STAMP).split(",");
                         String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
@@ -127,7 +128,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         interpretationResult.middleLine = Boolean.valueOf(pvResult);
                         interpretationResult.bottomLine = Boolean.valueOf(pfResult);
 
-                        populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, (JsonApi) widgetArgs.getContext());
+                        populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, imageCaptureDuration, (JsonApi) widgetArgs.getContext());
                         if (!formFragment.next()) {
                             formFragment.save(true);
                         }
@@ -145,7 +146,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         return resultListener;
     }
 
-    private void populateRelevantFields(String[] imgIDAndTimeStamp, String imgIdAddress, String imgTimeStampAddress, ImageProcessor.InterpretationResult testResult, JsonApi jsonApi) throws JSONException {
+    private void populateRelevantFields(String[] imgIDAndTimeStamp, String imgIdAddress, String imgTimeStampAddress, ImageProcessor.InterpretationResult testResult, String imgCaptureDuration, JsonApi jsonApi) throws JSONException {
         String[] stepAndId = new String[0];
 
         stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
@@ -161,6 +162,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(testResult.topLine), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(testResult.middleLine), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(testResult.bottomLine), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_DURATION, imgCaptureDuration, "", "", "", false);
     }
 
     @Override

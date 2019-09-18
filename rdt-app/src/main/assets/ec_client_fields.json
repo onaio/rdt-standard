@@ -322,6 +322,14 @@
             "field": "obs.fieldCode",
             "concept": "gps"
           }
+        },
+        {
+          "column_name": "rdt_capture_duration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rdt_capture_duration"
+          }
         }
       ]
     }

@@ -60,6 +60,7 @@ public interface Constants {
         String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
         String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
         String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
+        String RDT_CAPTURE_DURATION = "rdt_capture_duration";
     }
 
     interface Test {
