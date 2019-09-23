@@ -34,7 +34,7 @@ android {
             buildConfigField "String", "ANM_ID", "\"indtester1\""
             buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
             buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
-            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
@@ -45,7 +45,7 @@ android {
             buildConfigField "String", "ANM_ID", "\"indtester1\""
             buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
             buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
-            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
