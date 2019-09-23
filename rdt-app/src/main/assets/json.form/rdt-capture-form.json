@@ -505,6 +505,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_duration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

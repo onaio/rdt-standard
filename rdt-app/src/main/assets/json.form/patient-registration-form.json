@@ -651,7 +651,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Does the patient have a history of visiting Malaria endemic areas in Indonesia?"
+          "err": "Does the patient have a history of visiting Malaria endemic areas?"
         },
         "relevance": {
           "rules-engine": {

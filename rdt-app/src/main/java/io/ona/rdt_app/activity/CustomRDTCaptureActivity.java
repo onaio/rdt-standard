@@ -10,9 +10,11 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
+import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
@@ -41,7 +43,15 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     protected void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-        presenter.saveImage(this, convertByteArrayToBitmap(captureByteArray), providerID, baseEntityId, interpretationResult, this);
+
+        ImageMetaData imageMetaData = new ImageMetaData();
+        imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
+                .withBaseEntityId(baseEntityId)
+                .withProviderId(providerID)
+                .withInterpretationResult(interpretationResult)
+                .withTimeTaken(timeTaken);
+
+        presenter.saveImage(this, imageMetaData, this);
     }
 
     @Override
@@ -53,6 +63,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             keyVals.put(TEST_CONTROL_RESULT, vals[2]);
             keyVals.put(TEST_PV_RESULT, vals[3]);
             keyVals.put(TEST_PF_RESULT, vals[4]);
+            keyVals.put(RDT_CAPTURE_DURATION, vals[5]);
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");

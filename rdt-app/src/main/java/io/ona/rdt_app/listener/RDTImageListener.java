@@ -12,6 +12,7 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 /**
@@ -35,9 +36,16 @@ public class RDTImageListener extends OpenSRPImageListener {
     public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
         Bitmap image = response.getBitmap();
         RDTApplication application = RDTApplication.getInstance();
+
+        ImageMetaData imageMetaData = new ImageMetaData();
+        imageMetaData.withImage(image)
+                .withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
+                .withBaseEntityId(BuildConfig.BASE_ENTITY_ID)
+                .withInterpretationResult(new ImageProcessor.InterpretationResult());
+
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), image, application.getContext().allSharedPreferences().fetchRegisteredANM(), BuildConfig.BASE_ENTITY_ID,  new ImageProcessor.InterpretationResult(), new OnImageSavedCallBack() {
+            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallBack() {
                 @Override
                 public void onImageSaved(String imageLocation) {
                     // do nothing
