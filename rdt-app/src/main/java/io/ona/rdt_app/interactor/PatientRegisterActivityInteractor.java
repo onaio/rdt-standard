@@ -39,7 +39,7 @@ public class PatientRegisterActivityInteractor extends FormLauncher {
             if (conditionalSave != null && conditionalSave.optInt(VALUE) == 1){
                 String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                 String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                String baseEntityId = getString(jsonFormObject, ENTITY_ID).split("-")[0];
+                String baseEntityId = getString(jsonFormObject, ENTITY_ID);
                 rdtPatient = new Patient(name, sex, baseEntityId);
             }
         }
