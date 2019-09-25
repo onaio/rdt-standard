@@ -18,4 +18,8 @@
     <string name="txt_record_btn">Locate me</string>
     <string name="txt_location_generation_instructions">We\'ll need your location before proceeding to the test.
 Please click on the <i>Locate Me</i> button at the bottom of the screen and we will automatically determine your location.</string>
+    <string name="drawer_menu_item_sync">Sync</string>
+    <string name="drawer_menu_item_logout">Logout</string>
+    <string name="drawer_menu_item_image_sync">Image sync</string>
+    <string name="search_hint">Search</string>
 </resources>

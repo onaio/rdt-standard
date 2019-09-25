@@ -64,7 +64,7 @@
         android:layout_marginEnd="10dp"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="10dp"
-        android:hint="Search"
+        android:hint="@string/search_hint"
         android:textColorHint="#C3C3C3"/>
 
 </RelativeLayout>
