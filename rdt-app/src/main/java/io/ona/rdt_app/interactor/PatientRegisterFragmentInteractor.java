@@ -115,10 +115,9 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     }
 
     private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
-        org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.LBL_RDT_ID);
+        org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.RDT_ID);
         if (rdtIdObs != null) {
-            // todo: extract rdt id directly from its hidden field in future
-            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString().split(":")[1].trim();
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
             RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
         }
     }
