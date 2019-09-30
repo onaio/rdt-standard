@@ -206,9 +206,11 @@ public class RDTJsonFormUtils {
             // pre-populate patient fields
             if (patient != null) {
                 if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+                    field.put(VALUE, patient.getPatientName());
                     field.put("text", patient.getPatientName());
                     fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+                    field.put(VALUE, patient.getPatientSex());
                     field.put("text", patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
                     fieldsPopulated++;
                 }
