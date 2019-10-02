@@ -36,6 +36,7 @@ import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
+import static io.ona.rdt_app.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
@@ -163,6 +164,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(testResult.middleLine), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(testResult.bottomLine), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_DURATION, imgCaptureDuration, "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_TYPE, ((RDTJsonFormActivity) widgetArgs.getContext()).getRdtType(), "", "", "", false);
     }
 
     @Override
