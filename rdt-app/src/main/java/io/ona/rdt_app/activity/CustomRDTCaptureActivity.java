@@ -8,11 +8,14 @@ import java.util.Map;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
+import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
+import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
@@ -35,6 +38,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);
         providerID = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         baseEntityId = getIntent().getStringExtra(ENTITY_ID);
@@ -51,11 +55,13 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
                 .withInterpretationResult(interpretationResult)
                 .withTimeTaken(timeTaken);
 
+        showProgressDialog(R.string.please_wait, R.string.processing_image, this);
         presenter.saveImage(this, imageMetaData, this);
     }
 
     @Override
     public void onImageSaved(String imageMetaData) {
+        hideProgressDialog();
         if (imageMetaData != null) {
             Map<String, String> keyVals = new HashMap();
             String[] vals = imageMetaData.split(",");
