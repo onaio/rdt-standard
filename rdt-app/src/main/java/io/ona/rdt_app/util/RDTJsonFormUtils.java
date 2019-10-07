@@ -105,7 +105,6 @@ public class RDTJsonFormUtils {
                         } else {
                             Timber.e(TAG, "Sorry, could not create image folder!");
                         }
-
                     }
                 } catch(FileNotFoundException e){
                     Timber.e(TAG, e);
