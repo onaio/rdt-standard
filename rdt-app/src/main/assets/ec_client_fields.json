@@ -330,6 +330,14 @@
             "field": "obs.fieldCode",
             "concept": "rdt_capture_duration"
           }
+        },
+        {
+          "column_name": "rdt_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rdt_type"
+          }
         }
       ]
     }
