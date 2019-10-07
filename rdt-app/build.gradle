@@ -38,8 +38,9 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
-            buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
+            buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'true'
         }
+
         release {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
             buildConfigField "String", "ANM_ID", "\"indtester1\""
