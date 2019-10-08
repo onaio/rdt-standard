@@ -40,7 +40,7 @@ public class RDTImageListener extends OpenSRPImageListener {
         ImageMetaData imageMetaData = new ImageMetaData();
         imageMetaData.withImage(image)
                 .withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
-                .withBaseEntityId(BuildConfig.BASE_ENTITY_ID)
+                .withBaseEntityId("base_entity_id") // todo: pass real base entity id here
                 .withInterpretationResult(new ImageProcessor.InterpretationResult());
 
         if (image != null) {
