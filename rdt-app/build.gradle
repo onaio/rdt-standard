@@ -30,28 +30,22 @@ android {
 
     buildTypes {
         debug {
+            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
-            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '50'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'true'
         }
 
         release {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
-            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
-        }
-
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
 
@@ -65,6 +59,20 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "version"
+
+    productFlavors{
+        indonesia {
+            resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
+            versionNameSuffix "v" + versionName + "-release-indonesia"
+        }
+
+        kenya {
+            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
+            versionNameSuffix "v" + versionName + "-release-kenya"
+        }
     }
 }
 
