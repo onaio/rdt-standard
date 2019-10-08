@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +55,10 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String RDT_NAME = "rdt_name";
 
+    private static final long CAPTURE_TIMEOUT_MS = 15000;
+
+    public static final String CAPTURE_TIMEOUT = "capture_timeout";
+
     private String baseEntityId;
     private WidgetArgs widgetArgs;
 
@@ -99,6 +104,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(ENTITY_ID, baseEntityId);
             intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
+            intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
             new LaunchRDTCameraTask().execute(intent);
         }
     }

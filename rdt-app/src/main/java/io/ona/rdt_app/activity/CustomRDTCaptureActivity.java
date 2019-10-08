@@ -1,6 +1,7 @@
 package io.ona.rdt_app.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
+import static io.ona.rdt_app.widget.CustomRDTCaptureFactory.CAPTURE_TIMEOUT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -42,6 +44,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         presenter = new CustomRDTCapturePresenter(this);
         providerID = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         baseEntityId = getIntent().getStringExtra(ENTITY_ID);
+        showManualCaptureBtnDelayed(getIntent().getLongExtra(CAPTURE_TIMEOUT, 0));
     }
 
     @Override
@@ -80,5 +83,15 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     public void onBackPressed() {
         // do nothing
+    }
+
+    private void showManualCaptureBtnDelayed(long milliseconds) {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, milliseconds);
     }
 }
