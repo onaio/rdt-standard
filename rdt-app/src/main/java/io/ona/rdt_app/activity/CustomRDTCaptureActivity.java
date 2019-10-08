@@ -3,6 +3,7 @@ package io.ona.rdt_app.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
+                mImageQualityView.findViewById(R.id.btn_manual_img_capture).setVisibility(View.VISIBLE);
             }
         }, milliseconds);
     }
