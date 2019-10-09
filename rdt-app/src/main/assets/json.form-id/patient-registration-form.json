@@ -156,15 +156,15 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
-            "text": “Tidak”
+            "text": "Tidak"
           },
           {
             "key": "Not Answered",
-            "text": “Tidak dijawab”
+            "text": "Tidak dijawab"
           }
         ],
         "v_required": {
@@ -182,11 +182,11 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
-            "text": “Tidak”
+            "text": "Tidak"
           },
           {
             "key": "Not Answered",
@@ -208,15 +208,15 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
-            "text": “Tidak”
+            "text": "Tidak"
           },
           {
             "key": "Not Answered",
-            "text": “Tidak dijawab”
+            "text": "Tidak dijawab"
           }
         ],
         "v_required": {
@@ -234,7 +234,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -260,7 +260,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -286,7 +286,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -312,7 +312,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -338,7 +338,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -364,7 +364,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -390,7 +390,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -416,7 +416,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -442,7 +442,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -468,7 +468,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -494,7 +494,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -527,7 +527,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -560,7 +560,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -586,7 +586,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -612,7 +612,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -638,7 +638,7 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
@@ -671,11 +671,11 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Ya”
+            "text": "Ya"
           },
           {
             "key": "No",
-            "text": “Tidak”
+            "text": "Tidak"
           },
           {
             "key": "Not Answered",
