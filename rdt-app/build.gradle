@@ -13,7 +13,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
-        versionName "1.6.0"
+        versionName "v1.6.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
     }
@@ -67,13 +67,13 @@ android {
         indonesia {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionNameSuffix "v" + versionName + "-release-indonesia"
+            versionNameSuffix "-ID"
         }
 
         kenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"en\""
-            versionNameSuffix "v" + versionName + "-release-kenya"
+            versionNameSuffix  "-KE"
         }
     }
 }
