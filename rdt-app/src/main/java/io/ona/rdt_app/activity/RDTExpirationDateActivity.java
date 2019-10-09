@@ -19,7 +19,7 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        RDTApplication.getInstance().updateLocale();
+        RDTApplication.getInstance().updateLocale(this);
         super.onCreate(savedInstanceState);
     }
 

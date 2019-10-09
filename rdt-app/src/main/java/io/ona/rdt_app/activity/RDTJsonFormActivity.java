@@ -30,7 +30,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RDTApplication.getInstance().updateLocale();
+        RDTApplication.getInstance().updateLocale(this);
         super.onCreate(savedInstanceState);
         formUtils = new RDTJsonFormUtils();
         presenter = new RDTJsonFormActivityPresenter(this);

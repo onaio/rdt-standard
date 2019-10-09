@@ -20,7 +20,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        RDTApplication.getInstance().updateLocale();
+        RDTApplication.getInstance().updateLocale(this);
         super.onCreate(savedInstanceState);
         TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
         String attributionsTxt = getResources().getString(R.string.login_attributions);

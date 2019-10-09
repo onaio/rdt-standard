@@ -46,7 +46,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RDTApplication.getInstance().updateLocale();
+        RDTApplication.getInstance().updateLocale(this);
         super.onCreate(savedInstanceState);
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
