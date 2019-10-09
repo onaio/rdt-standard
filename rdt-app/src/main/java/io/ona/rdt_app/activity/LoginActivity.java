@@ -22,6 +22,10 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public void onCreate(Bundle savedInstanceState) {
         RDTApplication.getInstance().updateLocale(this);
         super.onCreate(savedInstanceState);
+        addAttributionText();
+    }
+
+    private void addAttributionText() {
         RDTApplication.getInstance().updateLocale(this);
         TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
         String attributionsTxt = getResources().getString(R.string.login_attributions);
