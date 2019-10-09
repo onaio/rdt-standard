@@ -1,6 +1,8 @@
 package io.ona.rdt_app.application;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
@@ -18,6 +20,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
@@ -143,7 +146,6 @@ public class RDTApplication extends DrishtiApplication {
        return new String[]{Constants.DBConstants.NAME};
     }
 
-
     public Map<String, String> getPhoneProperties() {
         if (phoneProperties.size() == 0) {
             phoneProperties.put(PHONE_MANUFACTURER, Build.MANUFACTURER);
@@ -152,5 +154,13 @@ public class RDTApplication extends DrishtiApplication {
             phoneProperties.put(APP_VERSION, BuildConfig.VERSION_NAME);
         }
         return phoneProperties;
+    }
+
+    public void updateLocale() {
+        Locale locale = new Locale(BuildConfig.LOCALE);
+        Resources resources = getApplicationContext().getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = locale;
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }

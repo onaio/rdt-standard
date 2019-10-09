@@ -66,11 +66,13 @@ android {
     productFlavors{
         indonesia {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"id\""
             versionNameSuffix "v" + versionName + "-release-indonesia"
         }
 
         kenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"en\""
             versionNameSuffix "v" + versionName + "-release-kenya"
         }
     }

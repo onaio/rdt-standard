@@ -10,6 +10,7 @@ import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import io.ona.rdt_app.R;
+import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.presenter.LoginPresenter;
 
 /**
@@ -19,6 +20,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        RDTApplication.getInstance().updateLocale();
         super.onCreate(savedInstanceState);
         TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
         String attributionsTxt = getResources().getString(R.string.login_attributions);
