@@ -160,14 +160,9 @@ public class RDTApplication extends DrishtiApplication {
 
     public void updateLocale(android.content.Context context) {
         Locale locale = new Locale(BuildConfig.LOCALE);
-        saveLocale(BuildConfig.LOCALE);
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-    }
-
-    public void saveLocale(String lang) {
-        getContext().allSharedPreferences().savePreference("Language", lang);
     }
 }
