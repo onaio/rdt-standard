@@ -1,6 +1,8 @@
 package io.ona.rdt_app.application;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -158,9 +160,14 @@ public class RDTApplication extends DrishtiApplication {
 
     public void updateLocale() {
         Locale locale = new Locale(BuildConfig.LOCALE);
+        saveLocale(BuildConfig.LOCALE);
         Resources resources = getApplicationContext().getResources();
         Configuration configuration = resources.getConfiguration();
-        configuration.locale = locale;
+        configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
+
+    public void saveLocale(String lang) {
+        getContext().allSharedPreferences().savePreference("Language", lang);
     }
 }

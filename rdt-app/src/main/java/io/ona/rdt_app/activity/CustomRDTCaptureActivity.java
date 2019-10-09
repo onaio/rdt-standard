@@ -37,6 +37,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        RDTApplication.getInstance().updateLocale();
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);
