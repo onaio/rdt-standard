@@ -766,12 +766,17 @@
         }
       },
       {
+        "key": "children_under_5_lbl",
+        "type": "label",
+        "text": "Berapa banyak anak dibawah usia 5 tahun yang tinggal di rumah Anda?",
+        "text_color": "#000000"
+      },
+      {
         "key": "children_under_5",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "label": "Berapa banyak anak dibawah usia 5 tahun yang tinggal di rumah Anda?",
         "v_required": {
           "value": "true",
           "err": "Berapa banyak anak dibawah usia 5 tahun di rumah?"
