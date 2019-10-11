@@ -8,6 +8,7 @@ import java.util.Map;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.domain.ImageMetaData;
@@ -21,6 +22,8 @@ import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
+import static io.ona.rdt_app.util.Utils.hideProgressDialogFromFG;
+import static io.ona.rdt_app.util.Utils.showProgressDialogInFG;
 import static io.ona.rdt_app.util.Utils.updateLocale;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
@@ -49,6 +52,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     public void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
 
+        showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
+
         ImageMetaData imageMetaData = new ImageMetaData();
         imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
@@ -61,6 +66,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     public void onImageSaved(String imageMetaData) {
+        hideProgressDialogFromFG(this);
         if (imageMetaData != null) {
             Map<String, String> keyVals = new HashMap();
             String[] vals = imageMetaData.split(",");
