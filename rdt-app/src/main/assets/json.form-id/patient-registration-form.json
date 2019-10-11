@@ -688,6 +688,100 @@
         }
       },
       {
+        "key": "latrine_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah ada jamban di rumah pasien?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Tidak dijawab"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jamban di rumah pasien?"
+        }
+      },
+      {
+        "key": "running_water_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah ada air mengalir di rumah pasien?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Tidak dijawab"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Air mengalir di rumah pasien?"
+        }
+      },
+      {
+        "key": "immunizations_up_to_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah catatan imunisasi pasien telah diperbarui?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          },
+          {
+            "key": "Not Answered",
+            "text": "Tidak dijawab"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Semua imunisasi terbarui?"
+        }
+      },
+      {
+        "key": "children_under_5",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "label": "Berapa banyak anak dibawah usia 5 tahun yang tinggal di rumah Anda?",
+        "v_required": {
+          "value": "true",
+          "err": "Berapa banyak anak dibawah usia 5 tahun di rumah?"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        }
+      },
+      {
         "key": "conditional_save",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
