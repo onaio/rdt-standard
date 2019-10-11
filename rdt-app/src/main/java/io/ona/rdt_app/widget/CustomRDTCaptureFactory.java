@@ -130,7 +130,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         interpretationResult.bottomLine = Boolean.valueOf(pfResult);
 
                         populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, imageCaptureDuration, (JsonApi) widgetArgs.getContext());
-                        if (!formFragment.getFragmentPresenter().hasNextStep()) {
+                        if (!formFragment.next()) {
                             formFragment.save(true);
                         }
                     } catch (JSONException e) {

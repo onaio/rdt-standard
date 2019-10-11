@@ -49,8 +49,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     public void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
 
-        new RDTJsonFormFragment().next();
-
         ImageMetaData imageMetaData = new ImageMetaData();
         imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
