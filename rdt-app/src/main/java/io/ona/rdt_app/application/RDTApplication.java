@@ -157,12 +157,4 @@ public class RDTApplication extends DrishtiApplication {
         }
         return phoneProperties;
     }
-
-    public void updateLocale(android.content.Context context) {
-        Locale locale = new Locale(BuildConfig.LOCALE);
-        Resources resources = context.getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(locale);
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-    }
 }

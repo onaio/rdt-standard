@@ -1,5 +1,8 @@
 package io.ona.rdt_app.util;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
@@ -7,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
@@ -63,5 +67,13 @@ public class Utils {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.parse(dateStr);
+    }
+
+    public static void updateLocale(android.content.Context context) {
+        Locale locale = new Locale(BuildConfig.LOCALE);
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }

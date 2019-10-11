@@ -20,6 +20,7 @@ import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
+import static io.ona.rdt_app.util.Utils.updateLocale;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -35,7 +36,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RDTApplication.getInstance().updateLocale(this);
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);

@@ -2,15 +2,12 @@ package io.ona.rdt_app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
-import android.widget.TextView;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ExpirationDateActivity;
-import io.ona.rdt_app.R;
-import io.ona.rdt_app.application.RDTApplication;
 
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE;
 import static io.ona.rdt_app.util.Constants.EXPIRATION_DATE_RESULT;
+import static io.ona.rdt_app.util.Utils.updateLocale;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -19,7 +16,7 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        RDTApplication.getInstance().updateLocale(this);
+        updateLocale(this);
         super.onCreate(savedInstanceState);
     }
 
