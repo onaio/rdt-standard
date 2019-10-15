@@ -22,6 +22,7 @@ public class ImageMetaData {
     private long imageTimeStamp;
     private ImageProcessor.InterpretationResult interpretationResult;
     private long captureDuration;
+    private String imageToSave;
 
     public Bitmap getFullImage() {
         return fullImage;
@@ -67,6 +68,10 @@ public class ImageMetaData {
         return imageTimeStamp;
     }
 
+    public String getImageToSave() {
+        return imageToSave;
+    }
+
     public void setFullImage(Bitmap fullImage) {
         this.fullImage = fullImage;
     }
@@ -109,6 +114,10 @@ public class ImageMetaData {
 
     public void setImageTimeStamp(long imageTimeStamp) {
         this.imageTimeStamp = imageTimeStamp;
+    }
+
+    public void setImageToSave(String imageToSave) {
+        this.imageToSave = imageToSave;
     }
 
     public ImageMetaData withFullImage(Bitmap fullImage) {

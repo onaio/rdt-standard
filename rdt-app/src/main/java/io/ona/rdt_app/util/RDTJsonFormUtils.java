@@ -44,6 +44,8 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMAGE;
+import static io.ona.rdt_app.util.Constants.Test.FULL_IMAGE;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -82,26 +84,11 @@ public class RDTJsonFormUtils {
                     }
 
                     if (success) {
-                        // save full image
-                        ProfileImage profileImage = new ProfileImage();
-                        Pair writeResult = writeImageToDisk(imgFolderPath, fullImage, context);
-                        boolean isSuccessfulWrite = (Boolean) writeResult.first;
-                        String absoluteFilePath = (String) writeResult.second;
-                        if (isSuccessfulWrite) {
-                            saveImgDetails(absoluteFilePath, imageMetaData, profileImage);
-                            imageMetaData.setFullImageId(profileImage.getImageid());
-                            imageMetaData.setImageTimeStamp(System.currentTimeMillis());
-                        }
+                        imageMetaData.setImageToSave(FULL_IMAGE);
+                        saveImage(imgFolderPath, imageMetaData.getFullImage(), context, imageMetaData);
 
-                        // save cropped image
-                        profileImage = new ProfileImage();
-                        writeResult = writeImageToDisk(imgFolderPath, croppedImage, context);
-                        isSuccessfulWrite = (Boolean) writeResult.first;
-                        absoluteFilePath = (String) writeResult.second;
-                        if (isSuccessfulWrite) {
-                            saveImgDetails(absoluteFilePath, imageMetaData, profileImage);
-                            imageMetaData.setCroppedImageId(profileImage.getImageid());
-                        }
+                        imageMetaData.setImageToSave(CROPPED_IMAGE);
+                        saveImage(imgFolderPath, imageMetaData.getCroppedImage(), context, imageMetaData);
                     } else {
                         Timber.e(TAG, "Sorry, could not create fullImage folder!");
                     }
@@ -119,6 +106,21 @@ public class RDTJsonFormUtils {
         new SaveImageTask().execute();
     }
 
+    private static void saveImage(String imgFolderPath, Bitmap image, Context context, ImageMetaData imageMetaData) {
+        ProfileImage profileImage = new ProfileImage();
+        Pair writeResult = writeImageToDisk(imgFolderPath, image, context);
+        boolean isSuccessfulWrite = (Boolean) writeResult.first;
+        String absoluteFilePath = (String) writeResult.second;
+        if (isSuccessfulWrite) {
+            saveImgDetails(absoluteFilePath, imageMetaData, profileImage);
+            if (FULL_IMAGE.equals(imageMetaData.getImageToSave())) {
+                imageMetaData.setFullImageId(profileImage.getImageid());
+                imageMetaData.setImageTimeStamp(System.currentTimeMillis());
+            } else {
+                imageMetaData.setCroppedImageId(profileImage.getImageid());
+            }
+        }
+    }
 
     private static void saveImgDetails(String absoluteFilePath, ImageMetaData imageMetaData, ProfileImage profileImage) {
         profileImage.setImageid(UUID.randomUUID().toString());

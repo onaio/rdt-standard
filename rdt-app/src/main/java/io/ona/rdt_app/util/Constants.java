@@ -74,5 +74,7 @@ public interface Constants {
         String FLASH_ON = "flash_on";
         String CASSETTE_BOUNDARY = "cassette_boundary";
         String CROPPED_IMG_ID = "cropped_img_id";
+        String FULL_IMAGE = "full_image";
+        String CROPPED_IMAGE = "cropped_image";
     }
 }
