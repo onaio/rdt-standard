@@ -1,7 +1,8 @@
 package io.ona.rdt_app.domain;
 
 import android.graphics.Bitmap;
-import android.graphics.Point;
+
+import org.opencv.core.Point;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 

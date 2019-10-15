@@ -54,13 +54,17 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
 
-        final byte[] captureByteArray = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
+        final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
+        final byte[] croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
         ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withFullImage(convertByteArrayToBitmap(captureByteArray))
+        imageMetaData.withFullImage(convertByteArrayToBitmap(fullImage))
                 .withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
                 .withInterpretationResult(interpretationResult)
-                .withTimeTaken(timeTaken);
+                .withTimeTaken(timeTaken)
+                .withCroppedImage(convertByteArrayToBitmap(croppedImage))
+                .withFlashStatus(captureResult.flashEnabled)
+                .withBoundary(captureResult.boundary.toArray());
 
         presenter.saveImage(this, imageMetaData, this);
     }
