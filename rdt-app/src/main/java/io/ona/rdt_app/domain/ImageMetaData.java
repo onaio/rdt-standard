@@ -17,8 +17,11 @@ public class ImageMetaData {
     private Point[] boundary;
     private String providerId;
     private String baseEntityId;
+    private String fullImageId;
+    private String croppedImageId;
+    private long imageTimeStamp;
     private ImageProcessor.InterpretationResult interpretationResult;
-    private long timeTaken;
+    private long captureDuration;
 
     public Bitmap getFullImage() {
         return fullImage;
@@ -36,8 +39,8 @@ public class ImageMetaData {
         return interpretationResult;
     }
 
-    public long getTimeTaken() {
-        return timeTaken;
+    public long getCaptureDuration() {
+        return captureDuration;
     }
 
     public Bitmap getCroppedImage() {
@@ -50,6 +53,18 @@ public class ImageMetaData {
 
     public Point[] getBoundary() {
         return boundary;
+    }
+
+    public String getFullImageId() {
+        return fullImageId;
+    }
+
+    public String getCroppedImageId() {
+        return croppedImageId;
+    }
+
+    public long getImageTimeStamp() {
+        return imageTimeStamp;
     }
 
     public void setFullImage(Bitmap fullImage) {
@@ -68,8 +83,8 @@ public class ImageMetaData {
         this.interpretationResult = interpretationResult;
     }
 
-    public void setTimeTaken(long timeTaken) {
-        this.timeTaken = timeTaken;
+    public void setCaptureDuration(long captureDuration) {
+        this.captureDuration = captureDuration;
     }
 
     public void setCroppedImage(Bitmap croppedImage) {
@@ -82,6 +97,18 @@ public class ImageMetaData {
 
     public void setBoundary(Point[] boundary) {
         this.boundary = boundary;
+    }
+
+    public void setFullImageId(String fullImageId) {
+        this.fullImageId = fullImageId;
+    }
+
+    public void setCroppedImageId(String croppedImageId) {
+        this.croppedImageId = croppedImageId;
+    }
+
+    public void setImageTimeStamp(long imageTimeStamp) {
+        this.imageTimeStamp = imageTimeStamp;
     }
 
     public ImageMetaData withFullImage(Bitmap fullImage) {
@@ -105,7 +132,7 @@ public class ImageMetaData {
     }
 
     public ImageMetaData withTimeTaken(long timeTaken) {
-        setTimeTaken(timeTaken);
+        setCaptureDuration(timeTaken);
         return this;
     }
 

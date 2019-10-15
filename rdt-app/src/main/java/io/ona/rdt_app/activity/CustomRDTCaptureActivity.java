@@ -70,16 +70,16 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     @Override
-    public void onImageSaved(String imageMetaData) {
+    public void onImageSaved(ImageMetaData imageMetaData) {
         hideProgressDialogFromFG(this);
         if (imageMetaData != null) {
             Map<String, String> keyVals = new HashMap();
-            String[] vals = imageMetaData.split(",");
-            keyVals.put(FULL_IMG_ID_AND_TIME_STAMP, vals[0] + "," + vals[1]);
-            keyVals.put(TEST_CONTROL_RESULT, vals[2]);
-            keyVals.put(TEST_PV_RESULT, vals[3]);
-            keyVals.put(TEST_PF_RESULT, vals[4]);
-            keyVals.put(RDT_CAPTURE_DURATION, vals[5]);
+            ImageProcessor.InterpretationResult interpretationResult = imageMetaData.getInterpretationResult();
+            keyVals.put(FULL_IMG_ID_AND_TIME_STAMP, imageMetaData.getFullImageId() + "," + imageMetaData.getImageTimeStamp());
+            keyVals.put(TEST_CONTROL_RESULT, String.valueOf(interpretationResult.topLine));
+            keyVals.put(TEST_PV_RESULT, String.valueOf(interpretationResult.middleLine));
+            keyVals.put(TEST_PF_RESULT, String.valueOf(interpretationResult.bottomLine));
+            keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(imageMetaData.getCaptureDuration()));
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");

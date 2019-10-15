@@ -33,6 +33,7 @@ import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.domain.Patient;
@@ -56,7 +57,7 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImageToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallBack onImageSavedCallBack) {
+    public static void saveStaticImageToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallback onImageSavedCallBack) {
 
         Bitmap image = imageMetaData.getFullImage();
         String providerId = imageMetaData.getProviderId();
@@ -123,12 +124,9 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(ProfileImage profileImage) {
-                onImageSavedCallBack.onImageSaved(profileImage.getImageid()
-                        + "," + System.currentTimeMillis()
-                        + "," + testResult.topLine
-                        + "," + testResult.middleLine
-                        + "," + testResult.bottomLine
-                        + "," + imageMetaData.getTimeTaken());
+                imageMetaData.setFullImageId(profileImage.getImageid());
+                imageMetaData.setImageTimeStamp(System.currentTimeMillis());
+                onImageSavedCallBack.onImageSaved(imageMetaData);
             }
         }
 
