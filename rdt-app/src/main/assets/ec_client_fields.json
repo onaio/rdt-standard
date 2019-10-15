@@ -252,11 +252,35 @@
           }
         },
         {
-          "column_name": "image_id",
+          "column_name": "full_img_id",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "rdt_capture"
+          }
+        },
+        {
+          "column_name": "cropped_img_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cropped_img_id"
+          }
+        },
+        {
+          "column_name": "flash_on",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "flash_on"
+          }
+        },
+        {
+          "column_name": "cassette_boundary",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cassette_boundary"
           }
         },
         {
