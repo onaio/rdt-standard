@@ -37,7 +37,7 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TYPE;
-import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
@@ -120,7 +120,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         String pfResult = extras.getString(TEST_PF_RESULT);
                         String imageCaptureDuration = extras.getString(RDT_CAPTURE_DURATION);
 
-                        String[] imgIDAndTimeStamp = extras.getString(SAVED_IMG_ID_AND_TIME_STAMP).split(",");
+                        String[] imgIDAndTimeStamp = extras.getString(FULL_IMG_ID_AND_TIME_STAMP).split(",");
                         String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
                         String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
 

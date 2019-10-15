@@ -31,7 +31,6 @@ public interface Constants {
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
     String PROVIDER_ID = "provider_id";
     String EXPIRED_PAGE_ADDRESS = "expired_page_address";
-    String SAVED_IMG_ID_AND_TIME_STAMP = "saved_img_id_and_time_stamp";
 
     String PHONE_MODEL = "phone_model";
     String PHONE_OS_VERSION = "phone_os_version";
@@ -71,5 +70,9 @@ public interface Constants {
         String TEST_PV_RESULT = "test_pv_result";
         String TEST_PF_RESULT = "test_pf_result";
         String RDT_CAPTURE_DURATION = "rdt_capture_duration";
+        String FULL_IMG_ID_AND_TIME_STAMP = "full_img_id_and_time_stamp";
+        String FLASH_ON = "flash_on";
+        String CASSETTE_BOUNDARY = "cassette_boundary";
+        String CROPPED_IMG_ID = "cropped_img_id";
     }
 }

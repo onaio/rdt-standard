@@ -7,16 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
+import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.domain.ImageMetaData;
-import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
@@ -49,11 +49,12 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     @Override
-    public void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+    public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
 
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
 
+        final byte[] captureByteArray = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
         ImageMetaData imageMetaData = new ImageMetaData();
         imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
@@ -70,7 +71,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         if (imageMetaData != null) {
             Map<String, String> keyVals = new HashMap();
             String[] vals = imageMetaData.split(",");
-            keyVals.put(SAVED_IMG_ID_AND_TIME_STAMP, vals[0] + "," + vals[1]);
+            keyVals.put(FULL_IMG_ID_AND_TIME_STAMP, vals[0] + "," + vals[1]);
             keyVals.put(TEST_CONTROL_RESULT, vals[2]);
             keyVals.put(TEST_PV_RESULT, vals[3]);
             keyVals.put(TEST_PF_RESULT, vals[4]);
