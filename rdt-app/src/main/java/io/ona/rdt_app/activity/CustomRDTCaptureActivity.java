@@ -85,7 +85,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(imageMetaData.getCaptureDuration()));
             keyVals.put(FLASH_ON, String.valueOf(imageMetaData.getFlashStatus()));
             keyVals.put(CROPPED_IMG_ID, imageMetaData.getCroppedImageId());
-            keyVals.put(CASSETTE_BOUNDARY, imageMetaData.getBoundary().toString()); // todo: look into how these points are serialized
+            keyVals.put(CASSETTE_BOUNDARY, presenter.formatPoints(imageMetaData.getBoundary()));
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");
