@@ -44,7 +44,7 @@ public class RDTImageListener extends OpenSRPImageListener {
 
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallBack() {
+            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallBack() {
                 @Override
                 public void onImageSaved(String imageLocation) {
                     // do nothing

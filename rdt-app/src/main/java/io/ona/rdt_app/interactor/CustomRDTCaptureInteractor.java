@@ -19,6 +19,6 @@ public class CustomRDTCaptureInteractor {
     }
 
     public void saveImage(Context context, ImageMetaData imageMetaData, OnImageSavedCallback onImageSavedCallBack) {
-        RDTJsonFormUtils.saveStaticImageToDisk(context, imageMetaData, onImageSavedCallBack);
+        RDTJsonFormUtils.saveStaticImagesToDisk(context, imageMetaData, onImageSavedCallBack);
     }
 }

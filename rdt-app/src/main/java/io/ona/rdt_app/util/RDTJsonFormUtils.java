@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Pair;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.BuildConfig;
@@ -57,80 +57,111 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImageToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallback onImageSavedCallBack) {
+    public static void saveStaticImagesToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallback onImageSavedCallBack) {
 
-        Bitmap image = imageMetaData.getFullImage();
+        Bitmap fullImage = imageMetaData.getFullImage();
+        Bitmap croppedImage = imageMetaData.getCroppedImage();
         String providerId = imageMetaData.getProviderId();
         String entityId = imageMetaData.getBaseEntityId();
-        ImageProcessor.InterpretationResult testResult = imageMetaData.getInterpretationResult();
-
-        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+        if (fullImage == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
             return;
         }
 
-        class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
+        class SaveImageTask extends AsyncTask<Void, Void, Void> {
 
             @Override
-            protected ProfileImage doInBackground(Void... voids) {
-                ProfileImage profileImage = new ProfileImage();
-                OutputStream outputStream = null;
-                try {
-                    if (!StringUtils.isBlank(entityId)) {
-                        final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
-                        final File imageFolder = new File(imgFolderPath);
-                        boolean success = true;
-                        if (!imageFolder.exists()) {
-                            success = imageFolder.mkdirs();
-                        }
-                        // save captured image
-                        if (success) {
-                            String absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
-                            File outputFile = new File(absoluteFilePath);
+            protected Void doInBackground(Void... voids) {
 
-                            outputStream = new FileOutputStream(outputFile);
-                            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-                            // insert into db
-                            profileImage.setImageid(UUID.randomUUID().toString());
-                            profileImage.setAnmId(providerId);
-                            profileImage.setEntityID(entityId);
-                            profileImage.setFilepath(absoluteFilePath);
-                            profileImage.setFilecategory(MULTI_VERSION);
-                            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                            ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
-                            imageRepo.add(profileImage);
-                            if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
-                                saveImageToGallery(context, image);
-                            }
-                        } else {
-                            Timber.e(TAG, "Sorry, could not create image folder!");
-                        }
+                if (!StringUtils.isBlank(entityId)) {
+                    final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
+                    final File imageFolder = new File(imgFolderPath);
+                    boolean success = true;
+                    if (!imageFolder.exists()) {
+                        success = imageFolder.mkdirs();
                     }
-                } catch(FileNotFoundException e){
-                    Timber.e(TAG, e);
-                } finally {
-                    if (outputStream != null) {
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
-                            Timber.e(TAG, e);
+
+                    if (success) {
+                        // save full image
+                        ProfileImage profileImage = new ProfileImage();
+                        Pair writeResult = writeImageToDisk(imgFolderPath, fullImage, context);
+                        boolean isSuccessfulWrite = (Boolean) writeResult.first;
+                        String absoluteFilePath = (String) writeResult.second;
+                        if (isSuccessfulWrite) {
+                            saveImgDetails(absoluteFilePath, imageMetaData, profileImage);
+                            imageMetaData.setFullImageId(profileImage.getImageid());
+                            imageMetaData.setImageTimeStamp(System.currentTimeMillis());
                         }
+
+                        // save cropped image
+                        profileImage = new ProfileImage();
+                        writeResult = writeImageToDisk(imgFolderPath, croppedImage, context);
+                        isSuccessfulWrite = (Boolean) writeResult.first;
+                        absoluteFilePath = (String) writeResult.second;
+                        if (isSuccessfulWrite) {
+                            saveImgDetails(absoluteFilePath, imageMetaData, profileImage);
+                            imageMetaData.setCroppedImageId(profileImage.getImageid());
+                        }
+                    } else {
+                        Timber.e(TAG, "Sorry, could not create fullImage folder!");
                     }
                 }
 
-                return profileImage;
+                return null;
             }
 
             @Override
-            protected void onPostExecute(ProfileImage profileImage) {
-                imageMetaData.setFullImageId(profileImage.getImageid());
-                imageMetaData.setImageTimeStamp(System.currentTimeMillis());
+            protected void onPostExecute(Void voids) {
                 onImageSavedCallBack.onImageSaved(imageMetaData);
             }
         }
 
         new SaveImageTask().execute();
+    }
+
+
+    private static void saveImgDetails(String absoluteFilePath, ImageMetaData imageMetaData, ProfileImage profileImage) {
+        profileImage.setImageid(UUID.randomUUID().toString());
+        profileImage.setAnmId(imageMetaData.getProviderId());
+        profileImage.setEntityID(imageMetaData.getBaseEntityId());
+        profileImage.setFilepath(absoluteFilePath);
+        profileImage.setFilecategory(MULTI_VERSION);
+        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+
+        ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
+        imageRepo.add(profileImage);
+    }
+
+
+    private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
+
+        OutputStream outputStream = null;
+        String absoluteFilePath = null;
+        try {
+            absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
+            File outputFile = new File(absoluteFilePath);
+
+            outputStream = new FileOutputStream(outputFile);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+            if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                saveImageToGallery(context, image);
+            }
+
+            return new Pair<>(true, absoluteFilePath);
+        } catch(FileNotFoundException e){
+            Timber.e(TAG, e);
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    Timber.e(TAG, e);
+                }
+            }
+        }
+
+        return new Pair<>(false, absoluteFilePath);
     }
 
     private static void saveImageToGallery(Context context, Bitmap image) {
