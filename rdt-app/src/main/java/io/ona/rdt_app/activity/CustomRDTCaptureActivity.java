@@ -16,6 +16,9 @@ import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
+import static io.ona.rdt_app.util.Constants.Test.CASSETTE_BOUNDARY;
+import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMG_ID;
+import static io.ona.rdt_app.util.Constants.Test.FLASH_ON;
 import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
@@ -80,6 +83,9 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             keyVals.put(TEST_PV_RESULT, String.valueOf(interpretationResult.middleLine));
             keyVals.put(TEST_PF_RESULT, String.valueOf(interpretationResult.bottomLine));
             keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(imageMetaData.getCaptureDuration()));
+            keyVals.put(FLASH_ON, String.valueOf(imageMetaData.getFlashStatus()));
+            keyVals.put(CROPPED_IMG_ID, imageMetaData.getCroppedImageId());
+            keyVals.put(CASSETTE_BOUNDARY, imageMetaData.getBoundary().toString()); // todo: look into how these points are serialized
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");
