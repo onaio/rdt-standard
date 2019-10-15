@@ -66,7 +66,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
                 .withInterpretationResult(interpretationResult)
                 .withTimeTaken(timeTaken)
                 .withCroppedImage(convertByteArrayToBitmap(croppedImage))
-                .withFlashStatus(captureResult.flashEnabled)
+                .withFlashOn(captureResult.flashEnabled)
                 .withBoundary(captureResult.boundary.toArray());
 
         presenter.saveImage(this, imageMetaData, this);
@@ -83,7 +83,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             keyVals.put(TEST_PV_RESULT, String.valueOf(interpretationResult.middleLine));
             keyVals.put(TEST_PF_RESULT, String.valueOf(interpretationResult.bottomLine));
             keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(imageMetaData.getCaptureDuration()));
-            keyVals.put(FLASH_ON, String.valueOf(imageMetaData.getFlashStatus()));
+            keyVals.put(FLASH_ON, String.valueOf(imageMetaData.isFlashOn()));
             keyVals.put(CROPPED_IMG_ID, imageMetaData.getCroppedImageId());
             keyVals.put(CASSETTE_BOUNDARY, presenter.formatPoints(imageMetaData.getBoundary()));
             setResult(RESULT_OK, getResultIntent(keyVals));

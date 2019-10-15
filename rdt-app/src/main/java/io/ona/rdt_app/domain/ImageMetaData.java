@@ -13,16 +13,16 @@ public class ImageMetaData {
 
     private Bitmap fullImage;
     private Bitmap croppedImage;
-    private boolean flashStatus;
-    private Point[] boundary;
     private String providerId;
     private String baseEntityId;
     private String fullImageId;
     private String croppedImageId;
-    private long imageTimeStamp;
-    private ImageProcessor.InterpretationResult interpretationResult;
-    private long captureDuration;
     private String imageToSave;
+    private long imageTimeStamp;
+    private long captureDuration;
+    private boolean isFlashOn;
+    private ImageProcessor.InterpretationResult interpretationResult;
+    private Point[] boundary;
 
     public Bitmap getFullImage() {
         return fullImage;
@@ -48,8 +48,8 @@ public class ImageMetaData {
         return croppedImage;
     }
 
-    public boolean getFlashStatus() {
-        return flashStatus;
+    public boolean isFlashOn() {
+        return isFlashOn;
     }
 
     public Point[] getBoundary() {
@@ -96,8 +96,8 @@ public class ImageMetaData {
         this.croppedImage = croppedImage;
     }
 
-    public void setFlashStatus(boolean flashStatus) {
-        this.flashStatus = flashStatus;
+    public void setFlashOn(boolean flashOn) {
+        this.isFlashOn = flashOn;
     }
 
     public void setBoundary(Point[] boundary) {
@@ -150,8 +150,8 @@ public class ImageMetaData {
         return this;
     }
 
-    public ImageMetaData withFlashStatus(boolean flashStatus) {
-        setFlashStatus(flashStatus);
+    public ImageMetaData withFlashOn(boolean isFlashOn) {
+        setFlashOn(isFlashOn);
         return this;
     }
 

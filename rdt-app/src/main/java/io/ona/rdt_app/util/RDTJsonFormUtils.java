@@ -144,7 +144,6 @@ public class RDTJsonFormUtils {
 
             outputStream = new FileOutputStream(outputFile);
             image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
             if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
                 saveImageToGallery(context, image);
             }
