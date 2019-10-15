@@ -25,5 +25,7 @@ public interface RDTJsonFormFragmentContract {
         void saveForm() throws JSONException;
 
         void performNextButtonAction(String currentStep, Object isSubmit);
+
+        boolean hasNextStep();
     }
 }

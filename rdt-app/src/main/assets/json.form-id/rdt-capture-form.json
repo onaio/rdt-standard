@@ -1,0 +1,622 @@
+{
+  "count": "19",
+  "encounter_type": "rdt_test",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Temukan lokasi",
+    "next": "step2",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "gps",
+        "type": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": ""
+      }
+    ]
+  },
+  "step2": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step3",
+    "bottom_navigation" : "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "RDT",
+    "fields": [
+      {
+        "key": "lbl_patient_name",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      },
+      {
+        "key": "lbl_patient_gender_and_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      }
+    ]
+  },
+  "step3": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "lbl_which_rdt",
+        "type": "label",
+        "text": "RDT yang mana?",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_scan_qr_code",
+        "type": "label",
+        "text": "Pindai kode QR",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff",
+        "next": "step5"
+      },
+      {
+        "key": "lbl_care_start",
+        "type": "label",
+        "text": "Pindai tanggal kadaluwarsa Carestart",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff",
+        "next": "step4"
+      }
+    ]
+  },
+  "step4": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "expiration_date_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "expiration_date_capture",
+        "expired_page_address": "step6",
+        "v_required": {
+          "value": "true",
+          "err": "Silakan masukkan ID RDT "
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "RDT ID *",
+        "scanButtonText": "Pindai Kode QR",
+        "value": "0",
+        "rdt_id_lbl_addresses": "step7:lbl_rdt_id, step8:lbl_rdt_id, step9:lbl_rdt_id, step18:lbl_rdt_id, step19:lbl_rdt_id",
+        "rdt_id_address": "step17:rdt_id",
+        "expiration_date_address": "step4:expiration_date_reader",
+        "expired_page_address": "step6",
+        "v_numeric": {
+          "value": "true",
+          "err": "Silakan masukkan ID yang valid"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Silakan masukkan ID RDT"
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step3",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_rdt_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "text": "RDT telah kadaluwarsa"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "text": "Gunakan tes baru dan pindai ulang"
+      }
+    ]
+  },
+  "step7": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step8",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "LANJUTKAN KE MIKROSKOPIK ",
+    "fields": [
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_record_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Tulis nomor ini pada bagian belakang RDT."
+      }
+    ]
+  },
+  "step8": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "SLIDE MIKROSKOPIK SELESAI",
+    "fields": [
+      {
+        "key": "lbl_microscopy_slide_instruction",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Buat sediaan darah tetes tebal dan apusan darah tipis pada Slide Mikroskopik"
+      },
+      {
+        "key": "lbl_microscopy_slide",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Beri label pada slide dengan:"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      }
+    ]
+  },
+  "step9": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step10",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "BLOT PAPER SELESAI",
+    "fields": [
+      {
+        "key": "lbl_blot_paper_instructions",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Teteskan darah pada lingkaran tempat sampel hingga darah meresap"
+      },
+      {
+        "key": "lbl_blot_paper",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Letakkan sediaan darah pada tabung yang telah diberi label dengan nomor ID yang ditampilkan. Jangan tutup sediaan darah sampai mengering."
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      }
+    ]
+  },
+  "step10": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step11",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "LANJUTKAN",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "illustration_text_description",
+        "type": "image_view",
+        "text": "Ambil sampel darah (5㎕) menggunakan pipet atau mikropipet yang telah disediakan.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "collect_blood_sample.jpg"
+      }
+    ]
+  },
+  "step11": {
+    "title": "RDT",
+    "next": "step12",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "LANJUTKAN",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_blood",
+        "type": "image_view",
+        "text": "Tambahkan 5 ㎕ darah utuh ke lubang “S”.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_blood.jpg"
+      }
+    ]
+  },
+  "step12": {
+    "title": "RDT",
+    "next": "step13",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "MULAI PENGHITUNG WAKTU 20 MENIT",
+    "fields": [
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "add_buffer_solution",
+        "type": "image_view",
+        "text": "Tambahkan 60 ㎕ larutan buffer (3 tetes untuk tipe vial atau 2 tetes untuk tipe botol)ke lubang \"A\".\nMulai penghitung waktu.",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "image_file": "add_buffer_solution.jpg"
+      }
+    ]
+  },
+  "step13": {
+    "title": "Penghitung waktu RDT",
+    "next": "step14",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "AMBIL GAMBAR RDT ",
+    "fields": [
+      {
+        "key": "countdown_timer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Baca hasil dalam 20 menit.",
+        "label_text_size": "8sp",
+        "label_text_color": "#525252",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "20",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#e2e2e2",
+        "progressbar_color": "#E9D61E",
+        "progressbar_text_color": "#505050"
+      }
+    ]
+  },
+  "step14": {
+    "title": "Hasil RDT sudah siap",
+    "next": "step16",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "next",
+    "next_label": "AMBIL GAMBAR RDT",
+    "fields": [
+      {
+        "key": "countdown_timer_results_ready",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "timer",
+        "type": "countdown_timer",
+        "label": "Baca hasil dalam 10 menit.",
+        "label_text_size": "8sp",
+        "label_text_color": "#4b4b4b",
+        "countdown_time_unit": "minutes",
+        "countdown_time_value": "10",
+        "countdown_interval": "1",
+        "progressbar_background_color": "#e2e2e2",
+        "progressbar_color": "#3EBB22",
+        "progressbar_text_color": "#505050"
+      }
+    ]
+  },
+  "step15": {
+    "title": "Carestart RDT",
+    "next": "step16",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "AMBIL GAMBAR RDT",
+    "fields": [
+      {
+        "key": "lbl_conduct_carestart",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Lakukan tes Carestart RDT"
+      },
+      {
+        "key": "lbl_conduct_carestart",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Ambil gambar RDT setelah tes selesai"
+      }
+    ]
+  },
+  "step16": {
+    "title": "RDT",
+    "next": "step17",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "rdt_capture",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "rdt_capture",
+        "carestart_rdt_prev": "step15",
+        "image_id_address": "step16:rdt_capture",
+        "image_timestamp_address": "step17:time_img_saved"
+      },
+      {
+        "key": "rdt_capture_control_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_pv_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_pf_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step17": {
+    "title": "Hasil tes RDT",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "SIMPAN HASIL RDT",
+    "next": "step18",
+    "fields": [
+      {
+        "key": "chw_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Pilih hasil pembaca RDT",
+        "options": [
+          {
+            "key": "positive",
+            "text": "positif"
+          },
+          {
+            "key": "negative",
+            "text": "negatif"
+          },
+          {
+            "key": "invalid",
+            "text": "tidak valid"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Silakan pilih hasil pembaca RDT"
+        }
+      },
+      {
+        "key": "time_img_saved",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step18": {
+    "title": "Confirm Labels",
+    "display_back_button": "true",
+    "next": "step19",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "KONFIRMASI",
+    "fields": [
+      {
+        "key": "lbl_confirm_labels",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Pastikan label Slide Mikroskopik, Sedian darah dan RDT"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      }
+    ]
+  },
+  "step19": {
+    "title": "Sterile Storage",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "AKHIRI TES",
+    "fields": [
+      {
+        "key": "lbl_confirm_labels",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "text": "Tempatkan RDT, Sediaan Darah dan Slide Mikroskopik dalam  penyimpanan steril yang telah disediakan"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      }
+    ]
+  }
+}

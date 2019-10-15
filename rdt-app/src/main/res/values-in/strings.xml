@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">rdt-app</string>
+
+    <string name="clients_register_title">Klien</string>
+    <string name="hamburger_menu">Menu Hamburger</string>
+    <string name="launching_expiration_date_widget">Meluncurkan widget tanggal kadaluwarsa</string>
+    <string name="phone_state_permissions_required">Izin dari handphone diperlukan untuk mengirimkan formulir ini</string>
+    <string name="rdt_permissions_required">Pengambilan gambar RDT memerlukan izin kamera dan penyimpanan</string>
+    <string name="time_expired">Waktu telah berakhir.\nBaca hasil RDT.</string>
+    <string name="opensrp_url" translatable="false">@string/opensrp_base_url</string>
+    <string name="login_app_name">RDT Open Reader</string>
+    <string name="login_enter_username">Masukkan nama pengguna</string>
+    <string name="login_enter_password">Masukkan kata sandi</string>
+    <string name="login_attributions">Sebuah <![CDATA[<b><font color=#467690>Ona</font></b>]]> pengembangan <![CDATA[<br/>]]>didukung oleh <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]></string>
+    <string name="confirm_close_msg">Apakah Anda yakin ingin keluar dari formulir? Semua data yang telah dimasukkan pada formulir ini akan hilang.</string>
+    <string name="confirm_close_title">Silakan konfirmasi</string>
+    <string name="unique_id_fetch_error_msg">"Maaf, tidak ada id unik rdt yang dapat diperoleh. Silakan nyalakan jaringan internet Anda dan lakukan sinkronisasi secara manual."</string>
+    <string name="txt_record_btn">Cari lokasi saya</string>
+    <string name="txt_location_generation_instructions">Kami membutuhkan lokasi Anda sebelum memulai pemeriksaan.
+Silakan klik pada tombol <i>Cari lokasi saya</i> di bawah layar dan kami akan secara otomatis menentukan lokasi Anda.</string>
+</resources>

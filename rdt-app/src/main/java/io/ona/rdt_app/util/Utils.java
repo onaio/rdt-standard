@@ -1,5 +1,10 @@
 package io.ona.rdt_app.util;
 
+import android.app.Activity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.support.annotation.StringRes;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
@@ -7,11 +12,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import io.ona.rdt_app.BuildConfig;
+import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.job.RDTSyncServiceJob;
 
+import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
+import static edu.washington.cs.ubicomplab.rdt_reader.util.Utils.hideProgressDialog;
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 
 /**
@@ -63,5 +72,31 @@ public class Utils {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.parse(dateStr);
+    }
+
+    public static void updateLocale(android.content.Context context) {
+        Locale locale = new Locale(BuildConfig.LOCALE);
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
+
+    public static void showProgressDialogInFG(Activity activity, @StringRes int title, @StringRes int message) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showProgressDialog(message, title, activity);
+            }
+        });
+    }
+
+    public static void hideProgressDialogFromFG(Activity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hideProgressDialog();
+            }
+        });
     }
 }

@@ -111,7 +111,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 hideProgressDialog();
                 JSONObject jsonObject = widgetArgs.getJsonObject();
-                JsonFormFragment formFragment = widgetArgs.getFormFragment();
+                RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
                     try {
                         Bundle extras = data.getExtras();
@@ -137,7 +137,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                         Log.e(TAG, e.getStackTrace().toString());
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
+                    formFragment.setMoveBackOneStep(true);
                 } else if (data == null) {
                     Log.i(TAG, "No result data for RDT capture!");
                 }

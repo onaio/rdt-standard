@@ -12,16 +12,19 @@ import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
+import static io.ona.rdt_app.util.Utils.hideProgressDialogFromFG;
+import static io.ona.rdt_app.util.Utils.showProgressDialogInFG;
+import static io.ona.rdt_app.util.Utils.updateLocale;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -37,6 +40,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);
@@ -48,6 +52,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     public void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
 
+        showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
+
         ImageMetaData imageMetaData = new ImageMetaData();
         imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
@@ -55,13 +61,12 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
                 .withInterpretationResult(interpretationResult)
                 .withTimeTaken(timeTaken);
 
-        showProgressDialog(R.string.please_wait, R.string.processing_image, this);
         presenter.saveImage(this, imageMetaData, this);
     }
 
     @Override
     public void onImageSaved(String imageMetaData) {
-        hideProgressDialog();
+        hideProgressDialogFromFG(this);
         if (imageMetaData != null) {
             Map<String, String> keyVals = new HashMap();
             String[] vals = imageMetaData.split(",");
