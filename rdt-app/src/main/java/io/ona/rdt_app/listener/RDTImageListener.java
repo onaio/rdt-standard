@@ -9,8 +9,8 @@ import com.android.volley.toolbox.ImageLoader;
 import org.smartregister.util.OpenSRPImageListener;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -44,9 +44,9 @@ public class RDTImageListener extends OpenSRPImageListener {
 
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallBack() {
+            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallback() {
                 @Override
-                public void onImageSaved(String imageLocation) {
+                public void onImageSaved(ImageMetaData metaData) {
                     // do nothing
                 }
             });
