@@ -1,6 +1,7 @@
 package io.ona.rdt_app.domain;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 
@@ -9,14 +10,17 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
  */
 public class ImageMetaData {
 
-    private Bitmap image;
+    private Bitmap fullImage;
+    private Bitmap croppedImage;
+    private boolean flashStatus;
+    private Point[] boundary;
     private String providerId;
     private String baseEntityId;
     private ImageProcessor.InterpretationResult interpretationResult;
     private long timeTaken;
 
-    public Bitmap getImage() {
-        return image;
+    public Bitmap getFullImage() {
+        return fullImage;
     }
 
     public String getProviderId() {
@@ -35,8 +39,20 @@ public class ImageMetaData {
         return timeTaken;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public Bitmap getCroppedImage() {
+        return croppedImage;
+    }
+
+    public boolean getFlashStatus() {
+        return flashStatus;
+    }
+
+    public Point[] getBoundary() {
+        return boundary;
+    }
+
+    public void setFullImage(Bitmap fullImage) {
+        this.fullImage = fullImage;
     }
 
     public void setProviderId(String providerId) {
@@ -55,8 +71,20 @@ public class ImageMetaData {
         this.timeTaken = timeTaken;
     }
 
-    public ImageMetaData withImage(Bitmap image) {
-        setImage(image);
+    public void setCroppedImage(Bitmap croppedImage) {
+        this.croppedImage = croppedImage;
+    }
+
+    public void setFlashStatus(boolean flashStatus) {
+        this.flashStatus = flashStatus;
+    }
+
+    public void setBoundary(Point[] boundary) {
+        this.boundary = boundary;
+    }
+
+    public ImageMetaData withFullImage(Bitmap fullImage) {
+        setFullImage(fullImage);
         return this;
     }
 
@@ -77,6 +105,21 @@ public class ImageMetaData {
 
     public ImageMetaData withTimeTaken(long timeTaken) {
         setTimeTaken(timeTaken);
+        return this;
+    }
+
+    public ImageMetaData withCroppedImage(Bitmap croppedImage) {
+        setCroppedImage(croppedImage);
+        return this;
+    }
+
+    public ImageMetaData withFlashStatus(boolean flashStatus) {
+        setFlashStatus(flashStatus);
+        return this;
+    }
+
+    public ImageMetaData withBoundary(Point[] boundary) {
+        setBoundary(boundary);
         return this;
     }
 }

@@ -56,7 +56,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
         final byte[] captureByteArray = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
         ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
+        imageMetaData.withFullImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
                 .withInterpretationResult(interpretationResult)

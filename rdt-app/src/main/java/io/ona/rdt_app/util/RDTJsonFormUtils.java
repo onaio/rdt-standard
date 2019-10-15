@@ -58,7 +58,7 @@ public class RDTJsonFormUtils {
 
     public static void saveStaticImageToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallBack onImageSavedCallBack) {
 
-        Bitmap image = imageMetaData.getImage();
+        Bitmap image = imageMetaData.getFullImage();
         String providerId = imageMetaData.getProviderId();
         String entityId = imageMetaData.getBaseEntityId();
         ImageProcessor.InterpretationResult testResult = imageMetaData.getInterpretationResult();
