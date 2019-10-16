@@ -12,7 +12,9 @@ import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
+import io.ona.rdt_app.domain.UnParcelableImageMetadata;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
@@ -57,35 +59,47 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
 
+        presenter.saveImage(this, buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
+    }
+
+    private CompositeImage buildCompositeImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+
         final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
         final byte[] croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
-        ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withFullImage(convertByteArrayToBitmap(fullImage))
-                .withBaseEntityId(baseEntityId)
+
+        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
+        parcelableImageMetadata.withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
-                .withInterpretationResult(interpretationResult)
                 .withTimeTaken(timeTaken)
-                .withCroppedImage(convertByteArrayToBitmap(croppedImage))
-                .withFlashOn(captureResult.flashEnabled)
+                .withFlashOn(captureResult.flashEnabled);
+
+        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
+        unParcelableImageMetadata.withInterpretationResult(interpretationResult)
                 .withBoundary(captureResult.boundary.toArray());
 
-        presenter.saveImage(this, imageMetaData, this);
+        CompositeImage compositeImage = new CompositeImage();
+        compositeImage.withFullImage(convertByteArrayToBitmap(fullImage))
+                .withCroppedImage(convertByteArrayToBitmap(croppedImage))
+                .withParcelableImageMetadata(parcelableImageMetadata)
+                .withUnParcelableImageMetadata(unParcelableImageMetadata);
+
+        return compositeImage;
     }
 
     @Override
-    public void onImageSaved(ImageMetaData imageMetaData) {
+    public void onImageSaved(CompositeImage compositeImage) {
         hideProgressDialogFromFG(this);
-        if (imageMetaData != null) {
+        if (compositeImage != null) {
             Map<String, String> keyVals = new HashMap();
-            ImageProcessor.InterpretationResult interpretationResult = imageMetaData.getInterpretationResult();
-            keyVals.put(FULL_IMG_ID_AND_TIME_STAMP, imageMetaData.getFullImageId() + "," + imageMetaData.getImageTimeStamp());
+            ImageProcessor.InterpretationResult interpretationResult = compositeImage.getInterpretationResult();
+            keyVals.put(FULL_IMG_ID_AND_TIME_STAMP, compositeImage.getFullImageId() + "," + compositeImage.getImageTimeStamp());
             keyVals.put(TEST_CONTROL_RESULT, String.valueOf(interpretationResult.topLine));
             keyVals.put(TEST_PV_RESULT, String.valueOf(interpretationResult.middleLine));
             keyVals.put(TEST_PF_RESULT, String.valueOf(interpretationResult.bottomLine));
-            keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(imageMetaData.getCaptureDuration()));
-            keyVals.put(FLASH_ON, String.valueOf(imageMetaData.isFlashOn()));
-            keyVals.put(CROPPED_IMG_ID, imageMetaData.getCroppedImageId());
-            keyVals.put(CASSETTE_BOUNDARY, presenter.formatPoints(imageMetaData.getBoundary()));
+            keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(compositeImage.getCaptureDuration()));
+            keyVals.put(FLASH_ON, String.valueOf(compositeImage.isFlashOn()));
+            keyVals.put(CROPPED_IMG_ID, compositeImage.getCroppedImageId());
+            keyVals.put(CASSETTE_BOUNDARY, presenter.formatPoints(compositeImage.getBoundary()));
             setResult(RESULT_OK, getResultIntent(keyVals));
         } else {
             Log.e(TAG, "Could not save null image path");
