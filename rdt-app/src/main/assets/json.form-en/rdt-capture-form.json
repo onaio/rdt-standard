@@ -481,9 +481,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "rdt_capture",
-        "carestart_rdt_prev": "step15",
-        "image_id_address": "step16:rdt_capture",
-        "image_timestamp_address": "step17:time_img_saved"
+        "carestart_rdt_prev": "step15"
       },
       {
         "key": "rdt_capture_control_result",
@@ -540,6 +538,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
+      },
+      {
+        "key": "time_img_saved",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },
@@ -576,13 +581,6 @@
           "value": "true",
           "err": "Please select the RDT reader result"
         }
-      },
-      {
-        "key": "time_img_saved",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       },
       {
         "key": "rdt_id",
