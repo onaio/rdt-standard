@@ -27,6 +27,7 @@ import java.util.List;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -38,6 +39,7 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
@@ -115,6 +117,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
                     try {
                         Bundle extras = data.getExtras();
+
+                        ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
+
                         String controlResult = extras.getString(TEST_CONTROL_RESULT);
                         String pvResult = extras.getString(TEST_PV_RESULT);
                         String pfResult = extras.getString(TEST_PF_RESULT);

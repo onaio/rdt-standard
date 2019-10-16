@@ -71,9 +71,6 @@ public interface Constants {
         String TEST_PF_RESULT = "test_pf_result";
         String RDT_CAPTURE_DURATION = "rdt_capture_duration";
         String FULL_IMG_ID_AND_TIME_STAMP = "full_img_id_and_time_stamp";
-        String FLASH_ON = "flash_on";
-        String CASSETTE_BOUNDARY = "cassette_boundary";
-        String CROPPED_IMG_ID = "cropped_img_id";
         String FULL_IMAGE = "full_image";
         String CROPPED_IMAGE = "cropped_image";
         String PARCELABLE_IMAGE_METADATA = "parcelable_image_metadata";

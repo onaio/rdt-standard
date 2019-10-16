@@ -16,6 +16,7 @@ public class ParcelableImageMetadata implements Parcelable {
     private long imageTimeStamp;
     private long captureDuration;
     private boolean isFlashOn;
+    private LineReadings lineReadings;
 
     public ParcelableImageMetadata() {
     }
@@ -29,6 +30,7 @@ public class ParcelableImageMetadata implements Parcelable {
         imageTimeStamp = in.readLong();
         captureDuration = in.readLong();
         isFlashOn = in.readByte() != 0;
+        lineReadings = in.readParcelable(LineReadings.class.getClassLoader());
     }
 
     public static final Creator<ParcelableImageMetadata> CREATOR = new Creator<ParcelableImageMetadata>() {
@@ -71,6 +73,10 @@ public class ParcelableImageMetadata implements Parcelable {
         return imageTimeStamp;
     }
 
+    public LineReadings getLineReadings() {
+        return lineReadings;
+    }
+
     public String getImageToSave() {
         return imageToSave;
     }
@@ -107,6 +113,10 @@ public class ParcelableImageMetadata implements Parcelable {
         this.imageToSave = imageToSave;
     }
 
+    public void setLineReadings(LineReadings lineReadings) {
+        this.lineReadings = lineReadings;
+    }
+
     public ParcelableImageMetadata withProviderId(String providerId) {
         setProviderId(providerId);
         return this;
@@ -127,6 +137,11 @@ public class ParcelableImageMetadata implements Parcelable {
         return this;
     }
 
+    public ParcelableImageMetadata withLineReadings(LineReadings lineReadings) {
+        setLineReadings(lineReadings);
+        return this;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -142,5 +157,6 @@ public class ParcelableImageMetadata implements Parcelable {
         dest.writeLong(this.imageTimeStamp);
         dest.writeLong(this.captureDuration);
         dest.writeByte((byte) (this.isFlashOn ? 1 : 0));
+        dest.writeParcelable(this.lineReadings, flags);
     }
 }

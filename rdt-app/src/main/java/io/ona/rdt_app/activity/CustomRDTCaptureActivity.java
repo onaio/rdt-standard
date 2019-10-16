@@ -11,6 +11,7 @@ import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
 import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.LineReadings;
 import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.domain.UnParcelableImageMetadata;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
@@ -62,7 +63,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         parcelableImageMetadata.withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
                 .withTimeTaken(timeTaken)
-                .withFlashOn(captureResult.flashEnabled);
+                .withFlashOn(captureResult.flashEnabled)
+                .withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine));
 
         UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
         unParcelableImageMetadata.withInterpretationResult(interpretationResult)
