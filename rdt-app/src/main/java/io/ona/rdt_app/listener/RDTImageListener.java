@@ -10,7 +10,6 @@ import org.smartregister.util.OpenSRPImageListener;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
-import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.domain.ImageMetaData;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
