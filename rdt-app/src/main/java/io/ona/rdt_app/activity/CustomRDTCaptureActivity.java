@@ -88,7 +88,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
             setResult(RESULT_OK, resultIntent);
         } else {
-            Log.e(TAG, "Could not save null image path");
+            Log.e(TAG, "Could not save image due to incomplete data");
         }
         finish();
     }

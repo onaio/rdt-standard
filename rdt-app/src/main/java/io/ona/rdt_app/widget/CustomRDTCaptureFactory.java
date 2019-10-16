@@ -136,8 +136,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     }
 
     private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
-        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
+
+        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
