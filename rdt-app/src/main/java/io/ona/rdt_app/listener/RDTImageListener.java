@@ -11,7 +11,7 @@ import org.smartregister.util.OpenSRPImageListener;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnImageSavedCallback;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.domain.CompositeImage;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 /**
@@ -36,17 +36,17 @@ public class RDTImageListener extends OpenSRPImageListener {
         Bitmap image = response.getBitmap();
         RDTApplication application = RDTApplication.getInstance();
 
-        ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withFullImage(image)
+        CompositeImage compositeImage = new CompositeImage();
+        compositeImage.withFullImage(image)
                 .withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
                 .withBaseEntityId("base_entity_id") // todo: pass real base entity id here
                 .withInterpretationResult(new ImageProcessor.InterpretationResult());
 
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallback() {
+            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), compositeImage, new OnImageSavedCallback() {
                 @Override
-                public void onImageSaved(ImageMetaData metaData) {
+                public void onImageSaved(CompositeImage metaData) {
                     // do nothing
                 }
             });

@@ -35,7 +35,7 @@ import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.domain.CompositeImage;
 import io.ona.rdt_app.domain.Patient;
 import timber.log.Timber;
 
@@ -59,11 +59,11 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImagesToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallback onImageSavedCallBack) {
+    public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
 
-        Bitmap fullImage = imageMetaData.getFullImage();
-        String providerId = imageMetaData.getProviderId();
-        String entityId = imageMetaData.getBaseEntityId();
+        Bitmap fullImage = compositeImage.getFullImage();
+        String providerId = compositeImage.getProviderId();
+        String entityId = compositeImage.getBaseEntityId();
         if (fullImage == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
             return;
@@ -83,11 +83,11 @@ public class RDTJsonFormUtils {
                     }
 
                     if (success) {
-                        imageMetaData.setImageToSave(FULL_IMAGE);
-                        saveImage(imgFolderPath, imageMetaData.getFullImage(), context, imageMetaData);
+                        compositeImage.setImageToSave(FULL_IMAGE);
+                        saveImage(imgFolderPath, compositeImage.getFullImage(), context, compositeImage);
 
-                        imageMetaData.setImageToSave(CROPPED_IMAGE);
-                        saveImage(imgFolderPath, imageMetaData.getCroppedImage(), context, imageMetaData);
+                        compositeImage.setImageToSave(CROPPED_IMAGE);
+                        saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, compositeImage);
                     } else {
                         Timber.e(TAG, "Sorry, could not create fullImage folder!");
                     }
@@ -98,33 +98,33 @@ public class RDTJsonFormUtils {
 
             @Override
             protected void onPostExecute(Void voids) {
-                onImageSavedCallBack.onImageSaved(imageMetaData);
+                onImageSavedCallBack.onImageSaved(compositeImage);
             }
         }
 
         new SaveImageTask().execute();
     }
 
-    private static void saveImage(String imgFolderPath, Bitmap image, Context context, ImageMetaData imageMetaData) {
+    private static void saveImage(String imgFolderPath, Bitmap image, Context context, CompositeImage compositeImage) {
         ProfileImage profileImage = new ProfileImage();
         Pair writeResult = writeImageToDisk(imgFolderPath, image, context);
         boolean isSuccessfulWrite = (Boolean) writeResult.first;
         String absoluteFilePath = (String) writeResult.second;
         if (isSuccessfulWrite) {
-            saveImgDetails(absoluteFilePath, imageMetaData, profileImage);
-            if (FULL_IMAGE.equals(imageMetaData.getImageToSave())) {
-                imageMetaData.setFullImageId(profileImage.getImageid());
-                imageMetaData.setImageTimeStamp(System.currentTimeMillis());
+            saveImgDetails(absoluteFilePath, compositeImage, profileImage);
+            if (FULL_IMAGE.equals(compositeImage.getImageToSave())) {
+                compositeImage.setFullImageId(profileImage.getImageid());
+                compositeImage.setImageTimeStamp(System.currentTimeMillis());
             } else {
-                imageMetaData.setCroppedImageId(profileImage.getImageid());
+                compositeImage.setCroppedImageId(profileImage.getImageid());
             }
         }
     }
 
-    private static void saveImgDetails(String absoluteFilePath, ImageMetaData imageMetaData, ProfileImage profileImage) {
+    private static void saveImgDetails(String absoluteFilePath, CompositeImage compositeImage, ProfileImage profileImage) {
         profileImage.setImageid(UUID.randomUUID().toString());
-        profileImage.setAnmId(imageMetaData.getProviderId());
-        profileImage.setEntityID(imageMetaData.getBaseEntityId());
+        profileImage.setAnmId(compositeImage.getProviderId());
+        profileImage.setEntityID(compositeImage.getBaseEntityId());
         profileImage.setFilepath(absoluteFilePath);
         profileImage.setFilecategory(MULTI_VERSION);
         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
