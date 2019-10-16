@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
@@ -19,15 +16,7 @@ import io.ona.rdt_app.domain.UnParcelableImageMetadata;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static io.ona.rdt_app.util.Constants.Test.CASSETTE_BOUNDARY;
-import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMG_ID;
-import static io.ona.rdt_app.util.Constants.Test.FLASH_ON;
-import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
-import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
-import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
 import static io.ona.rdt_app.util.Utils.hideProgressDialogFromFG;
 import static io.ona.rdt_app.util.Utils.showProgressDialogInFG;

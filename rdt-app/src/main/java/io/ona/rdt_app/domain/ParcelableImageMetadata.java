@@ -17,6 +17,9 @@ public class ParcelableImageMetadata implements Parcelable {
     private long captureDuration;
     private boolean isFlashOn;
 
+    public ParcelableImageMetadata() {
+    }
+
     protected ParcelableImageMetadata(Parcel in) {
         providerId = in.readString();
         baseEntityId = in.readString();
