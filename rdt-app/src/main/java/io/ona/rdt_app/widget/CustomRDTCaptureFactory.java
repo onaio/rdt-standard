@@ -53,8 +53,6 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 public class CustomRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
-    private final String IMAGE_TIMESTAMP_ADDRESS = "image_timestamp_address";
-    private final String IMAGE_ID_ADDRESS = "image_id_address";
     private final String RDT_NAME = "rdt_name";
 
     private String baseEntityId;

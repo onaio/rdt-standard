@@ -20,7 +20,6 @@ import io.ona.rdt_app.job.RDTSyncServiceJob;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
-
 import static io.ona.rdt_app.util.Constants.IS_IMG_SYNC_ENABLED;
 
 /**
