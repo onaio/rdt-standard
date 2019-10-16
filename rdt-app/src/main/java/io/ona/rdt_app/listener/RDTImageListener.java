@@ -12,6 +12,8 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
+import io.ona.rdt_app.domain.UnParcelableImageMetadata;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 /**
@@ -36,17 +38,23 @@ public class RDTImageListener extends OpenSRPImageListener {
         Bitmap image = response.getBitmap();
         RDTApplication application = RDTApplication.getInstance();
 
+        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
+        parcelableImageMetadata.withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
+                .withBaseEntityId("base_entity_id"); // todo: pass real base entity id here
+
+        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
+        unParcelableImageMetadata.withInterpretationResult(new ImageProcessor.InterpretationResult());
+
         CompositeImage compositeImage = new CompositeImage();
         compositeImage.withFullImage(image)
-                .withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
-                .withBaseEntityId("base_entity_id") // todo: pass real base entity id here
-                .withInterpretationResult(new ImageProcessor.InterpretationResult());
+                .withParcelableImageMetadata(parcelableImageMetadata)
+                .withUnParcelableImageMetadata(unParcelableImageMetadata);
 
         if (image != null) {
             // todo: this has a default false result
             RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), compositeImage, new OnImageSavedCallback() {
                 @Override
-                public void onImageSaved(CompositeImage metaData) {
+                public void onImageSaved(CompositeImage compositeImage) {
                     // do nothing
                 }
             });

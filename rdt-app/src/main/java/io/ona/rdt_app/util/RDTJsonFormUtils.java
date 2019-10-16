@@ -36,6 +36,7 @@ import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.domain.Patient;
 import timber.log.Timber;
 
@@ -62,8 +63,9 @@ public class RDTJsonFormUtils {
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
 
         Bitmap fullImage = compositeImage.getFullImage();
-        String providerId = compositeImage.getProviderId();
-        String entityId = compositeImage.getBaseEntityId();
+        ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+        String providerId = parcelableImageMetadata.getProviderId();
+        String entityId = parcelableImageMetadata.getBaseEntityId();
         if (fullImage == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
             return;
@@ -83,11 +85,11 @@ public class RDTJsonFormUtils {
                     }
 
                     if (success) {
-                        compositeImage.setImageToSave(FULL_IMAGE);
-                        saveImage(imgFolderPath, compositeImage.getFullImage(), context, compositeImage);
+                        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
+                        saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
 
-                        compositeImage.setImageToSave(CROPPED_IMAGE);
-                        saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, compositeImage);
+                        parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
+                        saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
                     } else {
                         Timber.e(TAG, "Sorry, could not create fullImage folder!");
                     }
@@ -105,26 +107,26 @@ public class RDTJsonFormUtils {
         new SaveImageTask().execute();
     }
 
-    private static void saveImage(String imgFolderPath, Bitmap image, Context context, CompositeImage compositeImage) {
+    private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
         ProfileImage profileImage = new ProfileImage();
         Pair writeResult = writeImageToDisk(imgFolderPath, image, context);
         boolean isSuccessfulWrite = (Boolean) writeResult.first;
         String absoluteFilePath = (String) writeResult.second;
         if (isSuccessfulWrite) {
-            saveImgDetails(absoluteFilePath, compositeImage, profileImage);
-            if (FULL_IMAGE.equals(compositeImage.getImageToSave())) {
-                compositeImage.setFullImageId(profileImage.getImageid());
-                compositeImage.setImageTimeStamp(System.currentTimeMillis());
+            saveImgDetails(absoluteFilePath, parcelableImageMetadata, profileImage);
+            if (FULL_IMAGE.equals(parcelableImageMetadata.getImageToSave())) {
+                parcelableImageMetadata.setFullImageId(profileImage.getImageid());
+                parcelableImageMetadata.setImageTimeStamp(System.currentTimeMillis());
             } else {
-                compositeImage.setCroppedImageId(profileImage.getImageid());
+                parcelableImageMetadata.setCroppedImageId(profileImage.getImageid());
             }
         }
     }
 
-    private static void saveImgDetails(String absoluteFilePath, CompositeImage compositeImage, ProfileImage profileImage) {
+    private static void saveImgDetails(String absoluteFilePath, ParcelableImageMetadata parcelableImageMetadata, ProfileImage profileImage) {
         profileImage.setImageid(UUID.randomUUID().toString());
-        profileImage.setAnmId(compositeImage.getProviderId());
-        profileImage.setEntityID(compositeImage.getBaseEntityId());
+        profileImage.setAnmId(parcelableImageMetadata.getProviderId());
+        profileImage.setEntityID(parcelableImageMetadata.getBaseEntityId());
         profileImage.setFilepath(absoluteFilePath);
         profileImage.setFilecategory(MULTI_VERSION);
         profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
