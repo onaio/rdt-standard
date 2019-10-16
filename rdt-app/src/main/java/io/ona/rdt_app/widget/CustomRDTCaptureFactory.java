@@ -39,7 +39,9 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TYPE;
+import static io.ona.rdt_app.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMG_ID;
+import static io.ona.rdt_app.util.Constants.Test.FLASH_ON;
 import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TIME_IMG_SAVED;
@@ -147,6 +149,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         jsonApi.writeValue(widgetArgs.getStepName(), CROPPED_IMG_ID, parcelableImageMetadata.getCroppedImageId(), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), TIME_IMG_SAVED, String.valueOf(parcelableImageMetadata.getImageTimeStamp()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE, parcelableImageMetadata.getFullImageId(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), FLASH_ON, String.valueOf(parcelableImageMetadata.isFlashOn()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), CASSETTE_BOUNDARY, parcelableImageMetadata.getCassetteBoundary(), "", "", "", false);
+
     }
 
     @Override

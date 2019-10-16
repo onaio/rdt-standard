@@ -16,6 +16,7 @@ public class ParcelableImageMetadata implements Parcelable {
     private long imageTimeStamp;
     private long captureDuration;
     private boolean isFlashOn;
+    private String cassetteBoundary;
     private LineReadings lineReadings;
 
     public ParcelableImageMetadata() {
@@ -31,6 +32,7 @@ public class ParcelableImageMetadata implements Parcelable {
         captureDuration = in.readLong();
         isFlashOn = in.readByte() != 0;
         lineReadings = in.readParcelable(LineReadings.class.getClassLoader());
+        cassetteBoundary = in.readString();
     }
 
     public static final Creator<ParcelableImageMetadata> CREATOR = new Creator<ParcelableImageMetadata>() {
@@ -81,6 +83,10 @@ public class ParcelableImageMetadata implements Parcelable {
         return imageToSave;
     }
 
+    public String getCassetteBoundary() {
+        return cassetteBoundary;
+    }
+
     public void setProviderId(String providerId) {
         this.providerId = providerId;
     }
@@ -117,6 +123,10 @@ public class ParcelableImageMetadata implements Parcelable {
         this.lineReadings = lineReadings;
     }
 
+    public void setCassetteBoundary(String cassetteBoundary) {
+        this.cassetteBoundary = cassetteBoundary;
+    }
+
     public ParcelableImageMetadata withProviderId(String providerId) {
         setProviderId(providerId);
         return this;
@@ -142,6 +152,11 @@ public class ParcelableImageMetadata implements Parcelable {
         return this;
     }
 
+    public ParcelableImageMetadata withCassetteBoundary(String cassetteBoundary) {
+        setCassetteBoundary(cassetteBoundary);
+        return this;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -158,5 +173,6 @@ public class ParcelableImageMetadata implements Parcelable {
         dest.writeLong(this.captureDuration);
         dest.writeByte((byte) (this.isFlashOn ? 1 : 0));
         dest.writeParcelable(this.lineReadings, flags);
+        dest.writeString(this.cassetteBoundary);
     }
 }

@@ -59,16 +59,17 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
         final byte[] croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
 
+        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
+        unParcelableImageMetadata.withInterpretationResult(interpretationResult)
+                .withBoundary(captureResult.boundary.toArray());
+
         ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
         parcelableImageMetadata.withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
                 .withTimeTaken(timeTaken)
                 .withFlashOn(captureResult.flashEnabled)
-                .withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine));
-
-        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
-        unParcelableImageMetadata.withInterpretationResult(interpretationResult)
-                .withBoundary(captureResult.boundary.toArray());
+                .withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
+                .withCassetteBoundary(presenter.formatPoints(unParcelableImageMetadata.getBoundary()));
 
         CompositeImage compositeImage = new CompositeImage();
         compositeImage.withFullImage(convertByteArrayToBitmap(fullImage))

@@ -70,5 +70,7 @@ public interface Constants {
         String PARCELABLE_IMAGE_METADATA = "parcelable_image_metadata";
         String CROPPED_IMG_ID = "cropped_img_id";
         String TIME_IMG_SAVED = "time_img_saved";
+        String FLASH_ON = "flash_on";
+        String CASSETTE_BOUNDARY = "cassette_boundary";
     }
 }
