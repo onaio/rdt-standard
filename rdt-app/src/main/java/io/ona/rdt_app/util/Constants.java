@@ -64,11 +64,7 @@ public interface Constants {
     }
 
     interface Test {
-        String TEST_CONTROL_RESULT = "test_control_result";
-        String TEST_PV_RESULT = "test_pv_result";
-        String TEST_PF_RESULT = "test_pf_result";
         String RDT_CAPTURE_DURATION = "rdt_capture_duration";
-        String FULL_IMG_ID_AND_TIME_STAMP = "full_img_id_and_time_stamp";
         String FULL_IMAGE = "full_image";
         String CROPPED_IMAGE = "cropped_image";
         String PARCELABLE_IMAGE_METADATA = "parcelable_image_metadata";

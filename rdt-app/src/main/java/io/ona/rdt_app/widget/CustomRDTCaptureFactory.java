@@ -24,7 +24,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.domain.LineReadings;
@@ -41,12 +40,8 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMG_ID;
-import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
-import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TIME_IMG_SAVED;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 

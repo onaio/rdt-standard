@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.ona.rdt_app.BuildConfig;
-import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.job.RDTSyncServiceJob;
 
