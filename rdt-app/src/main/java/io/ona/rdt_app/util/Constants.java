@@ -76,5 +76,6 @@ public interface Constants {
         String CROPPED_IMG_ID = "cropped_img_id";
         String FULL_IMAGE = "full_image";
         String CROPPED_IMAGE = "cropped_image";
+        String PARCELABLE_IMAGE_METADATA = "parcelable_image_metadata";
     }
 }

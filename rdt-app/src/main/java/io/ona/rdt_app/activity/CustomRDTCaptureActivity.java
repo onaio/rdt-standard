@@ -1,5 +1,6 @@
 package io.ona.rdt_app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -22,6 +23,7 @@ import static io.ona.rdt_app.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMG_ID;
 import static io.ona.rdt_app.util.Constants.Test.FLASH_ON;
 import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
+import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
@@ -90,17 +92,10 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     public void onImageSaved(CompositeImage compositeImage) {
         hideProgressDialogFromFG(this);
         if (compositeImage != null) {
-            Map<String, String> keyVals = new HashMap();
-            ImageProcessor.InterpretationResult interpretationResult = compositeImage.getInterpretationResult();
-            keyVals.put(FULL_IMG_ID_AND_TIME_STAMP, compositeImage.getFullImageId() + "," + compositeImage.getImageTimeStamp());
-            keyVals.put(TEST_CONTROL_RESULT, String.valueOf(interpretationResult.topLine));
-            keyVals.put(TEST_PV_RESULT, String.valueOf(interpretationResult.middleLine));
-            keyVals.put(TEST_PF_RESULT, String.valueOf(interpretationResult.bottomLine));
-            keyVals.put(RDT_CAPTURE_DURATION, String.valueOf(compositeImage.getCaptureDuration()));
-            keyVals.put(FLASH_ON, String.valueOf(compositeImage.isFlashOn()));
-            keyVals.put(CROPPED_IMG_ID, compositeImage.getCroppedImageId());
-            keyVals.put(CASSETTE_BOUNDARY, presenter.formatPoints(compositeImage.getBoundary()));
-            setResult(RESULT_OK, getResultIntent(keyVals));
+            ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
+            setResult(RESULT_OK, resultIntent);
         } else {
             Log.e(TAG, "Could not save null image path");
         }

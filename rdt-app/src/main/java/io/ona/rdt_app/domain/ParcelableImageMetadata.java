@@ -1,9 +1,12 @@
 package io.ona.rdt_app.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Vincent Karuri on 16/10/2019
  */
-public class ParcelableImageMetadata {
+public class ParcelableImageMetadata implements Parcelable {
 
     private String providerId;
     private String baseEntityId;
@@ -13,7 +16,30 @@ public class ParcelableImageMetadata {
     private long imageTimeStamp;
     private long captureDuration;
     private boolean isFlashOn;
-    
+
+    protected ParcelableImageMetadata(Parcel in) {
+        providerId = in.readString();
+        baseEntityId = in.readString();
+        fullImageId = in.readString();
+        croppedImageId = in.readString();
+        imageToSave = in.readString();
+        imageTimeStamp = in.readLong();
+        captureDuration = in.readLong();
+        isFlashOn = in.readByte() != 0;
+    }
+
+    public static final Creator<ParcelableImageMetadata> CREATOR = new Creator<ParcelableImageMetadata>() {
+        @Override
+        public ParcelableImageMetadata createFromParcel(Parcel in) {
+            return new ParcelableImageMetadata(in);
+        }
+
+        @Override
+        public ParcelableImageMetadata[] newArray(int size) {
+            return new ParcelableImageMetadata[size];
+        }
+    };
+
     public String getProviderId() {
         return providerId;
     }
@@ -96,5 +122,22 @@ public class ParcelableImageMetadata {
     public ParcelableImageMetadata withFlashOn(boolean isFlashOn) {
         setFlashOn(isFlashOn);
         return this;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.providerId);
+        dest.writeString(this.baseEntityId);
+        dest.writeString(this.fullImageId);
+        dest.writeString(this.croppedImageId);
+        dest.writeString(this.imageToSave);
+        dest.writeLong(this.imageTimeStamp);
+        dest.writeLong(this.captureDuration);
+        dest.writeByte((byte) (this.isFlashOn ? 1 : 0));
     }
 }
