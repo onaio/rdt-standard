@@ -10,10 +10,12 @@ import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
+
 import io.ona.rdt_app.domain.CompositeImage;
 import io.ona.rdt_app.domain.LineReadings;
 import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.domain.UnParcelableImageMetadata;
+
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;

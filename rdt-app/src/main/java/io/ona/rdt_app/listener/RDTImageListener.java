@@ -7,7 +7,6 @@ import android.widget.RemoteViews;
 import com.android.volley.toolbox.ImageLoader;
 
 import org.smartregister.util.OpenSRPImageListener;
-
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.callback.OnImageSavedCallback;
