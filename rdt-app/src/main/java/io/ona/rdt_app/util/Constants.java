@@ -29,7 +29,6 @@ public interface Constants {
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
-    String PROVIDER_ID = "provider_id";
     String EXPIRED_PAGE_ADDRESS = "expired_page_address";
 
     String PHONE_MODEL = "phone_model";
@@ -61,7 +60,6 @@ public interface Constants {
         String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
         String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
         String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
-        String RDT_CAPTURE_DURATION = "rdt_capture_duration";
         String RDT_TYPE = "rdt_type";
     }
 
@@ -74,5 +72,7 @@ public interface Constants {
         String FULL_IMAGE = "full_image";
         String CROPPED_IMAGE = "cropped_image";
         String PARCELABLE_IMAGE_METADATA = "parcelable_image_metadata";
+        String CROPPED_IMG_ID = "cropped_img_id";
+        String TIME_IMG_SAVED = "time_img_saved";
     }
 }

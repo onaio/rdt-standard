@@ -27,23 +27,27 @@ import java.util.List;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import io.ona.rdt_app.activity.CustomRDTCaptureActivity;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
+import io.ona.rdt_app.domain.LineReadings;
 import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt_app.util.Constants.Form.RDT_TYPE;
+import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMG_ID;
 import static io.ona.rdt_app.util.Constants.Test.FULL_IMG_ID_AND_TIME_STAMP;
 import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.TIME_IMG_SAVED;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -112,29 +116,13 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
             @Override
             public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 hideProgressDialog();
-                JSONObject jsonObject = widgetArgs.getJsonObject();
+
                 RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
                 if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
                     try {
                         Bundle extras = data.getExtras();
-
                         ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
-
-                        String controlResult = extras.getString(TEST_CONTROL_RESULT);
-                        String pvResult = extras.getString(TEST_PV_RESULT);
-                        String pfResult = extras.getString(TEST_PF_RESULT);
-                        String imageCaptureDuration = extras.getString(RDT_CAPTURE_DURATION);
-
-                        String[] imgIDAndTimeStamp = extras.getString(FULL_IMG_ID_AND_TIME_STAMP).split(",");
-                        String imgIdAddress = jsonObject.optString(IMAGE_ID_ADDRESS, "");
-                        String imgTimeStampAddress = jsonObject.optString(IMAGE_TIMESTAMP_ADDRESS, "");
-
-                        ImageProcessor.InterpretationResult interpretationResult = new ImageProcessor.InterpretationResult();
-                        interpretationResult.topLine = Boolean.valueOf(controlResult);
-                        interpretationResult.middleLine = Boolean.valueOf(pvResult);
-                        interpretationResult.bottomLine = Boolean.valueOf(pfResult);
-
-                        populateRelevantFields(imgIDAndTimeStamp, imgIdAddress, imgTimeStampAddress, interpretationResult, imageCaptureDuration, (JsonApi) widgetArgs.getContext());
+                        populateRelevantFields(parcelableImageMetadata);
                         if (!formFragment.next()) {
                             formFragment.save(true);
                         }
@@ -152,24 +140,17 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         return resultListener;
     }
 
-    private void populateRelevantFields(String[] imgIDAndTimeStamp, String imgIdAddress, String imgTimeStampAddress, ImageProcessor.InterpretationResult testResult, String imgCaptureDuration, JsonApi jsonApi) throws JSONException {
-        String[] stepAndId = new String[0];
-
-        stepAndId = imgIdAddress.isEmpty() ? stepAndId : imgIdAddress.split(":");
-        if (stepAndId.length == 2) {
-            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[0], "", "", "", false);
-        }
-
-        stepAndId = imgTimeStampAddress.isEmpty() ? new String[0] : imgTimeStampAddress.split(":");
-        if (stepAndId.length == 2) {
-            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), imgIDAndTimeStamp[1], "", "", "", false);
-        }
-
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(testResult.topLine), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(testResult.middleLine), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(testResult.bottomLine), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_DURATION, imgCaptureDuration, "", "", "", false);
+    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
+        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+        LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_DURATION, String.valueOf(parcelableImageMetadata.getCaptureDuration()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_TYPE, ((RDTJsonFormActivity) widgetArgs.getContext()).getRdtType(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), CROPPED_IMG_ID, parcelableImageMetadata.getCroppedImageId(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), TIME_IMG_SAVED, String.valueOf(parcelableImageMetadata.getImageTimeStamp()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE, parcelableImageMetadata.getFullImageId(), "", "", "", false);
     }
 
     @Override
