@@ -1,10 +1,6 @@
 package io.ona.rdt_app.application;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
@@ -22,7 +18,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
