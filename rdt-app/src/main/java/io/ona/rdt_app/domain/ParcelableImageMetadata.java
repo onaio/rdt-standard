@@ -157,6 +157,21 @@ public class ParcelableImageMetadata implements Parcelable {
         return this;
     }
 
+    public ParcelableImageMetadata withFullmageId(String fullImageId) {
+        setFullImageId(fullImageId);
+        return this;
+    }
+
+    public ParcelableImageMetadata withCroppedImageId(String croppedImageId) {
+        setCroppedImageId(croppedImageId);
+        return this;
+    }
+
+    public ParcelableImageMetadata withImageTimeStamp(long imageTimeStamp) {
+        setImageTimeStamp(imageTimeStamp);
+        return this;
+    }
+
     @Override
     public int describeContents() {
         return 0;

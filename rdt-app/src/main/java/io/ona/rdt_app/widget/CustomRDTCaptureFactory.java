@@ -117,7 +117,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
                     try {
                         Bundle extras = data.getExtras();
                         ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
-                        populateRelevantFields(parcelableImageMetadata);
+
+                        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+                        populateRelevantFields(parcelableImageMetadata, jsonApi);
                         if (!formFragment.next()) {
                             formFragment.save(true);
                         }
@@ -135,10 +137,8 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         return resultListener;
     }
 
-    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
+    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata, JsonApi jsonApi) throws JSONException {
         LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
-
-        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
@@ -149,7 +149,6 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE, parcelableImageMetadata.getFullImageId(), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), FLASH_ON, String.valueOf(parcelableImageMetadata.isFlashOn()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), CASSETTE_BOUNDARY, parcelableImageMetadata.getCassetteBoundary(), "", "", "", false);
-
     }
 
     @Override
