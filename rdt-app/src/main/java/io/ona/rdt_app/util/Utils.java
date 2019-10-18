@@ -1,5 +1,8 @@
 package io.ona.rdt_app.util;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
@@ -63,5 +66,11 @@ public class Utils {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.parse(dateStr);
+    }
+
+    public static int convertDpToPixels(Context context, float dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+
+        return (int) (dp * displayMetrics.density);
     }
 }

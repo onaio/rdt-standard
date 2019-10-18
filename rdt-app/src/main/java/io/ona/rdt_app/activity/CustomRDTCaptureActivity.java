@@ -1,9 +1,13 @@
 package io.ona.rdt_app.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +28,7 @@ import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
 import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
+import static io.ona.rdt_app.util.Utils.convertDpToPixels;
 import static io.ona.rdt_app.widget.CustomRDTCaptureFactory.CAPTURE_TIMEOUT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
@@ -91,8 +96,15 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mImageQualityView.findViewById(R.id.btn_manual_img_capture).setVisibility(View.VISIBLE);
+               displayManualCaptureBtn();
             }
         }, milliseconds);
+    }
+
+    private void displayManualCaptureBtn() {
+        ImageButton btnManualCapture = mImageQualityView.findViewById(R.id.btn_manual_img_capture);
+        Drawable captureIcon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_rdt_camera_icon);
+        btnManualCapture.setBackground(captureIcon);
+        btnManualCapture.findViewById(R.id.btn_manual_img_capture).setVisibility(View.VISIBLE);
     }
 }
