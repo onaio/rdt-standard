@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
+import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
@@ -49,9 +51,9 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     @Override
-    public void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+    public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-
+        final byte[] captureByteArray = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
         ImageMetaData imageMetaData = new ImageMetaData();
         imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
                 .withBaseEntityId(baseEntityId)
@@ -97,7 +99,14 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     private void modifyLayout() {
-        mImageQualityView.findViewById(R.id.bottom_manual_camera_controls).setVisibility(View.VISIBLE);
+        ImageButton btnManualCapture = mImageQualityView.findViewById(R.id.btn_manual_capture);
+        btnManualCapture.setVisibility(View.VISIBLE);
+        btnManualCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mImageQualityView.captureImage();
+            }
+        });
         mImageQualityView.findViewById(R.id.textInstruction).setVisibility(View.GONE);
         mImageQualityView.findViewById(R.id.img_quality_feedback_view).setVisibility(View.GONE);
         mImageQualityView.findViewById(R.id.manual_capture_instructions).setVisibility(View.VISIBLE);
