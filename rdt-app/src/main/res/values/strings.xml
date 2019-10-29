@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">rdt-app</string>
+    <string name="app_name">RDT Open Reader</string>
 
     <string name="clients_register_title">Clients</string>
     <string name="hamburger_menu">Hamburger menu</string>
