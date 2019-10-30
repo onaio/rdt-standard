@@ -1,25 +1,25 @@
 package io.ona.rdt_app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
+import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
-import io.ona.rdt_app.domain.ImageMetaData;
+
+import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.LineReadings;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
+import io.ona.rdt_app.domain.UnParcelableImageMetadata;
+
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
-import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
-import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
 import static io.ona.rdt_app.util.Utils.hideProgressDialogFromFG;
 import static io.ona.rdt_app.util.Utils.showProgressDialogInFG;
@@ -48,35 +48,50 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     @Override
-    public void useCapturedImage(byte[] captureByteArray, byte[] windowByteArray, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+    public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
 
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
 
-        ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
-                .withBaseEntityId(baseEntityId)
-                .withProviderId(providerID)
-                .withInterpretationResult(interpretationResult)
-                .withTimeTaken(timeTaken);
+        presenter.saveImage(this, buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
+    }
 
-        presenter.saveImage(this, imageMetaData, this);
+    private CompositeImage buildCompositeImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+
+        final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
+        final byte[] croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
+
+        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
+        unParcelableImageMetadata.withInterpretationResult(interpretationResult)
+                .withBoundary(captureResult.boundary.toArray());
+
+        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
+        parcelableImageMetadata.withBaseEntityId(baseEntityId)
+                .withProviderId(providerID)
+                .withTimeTaken(timeTaken)
+                .withFlashOn(captureResult.flashEnabled)
+                .withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
+                .withCassetteBoundary(presenter.formatPoints(unParcelableImageMetadata.getBoundary()));
+
+        CompositeImage compositeImage = new CompositeImage();
+        compositeImage.withFullImage(convertByteArrayToBitmap(fullImage))
+                .withCroppedImage(convertByteArrayToBitmap(croppedImage))
+                .withParcelableImageMetadata(parcelableImageMetadata)
+                .withUnParcelableImageMetadata(unParcelableImageMetadata);
+
+        return compositeImage;
     }
 
     @Override
-    public void onImageSaved(String imageMetaData) {
+    public void onImageSaved(CompositeImage compositeImage) {
         hideProgressDialogFromFG(this);
-        if (imageMetaData != null) {
-            Map<String, String> keyVals = new HashMap();
-            String[] vals = imageMetaData.split(",");
-            keyVals.put(SAVED_IMG_ID_AND_TIME_STAMP, vals[0] + "," + vals[1]);
-            keyVals.put(TEST_CONTROL_RESULT, vals[2]);
-            keyVals.put(TEST_PV_RESULT, vals[3]);
-            keyVals.put(TEST_PF_RESULT, vals[4]);
-            keyVals.put(RDT_CAPTURE_DURATION, vals[5]);
-            setResult(RESULT_OK, getResultIntent(keyVals));
+        if (compositeImage != null) {
+            ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
+            setResult(RESULT_OK, resultIntent);
         } else {
-            Log.e(TAG, "Could not save null image path");
+            Log.e(TAG, "Could not save image due to incomplete data");
         }
         finish();
     }

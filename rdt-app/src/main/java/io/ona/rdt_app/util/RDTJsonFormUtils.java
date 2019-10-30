@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Pair;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,14 +28,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.activity.RDTJsonFormActivity;
 import io.ona.rdt_app.application.RDTApplication;
+import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.callback.OnUniqueIdFetchedCallback;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.domain.Patient;
 import timber.log.Timber;
 
@@ -43,6 +45,8 @@ import static io.ona.rdt_app.util.Constants.Form.RDT_ID;
 import static io.ona.rdt_app.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt_app.util.Constants.MULTI_VERSION;
 import static io.ona.rdt_app.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt_app.util.Constants.Test.CROPPED_IMAGE;
+import static io.ona.rdt_app.util.Constants.Test.FULL_IMAGE;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -56,83 +60,110 @@ public class RDTJsonFormUtils {
 
     private static final String TAG = RDTJsonFormUtils.class.getName();
 
-    public static void saveStaticImageToDisk(final Context context, ImageMetaData imageMetaData, final OnImageSavedCallBack onImageSavedCallBack) {
+    public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
 
-        Bitmap image = imageMetaData.getImage();
-        String providerId = imageMetaData.getProviderId();
-        String entityId = imageMetaData.getBaseEntityId();
-        ImageProcessor.InterpretationResult testResult = imageMetaData.getInterpretationResult();
-
-        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+        Bitmap fullImage = compositeImage.getFullImage();
+        ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+        String providerId = parcelableImageMetadata.getProviderId();
+        String entityId = parcelableImageMetadata.getBaseEntityId();
+        if (fullImage == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             onImageSavedCallBack.onImageSaved(null);
             return;
         }
 
-        class SaveImageTask extends AsyncTask<Void, Void, ProfileImage> {
+        class SaveImageTask extends AsyncTask<Void, Void, Void> {
 
             @Override
-            protected ProfileImage doInBackground(Void... voids) {
-                ProfileImage profileImage = new ProfileImage();
-                OutputStream outputStream = null;
-                try {
-                    if (!StringUtils.isBlank(entityId)) {
-                        final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
-                        final File imageFolder = new File(imgFolderPath);
-                        boolean success = true;
-                        if (!imageFolder.exists()) {
-                            success = imageFolder.mkdirs();
-                        }
-                        // save captured image
-                        if (success) {
-                            String absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
-                            File outputFile = new File(absoluteFilePath);
+            protected Void doInBackground(Void... voids) {
 
-                            outputStream = new FileOutputStream(outputFile);
-                            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-                            // insert into db
-                            profileImage.setImageid(UUID.randomUUID().toString());
-                            profileImage.setAnmId(providerId);
-                            profileImage.setEntityID(entityId);
-                            profileImage.setFilepath(absoluteFilePath);
-                            profileImage.setFilecategory(MULTI_VERSION);
-                            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                            ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
-                            imageRepo.add(profileImage);
-                            if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
-                                saveImageToGallery(context, image);
-                            }
-                        } else {
-                            Timber.e(TAG, "Sorry, could not create image folder!");
-                        }
+                if (!StringUtils.isBlank(entityId)) {
+                    final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
+                    final File imageFolder = new File(imgFolderPath);
+                    boolean success = true;
+                    if (!imageFolder.exists()) {
+                        success = imageFolder.mkdirs();
                     }
-                } catch(FileNotFoundException e){
-                    Timber.e(TAG, e);
-                } finally {
-                    if (outputStream != null) {
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
-                            Timber.e(TAG, e);
-                        }
+
+                    if (success) {
+                        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
+                        saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
+
+                        parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
+                        saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
+                    } else {
+                        Timber.e(TAG, "Sorry, could not create fullImage folder!");
                     }
                 }
 
-                return profileImage;
+                return null;
             }
 
             @Override
-            protected void onPostExecute(ProfileImage profileImage) {
-                onImageSavedCallBack.onImageSaved(profileImage.getImageid()
-                        + "," + System.currentTimeMillis()
-                        + "," + testResult.topLine
-                        + "," + testResult.middleLine
-                        + "," + testResult.bottomLine
-                        + "," + imageMetaData.getTimeTaken());
+            protected void onPostExecute(Void voids) {
+                onImageSavedCallBack.onImageSaved(compositeImage);
             }
         }
 
         new SaveImageTask().execute();
+    }
+
+    private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
+        ProfileImage profileImage = new ProfileImage();
+        Pair writeResult = writeImageToDisk(imgFolderPath, image, context);
+        boolean isSuccessfulWrite = (Boolean) writeResult.first;
+        String absoluteFilePath = (String) writeResult.second;
+        if (isSuccessfulWrite) {
+            saveImgDetails(absoluteFilePath, parcelableImageMetadata, profileImage);
+            if (FULL_IMAGE.equals(parcelableImageMetadata.getImageToSave())) {
+                parcelableImageMetadata.setFullImageId(profileImage.getImageid());
+                parcelableImageMetadata.setImageTimeStamp(System.currentTimeMillis());
+            } else {
+                parcelableImageMetadata.setCroppedImageId(profileImage.getImageid());
+            }
+        }
+    }
+
+    private static void saveImgDetails(String absoluteFilePath, ParcelableImageMetadata parcelableImageMetadata, ProfileImage profileImage) {
+        profileImage.setImageid(UUID.randomUUID().toString());
+        profileImage.setAnmId(parcelableImageMetadata.getProviderId());
+        profileImage.setEntityID(parcelableImageMetadata.getBaseEntityId());
+        profileImage.setFilepath(absoluteFilePath);
+        profileImage.setFilecategory(MULTI_VERSION);
+        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+
+        ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
+        imageRepo.add(profileImage);
+    }
+
+
+    private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
+
+        OutputStream outputStream = null;
+        String absoluteFilePath = null;
+        try {
+            absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
+            File outputFile = new File(absoluteFilePath);
+
+            outputStream = new FileOutputStream(outputFile);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
+                saveImageToGallery(context, image);
+            }
+
+            return new Pair<>(true, absoluteFilePath);
+        } catch(FileNotFoundException e){
+            Timber.e(TAG, e);
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    Timber.e(TAG, e);
+                }
+            }
+        }
+
+        return new Pair<>(false, absoluteFilePath);
     }
 
     private static void saveImageToGallery(Context context, Bitmap image) {

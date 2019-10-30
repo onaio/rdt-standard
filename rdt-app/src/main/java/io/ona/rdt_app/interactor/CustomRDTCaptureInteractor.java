@@ -2,8 +2,8 @@ package io.ona.rdt_app.interactor;
 
 import android.content.Context;
 
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.callback.OnImageSavedCallback;
+import io.ona.rdt_app.domain.CompositeImage;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
@@ -18,7 +18,7 @@ public class CustomRDTCaptureInteractor {
         this.presenter = presenter;
     }
 
-    public void saveImage(Context context, ImageMetaData imageMetaData, OnImageSavedCallBack onImageSavedCallBack) {
-        RDTJsonFormUtils.saveStaticImageToDisk(context, imageMetaData, onImageSavedCallBack);
+    public void saveImage(Context context, CompositeImage compositeImage, OnImageSavedCallback onImageSavedCallBack) {
+        RDTJsonFormUtils.saveStaticImagesToDisk(context, compositeImage, onImageSavedCallBack);
     }
 }
