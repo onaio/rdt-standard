@@ -7,12 +7,12 @@ import android.widget.RemoteViews;
 import com.android.volley.toolbox.ImageLoader;
 
 import org.smartregister.util.OpenSRPImageListener;
-
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
-import io.ona.rdt_app.BuildConfig;
 import io.ona.rdt_app.application.RDTApplication;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.callback.OnImageSavedCallback;
+import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
+import io.ona.rdt_app.domain.UnParcelableImageMetadata;
 import io.ona.rdt_app.util.RDTJsonFormUtils;
 
 /**
@@ -37,17 +37,23 @@ public class RDTImageListener extends OpenSRPImageListener {
         Bitmap image = response.getBitmap();
         RDTApplication application = RDTApplication.getInstance();
 
-        ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withImage(image)
-                .withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
-                .withBaseEntityId(BuildConfig.BASE_ENTITY_ID)
-                .withInterpretationResult(new ImageProcessor.InterpretationResult());
+        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
+        parcelableImageMetadata.withProviderId(application.getContext().allSharedPreferences().fetchRegisteredANM())
+                .withBaseEntityId("base_entity_id"); // todo: pass real base entity id here
+
+        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
+        unParcelableImageMetadata.withInterpretationResult(new ImageProcessor.InterpretationResult());
+
+        CompositeImage compositeImage = new CompositeImage();
+        compositeImage.withFullImage(image)
+                .withParcelableImageMetadata(parcelableImageMetadata)
+                .withUnParcelableImageMetadata(unParcelableImageMetadata);
 
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImageToDisk(application.getApplicationContext(), imageMetaData, new OnImageSavedCallBack() {
+            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), compositeImage, new OnImageSavedCallback() {
                 @Override
-                public void onImageSaved(String imageLocation) {
+                public void onImageSaved(CompositeImage compositeImage) {
                     // do nothing
                 }
             });

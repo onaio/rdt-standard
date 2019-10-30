@@ -13,7 +13,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
-        versionName "1.6.0"
+        versionName "v1.8.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
     }
@@ -30,34 +30,22 @@ android {
 
     buildTypes {
         debug {
+            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
-            buildConfigField "String", "ANM_ID", "\"indtester1\""
-            buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
-            buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
-            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '50'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'true'
         }
 
         release {
             buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
-            buildConfigField "String", "ANM_ID", "\"indtester1\""
-            buildConfigField "String", "ANM_PASSWORD", "\"Amani123\""
-            buildConfigField "String", "BASE_ENTITY_ID", "\"da4a21fe-364f-450f-ad31-7cbd42e6cd18\""
-            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
-        }
-
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
 
@@ -72,13 +60,29 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    flavorDimensions "version"
+
+    productFlavors{
+        indonesia {
+            resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"id\""
+            versionNameSuffix "-ID"
+        }
+
+        kenya {
+            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"en\""
+            versionNameSuffix  "-KE"
+        }
+    }
 }
 
 dependencies {
 
     implementation  'org.apache.commons:commons-lang3:3.9'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.6.54-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.55-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'

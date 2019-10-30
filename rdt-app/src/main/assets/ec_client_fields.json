@@ -176,6 +176,38 @@
             "field": "obs.fieldCode",
             "concept": "history_of_visiting_endemic_areas"
           }
+        },
+        {
+          "column_name": "latrine_in_household",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "latrine_in_household"
+          }
+        },
+        {
+          "column_name": "running_water_in_household",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "running_water_in_household"
+          }
+        },
+        {
+          "column_name": "immunizations_up_to_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "immunizations_up_to_date"
+          }
+        },
+        {
+          "column_name": "children_under_5",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "children_under_5"
+          }
         }
       ]
     },
@@ -220,11 +252,35 @@
           }
         },
         {
-          "column_name": "image_id",
+          "column_name": "full_img_id",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "rdt_capture"
+          }
+        },
+        {
+          "column_name": "cropped_img_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cropped_img_id"
+          }
+        },
+        {
+          "column_name": "flash_on",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "flash_on"
+          }
+        },
+        {
+          "column_name": "cassette_boundary",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cassette_boundary"
           }
         },
         {

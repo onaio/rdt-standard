@@ -136,6 +136,11 @@ public class JsonApiStub implements JsonApi {
     }
 
     @Override
+    public View getFormDataView(String s) {
+        return null;
+    }
+
+    @Override
     public JSONObject getObjectUsingAddress(String[] strings, boolean b) throws JSONException {
         return null;
     }

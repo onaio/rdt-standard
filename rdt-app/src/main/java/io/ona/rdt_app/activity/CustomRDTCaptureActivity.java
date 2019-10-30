@@ -1,13 +1,11 @@
 package io.ona.rdt_app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
@@ -15,17 +13,18 @@ import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.domain.CompositeImage;
+import io.ona.rdt_app.domain.LineReadings;
+import io.ona.rdt_app.domain.ParcelableImageMetadata;
+import io.ona.rdt_app.domain.UnParcelableImageMetadata;
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
-import static io.ona.rdt_app.util.Constants.SAVED_IMG_ID_AND_TIME_STAMP;
-import static io.ona.rdt_app.util.Constants.Test.RDT_CAPTURE_DURATION;
-import static io.ona.rdt_app.util.Constants.Test.TEST_CONTROL_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PF_RESULT;
-import static io.ona.rdt_app.util.Constants.Test.TEST_PV_RESULT;
+import static io.ona.rdt_app.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
+import static io.ona.rdt_app.util.Utils.hideProgressDialogFromFG;
+import static io.ona.rdt_app.util.Utils.showProgressDialogInFG;
+import static io.ona.rdt_app.util.Utils.updateLocale;
 import static io.ona.rdt_app.widget.CustomRDTCaptureFactory.CAPTURE_TIMEOUT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
@@ -42,6 +41,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);
@@ -53,32 +53,46 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-        final byte[] captureByteArray = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
-        ImageMetaData imageMetaData = new ImageMetaData();
-        imageMetaData.withImage(convertByteArrayToBitmap(captureByteArray))
-                .withBaseEntityId(baseEntityId)
-                .withProviderId(providerID)
-                .withInterpretationResult(interpretationResult)
-                .withTimeTaken(timeTaken);
+        showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
+        presenter.saveImage(this, buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
+    }
 
-        showProgressDialog(R.string.please_wait, R.string.processing_image, this);
-        presenter.saveImage(this, imageMetaData, this);
+    private CompositeImage buildCompositeImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+
+        final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
+        final byte[] croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
+
+        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
+        unParcelableImageMetadata.withInterpretationResult(interpretationResult)
+                .withBoundary(captureResult.boundary.toArray());
+
+        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
+        parcelableImageMetadata.withBaseEntityId(baseEntityId)
+                .withProviderId(providerID)
+                .withTimeTaken(timeTaken)
+                .withFlashOn(captureResult.flashEnabled)
+                .withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
+                .withCassetteBoundary(presenter.formatPoints(unParcelableImageMetadata.getBoundary()));
+
+        CompositeImage compositeImage = new CompositeImage();
+        compositeImage.withFullImage(convertByteArrayToBitmap(fullImage))
+                .withCroppedImage(convertByteArrayToBitmap(croppedImage))
+                .withParcelableImageMetadata(parcelableImageMetadata)
+                .withUnParcelableImageMetadata(unParcelableImageMetadata);
+
+        return compositeImage;
     }
 
     @Override
-    public void onImageSaved(String imageMetaData) {
-        hideProgressDialog();
-        if (imageMetaData != null) {
-            Map<String, String> keyVals = new HashMap();
-            String[] vals = imageMetaData.split(",");
-            keyVals.put(SAVED_IMG_ID_AND_TIME_STAMP, vals[0] + "," + vals[1]);
-            keyVals.put(TEST_CONTROL_RESULT, vals[2]);
-            keyVals.put(TEST_PV_RESULT, vals[3]);
-            keyVals.put(TEST_PF_RESULT, vals[4]);
-            keyVals.put(RDT_CAPTURE_DURATION, vals[5]);
-            setResult(RESULT_OK, getResultIntent(keyVals));
+    public void onImageSaved(CompositeImage compositeImage) {
+        hideProgressDialogFromFG(this);
+        if (compositeImage != null) {
+            ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
+            setResult(RESULT_OK, resultIntent);
         } else {
-            Log.e(TAG, "Could not save null image path");
+            Log.e(TAG, "Could not save image due to incomplete data");
         }
         finish();
     }

@@ -143,7 +143,6 @@ public class RDTApplication extends DrishtiApplication {
        return new String[]{Constants.DBConstants.NAME};
     }
 
-
     public Map<String, String> getPhoneProperties() {
         if (phoneProperties.size() == 0) {
             phoneProperties.put(PHONE_MANUFACTURER, Build.MANUFACTURER);

@@ -169,7 +169,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         this.moveBackOneStep = moveBackOneStep;
     }
 
-    private RDTJsonFormFragmentContract.Presenter getFragmentPresenter() {
+    public RDTJsonFormFragmentContract.Presenter getFragmentPresenter() {
         return (RDTJsonFormFragmentContract.Presenter) presenter;
     }
 

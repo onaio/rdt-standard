@@ -1,12 +1,12 @@
 package io.ona.rdt_app.presenter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import org.opencv.core.Point;
+
+import io.ona.rdt_app.callback.OnImageSavedCallback;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
-import io.ona.rdt_app.domain.ImageMetaData;
+import io.ona.rdt_app.domain.CompositeImage;
 import io.ona.rdt_app.interactor.CustomRDTCaptureInteractor;
 
 /**
@@ -22,7 +22,20 @@ public class CustomRDTCapturePresenter {
         this.interactor = new CustomRDTCaptureInteractor(this);
     }
 
-    public void saveImage(Context context, ImageMetaData imageMetaData, OnImageSavedCallBack onImageSavedCallBack) {
-        interactor.saveImage(context, imageMetaData, onImageSavedCallBack);
+    public void saveImage(Context context, CompositeImage compositeImage, OnImageSavedCallback onImageSavedCallBack) {
+        interactor.saveImage(context, compositeImage, onImageSavedCallBack);
+    }
+
+    public String formatPoints(Point[] points) {
+        String result = "";
+        if (points == null) {
+            return result;
+        }
+
+        for (Point point : points) {
+            result += "(" + point.x + ", " + point.y + "), ";
+        }
+
+        return result.substring(0, result.length() - 2);
     }
 }

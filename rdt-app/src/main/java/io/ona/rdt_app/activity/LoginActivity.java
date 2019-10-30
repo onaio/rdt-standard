@@ -12,6 +12,8 @@ import org.smartregister.view.contract.BaseLoginContract;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.presenter.LoginPresenter;
 
+import static io.ona.rdt_app.util.Utils.updateLocale;
+
 /**
  * Created by Vincent Karuri on 16/07/2019
  */
@@ -19,7 +21,13 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        updateLocale(this);
         super.onCreate(savedInstanceState);
+        addAttributionText();
+    }
+
+    private void addAttributionText() {
+        updateLocale(this);
         TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
         String attributionsTxt = getResources().getString(R.string.login_attributions);
         tvLoginAttributions.setText(Html.fromHtml(attributionsTxt));
