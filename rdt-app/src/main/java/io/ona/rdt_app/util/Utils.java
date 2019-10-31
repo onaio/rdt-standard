@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.annotation.StringRes;
-import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -76,8 +76,7 @@ public class Utils {
     }
 
     public static int convertDpToPixels(Context context, float dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return (int) (dp * displayMetrics.density);
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
     public static void updateLocale(android.content.Context context) {
