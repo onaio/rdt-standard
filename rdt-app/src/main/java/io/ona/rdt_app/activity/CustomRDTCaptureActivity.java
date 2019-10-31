@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import org.opencv.core.Point;
+
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
@@ -38,6 +40,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     private CustomRDTCapturePresenter presenter;
     private String baseEntityId;
     private String providerID;
+    private boolean isManualCapture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         presenter = new CustomRDTCapturePresenter(this);
         providerID = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         baseEntityId = getIntent().getStringExtra(ENTITY_ID);
+        isManualCapture = false;
         showManualCaptureBtnDelayed(getIntent().getLongExtra(CAPTURE_TIMEOUT, 0));
     }
 
@@ -60,19 +64,26 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     private CompositeImage buildCompositeImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
 
         final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
-        final byte[] croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
+        byte[] croppedImage = fullImage;
 
         UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
-        unParcelableImageMetadata.withInterpretationResult(interpretationResult)
-                .withBoundary(captureResult.boundary.toArray());
+        unParcelableImageMetadata.withInterpretationResult(interpretationResult);
 
         ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
         parcelableImageMetadata.withBaseEntityId(baseEntityId)
                 .withProviderId(providerID)
                 .withTimeTaken(timeTaken)
                 .withFlashOn(captureResult.flashEnabled)
-                .withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
-                .withCassetteBoundary(presenter.formatPoints(unParcelableImageMetadata.getBoundary()));
+                .withLineReadings(new LineReadings(false, false, false))
+                .withCassetteBoundary("(0, 0), (0, 0), (0, 0), (0, 0)");
+
+        if (!isManualCapture) {
+            croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
+            unParcelableImageMetadata.withBoundary(captureResult.boundary.toArray());
+            parcelableImageMetadata.withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
+                    .withCassetteBoundary(presenter.formatPoints(unParcelableImageMetadata.getBoundary()));
+        }
+
 
         CompositeImage compositeImage = new CompositeImage();
         compositeImage.withFullImage(convertByteArrayToBitmap(fullImage))
@@ -119,6 +130,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             @Override
             public void onClick(View v) {
                 mImageQualityView.captureImage();
+                isManualCapture = true;
             }
         });
         mImageQualityView.findViewById(R.id.textInstruction).setVisibility(View.GONE);

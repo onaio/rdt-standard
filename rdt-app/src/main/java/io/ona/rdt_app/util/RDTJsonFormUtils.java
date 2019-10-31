@@ -177,7 +177,7 @@ public class RDTJsonFormUtils {
         });
     }
 
-    public static Bitmap convertByteArrayToBitmap(byte[] src) {
+    public static Bitmap convertByteArrayToBitmap(final byte[] src) {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 
