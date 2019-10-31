@@ -234,4 +234,14 @@ public class JsonApiStub implements JsonApi {
     public void showPermissionDeniedDialog() {
         // do nothing
     }
+
+    @Override
+    public boolean displayScrollBars() {
+        return false;
+    }
+
+    @Override
+    public boolean skipBlankSteps() {
+        return false;
+    }
 }
