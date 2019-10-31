@@ -583,6 +583,36 @@
         }
       },
       {
+        "key": "parasite_type",
+        "label": "Positif untuk:",
+        "type": "check_box",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "options": [
+          {
+            "key": "pv_positive",
+            "text": "pv",
+            "value": false
+          },
+          {
+            "key": "pf_positive",
+            "text": "pf",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify if positive for pv, pf or both"
+        },
+        "relevance": {
+          "step17:chw_result": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }
+      },
+      {
         "key": "rdt_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

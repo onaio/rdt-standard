@@ -1,9 +1,11 @@
 package io.ona.rdt_app.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.annotation.StringRes;
+import android.util.TypedValue;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -71,6 +73,10 @@ public class Utils {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.parse(dateStr);
+    }
+
+    public static int convertDpToPixels(Context context, float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
     public static void updateLocale(android.content.Context context) {

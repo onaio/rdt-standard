@@ -59,7 +59,7 @@
       {
         "key": "patient_name_label",
         "type": "label",
-        "text": "Name",
+        "text": "Nama",
         "text_color": "#000000"
       },
       {

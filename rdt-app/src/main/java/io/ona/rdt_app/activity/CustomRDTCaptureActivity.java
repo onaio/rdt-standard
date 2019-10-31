@@ -2,7 +2,10 @@ package io.ona.rdt_app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
@@ -10,12 +13,10 @@ import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt_app.R;
 import io.ona.rdt_app.application.RDTApplication;
 import io.ona.rdt_app.contract.CustomRDTCaptureContract;
-
 import io.ona.rdt_app.domain.CompositeImage;
 import io.ona.rdt_app.domain.LineReadings;
 import io.ona.rdt_app.domain.ParcelableImageMetadata;
 import io.ona.rdt_app.domain.UnParcelableImageMetadata;
-
 import io.ona.rdt_app.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
@@ -24,6 +25,7 @@ import static io.ona.rdt_app.util.RDTJsonFormUtils.convertByteArrayToBitmap;
 import static io.ona.rdt_app.util.Utils.hideProgressDialogFromFG;
 import static io.ona.rdt_app.util.Utils.showProgressDialogInFG;
 import static io.ona.rdt_app.util.Utils.updateLocale;
+import static io.ona.rdt_app.widget.CustomRDTCaptureFactory.CAPTURE_TIMEOUT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -45,14 +47,13 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         presenter = new CustomRDTCapturePresenter(this);
         providerID = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         baseEntityId = getIntent().getStringExtra(ENTITY_ID);
+        showManualCaptureBtnDelayed(getIntent().getLongExtra(CAPTURE_TIMEOUT, 0));
     }
 
     @Override
     public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
-
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
-
         presenter.saveImage(this, buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
     }
 
@@ -99,5 +100,29 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     @Override
     public void onBackPressed() {
         // do nothing
+    }
+
+    private void showManualCaptureBtnDelayed(long milliseconds) {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+               modifyLayout();
+            }
+        }, milliseconds);
+    }
+
+    private void modifyLayout() {
+        ImageButton btnManualCapture = mImageQualityView.findViewById(R.id.btn_manual_capture);
+        btnManualCapture.setVisibility(View.VISIBLE);
+        btnManualCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mImageQualityView.captureImage();
+            }
+        });
+        mImageQualityView.findViewById(R.id.textInstruction).setVisibility(View.GONE);
+        mImageQualityView.findViewById(R.id.img_quality_feedback_view).setVisibility(View.GONE);
+        mImageQualityView.findViewById(R.id.manual_capture_instructions).setVisibility(View.VISIBLE);
     }
 }

@@ -25,6 +25,8 @@ import io.ona.rdt_app.fragment.RDTJsonFormFragment;
 import io.ona.rdt_app.util.RDTGpsDialog;
 import timber.log.Timber;
 
+import static io.ona.rdt_app.util.Utils.convertDpToPixels;
+
 /**
  * Created by Vincent Karuri on 19/08/2019
  */
@@ -80,12 +82,6 @@ public class RDTGpsFactory extends GpsFactory {
         scrollView.setFillViewport(true);
         scrollView.setPadding(0, 0, 0, margin);
         scrollView.findViewById(com.vijay.jsonwizard.R.id.main_layout).setPadding(margin, 0, margin, 0);
-    }
-
-    private int convertDpToPixels(Context context, float dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-
-        return (int) (dp * displayMetrics.density);
     }
 
     @Override
