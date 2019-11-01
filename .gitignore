@@ -78,5 +78,9 @@ lint/outputs/
 lint/tmp/
 lint/reports/*.iml
 
+# jacoco
+*/jacoco.exec
+
+
 .DS_Store
 
