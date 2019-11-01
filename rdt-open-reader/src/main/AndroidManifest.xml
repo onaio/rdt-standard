@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.ona.rdt_app">
+    package="io.ona.rdt">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -42,7 +42,7 @@
         <activity android:name=".activity.CustomRDTCaptureActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="io.ona.rdt_app.sync.RDTSyncIntentService" />
+        <service android:name="io.ona.rdt.sync.RDTSyncIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
     </application>
