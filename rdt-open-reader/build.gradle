@@ -1,0 +1,215 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+}
+
+jacoco {
+    toolVersion = "0.7.9"
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "io.ona.rdt_app"
+        minSdkVersion 22
+        targetSdkVersion 28
+        versionCode 1
+        versionName "v1.8.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "int", "MAX_SYNC_RETRIES", '3'
+    }
+
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        debug {
+            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '50'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
+            buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'true'
+        }
+
+        release {
+            buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
+            buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "version"
+
+    productFlavors{
+        indonesia {
+            resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"id\""
+            versionNameSuffix "-ID"
+        }
+
+        kenya {
+            resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"en\""
+            versionNameSuffix  "-KE"
+        }
+    }
+}
+
+dependencies {
+
+    implementation  'org.apache.commons:commons-lang3:3.9'
+
+    implementation('org.smartregister:opensrp-client-native-form:1.6.55-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+    }
+
+    implementation('org.smartregister:opensrp-client-core:1.7.25-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
+        exclude group: 'com.google.android.gms', module: 'play-services-vision'
+        exclude group: 'com.github.ybq', module: 'Android-SpinKit'
+        exclude group: 'org.apache.httpcomponents', module: 'httpmime'
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
+    }
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true
+    }
+
+    implementation 'com.android.support:animated-vector-drawable:28.0.0'
+    implementation 'com.android.support:support-media-compat:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+
+    testImplementation 'junit:junit:4.12'
+    // PowerMock
+    def powerMockVersion = '1.7.1'
+    testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
+    testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
+    testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+project.afterEvaluate {
+    // Grab all build types and product flavors
+    def buildTypes = android.buildTypes.collect { type ->
+        type.name
+    }
+
+    def productFlavors = android.productFlavors.collect { flavor ->
+        flavor.name
+    }
+
+    // when no product flavors defined, use empty
+    if (!productFlavors) productFlavors.add('')
+
+    // Iterate over the flavors
+    productFlavors.each {
+
+        productFlavorName ->
+
+            // Iterate over build types like debug,release,prod etc.
+            buildTypes.each {
+
+                buildTypeName ->
+                    //sourceName — e.g. freeDebug, sourcePath — e.g. free/debug
+                    def sourceName, sourcePath
+                    if (!productFlavorName) {
+                        sourceName = sourcePath = "${buildTypeName}"
+                    } else {
+                        sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
+                        sourcePath = "${productFlavorName}/${buildTypeName}"
+                    }
+
+                    // testTaskName —  e.g. testFreeDebugUnitTest task that the coverage task depends on,
+                    def testTaskName = "test${sourceName.capitalize()}UnitTest"
+
+                    // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
+                    task "${testTaskName}Coverage" (type:JacocoReport, dependsOn: "$testTaskName") {
+                        group = "Reporting"
+                        description = "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
+
+                        getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+                        getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
+
+                        classDirectories = fileTree(
+                                dir: "${project.buildDir}/intermediates/classes/${sourcePath}",
+                                excludes: [
+                                        '**/R.class',
+                                        '**/R$*.class',
+                                        '**/*$ViewInjector*.*',
+                                        '**/*$ViewBinder*.*',
+                                        '**/BuildConfig.*',
+                                        '**/Manifest*.*'
+                                ]
+                        )
+
+                        def coverageSourceDirs = [
+                                "src/main/java",
+                                "src/$productFlavorName/java",
+                                "src/$buildTypeName/java"
+                        ]
+                        additionalSourceDirs = files(coverageSourceDirs)
+                        sourceDirectories = files(coverageSourceDirs)
+                        executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+
+                        reports {
+                            //enables and disable the type of file you need
+                            xml.enabled = true
+                            html.enabled = true
+                        }
+                    }
+            }
+    }
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
+}
