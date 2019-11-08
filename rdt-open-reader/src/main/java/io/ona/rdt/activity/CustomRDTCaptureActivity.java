@@ -75,7 +75,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
                 .withTimeTaken(timeTaken)
                 .withFlashOn(captureResult.flashEnabled)
                 .withLineReadings(new LineReadings(false, false, false))
-                .withManualCapture(isManualCapture)
                 .withCassetteBoundary("(0, 0), (0, 0), (0, 0), (0, 0)");
 
         if (!isManualCapture) {
@@ -100,6 +99,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         hideProgressDialogFromFG(this);
         if (compositeImage != null) {
             ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+            parcelableImageMetadata.setManualCapture(isManualCapture);
+
             Intent resultIntent = new Intent();
             resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
             setResult(RESULT_OK, resultIntent);
