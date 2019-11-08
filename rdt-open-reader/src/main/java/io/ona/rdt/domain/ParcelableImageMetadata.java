@@ -13,10 +13,11 @@ public class ParcelableImageMetadata implements Parcelable {
     private String fullImageId;
     private String croppedImageId;
     private String imageToSave;
+    private String cassetteBoundary;
     private long imageTimeStamp;
     private long captureDuration;
+    private boolean isManualCapture;
     private boolean isFlashOn;
-    private String cassetteBoundary;
     private LineReadings lineReadings;
 
     public ParcelableImageMetadata() {
@@ -33,6 +34,7 @@ public class ParcelableImageMetadata implements Parcelable {
         isFlashOn = in.readByte() != 0;
         lineReadings = in.readParcelable(LineReadings.class.getClassLoader());
         cassetteBoundary = in.readString();
+        isManualCapture = in.readByte() != 0;
     }
 
     public static final Creator<ParcelableImageMetadata> CREATOR = new Creator<ParcelableImageMetadata>() {
@@ -87,6 +89,10 @@ public class ParcelableImageMetadata implements Parcelable {
         return cassetteBoundary;
     }
 
+    public boolean isManualCapture() {
+        return isManualCapture;
+    }
+
     public void setProviderId(String providerId) {
         this.providerId = providerId;
     }
@@ -125,6 +131,10 @@ public class ParcelableImageMetadata implements Parcelable {
 
     public void setCassetteBoundary(String cassetteBoundary) {
         this.cassetteBoundary = cassetteBoundary;
+    }
+
+    public void setManualCapture(boolean manualCapture) {
+        isManualCapture = manualCapture;
     }
 
     public ParcelableImageMetadata withProviderId(String providerId) {
@@ -172,6 +182,11 @@ public class ParcelableImageMetadata implements Parcelable {
         return this;
     }
 
+    public ParcelableImageMetadata withManualCapture(boolean isManualCapture) {
+        setManualCapture(isManualCapture);
+        return this;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -189,5 +204,6 @@ public class ParcelableImageMetadata implements Parcelable {
         dest.writeByte((byte) (this.isFlashOn ? 1 : 0));
         dest.writeParcelable(this.lineReadings, flags);
         dest.writeString(this.cassetteBoundary);
+        dest.writeByte((byte) (this.isManualCapture ? 1 : 0));
     }
 }

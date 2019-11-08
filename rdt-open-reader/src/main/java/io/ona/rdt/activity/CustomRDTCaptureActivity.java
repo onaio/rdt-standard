@@ -75,6 +75,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
                 .withTimeTaken(timeTaken)
                 .withFlashOn(captureResult.flashEnabled)
                 .withLineReadings(new LineReadings(false, false, false))
+                .withManualCapture(isManualCapture)
                 .withCassetteBoundary("(0, 0), (0, 0), (0, 0), (0, 0)");
 
         if (!isManualCapture) {
