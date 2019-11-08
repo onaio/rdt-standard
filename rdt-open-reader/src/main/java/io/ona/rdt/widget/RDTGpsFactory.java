@@ -106,7 +106,7 @@ public class RDTGpsFactory extends GpsFactory {
     }
 
     private boolean isLocationServiceDisabled(Context context) {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context. LOCATION_SERVICE ) ;
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
         boolean isGpsEnabled = false;
         boolean isNetworkEnabled = false;
         try {
