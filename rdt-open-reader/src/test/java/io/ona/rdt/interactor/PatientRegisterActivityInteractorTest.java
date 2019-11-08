@@ -9,14 +9,19 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by Vincent Karuri on 05/08/2019
@@ -46,5 +51,17 @@ public class PatientRegisterActivityInteractorTest {
         assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
         assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
         assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
+    }
+
+    @Test
+    public void testSaveFormShouldSaveForm() {
+        PatientRegisterFragmentInteractor patientRegisterFragmentInteractor = mock(PatientRegisterFragmentInteractor.class);
+        Whitebox.setInternalState(interactor, "patientRegisterFragmentInteractor", patientRegisterFragmentInteractor);
+
+        JSONObject jsonForm = mock(JSONObject.class);
+        OnFormSavedCallback callback = mock(OnFormSavedCallback.class);
+        interactor.saveForm(jsonForm, callback);
+
+        verify(patientRegisterFragmentInteractor).saveForm(eq(jsonForm), eq(callback));
     }
 }

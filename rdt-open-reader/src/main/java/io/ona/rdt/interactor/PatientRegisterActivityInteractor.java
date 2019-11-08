@@ -24,6 +24,9 @@ import static org.smartregister.util.JsonFormUtils.getString;
  * Created by Vincent Karuri on 05/08/2019
  */
 public class PatientRegisterActivityInteractor extends FormLauncher {
+
+    private PatientRegisterFragmentInteractor patientRegisterFragmentInteractor;
+
     /**
      * Get the patient for whom the RDT is to be conducted
      *
@@ -47,6 +50,14 @@ public class PatientRegisterActivityInteractor extends FormLauncher {
     }
 
     public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
-        new PatientRegisterFragmentInteractor().saveForm(jsonForm, callback);
+        getPatientRegisterFragmentInteractor().saveForm(jsonForm, callback);
+    }
+
+
+    public PatientRegisterFragmentInteractor getPatientRegisterFragmentInteractor() {
+        if (patientRegisterFragmentInteractor == null) {
+            patientRegisterFragmentInteractor = new PatientRegisterFragmentInteractor();
+        }
+        return patientRegisterFragmentInteractor;
     }
 }
