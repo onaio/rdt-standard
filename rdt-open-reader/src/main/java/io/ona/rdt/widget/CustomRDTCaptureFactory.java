@@ -43,6 +43,7 @@ import static io.ona.rdt.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;
 import static io.ona.rdt.util.Constants.Test.FLASH_ON;
+import static io.ona.rdt.util.Constants.Test.IS_MANUAL_CAPTURE;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt.util.Constants.Test.TIME_IMG_SAVED;
@@ -155,6 +156,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE, parcelableImageMetadata.getFullImageId(), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), FLASH_ON, String.valueOf(parcelableImageMetadata.isFlashOn()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), CASSETTE_BOUNDARY, parcelableImageMetadata.getCassetteBoundary(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), IS_MANUAL_CAPTURE, String.valueOf(parcelableImageMetadata.isManualCapture()), "", "", "", false);
     }
 
     @Override

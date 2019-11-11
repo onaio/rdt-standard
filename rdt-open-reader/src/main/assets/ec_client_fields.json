@@ -394,6 +394,14 @@
             "field": "obs.fieldCode",
             "concept": "rdt_type"
           }
+        },
+        {
+          "column_name": "is_manual_capture",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_manual_capture"
+          }
         }
       ]
     }

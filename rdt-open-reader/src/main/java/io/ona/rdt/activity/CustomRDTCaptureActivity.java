@@ -99,6 +99,8 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         hideProgressDialogFromFG(this);
         if (compositeImage != null) {
             ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+            parcelableImageMetadata.setManualCapture(isManualCapture);
+
             Intent resultIntent = new Intent();
             resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
             setResult(RESULT_OK, resultIntent);

@@ -72,5 +72,6 @@ public interface Constants {
         String TIME_IMG_SAVED = "time_img_saved";
         String FLASH_ON = "flash_on";
         String CASSETTE_BOUNDARY = "cassette_boundary";
+        String IS_MANUAL_CAPTURE = "is_manual_capture";
     }
 }
