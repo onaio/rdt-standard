@@ -60,8 +60,6 @@ public class RDTApplication extends DrishtiApplication {
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(presenter.createCommonFtsObject());
 
-        presenter = new RDTApplicationPresenter();
-
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration(), System.currentTimeMillis());
 
@@ -124,6 +122,9 @@ public class RDTApplication extends DrishtiApplication {
     }
 
     public RDTApplicationPresenter getPresenter() {
+        if (presenter == null) {
+            presenter = new RDTApplicationPresenter();
+        }
         return presenter;
     }
 }

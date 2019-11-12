@@ -58,5 +58,4 @@ public class RDTApplicationPresenter {
     private static String[] getFtsSortFields() {
         return new String[]{Constants.DBConstants.NAME};
     }
-
 }

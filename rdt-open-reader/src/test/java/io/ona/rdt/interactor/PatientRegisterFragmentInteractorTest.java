@@ -34,6 +34,7 @@ import java.util.UUID;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormLaunchArgs;
 import io.ona.rdt.util.RDTJsonFormUtils;
@@ -174,6 +175,7 @@ public class PatientRegisterFragmentInteractorTest {
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
         PowerMockito.when(rdtApplication.getContext()).thenReturn(applicationContext);
+        PowerMockito.when(rdtApplication.getPresenter()).thenReturn(new RDTApplicationPresenter());
 
         // mock repositories
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
