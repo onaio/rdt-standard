@@ -16,7 +16,6 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
-import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
 
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
@@ -75,12 +74,12 @@ public class PatientRegisterFragmentPresenterTest {
     }
 
     @Test
-    public void testGetMainCondition() {
+    public void testGetMainConditionShouldReturnCorrectMainCondition() {
         assertEquals(" name != ''", presenter.getMainCondition());
     }
 
     @Test
-    public void testMainColumns() throws Exception {
+    public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
         assertEquals(new String[]{RDT_TESTS + "." + "relationalid", RDT_TESTS + ".name", RDT_TESTS
                 + "." + "age", RDT_TESTS + "." + "sex"},
                 Whitebox.invokeMethod(presenter, "mainColumns", RDT_TESTS));
