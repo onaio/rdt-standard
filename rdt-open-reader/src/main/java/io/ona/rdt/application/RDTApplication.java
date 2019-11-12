@@ -24,6 +24,7 @@ import io.fabric.sdk.android.Fabric;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.job.RDTJobCreator;
+import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTSyncConfiguration;
@@ -45,7 +46,7 @@ public class RDTApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
     private String password;
-    private Map<String, String> phoneProperties;
+    private RDTApplicationPresenter presenter;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -55,11 +56,12 @@ public class RDTApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
-        phoneProperties = new HashMap<>();
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
+        presenter = new RDTApplicationPresenter();
 
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration(), System.currentTimeMillis());
@@ -143,13 +145,7 @@ public class RDTApplication extends DrishtiApplication {
        return new String[]{Constants.DBConstants.NAME};
     }
 
-    public Map<String, String> getPhoneProperties() {
-        if (phoneProperties.size() == 0) {
-            phoneProperties.put(PHONE_MANUFACTURER, Build.MANUFACTURER);
-            phoneProperties.put(PHONE_MODEL, Build.MODEL);
-            phoneProperties.put(PHONE_OS_VERSION, Build.VERSION.RELEASE);
-            phoneProperties.put(APP_VERSION, BuildConfig.VERSION_NAME);
-        }
-        return phoneProperties;
+    public RDTApplicationPresenter getPresenter() {
+        return presenter;
     }
 }

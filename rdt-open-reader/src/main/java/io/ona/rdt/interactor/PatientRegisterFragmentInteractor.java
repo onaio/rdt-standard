@@ -154,7 +154,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     }
 
     private void populatePhoneMetadata(Event event) {
-        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPhoneProperties().entrySet()) {
+        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPresenter().getPhoneProperties().entrySet()) {
             Obs obs = new Obs();
             obs.setFieldCode(phoneProperty.getKey());
             obs.setValue(phoneProperty.getValue());
