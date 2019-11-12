@@ -1,5 +1,7 @@
 package io.ona.rdt.presenter;
 
+import android.widget.LinearLayout;
+
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.mvp.MvpView;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -126,6 +128,12 @@ public class RDTJsonFormFragmentPresenterTest {
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
         verify(fragment).moveToNextStep();
+    }
+
+    @Test
+    public void testOnNextClick() {
+        presenter.onNextClick(mock(LinearLayout.class));
+        // todo: finish this
     }
 
     private void addViewAndMockStaticClasses() throws JSONException {
