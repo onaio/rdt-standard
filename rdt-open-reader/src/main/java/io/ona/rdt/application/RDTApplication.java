@@ -44,7 +44,6 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class RDTApplication extends DrishtiApplication {
 
-    private static CommonFtsObject commonFtsObject;
     private String password;
     private RDTApplicationPresenter presenter;
 
@@ -59,7 +58,7 @@ public class RDTApplication extends DrishtiApplication {
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
+        context.updateCommonFtsObject(presenter.createCommonFtsObject());
 
         presenter = new RDTApplicationPresenter();
 
@@ -122,27 +121,6 @@ public class RDTApplication extends DrishtiApplication {
         TimeChangedBroadcastReceiver.destroy(this);
         SyncStatusBroadcastReceiver.destroy(this);
         super.onTerminate();
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        if (commonFtsObject == null) {
-            commonFtsObject = new CommonFtsObject(getFtsTables());
-            commonFtsObject.updateSearchFields(RDT_PATIENTS, getFtsSearchFields());
-            commonFtsObject.updateSortFields(RDT_PATIENTS, getFtsSortFields());
-        }
-        return commonFtsObject;
-    }
-
-    private static String[] getFtsTables() {
-        return new String[]{RDT_PATIENTS};
-    }
-
-    private static String[] getFtsSearchFields() {
-        return new String[]{Constants.DBConstants.NAME};
-    }
-
-    private static String[] getFtsSortFields() {
-       return new String[]{Constants.DBConstants.NAME};
     }
 
     public RDTApplicationPresenter getPresenter() {
