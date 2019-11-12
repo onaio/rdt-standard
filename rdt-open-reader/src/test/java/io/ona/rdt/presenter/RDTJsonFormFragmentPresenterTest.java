@@ -1,19 +1,27 @@
 package io.ona.rdt.presenter;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.mvp.MvpView;
+import com.vijay.jsonwizard.views.JsonFormFragmentView;
+import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
+
+import java.lang.ref.WeakReference;
 
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.Constants;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -34,6 +42,7 @@ public class RDTJsonFormFragmentPresenterTest {
     private RDTJsonFormFragmentPresenter presenter;
     private RDTJsonFormFragmentContract.View fragment;
     private RDTJsonFormInteractor interactor;
+    private JsonFormFragment formFragment;
 
     @Before
     public void setUp() {
@@ -53,10 +62,7 @@ public class RDTJsonFormFragmentPresenterTest {
     @Test
     public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() {
         doReturn(Constants.CARESTART_RDT).when(fragment).getRDTType();
-        mockStatic(RDTJsonFormFragment.class);
-
-        JsonFormFragment formFragment = mock(JsonFormFragment.class);
-        when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
+        mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
         verify(fragment).transactFragment(eq(formFragment));
     }
@@ -78,5 +84,38 @@ public class RDTJsonFormFragmentPresenterTest {
     public void testPerformNextButtonActionShouldSubmitFormForSubmitTypeNextButton() {
         presenter.performNextButtonAction("step1", true);
         verify(fragment).saveForm();
+    }
+
+    @Test
+    public void testHasNextStep() throws JSONException {
+        addMockStepDetails();
+        assertTrue(presenter.hasNextStep());
+    }
+
+    @Test
+    public void testMoveToNextStep() throws JSONException {
+        addMockStepDetails();
+        mockStaticClasses();
+        WeakReference<JsonFormFragmentView<JsonFormFragmentViewState>> viewRef = mock(WeakReference.class);
+
+        JsonFormFragmentView<JsonFormFragmentViewState> view = mock(JsonFormFragmentView.class);
+        doReturn(view).when(viewRef).get();
+        Whitebox.setInternalState(presenter, "viewRef", viewRef);
+
+        presenter.moveToNextStep("step1");
+        verify(view).hideKeyBoard();
+        verify(view).transactThis(eq(formFragment));
+    }
+
+    private void addMockStepDetails() throws JSONException {
+        JSONObject mStepDetails = new JSONObject();
+        mStepDetails.put("next", "step1");
+        Whitebox.setInternalState(presenter, "mStepDetails", mStepDetails);
+    }
+
+    private void mockStaticClasses() {
+        mockStatic(RDTJsonFormFragment.class);
+        formFragment = mock(JsonFormFragment.class);
+        when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
     }
 }
