@@ -57,7 +57,6 @@ public class RDTBarcodeFactoryTest {
         assertEquals(result, "");
     }
 
-
     @Test
     public void testIsRDTExpiredShouldReturnTrueForExpiredRDT() throws Exception {
         boolean result = Whitebox.invokeMethod(barcodeFactory,  "isRDTExpired", getPastDate());
