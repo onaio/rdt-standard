@@ -2,6 +2,7 @@ package io.ona.rdt.presenter;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.mvp.MvpView;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
@@ -31,18 +32,21 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
+import static org.powermock.api.support.membermodification.MemberMatcher.methods;
+import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 
 /**
  * Created by Vincent Karuri on 14/08/2019
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class})
+@PrepareForTest({RDTJsonFormFragment.class, RDTJsonFormFragmentPresenter.class})
 public class RDTJsonFormFragmentPresenterTest {
 
     private RDTJsonFormFragmentPresenter presenter;
     private RDTJsonFormFragmentContract.View fragment;
     private RDTJsonFormInteractor interactor;
     private JsonFormFragment formFragment;
+    private JsonFormFragmentView<JsonFormFragmentViewState> view;
 
     @Before
     public void setUp() {
@@ -94,17 +98,43 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testMoveToNextStep() throws JSONException {
-        addMockStepDetails();
-        mockStaticClasses();
-        WeakReference<JsonFormFragmentView<JsonFormFragmentViewState>> viewRef = mock(WeakReference.class);
-
-        JsonFormFragmentView<JsonFormFragmentViewState> view = mock(JsonFormFragmentView.class);
-        doReturn(view).when(viewRef).get();
-        Whitebox.setInternalState(presenter, "viewRef", viewRef);
-
+        addViewAndMockStaticClasses();
         presenter.moveToNextStep("step1");
         verify(view).hideKeyBoard();
         verify(view).transactThis(eq(formFragment));
+    }
+
+    @Test
+    public void testMoveToNextStepWithStepArg() throws JSONException {
+        addViewAndMockStaticClasses();
+        presenter.moveToNextStep("step1");
+        verify(view).hideKeyBoard();
+        verify(view).transactThis(eq(formFragment));
+    }
+
+    @Test
+    public void testSetupToolbar() throws JSONException {
+        addViewAndMockStaticClasses();
+        suppress(methods(JsonFormFragmentPresenter.class, "setUpToolBar"));
+        presenter.setUpToolBar();
+        verify(view).updateVisibilityOfNextAndSave(eq(false), eq(false));
+    }
+
+    @Test
+    public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() {
+        doReturn(Constants.ONA_RDT).when(fragment).getRDTType();
+        mockStaticClasses();
+        presenter.performNextButtonAction("step9", null);
+        verify(fragment).moveToNextStep();
+    }
+
+    private void addViewAndMockStaticClasses() throws JSONException {
+        addMockStepDetails();
+        mockStaticClasses();
+        WeakReference<JsonFormFragmentView<JsonFormFragmentViewState>> viewRef = mock(WeakReference.class);
+        view = mock(JsonFormFragmentView.class);
+        doReturn(view).when(viewRef).get();
+        Whitebox.setInternalState(presenter, "viewRef", viewRef);
     }
 
     private void addMockStepDetails() throws JSONException {
