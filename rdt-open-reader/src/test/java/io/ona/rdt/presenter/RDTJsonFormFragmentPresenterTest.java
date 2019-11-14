@@ -132,7 +132,6 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testOnNextClick() {
-        presenter.onNextClick(mock(LinearLayout.class));
         // todo: finish this
     }
 
