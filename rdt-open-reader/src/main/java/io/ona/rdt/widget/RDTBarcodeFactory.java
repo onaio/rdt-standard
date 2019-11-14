@@ -49,6 +49,8 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
 
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
+    private boolean isSuccessfulCapture = false;
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
         return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
@@ -103,6 +105,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
                     populateRelevantFields(barcodeValues, jsonApi, expDate);
                 }
                 moveToNextStep(expDate);
+                isSuccessfulCapture = true;
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             } catch (ParseException e) {

@@ -134,7 +134,7 @@ public class RDTBarcodeFactoryTest {
     }
 
     @Test
-    public void testOnActivityResultShouldCallRelevantMethods() throws Exception {
+    public void testOnActivityResultShouldSuccessfullyCaptureBarcodeInformation() throws Exception {
         setWidgetArgs();
         Intent data = mock(Intent.class);
         Barcode barcode = new Barcode();
@@ -143,6 +143,8 @@ public class RDTBarcodeFactoryTest {
 
         RDTBarcodeFactory barcodeFactory = spy(this.barcodeFactory);
         barcodeFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_OK, data);
+
+        assertTrue(Whitebox.getInternalState(barcodeFactory, "isSuccessfulCapture"));
     }
 
     private Date getFutureDate() {
