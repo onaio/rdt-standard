@@ -1,6 +1,9 @@
 package io.ona.rdt.widget;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -32,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -111,6 +115,18 @@ public class RDTBarcodeFactoryTest {
         verify(jsonApi).writeValue(eq("step6"), eq("lbl_address6"), eq("RDT ID: " + barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
         verify(jsonApi).writeValue(eq("step2"), eq("rdt_id_addr"), eq(barcodeVals[2]), eq(""), eq(""), eq(""), eq(false));
         verify(jsonApi).writeValue(eq("step3"), eq("exp_date_addr"), anyString(), eq(""), eq(""), eq(""), eq(false));
+    }
+
+    @Test
+    public void testHideAndClickScanButton() throws Exception {
+        RelativeLayout rootLayout = mock(RelativeLayout.class);
+        Button scanBtn = mock(Button.class);
+        doReturn(scanBtn).when(rootLayout).findViewById(eq(com.vijay.jsonwizard.R.id.scan_button));
+        Whitebox.setInternalState(barcodeFactory, "rootLayout", rootLayout);
+        Whitebox.invokeMethod(barcodeFactory, "hideAndClickScanButton");
+
+        verify(scanBtn).setVisibility(eq(View.GONE));
+        verify(scanBtn).performClick();
     }
 
     private Date getFutureDate() {
