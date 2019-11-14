@@ -43,6 +43,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -58,6 +59,7 @@ public class RDTBarcodeFactoryTest {
 
     private RDTBarcodeFactory barcodeFactory;
     private WidgetArgs widgetArgs;
+    private JsonFormActivity jsonFormActivity;
 
     @Before
     public void setUp() {
@@ -138,13 +140,14 @@ public class RDTBarcodeFactoryTest {
         setWidgetArgs();
         Intent data = mock(Intent.class);
         Barcode barcode = new Barcode();
-        barcode.displayValue = "openrdt.ona.io/,31012021,52605,M017G71,MalariaPfPv,5060511890000";
+        barcode.displayValue = "openrdt.ona.io/,31012099,52605,M017G71,MalariaPfPv,5060511890000";
         doReturn(barcode).when(data).getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
 
         RDTBarcodeFactory barcodeFactory = spy(this.barcodeFactory);
         barcodeFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_OK, data);
 
-        assertTrue(Whitebox.getInternalState(barcodeFactory, "isSuccessfulCapture"));
+        verify(jsonFormActivity, atLeastOnce()).writeValue(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(), eq(false));
+        verify(widgetArgs.getFormFragment()).next();
     }
 
     private Date getFutureDate() {
@@ -170,7 +173,8 @@ public class RDTBarcodeFactoryTest {
         jsonObject.put(EXPIRED_PAGE_ADDRESS, "step2");
         widgetArgs.setJsonObject(jsonObject);
 
-        widgetArgs.setContext(mock(JsonFormActivity.class));
+        jsonFormActivity = mock(JsonFormActivity.class);
+        widgetArgs.setContext(jsonFormActivity);
 
         Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
     }
