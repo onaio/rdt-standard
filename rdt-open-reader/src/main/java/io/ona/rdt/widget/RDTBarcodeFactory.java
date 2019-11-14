@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -35,11 +36,10 @@ import static io.ona.rdt.util.Utils.convertDate;
 /**
  * Created by Vincent Karuri on 19/06/2019
  */
-public class RDTBarcodeFactory extends BarcodeFactory {
+public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResultListener {
 
     private RelativeLayout rootLayout;
-    private JSONObject jsonObject;
-    private JsonFormFragment formFragment;
+    private WidgetArgs widgetArgs;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
     public static final String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
@@ -57,8 +57,12 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     public List<View> getViewsFromJson(String stepName, final Context context,
                                        JsonFormFragment formFragment, final JSONObject jsonObject,
                                        CommonListener listener, boolean popup) {
-        this.jsonObject = jsonObject;
-        this.formFragment = formFragment;
+
+        widgetArgs = new WidgetArgs();
+        widgetArgs.withContext(context)
+                .withJsonObject(jsonObject)
+                .withFormFragment(formFragment)
+                .withStepName(stepName);
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
@@ -79,40 +83,40 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     protected void addOnBarCodeResultListeners(final Context context, final MaterialEditText editText) {
         editText.setVisibility(View.GONE);
         if (context instanceof JsonApi) {
-            final JsonApi jsonApi = (JsonApi) context;
-            jsonApi.addOnActivityResultListener(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE,
-                    new OnActivityResultListener() {
-                        @Override
-                        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                            if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-                                try {
-                                    Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
-                                    Log.d("Scanned QR Code", barcode.displayValue);
-                                    String[] barcodeValues = barcode.displayValue.split(",");
+            ((JsonApi) context).addOnActivityResultListener(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, this);
+        }
+    }
 
-                                    Date expDate = null;
-                                    if (barcodeValues.length >= 2) {
-                                        expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
-                                        populateRelevantFields(barcodeValues, jsonApi, expDate);
-                                    }
-                                    moveToNextStep(expDate);
-                                } catch (JSONException e) {
-                                    Log.e(TAG, e.getStackTrace().toString());
-                                } catch (ParseException e) {
-                                    Log.e(TAG, e.getStackTrace().toString());
-                                }
-                            } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-                                ((RDTJsonFormFragment) formFragment).setMoveBackOneStep(true);
-                            } else if (data == null) {
-                                Log.i("", "No result for qr code");
-                            }
-                        }
-                    });
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+        if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            try {
+                Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
+                Log.d("Scanned QR Code", barcode.displayValue);
+                String[] barcodeValues = barcode.displayValue.split(",");
+
+                Date expDate = null;
+                if (barcodeValues.length >= 2) {
+                    expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
+                    populateRelevantFields(barcodeValues, jsonApi, expDate);
+                }
+                moveToNextStep(expDate);
+            } catch (JSONException e) {
+                Log.e(TAG, e.getStackTrace().toString());
+            } catch (ParseException e) {
+                Log.e(TAG, e.getStackTrace().toString());
+            }
+        } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+            ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
+        } else if (data == null) {
+            Log.i("", "No result for qr code");
         }
     }
 
     private void populateRelevantFields(String[] barcodeValues, JsonApi jsonApi, Date expDate) throws JSONException {
         String idAndExpDate = barcodeValues[0] + "," + barcodeValues[1];
+        JSONObject jsonObject = widgetArgs.getJsonObject();
         jsonObject.put(VALUE, idAndExpDate);
 
         // write barcode values to relevant widgets
@@ -144,12 +148,13 @@ public class RDTBarcodeFactory extends BarcodeFactory {
     }
 
     private void moveToNextStep(Date expDate) {
+        JsonFormFragment formFragment = widgetArgs.getFormFragment();
         if (!isRDTExpired(expDate)) {
             if (!formFragment.next()) {
                 formFragment.save(true);
             }
         } else {
-            String expiredPageAddr = jsonObject.optString(EXPIRED_PAGE_ADDRESS, "step1");
+            String expiredPageAddr = widgetArgs.getJsonObject().optString(EXPIRED_PAGE_ADDRESS, "step1");
             JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
             formFragment.transactThis(nextFragment);
         }
