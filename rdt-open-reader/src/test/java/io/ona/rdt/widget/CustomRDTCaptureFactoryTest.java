@@ -11,7 +11,7 @@ import org.powermock.reflect.Whitebox;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
-import io.ona.rdt.presenter.JsonApiStub;
+import io.ona.rdt.stub.JsonApiStub;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;

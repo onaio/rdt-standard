@@ -6,9 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.vision.barcode.Barcode;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONException;
@@ -25,9 +26,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.presenter.JsonApiStub;
+import io.ona.rdt.stub.JsonApiStub;
 
 import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static io.ona.rdt.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt.util.Utils.convertDate;
@@ -131,6 +133,18 @@ public class RDTBarcodeFactoryTest {
         verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
     }
 
+    @Test
+    public void testOnActivityResultShouldCallRelevantMethods() throws Exception {
+        setWidgetArgs();
+        Intent data = mock(Intent.class);
+        Barcode barcode = new Barcode();
+        barcode.displayValue = "openrdt.ona.io/,31012021,52605,M017G71,MalariaPfPv,5060511890000";
+        doReturn(barcode).when(data).getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
+
+        RDTBarcodeFactory barcodeFactory = spy(this.barcodeFactory);
+        barcodeFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_OK, data);
+    }
+
     private Date getFutureDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -153,6 +167,8 @@ public class RDTBarcodeFactoryTest {
         jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
         jsonObject.put(EXPIRED_PAGE_ADDRESS, "step2");
         widgetArgs.setJsonObject(jsonObject);
+
+        widgetArgs.setContext(mock(JsonFormActivity.class));
 
         Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
     }

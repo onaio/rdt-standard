@@ -15,7 +15,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.presenter.JsonApiStub;
+import io.ona.rdt.stub.JsonApiStub;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;

@@ -1,4 +1,4 @@
-package io.ona.rdt.presenter;
+package io.ona.rdt.stub;
 
 import android.view.View;
 
