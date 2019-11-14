@@ -12,8 +12,8 @@ import io.ona.rdt.application.RDTApplication;
  */
 public class RDTSyncConfiguration extends SyncConfiguration {
 
-    final int CONNECT_TIMEOUT = 150000;
-    final int READ_TIMEOUT = 150000;
+    private final int CONNECT_TIMEOUT = 150000;
+    private final int READ_TIMEOUT = 150000;
 
     @Override
     public int getSyncMaxRetries() {
