@@ -29,6 +29,7 @@ import io.ona.rdt.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt.util.Utils.convertDate;
@@ -83,14 +84,14 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
     protected void addOnBarCodeResultListeners(final Context context, final MaterialEditText editText) {
         editText.setVisibility(View.GONE);
         if (context instanceof JsonApi) {
-            ((JsonApi) context).addOnActivityResultListener(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, this);
+            ((JsonApi) context).addOnActivityResultListener(BARCODE_REQUEST_CODE, this);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-        if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+        if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
                 Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                 Log.d("Scanned QR Code", barcode.displayValue);
@@ -107,7 +108,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
             } catch (ParseException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             }
-        } else if (requestCode == JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+        } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
             ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
         } else if (data == null) {
             Log.i("", "No result for qr code");

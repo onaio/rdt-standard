@@ -1,10 +1,13 @@
 package io.ona.rdt.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
@@ -23,6 +26,8 @@ import java.util.Date;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.JsonApiStub;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static io.ona.rdt.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt.util.Utils.convertDate;
 import static io.ona.rdt.widget.RDTBarcodeFactory.EXPIRATION_DATE_ADDRESS;
@@ -117,7 +122,7 @@ public class RDTBarcodeFactoryTest {
     }
 
     @Test
-    public void testHideAndClickScanButton() throws Exception {
+    public void testHideAndClickScanButtonShouldHideAndClickScanBtn() throws Exception {
         RelativeLayout rootLayout = mock(RelativeLayout.class);
         Button scanBtn = mock(Button.class);
         doReturn(scanBtn).when(rootLayout).findViewById(eq(com.vijay.jsonwizard.R.id.scan_button));
@@ -126,6 +131,17 @@ public class RDTBarcodeFactoryTest {
 
         verify(scanBtn).setVisibility(eq(View.GONE));
         verify(scanBtn).performClick();
+    }
+
+    @Test
+    public void testOnActivityResultShouldMoveBackOneStepOnCancel() {
+        WidgetArgs widgetArgs = new WidgetArgs();
+        RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
+        widgetArgs.setFormFragment(formFragment);
+        Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
+        barcodeFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_CANCELED, mock(Intent.class));
+
+        verify(formFragment).setMoveBackOneStep(eq(true));
     }
 
     private Date getFutureDate() {
