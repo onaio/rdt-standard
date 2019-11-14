@@ -140,7 +140,7 @@ public class RDTBarcodeFactoryTest {
         setWidgetArgs();
         Intent data = mock(Intent.class);
         Barcode barcode = new Barcode();
-        barcode.displayValue = "openrdt.ona.io/,31012099,52605,M017G71,MalariaPfPv,5060511890000";
+        barcode.displayValue = "openrdt.ona.io/,31012299,52605,M017G71,MalariaPfPv,5060511890000";
         doReturn(barcode).when(data).getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
 
         RDTBarcodeFactory barcodeFactory = spy(this.barcodeFactory);
