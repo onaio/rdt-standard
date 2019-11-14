@@ -21,6 +21,7 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.AllSharedPreferences;
@@ -32,6 +33,7 @@ import org.smartregister.util.JsonFormUtils;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -196,6 +198,14 @@ public class PatientRegisterFragmentInteractorTest {
 
         Whitebox.invokeMethod(interactor, "closeRDTId", dbEvent);
         verify(uniqueIdRepository).close(eq("rdt_id"));
+    }
+
+    @Test
+    public void testProcessAndSaveFormShouldProcessClient() throws Exception {
+        mockStaticMethods();
+        Whitebox.setInternalState(interactor, "clientProcessor", clientProcessor);
+        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
+        verify(clientProcessor).processClient(any(List.class));
     }
 
     private void mockStaticMethods() throws JsonFormMissingStepCountException, JSONException {

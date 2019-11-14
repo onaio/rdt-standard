@@ -73,7 +73,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    processForm(jsonForm);
+                    processAndSaveForm(jsonForm);
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
                 }
@@ -90,7 +90,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         new SaveFormTask().execute();
     }
 
-    private void processForm(JSONObject jsonForm) throws Exception {
+    private void processAndSaveForm(JSONObject jsonForm) throws Exception {
         populateApproxDOB(JsonFormUtils.fields(jsonForm));
         final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
         String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
