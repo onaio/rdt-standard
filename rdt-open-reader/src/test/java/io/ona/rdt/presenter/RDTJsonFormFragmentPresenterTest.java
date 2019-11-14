@@ -1,9 +1,6 @@
 package io.ona.rdt.presenter;
 
-import android.widget.LinearLayout;
-
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.mvp.MvpView;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
@@ -45,7 +42,7 @@ import static org.powermock.api.support.membermodification.MemberModifier.suppre
 public class RDTJsonFormFragmentPresenterTest {
 
     private RDTJsonFormFragmentPresenter presenter;
-    private RDTJsonFormFragmentContract.View fragment;
+    private RDTJsonFormFragmentContract.View rdtFormfragment;
     private RDTJsonFormInteractor interactor;
     private JsonFormFragment formFragment;
     private JsonFormFragmentView<JsonFormFragmentViewState> view;
@@ -53,43 +50,43 @@ public class RDTJsonFormFragmentPresenterTest {
     @Before
     public void setUp() {
         interactor = mock(RDTJsonFormInteractor.class);
-        fragment = spy(new PatientRegisterFragmentStub());
-        presenter = new RDTJsonFormFragmentPresenter(fragment, interactor);
+        rdtFormfragment = spy(new PatientRegisterFragmentStub());
+        presenter = new RDTJsonFormFragmentPresenter(rdtFormfragment, interactor);
     }
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-        presenter.attachView((JsonFormFragment) fragment);
+        presenter.attachView((JsonFormFragment) rdtFormfragment);
         presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class));
-        verify(fragment).moveToNextStep();
+        verify(rdtFormfragment).moveToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() {
-        doReturn(Constants.CARESTART_RDT).when(fragment).getRDTType();
+        doReturn(Constants.CARESTART_RDT).when(rdtFormfragment).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(fragment).transactFragment(eq(formFragment));
+        verify(rdtFormfragment).transactFragment(eq(formFragment));
     }
 
     @Test
     public void testPerformNextButtonActionShouldShowImageViewsForONARDT() {
-        doReturn(Constants.ONA_RDT).when(fragment).getRDTType();
+        doReturn(Constants.ONA_RDT).when(rdtFormfragment).getRDTType();
         presenter.performNextButtonAction("step8", null);
-        verify(fragment).moveToNextStep();
+        verify(rdtFormfragment).moveToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForDefaultNextButton() {
         presenter.performNextButtonAction("step1", null);
-        verify(fragment).moveToNextStep();
+        verify(rdtFormfragment).moveToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldSubmitFormForSubmitTypeNextButton() {
         presenter.performNextButtonAction("step1", true);
-        verify(fragment).saveForm();
+        verify(rdtFormfragment).saveForm();
     }
 
     @Test
@@ -124,15 +121,10 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() {
-        doReturn(Constants.ONA_RDT).when(fragment).getRDTType();
+        doReturn(Constants.ONA_RDT).when(rdtFormfragment).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(fragment).moveToNextStep();
-    }
-
-    @Test
-    public void testOnNextClick() {
-        // todo: finish this
+        verify(rdtFormfragment).moveToNextStep();
     }
 
     private void addViewAndMockStaticClasses() throws JSONException {
