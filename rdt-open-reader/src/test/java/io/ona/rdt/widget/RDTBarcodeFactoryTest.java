@@ -11,6 +11,7 @@ import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,7 @@ import static org.powermock.api.mockito.PowerMockito.whenNew;
 public class RDTBarcodeFactoryTest {
 
     private RDTBarcodeFactory barcodeFactory;
+    private WidgetArgs widgetArgs;
 
     @Before
     public void setUp() {
@@ -80,34 +82,23 @@ public class RDTBarcodeFactoryTest {
 
     @Test
     public void testMoveToNextStepShouldMoveToNextStepOrSubmitForValidRDT() throws Exception {
-        JsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
-        Whitebox.setInternalState(barcodeFactory, "formFragment", formFragment);
+        setWidgetArgs();
         Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getFutureDate());
-        verify(formFragment).next();
+        verify(widgetArgs.getFormFragment()).next();
     }
 
     @Test
     public void testMoveToNextStepShouldMoveToExpPageForExpiredRDT() throws Exception {
-        JsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
-        Whitebox.setInternalState(barcodeFactory, "formFragment", formFragment);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(EXPIRED_PAGE_ADDRESS, "step2");
-        Whitebox.setInternalState(barcodeFactory, "jsonObject", jsonObject);
-
+        setWidgetArgs();
         whenNew(Bundle.class).withNoArguments().thenReturn(mock(Bundle.class));
 
         Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getPastDate());
-        verify(formFragment).transactThis(any(RDTJsonFormFragment.class));
+        verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
     }
 
     @Test
     public void testPopulateRelevantFieldsShouldPopulateCorrectValues() throws Exception {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(RDT_ID_LBL_ADDRESSES, "step1:lbl_address1,step5:lbl_address5,step6:lbl_address6,");
-        jsonObject.put(RDT_ID_ADDRESS, "step2:rdt_id_addr");
-        jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
-        Whitebox.setInternalState(barcodeFactory, "jsonObject", jsonObject);
+        setWidgetArgs();
 
         JsonApi jsonApi = spy(new JsonApiStub());
         String[] barcodeVals = new String[]{"step1", "key", "rdt_id"};
@@ -134,14 +125,10 @@ public class RDTBarcodeFactoryTest {
     }
 
     @Test
-    public void testOnActivityResultShouldMoveBackOneStepOnCancel() {
-        WidgetArgs widgetArgs = new WidgetArgs();
-        RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
-        widgetArgs.setFormFragment(formFragment);
-        Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
+    public void testOnActivityResultShouldMoveBackOneStepOnCancel() throws JSONException {
+        setWidgetArgs();
         barcodeFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_CANCELED, mock(Intent.class));
-
-        verify(formFragment).setMoveBackOneStep(eq(true));
+        verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
     }
 
     private Date getFutureDate() {
@@ -153,5 +140,20 @@ public class RDTBarcodeFactoryTest {
 
     private Date getPastDate() throws ParseException {
         return convertDate("201217", OPEN_RDT_DATE_FORMAT);
+    }
+
+    private void setWidgetArgs() throws JSONException {
+        widgetArgs = new WidgetArgs();
+        RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
+        widgetArgs.setFormFragment(formFragment);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(RDT_ID_LBL_ADDRESSES, "step1:lbl_address1,step5:lbl_address5,step6:lbl_address6,");
+        jsonObject.put(RDT_ID_ADDRESS, "step2:rdt_id_addr");
+        jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
+        jsonObject.put(EXPIRED_PAGE_ADDRESS, "step2");
+        widgetArgs.setJsonObject(jsonObject);
+
+        Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
     }
 }
