@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Pair;
+import android.support.v4.util.Pair;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +109,7 @@ public class RDTJsonFormUtils {
 
     private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
         ProfileImage profileImage = new ProfileImage();
-        Pair writeResult = writeImageToDisk(imgFolderPath, image, context);
+        Pair<Boolean, String> writeResult = writeImageToDisk(imgFolderPath, image, context);
         boolean isSuccessfulWrite = (Boolean) writeResult.first;
         String absoluteFilePath = (String) writeResult.second;
         if (isSuccessfulWrite) {
@@ -139,6 +139,7 @@ public class RDTJsonFormUtils {
 
         OutputStream outputStream = null;
         String absoluteFilePath = null;
+        Pair<Boolean, String> result = new Pair<>(false, absoluteFilePath);
         try {
             absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
             File outputFile = new File(absoluteFilePath);
@@ -148,8 +149,7 @@ public class RDTJsonFormUtils {
             if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
                 saveImageToGallery(context, image);
             }
-
-            return new Pair<>(true, absoluteFilePath);
+            result = new Pair<>(true, absoluteFilePath);
         } catch(FileNotFoundException e){
             Timber.e(TAG, e);
         } finally {
@@ -162,7 +162,7 @@ public class RDTJsonFormUtils {
             }
         }
 
-        return new Pair<>(false, absoluteFilePath);
+        return result;
     }
 
     private static void saveImageToGallery(Context context, Bitmap image) {

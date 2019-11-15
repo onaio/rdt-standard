@@ -3,7 +3,7 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.support.v4.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,12 +24,16 @@ import org.smartregister.repository.ImageRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
 
+import java.io.File;
+import java.io.OutputStream;
+
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 
+import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Form.RDT_ID;
@@ -733,15 +737,24 @@ public class RDTJsonFormUtilsTest {
 
     @Test
     public void testSaveImageToGallery() throws Exception {
+        mockStaticMethods();
         Context context = mock(Context.class);
         Whitebox.invokeMethod(formUtils, "saveImageToGallery", context, mock(Bitmap.class));
         verifyStatic(times(1));
-        ImageUtil.saveImage(eq(context), any(), eq(0), eq(false), any(OnImageSavedCallBack.class));
+        ImageUtil.saveImage(eq(context), any(), eq(0L), eq(false), any(OnImageSavedCallBack.class));
     }
 
     @Test
-    public void testWriteImageToDisk() {
+    public void testWriteImageToDisk() throws Exception {
+        mockStaticMethods();
+        Bitmap image = mock(Bitmap.class);
+        Pair<Boolean, String> result = Whitebox.invokeMethod(formUtils, "writeImageToDisk", getTestFilePath(), image, mock(Context.class));
+        verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), any(OutputStream.class));
 
+        File file = new File(result.second);
+        if (!file.exists()) {
+            file.delete();
+        }
     }
 
     @Test
