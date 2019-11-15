@@ -21,7 +21,6 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
-import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
 
 import java.io.File;
@@ -30,11 +29,12 @@ import java.io.OutputStream;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.callback.OnImageSavedCallback;
+import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
@@ -44,11 +44,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -752,11 +753,7 @@ public class RDTJsonFormUtilsTest {
         Bitmap image = mock(Bitmap.class);
         Pair<Boolean, String> result = Whitebox.invokeMethod(formUtils, "writeImageToDisk", getTestFilePath(), image, mock(Context.class));
         verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), any(OutputStream.class));
-
-        File file = new File(result.second);
-        if (file.exists()) {
-            file.delete();
-        }
+        cleanUpFiles(result.second);
     }
 
     @Test
@@ -791,6 +788,22 @@ public class RDTJsonFormUtilsTest {
         Whitebox.invokeMethod(formUtils, "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
         verify(parcelableImageMetadata).setFullImageId(any());
         verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
+    }
+
+    @Test
+    public void testSaveStaticImagesToDiskShouldReturnIfMissingInformation() throws Exception {
+        OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
+        CompositeImage compositeImage = mock(CompositeImage.class);
+        doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
+        Whitebox.invokeMethod(formUtils, "saveStaticImagesToDisk", mock(Context.class), compositeImage, onImageSavedCallback);
+        verify(onImageSavedCallback).onImageSaved(isNull());
+    }
+
+    private void cleanUpFiles(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     private void mockStaticMethods() {
