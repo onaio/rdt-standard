@@ -269,9 +269,10 @@ public class RDTJsonFormUtils {
         new FetchUniqueIdTask().execute();
     }
 
-    public static void appendEntityId(JSONObject jsonForm) throws JSONException {
+    public static String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = getString(jsonForm, Constants.ENTITY_ID);
         entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.ENTITY_ID, entityId);
+        return entityId;
     }
 }

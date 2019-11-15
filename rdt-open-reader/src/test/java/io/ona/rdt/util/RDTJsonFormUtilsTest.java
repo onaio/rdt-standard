@@ -1,18 +1,34 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.exception.JsonFormMissingStepCountException;
+import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.util.AssetHandler;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
+import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
@@ -20,11 +36,13 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({AssetHandler.class})
 public class RDTJsonFormUtilsTest {
 
-    private RDTJsonFormUtils formUtils;
+    private static RDTJsonFormUtils formUtils;
 
-    private final String RDT_TEST_JSON_FORM = "{\n" +
+    private static final String RDT_TEST_JSON_FORM = "{\n" +
             "  \"count\": \"18\",\n" +
             "  \"encounter_type\": \"rdt_test\",\n" +
             "  \"entity_id\": \"\",\n" +
@@ -621,6 +639,13 @@ public class RDTJsonFormUtilsTest {
             "  }\n" +
             "}";
 
+    private static JSONObject RDT_TEST_JSON_FORM_OBJ;
+
+    @BeforeClass
+    public static void init() throws JSONException {
+        RDT_TEST_JSON_FORM_OBJ = new JSONObject(RDT_TEST_JSON_FORM);
+    }
+
     @Before
     public void setUp() {
         formUtils = new RDTJsonFormUtils();
@@ -659,5 +684,30 @@ public class RDTJsonFormUtilsTest {
             }
         }
         assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId && populatedPatientSex);
+    }
+
+    @Test
+    public void testAppendEntityIdShouldAppendCorrectId() throws JSONException {
+        String entityId = formUtils.appendEntityId(RDT_TEST_JSON_FORM_OBJ);
+        assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.ENTITY_ID), entityId);
+    }
+
+    @Test
+    public void testLaunchFormShouldntThrowException() throws Exception {
+        mockStaticMethods();
+        formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), "rdt_id");
+    }
+
+    @Test
+    public void testGetFormJsonObject() throws Exception {
+        mockStaticMethods();
+        JSONObject jsonObject = formUtils.getFormJsonObject("form_name", mock(Context.class));
+        assertEquals(RDT_TEST_JSON_FORM_OBJ.toString(), jsonObject.toString());
+    }
+
+    private void mockStaticMethods() {
+        // mock AssetHandler
+        mockStatic(AssetHandler.class);
+        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(RDT_TEST_JSON_FORM);
     }
 }
