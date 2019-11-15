@@ -102,28 +102,26 @@ public class UtilsTest {
     @Test
     public void testScheduleJobsImmediately() throws Exception {
         mockStaticClasses();
-        suppress(methods(BaseJob.class, "scheduleJobImmediately"));
         Whitebox.invokeMethod(Utils.class, "scheduleJobsImmediately");
 
-        verifyStatic(times(1));
-        PullUniqueIdsServiceJob.scheduleJobImmediately(eq(PullUniqueIdsServiceJob.TAG));
+        verifyStatic(BaseJob.class, times(1));
+        BaseJob.scheduleJobImmediately(eq(PullUniqueIdsServiceJob.TAG));
 
-        verifyStatic(times(1));
-        RDTSyncServiceJob.scheduleJobImmediately(eq(RDTSyncServiceJob.TAG));
+        verifyStatic(BaseJob.class, times(1));
+        BaseJob.scheduleJobImmediately(eq(RDTSyncServiceJob.TAG));
     }
 
     @Test
     public void testScheduleJobsPeriodically() throws Exception {
         mockStaticClasses();
-        suppress(methods(BaseJob.class, "scheduleJob"));
         Whitebox.invokeMethod(Utils.class, "scheduleJobsPeriodically");
 
-        verifyStatic(times(1));
-        PullUniqueIdsServiceJob.scheduleJob(eq(PullUniqueIdsServiceJob.TAG), eq(BuildConfig.SYNC_INTERVAL_MINUTES),
+        verifyStatic(BaseJob.class, times(1));
+        BaseJob.scheduleJob(eq(PullUniqueIdsServiceJob.TAG), eq(BuildConfig.SYNC_INTERVAL_MINUTES),
                 eq(Utils.getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES)));
 
-        verifyStatic(times(1));
-        RDTSyncServiceJob.scheduleJob(eq(RDTSyncServiceJob.TAG), eq(BuildConfig.SYNC_INTERVAL_MINUTES),
+        verifyStatic(BaseJob.class, times(1));
+        BaseJob.scheduleJob(eq(RDTSyncServiceJob.TAG), eq(BuildConfig.SYNC_INTERVAL_MINUTES),
                 eq(Utils.getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES)));
     }
 
@@ -134,8 +132,7 @@ public class UtilsTest {
     }
 
     private void mockStaticClasses() {
-        mockStatic(RDTSyncServiceJob.class);
-        mockStatic(PullUniqueIdsServiceJob.class);
+        mockStatic(BaseJob.class);
 
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
