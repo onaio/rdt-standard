@@ -110,8 +110,8 @@ public class RDTJsonFormUtils {
     private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
         ProfileImage profileImage = new ProfileImage();
         Pair<Boolean, String> writeResult = writeImageToDisk(imgFolderPath, image, context);
-        boolean isSuccessfulWrite = (Boolean) writeResult.first;
-        String absoluteFilePath = (String) writeResult.second;
+        boolean isSuccessfulWrite = writeResult.first;
+        String absoluteFilePath = writeResult.second;
         if (isSuccessfulWrite) {
             saveImgDetails(absoluteFilePath, parcelableImageMetadata, profileImage);
             if (FULL_IMAGE.equals(parcelableImageMetadata.getImageToSave())) {

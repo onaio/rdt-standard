@@ -38,9 +38,11 @@ import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIEN
 import static io.ona.rdt.util.Constants.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -729,14 +731,14 @@ public class RDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testGetFormJsonObject() throws Exception {
+    public void testGetFormJsonObjectShouldGetFormJsonObject() throws Exception {
         mockStaticMethods();
         JSONObject jsonObject = formUtils.getFormJsonObject("form_name", mock(Context.class));
         assertEquals(RDT_TEST_JSON_FORM_OBJ.toString(), jsonObject.toString());
     }
 
     @Test
-    public void testSaveImageToGallery() throws Exception {
+    public void testSaveImageToGalleryShouldSaveImageToGallery() throws Exception {
         mockStaticMethods();
         Context context = mock(Context.class);
         Whitebox.invokeMethod(formUtils, "saveImageToGallery", context, mock(Bitmap.class));
@@ -745,20 +747,20 @@ public class RDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testWriteImageToDisk() throws Exception {
+    public void testWriteImageToDiskShouldSuccessfullyWriteImageToDisk() throws Exception {
         mockStaticMethods();
         Bitmap image = mock(Bitmap.class);
         Pair<Boolean, String> result = Whitebox.invokeMethod(formUtils, "writeImageToDisk", getTestFilePath(), image, mock(Context.class));
         verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), any(OutputStream.class));
 
         File file = new File(result.second);
-        if (!file.exists()) {
+        if (file.exists()) {
             file.delete();
         }
     }
 
     @Test
-    public void testSaveImgDetails() throws Exception {
+    public void testSaveImgDetailsShouldSaveCorrectImgDetails() throws Exception {
         mockStaticMethods();
 
         ProfileImage profileImage = spy(new ProfileImage("image_id", "anm_id", "entity_id", "content_type", "file_path", "sync_status", "file_category"));
@@ -773,6 +775,22 @@ public class RDTJsonFormUtilsTest {
         verify(profileImage).setFilecategory(eq(MULTI_VERSION));
         verify(profileImage).setSyncStatus(eq(ImageRepository.TYPE_Unsynced));
         verify(imageRepository).add(eq(profileImage));
+    }
+
+    @Test
+    public void testSaveImageShouldSaveImage() throws Exception {
+        mockStaticMethods();
+
+        ParcelableImageMetadata parcelableImageMetadata = spy(new ParcelableImageMetadata());
+        parcelableImageMetadata.withProviderId("anm_id")
+                .withBaseEntityId("entity_id");
+        Whitebox.invokeMethod(formUtils, "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
+        verify(parcelableImageMetadata).setCroppedImageId(any());
+
+        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
+        Whitebox.invokeMethod(formUtils, "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
+        verify(parcelableImageMetadata).setFullImageId(any());
+        verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
     }
 
     private void mockStaticMethods() {
