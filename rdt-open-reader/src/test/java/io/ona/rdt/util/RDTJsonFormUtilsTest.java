@@ -22,6 +22,7 @@ import org.smartregister.domain.ProfileImage;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -61,7 +62,7 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  * Created by Vincent Karuri on 13/08/2019
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({AssetHandler.class, ImageUtil.class, RDTApplication.class, org.smartregister.Context.class})
+@PrepareForTest({AssetHandler.class, ImageUtil.class, RDTApplication.class, org.smartregister.Context.class, DrishtiApplication.class})
 public class RDTJsonFormUtilsTest {
 
     private static RDTJsonFormUtils formUtils;
@@ -804,7 +805,11 @@ public class RDTJsonFormUtilsTest {
     public void testSaveImage() throws Exception {
         mockStaticMethods();
         ParcelableImageMetadata parcelableImageMetadata = mock(ParcelableImageMetadata.class);
-        Whitebox.invokeMethod(formUtils, "saveImage", "entity_id", parcelableImageMetadata, mock(CompositeImage.class), mock(Context.class));
+
+        CompositeImage compositeImage = mock(CompositeImage.class);
+        doReturn(mock(Bitmap.class)).when(compositeImage).getFullImage();
+        doReturn(mock(Bitmap.class)).when(compositeImage).getCroppedImage();
+        Whitebox.invokeMethod(formUtils, "saveImage", "entity_id", parcelableImageMetadata, compositeImage, mock(Context.class));
         verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
         verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
     }
@@ -830,5 +835,9 @@ public class RDTJsonFormUtilsTest {
 
         // mock repositories
         PowerMockito.when(drishtiContext.imageRepository()).thenReturn(imageRepository);
+
+        // Drishti
+        mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn(getTestFilePath());
     }
 }
