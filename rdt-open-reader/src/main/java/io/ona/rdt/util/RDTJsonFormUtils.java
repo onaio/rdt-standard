@@ -135,7 +135,6 @@ public class RDTJsonFormUtils {
         imageRepo.add(profileImage);
     }
 
-
     private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
 
         OutputStream outputStream = null;
