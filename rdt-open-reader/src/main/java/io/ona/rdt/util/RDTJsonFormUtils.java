@@ -106,7 +106,7 @@ public class RDTJsonFormUtils {
                 parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
                 saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
             } else {
-                Timber.e(TAG, "Sorry, could not create fullImage folder!");
+                Timber.e(TAG, "Sorry, could not create image folder!");
             }
         }
     }

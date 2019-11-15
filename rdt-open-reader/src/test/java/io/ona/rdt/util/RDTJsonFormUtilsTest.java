@@ -38,6 +38,7 @@ import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -797,6 +798,15 @@ public class RDTJsonFormUtilsTest {
         doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
         Whitebox.invokeMethod(formUtils, "saveStaticImagesToDisk", mock(Context.class), compositeImage, onImageSavedCallback);
         verify(onImageSavedCallback).onImageSaved(isNull());
+    }
+
+    @Test
+    public void testSaveImage() throws Exception {
+        mockStaticMethods();
+        ParcelableImageMetadata parcelableImageMetadata = mock(ParcelableImageMetadata.class);
+        Whitebox.invokeMethod(formUtils, "saveImage", "entity_id", parcelableImageMetadata, mock(CompositeImage.class), mock(Context.class));
+        verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
+        verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
     }
 
     private void cleanUpFiles(String filePath) {
