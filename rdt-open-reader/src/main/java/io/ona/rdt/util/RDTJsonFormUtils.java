@@ -75,26 +75,7 @@ public class RDTJsonFormUtils {
 
             @Override
             protected Void doInBackground(Void... voids) {
-
-                if (!StringUtils.isBlank(entityId)) {
-                    final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
-                    final File imageFolder = new File(imgFolderPath);
-                    boolean success = true;
-                    if (!imageFolder.exists()) {
-                        success = imageFolder.mkdirs();
-                    }
-
-                    if (success) {
-                        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
-                        saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
-
-                        parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
-                        saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
-                    } else {
-                        Timber.e(TAG, "Sorry, could not create fullImage folder!");
-                    }
-                }
-
+                saveImage(entityId, parcelableImageMetadata, compositeImage, context);
                 return null;
             }
 
@@ -105,6 +86,29 @@ public class RDTJsonFormUtils {
         }
 
         new SaveImageTask().execute();
+    }
+
+
+    private static void saveImage(String entityId, ParcelableImageMetadata parcelableImageMetadata, CompositeImage compositeImage, Context context) {
+
+        if (!StringUtils.isBlank(entityId)) {
+            final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
+            final File imageFolder = new File(imgFolderPath);
+            boolean success = true;
+            if (!imageFolder.exists()) {
+                success = imageFolder.mkdirs();
+            }
+
+            if (success) {
+                parcelableImageMetadata.setImageToSave(FULL_IMAGE);
+                saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
+
+                parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
+                saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
+            } else {
+                Timber.e(TAG, "Sorry, could not create fullImage folder!");
+            }
+        }
     }
 
     private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
