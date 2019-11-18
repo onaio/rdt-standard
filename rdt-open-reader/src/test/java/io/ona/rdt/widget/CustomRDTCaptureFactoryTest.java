@@ -1,12 +1,17 @@
 package io.ona.rdt.widget;
 
+import android.content.Context;
 import android.content.Intent;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.widgets.RDTCaptureFactory;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +40,7 @@ import static io.ona.rdt.util.Constants.Test.FLASH_ON;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt.util.Constants.Test.TIME_IMG_SAVED;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -44,6 +50,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.support.membermodification.MemberMatcher.methods;
 import static org.powermock.api.support.membermodification.MemberModifier.suppress;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
@@ -128,6 +135,27 @@ public class CustomRDTCaptureFactoryTest {
         setWidgetArgs();
         rdtCaptureFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_CANCELED, mock(Intent.class));
         verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
+    }
+
+    @Test
+    public void testGetViewsFromJson() throws Exception {
+        suppress(methods(RDTCaptureFactory.class, "getViewsFromJson"));
+        JsonFormActivity jsonFormActivity = mock(JsonFormActivity.class);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(ENTITY_ID, "entity_id");
+        doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
+
+        JsonFormFragment formFragment = mock(JsonFormFragment.class);
+        rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
+                jsonObject, mock(CommonListener.class), false);
+
+        assertEquals("entity_id", Whitebox.getInternalState(rdtCaptureFactory, "baseEntityId"));
+
+        WidgetArgs actualWidgetArgs =  Whitebox.getInternalState(rdtCaptureFactory, "widgetArgs");
+        assertEquals(formFragment, actualWidgetArgs.getFormFragment());
+        assertEquals(jsonObject, actualWidgetArgs.getJsonObject());
+        assertEquals(jsonFormActivity, actualWidgetArgs.getContext());
+        assertEquals("step1", actualWidgetArgs.getStepName());
     }
 
     private void setWidgetArgs() {
