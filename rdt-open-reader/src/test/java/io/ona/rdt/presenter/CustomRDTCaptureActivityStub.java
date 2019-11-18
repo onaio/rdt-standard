@@ -8,4 +8,14 @@ public class CustomRDTCaptureActivityStub implements CustomRDTCaptureContract.Vi
     public void onImageSaved(CompositeImage compositeImage) {
 
     }
+
+    @Override
+    public String getBaseEntityId() {
+        return null;
+    }
+
+    @Override
+    public boolean isManualCapture() {
+        return false;
+    }
 }
