@@ -34,6 +34,7 @@ import io.ona.rdt.fragment.RDTJsonFormFragment;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
@@ -87,13 +88,10 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
         hideProgressDialog();
 
         RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
-        if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
+        if (requestCode == RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
             try {
-                Bundle extras = data.getExtras();
-                ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
-
-                JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-                populateRelevantFields(parcelableImageMetadata, jsonApi);
+                ParcelableImageMetadata parcelableImageMetadata = data.getParcelableExtra(PARCELABLE_IMAGE_METADATA);
+                populateRelevantFields(parcelableImageMetadata);
                 if (!formFragment.next()) {
                     formFragment.save(true);
                 }
@@ -119,7 +117,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
         @Override
         protected Void doInBackground(Intent... intents) {
             Activity activity = (Activity) context;
-            activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+            activity.startActivityForResult(intents[0], RDT_CAPTURE_CODE);
             return null;
         }
     }
@@ -136,8 +134,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
         }
     }
 
-    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata, JsonApi jsonApi) throws JSONException {
+    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
         LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
+        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
@@ -157,7 +156,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
         Context context = widgetArgs.getContext();
         if (context instanceof JsonApi) {
             final JsonApi jsonApi = (JsonApi) context;
-            jsonApi.addOnActivityResultListener(JsonFormConstants.RDT_CAPTURE_CODE , this);
+            jsonApi.addOnActivityResultListener(RDT_CAPTURE_CODE , this);
         }
     }
 }
