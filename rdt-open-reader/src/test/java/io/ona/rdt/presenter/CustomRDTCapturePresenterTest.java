@@ -83,7 +83,7 @@ public class CustomRDTCapturePresenterTest {
     }
 
     @Test
-    public void testBuildCompositeImage() {
+    public void testBuildCompositeImageShouldBuildCorrectCompositeImage() {
         mockStaticMethods();
 
         CustomRDTCaptureContract.View activity = mock(CustomRDTCaptureContract.View.class);

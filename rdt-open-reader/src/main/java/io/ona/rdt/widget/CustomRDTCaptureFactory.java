@@ -52,7 +52,7 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 /**
  * Created by Vincent Karuri on 27/06/2019
  */
-public class CustomRDTCaptureFactory extends RDTCaptureFactory {
+public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActivityResultListener {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String RDT_NAME = "rdt_name";
@@ -80,6 +80,31 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
         return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        hideProgressDialog();
+
+        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+        if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
+            try {
+                Bundle extras = data.getExtras();
+                ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
+
+                JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+                populateRelevantFields(parcelableImageMetadata, jsonApi);
+                if (!formFragment.next()) {
+                    formFragment.save(true);
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, e.getStackTrace().toString());
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+            formFragment.setMoveBackOneStep(true);
+        } else if (data == null) {
+            Log.i(TAG, "No result data for RDT capture!");
+        }
     }
 
     private class LaunchRDTCameraTask extends AsyncTask<Intent, Void, Void> {
@@ -111,39 +136,6 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         }
     }
 
-    private OnActivityResultListener createOnActivityResultListener() {
-
-        OnActivityResultListener resultListener =  new OnActivityResultListener() {
-
-            @Override
-            public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                hideProgressDialog();
-
-                RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
-                if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
-                    try {
-                        Bundle extras = data.getExtras();
-                        ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
-
-                        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-                        populateRelevantFields(parcelableImageMetadata, jsonApi);
-                        if (!formFragment.next()) {
-                            formFragment.save(true);
-                        }
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getStackTrace().toString());
-                    }
-                } else if (resultCode == RESULT_CANCELED) {
-                    formFragment.setMoveBackOneStep(true);
-                } else if (data == null) {
-                    Log.i(TAG, "No result data for RDT capture!");
-                }
-            }
-        };
-
-        return resultListener;
-    }
-
     private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata, JsonApi jsonApi) throws JSONException {
         LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
@@ -165,7 +157,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         Context context = widgetArgs.getContext();
         if (context instanceof JsonApi) {
             final JsonApi jsonApi = (JsonApi) context;
-            jsonApi.addOnActivityResultListener(JsonFormConstants.RDT_CAPTURE_CODE , createOnActivityResultListener());
+            jsonApi.addOnActivityResultListener(JsonFormConstants.RDT_CAPTURE_CODE , this);
         }
     }
 }
