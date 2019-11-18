@@ -21,12 +21,18 @@ import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
+import io.ona.rdt.contract.CustomRDTCaptureContract;
 import io.ona.rdt.domain.CompositeImage;
+import io.ona.rdt.domain.LineReadings;
+import io.ona.rdt.domain.ParcelableImageMetadata;
+import io.ona.rdt.domain.UnParcelableImageMetadata;
 import io.ona.rdt.interactor.CustomRDTCaptureInteractor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -42,6 +48,9 @@ public class CustomRDTCapturePresenterTest {
 
     private CustomRDTCapturePresenter presenter;
     private CustomRDTCaptureActivityStub activity;
+
+    @Mock
+    private Bitmap image;
 
     @Mock
     private RDTApplication rdtApplication;
@@ -76,16 +85,59 @@ public class CustomRDTCapturePresenterTest {
     @Test
     public void testBuildCompositeImage() {
         mockStaticMethods();
+
+        CustomRDTCaptureContract.View activity = mock(CustomRDTCaptureContract.View.class);
+        doReturn("base_entity_id").when(activity).getBaseEntityId();
+        doReturn(true).when(activity).isManualCapture();
+        Whitebox.setInternalState(presenter, "activity", activity);
+
         ImageProcessor.CaptureResult captureResult = mock(ImageProcessor.CaptureResult.class);
         Whitebox.setInternalState(captureResult, "boundary", mock(MatOfPoint2f.class));
-        presenter.buildCompositeImage(captureResult, mock(ImageProcessor.InterpretationResult.class), 0l);
+        Whitebox.setInternalState(captureResult, "flashEnabled", true);
+        ImageProcessor.InterpretationResult interpretationResult = mock(ImageProcessor.InterpretationResult.class);
+        Whitebox.setInternalState(interpretationResult, "topLine", true);
+        Whitebox.setInternalState(interpretationResult, "bottomLine", false);
+        Whitebox.setInternalState(interpretationResult, "middleLine", true);
+        CompositeImage compositeImage = presenter.buildCompositeImage(captureResult, interpretationResult, 0l);
+
+        ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
+        assertEquals("base_entity_id", parcelableImageMetadata.getBaseEntityId());
+        assertEquals(0l, parcelableImageMetadata.getCaptureDuration());
+        assertTrue(parcelableImageMetadata.isFlashOn());
+        assertEquals("(0, 0), (0, 0), (0, 0), (0, 0)", parcelableImageMetadata.getCassetteBoundary());
+
+        LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
+        assertFalse(lineReadings.isBottomLine());
+        assertFalse(lineReadings.isMiddleLine());
+        assertFalse(lineReadings.isTopLine());
+
+        UnParcelableImageMetadata unParcelableImageMetadata = compositeImage.getUnParcelableImageMetadata();
+        assertEquals("anm_id", parcelableImageMetadata.getProviderId());
+        assertEquals(interpretationResult, unParcelableImageMetadata.getInterpretationResult());
+
+        assertEquals(image, compositeImage.getCroppedImage());
+        assertEquals(image, compositeImage.getFullImage());
+
+        doReturn(false).when(activity).isManualCapture();
+        Whitebox.setInternalState(presenter, "activity", activity);
+        Whitebox.setInternalState(captureResult, "flashEnabled", false);
+        interpretationResult = mock(ImageProcessor.InterpretationResult.class);
+        Whitebox.setInternalState(interpretationResult, "topLine", true);
+        Whitebox.setInternalState(interpretationResult, "bottomLine", false);
+        Whitebox.setInternalState(interpretationResult, "middleLine", true);
+        compositeImage = presenter.buildCompositeImage(captureResult, interpretationResult, 0l);
+
+        lineReadings = compositeImage.getParcelableImageMetadata().getLineReadings();
+        assertFalse(lineReadings.isBottomLine());
+        assertTrue(lineReadings.isMiddleLine());
+        assertTrue(lineReadings.isTopLine());
     }
 
     private void mockStaticMethods() {
         mockStatic(ImageUtil.class);
 
         mockStatic(RDTJsonFormUtils.class);
-        PowerMockito.when(RDTJsonFormUtils.convertByteArrayToBitmap(AdditionalMatchers.or(any(), isNull()))).thenReturn(mock(Bitmap.class));
+        PowerMockito.when(RDTJsonFormUtils.convertByteArrayToBitmap(AdditionalMatchers.or(any(), isNull()))).thenReturn(image);
 
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
