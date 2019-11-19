@@ -1,12 +1,16 @@
 package io.ona.rdt.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.widgets.RDTCaptureFactory;
@@ -16,6 +20,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -30,7 +35,9 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static io.ona.rdt.util.Constants.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.EXPIRATION_DATE_RESULT;
 import static io.ona.rdt.util.Constants.ONA_RDT;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -43,13 +50,14 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.support.membermodification.MemberMatcher.methods;
 import static org.powermock.api.support.membermodification.MemberModifier.suppress;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class})
+@PrepareForTest({RDTJsonFormFragment.class, LayoutInflater.class})
 public class RDTExpirationDateReaderFactoryTest {
 
     private RDTExpirationDateReaderFactory readerFactory;
@@ -121,6 +129,27 @@ public class RDTExpirationDateReaderFactoryTest {
         verify((RDTJsonFormActivity) widgetArgs.getContext()).setRdtType(eq(ONA_RDT));
     }
 
+    @Test
+    public void testGetViewsFromJson() throws Exception {
+        mockStaticClasses();
+        setWidgetArgs();
+
+        JSONObject jsonObject = widgetArgs.getJsonObject();
+        suppress(methods(RDTCaptureFactory.class, "getViewsFromJson"));
+        doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
+
+        JsonFormFragment formFragment = mock(JsonFormFragment.class);
+        readerFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
+                jsonObject, mock(CommonListener.class), false);
+
+        WidgetArgs actualWidgetArgs =  Whitebox.getInternalState(readerFactory, "widgetArgs");
+        assertEquals(formFragment, actualWidgetArgs.getFormFragment());
+        assertEquals(jsonObject, actualWidgetArgs.getJsonObject());
+        assertEquals(jsonFormActivity, actualWidgetArgs.getContext());
+        assertEquals("step1", actualWidgetArgs.getStepName());
+    }
+
+
     private void setWidgetArgs() throws JSONException {
         widgetArgs = new WidgetArgs();
         RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
@@ -132,6 +161,7 @@ public class RDTExpirationDateReaderFactoryTest {
         jsonObject.put(JsonFormConstants.OPENMRS_ENTITY, "entity");
         jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "entity_id");
         jsonObject.put(JsonFormConstants.KEY, "key");
+        jsonObject.put(ENTITY_ID, "entity_id");
 
         widgetArgs.withFormFragment(formFragment)
                 .withContext(jsonFormActivity)
@@ -144,7 +174,13 @@ public class RDTExpirationDateReaderFactoryTest {
         doReturn("openmrs_entity").when(rootLayout).getTag(eq(com.vijay.jsonwizard.R.id.openmrs_entity));
         doReturn("openmrs_entity_id").when(rootLayout).getTag(eq(com.vijay.jsonwizard.R.id.openmrs_entity_id));
         Whitebox.setInternalState(readerFactory, "rootLayout", rootLayout);
-
         Whitebox.setInternalState(readerFactory, "widgetArgs", widgetArgs);
+    }
+
+    private void mockStaticClasses() {
+        mockStatic(LayoutInflater.class);
+        LayoutInflater layoutInflater = mock(LayoutInflater.class);
+        PowerMockito.when(LayoutInflater.from(any(Context.class))).thenReturn(layoutInflater);
+        doReturn(rootLayout).when(layoutInflater).inflate(anyInt(), isNull());
     }
 }
