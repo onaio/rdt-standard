@@ -65,7 +65,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
 
         this.rootLayout = LayoutInflater.from(context).inflate(getLayout(), null);
 
-        addWidgetTags(jsonObject);
+        addWidgetTags();
         setUpRDTExpirationDateActivity();
         launchRDTExpirationDateActivity();
 
@@ -80,7 +80,8 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory {
         return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
     }
 
-    private void addWidgetTags(JSONObject jsonObject) throws JSONException {
+    private void addWidgetTags() throws JSONException {
+        JSONObject jsonObject = widgetArgs.getJsonObject();
         String openMrsEntityParent = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_PARENT);
         String openMrsEntity = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY);
         String openMrsEntityId = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
