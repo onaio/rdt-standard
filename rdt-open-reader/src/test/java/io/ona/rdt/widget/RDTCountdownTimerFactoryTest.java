@@ -155,5 +155,4 @@ public class RDTCountdownTimerFactoryTest {
         Whitebox.setInternalState(countdownTimerFactory, "rootLayout", rootLayout);
         Whitebox.setInternalState(countdownTimerFactory, "widgetArgs", widgetArgs);
     }
-
 }
