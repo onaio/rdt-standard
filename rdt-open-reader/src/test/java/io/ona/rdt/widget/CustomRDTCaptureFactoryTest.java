@@ -1,6 +1,5 @@
 package io.ona.rdt.widget;
 
-import android.content.Context;
 import android.content.Intent;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;

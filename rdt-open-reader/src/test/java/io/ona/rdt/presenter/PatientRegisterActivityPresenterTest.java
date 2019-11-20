@@ -17,8 +17,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import io.ona.rdt.contract.PatientRegisterActivityContract;
-import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;

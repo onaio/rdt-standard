@@ -5,8 +5,8 @@ import android.view.View;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
-import io.ona.rdt.stub.JsonApiStub;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
+import io.ona.rdt.stub.JsonApiStub;
 
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 

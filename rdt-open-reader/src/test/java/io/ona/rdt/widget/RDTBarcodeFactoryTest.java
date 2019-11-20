@@ -1,9 +1,7 @@
 package io.ona.rdt.widget;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -17,7 +15,6 @@ import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.widgets.BarcodeFactory;
-import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;

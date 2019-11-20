@@ -1,9 +1,7 @@
 package io.ona.rdt.widget;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Vibrator;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,7 +10,6 @@ import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
-import com.vijay.jsonwizard.widgets.RDTCaptureFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -34,12 +30,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.support.membermodification.MemberMatcher.methods;
 import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;

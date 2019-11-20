@@ -39,8 +39,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.support.membermodification.MemberMatcher.methods;
-import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 
 /**
  * Created by Vincent Karuri on 31/07/2019
