@@ -39,7 +39,6 @@ import static io.ona.rdt.util.Utils.convertDate;
  */
 public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResultListener {
 
-    private RelativeLayout rootLayout;
     private WidgetArgs widgetArgs;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
@@ -67,17 +66,19 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
-        rootLayout = (RelativeLayout) views.get(0);
+        RelativeLayout rootLayout = views == null ? null : (RelativeLayout) views.get(0);
 
-        hideAndClickScanButton();
+        hideAndClickScanButton(rootLayout);
 
         return views;
     }
 
-    private void hideAndClickScanButton() {
-        Button scanButton = rootLayout.findViewById(com.vijay.jsonwizard.R.id.scan_button);
-        scanButton.setVisibility(View.GONE);
-        scanButton.performClick();
+    private void hideAndClickScanButton(RelativeLayout rootLayout) {
+        if (rootLayout != null) {
+            Button scanButton = rootLayout.findViewById(com.vijay.jsonwizard.R.id.scan_button);
+            scanButton.setVisibility(View.GONE);
+            scanButton.performClick();
+        }
     }
 
     @Override

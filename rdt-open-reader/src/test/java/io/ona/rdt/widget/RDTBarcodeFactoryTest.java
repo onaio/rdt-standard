@@ -1,22 +1,31 @@
 package io.ona.rdt.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.vision.barcode.Barcode;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
+import com.vijay.jsonwizard.widgets.BarcodeFactory;
+import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -49,20 +58,26 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
+import static org.powermock.api.support.membermodification.MemberMatcher.methods;
+import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 
 /**
  * Created by Vincent Karuri on 31/07/2019
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class, Bundle.class})
+@PrepareForTest({RDTJsonFormFragment.class, Bundle.class, RDTBarcodeFactory.class})
 public class RDTBarcodeFactoryTest {
 
     private RDTBarcodeFactory barcodeFactory;
     private WidgetArgs widgetArgs;
     private JsonFormActivity jsonFormActivity;
 
+    @Mock
+    private View rootLayout;
+
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         barcodeFactory = new RDTBarcodeFactory();
     }
 
@@ -121,8 +136,7 @@ public class RDTBarcodeFactoryTest {
         RelativeLayout rootLayout = mock(RelativeLayout.class);
         Button scanBtn = mock(Button.class);
         doReturn(scanBtn).when(rootLayout).findViewById(eq(com.vijay.jsonwizard.R.id.scan_button));
-        Whitebox.setInternalState(barcodeFactory, "rootLayout", rootLayout);
-        Whitebox.invokeMethod(barcodeFactory, "hideAndClickScanButton");
+        Whitebox.invokeMethod(barcodeFactory, "hideAndClickScanButton", rootLayout);
 
         verify(scanBtn).setVisibility(eq(View.GONE));
         verify(scanBtn).performClick();
@@ -150,6 +164,20 @@ public class RDTBarcodeFactoryTest {
         verify(widgetArgs.getFormFragment()).next();
     }
 
+    @Test
+    public void testGetViewsFromJson() throws Exception {
+        suppress(methods(BarcodeFactory.class, "getViewsFromJson"));
+        setWidgetArgs();
+        doReturn(mock(Button.class)).when(rootLayout).findViewById(eq(com.vijay.jsonwizard.R.id.scan_button));
+        barcodeFactory.getViewsFromJson("step1", jsonFormActivity, widgetArgs.getFormFragment(),
+                widgetArgs.getJsonObject(), mock(CommonListener.class), false);
+
+        WidgetArgs actualWidgetArgs =  Whitebox.getInternalState(barcodeFactory, "widgetArgs");
+        assertEquals(widgetArgs.getFormFragment(), actualWidgetArgs.getFormFragment());
+        assertEquals(widgetArgs.getJsonObject(), actualWidgetArgs.getJsonObject());
+        assertEquals(jsonFormActivity, actualWidgetArgs.getContext());
+    }
+
     private Date getFutureDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -175,7 +203,13 @@ public class RDTBarcodeFactoryTest {
 
         jsonFormActivity = mock(JsonFormActivity.class);
         widgetArgs.setContext(jsonFormActivity);
-
         Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
+    }
+
+    @Test
+    public void testAddOnBarCodeResultListeners() throws Exception {
+        JsonFormActivity jsonFormActivity = mock(JsonFormActivity.class);
+        Whitebox.invokeMethod(barcodeFactory, "addOnBarCodeResultListeners", jsonFormActivity, mock(MaterialEditText.class));
+        verify(jsonFormActivity).addOnActivityResultListener(eq(BARCODE_REQUEST_CODE), any(OnActivityResultListener.class));
     }
 }
