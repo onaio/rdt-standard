@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.util.Constants;
 import timber.log.Timber;
@@ -71,18 +72,14 @@ public class RDTLabelFactory extends LabelFactory implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        try {
-            JSONObject jsonObject = widgetArgs.getJsonObject();
-            JsonFormFragment formFragment = widgetArgs.getFormFragment();
-            final String key = jsonObject.getString(KEY);
-            if (Constants.LBL_CARE_START.equals(key)) {
-                ((RDTJsonFormActivity) formFragment.getActivity()).setRdtType(Constants.CARESTART_RDT);
-            } else {
-                ((RDTJsonFormActivity) formFragment.getActivity()).setRdtType(Constants.ONA_RDT);
-            }
-            ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
-        } catch (JSONException e) {
-            Timber.e(e);
+        JSONObject jsonObject = widgetArgs.getJsonObject();
+        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+        final String key = jsonObject.optString(KEY, "");
+        if (Constants.LBL_CARE_START.equals(key)) {
+            formFragment.getRdtActivity().setRdtType(Constants.CARESTART_RDT);
+        } else {
+            formFragment.getRdtActivity().setRdtType(Constants.ONA_RDT);
         }
+        ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
     }
 }
