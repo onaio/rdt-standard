@@ -33,7 +33,7 @@ public class RDTCountdownTimerFactory extends CountDownTimerFactory {
                 .withContext(context);
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
-        rootLayout = views.get(0);
+        rootLayout = views == null ? null : views.get(0);
         return views;
     }
 
