@@ -17,17 +17,12 @@ import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
-import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View, View.OnClickListener {
-
-    private final String TAG = PatientRegisterFragment.class.getName();
-
-    private RDTJsonFormUtils formUtils;
 
     public PatientRegisterFragment() {
         initializePresenter();
@@ -36,7 +31,6 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        formUtils = new RDTJsonFormUtils();
         this.tablename = "rdt_patients";
     }
 
