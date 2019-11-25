@@ -68,10 +68,23 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "edit_type": "name",
+        "edit_type": "name"
+      },
+      {
+        "key": "patient_id_label",
+        "type": "label",
+        "text": "Patient ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please specify patient name"
+          "err": "Please enter patient ID"
         }
       },
       {
