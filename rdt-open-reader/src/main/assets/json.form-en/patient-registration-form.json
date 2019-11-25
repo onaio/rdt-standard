@@ -160,6 +160,21 @@
         }
       },
       {
+        "key": "skip_diagnostic_questions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "skip_questions",
+            "text": "Skip diagnostic questions",
+            "label_text_style": "bold",
+            "value": "true"
+          }
+        ]
+      },
+      {
         "key": "been_treated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -183,6 +198,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient been treated for malaria in the past 3 months?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -209,6 +230,12 @@
         "v_required": {
           "value": "true",
           "err": "Has patient had malaria in the past year?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -235,6 +262,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient had a fever (temperature ≥ 37.5°C) in the past 3 days?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -261,6 +294,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced abnormal headaches in the 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -287,6 +326,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient felt nausea in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -313,6 +358,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient vomited in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -339,6 +390,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced diarrhea in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -365,6 +422,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced chills in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -391,6 +454,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient felt body aches in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -417,6 +486,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient had muscle pain in the  past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -443,6 +518,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient had chest pain in the  past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -469,6 +550,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient felt abnormal fatigue in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -495,6 +582,12 @@
         "v_required": {
           "value": "true",
           "err": "Has the patient had breathing problems in the  past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -527,6 +620,12 @@
             "ex-rules": {
               "rules-file": "patient_registration_relevance_rules.yml"
             }
+          }
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
           }
         }
       },
@@ -561,6 +660,12 @@
               "rules-file": "patient_registration_relevance_rules.yml"
             }
           }
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -587,6 +692,12 @@
         "v_required": {
           "value": "true",
           "err": "Has anyone else in the household been diagnosed with malaria in the past 3 months?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -613,6 +724,12 @@
         "v_required": {
           "value": "true",
           "err": "Was the household/compound sprayed in the past 3 months?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -639,6 +756,12 @@
         "v_required": {
           "value": "true",
           "err": "Does the patient live in a Malaria endemic area?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -672,6 +795,12 @@
               "rules-file": "patient_registration_relevance_rules.yml"
             }
           }
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -698,6 +827,12 @@
         "v_required": {
           "value": "true",
           "err": "Does the patient sleep under a bednet?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -711,6 +846,12 @@
             "ex-rules": {
               "rules-file": "conditional_save_calculation_rules.yml"
             }
+          }
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
           }
         }
       }
