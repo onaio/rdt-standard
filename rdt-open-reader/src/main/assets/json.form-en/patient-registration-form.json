@@ -635,12 +635,6 @@
               "rules-file": "patient_registration_relevance_rules.yml"
             }
           }
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
         }
       },
       {
@@ -674,12 +668,6 @@
             "ex-rules": {
               "rules-file": "patient_registration_relevance_rules.yml"
             }
-          }
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
           }
         }
       },
@@ -813,12 +801,6 @@
             "ex-rules": {
               "rules-file": "patient_registration_relevance_rules.yml"
             }
-          }
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
           }
         }
       },
