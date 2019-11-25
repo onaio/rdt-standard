@@ -191,10 +191,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient been treated for malaria in the past 3 months?"
@@ -223,10 +224,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has patient had malaria in the past year?"
@@ -255,10 +257,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had a fever (temperature ≥ 37.5°C) in the past 3 days?"
@@ -287,10 +290,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced abnormal headaches in the 48 hours?"
@@ -319,10 +323,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient felt nausea in the past 48 hours?"
@@ -351,10 +356,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient vomited in the past 48 hours?"
@@ -383,10 +389,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced diarrhea in the past 48 hours?"
@@ -415,10 +422,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced chills in the past 48 hours?"
@@ -447,10 +455,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient felt body aches in the past 48 hours?"
@@ -479,10 +488,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had muscle pain in the  past 48 hours?"
@@ -511,10 +521,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had chest pain in the  past 48 hours?"
@@ -543,10 +554,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient felt abnormal fatigue in the past 48 hours?"
@@ -575,10 +587,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had breathing problems in the  past 48 hours?"
@@ -607,10 +620,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has poor feeding been seen in the past 3 days?"
@@ -646,10 +660,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the child been coughing in the past 3 days?"
@@ -685,10 +700,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has anyone else in the household been diagnosed with malaria in the past 3 months?"
@@ -717,10 +733,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Was the household/compound sprayed in the past 3 months?"
@@ -749,10 +766,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Does the patient live in a Malaria endemic area?"
@@ -781,10 +799,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Does the patient have a history of visiting Malaria endemic areas?"
@@ -820,10 +839,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Does the patient sleep under a bednet?"
