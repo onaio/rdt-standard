@@ -169,7 +169,6 @@
           {
             "key": "skip_questions",
             "text": "Skip diagnostic questions",
-            "label_text_style": "bold",
             "value": "true"
           }
         ]
