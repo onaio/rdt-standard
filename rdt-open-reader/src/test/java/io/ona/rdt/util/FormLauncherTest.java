@@ -17,7 +17,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.Context;
 import org.smartregister.domain.UniqueId;
-import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
 
@@ -99,7 +98,7 @@ public class FormLauncherTest {
     }
 
     @Test
-    public void testOnUniqueIdFetchedShouldLaunchForm() throws JSONException, JsonFormMissingStepCountException {
+    public void testOnUniqueIdFetchedShouldLaunchForm() throws JSONException {
         FormLaunchArgs args = new FormLaunchArgs();
         Activity activity = mock(Activity.class);
         Patient patient = mock(Patient.class);
@@ -115,7 +114,7 @@ public class FormLauncherTest {
         verify(formUtils).launchForm(eq(activity), eq(RDT_TEST_FORM), eq(patient), eq(OPENMRS_ID));
     }
 
-    private void mockStaticMethods() throws JsonFormMissingStepCountException, JSONException {
+    private void mockStaticMethods() {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);

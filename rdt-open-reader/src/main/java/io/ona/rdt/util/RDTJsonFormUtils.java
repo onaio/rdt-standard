@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
-import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -215,12 +214,12 @@ public class RDTJsonFormUtils {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             prePopulateFormFields(formJsonObject, patient, rdtId, 8);
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
-        } catch (JsonFormMissingStepCountException e) {
+        } catch (JSONException e) {
             Timber.e(TAG, e);
         }
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException, JsonFormMissingStepCountException {
+    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException {
         jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
         int fieldsPopulated = 0;
