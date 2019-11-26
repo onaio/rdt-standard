@@ -87,7 +87,7 @@ public class RDTGpsFactory extends GpsFactory {
     @Override
     protected void customizeViews(Button recordButton, Context context) {
         gpsDialog = new RDTGpsDialog(gpsDialog);
-        gpsDialog.setTitle("Please wait");
+        gpsDialog.setTitle(R.string.please_wait_title);
         ((RDTGpsDialog) gpsDialog).setFormFragment(widgetArgs.getFormFragment());
     }
 
