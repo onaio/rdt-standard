@@ -17,11 +17,9 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt.R;
-import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.util.Constants;
-import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;

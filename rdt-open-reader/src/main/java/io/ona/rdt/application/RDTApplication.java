@@ -1,7 +1,6 @@
 package io.ona.rdt.application;
 
 import android.content.Intent;
-import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -9,7 +8,6 @@ import com.evernote.android.job.JobManager;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
@@ -17,25 +15,16 @@ import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.job.RDTJobCreator;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.RDTRepository;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTSyncConfiguration;
 import io.ona.rdt.util.Utils;
 
-import static io.ona.rdt.util.Constants.APP_VERSION;
 import static io.ona.rdt.util.Constants.IS_IMG_SYNC_ENABLED;
-import static io.ona.rdt.util.Constants.PHONE_MANUFACTURER;
-import static io.ona.rdt.util.Constants.PHONE_MODEL;
-import static io.ona.rdt.util.Constants.PHONE_OS_VERSION;
-import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 

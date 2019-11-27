@@ -209,7 +209,7 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void launchForm(Activity activity, String formName, Patient patient, String rdtId) throws JSONException {
+    public void launchForm(Activity activity, String formName, Patient patient, String rdtId) {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             prePopulateFormFields(formJsonObject, patient, rdtId, 8);
