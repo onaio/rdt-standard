@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.callback.OnLabelClickedListener;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.util.Constants;
@@ -63,7 +64,7 @@ public class RDTLabelFactoryTest {
 
         jsonObject.put(CENTER_LABEL, true);
         jsonObject.put(HAS_DRAWABLE_END, true);
-        Whitebox.invokeMethod(rdtLabelFactory, "enhanceLabels", views, jsonObject, jsonFormFragment);
+        Whitebox.invokeMethod(rdtLabelFactory, "enhanceLabels", views, jsonObject);
 
         verify(labelText).setGravity(eq(Gravity.CENTER));
         verify(labelText).setOnClickListener(any(View.OnClickListener.class));
@@ -82,13 +83,13 @@ public class RDTLabelFactoryTest {
 
         widgetArgs.withFormFragment(jsonFormFragment)
                 .withJsonObject(jsonObject);
-        Whitebox.setInternalState(rdtLabelFactory, "widgetArgs", widgetArgs);
 
-        rdtLabelFactory.onClick(mock(View.class));
+        OnLabelClickedListener onLabelClickedListener = new OnLabelClickedListener(widgetArgs);
+        onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.CARESTART_RDT));
 
         jsonObject.remove(KEY);
-        rdtLabelFactory.onClick(mock(View.class));
+        onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.ONA_RDT));
         verify(presenter, times(2)).moveToNextStep(eq(jsonObject.optString(NEXT)));
     }
