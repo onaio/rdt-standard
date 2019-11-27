@@ -48,7 +48,7 @@
   },
   "step1": {
     "title": "Find location",
-    "next": "step2",
+    "next": "step20",
     "display_back_button": "true",
     "fields": [
       {
@@ -686,6 +686,40 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold"
+      }
+    ]
+  },
+  "step20": {
+    "title": "Scan RDT timed out",
+    "next": "step7",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "Continue",
+    "fields": [
+      {
+        "key": "lbl_record_expiration_date",
+        "type": "label",
+        "text": "Record expiration date manually",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "manual_expiration_date",
+        "type": "date_picker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Expiration date",
+        "max_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the expiration date"
+        }
       }
     ]
   }
