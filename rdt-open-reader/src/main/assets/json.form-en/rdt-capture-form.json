@@ -1,5 +1,5 @@
 {
-  "count": "19",
+  "count": "20",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -691,7 +691,7 @@
   },
   "step20": {
     "title": "Scan RDT timed out",
-    "next": "step7",
+    "next": "step19",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -702,11 +702,11 @@
         "type": "label",
         "text": "Record expiration date manually",
         "text_color": "#000000",
-        "text_size": "8sp",
-        "label_text_style": "bold",
+        "text_size": "9sp",
         "top_margin": "15dp",
         "has_bg": true,
-        "bg_color": "#ffffff"
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
       },
       {
         "key": "manual_expiration_date",
