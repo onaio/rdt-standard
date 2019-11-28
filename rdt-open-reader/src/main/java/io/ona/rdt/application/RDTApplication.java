@@ -1,5 +1,6 @@
 package io.ona.rdt.application;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import com.crashlytics.android.Crashlytics;
@@ -35,6 +36,7 @@ public class RDTApplication extends DrishtiApplication {
 
     private String password;
     private RDTApplicationPresenter presenter;
+    private Activity currentActivity;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -115,5 +117,19 @@ public class RDTApplication extends DrishtiApplication {
             presenter = new RDTApplicationPresenter();
         }
         return presenter;
+    }
+
+    public Activity getCurrentActivity(){
+        return currentActivity;
+    }
+
+    public void setCurrentActivity(Activity currentActivity){
+        this.currentActivity = currentActivity;
+    }
+
+    public void clearCurrActivityReference(Activity activity){
+        if (activity.equals(getCurrentActivity())) {
+            setCurrentActivity(null);
+        }
     }
 }

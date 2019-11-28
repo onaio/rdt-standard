@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import java.util.List;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -46,8 +48,9 @@ import static io.ona.rdt.util.Constants.ONA_RDT;
 public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActivityResultListener {
 
     public static final String EXPIRATION_DATE_CAPTURE = "expiration_date_capture";
-
     private static final String TAG = RDTExpirationDateReaderFactory.class.getName();
+    private final long EXPIRATION_DATE_CAPTURE_TIMEOUT = 15000;
+    private final String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
 
     private WidgetArgs widgetArgs;
     private View rootLayout;
@@ -67,11 +70,33 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
         addWidgetTags();
         setUpRDTExpirationDateActivity();
         launchRDTExpirationDateActivity();
+        moveToNextStepDelayed();
 
         List<View> views = new ArrayList<>(1);
         views.add(rootLayout);
 
         return views;
+    }
+
+    private void moveToNextStepDelayed() {
+        String manualExpPage = widgetArgs.getJsonObject().optString(MANUAL_ENTRY_EXPIRATION_PAGE, "");
+        if (!manualExpPage.isEmpty()) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(manualExpPage);
+                    widgetArgs.getFormFragment().transactThis(nextFragment);
+                    finishExpirationDateActivity();
+                }
+            }, EXPIRATION_DATE_CAPTURE_TIMEOUT);
+        }
+    }
+
+    private void finishExpirationDateActivity() {
+        Activity rdtExpirationDateActivity = RDTApplication.getInstance().getCurrentActivity();
+        rdtExpirationDateActivity.setResult(RESULT_OK, null);
+        rdtExpirationDateActivity.finish();
     }
 
     @Override
@@ -104,13 +129,18 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
     private void conditionallyMoveToNextStep(boolean isNotExpired) {
         JsonFormFragment formFragment = widgetArgs.getFormFragment();
         if (isNotExpired) {
-            if (!formFragment.next()) {
-                formFragment.save(true);
-            }
+            moveToNextOrSave();
         } else {
             String expiredPageAddr = widgetArgs.getJsonObject().optString(EXPIRED_PAGE_ADDRESS, "step2");
             JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
             formFragment.transactThis(nextFragment);
+        }
+    }
+
+    private void moveToNextOrSave() {
+        JsonFormFragment formFragment = widgetArgs.getFormFragment();
+        if (!formFragment.next()) {
+            formFragment.save(true);
         }
     }
 
