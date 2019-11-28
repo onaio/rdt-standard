@@ -21,7 +21,8 @@
           "column_name": "patient_id",
           "type": "Event",
           "json_mapping": {
-            "field": "patient_id"
+            "field": "obs.fieldCode",
+            "concept": "patient_id"
           }
         },
         {
