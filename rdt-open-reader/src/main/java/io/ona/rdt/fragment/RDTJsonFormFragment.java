@@ -19,13 +19,18 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
+import timber.log.Timber;
+
+import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -66,12 +71,16 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     @Override
     protected void initializeBottomNavigation(final JSONObject step, View rootView) {
         super.initializeBottomNavigation(step, rootView);
-        String currStep = "step" + currentStep;
 
-        // Handle initialization of the countdown timer bottom navigation
+        String currStep = "step" + currentStep;
         boolean isNextButtonEnabled = true;
-        if ("step13".equals(currStep)) {
-            isNextButtonEnabled = false;
+        try {
+            // Disable bottom navigation for the 20min countdown timer
+            if (is20minTimerPage(currStep)) {
+                isNextButtonEnabled = false;
+            }
+        } catch (JSONException e) {
+            Timber.e(e);
         }
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
@@ -91,9 +100,14 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         });
     }
 
+    private boolean is20minTimerPage(String currStep) throws JSONException {
+        return currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
+                .getStepStateObj()
+                .optString(TWENTY_MIN_COUNTDOWN_TIMER_PAGE));
+    }
+
     @Override
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
-
         rootView.setEnabled(buttonEnabled);
         int bgColor;
         if (!buttonEnabled) {

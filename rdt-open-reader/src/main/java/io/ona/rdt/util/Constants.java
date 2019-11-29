@@ -85,5 +85,6 @@ public interface Constants {
         String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
         String SCAN_QR_NEXT_STEP = "scan_qr_next_step";
         String SCAN_CARESTART_NEXT_STEP = "scan_carestart_next_step";
+        String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
     }
 }
