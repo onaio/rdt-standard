@@ -5,5 +5,7 @@
     "step6",
     "step13",
     "step14"
-  ]
+  ],
+  "rdt_expired_page": "step6",
+  "manual_entry_expiration_page": "step20"
 }

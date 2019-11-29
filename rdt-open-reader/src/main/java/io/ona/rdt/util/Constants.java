@@ -29,7 +29,6 @@ public interface Constants {
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
-    String EXPIRED_PAGE_ADDRESS = "expired_page_address";
 
     String PHONE_MODEL = "phone_model";
     String PHONE_OS_VERSION = "phone_os_version";
@@ -79,5 +78,7 @@ public interface Constants {
         String RDT_EXPIRED_PAGE = "rdt_expired_page";
         String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
         String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
+        String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
+        String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
     }
 }

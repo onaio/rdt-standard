@@ -142,8 +142,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "expiration_date_capture",
-        "expired_page_address": "step6",
-        "manual_entry_expiration_page": "step20",
         "v_required": {
           "value": "true",
           "err": "Please enter the RDT ID"

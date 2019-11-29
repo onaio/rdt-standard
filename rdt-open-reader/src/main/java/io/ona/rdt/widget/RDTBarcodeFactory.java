@@ -31,7 +31,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt.util.Constants.EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Utils.convertDate;
 
 /**
@@ -156,7 +156,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
                 formFragment.save(true);
             }
         } else {
-            String expiredPageAddr = widgetArgs.getJsonObject().optString(EXPIRED_PAGE_ADDRESS, "step1");
+            String expiredPageAddr = widgetArgs.getJsonObject().optString(RDT_EXPIRED_PAGE, "step1");
             JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
             formFragment.transactThis(nextFragment);
         }
