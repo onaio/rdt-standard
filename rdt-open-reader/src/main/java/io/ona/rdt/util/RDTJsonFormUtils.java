@@ -40,7 +40,6 @@ import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
