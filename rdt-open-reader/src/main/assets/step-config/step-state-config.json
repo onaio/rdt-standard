@@ -16,5 +16,7 @@
     "step9:lbl_rdt_id",
     "step18:lbl_rdt_id",
     "step19:lbl_rdt_id"
-  ]
+  ],
+  "scan_qr_next_step": "step5",
+  "scan_carestart_next_step": "step4"
 }

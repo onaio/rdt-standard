@@ -83,5 +83,7 @@ public interface Constants {
         String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
         String RDT_ID_KEY = "rdt_id_key";
         String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
+        String SCAN_QR_NEXT_STEP = "scan_qr_next_step";
+        String SCAN_CARESTART_NEXT_STEP = "scan_carestart_next_step";
     }
 }
