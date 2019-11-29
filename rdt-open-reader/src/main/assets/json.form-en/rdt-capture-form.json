@@ -480,8 +480,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "rdt_capture",
-        "carestart_rdt_prev": "step15"
+        "type": "rdt_capture"
       },
       {
         "key": "rdt_capture_control_result",
