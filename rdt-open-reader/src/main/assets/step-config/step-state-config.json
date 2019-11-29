@@ -1,4 +1,9 @@
 {
   "rdt_expired_page": "step6",
-  "blot_paper_task_page": "step9"
+  "blot_paper_task_page": "step9",
+  "disabled_back_press_pages" : [
+    "step6",
+    "step13",
+    "step14"
+  ]
 }

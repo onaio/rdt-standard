@@ -78,5 +78,6 @@ public interface Constants {
     interface Step {
         String RDT_EXPIRED_PAGE = "rdt_expired_page";
         String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
+        String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
     }
 }
