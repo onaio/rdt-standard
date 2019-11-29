@@ -35,9 +35,8 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_ID_ADDRESS;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Utils.convertDate;
@@ -136,7 +135,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
 
         // write barcode values to relevant widgets
         JSONArray rdtIdLblAddresses = stepStateConfig.getStepStateObj().optJSONArray(RDT_ID_LBL_ADDRESSES);
-        String expirationDateAddress = stepStateConfig.getStepStateObj().optString(EXPIRATION_DATE_ADDRESS, "");
+        String expirationDateAddress = stepStateConfig.getStepStateObj().optString(EXPIRATION_DATE_READER_ADDRESS, "");
         String[] stepAndId;
 
         // populate rdt id to all relevant txt labels

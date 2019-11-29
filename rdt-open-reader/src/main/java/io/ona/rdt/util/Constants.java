@@ -79,12 +79,11 @@ public interface Constants {
         String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
         String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
         String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
-        String RDT_ID_ADDRESS = "rdt_id_address";
-        String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
+        String EXPIRATION_DATE_READER_ADDRESS = "expiration_date_reader_address";
         String RDT_ID_KEY = "rdt_id_key";
         String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
-        String SCAN_QR_NEXT_STEP = "scan_qr_next_step";
-        String SCAN_CARESTART_NEXT_STEP = "scan_carestart_next_step";
+        String SCAN_QR_PAGE = "scan_qr_page";
+        String SCAN_CARESTART_PAGE = "scan_carestart_page";
         String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
     }
 }
