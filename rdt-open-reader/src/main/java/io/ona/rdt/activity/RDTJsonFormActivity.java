@@ -12,11 +12,15 @@ import android.view.WindowManager;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.json.JSONException;
+
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormActivityContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormActivityPresenter;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static io.ona.rdt.util.Constants.ONA_RDT;
@@ -96,5 +100,15 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     public void setRdtType(String rdtType) {
         this.rdtType = rdtType;
+    }
+
+    @Override
+    public void onStop() {
+        try {
+            RDTApplication.getInstance().getStepStateConfiguration().destroyInstance();
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+        super.onStop();
     }
 }
