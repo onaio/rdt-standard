@@ -53,7 +53,6 @@ public interface Constants {
         String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form.json";
         String LBL_RDT_ID = "lbl_rdt_id";
-        String RDT_ID = "rdt_id";
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
         String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";

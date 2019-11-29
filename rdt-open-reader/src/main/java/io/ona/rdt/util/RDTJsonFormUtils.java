@@ -44,6 +44,7 @@ import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
@@ -231,7 +232,7 @@ public class RDTJsonFormUtils {
                 fieldsPopulated++;
             }
             // pre-populate rdt id field
-            if (RDT_ID.equals(field.getString(KEY))) {
+            if (isRDTIdField(field)) {
                 field.put(VALUE, rdtId);
                 fieldsPopulated++;
             }
@@ -252,6 +253,10 @@ public class RDTJsonFormUtils {
                 break;
             }
         }
+    }
+
+    private boolean isRDTIdField(JSONObject field) throws JSONException {
+        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY).equals(field.getString(KEY));
     }
 
     public synchronized void getNextUniqueId(final FormLaunchArgs args, final OnUniqueIdFetchedCallback callBack) {
