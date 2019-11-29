@@ -88,9 +88,11 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(manualExpPage);
-                    widgetArgs.getFormFragment().transactThis(nextFragment);
-                    finishExpirationDateActivity();
+                    if (widgetArgs.getFormFragment().isVisible()) {
+                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(manualExpPage);
+                        widgetArgs.getFormFragment().transactThis(nextFragment);
+                        finishExpirationDateActivity();
+                    }
                 }
             }, EXPIRATION_DATE_CAPTURE_TIMEOUT);
         }
@@ -98,10 +100,8 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
 
     private void finishExpirationDateActivity() {
         Activity rdtExpirationDateActivity = RDTApplication.getInstance().getCurrentActivity();
-        if (rdtExpirationDateActivity != null) {
-            rdtExpirationDateActivity.setResult(RESULT_OK, null);
-            rdtExpirationDateActivity.finish();
-        }
+        rdtExpirationDateActivity.setResult(RESULT_OK, null);
+        rdtExpirationDateActivity.finish();
     }
 
     @Override
