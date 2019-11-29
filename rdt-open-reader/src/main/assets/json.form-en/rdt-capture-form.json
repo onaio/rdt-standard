@@ -115,8 +115,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "has_drawable_end": true,
-        "bg_color": "#ffffff",
-        "next": "step5"
+        "bg_color": "#ffffff"
       },
       {
         "key": "lbl_care_start",
@@ -126,8 +125,7 @@
         "text_color": "#000000",
         "has_bg": true,
         "has_drawable_end": true,
-        "bg_color": "#ffffff",
-        "next": "step4"
+        "bg_color": "#ffffff"
       }
     ]
   },
