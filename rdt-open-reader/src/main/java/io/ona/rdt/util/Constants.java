@@ -80,5 +80,9 @@ public interface Constants {
         String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
         String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
         String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
+        String RDT_ID_ADDRESS = "rdt_id_address";
+        String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
+        String RDT_ID_KEY = "rdt_id_key";
+        String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
     }
 }

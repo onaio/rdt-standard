@@ -7,5 +7,14 @@
     "step14"
   ],
   "rdt_expired_page": "step6",
-  "manual_entry_expiration_page": "step20"
+  "manual_entry_expiration_page": "step20",
+  "rdt_id_key": "rdt_id",
+  "expiration_date_address": "step4:expiration_date_reader",
+  "rdt_id_lbl_addresses": [
+    "step7:lbl_rdt_id",
+    "step8:lbl_rdt_id",
+    "step9:lbl_rdt_id",
+    "step18:lbl_rdt_id",
+    "step19:lbl_rdt_id"
+  ]
 }
