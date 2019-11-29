@@ -6,7 +6,9 @@ import android.content.Intent;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobProxy;
 
+import org.json.JSONException;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.location.helper.LocationHelper;
@@ -23,6 +25,7 @@ import io.ona.rdt.job.RDTJobCreator;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.util.RDTSyncConfiguration;
+import io.ona.rdt.util.StepStateConfig;
 import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.IS_IMG_SYNC_ENABLED;
@@ -131,5 +134,9 @@ public class RDTApplication extends DrishtiApplication {
         if (activity.equals(getCurrentActivity())) {
             setCurrentActivity(null);
         }
+    }
+
+    public StepStateConfig getStepStateConfiguration() throws JSONException {
+        return StepStateConfig.getInstance(getApplicationContext());
     }
 }

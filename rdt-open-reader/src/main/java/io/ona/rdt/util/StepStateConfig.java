@@ -33,7 +33,7 @@ public class StepStateConfig {
         StepStateConfig.stepStateObj = stepStateObj;
     }
 
-    public static JSONObject getStepStateObj() {
+    public JSONObject getStepStateObj() {
         return stepStateObj;
     }
 }

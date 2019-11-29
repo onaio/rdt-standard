@@ -10,10 +10,16 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.StepStateConfig;
+import timber.log.Timber;
+
+import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
+import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
@@ -83,7 +89,15 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
-        if ("step9".equals(currentStep)) {
+        StepStateConfig stepStateConfig;
+        try {
+            stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
+        } catch (JSONException e) {
+            Timber.e(e);
+            return;
+        }
+
+        if (isCurrentStep(stepStateConfig, BLOT_PAPER_TASK_PAGE, currentStep)) {
             String rdtType = rdtFormFragment.getRDTType();
             if (Constants.CARESTART_RDT.equals(rdtType)) {
                 JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step15");
@@ -91,7 +105,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             } else {
                 rdtFormFragment.moveToNextStep();
             }
-        } else if ("step6".equals(currentStep)) {
+        } else if (isCurrentStep(stepStateConfig, RDT_EXPIRED_PAGE, currentStep)) {
             try {
                 saveForm();
                 rdtFormFragment.moveToNextStep();
@@ -103,5 +117,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         } else {
             rdtFormFragment.moveToNextStep();
         }
+    }
+
+    private boolean isCurrentStep(StepStateConfig stepStateConfig, String key, String currentStep) {
+        return stepStateConfig.getStepStateObj().optString(key).equals(currentStep);
     }
 }

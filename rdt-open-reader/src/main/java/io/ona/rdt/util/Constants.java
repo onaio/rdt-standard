@@ -74,4 +74,9 @@ public interface Constants {
         String CASSETTE_BOUNDARY = "cassette_boundary";
         String IS_MANUAL_CAPTURE = "is_manual_capture";
     }
+
+    interface Step {
+        String RDT_EXPIRED_PAGE = "rdt_expired_page";
+        String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
+    }
 }
