@@ -95,8 +95,10 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
 
     private void finishExpirationDateActivity() {
         Activity rdtExpirationDateActivity = RDTApplication.getInstance().getCurrentActivity();
-        rdtExpirationDateActivity.setResult(RESULT_OK, null);
-        rdtExpirationDateActivity.finish();
+        if (rdtExpirationDateActivity != null) {
+            rdtExpirationDateActivity.setResult(RESULT_OK, null);
+            rdtExpirationDateActivity.finish();
+        }
     }
 
     @Override
