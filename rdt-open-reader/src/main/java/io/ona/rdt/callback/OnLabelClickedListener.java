@@ -36,12 +36,12 @@ public class OnLabelClickedListener implements View.OnClickListener {
             RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
             final String key = jsonObject.optString(KEY, "");
             StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
-            String next = stepStateConfig.getStepStateObj().getString(SCAN_CARESTART_PAGE);
+            String next = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
             if (Constants.LBL_CARE_START.equals(key)) {
                 formFragment.getRdtActivity().setRdtType(Constants.CARESTART_RDT);
             } else {
                 formFragment.getRdtActivity().setRdtType(Constants.ONA_RDT);
-                next = stepStateConfig.getStepStateObj().getString(SCAN_QR_PAGE);
+                next = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
             }
             ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(next);
         } catch (JSONException e) {
