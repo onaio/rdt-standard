@@ -34,6 +34,7 @@ import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
+import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -180,6 +181,7 @@ public class RDTJsonFormFragmentPresenterTest {
         doReturn("step6").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE));
         doReturn("step9").when(jsonObject).optString(eq(BLOT_PAPER_TASK_PAGE));
         doReturn("step1:expiration_date_reader").when(jsonObject).optString(eq(EXPIRATION_DATE_READER_ADDRESS), anyString());
+        doReturn("step1").when(jsonObject).optString(eq(TAKE_IMAGE_OF_RDT_PAGE));
         doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
         doReturn(new JSONArray("[\n" +
                 "    \"step7:lbl_rdt_id\",\n" +
