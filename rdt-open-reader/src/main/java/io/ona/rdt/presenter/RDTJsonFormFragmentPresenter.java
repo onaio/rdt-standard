@@ -20,6 +20,7 @@ import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
+import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
@@ -100,7 +101,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         if (isCurrentStep(stepStateConfig, BLOT_PAPER_TASK_PAGE, currentStep)) {
             String rdtType = rdtFormFragment.getRDTType();
             if (Constants.CARESTART_RDT.equals(rdtType)) {
-                JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step15");
+                JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(
+                        stepStateConfig.getStepStateObj().optString(TAKE_IMAGE_OF_RDT_PAGE));
+
                 rdtFormFragment.transactFragment(nextFragment);
             } else {
                 rdtFormFragment.moveToNextStep();

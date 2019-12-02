@@ -18,5 +18,6 @@
   ],
   "scan_qr_page": "step5",
   "scan_carestart_page": "step4",
-  "twenty_min_countdown_timer_page": "step13"
+  "twenty_min_countdown_timer_page": "step13",
+  "take_image_of_rdt_page": "step15"
 }
