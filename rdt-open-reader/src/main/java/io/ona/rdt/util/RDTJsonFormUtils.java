@@ -254,7 +254,7 @@ public class RDTJsonFormUtils {
         }
     }
 
-    private boolean isRDTIdField(JSONObject field) throws JSONException {
+    public boolean isRDTIdField(JSONObject field) throws JSONException {
         return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY).equals(field.getString(KEY));
     }
 

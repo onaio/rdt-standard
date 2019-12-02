@@ -36,7 +36,6 @@ import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
@@ -704,7 +703,7 @@ public class RDTJsonFormUtilsTest {
                populatedLblRDTId = true;
             }
             // test rdt id is populated
-            if (RDT_ID.equals(field.getString(KEY))) {
+            if (formUtils.isRDTIdField(field)) {
                 assertEquals(field.getString(VALUE), "rdt_id");
                 populatedRDTId = true;
             }
@@ -727,7 +726,7 @@ public class RDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testLaunchFormShouldntThrowException() throws Exception {
+    public void testLaunchFormShouldntThrowException() {
         mockStaticMethods();
         formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), "rdt_id");
     }

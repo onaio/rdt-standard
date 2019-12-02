@@ -37,12 +37,8 @@ import io.ona.rdt.stub.JsonApiStub;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
-import static io.ona.rdt.util.Constants.EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt.util.Utils.convertDate;
-import static io.ona.rdt.widget.RDTBarcodeFactory.EXPIRATION_DATE_ADDRESS;
 import static io.ona.rdt.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
-import static io.ona.rdt.widget.RDTBarcodeFactory.RDT_ID_ADDRESS;
-import static io.ona.rdt.widget.RDTBarcodeFactory.RDT_ID_LBL_ADDRESSES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -192,10 +188,6 @@ public class RDTBarcodeFactoryTest {
         widgetArgs.setFormFragment(formFragment);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(RDT_ID_LBL_ADDRESSES, "step1:lbl_address1,step5:lbl_address5,step6:lbl_address6,");
-        jsonObject.put(RDT_ID_ADDRESS, "step2:rdt_id_addr");
-        jsonObject.put(EXPIRATION_DATE_ADDRESS, "step3:exp_date_addr");
-        jsonObject.put(EXPIRED_PAGE_ADDRESS, "step2");
         widgetArgs.setJsonObject(jsonObject);
 
         jsonFormActivity = mock(JsonFormActivity.class);
