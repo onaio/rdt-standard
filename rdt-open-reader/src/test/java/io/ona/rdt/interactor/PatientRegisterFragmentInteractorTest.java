@@ -10,9 +10,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.AdditionalMatchers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -41,12 +43,19 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormLaunchArgs;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
+import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
+import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -75,6 +84,9 @@ public class PatientRegisterFragmentInteractorTest {
     private ClientProcessorForJava clientProcessor;
     @Mock
     private UniqueIdRepository uniqueIdRepository;
+
+    @Mock
+    private StepStateConfig stepStateConfig;
 
     @Captor
     private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
@@ -205,7 +217,7 @@ public class PatientRegisterFragmentInteractorTest {
         verify(clientProcessor).processClient(any(List.class));
     }
 
-    private void mockStaticMethods() {
+    private void mockStaticMethods() throws JSONException {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
@@ -220,6 +232,12 @@ public class PatientRegisterFragmentInteractorTest {
         doReturn(properties).when(applicationPresenter).getPhoneProperties();
 
         PowerMockito.when(rdtApplication.getPresenter()).thenReturn(applicationPresenter);
+
+        PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
+
+        JSONObject jsonObject = Mockito.mock(JSONObject.class);
+        Mockito.doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
+        Mockito.doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
         // mock repositories
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
