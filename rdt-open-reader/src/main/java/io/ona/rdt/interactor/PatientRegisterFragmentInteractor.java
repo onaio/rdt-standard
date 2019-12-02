@@ -28,9 +28,7 @@ import java.util.Map;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormLauncher;
-import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.DETAILS;

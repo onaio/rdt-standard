@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobProxy;
 
 import org.json.JSONException;
 import org.smartregister.Context;

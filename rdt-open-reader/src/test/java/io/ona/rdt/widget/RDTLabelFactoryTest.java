@@ -19,7 +19,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,6 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
-import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.widget.RDTLabelFactory.CENTER_LABEL;

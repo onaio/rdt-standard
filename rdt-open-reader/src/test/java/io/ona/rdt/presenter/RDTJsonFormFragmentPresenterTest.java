@@ -55,7 +55,7 @@ import static org.powermock.api.support.membermodification.MemberModifier.suppre
 public class RDTJsonFormFragmentPresenterTest {
 
     private RDTJsonFormFragmentPresenter presenter;
-    private RDTJsonFormFragmentContract.View rdtFormfragment;
+    private RDTJsonFormFragmentContract.View rdtFormFragment;
     private RDTJsonFormInteractor interactor;
     private JsonFormFragment formFragment;
     private JsonFormFragmentView<JsonFormFragmentViewState> view;
@@ -69,44 +69,44 @@ public class RDTJsonFormFragmentPresenterTest {
     @Before
     public void setUp() throws JSONException {
         interactor = mock(RDTJsonFormInteractor.class);
-        rdtFormfragment = spy(new PatientRegisterFragmentStub());
-        presenter = new RDTJsonFormFragmentPresenter(rdtFormfragment, interactor);
+        rdtFormFragment = spy(new PatientRegisterFragmentStub());
+        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragment, interactor);
         mockStaticMethods();
     }
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-        presenter.attachView((JsonFormFragment) rdtFormfragment);
+        presenter.attachView((JsonFormFragment) rdtFormFragment);
         presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class));
-        verify(rdtFormfragment).moveToNextStep();
+        verify(rdtFormFragment).moveToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() {
-        doReturn(Constants.CARESTART_RDT).when(rdtFormfragment).getRDTType();
+        doReturn(Constants.CARESTART_RDT).when(rdtFormFragment).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(rdtFormfragment).transactFragment(eq(formFragment));
+        verify(rdtFormFragment).transactFragment(eq(formFragment));
     }
 
     @Test
     public void testPerformNextButtonActionShouldShowImageViewsForONARDT() {
-        doReturn(Constants.ONA_RDT).when(rdtFormfragment).getRDTType();
+        doReturn(Constants.ONA_RDT).when(rdtFormFragment).getRDTType();
         presenter.performNextButtonAction("step8", null);
-        verify(rdtFormfragment).moveToNextStep();
+        verify(rdtFormFragment).moveToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForDefaultNextButton() {
         presenter.performNextButtonAction("step1", null);
-        verify(rdtFormfragment).moveToNextStep();
+        verify(rdtFormFragment).moveToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldSubmitFormForSubmitTypeNextButton() {
         presenter.performNextButtonAction("step1", true);
-        verify(rdtFormfragment).saveForm();
+        verify(rdtFormFragment).saveForm();
     }
 
     @Test
@@ -141,10 +141,10 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() {
-        doReturn(Constants.ONA_RDT).when(rdtFormfragment).getRDTType();
+        doReturn(Constants.ONA_RDT).when(rdtFormFragment).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(rdtFormfragment).moveToNextStep();
+        verify(rdtFormFragment).moveToNextStep();
     }
 
     private void addViewAndMockStaticClasses() throws JSONException {

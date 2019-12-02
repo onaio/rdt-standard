@@ -11,20 +11,12 @@ import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.views.CustomTextView;
 import com.vijay.jsonwizard.widgets.LabelFactory;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
 import io.ona.rdt.R;
 import io.ona.rdt.callback.OnLabelClickedListener;
-import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.interactor.RDTJsonFormInteractor;
-import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt.util.Constants;
-
-import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 
 /**
  * Created by Vincent Karuri on 20/06/2019

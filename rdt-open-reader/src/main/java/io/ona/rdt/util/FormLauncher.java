@@ -10,7 +10,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnUniqueIdFetchedCallback;
 import io.ona.rdt.domain.Patient;
-import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;

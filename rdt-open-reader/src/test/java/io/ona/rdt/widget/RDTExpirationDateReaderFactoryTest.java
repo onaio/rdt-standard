@@ -37,7 +37,6 @@ import static io.ona.rdt.util.Constants.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.EXPIRATION_DATE_RESULT;
 import static io.ona.rdt.util.Constants.ONA_RDT;
 import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE_ADDRESS;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
