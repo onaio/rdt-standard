@@ -19,11 +19,14 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
 
     private final String TAG = PatientRegisterFragmentPresenter.class.getName();
 
-    private PatientRegisterFragmentInteractor interactor = new PatientRegisterFragmentInteractor();
+    private PatientRegisterFragmentInteractor interactor;
     private PatientRegisterFragmentContract.View patientRegisterFragment;
+    private SmartRegisterQueryBuilder smartRegisterQueryBuilder;
 
     public PatientRegisterFragmentPresenter(PatientRegisterFragmentContract.View patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
+        this.interactor = new PatientRegisterFragmentInteractor();
+        this.smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
     }
 
     @Override
@@ -54,15 +57,13 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
 
 
     public String countSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
-        return countQueryBuilder.mainCondition(mainCondition);
+        smartRegisterQueryBuilder.SelectInitiateMainTableCounts(tableName);
+        return smartRegisterQueryBuilder.mainCondition(mainCondition);
     }
 
     public String mainSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, this.mainColumns(tableName));
-        return queryBUilder.mainCondition(mainCondition);
+        smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, this.mainColumns(tableName));
+        return smartRegisterQueryBuilder.mainCondition(mainCondition);
     }
 
     private String[] mainColumns(String tableName) {

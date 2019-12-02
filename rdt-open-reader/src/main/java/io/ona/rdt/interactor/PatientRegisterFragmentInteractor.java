@@ -73,14 +73,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    populateApproxDOB(JsonFormUtils.fields(jsonForm));
-                    final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-                    String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
-                    EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
-                    if (RDT_TESTS.equals(bindType)) {
-                        closeRDTId(eventClient.getEvent());
-                    }
-                    clientProcessor.processClient(Collections.singletonList(eventClient));
+                    processAndSaveForm(jsonForm);
                 } catch (Exception e) {
                     Log.e(TAG, "Error saving event", e);
                 }
@@ -97,6 +90,16 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         new SaveFormTask().execute();
     }
 
+    private void processAndSaveForm(JSONObject jsonForm) throws Exception {
+        populateApproxDOB(JsonFormUtils.fields(jsonForm));
+        final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
+        String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
+        EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
+        if (RDT_TESTS.equals(bindType)) {
+            closeRDTId(eventClient.getEvent());
+        }
+        clientProcessor.processClient(Collections.singletonList(eventClient));
+    }
 
     private void populateApproxDOB(JSONArray fields) throws JSONException {
         int age = 0;
@@ -154,7 +157,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     }
 
     private void populatePhoneMetadata(Event event) {
-        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPhoneProperties().entrySet()) {
+        for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPresenter().getPhoneProperties().entrySet()) {
             Obs obs = new Obs();
             obs.setFieldCode(phoneProperty.getKey());
             obs.setValue(phoneProperty.getValue());

@@ -126,7 +126,7 @@ public class FormLauncherTest {
         PowerMockito.when(drishtiContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
         when(uniqueIdRepository.getNextUniqueId()).thenReturn(uniqueId);
 
-        // mock AssetHanler
+        // mock AssetHandler
         mockStatic(AssetHandler.class);
         PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
     }

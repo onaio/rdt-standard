@@ -1,18 +1,59 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.util.Pair;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
+import org.smartregister.domain.ProfileImage;
 import org.smartregister.exception.JsonFormMissingStepCountException;
+import org.smartregister.repository.ImageRepository;
+import org.smartregister.util.AssetHandler;
+import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.File;
+import java.io.OutputStream;
+
+import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
+import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.callback.OnImageSavedCallback;
+import io.ona.rdt.domain.CompositeImage;
+import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 
+import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Form.RDT_ID;
+import static io.ona.rdt.util.Constants.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
+import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
@@ -20,11 +61,22 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({AssetHandler.class, ImageUtil.class, RDTApplication.class, org.smartregister.Context.class, DrishtiApplication.class})
 public class RDTJsonFormUtilsTest {
 
-    private RDTJsonFormUtils formUtils;
+    private static RDTJsonFormUtils formUtils;
 
-    private final String RDT_TEST_JSON_FORM = "{\n" +
+    @Mock
+    private RDTApplication rdtApplication;
+
+    @Mock
+    private org.smartregister.Context drishtiContext;
+
+    @Mock
+    private ImageRepository imageRepository;
+
+    private static final String RDT_TEST_JSON_FORM = "{\n" +
             "  \"count\": \"18\",\n" +
             "  \"encounter_type\": \"rdt_test\",\n" +
             "  \"entity_id\": \"\",\n" +
@@ -621,8 +673,16 @@ public class RDTJsonFormUtilsTest {
             "  }\n" +
             "}";
 
+    private static JSONObject RDT_TEST_JSON_FORM_OBJ;
+
+    @BeforeClass
+    public static void init() throws JSONException {
+        RDT_TEST_JSON_FORM_OBJ = new JSONObject(RDT_TEST_JSON_FORM);
+    }
+
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         formUtils = new RDTJsonFormUtils();
     }
 
@@ -659,5 +719,125 @@ public class RDTJsonFormUtilsTest {
             }
         }
         assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId && populatedPatientSex);
+    }
+
+    @Test
+    public void testAppendEntityIdShouldAppendCorrectId() throws JSONException {
+        String entityId = formUtils.appendEntityId(RDT_TEST_JSON_FORM_OBJ);
+        assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.ENTITY_ID), entityId);
+    }
+
+    @Test
+    public void testLaunchFormShouldntThrowException() throws Exception {
+        mockStaticMethods();
+        formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), "rdt_id");
+    }
+
+    @Test
+    public void testGetFormJsonObjectShouldGetFormJsonObject() throws Exception {
+        mockStaticMethods();
+        JSONObject jsonObject = formUtils.getFormJsonObject("form_name", mock(Context.class));
+        assertEquals(RDT_TEST_JSON_FORM_OBJ.toString(), jsonObject.toString());
+    }
+
+    @Test
+    public void testSaveImageToGalleryShouldSaveImageToGallery() throws Exception {
+        mockStaticMethods();
+        Context context = mock(Context.class);
+        Whitebox.invokeMethod(formUtils, "saveImageToGallery", context, mock(Bitmap.class));
+        verifyStatic(times(1));
+        ImageUtil.saveImage(eq(context), any(), eq(0L), eq(false), any(OnImageSavedCallBack.class));
+    }
+
+    @Test
+    public void testWriteImageToDiskShouldSuccessfullyWriteImageToDisk() throws Exception {
+        mockStaticMethods();
+        Bitmap image = mock(Bitmap.class);
+        Pair<Boolean, String> result = Whitebox.invokeMethod(formUtils, "writeImageToDisk", getTestFilePath(), image, mock(Context.class));
+        verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), any(OutputStream.class));
+        cleanUpFiles(result.second);
+    }
+
+    @Test
+    public void testSaveImgDetailsShouldSaveCorrectImgDetails() throws Exception {
+        mockStaticMethods();
+
+        ProfileImage profileImage = spy(new ProfileImage("image_id", "anm_id", "entity_id", "content_type", "file_path", "sync_status", "file_category"));
+        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
+        parcelableImageMetadata.withProviderId("anm_id")
+                .withBaseEntityId("entity_id");
+
+        Whitebox.invokeMethod(formUtils, "saveImgDetails", "file_path", parcelableImageMetadata, profileImage);
+        verify(profileImage).setAnmId(eq("anm_id"));
+        verify(profileImage).setEntityID(eq("entity_id"));
+        verify(profileImage).setFilepath(eq("file_path"));
+        verify(profileImage).setFilecategory(eq(MULTI_VERSION));
+        verify(profileImage).setSyncStatus(eq(ImageRepository.TYPE_Unsynced));
+        verify(imageRepository).add(eq(profileImage));
+    }
+
+    @Test
+    public void testSaveImageShouldSaveImage() throws Exception {
+        mockStaticMethods();
+
+        ParcelableImageMetadata parcelableImageMetadata = spy(new ParcelableImageMetadata());
+        parcelableImageMetadata.withProviderId("anm_id")
+                .withBaseEntityId("entity_id");
+        Whitebox.invokeMethod(formUtils, "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
+        verify(parcelableImageMetadata).setCroppedImageId(any());
+
+        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
+        Whitebox.invokeMethod(formUtils, "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
+        verify(parcelableImageMetadata).setFullImageId(any());
+        verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
+    }
+
+    @Test
+    public void testSaveStaticImagesToDiskShouldReturnIfMissingInformation() throws Exception {
+        OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
+        CompositeImage compositeImage = mock(CompositeImage.class);
+        doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
+        Whitebox.invokeMethod(formUtils, "saveStaticImagesToDisk", mock(Context.class), compositeImage, onImageSavedCallback);
+        verify(onImageSavedCallback).onImageSaved(isNull());
+    }
+
+    @Test
+    public void testSaveImage() throws Exception {
+        mockStaticMethods();
+        ParcelableImageMetadata parcelableImageMetadata = mock(ParcelableImageMetadata.class);
+
+        CompositeImage compositeImage = mock(CompositeImage.class);
+        doReturn(mock(Bitmap.class)).when(compositeImage).getFullImage();
+        doReturn(mock(Bitmap.class)).when(compositeImage).getCroppedImage();
+        Whitebox.invokeMethod(formUtils, "saveImage", "entity_id", parcelableImageMetadata, compositeImage, mock(Context.class));
+        verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
+        verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
+    }
+
+    private void cleanUpFiles(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    private void mockStaticMethods() {
+        // mock AssetHandler
+        mockStatic(AssetHandler.class);
+        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(RDT_TEST_JSON_FORM);
+
+        mockStatic(ImageUtil.class);
+
+        // mock RDTApplication and Drishti context
+        mockStatic(RDTApplication.class);
+        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
+        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
+
+        // mock repositories
+        PowerMockito.when(drishtiContext.imageRepository()).thenReturn(imageRepository);
+
+        // Drishti
+        mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn(getTestFilePath());
     }
 }

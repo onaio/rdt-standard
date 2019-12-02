@@ -23,12 +23,12 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     private final String TAG = RDTJsonFormFragmentPresenter.class.getName();
 
     private RDTJsonFormInteractor interactor;
-    private RDTJsonFormFragmentContract.View formFragment;
+    private RDTJsonFormFragmentContract.View rdtFormFragment;
 
-    public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View formFragment, JsonFormInteractor jsonFormInteractor) {
-        super((JsonFormFragment) formFragment, jsonFormInteractor);
+    public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
+        super((JsonFormFragment) rdtFormFragment, jsonFormInteractor);
         this.interactor = (RDTJsonFormInteractor) jsonFormInteractor;
-        this.formFragment = formFragment;
+        this.rdtFormFragment = rdtFormFragment;
     }
 
     @Override
@@ -84,24 +84,24 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
         if ("step9".equals(currentStep)) {
-            String rdtType = formFragment.getRDTType();
+            String rdtType = rdtFormFragment.getRDTType();
             if (Constants.CARESTART_RDT.equals(rdtType)) {
                 JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment("step15");
-                formFragment.transactFragment(nextFragment);
+                rdtFormFragment.transactFragment(nextFragment);
             } else {
-                formFragment.moveToNextStep();
+                rdtFormFragment.moveToNextStep();
             }
         } else if ("step6".equals(currentStep)) {
             try {
                 saveForm();
-                formFragment.moveToNextStep();
+                rdtFormFragment.moveToNextStep();
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             }
         } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
-            formFragment.saveForm();
+            rdtFormFragment.saveForm();
         } else {
-            formFragment.moveToNextStep();
+            rdtFormFragment.moveToNextStep();
         }
     }
 }

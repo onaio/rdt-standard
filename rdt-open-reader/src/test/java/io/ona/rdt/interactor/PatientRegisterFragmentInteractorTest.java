@@ -20,6 +20,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.AllSharedPreferences;
@@ -30,10 +31,14 @@ import org.smartregister.util.AssetHandler;
 import org.smartregister.util.JsonFormUtils;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormLaunchArgs;
 import io.ona.rdt.util.RDTJsonFormUtils;
@@ -45,6 +50,7 @@ import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -68,6 +74,8 @@ public class PatientRegisterFragmentInteractorTest {
     private EventClientRepository eventClientRepository;
     @Mock
     private ClientProcessorForJava clientProcessor;
+    @Mock
+    private UniqueIdRepository uniqueIdRepository;
 
     @Captor
     private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
@@ -76,6 +84,7 @@ public class PatientRegisterFragmentInteractorTest {
     private static final String PATIENT_GENDER = "Male";
     private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
     private static final int PATIENT_AGE = 20;
+    private Map<String, String > properties = new HashMap();
 
     public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
 
@@ -169,15 +178,53 @@ public class PatientRegisterFragmentInteractorTest {
         verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
     }
 
+    @Test
+    public void testPopulatePhoneMetadataShouldPopulateCorrectMetadata() throws Exception {
+        Event event = new Event();
+        Whitebox.invokeMethod(interactor, "populatePhoneMetadata", event);
+        for (Obs obs : event.getObs()) {
+            assertEquals(obs.getFieldCode(), obs.getValue());
+        }
+    }
+
+    @Test
+    public void testCloseRDTIdShouldCloseRDTId() throws Exception {
+        org.smartregister.domain.db.Event dbEvent = mock(org.smartregister.domain.db.Event.class);
+        org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
+        obs.setValue("rdt_id");
+        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), anyString());
+
+        Whitebox.invokeMethod(interactor, "closeRDTId", dbEvent);
+        verify(uniqueIdRepository).close(eq("rdt_id"));
+    }
+
+    @Test
+    public void testProcessAndSaveFormShouldProcessClient() throws Exception {
+        mockStaticMethods();
+        Whitebox.setInternalState(interactor, "clientProcessor", clientProcessor);
+        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
+        verify(clientProcessor).processClient(any(List.class));
+    }
+
     private void mockStaticMethods() throws JsonFormMissingStepCountException, JSONException {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
         PowerMockito.when(rdtApplication.getContext()).thenReturn(applicationContext);
 
+        RDTApplicationPresenter applicationPresenter = mock(RDTApplicationPresenter.class);
+
+        properties = new HashMap();
+        properties.put("property1", "property1");
+        properties.put("property2", "property2");
+        properties.put("property3", "property3");
+        doReturn(properties).when(applicationPresenter).getPhoneProperties();
+
+        PowerMockito.when(rdtApplication.getPresenter()).thenReturn(applicationPresenter);
+
         // mock repositories
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
-        PowerMockito.when(applicationContext.getUniqueIdRepository()).thenReturn(mock(UniqueIdRepository.class));
+        PowerMockito.when(applicationContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
         PowerMockito.when(applicationContext.allSharedPreferences()).thenReturn(mock(AllSharedPreferences.class));
 
         // mock client processor

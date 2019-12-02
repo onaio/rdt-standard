@@ -25,6 +25,8 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
 
     private static final RDTJsonFormInteractor INSTANCE = new RDTJsonFormInteractor();
 
+    private PatientRegisterFragmentInteractor patientRegisterFragmentInteractor;
+
     public static JsonFormInteractor getInstance() {
         return INSTANCE;
     }
@@ -41,6 +43,13 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
     }
 
     public void saveForm(JSONObject jsonForm) {
-        new PatientRegisterFragmentInteractor().saveForm(jsonForm, null);
+        getPatientRegisterFragmentInteractor().saveForm(jsonForm, null);
+    }
+
+    public PatientRegisterFragmentInteractor getPatientRegisterFragmentInteractor() {
+        if (patientRegisterFragmentInteractor == null) {
+            patientRegisterFragmentInteractor = new PatientRegisterFragmentInteractor();
+        }
+        return patientRegisterFragmentInteractor;
     }
 }

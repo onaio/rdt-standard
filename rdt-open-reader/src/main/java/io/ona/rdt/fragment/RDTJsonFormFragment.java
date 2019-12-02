@@ -200,4 +200,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     public View getRootLayout() {
         return rootLayout;
     }
+
+    public RDTJsonFormActivity getRdtActivity() {
+        return (RDTJsonFormActivity) getActivity();
+    }
 }

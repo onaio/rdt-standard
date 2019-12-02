@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Pair;
+import android.support.v4.util.Pair;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -75,26 +75,7 @@ public class RDTJsonFormUtils {
 
             @Override
             protected Void doInBackground(Void... voids) {
-
-                if (!StringUtils.isBlank(entityId)) {
-                    final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
-                    final File imageFolder = new File(imgFolderPath);
-                    boolean success = true;
-                    if (!imageFolder.exists()) {
-                        success = imageFolder.mkdirs();
-                    }
-
-                    if (success) {
-                        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
-                        saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
-
-                        parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
-                        saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
-                    } else {
-                        Timber.e(TAG, "Sorry, could not create fullImage folder!");
-                    }
-                }
-
+                saveImage(entityId, parcelableImageMetadata, compositeImage, context);
                 return null;
             }
 
@@ -107,11 +88,34 @@ public class RDTJsonFormUtils {
         new SaveImageTask().execute();
     }
 
+
+    private static void saveImage(String entityId, ParcelableImageMetadata parcelableImageMetadata, CompositeImage compositeImage, Context context) {
+
+        if (!StringUtils.isBlank(entityId)) {
+            final String imgFolderPath = DrishtiApplication.getAppDir() + File.separator + entityId;
+            final File imageFolder = new File(imgFolderPath);
+            boolean success = true;
+            if (!imageFolder.exists()) {
+                success = imageFolder.mkdirs();
+            }
+
+            if (success) {
+                parcelableImageMetadata.setImageToSave(FULL_IMAGE);
+                saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
+
+                parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
+                saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
+            } else {
+                Timber.e(TAG, "Sorry, could not create image folder!");
+            }
+        }
+    }
+
     private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
         ProfileImage profileImage = new ProfileImage();
-        Pair writeResult = writeImageToDisk(imgFolderPath, image, context);
-        boolean isSuccessfulWrite = (Boolean) writeResult.first;
-        String absoluteFilePath = (String) writeResult.second;
+        Pair<Boolean, String> writeResult = writeImageToDisk(imgFolderPath, image, context);
+        boolean isSuccessfulWrite = writeResult.first;
+        String absoluteFilePath = writeResult.second;
         if (isSuccessfulWrite) {
             saveImgDetails(absoluteFilePath, parcelableImageMetadata, profileImage);
             if (FULL_IMAGE.equals(parcelableImageMetadata.getImageToSave())) {
@@ -135,11 +139,11 @@ public class RDTJsonFormUtils {
         imageRepo.add(profileImage);
     }
 
-
     private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
 
         OutputStream outputStream = null;
         String absoluteFilePath = null;
+        Pair<Boolean, String> result = new Pair<>(false, absoluteFilePath);
         try {
             absoluteFilePath = imgFolderPath + File.separator + UUID.randomUUID() + ".JPEG";
             File outputFile = new File(absoluteFilePath);
@@ -149,8 +153,7 @@ public class RDTJsonFormUtils {
             if (BuildConfig.SAVE_IMAGES_TO_GALLERY) {
                 saveImageToGallery(context, image);
             }
-
-            return new Pair<>(true, absoluteFilePath);
+            result = new Pair<>(true, absoluteFilePath);
         } catch(FileNotFoundException e){
             Timber.e(TAG, e);
         } finally {
@@ -163,7 +166,7 @@ public class RDTJsonFormUtils {
             }
         }
 
-        return new Pair<>(false, absoluteFilePath);
+        return result;
     }
 
     private static void saveImageToGallery(Context context, Bitmap image) {
@@ -269,9 +272,10 @@ public class RDTJsonFormUtils {
         new FetchUniqueIdTask().execute();
     }
 
-    public static void appendEntityId(JSONObject jsonForm) throws JSONException {
+    public static String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = getString(jsonForm, Constants.ENTITY_ID);
         entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.ENTITY_ID, entityId);
+        return entityId;
     }
 }

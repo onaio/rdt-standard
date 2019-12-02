@@ -39,7 +39,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     private CustomRDTCapturePresenter presenter;
     private String baseEntityId;
-    private String providerID;
     private boolean isManualCapture;
 
     @Override
@@ -48,7 +47,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);
-        providerID = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         baseEntityId = getIntent().getStringExtra(ENTITY_ID);
         isManualCapture = false;
         showManualCaptureBtnDelayed(getIntent().getLongExtra(CAPTURE_TIMEOUT, 0));
@@ -58,41 +56,9 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
-        presenter.saveImage(this, buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
+        presenter.saveImage(this, presenter.buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
     }
 
-    private CompositeImage buildCompositeImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
-
-        final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
-        byte[] croppedImage = fullImage;
-
-        UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
-        unParcelableImageMetadata.withInterpretationResult(interpretationResult);
-
-        ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
-        parcelableImageMetadata.withBaseEntityId(baseEntityId)
-                .withProviderId(providerID)
-                .withTimeTaken(timeTaken)
-                .withFlashOn(captureResult.flashEnabled)
-                .withLineReadings(new LineReadings(false, false, false))
-                .withCassetteBoundary("(0, 0), (0, 0), (0, 0), (0, 0)");
-
-        if (!isManualCapture) {
-            croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
-            unParcelableImageMetadata.withBoundary(captureResult.boundary.toArray());
-            parcelableImageMetadata.withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
-                    .withCassetteBoundary(presenter.formatPoints(unParcelableImageMetadata.getBoundary()));
-        }
-
-
-        CompositeImage compositeImage = new CompositeImage();
-        compositeImage.withFullImage(convertByteArrayToBitmap(fullImage))
-                .withCroppedImage(convertByteArrayToBitmap(croppedImage))
-                .withParcelableImageMetadata(parcelableImageMetadata)
-                .withUnParcelableImageMetadata(unParcelableImageMetadata);
-
-        return compositeImage;
-    }
 
     @Override
     public void onImageSaved(CompositeImage compositeImage) {
@@ -138,5 +104,15 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
         mImageQualityView.findViewById(R.id.textInstruction).setVisibility(View.GONE);
         mImageQualityView.findViewById(R.id.img_quality_feedback_view).setVisibility(View.GONE);
         mImageQualityView.findViewById(R.id.manual_capture_instructions).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public String getBaseEntityId() {
+        return baseEntityId;
+    }
+
+    @Override
+    public boolean isManualCapture() {
+        return isManualCapture;
     }
 }

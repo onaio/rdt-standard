@@ -34,6 +34,7 @@ import io.ona.rdt.fragment.RDTJsonFormFragment;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
@@ -52,7 +53,7 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 /**
  * Created by Vincent Karuri on 27/06/2019
  */
-public class CustomRDTCaptureFactory extends RDTCaptureFactory {
+public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActivityResultListener {
 
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String RDT_NAME = "rdt_name";
@@ -82,6 +83,28 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        hideProgressDialog();
+
+        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+        if (requestCode == RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
+            try {
+                ParcelableImageMetadata parcelableImageMetadata = data.getParcelableExtra(PARCELABLE_IMAGE_METADATA);
+                populateRelevantFields(parcelableImageMetadata);
+                if (!formFragment.next()) {
+                    formFragment.save(true);
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, e.getStackTrace().toString());
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+            formFragment.setMoveBackOneStep(true);
+        } else if (data == null) {
+            Log.i(TAG, "No result data for RDT capture!");
+        }
+    }
+
     private class LaunchRDTCameraTask extends AsyncTask<Intent, Void, Void> {
 
         private Context context = widgetArgs.getContext();
@@ -94,7 +117,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         @Override
         protected Void doInBackground(Intent... intents) {
             Activity activity = (Activity) context;
-            activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+            activity.startActivityForResult(intents[0], RDT_CAPTURE_CODE);
             return null;
         }
     }
@@ -111,41 +134,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         }
     }
 
-    private OnActivityResultListener createOnActivityResultListener() {
-
-        OnActivityResultListener resultListener =  new OnActivityResultListener() {
-
-            @Override
-            public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                hideProgressDialog();
-
-                RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
-                if (requestCode == JsonFormConstants.RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
-                    try {
-                        Bundle extras = data.getExtras();
-                        ParcelableImageMetadata parcelableImageMetadata = extras.getParcelable(PARCELABLE_IMAGE_METADATA);
-
-                        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-                        populateRelevantFields(parcelableImageMetadata, jsonApi);
-                        if (!formFragment.next()) {
-                            formFragment.save(true);
-                        }
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getStackTrace().toString());
-                    }
-                } else if (resultCode == RESULT_CANCELED) {
-                    formFragment.setMoveBackOneStep(true);
-                } else if (data == null) {
-                    Log.i(TAG, "No result data for RDT capture!");
-                }
-            }
-        };
-
-        return resultListener;
-    }
-
-    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata, JsonApi jsonApi) throws JSONException {
+    private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
         LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
+        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
@@ -165,7 +156,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory {
         Context context = widgetArgs.getContext();
         if (context instanceof JsonApi) {
             final JsonApi jsonApi = (JsonApi) context;
-            jsonApi.addOnActivityResultListener(JsonFormConstants.RDT_CAPTURE_CODE , createOnActivityResultListener());
+            jsonApi.addOnActivityResultListener(RDT_CAPTURE_CODE , this);
         }
     }
 }

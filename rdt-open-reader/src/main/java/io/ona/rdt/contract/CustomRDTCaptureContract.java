@@ -8,7 +8,9 @@ import io.ona.rdt.callback.OnImageSavedCallback;
 public interface CustomRDTCaptureContract {
 
     interface View extends OnImageSavedCallback {
+        String getBaseEntityId();
 
+        boolean isManualCapture();
     }
 
     interface  Presenter {

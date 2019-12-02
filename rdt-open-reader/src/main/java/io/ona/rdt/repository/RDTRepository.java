@@ -23,7 +23,7 @@ public class RDTRepository extends Repository {
 
 
     public RDTRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, 1, openSRPContext.session(), RDTApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, 1, openSRPContext.session(), RDTApplication.getInstance().getPresenter().createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
     @Override
