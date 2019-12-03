@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -87,7 +86,7 @@ public class RDTGpsFactory extends GpsFactory {
     @Override
     protected void customizeViews(Button recordButton, Context context) {
         gpsDialog = new RDTGpsDialog(gpsDialog);
-        gpsDialog.setTitle("Please wait");
+        gpsDialog.setTitle(R.string.please_wait_title);
         ((RDTGpsDialog) gpsDialog).setFormFragment(widgetArgs.getFormFragment());
     }
 

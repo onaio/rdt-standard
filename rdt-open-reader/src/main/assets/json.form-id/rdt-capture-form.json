@@ -629,7 +629,7 @@
     ]
   },
   "step18": {
-    "title": "Confirm Labels",
+    "title": "Konfirmasikan Label",
     "display_back_button": "true",
     "next": "step19",
     "bottom_navigation": "true",
@@ -660,7 +660,7 @@
     ]
   },
   "step19": {
-    "title": "Sterile Storage",
+    "title": "Penyimpanan Steril",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",

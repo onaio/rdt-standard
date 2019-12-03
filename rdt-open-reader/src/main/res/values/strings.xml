@@ -22,6 +22,7 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="drawer_menu_item_logout">Logout</string>
     <string name="drawer_menu_item_image_sync">Image sync</string>
     <string name="search_hint">Search</string>
-    <string name="please_wait">Please wait</string>
+    <string name="please_wait_title">Please wait</string>
     <string name="saving_image">Saving captured image</string>
+    <string name="finding_location">Finding your location</string>
 </resources>

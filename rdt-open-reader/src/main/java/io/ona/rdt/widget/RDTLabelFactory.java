@@ -17,11 +17,11 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.ona.rdt.R;
-import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.callback.OnLabelClickedListener;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.util.Constants;
-import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
@@ -29,7 +29,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 /**
  * Created by Vincent Karuri on 20/06/2019
  */
-public class RDTLabelFactory extends LabelFactory implements View.OnClickListener {
+public class RDTLabelFactory extends LabelFactory {
 
     public static String HAS_DRAWABLE_END = "has_drawable_end";
     public static String CENTER_LABEL = "center_label";
@@ -47,11 +47,11 @@ public class RDTLabelFactory extends LabelFactory implements View.OnClickListene
                 .withContext(context)
                 .withStepName(stepName);
 
-        enhanceLabels(views, jsonObject, formFragment);
+        enhanceLabels(views, jsonObject);
         return views;
     }
 
-    private void enhanceLabels(List<View> views, JSONObject jsonObject, JsonFormFragment formFragment) throws JSONException {
+    private void enhanceLabels(List<View> views, JSONObject jsonObject)  {
         ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
         CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
         if (jsonObject.optBoolean(CENTER_LABEL)) {
@@ -60,7 +60,7 @@ public class RDTLabelFactory extends LabelFactory implements View.OnClickListene
 
         if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
             labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
-            labelText.setOnClickListener(this);
+            labelText.setOnClickListener(new OnLabelClickedListener(widgetArgs));
         }
     }
 
@@ -68,18 +68,5 @@ public class RDTLabelFactory extends LabelFactory implements View.OnClickListene
     public List<View> getViewsFromJson(String stepName, final Context context, final JsonFormFragment formFragment,
                                        final JSONObject jsonObject, CommonListener listener) throws Exception {
         return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
-    }
-
-    @Override
-    public void onClick(View v) {
-        JSONObject jsonObject = widgetArgs.getJsonObject();
-        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
-        final String key = jsonObject.optString(KEY, "");
-        if (Constants.LBL_CARE_START.equals(key)) {
-            formFragment.getRdtActivity().setRdtType(Constants.CARESTART_RDT);
-        } else {
-            formFragment.getRdtActivity().setRdtType(Constants.ONA_RDT);
-        }
-        ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(jsonObject.optString(NEXT));
     }
 }

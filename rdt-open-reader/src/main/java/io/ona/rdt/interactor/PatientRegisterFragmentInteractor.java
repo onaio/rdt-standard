@@ -16,7 +16,6 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
-import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.DateTimeTypeConverter;
@@ -125,7 +124,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         }
     }
 
-    private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException, JsonFormMissingStepCountException {
+    private EventClient saveEventClient(JSONObject jsonForm, String encounterType, String bindType) throws JSONException {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
         String entityId = getString(jsonForm, ENTITY_ID);

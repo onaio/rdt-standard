@@ -37,18 +37,14 @@ public class FormLauncher implements OnUniqueIdFetchedCallback {
 
     @Override
     public synchronized void onUniqueIdFetched(FormLaunchArgs args, UniqueId uniqueId) {
-        try {
-            String rdtId = uniqueId.getOpenmrsId();
-            Activity activity = args.getActivity();
-            if (!StringUtils.isBlank(rdtId)) {
-                RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
-                rdtId = rdtId.replace("-", "");
-                formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), rdtId);
-            } else {
-                showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
-            }
-        } catch (JSONException e) {
-            Timber.e(TAG, e.getStackTrace().toString());
+        String rdtId = uniqueId.getOpenmrsId();
+        Activity activity = args.getActivity();
+        if (!StringUtils.isBlank(rdtId)) {
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+            rdtId = rdtId.replace("-", "");
+            formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), rdtId);
+        } else {
+            showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
         }
     }
 }

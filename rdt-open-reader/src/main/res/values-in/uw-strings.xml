@@ -1,0 +1,66 @@
+<!--
+  ~ Copyright (C) 2019 University of Washington Ubicomp Lab
+  ~ All rights reserved.
+  ~
+  ~ This software may be modified and distributed under the terms
+  ~ of a BSD-style license that can be found in the LICENSE file.
+  -->
+
+<resources>
+    <string name="progress_initialization">Jangan bergerak…</string>
+    <string name="progress_final">Telah diambil! Sedang menganalisa gambar …</string>
+    <string name="instruction">Sesuaikan RDT dalam bingkai pada layar. Tahan...</string>
+    <string name="instruction_detected"><![CDATA[RDT telah terdeteksi di tengah!]]></string>
+    <string name="instruction_pos"><![CDATA[Tempatkan RDT di tengah.\nSesuaikan RDT dalam bingkai pada layar.]]></string>
+    <string name="instruction_too_small"><![CDATA[Tempatkan RDT di tengah.\nSesuaikan RDT dalam bingkai pada layar.\nDekatkan.]]></string>
+    <string name="instruction_too_large"><![CDATA[Tempatkan RDT di tengah.\nSesuaikan RDT dalam bingkai pada layar.\nJauhkan.]]></string>
+    <string name="instruction_focusing"><![CDATA[Tempatkan RDT di tengah.\nSesuaikan RDT dalam bingkai pada layar.\nKamera sedang fokus. \nJangan bergerak.]]></string>
+    <string name="instruction_unfocused"><![CDATA[Tempatkan RDT di tengah.\n Sesuaikan RDT dalam bingkai pada layar.\nKamera tidak fokus. \nJauhkan.]]></string>
+    <string name="over_exposed_msg">TERLALU TERANG </string>
+    <string name="under_exposed_msg">TERLALU GELAP </string>
+    <string name="quality_msg_format"> <![CDATA[POSISI/UKURAN: %s <br> KETAJAMAN: %s <br> KECERAHAN: %s <br> TIDAK ADA BAYANGAN: %s]]></string>
+    <string name="quality_msg_format_text"> <![CDATA[%s<br>%s<br>%s<br>%s]]></string>
+    <string name="exp_date_undetected">TANGGAL KADALUWARSA TIDAK TERDETEKSI </string>
+    <string name="exp_date_expired">TELAH KADALUWARSA!\n JANGAN GUNAKAN RDT INI </string>
+    <string name="exp_date_valid">VALID! \n KAMU DAPAT MENGGUNAKAN RDT INI </string>
+    <string name="settings_strict">Strict</string>
+    <string name="settings_loose">Loose</string>
+    <string name="exp_date_check">Tanggal Kadaluwarsa</string>
+    <string name="image_quality">Kualitas Gambar</string>
+    <string name="settings">Pengaturan</string>
+    <string name="save_image">Simpan Gambar</string>
+    <string name="done">Selesai</string>
+    <string name="settings_sharpness">Ketajaman</string>
+    <string name="settings_over_exposure">Over-exposure</string>
+    <string name="settings_under_exposure">Under-exposure</string>
+    <string name="settings_shadow">Bayangan</string>
+    <string name="settings_size">Ukuran</string>
+    <string name="settings_position">Posisi</string>
+    <string name="settings_language">Bahasa</string>
+    <string name="settings_english">Inggris</string>
+    <string name="settings_french">Français</string>
+    <string name="settings_bambara">Bamanankan</string>
+    <string name="results_image_saved">Gambar berhasil disimpan!</string>
+    <string name="results_image_already_saved">Gambar telah disimpan.</string>
+    <string name="results_image_sent">Gambar berhasil dikirim!</string>
+    <string name="preference_language">language</string>
+    <string name="preference_sharpness">sharpness</string>
+    <string name="preference_over_exposure">over_exposure</string>
+    <string name="preference_under_exposure">under_exposure</string>
+    <string name="preference_size">size</string>
+    <string name="preference_position">position</string>
+    <string name="preference_shadow">shadow</string>
+    <string name="preference_file_key">rdt-capture-pref</string>
+    <string name="cancel">Batal</string>
+    <string name="please_wait">Silakan tunggu</string>
+    <string name="processing_image">Sedang memproses gambar yang diambil</string>
+    <string name="manual_capture_instructions">RDT tidak terdeteksi.\nSesuaikan posisi RDT dan ambil foto.</string>
+    <string name="light_on"> Lampu menyala</string>
+    <string name="light_off"> Lampu mati</string>
+</resources>
+
+
+
+
+
+

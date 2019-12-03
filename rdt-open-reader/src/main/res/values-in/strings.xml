@@ -21,4 +21,8 @@ Silakan klik pada tombol <i>Cari lokasi saya</i> di bawah layar dan kami akan se
     <string name="drawer_menu_item_sync">Sinkronisasi</string>
     <string name="drawer_menu_item_logout">Keluar</string>
     <string name="drawer_menu_item_image_sync">Sinkronisasi gambar</string>
+    <string name="latitude">Lintang: %s</string>
+    <string name="longitude">Garis bujur: %s</string>
+    <string name="finding_location">sedang mencari lokasi Anda</string>
+    <string name="please_wait_title">Silakan tunggu</string>
 </resources>

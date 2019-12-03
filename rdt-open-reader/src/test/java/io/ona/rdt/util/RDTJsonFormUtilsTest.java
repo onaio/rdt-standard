@@ -19,7 +19,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
-import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -687,7 +686,7 @@ public class RDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException, JsonFormMissingStepCountException {
+    public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {
         JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
         Patient patient = new Patient("patient", "female", "entity_id");
         formUtils.prePopulateFormFields(formObject, patient, "rdt_id", 8);

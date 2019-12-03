@@ -7,23 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import org.opencv.core.Point;
-
 import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.CustomRDTCaptureContract;
 import io.ona.rdt.domain.CompositeImage;
-import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
-import io.ona.rdt.domain.UnParcelableImageMetadata;
 import io.ona.rdt.presenter.CustomRDTCapturePresenter;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
-import static io.ona.rdt.util.RDTJsonFormUtils.convertByteArrayToBitmap;
 import static io.ona.rdt.util.Utils.hideProgressDialogFromFG;
 import static io.ona.rdt.util.Utils.showProgressDialogInFG;
 import static io.ona.rdt.util.Utils.updateLocale;

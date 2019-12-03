@@ -68,10 +68,23 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "edit_type": "name",
+        "edit_type": "name"
+      },
+      {
+        "key": "patient_id_label",
+        "type": "label",
+        "text": "Patient ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please specify patient name"
+          "err": "Please enter patient ID"
         }
       },
       {
@@ -108,11 +121,7 @@
           "label": "Age"
         },
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the date of birth"
-        }
+        "max_date": "today"
       },
       {
         "key": "age",
@@ -147,6 +156,20 @@
         }
       },
       {
+        "key": "skip_diagnostic_questions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "skip_questions",
+            "text": "Skip diagnostic questions",
+            "value": "true"
+          }
+        ]
+      },
+      {
         "key": "been_treated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -163,13 +186,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient been treated for malaria in the past 3 months?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -189,13 +219,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has patient had malaria in the past year?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -215,13 +252,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had a fever (temperature ≥ 37.5°C) in the past 3 days?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -241,13 +285,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced abnormal headaches in the 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -267,13 +318,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient felt nausea in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -293,13 +351,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient vomited in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -319,13 +384,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced diarrhea in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -345,13 +417,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient experienced chills in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -371,13 +450,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient felt body aches in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -397,13 +483,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had muscle pain in the  past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -423,13 +516,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had chest pain in the  past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -449,13 +549,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient felt abnormal fatigue in the past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -475,13 +582,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the patient had breathing problems in the  past 48 hours?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -501,10 +615,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has poor feeding been seen in the past 3 days?"
@@ -534,10 +649,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has the child been coughing in the past 3 days?"
@@ -567,13 +683,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Has anyone else in the household been diagnosed with malaria in the past 3 months?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -593,13 +716,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Was the household/compound sprayed in the past 3 months?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -619,13 +749,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Does the patient live in a Malaria endemic area?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -645,10 +782,11 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Does the patient have a history of visiting Malaria endemic areas?"
@@ -678,13 +816,20 @@
             "text": "No"
           },
           {
-            "key": "Not Answered",
+            "key": "not_answered",
             "text": "Not Answered"
           }
         ],
+        "value": "not_answered",
         "v_required": {
           "value": "true",
           "err": "Does the patient sleep under a bednet?"
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
       },
       {
@@ -698,6 +843,12 @@
             "ex-rules": {
               "rules-file": "conditional_save_calculation_rules.yml"
             }
+          }
+        },
+        "relevance": {
+          "step1:skip_diagnostic_questions": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
           }
         }
       }

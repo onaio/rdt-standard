@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="Finding your location"
+                android:text="@string/finding_location"
                 android:textColor="#696969"/>
         </LinearLayout>
     </LinearLayout>

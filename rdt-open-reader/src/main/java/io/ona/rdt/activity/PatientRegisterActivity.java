@@ -44,6 +44,7 @@ import static io.ona.rdt.util.Utils.updateLocale;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     private DrawerLayout drawerLayout;
+    private final String TAG = PatientRegisterActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
