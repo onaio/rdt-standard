@@ -707,7 +707,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "hint": "Expiration date",
-        "max_date": "today",
         "v_required": {
           "value": true,
           "err": "Please specify the expiration date"

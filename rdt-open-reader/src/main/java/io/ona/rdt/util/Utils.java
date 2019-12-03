@@ -104,4 +104,8 @@ public class Utils {
             }
         });
     }
+
+    public static boolean isExpired(Date date) {
+        return new Date().before(date);
+    }
 }
