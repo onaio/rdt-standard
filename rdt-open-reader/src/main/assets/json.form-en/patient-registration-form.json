@@ -121,11 +121,7 @@
           "label": "Age"
         },
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the date of birth"
-        }
+        "max_date": "today"
       },
       {
         "key": "age",
