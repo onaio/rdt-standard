@@ -39,8 +39,6 @@ import static org.smartregister.util.JsonFormUtils.value;
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
 
-    private final String TAG = RDTJsonFormFragmentPresenter.class.getName();
-
     private RDTJsonFormInteractor interactor;
     private RDTJsonFormFragmentContract.View rdtFormFragment;
 
