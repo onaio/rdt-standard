@@ -47,6 +47,7 @@ public interface Constants {
         String NAME = "name";
         String AGE = "age";
         String SEX = "sex";
+        String PATIENT_ID = "patient_id";
     }
 
     interface Form {

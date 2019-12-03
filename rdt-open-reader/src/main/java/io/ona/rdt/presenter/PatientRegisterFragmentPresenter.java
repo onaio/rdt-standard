@@ -67,13 +67,13 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[]{tableName + "." + "relationalid", tableName + ".name", tableName + "." + "age", tableName + "." + "sex"};
+        String[] columns = new String[]{tableName + "." + "relationalid", tableName + ".name", tableName + "." + "age", tableName + "." + "sex", tableName + "." + "patient_id"};
         return columns;
     }
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s != '%s'", "name", "");
+        return String.format(" %s != '%s' or %s != '%s'", "name", "", "patient_id", "");
     }
 
     @Override
