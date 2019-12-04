@@ -77,7 +77,7 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s != '%s' or %s != '%s'", NAME, "",  PATIENT_ID, "");
+        return String.format(" (%s != '%s' or %s != '%s')", NAME, "",  PATIENT_ID, "");
     }
 
     @Override
