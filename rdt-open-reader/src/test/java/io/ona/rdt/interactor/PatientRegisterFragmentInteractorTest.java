@@ -88,17 +88,28 @@ public class PatientRegisterFragmentInteractorTest {
     private static final String PATIENT_NAME = "Mr. Patient";
     private static final String PATIENT_GENDER = "Male";
     private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
+    private static final String PATIENT_ID = "patient id";
     private static final int PATIENT_AGE = 20;
     private Map<String, String > properties = new HashMap();
 
-    public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
+    public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID, PATIENT_ID);
 
 
     private PatientRegisterFragmentInteractor interactor;
 
     public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
-            "\"fields\":[{\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
+            "\"fields\":[{\n" +
+            "        \"key\": \"patient_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"edit_text\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"true\",\n" +
+            "          \"err\": \"Please enter patient ID\"\n" +
+            "        }\n" + ",\"value\":\"" + PATIENT_ID + "\"" +
+            "      }, {\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
             "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
             "\"v_regex\":{\"value\":\"[^([0-9]*)$]*\",\"err\":\"Please enter a valid name\"},\"value\":\"" + PATIENT_NAME + "\"},{\"key\":\"patient_age_label\",\"type\":\"label\",\"text\":\"Age\",\"text_color\":\"#000000\"}," +
             "{\"key\":\"patient_age\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"age\",\"type\":\"edit_text\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient age\"}," +
