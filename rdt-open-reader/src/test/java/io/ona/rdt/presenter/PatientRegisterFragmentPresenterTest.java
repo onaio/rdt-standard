@@ -79,7 +79,7 @@ public class PatientRegisterFragmentPresenterTest {
 
     @Test
     public void testGetMainConditionShouldReturnCorrectMainCondition() {
-        assertEquals(" name != '' or patient_id != ''", presenter.getMainCondition());
+        assertEquals(" (name != '' or patient_id != '')", presenter.getMainCondition());
     }
 
     @Test
