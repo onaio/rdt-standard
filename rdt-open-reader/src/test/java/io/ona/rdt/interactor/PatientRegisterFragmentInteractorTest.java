@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -41,12 +42,14 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormLaunchArgs;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -76,23 +79,37 @@ public class PatientRegisterFragmentInteractorTest {
     @Mock
     private UniqueIdRepository uniqueIdRepository;
 
+    @Mock
+    private StepStateConfig stepStateConfig;
+
     @Captor
     private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
 
     private static final String PATIENT_NAME = "Mr. Patient";
     private static final String PATIENT_GENDER = "Male";
     private static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
+    private static final String PATIENT_ID = "patient id";
     private static final int PATIENT_AGE = 20;
     private Map<String, String > properties = new HashMap();
 
-    public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID);
+    public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID, PATIENT_ID);
 
 
     private PatientRegisterFragmentInteractor interactor;
 
     public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
-            "\"fields\":[{\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
+            "\"fields\":[{\n" +
+            "        \"key\": \"patient_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"edit_text\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"true\",\n" +
+            "          \"err\": \"Please enter patient ID\"\n" +
+            "        }\n" + ",\"value\":\"" + PATIENT_ID + "\"" +
+            "      }, {\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
             "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
             "\"v_regex\":{\"value\":\"[^([0-9]*)$]*\",\"err\":\"Please enter a valid name\"},\"value\":\"" + PATIENT_NAME + "\"},{\"key\":\"patient_age_label\",\"type\":\"label\",\"text\":\"Age\",\"text_color\":\"#000000\"}," +
             "{\"key\":\"patient_age\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"age\",\"type\":\"edit_text\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient age\"}," +
@@ -205,7 +222,7 @@ public class PatientRegisterFragmentInteractorTest {
         verify(clientProcessor).processClient(any(List.class));
     }
 
-    private void mockStaticMethods() {
+    private void mockStaticMethods() throws JSONException {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
@@ -220,6 +237,12 @@ public class PatientRegisterFragmentInteractorTest {
         doReturn(properties).when(applicationPresenter).getPhoneProperties();
 
         PowerMockito.when(rdtApplication.getPresenter()).thenReturn(applicationPresenter);
+
+        PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
+
+        JSONObject jsonObject = Mockito.mock(JSONObject.class);
+        Mockito.doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
+        Mockito.doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
         // mock repositories
         PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);

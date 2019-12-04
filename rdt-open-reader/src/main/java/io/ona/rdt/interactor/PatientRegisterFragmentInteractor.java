@@ -28,8 +28,8 @@ import java.util.Map;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormLauncher;
+import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.DETAILS;
 import static io.ona.rdt.util.Constants.DOB;
@@ -40,6 +40,7 @@ import static io.ona.rdt.util.Constants.PATIENT_AGE;
 import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.RDT_TESTS;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
@@ -117,10 +118,17 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     }
 
     private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
-        org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null, false, Constants.Form.RDT_ID);
-        if (rdtIdObs != null) {
-            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
-            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+        try {
+            org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null,
+                    false,
+                    RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY));
+
+            if (rdtIdObs != null) {
+                String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
+                RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+            }
+        } catch (JSONException e) {
+            Timber.e(e);
         }
     }
 

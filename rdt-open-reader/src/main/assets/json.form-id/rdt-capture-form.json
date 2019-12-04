@@ -1,5 +1,5 @@
 {
-  "count": "19",
+  "count": "20",
   "encounter_type": "rdt_test",
   "entity_id": "",
   "metadata": {
@@ -115,8 +115,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "has_drawable_end": true,
-        "bg_color": "#ffffff",
-        "next": "step5"
+        "bg_color": "#ffffff"
       },
       {
         "key": "lbl_care_start",
@@ -126,8 +125,7 @@
         "text_color": "#000000",
         "has_bg": true,
         "has_drawable_end": true,
-        "bg_color": "#ffffff",
-        "next": "step4"
+        "bg_color": "#ffffff"
       }
     ]
   },
@@ -142,7 +140,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "expiration_date_capture",
-        "expired_page_address": "step6",
         "v_required": {
           "value": "true",
           "err": "Silakan masukkan ID RDT "
@@ -165,10 +162,6 @@
         "hint": "RDT ID *",
         "scanButtonText": "Pindai Kode QR",
         "value": "0",
-        "rdt_id_lbl_addresses": "step7:lbl_rdt_id, step8:lbl_rdt_id, step9:lbl_rdt_id, step18:lbl_rdt_id, step19:lbl_rdt_id",
-        "rdt_id_address": "step17:rdt_id",
-        "expiration_date_address": "step4:expiration_date_reader",
-        "expired_page_address": "step6",
         "v_numeric": {
           "value": "true",
           "err": "Silakan masukkan ID yang valid"
@@ -177,6 +170,13 @@
           "value": "true",
           "err": "Silakan masukkan ID RDT"
         }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },
@@ -218,7 +218,7 @@
     "next": "step8",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "LANJUTKAN KE MIKROSKOPIK ",
+    "next_label": "LANJUTKAN KE MIKROSKOPIK",
     "fields": [
       {
         "key": "lbl_rdt_id",
@@ -480,8 +480,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "rdt_capture",
-        "carestart_rdt_prev": "step15"
+        "type": "rdt_capture"
       },
       {
         "key": "rdt_capture_control_result",
@@ -618,13 +617,6 @@
             "ex": "equalTo(., \"positive\")"
           }
         }
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },
@@ -686,6 +678,39 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold"
+      }
+    ]
+  },
+  "step20": {
+    "title": "Scan RDT timed out",
+    "next": "step7",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE TO RECORD RDT ID",
+    "fields": [
+      {
+        "key": "lbl_record_expiration_date",
+        "type": "label",
+        "text": "Record expiration date manually",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "manual_expiration_date",
+        "type": "date_picker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Expiration date",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the expiration date"
+        }
       }
     ]
   }

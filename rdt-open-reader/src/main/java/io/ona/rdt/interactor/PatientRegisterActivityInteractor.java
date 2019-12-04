@@ -12,6 +12,7 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.FormLauncher;
 
 import static io.ona.rdt.util.Constants.CONDITIONAL_SAVE;
+import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.ENTITY_ID;
@@ -43,7 +44,8 @@ public class PatientRegisterActivityInteractor extends FormLauncher {
                 String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                 String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
                 String baseEntityId = getString(jsonFormObject, ENTITY_ID);
-                rdtPatient = new Patient(name, sex, baseEntityId);
+                String patientId = FormUtils.getFieldJSONObject(formFields, PATIENT_ID).optString(VALUE);
+                rdtPatient = new Patient(name, sex, baseEntityId, patientId);
             }
         }
         return rdtPatient;

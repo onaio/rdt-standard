@@ -51,6 +51,7 @@ public class PatientRegisterActivityInteractorTest {
         assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
         assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
         assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
+        assertEquals(rdtPatient.getPatientId(), expectedPatient.getPatientId());
     }
 
     @Test

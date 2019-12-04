@@ -252,11 +252,19 @@
           }
         },
         {
-          "column_name": "exp_date",
+          "column_name": "captured_exp_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "expiration_date_reader"
+          }
+        },
+        {
+          "column_name": "manual_exp_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "manual_expiration_date"
           }
         },
         {

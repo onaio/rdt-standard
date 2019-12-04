@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -36,8 +37,10 @@ import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
+import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
@@ -74,6 +77,9 @@ public class RDTJsonFormUtilsTest {
 
     @Mock
     private ImageRepository imageRepository;
+
+    @Mock
+    private StepStateConfig stepStateConfig;
 
     private static final String RDT_TEST_JSON_FORM = "{\n" +
             "  \"count\": \"18\",\n" +
@@ -687,6 +693,8 @@ public class RDTJsonFormUtilsTest {
 
     @Test
     public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {
+        mockStaticMethods();
+
         JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
         Patient patient = new Patient("patient", "female", "entity_id");
         formUtils.prePopulateFormFields(formObject, patient, "rdt_id", 8);
@@ -704,7 +712,7 @@ public class RDTJsonFormUtilsTest {
                populatedLblRDTId = true;
             }
             // test rdt id is populated
-            if (RDT_ID.equals(field.getString(KEY))) {
+            if (formUtils.isRDTIdField(field)) {
                 assertEquals(field.getString(VALUE), "rdt_id");
                 populatedRDTId = true;
             }
@@ -727,7 +735,7 @@ public class RDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testLaunchFormShouldntThrowException() throws Exception {
+    public void testLaunchFormShouldntThrowException() throws JSONException {
         mockStaticMethods();
         formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), "rdt_id");
     }
@@ -820,7 +828,7 @@ public class RDTJsonFormUtilsTest {
         }
     }
 
-    private void mockStaticMethods() {
+    private void mockStaticMethods() throws JSONException {
         // mock AssetHandler
         mockStatic(AssetHandler.class);
         PowerMockito.when(AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(RDT_TEST_JSON_FORM);
@@ -838,5 +846,14 @@ public class RDTJsonFormUtilsTest {
         // Drishti
         mockStatic(DrishtiApplication.class);
         PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn(getTestFilePath());
+
+        mockStatic(RDTApplication.class);
+        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
+        PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
+
+        JSONObject jsonObject = mock(JSONObject.class);
+        doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
+        doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
+        doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
     }
 }

@@ -10,6 +10,10 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.DBConstants.AGE;
+import static io.ona.rdt.util.Constants.DBConstants.NAME;
+import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
+import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 
 /**
@@ -67,13 +71,13 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[]{tableName + "." + "relationalid", tableName + ".name", tableName + "." + "age", tableName + "." + "sex"};
+        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID};
         return columns;
     }
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s != '%s'", "name", "");
+        return String.format(" (%s != '%s' or %s != '%s')", NAME, "",  PATIENT_ID, "");
     }
 
     @Override

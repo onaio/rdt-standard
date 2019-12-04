@@ -33,7 +33,8 @@ public class PatientRegisterViewHolderTest {
 
     @Test
     public void testCreateNameAndAgeLabel() throws Exception {
-        assertEquals("Doe, 12", Whitebox.invokeMethod(patientRegisterViewHolder, "createNameAndAgeLabel", "Doe", "12"));
+        assertEquals("Doe, 12", Whitebox.invokeMethod(patientRegisterViewHolder, "createNameAndAgeLabel", "Doe", "", "12"));
+        assertEquals("Doe, 12", Whitebox.invokeMethod(patientRegisterViewHolder, "createNameAndAgeLabel", "", "Doe", "12"));
     }
 
     @Test

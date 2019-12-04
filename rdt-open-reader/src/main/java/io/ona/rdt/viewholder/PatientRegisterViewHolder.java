@@ -50,9 +50,10 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String patientAge = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.AGE, true);
         String sex = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.SEX, true);
         String baseEntityId = commonPersonObjectClient.getCaseId();
-        String nameAndAge = createNameAndAgeLabel(patientName, patientAge);
+        String patientId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.PATIENT_ID, true);
+        String nameAndAge = createNameAndAgeLabel(patientName, patientId, patientAge);
 
-        final Patient patient = new Patient(patientName, sex, baseEntityId);
+        final Patient patient = new Patient(patientName, sex, baseEntityId, patientId);
         viewHolder.patientNameAndAge.setText(nameAndAge);
         viewHolder.patientSex.setText(sex);
         viewHolder.rowItem.setTag(R.id.base_entity_id, baseEntityId);
@@ -61,9 +62,10 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         attachPatientOnclickListener(viewHolder.rowItem);
     }
 
-    private String createNameAndAgeLabel(String name, String age) {
+    private String createNameAndAgeLabel(String patientName, String patientId, String age) {
         long formattedAge = StringUtils.isBlank(age) ? 10 : Math.round(Double.valueOf(age));
-        return name + ", " + formattedAge;
+        String patientIdentifier =  StringUtils.isBlank(patientName) ? patientId : patientName;
+        return patientIdentifier + ", " + formattedAge;
     }
 
     private void attachPatientOnclickListener(View view) {

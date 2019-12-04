@@ -40,10 +40,10 @@ import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Form.RDT_ID;
 import static io.ona.rdt.util.Constants.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
@@ -127,7 +127,7 @@ public class RDTJsonFormUtils {
     }
 
     private static void saveImgDetails(String absoluteFilePath, ParcelableImageMetadata parcelableImageMetadata, ProfileImage profileImage) {
-        profileImage.setImageid(UUID.randomUUID().toString());
+        profileImage.setImageid(extractImageFileName(absoluteFilePath));
         profileImage.setAnmId(parcelableImageMetadata.getProviderId());
         profileImage.setEntityID(parcelableImageMetadata.getBaseEntityId());
         profileImage.setFilepath(absoluteFilePath);
@@ -136,6 +136,11 @@ public class RDTJsonFormUtils {
 
         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
         imageRepo.add(profileImage);
+    }
+
+    private static String extractImageFileName(String filePath) {
+        String[] fileLevels = filePath.split("/");
+        return fileLevels[fileLevels.length - 1].split("\\.")[0];
     }
 
     private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
@@ -231,15 +236,18 @@ public class RDTJsonFormUtils {
                 fieldsPopulated++;
             }
             // pre-populate rdt id field
-            if (RDT_ID.equals(field.getString(KEY))) {
+            if (isRDTIdField(field)) {
                 field.put(VALUE, rdtId);
                 fieldsPopulated++;
             }
             // pre-populate patient fields
             if (patient != null) {
                 if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
-                    field.put(VALUE, patient.getPatientName());
-                    field.put("text", patient.getPatientName());
+                    String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
+                            ? patient.getPatientId() : patient.getPatientName();
+
+                    field.put(VALUE, patientIdentifier);
+                    field.put("text", patientIdentifier);
                     fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, patient.getPatientSex());
@@ -252,6 +260,10 @@ public class RDTJsonFormUtils {
                 break;
             }
         }
+    }
+
+    public boolean isRDTIdField(JSONObject field) throws JSONException {
+        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY).equals(field.getString(KEY));
     }
 
     public synchronized void getNextUniqueId(final FormLaunchArgs args, final OnUniqueIdFetchedCallback callBack) {
