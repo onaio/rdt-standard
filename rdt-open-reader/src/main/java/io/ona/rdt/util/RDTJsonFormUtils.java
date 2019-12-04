@@ -127,7 +127,7 @@ public class RDTJsonFormUtils {
     }
 
     private static void saveImgDetails(String absoluteFilePath, ParcelableImageMetadata parcelableImageMetadata, ProfileImage profileImage) {
-        profileImage.setImageid(UUID.randomUUID().toString());
+        profileImage.setImageid(extractImageFileName(absoluteFilePath));
         profileImage.setAnmId(parcelableImageMetadata.getProviderId());
         profileImage.setEntityID(parcelableImageMetadata.getBaseEntityId());
         profileImage.setFilepath(absoluteFilePath);
@@ -136,6 +136,11 @@ public class RDTJsonFormUtils {
 
         ImageRepository imageRepo = RDTApplication.getInstance().getContext().imageRepository();
         imageRepo.add(profileImage);
+    }
+
+    private static String extractImageFileName(String filePath) {
+        String[] fileLevels = filePath.split("/");
+        return fileLevels[fileLevels.length - 1].split(".")[0];
     }
 
     private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
