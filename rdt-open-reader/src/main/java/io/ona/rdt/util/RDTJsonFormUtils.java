@@ -140,7 +140,7 @@ public class RDTJsonFormUtils {
 
     private static String extractImageFileName(String filePath) {
         String[] fileLevels = filePath.split("/");
-        return fileLevels[fileLevels.length - 1].split(".")[0];
+        return fileLevels[fileLevels.length - 1].split("\\.")[0];
     }
 
     private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
