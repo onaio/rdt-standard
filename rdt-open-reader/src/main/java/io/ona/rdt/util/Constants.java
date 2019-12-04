@@ -29,7 +29,6 @@ public interface Constants {
     String LBL_CARE_START = "lbl_care_start";
     String BULLET_DOT = " \u00B7 ";
     String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
-    String EXPIRED_PAGE_ADDRESS = "expired_page_address";
 
     String PHONE_MODEL = "phone_model";
     String PHONE_OS_VERSION = "phone_os_version";
@@ -48,13 +47,13 @@ public interface Constants {
         String NAME = "name";
         String AGE = "age";
         String SEX = "sex";
+        String PATIENT_ID = "patient_id";
     }
 
     interface Form {
         String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form.json";
         String LBL_RDT_ID = "lbl_rdt_id";
-        String RDT_ID = "rdt_id";
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
         String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
@@ -73,5 +72,20 @@ public interface Constants {
         String FLASH_ON = "flash_on";
         String CASSETTE_BOUNDARY = "cassette_boundary";
         String IS_MANUAL_CAPTURE = "is_manual_capture";
+    }
+
+    interface Step {
+        String RDT_EXPIRED_PAGE = "rdt_expired_page";
+        String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
+        String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
+        String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
+        String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
+        String EXPIRATION_DATE_READER_ADDRESS = "expiration_date_reader_address";
+        String RDT_ID_KEY = "rdt_id_key";
+        String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
+        String SCAN_QR_PAGE = "scan_qr_page";
+        String SCAN_CARESTART_PAGE = "scan_carestart_page";
+        String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
+        String TAKE_IMAGE_OF_RDT_PAGE = "take_image_of_rdt_page";
     }
 }

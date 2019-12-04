@@ -17,6 +17,7 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.widgets.BarcodeFactory;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,13 +26,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.util.StepStateConfig;
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt.util.Constants.EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Utils.convertDate;
 
 /**
@@ -42,14 +49,13 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
     private WidgetArgs widgetArgs;
 
     private static final String TAG = RDTBarcodeFactory.class.getName();
-    public static final String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
-    public static final String EXPIRATION_DATE_ADDRESS = "expiration_date_address";
-    public static final String RDT_ID_ADDRESS = "rdt_id_address";
 
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
+    private StepStateConfig stepStateConfig;
+
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) {
         return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
     }
 
@@ -63,6 +69,12 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
                 .withJsonObject(jsonObject)
                 .withFormFragment(formFragment)
                 .withStepName(stepName);
+
+        try {
+            stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
@@ -122,14 +134,13 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
         jsonObject.put(VALUE, idAndExpDate);
 
         // write barcode values to relevant widgets
-        String rdtIdLblAddresses = jsonObject.optString(RDT_ID_LBL_ADDRESSES, "");
-        String expirationDateAddress = jsonObject.optString(EXPIRATION_DATE_ADDRESS, "");
-        String rdtIdAddress = jsonObject.optString(RDT_ID_ADDRESS, "");
+        JSONArray rdtIdLblAddresses = stepStateConfig.getStepStateObj().optJSONArray(RDT_ID_LBL_ADDRESSES);
+        String expirationDateAddress = stepStateConfig.getStepStateObj().optString(EXPIRATION_DATE_READER_ADDRESS, "");
         String[] stepAndId;
 
         // populate rdt id to all relevant txt labels
-        String[] rdtIdAddresses = rdtIdLblAddresses.isEmpty() ? new String[0] : rdtIdLblAddresses.split(",");
-        for (String addr : rdtIdAddresses) {
+        for (int i = 0; i < rdtIdLblAddresses.length(); i++) {
+            String addr = rdtIdLblAddresses.getString(i);
             stepAndId = addr.isEmpty() ? new String[0] : addr.split(":");
             if (stepAndId.length == 2) {
                 jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), "RDT ID: " + barcodeValues[2].trim(), "", "", "", false);
@@ -137,10 +148,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
         }
 
         // write rdt id to hidden rdt id field
-        stepAndId = rdtIdAddress.isEmpty() ? new String[0] : rdtIdAddress.split(":");
-        if (stepAndId.length == 2) {
-            jsonApi.writeValue(stepAndId[0].trim(), stepAndId[1].trim(), barcodeValues[2].trim(), "", "", "", false);
-        }
+        jsonApi.writeValue(widgetArgs.getStepName(), stepStateConfig.getStepStateObj().optString(RDT_ID_KEY), barcodeValues[2].trim(), "", "", "", false);
 
         // populate exp. date to expiration date widget value
         stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
@@ -156,7 +164,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
                 formFragment.save(true);
             }
         } else {
-            String expiredPageAddr = widgetArgs.getJsonObject().optString(EXPIRED_PAGE_ADDRESS, "step1");
+            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE, "step1");
             JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
             formFragment.transactThis(nextFragment);
         }
