@@ -88,7 +88,9 @@ public class RDTExpirationDateReaderFactoryTest {
 
     @Test
     public void testConditionallyMoveToNextStepShouldMoveToNextStep() throws Exception {
-        Whitebox.invokeMethod(readerFactory, "conditionallyMoveToNextStep", true);
+        mockStaticMethods();
+        mockStaticClasses();
+        readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), stepStateConfig, true);
         verify(widgetArgs.getFormFragment()).next();
     }
 
@@ -96,7 +98,7 @@ public class RDTExpirationDateReaderFactoryTest {
     public void testConditionallyMoveToNextStepShouldMoveToStep1() throws Exception {
         mockStaticClasses();
         mockStaticMethods();
-        Whitebox.invokeMethod(readerFactory, "conditionallyMoveToNextStep", false);
+        readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), stepStateConfig, false);
         verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
     }
 

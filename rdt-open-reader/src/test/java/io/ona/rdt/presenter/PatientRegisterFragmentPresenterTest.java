@@ -18,6 +18,10 @@ import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
 
+import static io.ona.rdt.util.Constants.DBConstants.AGE;
+import static io.ona.rdt.util.Constants.DBConstants.NAME;
+import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
+import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.RDT_TESTS;
 import static org.junit.Assert.assertEquals;
@@ -75,13 +79,13 @@ public class PatientRegisterFragmentPresenterTest {
 
     @Test
     public void testGetMainConditionShouldReturnCorrectMainCondition() {
-        assertEquals(" name != ''", presenter.getMainCondition());
+        assertEquals(" name != '' or patient_id != ''", presenter.getMainCondition());
     }
 
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
-        assertEquals(new String[]{RDT_TESTS + "." + "relationalid", RDT_TESTS + ".name", RDT_TESTS
-                + "." + "age", RDT_TESTS + "." + "sex"},
+        assertEquals(new String[]{RDT_TESTS + "." + "relationalid", RDT_TESTS + "." + NAME, RDT_TESTS
+                + "." + AGE, RDT_TESTS + "." + SEX, RDT_TESTS + "." + PATIENT_ID},
                 Whitebox.invokeMethod(presenter, "mainColumns", RDT_TESTS));
     }
 }

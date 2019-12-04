@@ -29,6 +29,7 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
 import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
@@ -92,20 +93,26 @@ public class RDTJsonFormFragmentPresenterTest {
     }
 
     @Test
-    public void testPerformNextButtonActionShouldShowImageViewsForONARDT() {
+    public void testPerformNextButtonActionShouldShowImageViewsForONARDT() throws JSONException {
+        mockStaticMethods();
+        mockStaticClasses();
         doReturn(Constants.ONA_RDT).when(rdtFormFragment).getRDTType();
         presenter.performNextButtonAction("step8", null);
         verify(rdtFormFragment).moveToNextStep();
     }
 
     @Test
-    public void testPerformNextButtonActionShouldMoveToNextStepForDefaultNextButton() {
+    public void testPerformNextButtonActionShouldMoveToNextStepForDefaultNextButton() throws JSONException {
+        mockStaticMethods();
+        mockStaticClasses();
         presenter.performNextButtonAction("step1", null);
         verify(rdtFormFragment).moveToNextStep();
     }
 
     @Test
-    public void testPerformNextButtonActionShouldSubmitFormForSubmitTypeNextButton() {
+    public void testPerformNextButtonActionShouldSubmitFormForSubmitTypeNextButton() throws JSONException {
+        mockStaticMethods();
+        mockStaticClasses();
         presenter.performNextButtonAction("step1", true);
         verify(rdtFormFragment).saveForm();
     }
@@ -190,6 +197,7 @@ public class RDTJsonFormFragmentPresenterTest {
                 "    \"step18:lbl_rdt_id\",\n" +
                 "    \"step19:lbl_rdt_id\"\n" +
                 "  ]")).when(jsonObject).optJSONArray(eq(RDT_ID_LBL_ADDRESSES));
+        doReturn("").when(jsonObject).optString(eq(MANUAL_ENTRY_EXPIRATION_PAGE));
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
     }
 }
