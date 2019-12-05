@@ -16,6 +16,7 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.DateTimeTypeConverter;
@@ -150,9 +151,11 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             eventClientRepository.addorUpdateClient(entityId, clientJson);
         }
 
-        String providerId = RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+        AllSharedPreferences sharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        String providerId = sharedPreferences.fetchRegisteredANM();
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
         event.setProviderId(providerId);
+        event.setTeam(sharedPreferences.fetchDefaultTeam(providerId));
         populatePhoneMetadata(event);
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));
