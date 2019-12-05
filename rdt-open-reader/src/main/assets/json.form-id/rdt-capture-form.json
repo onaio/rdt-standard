@@ -687,12 +687,12 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE TO RECORD RDT ID",
+    "next_label": "TERUS",
     "fields": [
       {
         "key": "lbl_record_expiration_date",
         "type": "label",
-        "text": "Record expiration date manually",
+        "text": "Catat Tanggal Kedaluwarsa",
         "text_color": "#000000",
         "text_size": "9sp",
         "top_margin": "15dp",
@@ -706,7 +706,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "Expiration date",
+        "hint": "Tanggal kadaluarsa",
         "v_required": {
           "value": true,
           "err": "Please specify the expiration date"
