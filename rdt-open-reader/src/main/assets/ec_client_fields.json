@@ -420,6 +420,32 @@
           }
         }
       ]
+    },
+    {
+      "name": "pcr_results",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "rdt_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "rdt_id"
+          }
+        },
+        {
+          "column_name": "pcr_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "pcr_result"
+          }
+        }
+      ]
     }
   ]
 }

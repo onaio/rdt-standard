@@ -29,6 +29,21 @@
           }
         ]
       }
+    },
+    {
+      "comment": "PCR test info",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "pcr_result",
+            "creates_case": [
+              "pcr_results"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
