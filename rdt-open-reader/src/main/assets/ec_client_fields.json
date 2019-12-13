@@ -489,14 +489,6 @@
         }
         },
         {
-          "column_name": "pcr_result",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "pcr_result"
-          }
-        },
-        {
           "column_name": "pid",
           "type": "Event",
           "json_mapping": {
