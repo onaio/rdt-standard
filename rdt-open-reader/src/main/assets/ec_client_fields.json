@@ -445,6 +445,22 @@
             "field": "obs.fieldCode",
             "concept": "pcr_result"
           }
+        },
+        {
+          "column_name": "patient_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "patient_id"
+          }
+        },
+        {
+          "column_name": "target_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "target_name"
+          }
         }
       ]
     }
