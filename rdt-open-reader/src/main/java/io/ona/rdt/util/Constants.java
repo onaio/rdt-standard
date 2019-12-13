@@ -14,9 +14,6 @@ public interface Constants {
     String METADATA = "metadata";
     String DETAILS = "details";
     String ENCOUNTER_TYPE = "encounter_type";
-    String RDT_PATIENTS = "rdt_patients";
-    String RDT_TESTS = "rdt_tests";
-    String PATIENT_REGISTRATION = "patient_registration";
     String DOB = "dob";
     String PATIENT_NAME = "patient_name";
     String PATIENT_AGE = "patient_age";
@@ -87,5 +84,17 @@ public interface Constants {
         String SCAN_CARESTART_PAGE = "scan_carestart_page";
         String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
         String TAKE_IMAGE_OF_RDT_PAGE = "take_image_of_rdt_page";
+    }
+
+    interface Encounter {
+        String PATIENT_REGISTRATION = "patient_registration";
+        String RDT_TEST = "rdt_test";
+        String PCR_RESULT = "pcr_result";
+    }
+
+    interface Table {
+        String RDT_PATIENTS = "rdt_patients";
+        String RDT_TESTS = "rdt_tests";
+        String PCR_RESULTS = "pcr_results";
     }
 }

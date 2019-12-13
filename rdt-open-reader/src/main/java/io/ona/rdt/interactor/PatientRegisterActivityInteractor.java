@@ -16,8 +16,8 @@ import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.ENTITY_ID;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.PATIENT_NAME;
-import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getString;
 

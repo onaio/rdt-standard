@@ -46,7 +46,7 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;

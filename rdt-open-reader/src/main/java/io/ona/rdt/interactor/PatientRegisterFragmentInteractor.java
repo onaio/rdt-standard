@@ -36,12 +36,15 @@ import static io.ona.rdt.util.Constants.DETAILS;
 import static io.ona.rdt.util.Constants.DOB;
 import static io.ona.rdt.util.Constants.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.ENTITY_ID;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.METADATA;
 import static io.ona.rdt.util.Constants.PATIENT_AGE;
-import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
-import static io.ona.rdt.util.Constants.RDT_PATIENTS;
-import static io.ona.rdt.util.Constants.RDT_TESTS;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
+import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
@@ -94,12 +97,25 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     private void processAndSaveForm(JSONObject jsonForm) throws Exception {
         populateApproxDOB(JsonFormUtils.fields(jsonForm));
         final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
-        String bindType = PATIENT_REGISTRATION.equals(encounterType) ? RDT_PATIENTS : RDT_TESTS;
+        String bindType = getBindType(encounterType);
         EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
         if (RDT_TESTS.equals(bindType)) {
             closeRDTId(eventClient.getEvent());
         }
         clientProcessor.processClient(Collections.singletonList(eventClient));
+    }
+
+
+    private String getBindType(String encounterType) {
+        String bindType = "";
+        if (PATIENT_REGISTRATION.equals(encounterType)) {
+            bindType = RDT_PATIENTS;
+        } else if (RDT_TEST.equals(encounterType)){
+            bindType = RDT_TESTS;
+        } else if (PCR_RESULT.equals(encounterType)) {
+            bindType = PCR_RESULTS;
+        }
+        return bindType;
     }
 
     private void populateApproxDOB(JSONArray fields) throws JSONException {

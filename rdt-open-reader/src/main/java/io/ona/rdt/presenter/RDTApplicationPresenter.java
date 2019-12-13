@@ -15,7 +15,7 @@ import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.PHONE_MANUFACTURER;
 import static io.ona.rdt.util.Constants.PHONE_MODEL;
 import static io.ona.rdt.util.Constants.PHONE_OS_VERSION;
-import static io.ona.rdt.util.Constants.RDT_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 
 /**
  * Created by Vincent Karuri on 12/11/2019
