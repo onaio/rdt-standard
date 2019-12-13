@@ -470,6 +470,104 @@
           }
         }
       ]
+    },
+    {
+      "name": "microscopy_results",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "rdt_id",
+          "type": "Event", "json_mapping": {
+          "field": "obs.fieldCode",
+          "concept": "rdt_id"
+        }
+        },
+        {
+          "column_name": "pcr_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pcr_result"
+          }
+        },
+        {
+          "column_name": "pid",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "patient_id"
+          }
+        },
+        {
+          "column_name": "pv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pv"
+          }
+        },
+        {
+          "column_name": "pf",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pf"
+          }
+        },
+        {
+          "column_name": "pm",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pm"
+          }
+        },
+        {
+          "column_name": "po",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "po"
+          }
+        },
+        {
+          "column_name": "pfg",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pfg"
+          }
+        },
+        {
+          "column_name": "patient_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "collection_time",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "collection_time"
+          }
+        },
+        {
+          "column_name": "reading_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reading_date"
+          }
+        }
+      ]
     }
   ]
 }

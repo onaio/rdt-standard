@@ -44,6 +44,21 @@
           }
         ]
       }
+    },
+    {
+      "comment": "Microscopy test info",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "microscopy_result",
+            "creates_case": [
+              "microscopy_results"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
