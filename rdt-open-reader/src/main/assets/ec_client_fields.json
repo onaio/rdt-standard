@@ -428,7 +428,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "formSubmissionId"
           }
         },
         {
@@ -447,7 +447,7 @@
           }
         },
         {
-          "column_name": "patient_id",
+          "column_name": "pid",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -460,6 +460,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "target_name"
+          }
+        },
+        {
+          "column_name": "patient_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
           }
         }
       ]
