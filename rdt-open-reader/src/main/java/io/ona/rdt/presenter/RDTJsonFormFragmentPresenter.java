@@ -6,6 +6,7 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,8 +117,10 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
                 JsonFormFragment formFragment = (JsonFormFragment) rdtFormFragment;
                 String dateStr =  value(getJSONArray(formFragment.getStep(stepStateConfig.getStepStateObj()
                         .optString(MANUAL_ENTRY_EXPIRATION_PAGE)), FIELDS), "", "");
-                Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
-                conditionallyMoveToNextStep(formFragment, stepStateConfig, isExpired(date));
+                if (StringUtils.isNotBlank(dateStr)) {
+                    Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
+                    conditionallyMoveToNextStep(formFragment, stepStateConfig, isExpired(date));
+                }
             } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                 rdtFormFragment.saveForm();
             } else {
