@@ -9,12 +9,12 @@ import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
 
-import static io.ona.rdt.util.Constants.APP_VERSION;
+import static io.ona.rdt.util.Constants.PhoneProperties.APP_VERSION;
 import static io.ona.rdt.util.Constants.DBConstants.NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
-import static io.ona.rdt.util.Constants.PHONE_MANUFACTURER;
-import static io.ona.rdt.util.Constants.PHONE_MODEL;
-import static io.ona.rdt.util.Constants.PHONE_OS_VERSION;
+import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MANUFACTURER;
+import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MODEL;
+import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_OS_VERSION;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 
 /**

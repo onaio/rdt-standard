@@ -23,7 +23,7 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
-import static io.ona.rdt.util.Constants.ONA_RDT;
+import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Utils.updateLocale;
 
 public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonFormActivityContract.View {

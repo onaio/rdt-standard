@@ -6,8 +6,8 @@ import android.os.Bundle;
 import edu.washington.cs.ubicomplab.rdt_reader.ExpirationDateActivity;
 import io.ona.rdt.application.RDTApplication;
 
-import static io.ona.rdt.util.Constants.EXPIRATION_DATE;
-import static io.ona.rdt.util.Constants.EXPIRATION_DATE_RESULT;
+import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
+import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
 import static io.ona.rdt.util.Utils.updateLocale;
 
 /**

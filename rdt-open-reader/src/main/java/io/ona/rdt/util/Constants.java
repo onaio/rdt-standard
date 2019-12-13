@@ -6,31 +6,50 @@ import io.ona.rdt.BuildConfig;
  * Created by Vincent Karuri on 23/05/2019
  */
 public interface Constants {
-    int REQUEST_RDT_PERMISSIONS = 1000;
-    int REQUEST_CODE_GET_JSON = 9388;
 
-    String JSON_FORM_PARAM_JSON = "json";
-    String ENTITY_ID = "entity_id";
-    String METADATA = "metadata";
-    String DETAILS = "details";
-    String ENCOUNTER_TYPE = "encounter_type";
-    String DOB = "dob";
-    String PATIENT_NAME = "patient_name";
-    String PATIENT_AGE = "patient_age";
-    String CONDITIONAL_SAVE = "conditional_save";
-    String MULTI_VERSION = "multi_version";
-    String EXPIRATION_DATE_RESULT = "expiration_date_result";
-    String EXPIRATION_DATE = "expiration_date";
-    String ONA_RDT = "experimental";
-    String CARESTART_RDT = "carestart";
-    String LBL_CARE_START = "lbl_care_start";
-    String BULLET_DOT = " \u00B7 ";
-    String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
+    interface Format {
+        String BULLET_DOT = " \u00B7 ";
+    }
 
-    String PHONE_MODEL = "phone_model";
-    String PHONE_OS_VERSION = "phone_os_version";
-    String PHONE_MANUFACTURER = "phone_manufacturer";
-    String APP_VERSION = "app_version";
+    interface Config {
+        String MULTI_VERSION = "multi_version";
+        String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
+    }
+
+    interface Result {
+        String JSON_FORM_PARAM_JSON = "json";
+        String EXPIRATION_DATE_RESULT = "expiration_date_result";
+        String EXPIRATION_DATE = "expiration_date";
+    }
+
+    interface RDTType {
+        String ONA_RDT = "experimental";
+        String CARESTART_RDT = "carestart";
+    }
+
+    interface FormFields {
+        String DOB = "dob";
+        String PATIENT_NAME = "patient_name";
+        String PATIENT_AGE = "patient_age";
+        String CONDITIONAL_SAVE = "conditional_save";
+        String METADATA = "metadata";
+        String DETAILS = "details";
+        String ENCOUNTER_TYPE = "encounter_type";
+        String ENTITY_ID = "entity_id";
+        String LBL_CARE_START = "lbl_care_start";
+    }
+
+    interface RequestCodes {
+        int REQUEST_RDT_PERMISSIONS = 1000;
+        int REQUEST_CODE_GET_JSON = 9388;
+    }
+
+    interface PhoneProperties {
+        String PHONE_MODEL = "phone_model";
+        String PHONE_OS_VERSION = "phone_os_version";
+        String PHONE_MANUFACTURER = "phone_manufacturer";
+        String APP_VERSION = "app_version";
+    }
 
     interface Tags {
         String COUNTRY = "Country";
