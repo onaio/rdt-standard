@@ -94,7 +94,7 @@ public class RDTLabelFactoryTest {
         mockStaticMethods();
 
         WidgetArgs widgetArgs = new WidgetArgs();
-        jsonObject.put(KEY, Constants.LBL_CARE_START);
+        jsonObject.put(KEY, Constants.FormFields.LBL_CARE_START);
         jsonObject.put(NEXT, "step1");
         RDTJsonFormActivity rdtJsonFormActivity = mock(RDTJsonFormActivity.class);
         doReturn(rdtJsonFormActivity).when(jsonFormFragment).getRdtActivity();
@@ -107,11 +107,11 @@ public class RDTLabelFactoryTest {
 
         OnLabelClickedListener onLabelClickedListener = new OnLabelClickedListener(widgetArgs);
         onLabelClickedListener.onClick(mock(View.class));
-        verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.CARESTART_RDT));
+        verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.CARESTART_RDT));
 
         jsonObject.remove(KEY);
         onLabelClickedListener.onClick(mock(View.class));
-        verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.ONA_RDT));
+        verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.ONA_RDT));
         verify(presenter, times(2)).moveToNextStep(eq(jsonObject.optString(NEXT)));
     }
 

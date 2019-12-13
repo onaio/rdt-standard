@@ -14,7 +14,7 @@ import static io.ona.rdt.util.Constants.DBConstants.AGE;
 import static io.ona.rdt.util.Constants.DBConstants.NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
-import static io.ona.rdt.util.Constants.RDT_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 
 /**
  * Created by Vincent Karuri on 11/06/2019

@@ -46,10 +46,10 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt.util.Constants.PATIENT_REGISTRATION;
-import static io.ona.rdt.util.Constants.RDT_PATIENTS;
-import static io.ona.rdt.util.Constants.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -148,7 +148,7 @@ public class PatientRegisterFragmentInteractorTest {
         Whitebox.invokeMethod(interactor, "populateApproxDOB", formFields);
         for (int i = 0; i < formFields.length(); i++) {
             JSONObject field = formFields.getJSONObject(i);
-            if (Constants.DOB.equals(field.get(KEY))) {
+            if (Constants.FormFields.DOB.equals(field.get(KEY))) {
                 Calendar today = Calendar.getInstance();
                 int year = today.get(Calendar.YEAR) - PATIENT_AGE;
                 assertEquals(year + "-" + today.get(Calendar.MONTH) + "-" + today.get(Calendar.DAY_OF_MONTH), field.get(VALUE));

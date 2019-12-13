@@ -36,8 +36,8 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
-import static io.ona.rdt.util.Constants.BULLET_DOT;
-import static io.ona.rdt.util.Constants.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
+import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
@@ -731,7 +731,7 @@ public class RDTJsonFormUtilsTest {
     @Test
     public void testAppendEntityIdShouldAppendCorrectId() throws JSONException {
         String entityId = formUtils.appendEntityId(RDT_TEST_JSON_FORM_OBJ);
-        assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.ENTITY_ID), entityId);
+        assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.FormFields.ENTITY_ID), entityId);
     }
 
     @Test

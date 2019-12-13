@@ -1,12 +1,12 @@
 package io.ona.rdt.presenter;
 
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +22,6 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
 
-import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
 import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
@@ -30,7 +29,6 @@ import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 import static io.ona.rdt.util.Utils.isExpired;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.conditionallyMoveToNextStep;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
-import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getJSONArray;
 import static org.smartregister.util.JsonFormUtils.value;
 
@@ -104,7 +102,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
             if (isCurrentStep(stepStateConfig, BLOT_PAPER_TASK_PAGE, currentStep)) {
                 String rdtType = rdtFormFragment.getRDTType();
-                if (Constants.CARESTART_RDT.equals(rdtType)) {
+                if (Constants.RDTType.CARESTART_RDT.equals(rdtType)) {
                     JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(
                             stepStateConfig.getStepStateObj().optString(TAKE_IMAGE_OF_RDT_PAGE));
 
@@ -119,8 +117,10 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
                 JsonFormFragment formFragment = (JsonFormFragment) rdtFormFragment;
                 String dateStr =  value(getJSONArray(formFragment.getStep(stepStateConfig.getStepStateObj()
                         .optString(MANUAL_ENTRY_EXPIRATION_PAGE)), FIELDS), "", "");
-                Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
-                conditionallyMoveToNextStep(formFragment, stepStateConfig, isExpired(date));
+                if (StringUtils.isNotBlank(dateStr)) {
+                    Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
+                    conditionallyMoveToNextStep(formFragment, stepStateConfig, isExpired(date));
+                }
             } else if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
                 rdtFormFragment.saveForm();
             } else {

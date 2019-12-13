@@ -38,9 +38,9 @@ import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
-import static io.ona.rdt.util.Constants.EXPIRATION_DATE;
-import static io.ona.rdt.util.Constants.EXPIRATION_DATE_RESULT;
-import static io.ona.rdt.util.Constants.ONA_RDT;
+import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
+import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
+import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE_ADDRESS;
 

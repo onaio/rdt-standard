@@ -595,6 +595,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "combine_checkbox_option_values": true,
         "options": [
           {
             "key": "pv_positive",
