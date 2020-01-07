@@ -69,7 +69,7 @@ public class PatientRegisterFragmentInteractorTest {
     @Mock
     private RDTApplication rdtApplication;
     @Mock
-    private org.smartregister.Context applicationContext;
+    private org.smartregister.Context drishtiContext;
     @Mock
     private Context context;
     @Mock
@@ -226,7 +226,7 @@ public class PatientRegisterFragmentInteractorTest {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
-        PowerMockito.when(rdtApplication.getContext()).thenReturn(applicationContext);
+        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
 
         RDTApplicationPresenter applicationPresenter = mock(RDTApplicationPresenter.class);
 
@@ -245,9 +245,9 @@ public class PatientRegisterFragmentInteractorTest {
         Mockito.doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
         // mock repositories
-        PowerMockito.when(applicationContext.getEventClientRepository()).thenReturn(eventClientRepository);
-        PowerMockito.when(applicationContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
-        PowerMockito.when(applicationContext.allSharedPreferences()).thenReturn(mock(AllSharedPreferences.class));
+        PowerMockito.when(drishtiContext.getEventClientRepository()).thenReturn(eventClientRepository);
+        PowerMockito.when(drishtiContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
+        PowerMockito.when(drishtiContext.allSharedPreferences()).thenReturn(mock(AllSharedPreferences.class));
 
         // mock client processor
         mockStatic(ClientProcessorForJava.class);

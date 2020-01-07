@@ -149,7 +149,6 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
 
     @Override
     public void setUpRDTCaptureActivity() {
-        super.setUpRDTCaptureActivity();
         Context context = widgetArgs.getContext();
         if (context instanceof JsonApi) {
             final JsonApi jsonApi = (JsonApi) context;

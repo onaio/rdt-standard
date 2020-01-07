@@ -44,6 +44,8 @@ public class RDTLabelFactory extends LabelFactory {
     }
 
     private void enhanceLabels(List<View> views, JSONObject jsonObject)  {
+        if (views.isEmpty()) { return; }
+
         ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
         CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
         if (jsonObject.optBoolean(CENTER_LABEL)) {

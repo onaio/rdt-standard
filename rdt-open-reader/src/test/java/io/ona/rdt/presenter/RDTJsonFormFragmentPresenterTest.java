@@ -53,7 +53,7 @@ import static org.powermock.api.support.membermodification.MemberModifier.suppre
  * Created by Vincent Karuri on 14/08/2019
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class, RDTJsonFormFragmentPresenter.class, RDTApplication.class})
+@PrepareForTest({RDTJsonFormFragment.class, RDTApplication.class})
 public class RDTJsonFormFragmentPresenterTest {
 
     private RDTJsonFormFragmentPresenter presenter;
@@ -137,14 +137,6 @@ public class RDTJsonFormFragmentPresenterTest {
         presenter.moveToNextStep("step1");
         verify(view).hideKeyBoard();
         verify(view).transactThis(eq(formFragment));
-    }
-
-    @Test
-    public void testSetupToolbar() throws JSONException {
-        addViewAndMockStaticClasses();
-        suppress(methods(JsonFormFragmentPresenter.class, "setUpToolBar"));
-        presenter.setUpToolBar();
-        verify(view).updateVisibilityOfNextAndSave(eq(false), eq(false));
     }
 
     @Test
