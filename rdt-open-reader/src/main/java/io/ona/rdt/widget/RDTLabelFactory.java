@@ -44,17 +44,17 @@ public class RDTLabelFactory extends LabelFactory {
     }
 
     private void enhanceLabels(List<View> views, JSONObject jsonObject)  {
-        if (views.size() > 0) {
-            ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
-            CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
-            if (jsonObject.optBoolean(CENTER_LABEL)) {
-                labelText.setGravity(Gravity.CENTER);
-            }
+        if (views.isEmpty()) { return; }
 
-            if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
-                labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
-                labelText.setOnClickListener(new OnLabelClickedListener(widgetArgs));
-            }
+        ConstraintLayout rootLayout = (ConstraintLayout) views.get(0);
+        CustomTextView labelText = rootLayout.findViewById(com.vijay.jsonwizard.R.id.label_text);
+        if (jsonObject.optBoolean(CENTER_LABEL)) {
+            labelText.setGravity(Gravity.CENTER);
+        }
+
+        if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
+            labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+            labelText.setOnClickListener(new OnLabelClickedListener(widgetArgs));
         }
     }
 
