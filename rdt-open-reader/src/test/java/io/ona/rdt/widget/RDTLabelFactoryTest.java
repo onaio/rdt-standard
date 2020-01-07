@@ -1,10 +1,13 @@
 package io.ona.rdt.widget;
 
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.Gravity;
 import android.view.View;
 
 import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.json.JSONException;
@@ -113,6 +116,11 @@ public class RDTLabelFactoryTest {
         onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.ONA_RDT));
         verify(presenter, times(2)).moveToNextStep(eq(jsonObject.optString(NEXT)));
+    }
+
+    @Test
+    public void testGetViewsFromJson() throws Exception {
+        rdtLabelFactory.getViewsFromJson("step", mock(Context.class), mock(JsonFormFragment.class), mock(JSONObject.class), mock(CommonListener.class), false);
     }
 
     private void mockStaticMethods() throws JSONException {
