@@ -1,6 +1,9 @@
 package io.ona.rdt.widget;
 
+import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.domain.WidgetArgs;
@@ -15,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -27,6 +31,8 @@ import io.ona.rdt.fragment.RDTJsonFormFragment;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
@@ -41,22 +47,27 @@ import static io.ona.rdt.util.Constants.Test.RDT_CAPTURE_DURATION;
 import static io.ona.rdt.util.Constants.Test.TIME_IMG_SAVED;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.support.membermodification.MemberMatcher.methods;
 import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_PARENT;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class, CustomRDTCaptureFactory.class})
+@PrepareForTest({RDTJsonFormFragment.class, LayoutInflater.class})
 public class CustomRDTCaptureFactoryTest {
 
     private CustomRDTCaptureFactory rdtCaptureFactory;
@@ -102,7 +113,6 @@ public class CustomRDTCaptureFactoryTest {
     @Test
     public void testSetUpRDTCaptureActivity() {
         setWidgetArgs();
-        suppress(methods(RDTCaptureFactory.class, "setUpRDTCaptureActivity"));
         rdtCaptureFactory.setUpRDTCaptureActivity();
         verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
     }
@@ -138,10 +148,14 @@ public class CustomRDTCaptureFactoryTest {
 
     @Test
     public void testGetViewsFromJson() throws Exception {
-        suppress(methods(RDTCaptureFactory.class, "getViewsFromJson"));
-        JsonFormActivity jsonFormActivity = mock(JsonFormActivity.class);
+        mockStaticClasses();
+        RDTJsonFormActivity jsonFormActivity = mock(RDTJsonFormActivity.class);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(ENTITY_ID, "entity_id");
+        jsonObject.put(OPENMRS_ENTITY_ID, "openmrs_entity_id");
+        jsonObject.put(OPENMRS_ENTITY, "openmrs_entity");
+        jsonObject.put(OPENMRS_ENTITY_PARENT, "openmrs_entity_parent");
+        jsonObject.put(KEY, "key");
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
         JsonFormFragment formFragment = mock(JsonFormFragment.class);
@@ -168,5 +182,14 @@ public class CustomRDTCaptureFactoryTest {
                 .withStepName("step1");
 
         Whitebox.setInternalState(rdtCaptureFactory, "widgetArgs", widgetArgs);
+    }
+
+    private void mockStaticClasses() {
+        mockStatic(LayoutInflater.class);
+        LayoutInflater layoutInflater = mock(LayoutInflater.class);
+        mockStatic(LayoutInflater.class);
+        View rootLayout = mock(View.class);
+        PowerMockito.when(LayoutInflater.from(any(Context.class))).thenReturn(layoutInflater);
+        doReturn(rootLayout).when(layoutInflater).inflate(anyInt(), isNull());
     }
 }
