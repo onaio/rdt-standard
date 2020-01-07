@@ -1,20 +1,22 @@
 package io.ona.rdt.widget;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.rey.material.widget.Button;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
-import com.vijay.jsonwizard.widgets.BarcodeFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.stub.JsonApiStub;
@@ -42,6 +45,9 @@ import io.ona.rdt.util.StepStateConfig;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.HINT;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
 import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
@@ -54,8 +60,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -63,14 +71,15 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
-import static org.powermock.api.support.membermodification.MemberMatcher.methods;
-import static org.powermock.api.support.membermodification.MemberModifier.suppress;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_PARENT;
 
 /**
  * Created by Vincent Karuri on 31/07/2019
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class, Bundle.class, RDTBarcodeFactory.class, RDTApplication.class})
+@PrepareForTest({RDTJsonFormFragment.class, Bundle.class, RDTApplication.class, LayoutInflater.class})
 public class RDTBarcodeFactoryTest {
 
     private RDTBarcodeFactory barcodeFactory;
@@ -183,8 +192,8 @@ public class RDTBarcodeFactoryTest {
 
     @Test
     public void testGetViewsFromJson() throws Exception {
+        mockStaticClasses();
         mockStaticMethods();
-        suppress(methods(BarcodeFactory.class, "getViewsFromJson"));
         setWidgetArgs();
         doReturn(mock(Button.class)).when(rootLayout).findViewById(eq(com.vijay.jsonwizard.R.id.scan_button));
         barcodeFactory.getViewsFromJson("step1", jsonFormActivity, widgetArgs.getFormFragment(),
@@ -207,16 +216,26 @@ public class RDTBarcodeFactoryTest {
         return convertDate("201217", OPEN_RDT_DATE_FORMAT);
     }
 
-    private void setWidgetArgs() {
+    private void setWidgetArgs() throws JSONException {
         widgetArgs = new WidgetArgs();
         RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
         widgetArgs.setFormFragment(formFragment);
         widgetArgs.setStepName("step1");
 
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put(ENTITY_ID, "entity_id");
+        jsonObject.put(OPENMRS_ENTITY_ID, "openmrs_entity_id");
+        jsonObject.put(OPENMRS_ENTITY, "openmrs_entity");
+        jsonObject.put(OPENMRS_ENTITY_PARENT, "openmrs_entity_parent");
+        jsonObject.put(KEY, "key");
+        jsonObject.put(HINT, "hint");
+        jsonObject.put("scanButtonText", "scanButtonText");
         widgetArgs.setJsonObject(jsonObject);
 
         jsonFormActivity = mock(JsonFormActivity.class);
+        Resources resources = mock(Resources.class);
+        doReturn(resources).when(jsonFormActivity).getResources();
+        doReturn(0).when(resources).getColor(anyInt());
         widgetArgs.setContext(jsonFormActivity);
         Whitebox.setInternalState(barcodeFactory, "widgetArgs", widgetArgs);
     }
@@ -249,5 +268,16 @@ public class RDTBarcodeFactoryTest {
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
         Whitebox.setInternalState(barcodeFactory, "stepStateConfig", stepStateConfig);
+    }
+
+    private void mockStaticClasses() {
+        mockStatic(LayoutInflater.class);
+        LayoutInflater layoutInflater = mock(LayoutInflater.class);
+        mockStatic(LayoutInflater.class);
+        RelativeLayout rootLayout = mock(RelativeLayout.class);
+        PowerMockito.when(LayoutInflater.from(any(Context.class))).thenReturn(layoutInflater);
+        doReturn(rootLayout).when(layoutInflater).inflate(anyInt(), isNull());
+        doReturn(mock(MaterialEditText.class)).when(rootLayout).findViewById(R.id.edit_text);
+        doReturn(mock(Button.class)).when(rootLayout).findViewById(R.id.scan_button);
     }
 }
