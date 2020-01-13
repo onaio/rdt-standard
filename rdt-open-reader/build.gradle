@@ -20,7 +20,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
-        versionName "v1.10.0"
+        versionName "v1.11.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
     }
@@ -70,7 +70,7 @@ android {
 
     flavorDimensions "version"
 
-    productFlavors{
+    productFlavors {
         indonesia {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
@@ -80,14 +80,14 @@ android {
         kenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"en\""
-            versionNameSuffix  "-KE"
+            versionNameSuffix "-KE"
         }
     }
 }
 
 dependencies {
 
-    implementation  'org.apache.commons:commons-lang3:3.9'
+    implementation 'org.apache.commons:commons-lang3:3.9'
 
     implementation('org.smartregister:opensrp-client-native-form:1.6.55-SNAPSHOT@aar') {
         transitive = true
@@ -172,7 +172,7 @@ project.afterEvaluate {
                     def testTaskName = "test${sourceName.capitalize()}UnitTest"
 
                     // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
-                    task "${testTaskName}Coverage" (type:JacocoReport, dependsOn: "$testTaskName") {
+                    task "${testTaskName}Coverage"(type: JacocoReport, dependsOn: "$testTaskName") {
                         group = "Reporting"
                         description = "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
 
