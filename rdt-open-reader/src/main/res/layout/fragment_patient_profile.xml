@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#fafafa">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_left_arrow"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="#36A8DC"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/profile_patient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Charity Otala"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
+        android:background="#fafafa" />
+
+    <TextView
+        android:id="@+id/profile_sex_and_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female . ID: 99358357"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+        android:background="#fafafa"/>
+
+</LinearLayout>
