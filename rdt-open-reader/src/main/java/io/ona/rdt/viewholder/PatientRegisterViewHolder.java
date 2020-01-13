@@ -31,8 +31,6 @@ import io.ona.rdt.util.Constants;
  */
 public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRegisterViewHolder.RegisterViewHolder> {
 
-    private final String TAG = PatientRegisterViewHolder.class.getName();
-
     private Context context;
     private final View.OnClickListener registerActionHandler;
     private final View.OnClickListener paginationClickListener;
