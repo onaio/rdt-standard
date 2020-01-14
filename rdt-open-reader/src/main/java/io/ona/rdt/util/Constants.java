@@ -28,6 +28,7 @@ public interface Constants {
     }
 
     interface FormFields {
+        String PATIENT = "patient";
         String DOB = "dob";
         String PATIENT_NAME = "patient_name";
         String PATIENT_AGE = "patient_age";

@@ -23,6 +23,7 @@ import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View, View.OnClickListener {
 
@@ -75,11 +76,12 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void onViewClicked(View view) {
-        launchPatientProfile();
+        launchPatientProfile((Patient) view.getTag(R.id.patient_tag));
     }
 
-    private void launchPatientProfile() {
+    private void launchPatientProfile(Patient patient) {
         Intent intent = new Intent(getActivity(), PatientProfileActivity.class);
+        intent.putExtra(PATIENT, patient);
         startActivity(intent, null);
     }
 

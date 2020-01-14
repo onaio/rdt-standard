@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.PatientProfileFragment;
 
+import static io.ona.rdt.util.Constants.FormFields.PATIENT;
+
 public class PatientProfileActivity extends FragmentActivity {
 
     @Override
@@ -17,8 +19,13 @@ public class PatientProfileActivity extends FragmentActivity {
     }
 
     private void attachPatientProfileFragment() {
+        PatientProfileFragment patientProfileFragment = new PatientProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(PATIENT, getIntent().getParcelableExtra(PATIENT));
+        patientProfileFragment.setArguments(bundle);
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.patient_profile_fragment_container, new PatientProfileFragment());
+        fragmentTransaction.replace(R.id.patient_profile_fragment_container, patientProfileFragment);
         fragmentTransaction.commit();
     }
 }

@@ -60,6 +60,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         final Patient patient = new Patient(patientName, sex, baseEntityId, patientId);
         viewHolder.tvPatientNameAndAge.setText(nameAndAge);
         viewHolder.tvPatientSex.setText(sex);
+        viewHolder.rowItem.setTag(R.id.patient_tag, patient);
         viewHolder.btnRecordRDTTest.setTag(R.id.patient_tag, patient);
         viewHolder.btnRecordRDTTest.setOnClickListener(launchRDTTestListener);
 

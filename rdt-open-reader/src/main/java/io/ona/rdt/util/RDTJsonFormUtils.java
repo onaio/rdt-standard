@@ -254,7 +254,7 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, patient.getPatientSex());
-                    field.put("text", patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
+                    field.put("text", getPatientSexAndId(patient));
                     fieldsPopulated++;
                 }
             }
@@ -263,6 +263,10 @@ public class RDTJsonFormUtils {
                 break;
             }
         }
+    }
+
+    public static String getPatientSexAndId(Patient patient) {
+        return patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId().split("-")[0];
     }
 
     public boolean isRDTIdField(JSONObject field) throws JSONException {
