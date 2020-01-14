@@ -117,7 +117,8 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     public void initializeAdapter() {
-        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(), registerActionHandler, paginationViewHandler);
+        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(),
+                registerActionHandler, paginationViewHandler, this);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, viewHolder, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

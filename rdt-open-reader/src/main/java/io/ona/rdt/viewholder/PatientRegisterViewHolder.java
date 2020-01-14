@@ -34,11 +34,17 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     private Context context;
     private final View.OnClickListener registerActionHandler;
     private final View.OnClickListener paginationClickListener;
+    private View.OnClickListener launchRDTTestListener;
 
     public PatientRegisterViewHolder(Context context, View.OnClickListener registerActionHandler, View.OnClickListener paginationClickListener) {
         this.context = context;
         this.registerActionHandler = registerActionHandler;
         this.paginationClickListener = paginationClickListener;
+    }
+
+    public PatientRegisterViewHolder(Context context, View.OnClickListener registerActionHandler, View.OnClickListener paginationClickListener, View.OnClickListener launchRDTTestListener) {
+        this(context, registerActionHandler, paginationClickListener);
+        this.launchRDTTestListener = launchRDTTestListener;
     }
 
     @Override
@@ -52,10 +58,10 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String nameAndAge = createNameAndAgeLabel(patientName, patientId, patientAge);
 
         final Patient patient = new Patient(patientName, sex, baseEntityId, patientId);
-        viewHolder.patientNameAndAge.setText(nameAndAge);
-        viewHolder.patientSex.setText(sex);
-        viewHolder.rowItem.setTag(R.id.base_entity_id, baseEntityId);
-        viewHolder.rowItem.setTag(R.id.patient_tag, patient);
+        viewHolder.tvPatientNameAndAge.setText(nameAndAge);
+        viewHolder.tvPatientSex.setText(sex);
+        viewHolder.btnRecordRDTTest.setTag(R.id.patient_tag, patient);
+        viewHolder.btnRecordRDTTest.setOnClickListener(launchRDTTestListener);
 
         attachPatientOnclickListener(viewHolder.rowItem);
     }
@@ -123,14 +129,16 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
         public View rowItem;
-        public TextView patientNameAndAge;
-        public TextView patientSex;
+        public TextView tvPatientNameAndAge;
+        public TextView tvPatientSex;
+        public TextView btnRecordRDTTest;
 
         public RegisterViewHolder(@NonNull View itemView) {
             super(itemView);
             this.rowItem = itemView.getRootView();
-            this.patientNameAndAge = itemView.findViewById(R.id.tv_patient_name_and_age);
-            this.patientSex = itemView.findViewById(R.id.tv_sex);
+            this.tvPatientNameAndAge = itemView.findViewById(R.id.tv_patient_name_and_age);
+            this.tvPatientSex = itemView.findViewById(R.id.tv_sex);
+            this.btnRecordRDTTest = itemView.findViewById(R.id.btn_record_rdt_test);
         }
     }
 }
