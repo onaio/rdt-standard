@@ -19,7 +19,6 @@ public class PatientProfileActivity extends FragmentActivity {
     private void attachPatientProfileFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.patient_profile_fragment_container, new PatientProfileFragment());
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }
