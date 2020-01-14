@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="io.ona.rdt.activity.PatientProfileActivity">
 
+    <LinearLayout
+        android:id="@+id/patient_profile_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -39,6 +39,7 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
@@ -217,7 +218,9 @@ public class RDTJsonFormUtils {
     public void launchForm(Activity activity, String formName, Patient patient, String rdtId) {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
-            prePopulateFormFields(formJsonObject, patient, rdtId, 8);
+            if (RDT_TEST_FORM.equals(formName)) {
+                prePopulateFormFields(formJsonObject, patient, rdtId, 8);
+            }
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(TAG, e);

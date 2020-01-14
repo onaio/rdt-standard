@@ -13,7 +13,7 @@
         android:id="@+id/patient_profile_details"
         app:layout_constraintTop_toTopOf="parent"
         android:background="#fafafa"
-        android:paddingBottom="20dp">
+        android:minHeight="200dp">
 
         <ImageButton
             android:id="@+id/btn_previous_step"
@@ -34,7 +34,8 @@
             android:textColor="#36A8DC"
             app:layout_constraintLeft_toRightOf="@+id/btn_previous_step"
             app:layout_constraintTop_toTopOf="@id/btn_previous_step"
-            app:layout_constraintBottom_toBottomOf="@id/btn_previous_step" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_previous_step"
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/profile_patient_name"
@@ -42,12 +43,13 @@
             android:layout_height="wrap_content"
             android:text="Charity Otala"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@id/previous_step_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="30dp"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/profile_sex_and_id"
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="Female . ID: 99358357"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="17sp"
             android:layout_gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@id/profile_patient_name"
             app:layout_constraintLeft_toLeftOf="parent"
