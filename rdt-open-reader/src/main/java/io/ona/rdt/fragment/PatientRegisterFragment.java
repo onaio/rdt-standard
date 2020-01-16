@@ -76,7 +76,9 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void onViewClicked(View view) {
-        launchPatientProfile((Patient) view.getTag(R.id.patient_tag));
+        if (view.getId() != R.id.btn_record_rdt_test) {
+            launchPatientProfile((Patient) view.getTag(R.id.patient_tag));
+        }
     }
 
     private void launchPatientProfile(Patient patient) {
