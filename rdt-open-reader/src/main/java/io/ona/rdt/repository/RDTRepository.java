@@ -11,6 +11,7 @@ import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 
 import io.ona.rdt.application.RDTApplication;
+import timber.log.Timber;
 
 /**
  * Created by Vincent Karuri on 07/06/2019
@@ -32,6 +33,21 @@ public class RDTRepository extends Repository {
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
         UniqueIdRepository.createTable(database);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        Timber.w("Upgrading database from version " + oldVersion + " to "
+                + newVersion + ", which will destroy all old data");
+
+        int upgradeTo = oldVersion + 1;
+        while (upgradeTo <= newVersion) {
+            switch (upgradeTo) {
+                default:
+                    break;
+            }
+            upgradeTo++;
+        }
     }
 
     @Override
