@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.RDTTestListAdapter;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.RDTTestDetails;
@@ -94,6 +95,8 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
         rdtTestDetail.setRdtType("Open Guideline RDT");
         rdtTestDetail.setTestResult(testResults);
         rdtTestDetails.add(rdtTestDetail);
+
+        RDTApplication.getInstance().getRdtTestsRepository().getRDTTestDetailsByBaseEntityId("14349b70-0dfa-4ca6-ac62-b1240fd055e6");
 
         return rdtTestDetails;
     }
