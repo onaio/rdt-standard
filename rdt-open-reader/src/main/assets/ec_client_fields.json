@@ -308,6 +308,14 @@
           }
         },
         {
+          "column_name": "parasite_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "parasite_type"
+          }
+        },
+        {
           "column_name": "capture_control_result",
           "type": "Event",
           "json_mapping": {
