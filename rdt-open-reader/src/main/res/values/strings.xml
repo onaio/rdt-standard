@@ -26,6 +26,6 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="saving_image">Saving captured image</string>
     <string name="finding_location">Finding your location</string>
     <string name="rdt_id_prefix">RDT ID </string>
-    <string name="open_guideline_rdt">Open Guideline RDT:</string>
-    <string name="carestart_rdt">Carestart RDT:</string>
+    <string name="open_guideline_rdt">Open Guideline RDT:\u0020</string>
+    <string name="carestart_rdt">Carestart RDT:\u0020</string>
 </resources>

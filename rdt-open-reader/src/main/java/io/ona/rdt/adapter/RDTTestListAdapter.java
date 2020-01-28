@@ -15,6 +15,7 @@ import io.ona.rdt.domain.RDTTestDetails;
 import io.ona.rdt.viewholder.RDTTestViewHolder;
 
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
+import static io.ona.rdt.util.Constants.Test.POSITIVE;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 /**
@@ -64,11 +65,12 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
     }
 
     private String getFormattedTestResults(RDTTestDetails rdtTestDetails) {
-        if (rdtTestDetails.getTestResult() == null) {
-            return "";
+        if (!POSITIVE.equals(rdtTestDetails.getTestResult())) {
+            return rdtTestDetails.getTestResult();
         }
+
         String testResults = "";
-        for (String testResult : rdtTestDetails.getTestResult()) {
+        for (String testResult : rdtTestDetails.getParasiteTypes()) {
             testResults += capitalize(testResult) + " positive,";
         }
         return testResults.substring(0, testResults.length() - 1);

@@ -89,6 +89,7 @@ public interface Constants {
         String FLASH_ON = "flash_on";
         String CASSETTE_BOUNDARY = "cassette_boundary";
         String IS_MANUAL_CAPTURE = "is_manual_capture";
+        String POSITIVE = "positive";
     }
 
     interface Step {

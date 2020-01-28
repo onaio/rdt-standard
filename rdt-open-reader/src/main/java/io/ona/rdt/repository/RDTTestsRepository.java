@@ -21,11 +21,11 @@ public class RDTTestsRepository extends BaseRepository {
     private static final String RDT_ID = "rdt_id";
     private static final String RDT_TYPE = "rdt_type";
     private static final String TEST_DATE = "time_form_closed";
-    private static final String TEST_RESULTS = "parasite_type";
+    private static final String PARASITE_TYPE = "parasite_type";
     private static final String BASE_ENTITY_ID = "patient_id";
+    private static final String CHW_RESULT = "chw_result";
 
-
-    protected static final String COLUMNS = String.format("%s, %s, %s, %s, %s", BASE_ENTITY_ID, RDT_ID, RDT_TYPE, TEST_RESULTS, TEST_DATE);
+    protected static final String COLUMNS = String.format("%s, %s, %s, %s, %s, %s", BASE_ENTITY_ID, RDT_ID, RDT_TYPE, CHW_RESULT, PARASITE_TYPE, TEST_DATE);
     protected static final String RDT_TESTS_TABLES = "rdt_tests";
 
     @Nullable
@@ -72,10 +72,17 @@ public class RDTTestsRepository extends BaseRepository {
             RDTTestDetails rdtTestDetail = new RDTTestDetails();
             rdtTestDetail.setRdtId(cursor.getString(cursor.getColumnIndex(RDT_ID)));
             rdtTestDetail.setDate(cursor.getString(cursor.getColumnIndex(TEST_DATE)));
-            rdtTestDetail.setTestResult(Arrays.asList(cursor.getString(cursor.getColumnIndex(TEST_RESULTS))));
+            setRDTTestResults(cursor, rdtTestDetail);
             rdtTestDetail.setRdtType(cursor.getString(cursor.getColumnIndex(RDT_TYPE)));
             rdtTestDetails.add(rdtTestDetail);
         }
         return rdtTestDetails;
+    }
+
+    private void setRDTTestResults(Cursor cursor, RDTTestDetails rdtTestDetails) {
+        rdtTestDetails.setTestResult(cursor.getString(cursor.getColumnIndex(CHW_RESULT)));
+        String parasites = cursor.getString(cursor.getColumnIndex(PARASITE_TYPE));
+        List<String> parasiteTypes =  parasites == null ? null : Arrays.asList(parasites.split(","));
+        rdtTestDetails.setParasiteTypes(parasiteTypes);
     }
 }

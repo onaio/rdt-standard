@@ -10,7 +10,8 @@ public class RDTTestDetails {
     private String rdtId;
     private String date;
     private String rdtType;
-    private List<String> testResult;
+    private String testResult;
+    private List<String> parasiteTypes;
 
     public String getRdtId() {
         return rdtId;
@@ -36,11 +37,19 @@ public class RDTTestDetails {
         this.rdtType = rdtType;
     }
 
-    public List<String> getTestResult() {
+    public List<String> getParasiteTypes() {
+        return parasiteTypes;
+    }
+
+    public void setParasiteTypes(List<String> parasiteTypes) {
+        this.parasiteTypes = parasiteTypes;
+    }
+
+    public String getTestResult() {
         return testResult;
     }
 
-    public void setTestResult(List<String> testResult) {
+    public void setTestResult(String testResult) {
         this.testResult = testResult;
     }
 }
