@@ -66,39 +66,11 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
         RecyclerView rdtTestList = rootLayout.findViewById(R.id.rdt_tests_list);
         rdtTestList.setHasFixedSize(true);
         rdtTestList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rdtTestList.setAdapter(new RDTTestListAdapter(getRDTTestDetails()));
+        rdtTestList.setAdapter(new RDTTestListAdapter(getActivity(), getRDTTestDetails()));
     }
 
     private List<RDTTestDetails> getRDTTestDetails() {
-        List<String> testResults = new ArrayList<>();
-        testResults.add("Pf positive");
-        testResults.add("Pv positive");
-
-        List<RDTTestDetails> rdtTestDetails = new ArrayList<>();
-        RDTTestDetails rdtTestDetail = new RDTTestDetails();
-        rdtTestDetail.setRdtId("RDT ID 003");
-        rdtTestDetail.setDate("2 days ago");
-        rdtTestDetail.setRdtType("CareStart RDT");
-        rdtTestDetail.setTestResult(testResults);
-        rdtTestDetails.add(rdtTestDetail);
-
-        rdtTestDetail = new RDTTestDetails();
-        rdtTestDetail.setRdtId("RDT ID 002");
-        rdtTestDetail.setDate("3 days ago");
-        rdtTestDetail.setRdtType("CareStart RDT");
-        rdtTestDetail.setTestResult(testResults);
-        rdtTestDetails.add(rdtTestDetail);
-
-        rdtTestDetail = new RDTTestDetails();
-        rdtTestDetail.setRdtId("RDT ID 001");
-        rdtTestDetail.setDate("1 year ago");
-        rdtTestDetail.setRdtType("Open Guideline RDT");
-        rdtTestDetail.setTestResult(testResults);
-        rdtTestDetails.add(rdtTestDetail);
-
-        RDTApplication.getInstance().getRdtTestsRepository().getRDTTestDetailsByBaseEntityId("14349b70-0dfa-4ca6-ac62-b1240fd055e6");
-
-        return rdtTestDetails;
+        return  RDTApplication.getInstance().getRdtTestsRepository().getRDTTestDetailsByBaseEntityId(currPatient.getBaseEntityId());
     }
 
     @Override
