@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import io.ona.rdt.R;
+import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.domain.RDTTestDetails;
+import io.ona.rdt.fragment.TestsProfileFragment;
 import io.ona.rdt.viewholder.RDTTestViewHolder;
 
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
@@ -49,6 +51,13 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
         rdtTestViewHolder.testDate.setText(getFormattedRDTTestDate(rdtTestDetails));
         rdtTestViewHolder.rdtType.setText(getFormattedRDTType(rdtTestDetails));
         rdtTestViewHolder.rdtResult.setText(getFormattedTestResults(rdtTestDetails));
+
+        rdtTestViewHolder.btnGoToTestProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PatientProfileActivityContract.View) context).replaceFragment(new TestsProfileFragment(), true);
+            }
+        });
     }
 
     private String getFormattedRDTType(RDTTestDetails rdtTestDetails) {

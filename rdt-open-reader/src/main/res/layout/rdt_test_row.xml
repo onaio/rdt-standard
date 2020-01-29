@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tests_profile_rdt_id"
+        android:id="@+id/tests_row_rdt_id"
         android:text="RDT ID 003"
         android:textColor="@color/black"
         style="@style/CustomFontTextViewStyle.ListView.Bold.NoPadding"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2 days ago OR "
-        app:layout_constraintTop_toBottomOf="@id/tests_profile_rdt_id"
+        app:layout_constraintTop_toBottomOf="@id/tests_row_rdt_id"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="16sp"/>
 
@@ -46,6 +46,7 @@
         android:textSize="16sp"/>
 
     <ImageButton
+        android:id="@+id/btn_go_to_test_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_right_arrow"

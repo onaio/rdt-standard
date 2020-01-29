@@ -49,7 +49,7 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
 
     private void addListeners(final View rootLayout) {
         rootLayout.findViewById(R.id.previous_step_text).setOnClickListener(this);
-        rootLayout.findViewById(R.id.btn_back_to_profile).setOnClickListener(this);
+        rootLayout.findViewById(R.id.btn_back_to_patient_register).setOnClickListener(this);
         rootLayout.findViewById(R.id.btn_profile_record_rdt_test).setOnClickListener(this);
     }
 
@@ -75,7 +75,7 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_back_to_profile:
+            case R.id.btn_back_to_patient_register:
             case R.id.previous_step_text:
                 getActivity().onBackPressed();
                 break;

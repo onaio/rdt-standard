@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
-        android:id="@+id/btn_back_to_profile"
+        android:id="@+id/btn_back_to_patient_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_left_arrow"
@@ -18,14 +18,14 @@
         android:id="@+id/tv_back_to_profile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Charity Otala's prodile"
+        android:text="Back to Charity Otala's profile"
         android:layout_gravity="center_vertical"
         android:paddingLeft="5dp"
         android:textColor="#36A8DC"
-        app:layout_constraintLeft_toRightOf="@+id/btn_back_to_profile"
-        app:layout_constraintTop_toTopOf="@id/btn_back_to_profile"
-        app:layout_constraintBottom_toBottomOf="@id/btn_back_to_profile"
-        android:textSize="17sp"/>
+        app:layout_constraintLeft_toRightOf="@+id/btn_back_to_patient_profile"
+        app:layout_constraintTop_toTopOf="@id/btn_back_to_patient_profile"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back_to_patient_profile"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,8 +35,8 @@
         android:textColor="@color/black"
         style="@style/CustomFontTextViewStyle.ListView.Bold.NoPadding"
         android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/btn_back_to_profile"
-        app:layout_constraintStart_toStartOf="@id/btn_back_to_profile"
+        app:layout_constraintTop_toBottomOf="@id/btn_back_to_patient_profile"
+        app:layout_constraintStart_toStartOf="@id/btn_back_to_patient_profile"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"/>
 
@@ -151,7 +151,8 @@
         android:text="P. falciparum - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_rdt_qpcr_vivax"
@@ -161,7 +162,8 @@
         android:text="P. vivax - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_rdt_qpcr_malariae"
@@ -171,7 +173,8 @@
         android:text="P. malariae - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_rdt_qpcr_ovale"
@@ -181,7 +184,8 @@
         android:text="P. ovale - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <View android:id="@+id/blood_spot_qpcr_divider" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_rdt_qpcr_ovale"
@@ -216,7 +220,8 @@
         android:text="P. falciparum - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_bloodspot_qpcr_vivax"
@@ -226,7 +231,8 @@
         android:text="P. vivax - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_bloodspot_qpcr_malariae"
@@ -236,7 +242,8 @@
         android:text="P. malariae - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_bloodspot_qpcr_ovale"
@@ -246,6 +253,11 @@
         android:text="P. ovale - Positive"
         app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
+
+    <View android:id="@+id/tests_profile_bottom_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_bloodspot_qpcr_ovale"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
 
 </android.support.constraint.ConstraintLayout>
