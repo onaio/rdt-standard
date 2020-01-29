@@ -19,7 +19,7 @@ public class RDTTestViewHolder extends RecyclerView.ViewHolder {
 
     public RDTTestViewHolder(@NonNull View rdtTestRow) {
         super(rdtTestRow);
-        this.rdtId = rdtTestRow.findViewById(R.id.rdt_id);
+        this.rdtId = rdtTestRow.findViewById(R.id.tests_profile_rdt_id);
         this.testDate = rdtTestRow.findViewById(R.id.test_date);
         this.rdtType = rdtTestRow.findViewById(R.id.rdt_type);
         this.rdtResult = rdtTestRow.findViewById(R.id.rdt_result);

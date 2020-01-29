@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/btn_back_to_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_left_arrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_back_to_profile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Charity Otala's prodile"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textColor="#36A8DC"
+        app:layout_constraintLeft_toRightOf="@+id/btn_back_to_profile"
+        app:layout_constraintTop_toTopOf="@id/btn_back_to_profile"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back_to_profile"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tests_profile_rdt_id"
+        android:text="RDT ID 003"
+        android:textColor="@color/black"
+        style="@style/CustomFontTextViewStyle.ListView.Bold.NoPadding"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@id/btn_back_to_profile"
+        app:layout_constraintStart_toStartOf="@id/btn_back_to_profile"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <View android:id="@+id/rdt_test_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tests_profile_rdt_id"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+    <TextView
+        android:id="@+id/tv_tests_profile_rdt_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CareStart RDT"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tests_profile_rdt_id"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_tests_profile_rdt_test_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18 Nov 2019"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_tests_profile_rdt_results"
+        app:layout_constraintBottom_toBottomOf="@id/tv_tests_profile_rdt_results"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/tv_rdt_pf_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_tests_profile_rdt_results"
+        android:text="Pf positive"
+        app:layout_constraintStart_toStartOf="@id/tv_tests_profile_rdt_results"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_rdt_pv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pv negative"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_pf_result"
+        app:layout_constraintStart_toStartOf="@id/tv_rdt_pf_result"
+        android:textColor="@color/black"/>
+
+    <View android:id="@+id/microscopy_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_pv_result"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+    <TextView
+        android:id="@+id/tv_tests_profile_microscopy_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Microscopy"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/microscopy_result_divider"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_tests_profile_microscopy_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="19 Nov 2019"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_tests_profile_microscopy_results"
+        app:layout_constraintBottom_toBottomOf="@id/tv_tests_profile_microscopy_results"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_microscopy_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Positive"
+        app:layout_constraintTop_toBottomOf="@id/tv_tests_profile_microscopy_results"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"/>
+
+    <View android:id="@+id/rdt_qpcr_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_microscopy_result"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+    <TextView
+        android:id="@+id/tv_rdt_qpcr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Guideline qPCR"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/rdt_qpcr_divider"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_rdt_qpcr_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20 Nov 2019"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_rdt_qpcr"
+        app:layout_constraintBottom_toBottomOf="@id/tv_rdt_qpcr"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_rdt_qpcr_falciparum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_qpcr_date"
+        android:text="P. falciparum - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_rdt_qpcr_vivax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_qpcr_falciparum"
+        android:text="P. vivax - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_rdt_qpcr_malariae"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_qpcr_vivax"
+        android:text="P. malariae - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_rdt_qpcr_ovale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_qpcr_malariae"
+        android:text="P. ovale - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <View android:id="@+id/blood_spot_qpcr_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_rdt_qpcr_ovale"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+    <TextView
+        android:id="@+id/tv_bloodspot_qpcr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Spot qPCR"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/blood_spot_qpcr_divider"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_bloodspot_qpcr_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="21 Nov 2019"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_bloodspot_qpcr"
+        app:layout_constraintBottom_toBottomOf="@id/tv_bloodspot_qpcr"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_bloodspot_qpcr_falciparum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_bloodspot_qpcr_date"
+        android:text="P. falciparum - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_bloodspot_qpcr_vivax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_bloodspot_qpcr_falciparum"
+        android:text="P. vivax - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_bloodspot_qpcr_malariae"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_bloodspot_qpcr_vivax"
+        android:text="P. malariae - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_bloodspot_qpcr_ovale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_bloodspot_qpcr_malariae"
+        android:text="P. ovale - Positive"
+        app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+</android.support.constraint.ConstraintLayout>

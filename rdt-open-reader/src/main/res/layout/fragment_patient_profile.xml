@@ -16,7 +16,7 @@
         android:minHeight="200dp">
 
         <ImageButton
-            android:id="@+id/btn_previous_step"
+            android:id="@+id/btn_back_to_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_left_arrow"
@@ -33,9 +33,9 @@
             android:layout_gravity="center_vertical"
             android:paddingLeft="5dp"
             android:textColor="#36A8DC"
-            app:layout_constraintLeft_toRightOf="@+id/btn_previous_step"
-            app:layout_constraintTop_toTopOf="@id/btn_previous_step"
-            app:layout_constraintBottom_toBottomOf="@id/btn_previous_step"
+            app:layout_constraintLeft_toRightOf="@+id/btn_back_to_profile"
+            app:layout_constraintTop_toTopOf="@id/btn_back_to_profile"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back_to_profile"
             android:textSize="17sp"/>
 
         <TextView
