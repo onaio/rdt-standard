@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,8 +73,21 @@ public class Utils {
         }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+
         return simpleDateFormat.parse(dateStr);
     }
+
+    public static String convertDate(String dateStr, String originalFormat, String targetFormat) throws ParseException {
+        if (StringUtils.isEmpty(dateStr)) {
+            return null;
+        }
+        DateFormat originalDate = new SimpleDateFormat(originalFormat, Locale.ENGLISH);
+        DateFormat targetDate = new SimpleDateFormat(targetFormat);
+        Date date = originalDate.parse(dateStr);
+        return targetDate.format(date);
+    }
+
+
 
     public static int convertDpToPixels(Context context, float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());

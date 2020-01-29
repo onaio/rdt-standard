@@ -90,6 +90,9 @@ public interface Constants {
         String CASSETTE_BOUNDARY = "cassette_boundary";
         String IS_MANUAL_CAPTURE = "is_manual_capture";
         String POSITIVE = "positive";
+        String NEGATIVE = "negative";
+        String INVALID = "invalid";
+        String RDT_TEST_DETAILS = "rdt_test_details";
     }
 
     interface Step {
