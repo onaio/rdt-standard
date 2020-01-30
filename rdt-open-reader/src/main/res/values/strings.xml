@@ -33,5 +33,6 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="pf_positive_result">Pf positive</string>
     <string name="pv_positive_result">Pv positive</string>
     <string name="invalid_result">Invalid test</string>
+    <string name="positive">\u0020positive,</string>
 </resources>
 

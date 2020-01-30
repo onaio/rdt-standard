@@ -97,7 +97,7 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
 
     private String getFormattedRDTTestDate(RDTTestDetails rdtTestDetails) throws ParseException {
         return rdtTestDetails.getDate() == null ? ""
-                : Utils.convertDate(rdtTestDetails.getDate().split(" ")[0], "yyyy-MM-dd", "dd MMM yyyy").toString();
+                : Utils.convertDate(rdtTestDetails.getDate().split(" ")[0], "yyyy-MM-dd", "dd MMM yyyy");
     }
 
     private String getFormattedTestResults(RDTTestDetails rdtTestDetails) {
@@ -107,7 +107,7 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
 
         String testResults = "";
         for (String testResult : rdtTestDetails.getParasiteTypes()) {
-            testResults += capitalize(testResult) + " positive,";
+            testResults += capitalize(testResult) + resources.getString(R.string.positive);
         }
         return testResults.substring(0, testResults.length() - 1);
     }

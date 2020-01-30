@@ -48,6 +48,17 @@
         android:layout_marginTop="10dp"
         android:textSize="15sp" />
 
+    <TextView
+        android:id="@+id/tv_qpcr_gameto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_qpcr_ovale"
+        android:text="Pf. gameto - Positive"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp" />
+
     <View android:id="@+id/qpcr_bottom_divider_line" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_qpcr_ovale"
         app:layout_constraintStart_toStartOf="parent" />
