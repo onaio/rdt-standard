@@ -545,6 +545,14 @@
           }
         },
         {
+          "column_name": "qpcr_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qpcr_type"
+          }
+        },
+        {
           "column_name": "patient_base_entity_id",
           "type": "Event",
           "json_mapping": {
