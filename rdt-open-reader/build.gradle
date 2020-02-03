@@ -86,12 +86,13 @@ android {
 }
 
 dependencies {
-
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-analytics:16.0.1'
     implementation 'org.apache.commons:commons-lang3:3.9'
 
     implementation('org.smartregister:opensrp-client-native-form:1.6.55-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'com.google.android.gms'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
         exclude group: 'com.android.support', module: 'support-media-compat'
@@ -105,7 +106,7 @@ dependencies {
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
-        exclude group: 'com.google.android.gms', module: 'play-services-vision'
+        exclude group: 'com.google.android.gms'
         exclude group: 'com.github.ybq', module: 'Android-SpinKit'
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
