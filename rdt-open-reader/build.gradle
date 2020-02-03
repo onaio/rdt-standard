@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'com.google.gms.google-services'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -16,7 +17,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "io.ona.rdt_app"
+        applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
