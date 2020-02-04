@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -60,7 +61,7 @@
         android:textSize="15sp" />
 
     <View android:id="@+id/qpcr_bottom_divider_line" style="@style/Divider.Horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_qpcr_ovale"
+        app:layout_constraintTop_toBottomOf="@id/tv_qpcr_gameto"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
