@@ -20,8 +20,10 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 import io.fabric.sdk.android.Fabric;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.LoginActivity;
+import io.ona.rdt.domain.ParasiteProfileResults;
 import io.ona.rdt.job.RDTJobCreator;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
+import io.ona.rdt.repository.BaseParasiteProfileRepository;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.repository.RDTTestsRepository;
 import io.ona.rdt.util.RDTSyncConfiguration;
@@ -41,6 +43,7 @@ public class RDTApplication extends DrishtiApplication {
     private RDTApplicationPresenter presenter;
     private Activity currentActivity;
     private RDTTestsRepository rdtTestsRepository;
+    private BaseParasiteProfileRepository parasiteProfileRepository;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -146,5 +149,12 @@ public class RDTApplication extends DrishtiApplication {
             rdtTestsRepository = new RDTTestsRepository();
         }
         return rdtTestsRepository;
+    }
+
+    public BaseParasiteProfileRepository getParasiteProfileRepository() {
+        if (parasiteProfileRepository == null) {
+            parasiteProfileRepository = new BaseParasiteProfileRepository();
+        }
+        return parasiteProfileRepository;
     }
 }

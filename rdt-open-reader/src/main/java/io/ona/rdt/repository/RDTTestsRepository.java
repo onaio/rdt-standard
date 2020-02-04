@@ -25,8 +25,8 @@ public class RDTTestsRepository extends BaseRepository {
     private static final String BASE_ENTITY_ID = "patient_id";
     private static final String CHW_RESULT = "chw_result";
 
-    protected static final String COLUMNS = String.format("%s, %s, %s, %s, %s, %s", BASE_ENTITY_ID, RDT_ID, RDT_TYPE, CHW_RESULT, PARASITE_TYPE, TEST_DATE);
-    protected static final String RDT_TESTS_TABLES = "rdt_tests";
+    private static final String COLUMNS = String.format("%s, %s, %s, %s, %s, %s", BASE_ENTITY_ID, RDT_ID, RDT_TYPE, CHW_RESULT, PARASITE_TYPE, TEST_DATE);
+    private static final String RDT_TESTS_TABLES = "rdt_tests";
 
     @Nullable
     public RDTTestDetails getRDTTestDetailsByRDTId(String rdtId) {
@@ -82,7 +82,7 @@ public class RDTTestsRepository extends BaseRepository {
     private void setRDTTestResults(Cursor cursor, RDTTestDetails rdtTestDetails) {
         rdtTestDetails.setTestResult(cursor.getString(cursor.getColumnIndex(CHW_RESULT)));
         String parasites = cursor.getString(cursor.getColumnIndex(PARASITE_TYPE));
-        List<String> parasiteTypes =  parasites == null ? null : Arrays.asList(parasites.split(","));
+        List<String> parasiteTypes = parasites == null ? null : Arrays.asList(parasites.split(","));
         rdtTestDetails.setParasiteTypes(parasiteTypes);
     }
 }

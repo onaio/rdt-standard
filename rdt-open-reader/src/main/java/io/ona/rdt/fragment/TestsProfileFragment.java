@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
 
 import static io.ona.rdt.util.Constants.Test.INVALID;
@@ -52,6 +53,8 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
                 .setText(formattedRDTTestDetails.getFormattedRDTTestDate());
 
         populateRDTTestResults(formattedRDTTestDetails, rootLayout);
+
+        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfile("12202K");
     }
 
     private void populateRDTTestResults(FormattedRDTTestDetails formattedRDTTestDetails, View rootLayout) {
