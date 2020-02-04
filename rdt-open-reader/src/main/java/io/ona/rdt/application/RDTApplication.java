@@ -62,8 +62,6 @@ public class RDTApplication extends DrishtiApplication {
 
         SyncStatusBroadcastReceiver.init(this);
 
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
         AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
