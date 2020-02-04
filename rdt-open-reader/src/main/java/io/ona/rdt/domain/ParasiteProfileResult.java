@@ -3,16 +3,16 @@ package io.ona.rdt.domain;
 /**
  * Created by Vincent Karuri on 04/02/2020
  */
-public class ParasiteProfileResults {
+public class ParasiteProfileResult {
 
-    private String pFalciparum = "p_falciparum";
-    private String pVivax = "p_vivax";
-    private String pMalariae = "p_malariae";
-    private String pOvale = "p_ovale";
-    private String pfGameto = "pf_gameto";
-    private String experimentDate = "experiment_date";
-    private String rdtId = "rdt_id";
-
+    private String pFalciparum;
+    private String pVivax;
+    private String pMalariae;
+    private String pOvale;
+    private String pfGameto;
+    private String experimentDate;
+    private String rdtId;
+    private String experimentType;
 
     public String getpFalciparum() {
         return pFalciparum;
@@ -68,5 +68,13 @@ public class ParasiteProfileResults {
 
     public void setRdtId(String rdtId) {
         this.rdtId = rdtId;
+    }
+
+    public String getExperimentType() {
+        return experimentType;
+    }
+
+    public void setExperimentType(String experimentType) {
+        this.experimentType = experimentType;
     }
 }

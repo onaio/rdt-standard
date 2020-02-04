@@ -448,7 +448,7 @@
           }
         },
         {
-          "column_name": "qpcr_type",
+          "column_name": "experiment_type",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",

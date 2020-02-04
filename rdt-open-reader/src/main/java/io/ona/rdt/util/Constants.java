@@ -93,6 +93,9 @@ public interface Constants {
         String NEGATIVE = "negative";
         String INVALID = "invalid";
         String RDT_TEST_DETAILS = "rdt_test_details";
+        String RDT_Q_PCR = "rdt";
+        String BLOODSPOT_Q_PCR = "bloodspot";
+        String MICROSCOPY = "microscopy";
     }
 
     interface Step {
@@ -120,5 +123,6 @@ public interface Constants {
         String RDT_PATIENTS = "rdt_patients";
         String RDT_TESTS = "rdt_tests";
         String PCR_RESULTS = "pcr_results";
+        String MICROSCOPY_RESULTS = "microscopy_results";
     }
 }

@@ -13,9 +13,14 @@ import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
 
+import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
+import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
+import static io.ona.rdt.util.Constants.Test.BLOODSPOT_Q_PCR;
 import static io.ona.rdt.util.Constants.Test.INVALID;
+import static io.ona.rdt.util.Constants.Test.MICROSCOPY;
 import static io.ona.rdt.util.Constants.Test.NEGATIVE;
 import static io.ona.rdt.util.Constants.Test.POSITIVE;
+import static io.ona.rdt.util.Constants.Test.RDT_Q_PCR;
 import static io.ona.rdt.util.Constants.Test.RDT_TEST_DETAILS;
 
 /**
@@ -54,7 +59,9 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
         populateRDTTestResults(formattedRDTTestDetails, rootLayout);
 
-        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfile("12202K");
+        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfiles("12202K", PCR_RESULTS, RDT_Q_PCR);
+        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfiles("12202K", PCR_RESULTS, BLOODSPOT_Q_PCR);
+        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfiles("12202K", MICROSCOPY_RESULTS, MICROSCOPY);
     }
 
     private void populateRDTTestResults(FormattedRDTTestDetails formattedRDTTestDetails, View rootLayout) {
