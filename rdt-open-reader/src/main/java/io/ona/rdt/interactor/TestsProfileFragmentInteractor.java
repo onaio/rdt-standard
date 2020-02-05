@@ -1,6 +1,9 @@
 package io.ona.rdt.interactor;
 
+import java.util.List;
+
 import io.ona.rdt.callback.OnParasiteProfileFetchedCallback;
+import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.repository.ParasiteProfileRepository;
 
 /**
@@ -14,7 +17,7 @@ public class TestsProfileFragmentInteractor {
         this.parasiteProfileRepository = new ParasiteProfileRepository();
     }
 
-    public void getParasiteProfiles(String rdtId, String tableName, String experimentType, OnParasiteProfileFetchedCallback callback) {
-        callback.onParasiteProfileFetched(parasiteProfileRepository.getParasiteProfiles(rdtId, tableName, experimentType));
+    public List<ParasiteProfileResult> getParasiteProfiles(String rdtId, String tableName, String experimentType) {
+        return parasiteProfileRepository.getParasiteProfiles(rdtId, tableName, experimentType);
     }
 }

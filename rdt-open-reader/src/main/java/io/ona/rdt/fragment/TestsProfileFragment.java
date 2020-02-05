@@ -10,17 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.utils.Utils;
-
 import java.util.List;
 
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.TestsProfileFragmentContract;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
 import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.presenter.TestsProfileFragmentPresenter;
 
+import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
+import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Test.BLOODSPOT_Q_PCR;
@@ -38,6 +37,7 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
     private FormattedRDTTestDetails formattedRDTTestDetails;
     private TestsProfileFragmentPresenter presenter;
+    private View rootLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootLayout = inflater.inflate(R.layout.fragment_tests_profile, container, false);
+        rootLayout = inflater.inflate(R.layout.fragment_tests_profile, container, false);
         rootLayout.findViewById(R.id.btn_back_to_patient_profile).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_back_to_profile_text).setOnClickListener(this);
         populateRDTTestDetails(rootLayout);
@@ -122,16 +122,21 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
     }
 
     public void getParasiteProfiles(String rdtId, String tableName, String experimentType) {
-        class GetParasiteProfilesTask extends AsyncTask<Void, Void, Void> {
+        class GetParasiteProfilesTask extends AsyncTask<Void, Void, List<ParasiteProfileResult>> {
             @Override
             protected void onPreExecute() {
-                Utils.showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, getActivity());
+                showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, getActivity());
             }
 
             @Override
-            protected Void doInBackground(Void... voids) {
-                presenter.getParasiteProfiles(rdtId, tableName, experimentType, TestsProfileFragment.this);
-                return null;
+            protected List<ParasiteProfileResult> doInBackground(Void... voids) {
+                return presenter.getParasiteProfiles(rdtId, tableName, experimentType);
+            }
+
+            @Override
+            protected void onPostExecute(List<ParasiteProfileResult> parasiteProfileResults) {
+                hideProgressDialog();
+                onParasiteProfileFetched(parasiteProfileResults);
             }
         }
         new GetParasiteProfilesTask().execute();
@@ -139,6 +144,32 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
     @Override
     public synchronized void onParasiteProfileFetched(List<ParasiteProfileResult> parasiteProfileResults) {
+        for (ParasiteProfileResult parasiteProfileResult : parasiteProfileResults) {
+            switch (parasiteProfileResult.getExperimentType()) {
+                case MICROSCOPY:
+                    populateParasiteProfileFields(rootLayout.findViewById(R.id.rdt_microscopy_results), parasiteProfileResult);
+                    break;
+                case BLOODSPOT_Q_PCR:
+                    populateParasiteProfileFields(rootLayout.findViewById(R.id.blood_spot_qpcr_results), parasiteProfileResult);
+                    break;
+                case RDT_Q_PCR:
+                    populateParasiteProfileFields(rootLayout.findViewById(R.id.rdt_qpcr_results), parasiteProfileResult);
+                    break;
+                default:
+                    // do nothing
+            }
+        }
+    }
 
+    private void populateParasiteProfileFields(View parasiteProfile, ParasiteProfileResult parasiteProfileResult) {
+        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_falciparum)).setText(parasiteProfileResult.getpFalciparum());
+        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_vivax)).setText(parasiteProfileResult.getpVivax());
+        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_malariae)).setText(parasiteProfileResult.getpMalariae());
+        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_ovale)).setText(parasiteProfileResult.getpOvale());
+        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_gameto)).setText(parasiteProfileResult.getPfGameto());
+
+        View labelAndDate = parasiteProfile.findViewById(R.id.label_and_date);
+        ((TextView) labelAndDate.findViewById(R.id.tv_results_date)).setText(parasiteProfileResult.getExperimentDate());
+        ((TextView) labelAndDate.findViewById(R.id.tv_results_label)).setText(parasiteProfileResult.getExperimentType());
     }
 }

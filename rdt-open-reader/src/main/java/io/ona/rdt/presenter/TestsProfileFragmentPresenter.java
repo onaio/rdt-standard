@@ -1,7 +1,10 @@
 package io.ona.rdt.presenter;
 
+import java.util.List;
+
 import io.ona.rdt.callback.OnParasiteProfileFetchedCallback;
 import io.ona.rdt.contract.TestsProfileFragmentContract;
+import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.interactor.TestsProfileFragmentInteractor;
 
 /**
@@ -16,7 +19,7 @@ public class TestsProfileFragmentPresenter implements TestsProfileFragmentContra
     }
 
     @Override
-    public void getParasiteProfiles(String rdtId, String tableName, String experimentType, OnParasiteProfileFetchedCallback callback) {
-        interactor.getParasiteProfiles(rdtId, tableName, experimentType, callback);
+    public List<ParasiteProfileResult> getParasiteProfiles(String rdtId, String tableName, String experimentType) {
+        return interactor.getParasiteProfiles(rdtId, tableName, experimentType);
     }
 }
