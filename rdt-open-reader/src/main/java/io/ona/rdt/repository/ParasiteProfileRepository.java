@@ -32,8 +32,8 @@ public class ParasiteProfileRepository extends BaseRepository {
 
 
     public static void createIndexes(SQLiteDatabase db) {
-        db.execSQL("CREATE INDEX IF NOT EXISTS rdt_id_index ON " + PCR_RESULTS + "(" + RDT_ID +")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS rdt_id_index ON " + MICROSCOPY_RESULTS + "(" + RDT_ID +")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS pcr_results_rdt_id_and_experiment_type_index ON " + PCR_RESULTS + "(" + RDT_ID + "," + EXPERIMENT_TYPE  +")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS microscopy_results_rdt_id_index ON " + MICROSCOPY_RESULTS + "(" + RDT_ID +")");
     }
 
     @Nullable
