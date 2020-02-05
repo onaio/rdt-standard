@@ -81,50 +81,25 @@
             app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
 
         <include
-            android:id="@+id/microscopy_label_and_date"
-            layout="@layout/test_name_and_date"
-            app:layout_constraintTop_toBottomOf="@id/microscopy_result_divider"
-            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <include
             android:id="@+id/rdt_microscopy_results"
             layout="@layout/parasite_profile_results_layout"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/microscopy_label_and_date"
-            app:layout_constraintStart_toStartOf="@id/microscopy_label_and_date" />
-
-
-        <include
-            android:id="@+id/rdt_qpcr_label_and_date"
-            layout="@layout/test_name_and_date"
-            app:layout_constraintTop_toBottomOf="@id/rdt_microscopy_results"
-            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@id/microscopy_result_divider"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
 
         <include
             android:id="@+id/rdt_qpcr_results"
             layout="@layout/parasite_profile_results_layout"
-            app:layout_constraintTop_toBottomOf="@id/rdt_qpcr_label_and_date"
+            app:layout_constraintTop_toBottomOf="@id/rdt_microscopy_results"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
 
         <include
-            android:id="@+id/blood_spot_qpcr_name_and_date"
-            layout="@layout/test_name_and_date"
-            app:layout_constraintTop_toBottomOf="@id/rdt_qpcr_results"
-            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <include
             android:id="@+id/blood_spot_qpcr_results"
             layout="@layout/parasite_profile_results_layout"
-            app:layout_constraintTop_toBottomOf="@id/blood_spot_qpcr_name_and_date"
+            app:layout_constraintTop_toBottomOf="@id/rdt_qpcr_results"
             app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content" />
