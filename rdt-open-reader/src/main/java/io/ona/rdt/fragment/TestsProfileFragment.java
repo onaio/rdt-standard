@@ -1,5 +1,6 @@
 package io.ona.rdt.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,9 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.utils.Utils;
+
+import java.util.List;
+
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.contract.TestsProfileFragmentContract;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
+import io.ona.rdt.domain.ParasiteProfileResult;
+import io.ona.rdt.presenter.TestsProfileFragmentPresenter;
 
 import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
@@ -26,14 +34,16 @@ import static io.ona.rdt.util.Constants.Test.RDT_TEST_DETAILS;
 /**
  * Created by Vincent Karuri on 29/01/2020
  */
-public class TestsProfileFragment extends Fragment implements View.OnClickListener {
+public class TestsProfileFragment extends Fragment implements View.OnClickListener, TestsProfileFragmentContract.View {
 
     private FormattedRDTTestDetails formattedRDTTestDetails;
+    private TestsProfileFragmentPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         formattedRDTTestDetails = getArguments().getParcelable(RDT_TEST_DETAILS);
+        presenter = new TestsProfileFragmentPresenter();
     }
 
     @Nullable
@@ -58,10 +68,9 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
                 .setText(formattedRDTTestDetails.getFormattedRDTTestDate());
 
         populateRDTTestResults(formattedRDTTestDetails, rootLayout);
-
-        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfiles("12202K", PCR_RESULTS, RDT_Q_PCR);
-        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfiles("12202K", PCR_RESULTS, BLOODSPOT_Q_PCR);
-        RDTApplication.getInstance().getParasiteProfileRepository().getParasiteProfiles("12202K", MICROSCOPY_RESULTS, MICROSCOPY);
+        getParasiteProfiles("12202K", PCR_RESULTS, RDT_Q_PCR);
+        getParasiteProfiles("12202K", PCR_RESULTS, BLOODSPOT_Q_PCR);
+        getParasiteProfiles("12202K", MICROSCOPY_RESULTS, MICROSCOPY);
     }
 
     private void populateRDTTestResults(FormattedRDTTestDetails formattedRDTTestDetails, View rootLayout) {
@@ -110,5 +119,26 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
             default:
                 // do nothing
         }
+    }
+
+    public void getParasiteProfiles(String rdtId, String tableName, String experimentType) {
+        class GetParasiteProfilesTask extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected void onPreExecute() {
+                Utils.showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, getActivity());
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                presenter.getParasiteProfiles(rdtId, tableName, experimentType, TestsProfileFragment.this);
+                return null;
+            }
+        }
+        new GetParasiteProfilesTask().execute();
+    }
+
+    @Override
+    public synchronized void onParasiteProfileFetched(List<ParasiteProfileResult> parasiteProfileResults) {
+
     }
 }
