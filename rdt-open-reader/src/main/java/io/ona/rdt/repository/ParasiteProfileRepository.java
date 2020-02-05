@@ -3,6 +3,7 @@ package io.ona.rdt.repository;
 import android.support.annotation.Nullable;
 
 import net.sqlcipher.Cursor;
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.repository.BaseRepository;
 
@@ -13,6 +14,7 @@ import io.ona.rdt.domain.ParasiteProfileResult;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
+import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 
 /**
  * Created by Vincent Karuri on 04/02/2020
@@ -27,6 +29,12 @@ public class ParasiteProfileRepository extends BaseRepository {
     private static final String EXPERIMENT_DATE = "experiment_date";
     private static final String EXPERIMENT_TYPE = "experiment_type";
     private static final String RDT_ID = "rdt_id";
+
+
+    public static void createIndexes(SQLiteDatabase db) {
+        db.execSQL("CREATE INDEX IF NOT EXISTS rdt_id_index ON " + PCR_RESULTS + "(" + RDT_ID +")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS rdt_id_index ON " + MICROSCOPY_RESULTS + "(" + RDT_ID +")");
+    }
 
     @Nullable
     public List<ParasiteProfileResult> getParasiteProfiles(String rdtId, String tableName, String experimentType) {

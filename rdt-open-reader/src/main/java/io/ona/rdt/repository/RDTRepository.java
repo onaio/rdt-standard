@@ -33,6 +33,8 @@ public class RDTRepository extends Repository {
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
         UniqueIdRepository.createTable(database);
+        RDTTestsRepository.createIndexes(database);
+        ParasiteProfileRepository.createIndexes(database);
     }
 
     @Override
