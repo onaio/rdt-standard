@@ -57,6 +57,9 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
         rootLayout.findViewById(R.id.btn_back_to_patient_profile).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_back_to_profile_text).setOnClickListener(this);
         populateRDTTestDetails(rootLayout);
+        populateExperimentTypeField(rootLayout.findViewById(R.id.rdt_microscopy_results), MICROSCOPY);
+        populateExperimentTypeField(rootLayout.findViewById(R.id.blood_spot_qpcr_results), BLOODSPOT_Q_PCR);
+        populateExperimentTypeField(rootLayout.findViewById(R.id.rdt_qpcr_results), RDT_Q_PCR);
 
         return rootLayout;
     }
@@ -145,35 +148,42 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
     @Override
     public synchronized void onParasiteProfileFetched(List<ParasiteProfileResult> parasiteProfileResults) {
+        if (parasiteProfileResults.isEmpty()) {
+            return;
+        }
         try {
-            for (ParasiteProfileResult parasiteProfileResult : parasiteProfileResults) {
-                switch (parasiteProfileResult.getExperimentType()) {
-                    case MICROSCOPY:
-                        populateParasiteProfileFields(rootLayout.findViewById(R.id.rdt_microscopy_results), parasiteProfileResult);
-                        break;
-                    case BLOODSPOT_Q_PCR:
-                        populateParasiteProfileFields(rootLayout.findViewById(R.id.blood_spot_qpcr_results), parasiteProfileResult);
-                        break;
-                    case RDT_Q_PCR:
-                        populateParasiteProfileFields(rootLayout.findViewById(R.id.rdt_qpcr_results), parasiteProfileResult);
-                        break;
-                    default:
-                        // do nothing
-                }
+            ParasiteProfileResult parasiteProfileResult = parasiteProfileResults.get(0);
+            switch (parasiteProfileResult.getExperimentType()) {
+                case MICROSCOPY:
+                    populateParasiteProfileResults(rootLayout.findViewById(R.id.rdt_microscopy_results), parasiteProfileResult);
+                    break;
+                case BLOODSPOT_Q_PCR:
+                    populateParasiteProfileResults(rootLayout.findViewById(R.id.blood_spot_qpcr_results), parasiteProfileResult);
+                    break;
+                case RDT_Q_PCR:
+                    populateParasiteProfileResults(rootLayout.findViewById(R.id.rdt_qpcr_results), parasiteProfileResult);
+                    break;
+                default:
+                    // do nothing
             }
         } catch (ParseException e) {
             Timber.e(e);
         }
     }
 
-    private void populateParasiteProfileFields(View parasiteProfile, ParasiteProfileResult parasiteProfileResult) throws ParseException {
+    private void populateExperimentTypeField(View parasiteProfile, String experimentType) {
+        String formattedExperimentType = formattedExperimentType(experimentType);
+        ((TextView) parasiteProfile.findViewById(R.id.label_and_date).findViewById(R.id.tv_results_label))
+                .setText(formattedExperimentType);
+    }
+
+    private void populateParasiteProfileResults(View parasiteProfile, ParasiteProfileResult parasiteProfileResult) throws ParseException {
         populateFormattedParasiteProfile(parasiteProfile, parasiteProfileResult);
 
-        String formattedExperimentType = formattedExperimentType(parasiteProfileResult.getExperimentType());
-        String humanReadableDate = convertDate(parasiteProfileResult.getExperimentDate(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", PROFILE_DATE_FORMAT);
-        View labelAndDate = parasiteProfile.findViewById(R.id.label_and_date);
-        ((TextView) labelAndDate.findViewById(R.id.tv_results_date)).setText(humanReadableDate);
-        ((TextView) labelAndDate.findViewById(R.id.tv_results_label)).setText(formattedExperimentType);
+        String humanReadableDate = convertDate(parasiteProfileResult.getExperimentDate(),
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", PROFILE_DATE_FORMAT);
+        ((TextView) parasiteProfile.findViewById(R.id.label_and_date).findViewById(R.id.tv_results_date))
+                .setText(humanReadableDate);
     }
 
     private String formattedExperimentType(String experimentType) {
