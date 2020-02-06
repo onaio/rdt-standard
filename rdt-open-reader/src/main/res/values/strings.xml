@@ -26,13 +26,14 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="saving_image">Saving captured image</string>
     <string name="finding_location">Finding your location</string>
     <string name="rdt_id_prefix">RDT ID </string>
-    <string name="open_guideline_rdt">Open Guideline RDT:\u0020</string>
-    <string name="carestart_rdt">Carestart RDT:\u0020</string>
+    <string name="open_guideline_rdt">Open Guideline RDT</string>
+    <string name="carestart_rdt">Carestart RDT</string>
     <string name="pf_negative_result">Pf negative</string>
     <string name="pv_negative_result">Pv negative</string>
     <string name="pf_positive_result">Pf positive</string>
     <string name="pv_positive_result">Pv positive</string>
     <string name="invalid_result">Invalid test</string>
     <string name="positive">\u0020positive,</string>
+    <string name="fetching_test_results">Fetching test results</string>
 </resources>
 

@@ -56,7 +56,7 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
         FormattedRDTTestDetails formattedRDTTestDetails = getFormattedRDTTestDetails(rdtTestDetails);
         rdtTestViewHolder.rdtId.setText(formattedRDTTestDetails.getFormattedRDTId());
         rdtTestViewHolder.testDate.setText(formattedRDTTestDetails.getFormattedRDTTestDate());
-        rdtTestViewHolder.rdtType.setText(formattedRDTTestDetails.getFormattedRDTType());
+        rdtTestViewHolder.rdtType.setText(formattedRDTTestDetails.getFormattedRDTType()  + ": ");
         rdtTestViewHolder.rdtResult.setText(formattedRDTTestDetails.getFormattedTestResults());
         rdtTestViewHolder.btnGoToTestProfile.setTag(R.id.rdt_test_details, formattedRDTTestDetails);
 

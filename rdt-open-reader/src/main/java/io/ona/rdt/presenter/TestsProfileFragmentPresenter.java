@@ -2,7 +2,6 @@ package io.ona.rdt.presenter;
 
 import java.util.List;
 
-import io.ona.rdt.callback.OnParasiteProfileFetchedCallback;
 import io.ona.rdt.contract.TestsProfileFragmentContract;
 import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.interactor.TestsProfileFragmentInteractor;
