@@ -21,6 +21,7 @@ import io.ona.rdt.util.Utils;
 import io.ona.rdt.viewholder.RDTTestViewHolder;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Format.PROFILE_DATE_FORMAT;
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Test.POSITIVE;
 import static io.ona.rdt.util.Constants.Test.RDT_TEST_DETAILS;
@@ -97,7 +98,7 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
 
     private String getFormattedRDTTestDate(RDTTestDetails rdtTestDetails) throws ParseException {
         return rdtTestDetails.getDate() == null ? ""
-                : Utils.convertDate(rdtTestDetails.getDate().split(" ")[0], "yyyy-MM-dd", "dd MMM yyyy");
+                : Utils.convertDate(rdtTestDetails.getDate().split(" ")[0], "yyyy-MM-dd", PROFILE_DATE_FORMAT);
     }
 
     private String getFormattedTestResults(RDTTestDetails rdtTestDetails) {

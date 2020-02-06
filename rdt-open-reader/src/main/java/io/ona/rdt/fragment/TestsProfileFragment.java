@@ -20,6 +20,7 @@ import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.presenter.TestsProfileFragmentPresenter;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Format.PROFILE_DATE_FORMAT;
 import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Test.BLOODSPOT_Q_PCR;
@@ -27,11 +28,11 @@ import static io.ona.rdt.util.Constants.Test.INVALID;
 import static io.ona.rdt.util.Constants.Test.MICROSCOPY;
 import static io.ona.rdt.util.Constants.Test.NEGATIVE;
 import static io.ona.rdt.util.Constants.Test.POSITIVE;
+import static io.ona.rdt.util.Constants.Test.Q_PCR;
 import static io.ona.rdt.util.Constants.Test.RDT_Q_PCR;
 import static io.ona.rdt.util.Constants.Test.RDT_TEST_DETAILS;
 import static io.ona.rdt.util.Utils.convertDate;
 import static org.apache.commons.lang3.StringUtils.capitalize;
-import static org.apache.commons.lang3.StringUtils.chop;
 
 /**
  * Created by Vincent Karuri on 29/01/2020
@@ -72,8 +73,8 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
         populateRDTTestResults();
 
-        String[] fragmentedRdtId = formattedRDTTestDetails.getFormattedRDTId().split(" ");
-        String rdtId = fragmentedRdtId[fragmentedRdtId.length - 1];
+        String[] fragmentedRdtIdStr = formattedRDTTestDetails.getFormattedRDTId().split(" ");
+        String rdtId = fragmentedRdtIdStr[fragmentedRdtIdStr.length - 1];
         getParasiteProfiles(rdtId, PCR_RESULTS, RDT_Q_PCR);
         getParasiteProfiles(rdtId, PCR_RESULTS, BLOODSPOT_Q_PCR);
         getParasiteProfiles(rdtId, MICROSCOPY_RESULTS, MICROSCOPY);
@@ -169,7 +170,7 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
         populateFormattedParasiteProfile(parasiteProfile, parasiteProfileResult);
 
         String formattedExperimentType = formattedExperimentType(parasiteProfileResult.getExperimentType());
-        String humanReadableDate = convertDate(parasiteProfileResult.getExperimentDate(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "dd MMM yyyy");
+        String humanReadableDate = convertDate(parasiteProfileResult.getExperimentDate(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", PROFILE_DATE_FORMAT);
         View labelAndDate = parasiteProfile.findViewById(R.id.label_and_date);
         ((TextView) labelAndDate.findViewById(R.id.tv_results_date)).setText(humanReadableDate);
         ((TextView) labelAndDate.findViewById(R.id.tv_results_label)).setText(formattedExperimentType);
@@ -179,13 +180,13 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
         String formattedExperimentType = "";
         switch (experimentType) {
             case RDT_Q_PCR:
-                formattedExperimentType =  formattedRDTTestDetails.getFormattedRDTType() + " qPCR";
+                formattedExperimentType =  formattedRDTTestDetails.getFormattedRDTType() + Q_PCR ;
                 break;
             case BLOODSPOT_Q_PCR:
-                formattedExperimentType = "Blood Spot qPCR";
+                formattedExperimentType = getResources().getString(R.string.blood_spot) + Q_PCR;
                 break;
             case MICROSCOPY:
-                formattedExperimentType = "Microscopy";
+                formattedExperimentType = getResources().getString(R.string.microscopy);
                 break;
             default:
                 // do nothing
@@ -194,10 +195,19 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
     }
 
     private void populateFormattedParasiteProfile(View parasiteProfile, ParasiteProfileResult parasiteProfileResult) {
-        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_falciparum)).setText("P. falciparum - " + capitalize(parasiteProfileResult.getpFalciparum()));
-        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_vivax)).setText("P. vivax - " + capitalize(parasiteProfileResult.getpVivax()));
-        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_malariae)).setText("P. malariae - " + capitalize(parasiteProfileResult.getpMalariae()));
-        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_ovale)).setText("P. ovale - " + capitalize(parasiteProfileResult.getpOvale()));
-        ((TextView) parasiteProfile.findViewById(R.id.tv_qpcr_gameto)).setText("Pf. gameto - " + capitalize(parasiteProfileResult.getPfGameto()));
+        TextView tvFalciparum = parasiteProfile.findViewById(R.id.tv_qpcr_falciparum);
+        tvFalciparum.setText(tvFalciparum.getText() + capitalize(parasiteProfileResult.getpFalciparum()));
+
+        TextView tvVivax = parasiteProfile.findViewById(R.id.tv_qpcr_vivax);
+        tvVivax.setText(tvVivax.getText() + capitalize(parasiteProfileResult.getpVivax()));
+
+        TextView tvMalariae = parasiteProfile.findViewById(R.id.tv_qpcr_malariae);
+        tvMalariae.setText(tvMalariae.getText() + capitalize(parasiteProfileResult.getpMalariae()));
+
+        TextView tvOvale = parasiteProfile.findViewById(R.id.tv_qpcr_ovale);
+        tvOvale.setText(tvOvale.getText() + capitalize(parasiteProfileResult.getpOvale()));
+
+        TextView tvGameto = parasiteProfile.findViewById(R.id.tv_qpcr_gameto);
+        tvGameto.setText(tvGameto.getText() + capitalize(parasiteProfileResult.getPfGameto()));
     }
 }

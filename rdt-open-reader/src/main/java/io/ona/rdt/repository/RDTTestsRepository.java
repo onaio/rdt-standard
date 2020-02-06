@@ -14,7 +14,6 @@ import java.util.List;
 import io.ona.rdt.domain.RDTTestDetails;
 import timber.log.Timber;
 
-import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
 
 /**

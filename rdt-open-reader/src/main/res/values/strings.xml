@@ -35,5 +35,7 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="invalid_result">Invalid test</string>
     <string name="positive">\u0020positive,</string>
     <string name="fetching_test_results">Fetching test results</string>
+    <string name="microscopy">Microscopy</string>
+    <string name="blood_spot">Blood Spot</string>
 </resources>
 

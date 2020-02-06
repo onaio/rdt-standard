@@ -39,11 +39,11 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
-import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;

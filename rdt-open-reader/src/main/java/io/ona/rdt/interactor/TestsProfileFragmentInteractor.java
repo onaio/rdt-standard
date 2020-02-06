@@ -2,7 +2,6 @@ package io.ona.rdt.interactor;
 
 import java.util.List;
 
-import io.ona.rdt.callback.OnParasiteProfileFetchedCallback;
 import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.repository.ParasiteProfileRepository;
 

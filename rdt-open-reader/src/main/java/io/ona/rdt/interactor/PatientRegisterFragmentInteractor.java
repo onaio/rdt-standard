@@ -32,13 +32,13 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.util.FormLauncher;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.DETAILS;
 import static io.ona.rdt.util.Constants.FormFields.DOB;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
-import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
-import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
-import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.METADATA;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;

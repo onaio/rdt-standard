@@ -9,6 +9,7 @@ public interface Constants {
 
     interface Format {
         String BULLET_DOT = " \u00B7 ";
+        String PROFILE_DATE_FORMAT = "dd MMM yyyy";
     }
 
     interface Config {
@@ -96,6 +97,7 @@ public interface Constants {
         String RDT_Q_PCR = "rdt";
         String BLOODSPOT_Q_PCR = "bloodspot";
         String MICROSCOPY = "microscopy";
+        String Q_PCR = " qPCR";
     }
 
     interface Step {
