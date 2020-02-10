@@ -60,8 +60,6 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
             .registerTypeAdapter(LocationProperty.class, new PropertiesConverter()).create();
 
-    private final String TAG = PatientRegisterFragmentInteractor.class.getName();
-
     private EventClientRepository eventClientRepository;
     private ClientProcessorForJava clientProcessor;
 
@@ -79,7 +77,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
                 try {
                     processAndSaveForm(jsonForm);
                 } catch (Exception e) {
-                    Log.e(TAG, "Error saving event", e);
+                    Timber.e(e);
                 }
                 return null;
             }
