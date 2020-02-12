@@ -41,7 +41,6 @@ public class ParasiteProfileRepository extends BaseRepository {
         Cursor cursor = null;
         List<ParasiteProfileResult> parasiteProfileResults = null;
         try {
-
             if (MICROSCOPY_RESULTS.equals(tableName)) {
                 cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
                         " WHERE " + RDT_ID + " =?", new String[]{rdtId});

@@ -26,6 +26,7 @@ import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Test.POSITIVE;
 import static io.ona.rdt.util.Constants.Test.RDT_TEST_DETAILS;
 import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Created by Vincent Karuri on 16/01/2020
@@ -80,7 +81,7 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
             formattedRDTTestDetails.setFormattedRDTTestDate(getFormattedRDTTestDate(rdtTestDetails));
             formattedRDTTestDetails.setFormattedRDTType(getFormattedRDTType(rdtTestDetails));
             formattedRDTTestDetails.setFormattedTestResults(getFormattedTestResults(rdtTestDetails));
-            formattedRDTTestDetails.setTestResult(rdtTestDetails.getTestResult());
+            formattedRDTTestDetails.setTestResult(getTestResults(rdtTestDetails));
         } catch (ParseException e) {
             Timber.e(e);
         }
@@ -111,6 +112,11 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
             testResults += capitalize(testResult) + resources.getString(R.string.positive);
         }
         return testResults.substring(0, testResults.length() - 1);
+    }
+
+    private String getTestResults(RDTTestDetails rdtTestDetails) {
+        String testResult = rdtTestDetails.getTestResult();
+        return isBlank(testResult) ? "" : testResult;
     }
 
     @Override
