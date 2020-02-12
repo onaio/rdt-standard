@@ -108,6 +108,11 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
         }
 
         String testResults = "";
+        if (rdtTestDetails.getParasiteTypes() == null) {
+            Timber.e("This should not be happening, parasite types are null for a positive result!");
+            return testResults;
+        }
+
         for (String testResult : rdtTestDetails.getParasiteTypes()) {
             testResults += capitalize(testResult) + resources.getString(R.string.positive);
         }
@@ -116,7 +121,11 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
 
     private String getTestResults(RDTTestDetails rdtTestDetails) {
         String testResult = rdtTestDetails.getTestResult();
-        return isBlank(testResult) ? "" : testResult;
+        if (isBlank(testResult)) {
+            Timber.e("This should not be happening, we shouldn't have missing rdt test results!");
+            testResult = "";
+        }
+        return testResult;
     }
 
     @Override
