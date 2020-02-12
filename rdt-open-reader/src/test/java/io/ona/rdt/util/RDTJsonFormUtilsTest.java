@@ -44,6 +44,8 @@ import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -729,8 +731,10 @@ public class RDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testAppendEntityIdShouldAppendCorrectId() throws JSONException {
+    public void testAppendEntityIdShouldAppendCorrectNonEmptyId() throws JSONException {
         String entityId = formUtils.appendEntityId(RDT_TEST_JSON_FORM_OBJ);
+        assertNotNull(entityId);
+        assertFalse(entityId.isEmpty());
         assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.FormFields.ENTITY_ID), entityId);
     }
 

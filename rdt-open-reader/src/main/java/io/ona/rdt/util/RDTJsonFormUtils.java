@@ -292,7 +292,7 @@ public class RDTJsonFormUtils {
 
     public static String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = getString(jsonForm, Constants.FormFields.ENTITY_ID);
-        entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
+        entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);
         return entityId;
     }
