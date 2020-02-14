@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import io.ona.rdt.domain.RDTTestDetails;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
+import static io.ona.rdt.util.Utils.convertJsonArrToStringList;
 
 /**
  * Created by Vincent Karuri on 23/01/2020
@@ -87,9 +90,14 @@ public class RDTTestsRepository extends BaseRepository {
     }
 
     private void setRDTTestResults(Cursor cursor, RDTTestDetails rdtTestDetails) {
-        rdtTestDetails.setTestResult(cursor.getString(cursor.getColumnIndex(CHW_RESULT)));
-        String parasites = cursor.getString(cursor.getColumnIndex(PARASITE_TYPE));
-        List<String> parasiteTypes = parasites == null ? null : Arrays.asList(parasites.split(","));
-        rdtTestDetails.setParasiteTypes(parasiteTypes);
+        try {
+            rdtTestDetails.setTestResult(cursor.getString(cursor.getColumnIndex(CHW_RESULT)));
+            String parasites = cursor.getString(cursor.getColumnIndex(PARASITE_TYPE));
+            List<String> parasiteTypes = parasites == null ? null
+                    : convertJsonArrToStringList(new JSONArray(parasites));
+            rdtTestDetails.setParasiteTypes(parasiteTypes);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 }

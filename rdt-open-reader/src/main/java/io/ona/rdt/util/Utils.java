@@ -8,6 +8,8 @@ import android.support.annotation.StringRes;
 import android.util.TypedValue;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
 import java.text.DateFormat;
@@ -15,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import io.ona.rdt.BuildConfig;
@@ -121,5 +124,14 @@ public class Utils {
 
     public static boolean isExpired(Date date) {
         return new Date().before(date);
+    }
+
+    public static List<String> convertJsonArrToStringList(JSONArray jsonArray) throws JSONException {
+        List<String> strings = new ArrayList<>();
+        if (jsonArray == null) { return  strings; }
+        for (int i = 0; i < jsonArray.length(); i++) {
+            strings.add(jsonArray.getString(i));
+        }
+        return strings;
     }
 }

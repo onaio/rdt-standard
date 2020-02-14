@@ -116,7 +116,7 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
         for (String testResult : rdtTestDetails.getParasiteTypes()) {
             testResults += capitalize(testResult) + resources.getString(R.string.positive);
         }
-        return testResults.substring(0, testResults.length() - 1);
+        return testResults.substring(0, testResults.length() - 2);
     }
 
     private String getTestResults(RDTTestDetails rdtTestDetails) {
