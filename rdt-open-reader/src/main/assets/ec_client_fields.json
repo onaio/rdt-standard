@@ -310,6 +310,7 @@
         {
           "column_name": "parasite_type",
           "type": "Event",
+          "save_format": "json_array",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "parasite_type"
