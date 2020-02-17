@@ -682,14 +682,10 @@ public class RDTJsonFormUtilsTest {
 
     private static JSONObject RDT_TEST_JSON_FORM_OBJ;
 
-    @BeforeClass
-    public static void init() throws JSONException {
-        RDT_TEST_JSON_FORM_OBJ = new JSONObject(RDT_TEST_JSON_FORM);
-    }
-
     @Before
-    public void setUp() {
+    public void setUp() throws JSONException {
         MockitoAnnotations.initMocks(this);
+        RDT_TEST_JSON_FORM_OBJ = new JSONObject(RDT_TEST_JSON_FORM);
         formUtils = new RDTJsonFormUtils();
     }
 
