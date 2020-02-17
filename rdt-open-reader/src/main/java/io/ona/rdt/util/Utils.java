@@ -90,8 +90,6 @@ public class Utils {
         return targetDate.format(date);
     }
 
-
-
     public static int convertDpToPixels(Context context, float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }

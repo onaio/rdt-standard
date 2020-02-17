@@ -1,5 +1,6 @@
 package io.ona.rdt.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import io.ona.rdt.contract.PatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.RDTTestDetails;
 import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
+import io.ona.rdt.repository.RDTTestsRepository;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
@@ -42,7 +44,7 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
         View rootLayout = inflater.inflate(R.layout.fragment_patient_profile, container, false);
         addListeners(rootLayout);
         populatePatientDetails(rootLayout);
-        populateRDTList(rootLayout);
+        setUpRDTTestList(rootLayout);
 
         return rootLayout;
     }
@@ -61,15 +63,29 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
         tvPatientSexAndId.setText(getPatientSexAndId(currPatient));
     }
 
-    private void populateRDTList(final View rootLayout) {
+    private void setUpRDTTestList(final View rootLayout) {
         RecyclerView rdtTestList = rootLayout.findViewById(R.id.rdt_tests_list);
         rdtTestList.setHasFixedSize(true);
         rdtTestList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rdtTestList.setAdapter(new RDTTestListAdapter(getActivity(), getRDTTestDetails()));
+        populateRDTTestList(rdtTestList);
     }
 
-    private List<RDTTestDetails> getRDTTestDetails() {
-        return  RDTApplication.getInstance().getRdtTestsRepository().getRDTTestDetailsByBaseEntityId(currPatient.getBaseEntityId());
+    private void populateRDTTestList(RecyclerView rdtTestList) {
+
+        class PopulateRDTListTask extends AsyncTask<Void, Void, List<RDTTestDetails>> {
+
+            @Override
+            protected List<RDTTestDetails> doInBackground(Void... voids) {
+                return patientProfileFragmentPresenter.getRDTTestDetailsByBaseEntityId(currPatient.getBaseEntityId());
+            }
+
+            @Override
+            protected void onPostExecute(List<RDTTestDetails> rdtTestDetails) {
+                rdtTestList.setAdapter(new RDTTestListAdapter(getActivity(), rdtTestDetails));
+            }
+        }
+
+        new PopulateRDTListTask().execute();
     }
 
     @Override

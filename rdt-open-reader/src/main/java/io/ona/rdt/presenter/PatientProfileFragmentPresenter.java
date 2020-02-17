@@ -2,8 +2,11 @@ package io.ona.rdt.presenter;
 
 import android.app.Activity;
 
+import java.util.List;
+
 import io.ona.rdt.contract.PatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.domain.RDTTestDetails;
 import io.ona.rdt.interactor.PatientProfileFragmentInteractor;
 import timber.log.Timber;
 
@@ -28,5 +31,9 @@ public class PatientProfileFragmentPresenter implements PatientProfileFragmentCo
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    public List<RDTTestDetails> getRDTTestDetailsByBaseEntityId(String baseEntityId) {
+        return patientProfileFragmentInteractor.getRDTTestDetailsByBaseEntityId(baseEntityId);
     }
 }
