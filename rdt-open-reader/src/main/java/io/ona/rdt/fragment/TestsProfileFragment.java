@@ -114,8 +114,8 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
                 pvResult.setText(R.string.pf_negative_result);
             }
         } else {
-            pfResult.setText(parasites[0]);
-            pvResult.setText(parasites[1]);
+            pfResult.setText(parasites[0].trim());
+            pvResult.setText(parasites[1].trim());
         }
     }
 
