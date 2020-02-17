@@ -39,7 +39,6 @@ import java.util.Date;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.stub.JsonApiStub;
 import io.ona.rdt.util.StepStateConfig;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -142,7 +141,7 @@ public class RDTBarcodeFactoryTest {
         mockStaticMethods();
         setWidgetArgs();
 
-        JsonApi jsonApi = spy(new JsonApiStub());
+        JsonApi jsonApi = mock(JsonApi.class);
         String[] barcodeVals = new String[]{"step1", "key", "rdt_id"};
         Date expDate = new Date();
         Whitebox.invokeMethod(barcodeFactory, "populateRelevantFields", barcodeVals, jsonApi, expDate);
