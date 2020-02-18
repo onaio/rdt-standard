@@ -22,7 +22,9 @@ import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.job.RDTJobCreator;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
+import io.ona.rdt.repository.ParasiteProfileRepository;
 import io.ona.rdt.repository.RDTRepository;
+import io.ona.rdt.repository.RDTTestsRepository;
 import io.ona.rdt.util.RDTSyncConfiguration;
 import io.ona.rdt.util.StepStateConfig;
 import io.ona.rdt.util.Utils;
@@ -39,6 +41,8 @@ public class RDTApplication extends DrishtiApplication {
     private String password;
     private RDTApplicationPresenter presenter;
     private Activity currentActivity;
+    private RDTTestsRepository rdtTestsRepository;
+    private ParasiteProfileRepository parasiteProfileRepository;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -137,5 +141,19 @@ public class RDTApplication extends DrishtiApplication {
 
     public StepStateConfig getStepStateConfiguration() throws JSONException {
         return StepStateConfig.getInstance(getApplicationContext());
+    }
+
+    public RDTTestsRepository getRdtTestsRepository() {
+        if (rdtTestsRepository == null) {
+            rdtTestsRepository = new RDTTestsRepository();
+        }
+        return rdtTestsRepository;
+    }
+
+    public ParasiteProfileRepository getParasiteProfileRepository() {
+        if (parasiteProfileRepository == null) {
+            parasiteProfileRepository = new ParasiteProfileRepository();
+        }
+        return parasiteProfileRepository;
     }
 }

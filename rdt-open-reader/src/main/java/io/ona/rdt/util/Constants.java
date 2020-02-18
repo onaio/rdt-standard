@@ -9,6 +9,7 @@ public interface Constants {
 
     interface Format {
         String BULLET_DOT = " \u00B7 ";
+        String PROFILE_DATE_FORMAT = "dd MMM yyyy";
     }
 
     interface Config {
@@ -28,6 +29,7 @@ public interface Constants {
     }
 
     interface FormFields {
+        String PATIENT = "patient";
         String DOB = "dob";
         String PATIENT_NAME = "patient_name";
         String PATIENT_AGE = "patient_age";
@@ -88,6 +90,14 @@ public interface Constants {
         String FLASH_ON = "flash_on";
         String CASSETTE_BOUNDARY = "cassette_boundary";
         String IS_MANUAL_CAPTURE = "is_manual_capture";
+        String POSITIVE = "positive";
+        String NEGATIVE = "negative";
+        String INVALID = "invalid";
+        String RDT_TEST_DETAILS = "rdt_test_details";
+        String RDT_Q_PCR = "rdt";
+        String BLOODSPOT_Q_PCR = "bloodspot";
+        String MICROSCOPY = "microscopy";
+        String Q_PCR = " qPCR";
     }
 
     interface Step {
@@ -115,5 +125,6 @@ public interface Constants {
         String RDT_PATIENTS = "rdt_patients";
         String RDT_TESTS = "rdt_tests";
         String PCR_RESULTS = "pcr_results";
+        String MICROSCOPY_RESULTS = "microscopy_results";
     }
 }

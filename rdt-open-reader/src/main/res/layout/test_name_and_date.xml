@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_results_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CareStart RDT"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_results_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unavailable"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_results_label"
+        app:layout_constraintBottom_toBottomOf="@id/tv_results_label"
+        android:layout_marginLeft="10dp" />
+
+</android.support.constraint.ConstraintLayout>

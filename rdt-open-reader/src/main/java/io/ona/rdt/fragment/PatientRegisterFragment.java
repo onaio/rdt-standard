@@ -1,6 +1,7 @@
 package io.ona.rdt.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.HashMap;
 
 import io.ona.rdt.R;
+import io.ona.rdt.activity.PatientProfileActivity;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
@@ -21,6 +23,7 @@ import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View, View.OnClickListener {
 
@@ -73,8 +76,15 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void onViewClicked(View view) {
-        final Patient patient = (Patient) view.getTag(R.id.patient_tag);
-        getPresenter().launchForm(getActivity(), RDT_TEST_FORM, patient);
+        if (view.getId() != R.id.btn_record_rdt_test) {
+            launchPatientProfile((Patient) view.getTag(R.id.patient_tag));
+        }
+    }
+
+    private void launchPatientProfile(Patient patient) {
+        Intent intent = new Intent(getActivity(), PatientProfileActivity.class);
+        intent.putExtra(PATIENT, patient);
+        startActivity(intent, null);
     }
 
     @Override
@@ -111,7 +121,8 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     public void initializeAdapter() {
-        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(), registerActionHandler, paginationViewHandler);
+        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(),
+                registerActionHandler, paginationViewHandler, this);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, viewHolder, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
@@ -145,9 +156,17 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
             case R.id.drawerMenu:
                 getParentView().openDrawerLayout();
                 break;
+            case R.id.btn_record_rdt_test:
+                launchRDTTestForm(v);
+                break;
             default:
                 // do nothing
         }
+    }
+
+    private void launchRDTTestForm(View view) {
+        final Patient patient = (Patient) view.getTag(R.id.patient_tag);
+        getPresenter().launchForm(getActivity(), RDT_TEST_FORM, patient);
     }
 
     private PatientRegisterActivityContract.View getParentView() {

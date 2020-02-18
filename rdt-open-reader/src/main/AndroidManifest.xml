@@ -15,36 +15,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/RDTAppTheme">
+        <activity android:name=".activity.PatientProfileActivity"></activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.PatientRegisterActivity"
+        <activity
+            android:name=".activity.PatientRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RDTJsonFormActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.RDTExpirationDateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CustomRDTCaptureActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.RDTJsonFormActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
-
-        <activity android:name=".activity.RDTExpirationDateActivity"
-            android:screenOrientation="portrait" />
-
-        <activity android:name=".activity.CustomRDTCaptureActivity"
-            android:screenOrientation="portrait" />
-
-        <service android:name="io.ona.rdt.sync.RDTSyncIntentService" />
+        <service android:name=".sync.RDTSyncIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
     </application>

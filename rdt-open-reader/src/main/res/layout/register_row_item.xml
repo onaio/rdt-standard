@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:drawableStart="@drawable/ic_record_rdt_test"
+        android:drawableStart="@drawable/ic_record_rdt_test_blue"
         android:text="RDT"
         android:textSize="18sp"
         android:textColor="#3DA9DA"
