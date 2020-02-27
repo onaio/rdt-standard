@@ -38,7 +38,6 @@ public class DrawerFunctionTests {
         utils.logIn(Constants.rdtConfigs.rdt_username, Constants.rdtConfigs.rdt_password);
 
     }
-    @Test
     public void sync() throws InterruptedException {
         utils.openDrawer();
         onView(withText("Sync"))
