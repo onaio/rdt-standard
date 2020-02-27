@@ -55,7 +55,7 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
     private final String TAG = CustomRDTCaptureFactory.class.getName();
     private final String RDT_NAME = "rdt_name";
 
-    private static final long CAPTURE_TIMEOUT_MS = 15000;
+    private static final long CAPTURE_TIMEOUT_MS = 30000;
 
     public static final String CAPTURE_TIMEOUT = "capture_timeout";
 

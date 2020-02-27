@@ -11,12 +11,12 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.FormLauncher;
 
-import static io.ona.rdt.util.Constants.FormFields.CONDITIONAL_SAVE;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.FormFields.CONDITIONAL_SAVE;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
-import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_NAME;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getString;

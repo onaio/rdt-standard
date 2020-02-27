@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageButton
+            android:id="@+id/btn_back_to_patient_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_left_arrow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_back_to_profile_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Charity Otala's profile"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="#36A8DC"
+            app:layout_constraintLeft_toRightOf="@+id/btn_back_to_patient_profile"
+            app:layout_constraintTop_toTopOf="@id/btn_back_to_patient_profile"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back_to_patient_profile"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tests_profile_rdt_id"
+            android:text="RDT ID 003"
+            android:textColor="@color/black"
+            style="@style/CustomFontTextViewStyle.ListView.Bold.NoPadding"
+            android:textSize="22sp"
+            app:layout_constraintTop_toBottomOf="@id/btn_back_to_patient_profile"
+            app:layout_constraintStart_toStartOf="@id/btn_back_to_patient_profile"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <View android:id="@+id/rdt_test_result_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tests_profile_rdt_id"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+        <include
+            android:id="@+id/rdt_test_name_and_date"
+            layout="@layout/test_name_and_date"
+            app:layout_constraintTop_toBottomOf="@id/rdt_test_result_divider"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_rdt_pf_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rdt_test_name_and_date"
+            android:text="Pf positive"
+            app:layout_constraintStart_toStartOf="@id/rdt_test_name_and_date"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/tv_rdt_pv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pv negative"
+            app:layout_constraintTop_toBottomOf="@id/tv_rdt_pf_result"
+            app:layout_constraintStart_toStartOf="@id/tv_rdt_pf_result"
+            android:textColor="@color/black"/>
+
+        <View android:id="@+id/microscopy_result_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_rdt_pv_result"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+        <include
+            android:id="@+id/rdt_microscopy_results"
+            layout="@layout/parasite_profile_results_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/microscopy_result_divider"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+        <include
+            android:id="@+id/rdt_qpcr_results"
+            layout="@layout/parasite_profile_results_layout"
+            app:layout_constraintTop_toBottomOf="@id/rdt_microscopy_results"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id" />
+
+        <include
+            android:id="@+id/blood_spot_qpcr_results"
+            layout="@layout/parasite_profile_results_layout"
+            app:layout_constraintTop_toBottomOf="@id/rdt_qpcr_results"
+            app:layout_constraintStart_toStartOf="@id/tests_profile_rdt_id"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

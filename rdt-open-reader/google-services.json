@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "",
+    "firebase_url": "",
+    "project_id": "",
+    "storage_bucket": ""
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331993165051:android:9b8f12ed5e22eb56b8545e",
+        "android_client_info": {
+          "package_name": "com.onaio.steps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331993165051:android:90e65f9378b21b0fb8545e",
+        "android_client_info": {
+          "package_name": "io.ona.kaznet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331993165051:android:95daf17b088839deb8545e",
+        "android_client_info": {
+          "package_name": "io.ona.rdt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331993165051:android:2f1137b74e6a4142b8545e",
+        "android_client_info": {
+          "package_name": "io.ona.rdt_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331993165051-l3vni823uoti6ak2ih755ftbh1ihpg6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

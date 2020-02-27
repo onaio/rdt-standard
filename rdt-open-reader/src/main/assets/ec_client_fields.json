@@ -308,6 +308,15 @@
           }
         },
         {
+          "column_name": "parasite_type",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "parasite_type"
+          }
+        },
+        {
           "column_name": "capture_control_result",
           "type": "Event",
           "json_mapping": {
@@ -433,17 +442,18 @@
         },
         {
           "column_name": "rdt_id",
-          "type": "Event", "json_mapping": {
-          "field": "obs.fieldCode",
-          "concept": "rdt_id"
-        }
-        },
-        {
-          "column_name": "pcr_result",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "pcr_result"
+            "concept": "rdt_id"
+          }
+        },
+        {
+          "column_name": "experiment_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qpcr_type"
           }
         },
         {
@@ -468,6 +478,54 @@
           "json_mapping": {
             "field": "baseEntityId"
           }
+        },
+        {
+          "column_name": "p_vivax",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pv"
+          }
+        },
+        {
+          "column_name": "p_falciparum",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pf"
+          }
+        },
+        {
+          "column_name": "p_malariae",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pm"
+          }
+        },
+        {
+          "column_name": "p_ovale",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "po"
+          }
+        },
+        {
+          "column_name": "pf_gameto",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pfg"
+          }
+        },
+        {
+        "column_name": "experiment_date",
+        "type": "Event",
+        "json_mapping": {
+          "field": "obs.fieldCode",
+          "concept": "experiment_run_end_time"
+        }
         }
       ]
     },
@@ -497,7 +555,7 @@
           }
         },
         {
-          "column_name": "pv",
+          "column_name": "p_vivax",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -505,7 +563,7 @@
           }
         },
         {
-          "column_name": "pf",
+          "column_name": "p_falciparum",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -513,7 +571,7 @@
           }
         },
         {
-          "column_name": "pm",
+          "column_name": "p_malariae",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -521,7 +579,7 @@
           }
         },
         {
-          "column_name": "po",
+          "column_name": "p_ovale",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -529,7 +587,7 @@
           }
         },
         {
-          "column_name": "pfg",
+          "column_name": "pf_gameto",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -544,7 +602,7 @@
           }
         },
         {
-          "column_name": "collection_time",
+          "column_name": "experiment_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",

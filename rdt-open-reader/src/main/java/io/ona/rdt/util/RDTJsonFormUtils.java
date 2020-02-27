@@ -39,10 +39,11 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
-import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
@@ -217,7 +218,9 @@ public class RDTJsonFormUtils {
     public void launchForm(Activity activity, String formName, Patient patient, String rdtId) {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
-            prePopulateFormFields(formJsonObject, patient, rdtId, 8);
+            if (RDT_TEST_FORM.equals(formName)) {
+                prePopulateFormFields(formJsonObject, patient, rdtId, 8);
+            }
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(TAG, e);
@@ -251,7 +254,7 @@ public class RDTJsonFormUtils {
                     fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, patient.getPatientSex());
-                    field.put("text", patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
+                    field.put("text", getPatientSexAndId(patient));
                     fieldsPopulated++;
                 }
             }
@@ -260,6 +263,10 @@ public class RDTJsonFormUtils {
                 break;
             }
         }
+    }
+
+    public static String getPatientSexAndId(Patient patient) {
+        return patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId().split("-")[0];
     }
 
     public boolean isRDTIdField(JSONObject field) throws JSONException {
@@ -285,7 +292,7 @@ public class RDTJsonFormUtils {
 
     public static String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = getString(jsonForm, Constants.FormFields.ENTITY_ID);
-        entityId = entityId == null ? UUID.randomUUID().toString() : entityId;
+        entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);
         return entityId;
     }

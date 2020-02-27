@@ -79,8 +79,10 @@ lint/tmp/
 lint/reports/*.iml
 
 # jacoco
-*/jacoco.exec
+jacoco.exec
 
 
 .DS_Store
 
+# firebase
+google-services.json

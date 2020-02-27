@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingBottom="20dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/patient_profile_details"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#fafafa"
+        android:minHeight="200dp">
+
+        <ImageButton
+            android:id="@+id/btn_back_to_patient_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_left_arrow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/previous_step_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="#36A8DC"
+            app:layout_constraintLeft_toRightOf="@+id/btn_back_to_patient_register"
+            app:layout_constraintTop_toTopOf="@id/btn_back_to_patient_register"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back_to_patient_register"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/profile_patient_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Charity Otala"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/previous_step_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_sex_and_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female . ID: 99358357"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/profile_patient_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rdt_tests_list"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/patient_profile_details"
+        app:layout_constraintBottom_toTopOf="@id/btn_profile_record_rdt_test"
+        android:padding="10dp"
+        android:layout_marginBottom="15dp"/>
+
+    <android.support.design.button.MaterialButton
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        android:id="@+id/btn_profile_record_rdt_test"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1390D4"
+        android:padding="10dp"
+        android:text="RDT"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textSize="20sp"
+        app:cornerRadius="30dp"
+        app:icon="@drawable/ic_record_rdt_test"
+        app:iconGravity="textStart"
+        app:iconPadding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
