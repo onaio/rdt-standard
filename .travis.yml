@@ -40,10 +40,11 @@ android:
 before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
+  - emulator -avd test --skin -no-audio --window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-
+  #- echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a --skin WXGA720
+  #- emulator -avd test -no-skin -no-audio -no-window &
 script:
   - echo "Travis branch is $TRAVIS_BRANCH"
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
