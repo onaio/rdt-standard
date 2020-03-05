@@ -4,7 +4,6 @@ sudo: required
 dist: trusty
 os:
   - linux
-  - osx
 
 env:
   - SYS=25 ABI="google_apis;arm64-v8a"
