@@ -26,7 +26,7 @@ cache:
 before_install:
   # Install the Android SDK Dependency.
   - export ANDROID_HOME=~/android-sdk-linux
-  - wget -q "https://dl.google.com/android/repository/sdk-tools-${OS}-4333796.zip" -O android-sdk-tools.zip
+  - wget -q "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" -O android-sdk-tools.zip
   - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
   - rm android-sdk-tools.zip
   - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
@@ -67,3 +67,4 @@ script:
 notifications:
   slack:
     secure: fAiZ4yA7DM6nUKh7nqsCTqZBb03VEAvi5NcRu5mNh5coNn/50XNeZl+qpv7Dw70Ef85Y/k68uc6KwTGVqPXEmVq9Hk3e7lqpBNN8rufvgCYDDGPmywBmU5BhSeykKo0Ee7llM3mRR/EipjIWw1+YvMcS3hCoygf/UlMDDhG0Jo0=
+https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
