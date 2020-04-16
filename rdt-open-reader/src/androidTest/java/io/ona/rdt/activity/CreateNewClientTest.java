@@ -37,16 +37,14 @@ public class CreateNewClientTest {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule2 = GrantPermissionRule.grant(Manifest.permission.INTERNET);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     @Before
     public void setUp() throws InterruptedException {
         utils.logIn(Constants.rdtConfigs.rdt_username, Constants.rdtConfigs.rdt_password);
     }
 
-    public void createNewClient() throws InterruptedException {
-        onView(withId(R.id.btn_register_patient)).perform(click());
-        onView(withText("Name")).perform(typeText("Another"));
-        Thread.sleep(5000);
+    public void createNewClient() {
+        //To be done
     }
 }

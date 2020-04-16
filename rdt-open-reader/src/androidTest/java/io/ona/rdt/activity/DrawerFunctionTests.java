@@ -31,13 +31,14 @@ public class DrawerFunctionTests {
     public GrantPermissionRule mRuntimePermissionRule2 = GrantPermissionRule.grant(Manifest.permission.INTERNET);
 
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     @Before
     public void setUp() throws InterruptedException{
         utils.logIn(Constants.rdtConfigs.rdt_username, Constants.rdtConfigs.rdt_password);
 
     }
+    @Test
     public void sync() throws InterruptedException {
         utils.openDrawer();
         onView(withText("Sync"))
@@ -46,8 +47,7 @@ public class DrawerFunctionTests {
 
     }
 
-    @After
-    public void tearDown()throws InterruptedException{
+    public void tearDown() {
         utils.openDrawer();
         utils.logOut();
     }

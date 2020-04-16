@@ -35,13 +35,14 @@ public class HomePageTests {
     public GrantPermissionRule mRuntimePermissionRule2 = GrantPermissionRule.grant(Manifest.permission.INTERNET);
 
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     @Before
     public void setUp() throws InterruptedException{
         utils.logIn(Constants.rdtConfigs.rdt_username, Constants.rdtConfigs.rdt_password);
     }
 
+    @Test
     public void searchClient() throws InterruptedException{
         onView(withHint("Search"))
                 .perform(clearText(), typeText(Constants.rdtConfigs.searchName));
@@ -50,7 +51,7 @@ public class HomePageTests {
 
      }
 
-     public void tearDown() throws InterruptedException {
+     public void tearDown() {
         utils.openDrawer();
         utils.logOut();
      }

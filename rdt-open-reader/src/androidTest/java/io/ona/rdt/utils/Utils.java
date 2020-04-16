@@ -14,21 +14,17 @@ import io.ona.rdt.R;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withSubstring;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 
 public class Utils  {
-
-    View view;
 
     public void logIn(String username, String password ) throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text))
@@ -54,23 +50,11 @@ public class Utils  {
         appCompatImageView.perform(click());
     }
 
-    public void logOut() throws InterruptedException{
+    public void logOut() {
         onView(withText("Logout"))
                 .perform(click());
 
     }
-
-    public void clearPreferences() {
-        try {
-            // clearing app data
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("pm clear package:org.smartregister.chw.togo");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {

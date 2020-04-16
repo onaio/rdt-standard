@@ -2,16 +2,10 @@ package io.ona.rdt.activity;
 
 
 import android.Manifest;
-import android.support.annotation.StringRes;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
-import android.view.View;
-import android.widget.EditText;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +44,7 @@ public class LoginActivityTest {
     public GrantPermissionRule mRuntimePermissionRule2 = GrantPermissionRule.grant(Manifest.permission.INTERNET);
 
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     @Test
     @Order(order = 5)
@@ -114,7 +108,6 @@ public class LoginActivityTest {
 
     }
 
-    @Test
     @Order(order = 6)
     public void testUnauthorizedUserGroup() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text))
@@ -143,26 +136,4 @@ public class LoginActivityTest {
                 .check(matches(isDisplayed()));
 
     }
-
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
-    }
-
 }
