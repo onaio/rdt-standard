@@ -12,7 +12,7 @@ import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFr
 /**
  * Created by Vincent Karuri on 21/11/2019
  */
-public class PatientRegisterFragmentTest extends BaseRobolectricTest {
+public class PatientRegisterFragmentTest  {
 
     @Test
     @Ignore

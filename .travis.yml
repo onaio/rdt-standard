@@ -16,7 +16,7 @@ cache:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS=28.0.2
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS=28.0.3
   global:
     # wait up to 10 minutes for adb to connect to emulator
     - MALLOC_ARENA_MAX=2
