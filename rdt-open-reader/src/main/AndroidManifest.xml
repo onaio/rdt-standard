@@ -49,6 +49,7 @@
         <service android:name=".sync.RDTSyncIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
+        <service android:name=".sync.RDTSettingsSyncIntentService" />
     </application>
 
 </manifest>

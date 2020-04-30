@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.job.RDTSyncServiceJob;
+import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
@@ -45,16 +45,16 @@ public class Utils {
     }
 
     public static void scheduleJobsPeriodically() {
-        PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
+        RDTSyncSettingsServiceJob.scheduleJob(RDTSyncSettingsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                 getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
 
-        RDTSyncServiceJob.scheduleJob(RDTSyncServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
-                        getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
+        PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
+                getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
     public static void scheduleJobsImmediately() {
+        RDTSyncSettingsServiceJob.scheduleJobImmediately(RDTSyncSettingsServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        RDTSyncServiceJob.scheduleJobImmediately(RDTSyncServiceJob.TAG);
     }
 
     public static boolean isImageSyncEnabled() {
