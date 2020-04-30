@@ -24,6 +24,7 @@ import java.util.Locale;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncServiceJob;
+import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Utils.convertDate;
@@ -106,7 +107,7 @@ public class UtilsTest {
         BaseJob.scheduleJobImmediately(eq(PullUniqueIdsServiceJob.TAG));
 
         verifyStatic(BaseJob.class, times(1));
-        BaseJob.scheduleJobImmediately(eq(RDTSyncServiceJob.TAG));
+        BaseJob.scheduleJobImmediately(eq(RDTSyncSettingsServiceJob.TAG));
     }
 
     @Test
@@ -119,7 +120,7 @@ public class UtilsTest {
                 eq(Utils.getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES)));
 
         verifyStatic(BaseJob.class, times(1));
-        BaseJob.scheduleJob(eq(RDTSyncServiceJob.TAG), eq(BuildConfig.SYNC_INTERVAL_MINUTES),
+        BaseJob.scheduleJob(eq(RDTSyncSettingsServiceJob.TAG), eq(BuildConfig.SYNC_INTERVAL_MINUTES),
                 eq(Utils.getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES)));
     }
 

@@ -43,10 +43,11 @@ public class ParasiteProfileRepository extends BaseRepository {
         try {
             if (MICROSCOPY_RESULTS.equals(tableName)) {
                 cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
-                        " WHERE " + RDT_ID + " =?", new String[]{rdtId});
+                        " WHERE " + RDT_ID + " =?" + " ORDER BY experiment_date", new String[]{rdtId});
             } else {
                 cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
-                        " WHERE " + RDT_ID + "=?" + " AND " + EXPERIMENT_TYPE +  "=?", new String[]{rdtId, experimentType});
+                        " WHERE " + RDT_ID + "=?" + " AND " + EXPERIMENT_TYPE +  "=?" + " ORDER BY experiment_date",
+                        new String[]{rdtId, experimentType});
             }
             parasiteProfileResults = readCursor(cursor, experimentType);
         } catch (Exception e) {

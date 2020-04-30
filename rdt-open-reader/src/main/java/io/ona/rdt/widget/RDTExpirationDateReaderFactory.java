@@ -24,7 +24,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTExpirationDateActivity;
@@ -199,5 +201,10 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
 
     protected int getLayout() {
         return com.vijay.jsonwizard.R.layout.native_form_rdt_capture;
+    }
+
+    @Override
+    public Set<String> getCustomTranslatableWidgetFields() {
+        return new HashSet<>();
     }
 }
