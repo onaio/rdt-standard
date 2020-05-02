@@ -46,4 +46,5 @@
     <style name="NativeFormsAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="NativeFormsAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
 </resources>

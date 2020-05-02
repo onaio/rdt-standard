@@ -694,7 +694,7 @@ public class RDTJsonFormUtilsTest {
         mockStaticMethods();
 
         JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
-        Patient patient = new Patient("patient", "female", "entity_id");
+        Patient patient = new Patient("patient", "female", "entity_id", "residential_address");
         formUtils.prePopulateFormFields(formObject, patient, "rdt_id", 8);
 
         boolean populatedLblRDTId = false;

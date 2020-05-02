@@ -18,19 +18,43 @@
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="Charity Otala, 23"
+            android:text="Charity Otala (Male))"
             android:textColor="@color/black"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/tv_sex"
+            android:id="@+id/tv_patient_id"
             android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
-            android:text="Female"
+            android:text="123456"
+            android:textColor="#A3A3A3"
+            android:textSize="15sp"/>
+
+<!--        <TextView-->
+<!--        android:id="@+id/tv_sex"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:text="Female"-->
+<!--        android:textColor="#A3A3A3"-->
+<!--        android:textSize="15sp"/>-->
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:text="Jakarta"
             android:textColor="#A3A3A3"
             android:textSize="15sp"/>
 
@@ -42,7 +66,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:drawableStart="@drawable/ic_record_rdt_test_blue"
-        android:text="RDT"
+        android:text="SRP"
         android:textSize="18sp"
         android:textColor="#3DA9DA"
         android:gravity="center"

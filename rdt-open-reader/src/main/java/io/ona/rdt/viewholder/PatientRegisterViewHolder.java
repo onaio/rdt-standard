@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import timber.log.Timber;
 
 import io.ona.rdt.R;
 import io.ona.rdt.domain.Patient;
@@ -57,9 +59,19 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String patientId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.PATIENT_ID, true);
         String nameAndAge = createNameAndAgeLabel(patientName, patientId, patientAge);
 
-        final Patient patient = new Patient(patientName, sex, baseEntityId, patientId);
-        viewHolder.tvPatientNameAndAge.setText(nameAndAge);
-        viewHolder.tvPatientSex.setText(sex);
+        if(patientName.contains("coba")){
+            String aaa = "";
+        }
+        String address = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.RESIDENTIAL_ADDRESS, true);
+        String nameAndGender = createNameAndGender(patientId, patientName, sex);
+
+
+
+        final Patient patient = new Patient(patientName, sex, baseEntityId, patientId, address);
+        viewHolder.tvPatientNameAndAge.setText(nameAndGender);
+//        viewHolder.tvPatientSex.setText(sex);
+        viewHolder.tvPatientId.setText(patientId);
+        viewHolder.tvAddress.setText(address);
         viewHolder.rowItem.setTag(R.id.patient_tag, patient);
         viewHolder.btnRecordRDTTest.setTag(R.id.patient_tag, patient);
         viewHolder.btnRecordRDTTest.setOnClickListener(launchRDTTestListener);
@@ -71,6 +83,12 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         long formattedAge = StringUtils.isBlank(age) ? 10 : Math.round(Double.valueOf(age));
         String patientIdentifier =  StringUtils.isBlank(patientName) ? patientId : patientName;
         return patientIdentifier + ", " + formattedAge;
+    }
+
+    private String createNameAndGender(String patientId, String patientName, String sex){
+        String patientIdentifier =  StringUtils.isBlank(patientName) ? patientId : patientName;
+        return patientIdentifier + " (" + sex + ")";
+
     }
 
     private void attachPatientOnclickListener(View view) {
@@ -131,14 +149,18 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
         public View rowItem;
         public TextView tvPatientNameAndAge;
-        public TextView tvPatientSex;
+        //        public TextView tvPatientSex;
+        public TextView tvAddress;
+        public TextView tvPatientId;
         public TextView btnRecordRDTTest;
 
         public RegisterViewHolder(@NonNull View itemView) {
             super(itemView);
             this.rowItem = itemView.getRootView();
             this.tvPatientNameAndAge = itemView.findViewById(R.id.tv_patient_name_and_age);
-            this.tvPatientSex = itemView.findViewById(R.id.tv_sex);
+//            this.tvPatientSex = itemView.findViewById(R.id.tv_sex);
+            this.tvAddress = itemView.findViewById(R.id.tv_address);
+            this.tvPatientId = itemView.findViewById(R.id.tv_patient_id);
             this.btnRecordRDTTest = itemView.findViewById(R.id.btn_record_rdt_test);
         }
     }

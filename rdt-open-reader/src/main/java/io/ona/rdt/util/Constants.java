@@ -32,6 +32,7 @@ public interface Constants {
         String PATIENT = "patient";
         String DOB = "dob";
         String PATIENT_NAME = "patient_name";
+        String RESIDENTIAL_ADDRESS = "residential_address";
         String PATIENT_AGE = "patient_age";
         String CONDITIONAL_SAVE = "conditional_save";
         String METADATA = "metadata";
@@ -65,6 +66,7 @@ public interface Constants {
         String NAME = "name";
         String AGE = "age";
         String SEX = "sex";
+        String RESIDENTIAL_ADDRESS = "residential_address";
         String PATIENT_ID = "patient_id";
     }
 

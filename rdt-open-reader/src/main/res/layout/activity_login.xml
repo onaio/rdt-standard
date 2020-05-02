@@ -36,12 +36,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/login_app_name"
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:textSize="30sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/login_build_text_view"
@@ -72,8 +72,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_view_component_height"
                 android:layout_weight="8"
+                android:background="@drawable/login_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"
+                android:text="indtester1"
+
+                android:gravity="center_vertical"
                 android:hint="@string/login_enter_username"
                 android:inputType="text"
                 android:maxLines="1"
@@ -82,9 +86,7 @@
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/login_edit_text_textSize"
-                android:typeface="sans"
-                android:background="@drawable/login_corner_edit_text"
-                android:gravity="center_vertical"/>
+                android:typeface="sans" />
 
             <EditText
                 android:id="@+id/login_password_edit_text"
@@ -105,7 +107,9 @@
                 android:textSize="@dimen/login_edit_text_textSize"
                 android:typeface="sans"
                 android:background="@drawable/login_corner_edit_text"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:text="Amani123"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +131,7 @@
                     android:id="@+id/login_show_password_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@id/login_show_password_checkbox"
                     android:gravity="center_vertical"
                     android:text="@string/show_password_text"
@@ -153,6 +157,9 @@
                 android:textSize="18sp"
                 android:background="@drawable/login_button_bg"
                 android:gravity="center"/>
+
+
+
         </LinearLayout>
 
         <TextView

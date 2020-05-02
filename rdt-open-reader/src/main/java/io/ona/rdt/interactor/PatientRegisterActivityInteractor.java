@@ -18,6 +18,7 @@ import static io.ona.rdt.util.Constants.FormFields.CONDITIONAL_SAVE;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_NAME;
+import static io.ona.rdt.util.Constants.FormFields.RESIDENTIAL_ADDRESS;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getString;
 
@@ -43,9 +44,10 @@ public class PatientRegisterActivityInteractor extends FormLauncher {
             if (conditionalSave != null && conditionalSave.optInt(VALUE) == 1){
                 String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
                 String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
+                String address = FormUtils.getFieldJSONObject(formFields, RESIDENTIAL_ADDRESS).optString(RESIDENTIAL_ADDRESS);
                 String baseEntityId = getString(jsonFormObject, ENTITY_ID);
                 String patientId = FormUtils.getFieldJSONObject(formFields, PATIENT_ID).optString(VALUE);
-                rdtPatient = new Patient(name, sex, baseEntityId, patientId);
+                rdtPatient = new Patient(name, sex, baseEntityId, patientId, address);
             }
         }
         return rdtPatient;

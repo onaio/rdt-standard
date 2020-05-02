@@ -32,6 +32,7 @@ import io.ona.rdt.util.StepStateConfig;
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
 import static io.ona.rdt.util.Constants.DBConstants.NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
+import static io.ona.rdt.util.Constants.DBConstants.RESIDENTIAL_ADDRESS;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
@@ -111,7 +112,7 @@ public class PatientRegisterFragmentPresenterTest {
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
         assertEquals(new String[]{RDT_TESTS + "." + "relationalid", RDT_TESTS + "." + NAME, RDT_TESTS
-                + "." + AGE, RDT_TESTS + "." + SEX, RDT_TESTS + "." + PATIENT_ID},
+                + "." + AGE, RDT_TESTS + "." + SEX, RDT_TESTS + "." + PATIENT_ID, RDT_TESTS + "." + RESIDENTIAL_ADDRESS},
                 Whitebox.invokeMethod(presenter, "mainColumns", RDT_TESTS));
     }
 

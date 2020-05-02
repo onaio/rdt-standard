@@ -60,6 +60,7 @@ public class PatientProfileFragment extends Fragment implements View.OnClickList
         TextView tvPatientName = rootLayout.findViewById(R.id.profile_patient_name);
         TextView tvPatientSexAndId = rootLayout.findViewById(R.id.profile_sex_and_id);
         tvPatientName.setText(currPatient.getPatientName());
+        tvPatientName.setText(currPatient.getAddress());
         tvPatientSexAndId.setText(getPatientSexAndId(currPatient));
     }
 

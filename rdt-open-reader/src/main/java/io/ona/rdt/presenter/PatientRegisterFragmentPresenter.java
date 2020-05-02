@@ -13,6 +13,7 @@ import timber.log.Timber;
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
 import static io.ona.rdt.util.Constants.DBConstants.NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
+import static io.ona.rdt.util.Constants.DBConstants.RESIDENTIAL_ADDRESS;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 
@@ -71,7 +72,7 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID};
+        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID, tableName + "." +  RESIDENTIAL_ADDRESS};
         return columns;
     }
 

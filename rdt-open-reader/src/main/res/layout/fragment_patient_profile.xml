@@ -77,15 +77,15 @@
         android:layout_marginBottom="15dp"/>
 
     <android.support.design.button.MaterialButton
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         android:id="@+id/btn_profile_record_rdt_test"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#1390D4"
         android:padding="10dp"
-        android:text="RDT"
+        android:text="SRP"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textSize="20sp"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         app:cornerRadius="30dp"
         app:icon="@drawable/ic_record_rdt_test"
         app:iconGravity="textStart"

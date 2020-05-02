@@ -10,23 +10,28 @@ public class Patient implements Parcelable {
 
     private String patientName;
     private String patientSex;
+    private String address;
     private String baseEntityId;
     private String patientId;
 
-    public Patient(String patientName, String patientSex, String baseEntityId) {
+    public Patient(String patientName, String patientSex, String baseEntityId, String address) {
         this.patientName = patientName;
         this.patientSex = patientSex;
+        this.address = address;
         this.baseEntityId = baseEntityId;
     }
 
-    public Patient(String patientName, String patientSex, String baseEntityId, String patientId) {
-        this(patientName, patientSex, baseEntityId);
+    public Patient(String patientName, String patientSex, String baseEntityId, String patientId,  String address) {
+        this(patientName, patientSex, baseEntityId, address);
         setPatientId(patientId);
     }
+
+
 
     protected Patient(Parcel in) {
         patientName = in.readString();
         patientSex = in.readString();
+        address = in.readString();
         baseEntityId = in.readString();
         patientId = in.readString();
     }
@@ -42,6 +47,14 @@ public class Patient implements Parcelable {
             return new Patient[size];
         }
     };
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getPatientName() {
         return patientName;
@@ -86,5 +99,6 @@ public class Patient implements Parcelable {
         dest.writeString(this.patientSex);
         dest.writeString(this.baseEntityId);
         dest.writeString(this.patientSex);
+        dest.writeString(this.address);
     }
 }

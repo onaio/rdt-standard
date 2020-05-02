@@ -37,5 +37,73 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="fetching_test_results">Fetching test results</string>
     <string name="microscopy">Microscopy</string>
     <string name="blood_spot">Blood Spot</string>
+
+
+    <!--specimen delivery form-->
+    <string name="register_step_1">Tahap 1</string>
+    <string name="dinkes_label">Dinkes</string>
+    <string name="hospital_label">Rumah Sakit</string>
+    <string name="region_label">Kab / Kota</string>
+    <string name="doctor_inCharge_label">Dokter penanggungjawab</string>
+    <string name="doctor_name_label">Nama dokter</string>
+    <string name="spesimen_sender_label">Pengirim spesimen </string>
+    <string name="telp_label">Telp</string>
+    <string name="txt_next_btn">Lanjut</string>
+
+    <string name="patient_identity_label">Identitas Pasien</string>
+    <string name="health_record_label">Rekam Medis</string>
+    <string name="patient_name">Nama Pasien</string>
+    <string name="NIK_label">NIK</string>
+    <string name="patient_dob_label">Tanggal Lahir</string>
+    <string name="patient_age_label">Usia</string>
+    <string name="patient_gender_label">Jenis Kelamin</string>
+    <string name="patient_pregnant_label">Hamil</string>
+    <string name="patient_address_label">Alamat </string>
+    <string name="patient_telp_label">Telp</string>
+    <string name="patient_KK_label">Kepala Keluarga </string>
+    <string name="patient_radio_yes_label">Ya</string>
+    <string name="patient_radio_no_label">Tidak</string>
+
+
+    <string name="patient_history_label">Riwayat Pasien</string>
+    <string name="patient_visit_label">Kunjungan Pertama</string>
+
+    <string name="pdp_label">Riwayat Perawatan (PDP Covid-19)</string>
+    <string name="symptoms_date_label">Tanggal Gejala</string>
+
+    <string name="patient_fever_label">Panas dan Riwayat Panas ≥38 °C</string>
+    <string name="patient_cough_label">Batuk?</string>
+    <string name="patient_throat_label">Sakit tenggorokan?</string>
+    <string name="patient_breath_label">Sesak napas yang tidak biasa?</string>
+    <string name="patient_nose_label"> Pilek?</string>
+    <string name="patient_headaches_label">Sakit kepala yang tidak biasa?</string>
+    <string name="patient_nausea_label">Merasa mual?</string>
+    <string name="patient_diarrhea_label"> Diare?</string>
+    <string name="patient_sluggish_label">Merasa lesu?</string>
+    <string name="patient_pneumonia_label">Pneumonia?</string>
+
+    <string name="inv_support_label">Pemeriksaan Penunjang</string>
+    <string name="xray_label">Xray</string>
+    <string name="result_label">Hasil</string>
+    <string name="blood_label">Darah</string>
+    <string name="lekosit_support_label">lekosit</string>
+    <string name="limposit_label">Limposit</string>
+    <string name="trombosit_label">Trombosit</string>
+    <string name="ventilator_label">Ventilator</string>
+    <string name="status_label">Status</string>
+
+    <string name="Sampling_label">Pengambilan Sampel</string>
+    <string name="Sampling_serum_label">Serum / Serologis</string>
+    <string name="Sampling_nasofaring_label">Usap Nasofaring</string>
+    <string name="Sampling_orofaring_label">Usap Orofaring</string>
+    <string name="Sampling_sputum_label">Sputum</string>
+    <string name="Sampling_other_label">Lainnya</string>
+
+    <string name="contact_history_label">Riwayat Kontak / Paparan</string>
+    <string name="last_contact_label">Dalam 14 hari sebelum sakit apakakah pasien melakukan perjalanan keluar negeri?</string>
+    <string name="country_label">Negara</string>
+    <string name="contact_date_label">Tanggal</string>
+
+
 </resources>
 

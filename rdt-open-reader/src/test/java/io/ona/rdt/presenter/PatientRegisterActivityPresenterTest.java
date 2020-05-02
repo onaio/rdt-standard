@@ -70,6 +70,7 @@ public class PatientRegisterActivityPresenterTest {
         Patient rdtPatient = patientArgumentCaptor.getValue();
         assertNotNull(rdtPatient);
         assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getAddress(), expectedPatient.getAddress());
         assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
         assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
 

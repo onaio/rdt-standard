@@ -41,6 +41,13 @@
           }
         },
         {
+          "column_name": "residential_address",
+          "type": "Client",
+          "json_mapping": {
+            "field": "residential_address"
+          }
+        },
+        {
           "column_name": "has_fever",
           "type": "Event",
           "json_mapping": {
