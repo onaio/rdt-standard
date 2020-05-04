@@ -4,6 +4,9 @@ import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 
@@ -64,5 +67,15 @@ public class RDTSyncConfiguration extends SyncConfiguration {
     @Override
     public int getConnectTimeout() {
         return CONNECT_TIMEOUT;
+    }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return "";
     }
 }

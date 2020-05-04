@@ -28,9 +28,11 @@ public class RDTJobCreator implements JobCreator {
             case ImageUploadSyncServiceJob.TAG:
                 return new ImageUploadServiceJob();
             case PullUniqueIdsServiceJob.TAG:
-                    return new PullUniqueIdsServiceJob();
+                return new PullUniqueIdsServiceJob();
+            case RDTSyncSettingsServiceJob.TAG:
+                return new RDTSyncSettingsServiceJob();
             default:
-                Log.w(TAG, tag + " is not declared in RevealJobCreator Job Creator");
+                Log.w(TAG, tag + " is not declared in RDTJobCreator Job Creator");
                 return null;
         }
     }

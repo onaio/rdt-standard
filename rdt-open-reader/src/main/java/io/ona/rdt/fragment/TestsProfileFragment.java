@@ -152,7 +152,7 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
             return;
         }
         try {
-            ParasiteProfileResult parasiteProfileResult = parasiteProfileResults.get(0);
+            ParasiteProfileResult parasiteProfileResult = parasiteProfileResults.get(parasiteProfileResults.size() - 1);
             switch (parasiteProfileResult.getExperimentType()) {
                 case MICROSCOPY:
                     populateParasiteProfileResults(rootLayout.findViewById(R.id.rdt_microscopy_results), parasiteProfileResult);
