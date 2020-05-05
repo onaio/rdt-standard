@@ -117,12 +117,14 @@ public interface Constants {
 
     interface Encounter {
         String PATIENT_REGISTRATION = "patient_registration";
+        String COVID_PATIENT_REGISTRATION = "covid_patient_registration";
         String RDT_TEST = "rdt_test";
         String PCR_RESULT = "pcr_result";
     }
 
     interface Table {
         String RDT_PATIENTS = "rdt_patients";
+        String COVID_PATIENTS = "covid_patients";
         String RDT_TESTS = "rdt_tests";
         String PCR_RESULTS = "pcr_results";
         String MICROSCOPY_RESULTS = "microscopy_results";

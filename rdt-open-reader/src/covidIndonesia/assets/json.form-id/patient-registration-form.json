@@ -1,0 +1,774 @@
+{
+  "count": "1",
+  "encounter_type": "covid_patient_registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Data Pasien Baru",
+    "display_back_button": "true",
+    "previous_label": "SIMPAN DAN KELUAR ",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SIMPAN",
+    "next_form": "json.form/patient-registration-form.json",
+    "fields": [
+      {
+        "key": "patient_name_label",
+        "type": "label",
+        "text": "Nama",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "patient_id_label",
+        "type": "label",
+        "text": "Patient ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter patient ID"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "native_radio",
+        "label": "Jenis kelamin pasien",
+        "options": [
+          {
+            "key": "Female",
+            "text": "Perempuan"
+          },
+          {
+            "key": "Male",
+            "text": "Laki-laki"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Silakan sebutkan jenis kelamin "
+        }
+      },
+      {
+        "key": "patient_dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Tanggal lahir pasien ",
+        "expanded": false,
+        "duration": {
+          "label": "Usia"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Silakan masukkan tanggal lahir"
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "conditional_save_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "patient_occupation_label",
+        "type": "label",
+        "text": "Pekerjaan pasien",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "patient_phone_number_lbl",
+        "type": "label",
+        "text": "Nomor Telepon Pasien",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "has_fever",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami demam (≥38 °C) atau memiliki riwayat demam?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien dirawat karena malaria dalam 3 bulan terakhir?"
+        }
+      },
+      {
+        "key": "has_hypertension",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat hipertensi?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien terkena penyakit malaria dalam satu tahun terakhir?"
+        }
+      },
+      {
+        "key": "has_autoimmune_disease_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit autoimun?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien mengalami demam (temperatur ≥ 37.5°C) dalam 3 hari terakhir?"
+        }
+      },
+      {
+        "key": "has_diagnosed_disease",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit yang ditetapkan oleh dokter yang dapat menyebabkan sistem kekebalan tubuh menurun? (HIV/AIDS)",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien mengalami sakit kepala yang tidak normal dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_chronic_heart_disease_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit jantung kronis?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien merasa mual dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_chronic_lung_disease_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit paru-paru kronis?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien muntah dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_chronic_kidney_disease_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit ginjal kronis?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien mengalami diare dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_diabetes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien menderita Diabetes?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien menggigil dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_gout_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit asam urat?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien merasakan pegal-pegal dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_urinary_or_kidney_disease_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat penyakit saluran kemih atau penyakit ginjal?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien mengalami nyeri otot dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_sore_throat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami sakit tenggorokan?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien mengalami nyeri dada dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_cough",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami batuk?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien merasakan kelelahan yang tidak normal dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_lost_smell",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Pernahkah belakangan ini pasien kehilangan kemampuan untuk mendeteksi aroma/bau?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Pernahkah pasien mengalami masalah pernapasan dalam 48 jam terakhir?"
+        }
+      },
+      {
+        "key": "has_runny_nose",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami pilek?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Apakah pasien kurang nafsu makan dalam 3 hari terakhir?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_shortness_of_breath",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami sesak napas yang tidak biasa?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Apakah anak mengalami batuk dalam tiga hari terakhir?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_decreased_taste_sensitivity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Pernahkah pasien mengalami penurunan sensitivitas rasa/indera pengecap?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Adakah orang lain di rumah yang terdiagnosis malaria dalam 3 bulan terakhir?"
+        }
+      },
+      {
+        "key": "has_abnormal_headaches",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami sakit kepala yang tidak biasa?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Apakah fogging/pengasapan dilakukan di rumah/lingkungan Anda dalam 3 bulan terakhir?"
+        }
+      },
+      {
+        "key": "has_chest_pains",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami nyeri dada?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Apakah pasien tinggal di daerah endemis malaria?"
+        }
+      },
+      {
+        "key": "has_muscle_pains",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami nyeri otot?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Apakah pasien memiliki riwayat mengunjungi daerah endemis malaria?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_fatigue",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien mengalami kelelahan yang tidak biasa?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Apakah pasien tidur di dalam kelambu?"
+        }
+      },
+      {
+        "key": "has_other_health_issues",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki masalah kesehatan lain?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jamban di rumah pasien?"
+        }
+      },
+      {
+        "key": "has_travel_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat perjalanan internasional atau domestik dalam 14 hari terakhir?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Air mengalir di rumah pasien?"
+        }
+      },
+      {
+        "key": "has_close_contact_with_traveller",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki kontak dekat dengan seseorang yang baru saja bepergian ke luar negeri dalam 14 hari terakhir yang menjadi sakit?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Semua imunisasi terbarui?"
+        }
+      },
+      {
+        "key": "compound_has_covid_patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah ada orang lain di rumah/lingkungan komplek yang terdiagnosis positif Covid-19?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Semua imunisasi terbarui?"
+        }
+      },
+      {
+        "key": "has_close_contact_with_covid_patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat kontak dekat atau terpapar dengan orang terkonfirmasi Covid-19?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Semua imunisasi terbarui?"
+        }
+      },
+      {
+        "key": "has_close_contact_with_infectious_animal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Apakah pasien memiliki riwayat kontak dengan hewan yang tertular Covid-19 (apabila hewan tertular tersebut telah teridentifikasi)",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ya"
+          },
+          {
+            "key": "No",
+            "text": "Tidak"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Semua imunisasi terbarui?"
+        }
+      }
+    ]
+  }
+}
