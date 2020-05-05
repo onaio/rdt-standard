@@ -72,16 +72,22 @@ android {
     flavorDimensions "version"
 
     productFlavors {
-        indonesia {
+        malariaIndonesia {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionNameSuffix "-ID"
+            versionNameSuffix "-ID-MALARIA"
         }
 
-        kenya {
+        malariaKenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"en\""
-            versionNameSuffix "-KE"
+            versionNameSuffix "-KE-MALARIA"
+        }
+
+        covidIndonesia {
+            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", "LOCALE", "\"id\""
+            versionNameSuffix "-ID-COVID"
         }
     }
 }
