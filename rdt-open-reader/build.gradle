@@ -75,19 +75,19 @@ android {
         malariaIndonesia {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionNameSuffix "-ID-MALARIA"
+            versionNameSuffix "-MALARIA-ID"
         }
 
         malariaKenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"en\""
-            versionNameSuffix "-KE-MALARIA"
+            versionNameSuffix "-MALARIA-KE"
         }
 
         covidIndonesia {
             resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionNameSuffix "-ID-COVID"
+            versionNameSuffix "-COVID-ID"
         }
     }
 }
