@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "patient_registration",
+  "encounter_type": "covid_patient_registration",
   "entity_id": "",
   "metadata": {
     "start": {

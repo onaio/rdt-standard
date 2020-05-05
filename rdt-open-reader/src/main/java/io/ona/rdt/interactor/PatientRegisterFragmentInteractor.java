@@ -32,6 +32,7 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.util.FormLauncher;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
@@ -42,6 +43,7 @@ import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
 import static io.ona.rdt.util.Constants.FormFields.METADATA;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
@@ -112,6 +114,8 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             bindType = RDT_TESTS;
         } else if (PCR_RESULT.equals(encounterType)) {
             bindType = PCR_RESULTS;
+        } else if (COVID_PATIENT_REGISTRATION.equals(encounterType)) {
+            bindType = COVID_PATIENTS;
         }
         return bindType;
     }
@@ -161,7 +165,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
         JSONObject clientJson = new JSONObject(gson.toJson(client));
         org.smartregister.domain.db.Client dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
-        if (PATIENT_REGISTRATION.equals(encounterType)) {
+        if (PATIENT_REGISTRATION.equals(encounterType) || COVID_PATIENT_REGISTRATION.equals(encounterType)) {
             eventClientRepository.addorUpdateClient(entityId, clientJson);
         }
 
