@@ -38,10 +38,10 @@ android:
 
 before_script:
   # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+#  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+#  - emulator -avd test -no-skin -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82 &
 
 script:
   - echo "Travis branch is $TRAVIS_BRANCH"
@@ -49,8 +49,9 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  - travis_wait ./gradlew :rdt-open-reader:clean :rdt-open-reader:testIndonesiaDebugUnitTestCoverage coveralls --stacktrace
-  - travis_wait ./gradlew :rdt-open-reader:clean :rdt-open-reader:testKenyaDebugUnitTestCoverage  coveralls --stacktrace
+  - travis_wait ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaIndonesiaDebugUnitTestCoverage coveralls --stacktrace
+  - travis_wait ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaKenyaDebugUnitTestCoverage coveralls --stacktrace
+  - travis_wait ./gradlew :rdt-open-reader:clean :rdt-open-reader:testCovidIndonesiaDebugUnitTestCoverage coveralls --stacktrace
 notifications:
   slack:
     secure: fAiZ4yA7DM6nUKh7nqsCTqZBb03VEAvi5NcRu5mNh5coNn/50XNeZl+qpv7Dw70Ef85Y/k68uc6KwTGVqPXEmVq9Hk3e7lqpBNN8rufvgCYDDGPmywBmU5BhSeykKo0Ee7llM3mRR/EipjIWw1+YvMcS3hCoygf/UlMDDhG0Jo0=
