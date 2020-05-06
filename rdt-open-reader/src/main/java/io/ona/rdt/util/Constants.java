@@ -24,8 +24,8 @@ public interface Constants {
     }
 
     interface RDTType {
-        String ONA_RDT = "experimental";
-        String CARESTART_RDT = "carestart";
+        String ONA_RDT = "malaria-experimental";
+        String CARESTART_RDT = "malaria-carestart";
     }
 
     interface FormFields {
