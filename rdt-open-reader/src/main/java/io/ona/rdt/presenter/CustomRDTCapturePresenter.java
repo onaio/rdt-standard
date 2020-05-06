@@ -4,8 +4,9 @@ import android.content.Context;
 
 import org.opencv.core.Point;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTCaptureResult;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
+import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.contract.CustomRDTCaptureContract;
@@ -47,28 +48,28 @@ public class CustomRDTCapturePresenter {
         return result.substring(0, result.length() - 2);
     }
 
-    public CompositeImage buildCompositeImage(ImageProcessor.CaptureResult captureResult,
-                                               ImageProcessor.InterpretationResult interpretationResult,
-                                               long timeTaken) {
+    public CompositeImage buildCompositeImage(RDTCaptureResult rdtCaptureResult,
+                                              RDTInterpretationResult rdtInterpretationResult,
+                                              long timeTaken) {
 
-        final byte[] fullImage = ImageUtil.matToRotatedByteArray(captureResult.resultMat);
+        final byte[] fullImage = ImageUtil.matToRotatedByteArray(rdtCaptureResult.resultMat);
         byte[] croppedImage = fullImage;
 
         UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
-        unParcelableImageMetadata.withInterpretationResult(interpretationResult);
+        unParcelableImageMetadata.withInterpretationResult(rdtInterpretationResult);
 
         ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
         parcelableImageMetadata.withBaseEntityId(activity.getBaseEntityId())
                 .withProviderId(RDTApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM())
                 .withTimeTaken(timeTaken)
-                .withFlashOn(captureResult.flashEnabled)
+                .withFlashOn(rdtCaptureResult.flashEnabled)
                 .withLineReadings(new LineReadings(false, false, false))
                 .withCassetteBoundary("(0, 0), (0, 0), (0, 0), (0, 0)");
 
         if (!activity.isManualCapture()) {
-            croppedImage = ImageUtil.matToRotatedByteArray(interpretationResult.resultMat);
-            unParcelableImageMetadata.withBoundary(captureResult.boundary.toArray());
-            parcelableImageMetadata.withLineReadings(new LineReadings(interpretationResult.topLine, interpretationResult.middleLine, interpretationResult.bottomLine))
+            croppedImage = ImageUtil.matToRotatedByteArray(rdtInterpretationResult.resultMat);
+            unParcelableImageMetadata.withBoundary(rdtCaptureResult.boundary.toArray());
+            parcelableImageMetadata.withLineReadings(new LineReadings(rdtInterpretationResult.topLine, rdtInterpretationResult.middleLine, rdtInterpretationResult.bottomLine))
                     .withCassetteBoundary(formatPoints(unParcelableImageMetadata.getBoundary()));
         }
 

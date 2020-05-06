@@ -113,7 +113,7 @@ public class CustomRDTCapturePresenterTest {
 
         UnParcelableImageMetadata unParcelableImageMetadata = compositeImage.getUnParcelableImageMetadata();
         assertEquals("anm_id", parcelableImageMetadata.getProviderId());
-        assertEquals(interpretationResult, unParcelableImageMetadata.getInterpretationResult());
+        assertEquals(interpretationResult, unParcelableImageMetadata.getRdtInterpretationResult());
 
         assertEquals(image, compositeImage.getCroppedImage());
         assertEquals(image, compositeImage.getFullImage());

@@ -22,7 +22,7 @@ public class UnParcelableImageMetadataTest {
         unParcelableImageMetadata.withInterpretationResult(interpretationResult);
         unParcelableImageMetadata.withBoundary(points);
 
-        assertEquals(interpretationResult, unParcelableImageMetadata.getInterpretationResult());
+        assertEquals(interpretationResult, unParcelableImageMetadata.getRdtInterpretationResult());
         assertEquals(points, unParcelableImageMetadata.getBoundary());
     }
 }

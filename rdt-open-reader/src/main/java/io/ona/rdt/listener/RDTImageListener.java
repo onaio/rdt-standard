@@ -8,7 +8,7 @@ import com.android.volley.toolbox.ImageLoader;
 
 import org.smartregister.util.OpenSRPImageListener;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.domain.CompositeImage;
@@ -43,7 +43,7 @@ public class RDTImageListener extends OpenSRPImageListener {
                 .withBaseEntityId("base_entity_id"); // todo: pass real base entity id here
 
         UnParcelableImageMetadata unParcelableImageMetadata = new UnParcelableImageMetadata();
-        unParcelableImageMetadata.withInterpretationResult(new ImageProcessor.InterpretationResult());
+        unParcelableImageMetadata.withInterpretationResult(new RDTInterpretationResult());
 
         CompositeImage compositeImage = new CompositeImage();
         compositeImage.withFullImage(image)
