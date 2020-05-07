@@ -62,7 +62,8 @@ public interface Constants {
     }
 
     interface DBConstants {
-        String NAME = "name";
+        String FIRST_NAME = "first_name";
+        String LAST_NAME = "last_name";
         String AGE = "age";
         String SEX = "sex";
         String PATIENT_ID = "patient_id";
