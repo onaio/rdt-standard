@@ -57,18 +57,40 @@
     "next_form": "json.form/patient-registration-form.json",
     "fields": [
       {
-        "key": "patient_name_label",
+        "key": "patient_first_name_label",
         "type": "label",
-        "text": "Nama",
+        "text": "Nama Depan",
         "text_color": "#000000"
       },
       {
-        "key": "patient_name",
+        "key": "patient_first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Nama depan pasien harus diisi"
+        }
+      },
+      {
+        "key": "patient_last_name_label",
+        "type": "label",
+        "text": "Nama Belakang",
+        "text_color": "#000000"
+      },
+      {
+        "key": "patient_last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Nama belakang pasien harus diisi"
+        }
       },
       {
         "key": "patient_id_label",
@@ -106,7 +128,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Silakan sebutkan jenis kelamin "
+          "err": "Tanggal lahir pasien harus diisi"
         }
       },
       {
@@ -124,7 +146,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Silakan masukkan tanggal lahir"
+          "err": "Jenis kelamin pasien harus diisi"
         }
       },
       {
@@ -195,7 +217,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien dirawat karena malaria dalam 3 bulan terakhir?"
+          "err": "Kolom pertanyaan demam harus diisi"
         }
       },
       {
@@ -217,7 +239,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien terkena penyakit malaria dalam satu tahun terakhir?"
+          "err": "Kolom pertanyaan hipertensi harus diisi"
         }
       },
       {
@@ -239,7 +261,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien mengalami demam (temperatur ≥ 37.5°C) dalam 3 hari terakhir?"
+          "err": "Kolom pertanyaan penyakit autoimun harus diisi"
         }
       },
       {
@@ -261,7 +283,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien mengalami sakit kepala yang tidak normal dalam 48 jam terakhir?"
+          "err": "Kolom riwayat penyakit penurunan sistem kekebalan tubuh harus diisi"
         }
       },
       {
@@ -283,7 +305,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien merasa mual dalam 48 jam terakhir?"
+          "err": "Kolom riwayat penyakit jantung kronis harus diisi"
         }
       },
       {
@@ -305,7 +327,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien muntah dalam 48 jam terakhir?"
+          "err": "Kolom riwayat penyakit paru-paru kronis harus diisi"
         }
       },
       {
@@ -327,7 +349,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien mengalami diare dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan penyakit ginjal kronis harus diisi"
         }
       },
       {
@@ -349,7 +371,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien menggigil dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan diabetes harus diisi"
         }
       },
       {
@@ -371,7 +393,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien merasakan pegal-pegal dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan asam urat harus diisi"
         }
       },
       {
@@ -393,7 +415,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien mengalami nyeri otot dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan penyakit ginjal harus diisi"
         }
       },
       {
@@ -415,7 +437,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien mengalami nyeri dada dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan sakit tenggorokan harus diisi"
         }
       },
       {
@@ -437,7 +459,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien merasakan kelelahan yang tidak normal dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan batuk harus diisi"
         }
       },
       {
@@ -459,7 +481,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pernahkah pasien mengalami masalah pernapasan dalam 48 jam terakhir?"
+          "err": "Kolom pertanyaan anosmia (kehilangan kemampuan deteksi bau) harus diisi"
         }
       },
       {
@@ -481,14 +503,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Apakah pasien kurang nafsu makan dalam 3 hari terakhir?"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
-            }
-          }
+          "err": "Kolom pertanyaan pilek harus diisi"
         }
       },
       {
@@ -510,14 +525,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Apakah anak mengalami batuk dalam tiga hari terakhir?"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
-            }
-          }
+          "err": "Kolom pertanyaan sesak nafas harus diisi"
         }
       },
       {
@@ -539,7 +547,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Adakah orang lain di rumah yang terdiagnosis malaria dalam 3 bulan terakhir?"
+          "err": "Kolom pertanyaan dysgeusia (penurunan sensitivitas rasa) harus diisi"
         }
       },
       {
@@ -561,7 +569,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Apakah fogging/pengasapan dilakukan di rumah/lingkungan Anda dalam 3 bulan terakhir?"
+          "err": "Kolom pertanyaan sakit kepala harus diisi"
         }
       },
       {
@@ -583,7 +591,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Apakah pasien tinggal di daerah endemis malaria?"
+          "err": "Kolom pertanyaan nyeri dada harus diisi"
         }
       },
       {
@@ -605,14 +613,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Apakah pasien memiliki riwayat mengunjungi daerah endemis malaria?"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
-            }
-          }
+          "err": "Kolom pertanyaan nyeri otot harus diisi"
         }
       },
       {
@@ -634,7 +635,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Apakah pasien tidur di dalam kelambu?"
+          "err": "Kolom pertanyaan kelelahan harus diisi"
         }
       },
       {
@@ -656,7 +657,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Jamban di rumah pasien?"
+          "err": "Kolom pertanyaan masalah kesehatan lainnya harus diisi"
         }
       },
       {
@@ -678,7 +679,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Air mengalir di rumah pasien?"
+          "err": "Kolom riwayat perjalanan harus diisi"
         }
       },
       {
@@ -700,7 +701,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Semua imunisasi terbarui?"
+          "err": "Kolom pertanyaan kontak saat perjalanan harus diisi"
         }
       },
       {
@@ -722,7 +723,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Semua imunisasi terbarui?"
+          "err": "Kolom pertanyaan kontak di rumah/lingkungan komplek harus diisi"
         }
       },
       {
@@ -744,7 +745,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Semua imunisasi terbarui?"
+          "err": "Kolom riwayat kontak atau terpapar harus diisi"
         }
       },
       {
@@ -766,7 +767,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Semua imunisasi terbarui?"
+          "err": "Kolom riwayat kontak atau terpapar harus diisi"
         }
       }
     ]
