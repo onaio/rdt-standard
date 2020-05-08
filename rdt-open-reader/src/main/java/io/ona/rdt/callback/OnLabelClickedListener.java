@@ -36,14 +36,20 @@ public class OnLabelClickedListener implements View.OnClickListener {
             RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
             final String key = jsonObject.optString(KEY, "");
             StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
-            String next = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
+
+            String nextStep = "";
             if (Constants.FormFields.LBL_CARE_START.equals(key)) {
                 formFragment.getRdtActivity().setRdtType(Constants.RDTType.CARESTART_RDT);
-            } else {
+                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
+            } else if (Constants.FormFields.LBL_SCAN_QR_CODE.equals(key)) {
                 formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
-                next = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
+                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
+            } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
+                // todo: add next step
+            } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
+                // todo: add next step
             }
-            ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(next);
+            ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(nextStep);
         } catch (JSONException e) {
             Timber.e(e);
         }

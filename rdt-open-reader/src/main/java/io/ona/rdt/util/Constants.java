@@ -39,6 +39,9 @@ public interface Constants {
         String ENCOUNTER_TYPE = "encounter_type";
         String ENTITY_ID = "entity_id";
         String LBL_CARE_START = "lbl_care_start";
+        String LBL_SCAN_QR_CODE = "lbl_scan_qr_code";
+        String LBL_SCAN_BARCODE = "lbl_scan_barcode";
+        String LBL_ENTER_RDT_MANUALLY = "lbl_enter_rdt_manually";
     }
 
     interface RequestCodes {
