@@ -63,7 +63,7 @@
   "step2": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step27",
     "bottom_navigation" : "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "RDT",
@@ -99,7 +99,7 @@
       {
         "key": "lbl_which_rdt",
         "type": "label",
-        "text": "RDT yang mana?",
+        "text": "Which RDT?",
         "text_color": "#000000",
         "text_size": "10sp",
         "label_text_style": "bold",
@@ -108,9 +108,9 @@
         "bg_color": "#ffffff"
       },
       {
-        "key": "lbl_scan_qr_code",
+        "key": "lbl_scan_barcode",
         "type": "label",
-        "text": "Pindai kode QR",
+        "text": "Scan barcode",
         "text_color": "#000000",
         "top_margin": "15dp",
         "has_bg": true,
@@ -118,9 +118,9 @@
         "bg_color": "#ffffff"
       },
       {
-        "key": "lbl_care_start",
+        "key": "lbl_enter_rdt_manually",
         "type": "label",
-        "text": "Pindai tanggal kadaluwarsa Carestart",
+        "text": "Enter RDT manually",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -215,258 +215,21 @@
   "step7": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step8",
+    "next": "step16",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "LANJUTKAN KE MIKROSKOPIK",
+    "next_label": "CAPTURE RDT",
     "fields": [
       {
-        "key": "lbl_rdt_id",
+        "key": "lbl_rdt_instructions",
         "type": "label",
+        "text": "Conduct the RDT according to manufacturing guidelines",
         "text_color": "#000000",
         "text_size": "12sp",
         "label_text_style": "bold",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff"
-      },
-      {
-        "key": "lbl_record_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Tulis nomor ini pada bagian belakang RDT."
-      }
-    ]
-  },
-  "step8": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step9",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "SLIDE MIKROSKOPIK SELESAI",
-    "fields": [
-      {
-        "key": "lbl_microscopy_slide_instruction",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Buat sediaan darah tetes tebal dan apusan darah tipis pada Slide Mikroskopik"
-      },
-      {
-        "key": "lbl_microscopy_slide",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Beri label pada slide dengan:"
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "12sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold"
-      }
-    ]
-  },
-  "step9": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step10",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "BLOT PAPER SELESAI",
-    "fields": [
-      {
-        "key": "lbl_blot_paper_instructions",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Teteskan darah pada lingkaran tempat sampel hingga darah meresap"
-      },
-      {
-        "key": "lbl_blot_paper",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Letakkan sediaan darah pada tabung yang telah diberi label dengan nomor ID yang ditampilkan. Jangan tutup sediaan darah sampai mengering."
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "12sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold"
-      }
-    ]
-  },
-  "step10": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step11",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "LANJUTKAN",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "illustration_text_description",
-        "type": "image_view",
-        "text": "Ambil sampel darah (5㎕) menggunakan pipet atau mikropipet yang telah disediakan.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "collect_blood_sample.jpg"
-      }
-    ]
-  },
-  "step11": {
-    "title": "RDT",
-    "next": "step12",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "LANJUTKAN",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "add_blood",
-        "type": "image_view",
-        "text": "Tambahkan 5 ㎕ darah utuh ke lubang “S”.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "add_blood.jpg"
-      }
-    ]
-  },
-  "step12": {
-    "title": "RDT",
-    "next": "step13",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "MULAI PENGHITUNG WAKTU 20 MENIT",
-    "fields": [
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "add_buffer_solution",
-        "type": "image_view",
-        "text": "Tambahkan 60 ㎕ larutan buffer (3 tetes untuk tipe vial atau 2 tetes untuk tipe botol)ke lubang \"A\".\nMulai penghitung waktu.",
-        "label_text_size": "18sp",
-        "text_color": "#000000",
-        "image_file": "add_buffer_solution.jpg"
-      }
-    ]
-  },
-  "step13": {
-    "title": "Penghitung waktu RDT",
-    "next": "step14",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "AMBIL GAMBAR RDT ",
-    "fields": [
-      {
-        "key": "countdown_timer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "timer",
-        "type": "countdown_timer",
-        "label": "Baca hasil dalam 20 menit.",
-        "label_text_size": "8sp",
-        "label_text_color": "#525252",
-        "countdown_time_unit": "minutes",
-        "countdown_time_value": "20",
-        "countdown_interval": "1",
-        "progressbar_background_color": "#e2e2e2",
-        "progressbar_color": "#E9D61E",
-        "progressbar_text_color": "#505050"
-      }
-    ]
-  },
-  "step14": {
-    "title": "Hasil RDT sudah siap",
-    "next": "step16",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "next",
-    "next_label": "AMBIL GAMBAR RDT",
-    "fields": [
-      {
-        "key": "countdown_timer_results_ready",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "timer",
-        "type": "countdown_timer",
-        "label": "Baca hasil dalam 10 menit.",
-        "label_text_size": "8sp",
-        "label_text_color": "#4b4b4b",
-        "countdown_time_unit": "minutes",
-        "countdown_time_value": "10",
-        "countdown_interval": "1",
-        "progressbar_background_color": "#e2e2e2",
-        "progressbar_color": "#3EBB22",
-        "progressbar_text_color": "#505050"
-      }
-    ]
-  },
-  "step15": {
-    "title": "Carestart RDT",
-    "next": "step16",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "AMBIL GAMBAR RDT",
-    "fields": [
-      {
-        "key": "lbl_conduct_carestart",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Lakukan tes Carestart RDT"
-      },
-      {
-        "key": "lbl_conduct_carestart",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "text": "Ambil gambar RDT setelah tes selesai"
       }
     ]
   },
@@ -560,7 +323,7 @@
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "SIMPAN HASIL RDT",
-    "next": "step18",
+    "next": "step21",
     "fields": [
       {
         "key": "chw_result",
@@ -598,13 +361,13 @@
         "combine_checkbox_option_values": true,
         "options": [
           {
-            "key": "pv_positive",
-            "text": "pv",
+            "key": "igm_positive",
+            "text": "IgM",
             "value": false
           },
           {
-            "key": "pf_positive",
-            "text": "pf",
+            "key": "igg_positive",
+            "text": "IgG",
             "value": false
           }
         ],
@@ -621,16 +384,16 @@
       }
     ]
   },
-  "step18": {
-    "title": "Konfirmasikan Label",
+  "step21": {
+    "title": "Handle RDT",
     "display_back_button": "true",
-    "next": "step19",
+    "next": "step22",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "KONFIRMASI",
     "fields": [
       {
-        "key": "lbl_confirm_labels",
+        "key": "lbl_handle_rdt",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -638,47 +401,150 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Pastikan label Slide Mikroskopik, Sedian darah dan RDT"
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "12sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold"
+        "text": "Store or dispose of RDT appropriately according to established protocol"
       }
     ]
   },
-  "step19": {
-    "title": "Penyimpanan Steril",
+  "step22": {
+    "title": "RDT",
     "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "AKHIRI TES",
+    "next": "step23",
     "fields": [
       {
-        "key": "lbl_confirm_labels",
+        "key": "lbl_collect_respiratory_sample",
+        "type": "label",
+        "text": "Collect respiratory sample",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_respiratory_sample_collection",
+        "type": "label",
+        "text": "Skip respiratory sample collection",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step23": {
+  "title": "Handle RDT",
+  "display_back_button": "true",
+  "next": "step24",
+  "bottom_navigation": "true",
+  "bottom_navigation_orientation": "vertical",
+  "next_label": "KONFIRMASI",
+  "fields": [
+    {
+      "key": "lbl_handle_rdt",
+      "type": "label",
+      "text_color": "#000000",
+      "text_size": "10sp",
+      "top_margin": "15dp",
+      "has_bg": true,
+      "bg_color": "#ffffff",
+      "label_text_style": "bold",
+      "text": "Collect respiratory specimen using approved methods"
+    }
+  ]
+},
+  "step24": {
+    "title": "Handle RDT",
+    "display_back_button": "true",
+    "next": "step25",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "KONFIRMASI",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Tempatkan RDT, Sediaan Darah dan Slide Mikroskopik dalam  penyimpanan steril yang telah disediakan"
+        "label_text_style": "bold",
+        "text": "Safely Store Respiratory Specimen in provided transport tube."
+      }
+    ]
+  },
+  "step25": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step26",
+    "fields": [
+      {
+        "key": "lbl_scan_respiratory_specimen_barcode",
+        "type": "label",
+        "text": "Scan respiratory specimen barcode",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
       },
       {
-        "key": "lbl_rdt_id",
+        "key": "lbl_affix_respiratory_specimen_label",
+        "type": "label",
+        "text": "Affix Label or record ID on transport tube",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step26": {
+    "title": "Test complete",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "SAVE AND EXIT",
+    "fields": [
+      {
+        "key": "lbl_store_respiratory_sample",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "12sp",
+        "text_size": "10sp",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "label_text_style": "bold"
+        "label_text_style": "bold",
+        "text": "Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures"
+      }
+    ]
+  },
+  "step27": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "lbl_conduct_rdt",
+        "type": "label",
+        "text": "Conduct RDT",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_rdt_test",
+        "type": "label",
+        "text": "Skip RDT test",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
       }
     ]
   },

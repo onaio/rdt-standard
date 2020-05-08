@@ -15,6 +15,7 @@ import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
+import static io.ona.rdt.util.Constants.Step.SCAN_BARCODE_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 
@@ -45,7 +46,7 @@ public class OnLabelClickedListener implements View.OnClickListener {
                 formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
                 nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
             } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
-                // todo: add next step
+                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_BARCODE_PAGE);
             } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
                 // todo: add next step
             }
