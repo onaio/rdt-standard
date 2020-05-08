@@ -17,6 +17,7 @@ import timber.log.Timber;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static io.ona.rdt.util.Constants.Step.COLLECT_RESPIRATORY_SPECIMEN_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_STORE_RESPIRATORY_SAMPLE_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_TEST_COMPLETE_PAGE;
@@ -55,7 +56,7 @@ public class OnLabelClickedListener implements View.OnClickListener {
             } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
                 nextStep = stepStateConfig.getStepStateObj().optString(SCAN_COVID_BARCODE_PAGE);
             } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
-                // todo: add next step
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_MANUAL_RDT_ENTRY_PAGE);
             } else if (Constants.FormFields.LBL_CONDUCT_RDT.equals(key)) {
                 nextStep = stepStateConfig.getStepStateObj().optString(CONDUCT_COVID_RDT_PAGE);
             } else if (Constants.FormFields.LBL_SKIP_RDT_TEST.equals(key)) {

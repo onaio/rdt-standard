@@ -600,6 +600,126 @@
       }
     ]
   },
+  "step31": {
+  "title": "Record RDT information",
+  "display_back_button": "true",
+  "next": "step32",
+  "bottom_navigation": "true",
+  "bottom_navigation_orientation": "vertical",
+  "next_label": "CONTINUE",
+  "fields": [
+{
+  "key": "lbl_rdt_manufacturer",
+  "type": "label",
+  "text": "Enter manufacturer name",
+  "text_color": "#000000",
+  "text_size": "9sp",
+  "top_margin": "15dp",
+  "has_bg": true,
+  "bg_color": "#ffffff",
+  "bottom_margin": "50dp"
+},
+    {
+      "key": "rdt_manufacturer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "v_required": {
+        "value": "false",
+        "err": ""
+      }
+    },
+    {
+    "key": "lbl_rdt_test_name",
+    "type": "label",
+    "text": "Enter RDT name",
+    "text_color": "#000000",
+    "text_size": "9sp",
+    "top_margin": "15dp",
+    "has_bg": true,
+    "bg_color": "#ffffff",
+    "bottom_margin": "50dp"
+    },
+    {
+      "key": "rdt_test_name",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "v_required": {
+        "value": "false",
+        "err": ""
+      }
+    },
+    {
+    "key": "lbl_rdt_batch_id",
+    "type": "label",
+    "text": "Enter RDT batch ID",
+    "text_color": "#000000",
+    "text_size": "9sp",
+    "top_margin": "15dp",
+    "has_bg": true,
+    "bg_color": "#ffffff",
+    "bottom_margin": "50dp"
+    },
+    {
+      "key": "rdt_batch_id",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "v_required": {
+        "value": "false",
+        "err": ""
+      }
+    },
+    {
+      "key": "lbl_record_expiration_date",
+      "type": "label",
+      "text": "Catat Tanggal Kedaluwarsa",
+      "text_color": "#000000",
+      "text_size": "9sp",
+      "top_margin": "15dp",
+      "has_bg": true,
+      "bg_color": "#ffffff",
+      "bottom_margin": "50dp"
+    },
+    {
+      "key": "manual_expiration_date",
+      "type": "date_picker",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "hint": "Tanggal kadaluarsa",
+      "v_required": {
+        "value": true,
+        "err": "Please specify the expiration date"
+      }
+    }
+  ]
+},
+  "step32": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step7",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Record ID on RDT"
+      }
+    ]
+  },
   "step20": {
     "title": "Scan RDT timed out",
     "next": "step7",

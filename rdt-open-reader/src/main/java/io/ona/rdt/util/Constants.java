@@ -131,6 +131,7 @@ public interface Constants {
         String COVID_STORE_RESPIRATORY_SAMPLE_PAGE = "covid_store_respiratory_sample_page";
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
+        String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";
     }
 
     interface Encounter {
