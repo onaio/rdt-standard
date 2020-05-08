@@ -11,7 +11,8 @@ import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
-import static io.ona.rdt.util.Constants.DBConstants.NAME;
+import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
+import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
@@ -71,13 +72,13 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID};
+        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + FIRST_NAME, tableName + "." + LAST_NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID};
         return columns;
     }
 
     @Override
     public String getMainCondition() {
-        return String.format(" (%s != '%s' or %s != '%s')", NAME, "",  PATIENT_ID, "");
+        return String.format(" (%s != '%s' or %s != '%s' or %s != '%s')", FIRST_NAME, "", LAST_NAME, "", PATIENT_ID, "");
     }
 
     @Override

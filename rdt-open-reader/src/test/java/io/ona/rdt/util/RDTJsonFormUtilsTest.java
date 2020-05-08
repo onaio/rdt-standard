@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
@@ -27,8 +26,8 @@ import org.smartregister.view.activity.DrishtiApplication;
 import java.io.File;
 import java.io.OutputStream;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
+import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.domain.CompositeImage;
@@ -36,8 +35,8 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
-import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;

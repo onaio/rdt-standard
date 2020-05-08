@@ -3,7 +3,7 @@ package io.ona.rdt.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ExpirationDateActivity;
+import edu.washington.cs.ubicomplab.rdt_reader.activities.ExpirationDateActivity;
 import io.ona.rdt.application.RDTApplication;
 
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;

@@ -9,7 +9,8 @@ import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
 
-import static io.ona.rdt.util.Constants.DBConstants.NAME;
+import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
+import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.PhoneProperties.APP_VERSION;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MANUFACTURER;
@@ -53,10 +54,10 @@ public class RDTApplicationPresenter {
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{NAME, PATIENT_ID};
+        return new String[]{FIRST_NAME, LAST_NAME, PATIENT_ID};
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{NAME, PATIENT_ID};
+        return new String[]{FIRST_NAME, LAST_NAME, PATIENT_ID};
     }
 }

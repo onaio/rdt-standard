@@ -30,12 +30,13 @@ import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
 import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
-import static io.ona.rdt.util.Constants.DBConstants.NAME;
+import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
+import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
-import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
+import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -105,14 +106,14 @@ public class PatientRegisterFragmentPresenterTest {
 
     @Test
     public void testGetMainConditionShouldReturnCorrectMainCondition() {
-        assertEquals(" (name != '' or patient_id != '')", presenter.getMainCondition());
+        assertEquals(" (first_name != '' or last_name != '' or patient_id != '')", presenter.getMainCondition());
     }
 
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
-        assertEquals(new String[]{RDT_TESTS + "." + "relationalid", RDT_TESTS + "." + NAME, RDT_TESTS
-                + "." + AGE, RDT_TESTS + "." + SEX, RDT_TESTS + "." + PATIENT_ID},
-                Whitebox.invokeMethod(presenter, "mainColumns", RDT_TESTS));
+        assertEquals(new String[]{RDT_PATIENTS + "." + "relationalid", RDT_PATIENTS + "." + FIRST_NAME,
+                RDT_PATIENTS + "." + LAST_NAME, RDT_PATIENTS + "." + AGE, RDT_PATIENTS + "." + SEX, RDT_PATIENTS + "." +  PATIENT_ID},
+                Whitebox.invokeMethod(presenter, "mainColumns", RDT_PATIENTS));
     }
 
     private void mockStaticMethods() throws JSONException {

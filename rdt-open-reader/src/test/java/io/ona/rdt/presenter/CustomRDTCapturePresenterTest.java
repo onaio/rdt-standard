@@ -17,8 +17,9 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
-import edu.washington.cs.ubicomplab.rdt_reader.ImageUtil;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTCaptureResult;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
+import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.contract.CustomRDTCaptureContract;
@@ -91,14 +92,14 @@ public class CustomRDTCapturePresenterTest {
         doReturn(true).when(activity).isManualCapture();
         Whitebox.setInternalState(presenter, "activity", activity);
 
-        ImageProcessor.CaptureResult captureResult = mock(ImageProcessor.CaptureResult.class);
-        Whitebox.setInternalState(captureResult, "boundary", mock(MatOfPoint2f.class));
-        Whitebox.setInternalState(captureResult, "flashEnabled", true);
-        ImageProcessor.InterpretationResult interpretationResult = mock(ImageProcessor.InterpretationResult.class);
-        Whitebox.setInternalState(interpretationResult, "topLine", true);
-        Whitebox.setInternalState(interpretationResult, "bottomLine", false);
-        Whitebox.setInternalState(interpretationResult, "middleLine", true);
-        CompositeImage compositeImage = presenter.buildCompositeImage(captureResult, interpretationResult, 0l);
+        RDTCaptureResult rdtCaptureResult = mock(RDTCaptureResult.class);
+        Whitebox.setInternalState(rdtCaptureResult, "boundary", mock(MatOfPoint2f.class));
+        Whitebox.setInternalState(rdtCaptureResult, "flashEnabled", true);
+        RDTInterpretationResult rdtInterpretationResult = mock(RDTInterpretationResult.class);
+        Whitebox.setInternalState(rdtInterpretationResult, "topLine", true);
+        Whitebox.setInternalState(rdtInterpretationResult, "bottomLine", false);
+        Whitebox.setInternalState(rdtInterpretationResult, "middleLine", true);
+        CompositeImage compositeImage = presenter.buildCompositeImage(rdtCaptureResult, rdtInterpretationResult, 0l);
 
         ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
         assertEquals("base_entity_id", parcelableImageMetadata.getBaseEntityId());
@@ -113,19 +114,19 @@ public class CustomRDTCapturePresenterTest {
 
         UnParcelableImageMetadata unParcelableImageMetadata = compositeImage.getUnParcelableImageMetadata();
         assertEquals("anm_id", parcelableImageMetadata.getProviderId());
-        assertEquals(interpretationResult, unParcelableImageMetadata.getInterpretationResult());
+        assertEquals(rdtInterpretationResult, unParcelableImageMetadata.getRdtInterpretationResult());
 
         assertEquals(image, compositeImage.getCroppedImage());
         assertEquals(image, compositeImage.getFullImage());
 
         doReturn(false).when(activity).isManualCapture();
         Whitebox.setInternalState(presenter, "activity", activity);
-        Whitebox.setInternalState(captureResult, "flashEnabled", false);
-        interpretationResult = mock(ImageProcessor.InterpretationResult.class);
-        Whitebox.setInternalState(interpretationResult, "topLine", true);
-        Whitebox.setInternalState(interpretationResult, "bottomLine", false);
-        Whitebox.setInternalState(interpretationResult, "middleLine", true);
-        compositeImage = presenter.buildCompositeImage(captureResult, interpretationResult, 0l);
+        Whitebox.setInternalState(rdtCaptureResult, "flashEnabled", false);
+        rdtInterpretationResult = mock(RDTInterpretationResult.class);
+        Whitebox.setInternalState(rdtInterpretationResult, "topLine", true);
+        Whitebox.setInternalState(rdtInterpretationResult, "bottomLine", false);
+        Whitebox.setInternalState(rdtInterpretationResult, "middleLine", true);
+        compositeImage = presenter.buildCompositeImage(rdtCaptureResult, rdtInterpretationResult, 0l);
 
         lineReadings = compositeImage.getParcelableImageMetadata().getLineReadings();
         assertFalse(lineReadings.isBottomLine());

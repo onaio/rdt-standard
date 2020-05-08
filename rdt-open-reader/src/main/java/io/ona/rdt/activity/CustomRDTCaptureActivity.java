@@ -7,8 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
 import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTCaptureResult;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
 import io.ona.rdt.R;
 import io.ona.rdt.contract.CustomRDTCaptureContract;
 import io.ona.rdt.domain.CompositeImage;
@@ -46,10 +47,10 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     @Override
-    public void useCapturedImage(ImageProcessor.CaptureResult captureResult, ImageProcessor.InterpretationResult interpretationResult, long timeTaken) {
+    public void useCapturedImage(RDTCaptureResult rdtCaptureResult, RDTInterpretationResult rdtInterpretationResult, long timeTaken) {
         Log.i(TAG, "Processing captured image");
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
-        presenter.saveImage(this, presenter.buildCompositeImage(captureResult, interpretationResult, timeTaken), this);
+        presenter.saveImage(this, presenter.buildCompositeImage(rdtCaptureResult, rdtInterpretationResult, timeTaken), this);
     }
 
 

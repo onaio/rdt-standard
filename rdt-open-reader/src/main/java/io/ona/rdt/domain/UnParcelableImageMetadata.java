@@ -2,14 +2,14 @@ package io.ona.rdt.domain;
 
 import org.opencv.core.Point;
 
-import edu.washington.cs.ubicomplab.rdt_reader.ImageProcessor;
+import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
 
 /**
  * Created by Vincent Karuri on 16/10/2019
  */
 public class UnParcelableImageMetadata {
 
-    private ImageProcessor.InterpretationResult interpretationResult;
+    private RDTInterpretationResult rdtInterpretationResult;
 
     private Point[] boundary;
 
@@ -17,20 +17,20 @@ public class UnParcelableImageMetadata {
         return boundary;
     }
 
-    public ImageProcessor.InterpretationResult getInterpretationResult() {
-        return interpretationResult;
+    public RDTInterpretationResult getRdtInterpretationResult() {
+        return rdtInterpretationResult;
     }
 
-    public void setInterpretationResult(ImageProcessor.InterpretationResult interpretationResult) {
-        this.interpretationResult = interpretationResult;
+    public void setRdtInterpretationResult(RDTInterpretationResult rdtInterpretationResult) {
+        this.rdtInterpretationResult = rdtInterpretationResult;
     }
 
     public void setBoundary(Point[] boundary) {
         this.boundary = boundary;
     }
 
-    public UnParcelableImageMetadata withInterpretationResult(ImageProcessor.InterpretationResult interpretationResult) {
-        setInterpretationResult(interpretationResult);
+    public UnParcelableImageMetadata withInterpretationResult(RDTInterpretationResult rdtInterpretationResult) {
+        setRdtInterpretationResult(rdtInterpretationResult);
         return this;
     }
     
