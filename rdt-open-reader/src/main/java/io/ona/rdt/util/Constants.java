@@ -42,6 +42,10 @@ public interface Constants {
         String LBL_SCAN_QR_CODE = "lbl_scan_qr_code";
         String LBL_SCAN_BARCODE = "lbl_scan_barcode";
         String LBL_ENTER_RDT_MANUALLY = "lbl_enter_rdt_manually";
+        String LBL_CONDUCT_RDT = "lbl_conduct_rdt";
+        String LBL_SKIP_RDT_TEST = "lbl_skip_rdt_test";
+        String LBL_COLLECT_RESPIRATORY_SAMPLE = "lbl_collect_respiratory_sample";
+        String LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION = "lbl_skip_respiratory_sample_collection";
     }
 
     interface RequestCodes {
@@ -115,9 +119,13 @@ public interface Constants {
         String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
         String SCAN_QR_PAGE = "scan_qr_page";
         String SCAN_CARESTART_PAGE = "scan_carestart_page";
-        String SCAN_BARCODE_PAGE = "scan_barcode_page";
+        String SCAN_COVID_BARCODE_PAGE = "scan_covid_barcode_page";
         String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
         String TAKE_IMAGE_OF_RDT_PAGE = "take_image_of_rdt_page";
+        String CONDUCT_COVID_RDT_PAGE = "conduct_covid_rdt_page";
+        String RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE = "respiratory_specimen_collection_opt_in_page";
+        String COLLECT_RESPIRATORY_SPECIMEN_PAGE = "collect_respiratory_specimen_page";
+        String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
     }
 
     interface Encounter {

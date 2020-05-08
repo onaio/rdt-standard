@@ -151,25 +151,19 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step7",
+    "bottom_navigation": "true",
+    "next_label": "CONDUCT RDT TEST",
     "fields": [
       {
-        "key": "qr_code_reader",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "RDT ID *",
-        "scanButtonText": "Pindai Kode QR",
-        "value": "0",
-        "v_numeric": {
-          "value": "true",
-          "err": "Silakan masukkan ID yang valid"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Silakan masukkan ID RDT"
-        }
+        "key": "lbl_one_scan_widget",
+        "type": "label",
+        "text": "OneScan widget will go here",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
       },
       {
         "key": "rdt_id",
@@ -236,7 +230,8 @@
   "step16": {
     "title": "RDT",
     "next": "step17",
-    "display_back_button": "true",
+    "display_back_button":
+    "true",
     "fields": [
       {
         "key": "rdt_capture",
@@ -390,7 +385,7 @@
     "next": "step22",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "KONFIRMASI",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_handle_rdt",
@@ -438,7 +433,7 @@
   "next": "step24",
   "bottom_navigation": "true",
   "bottom_navigation_orientation": "vertical",
-  "next_label": "KONFIRMASI",
+  "next_label": "CONTINUE",
   "fields": [
     {
       "key": "lbl_handle_rdt",

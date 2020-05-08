@@ -15,7 +15,11 @@ import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
-import static io.ona.rdt.util.Constants.Step.SCAN_BARCODE_PAGE;
+import static io.ona.rdt.util.Constants.Step.COLLECT_RESPIRATORY_SPECIMEN_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_TEST_COMPLETE_PAGE;
+import static io.ona.rdt.util.Constants.Step.RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE;
+import static io.ona.rdt.util.Constants.Step.CONDUCT_COVID_RDT_PAGE;
+import static io.ona.rdt.util.Constants.Step.SCAN_COVID_BARCODE_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 
@@ -46,9 +50,17 @@ public class OnLabelClickedListener implements View.OnClickListener {
                 formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
                 nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
             } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_BARCODE_PAGE);
+                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_COVID_BARCODE_PAGE);
             } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
                 // todo: add next step
+            } else if (Constants.FormFields.LBL_CONDUCT_RDT.equals(key)) {
+                nextStep = stepStateConfig.getStepStateObj().optString(CONDUCT_COVID_RDT_PAGE);
+            } else if (Constants.FormFields.LBL_SKIP_RDT_TEST.equals(key)) {
+                nextStep = stepStateConfig.getStepStateObj().optString(RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE);
+            } else if (Constants.FormFields.LBL_COLLECT_RESPIRATORY_SAMPLE.equals(key)) {
+                nextStep = stepStateConfig.getStepStateObj().optString(COLLECT_RESPIRATORY_SPECIMEN_PAGE);
+            } else if (Constants.FormFields.LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION.equals(key)) {
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_TEST_COMPLETE_PAGE);
             }
             ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(nextStep);
         } catch (JSONException e) {
