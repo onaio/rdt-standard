@@ -155,7 +155,7 @@
     "next_label": "CONDUCT RDT TEST",
     "fields": [
       {
-        "key": "lbl_one_scan_widget",
+        "key": "lbl_one_scan_widget_rdt",
         "type": "label",
         "text": "OneScan widget will go here",
         "text_color": "#000000",
@@ -164,13 +164,6 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff"
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },
@@ -449,7 +442,7 @@
   ]
 },
   "step24": {
-    "title": "Handle RDT",
+    "title": "Store specimen",
     "display_back_button": "true",
     "next": "step25",
     "bottom_navigation": "true",
@@ -465,14 +458,14 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Safely Store Respiratory Specimen in provided transport tube."
+        "text": "Safely store Respiratory Specimen in provided transport tube."
       }
     ]
   },
   "step25": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step26",
+    "next": "step24",
     "fields": [
       {
         "key": "lbl_scan_respiratory_specimen_barcode",
@@ -487,7 +480,7 @@
       {
         "key": "lbl_affix_respiratory_specimen_label",
         "type": "label",
-        "text": "Affix Label or record ID on transport tube",
+        "text": "Manually affix label",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -501,7 +494,8 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "SAVE AND EXIT",
+    "next_type": "submit",
+    "submit_label": "SAVE AND EXIT",
     "fields": [
       {
         "key": "lbl_store_respiratory_sample",
@@ -540,6 +534,69 @@
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step28": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step30",
+    "bottom_navigation": "true",
+    "next_label": "CONDUCT RDT TEST",
+    "fields": [
+      {
+        "key": "lbl_one_scan_widget_specimen",
+        "type": "label",
+        "text": "OneScan widget will go here",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step29": {
+    "title": "Respiratory specimen",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "next": "step30",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SAVE AND EXIT",
+    "fields": [
+      {
+        "key": "lbl_affix_respiratory_sample_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Affix Label or record ID on transport tube"
+      }
+    ]
+  },
+  "step30": {
+    "title": "Store specimen",
+    "display_back_button": "true",
+    "next": "step26",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Store the respiratory sample appropriately until they have been picked up by the courier"
       }
     ]
   },

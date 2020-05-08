@@ -24,5 +24,8 @@
   "conduct_covid_rdt_page": "step3",
   "respiratory_specimen_collection_opt_in_page": "step22",
   "collect_respiratory_specimen_page": "step23",
-  "covid_test_complete_page": "step26"
+  "covid_test_complete_page": "step26",
+  "covid_store_respiratory_sample_page": "step24",
+  "covid_one_scan_widget_specimen_page": "step28",
+  "covid_affix_respiratory_sample_id_page": "step29"
 }
