@@ -1,6 +1,6 @@
 {
   "count": "20",
-  "encounter_type": "rdt_test",
+  "encounter_type": "covid_rdt_test",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -250,6 +250,13 @@
           "value": true,
           "err": "Please specify the expiration date"
         }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },
@@ -265,12 +272,22 @@
         "key": "lbl_handle_rdt",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "10sp",
+        "text_size": "14sp",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
         "text": "Record ID on RDT"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
       }
     ]
   },
@@ -490,7 +507,7 @@
           "err": "Please specify if positive for pv, pf or both"
         },
         "relevance": {
-          "step17:chw_result": {
+          "step11:chw_result": {
             "type": "string",
             "ex": "equalTo(., \"positive\")"
           }

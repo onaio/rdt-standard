@@ -33,6 +33,7 @@ import io.ona.rdt.util.FormLauncher;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
@@ -44,6 +45,7 @@ import static io.ona.rdt.util.Constants.FormFields.METADATA;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
@@ -116,6 +118,8 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             bindType = PCR_RESULTS;
         } else if (COVID_PATIENT_REGISTRATION.equals(encounterType)) {
             bindType = COVID_PATIENTS;
+        } else if (COVID_RDT_TEST.equals(encounterType)) {
+            bindType = COVID_RDT_TESTS;
         }
         return bindType;
     }

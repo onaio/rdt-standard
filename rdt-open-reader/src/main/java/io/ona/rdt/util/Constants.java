@@ -137,6 +137,7 @@ public interface Constants {
         String PATIENT_REGISTRATION = "patient_registration";
         String COVID_PATIENT_REGISTRATION = "covid_patient_registration";
         String RDT_TEST = "rdt_test";
+        String COVID_RDT_TEST = "covid_rdt_test";
         String PCR_RESULT = "pcr_result";
     }
 
@@ -144,6 +145,7 @@ public interface Constants {
         String RDT_PATIENTS = "rdt_patients";
         String COVID_PATIENTS = "covid_patients";
         String RDT_TESTS = "rdt_tests";
+        String COVID_RDT_TESTS = "covid_rdt_tests";
         String PCR_RESULTS = "pcr_results";
         String MICROSCOPY_RESULTS = "microscopy_results";
     }
