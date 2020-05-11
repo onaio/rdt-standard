@@ -39,39 +39,35 @@ public class OnLabelClickedListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        try {
-            JSONObject jsonObject = widgetArgs.getJsonObject();
-            RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
-            final String key = jsonObject.optString(KEY, "");
-            StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
+        JSONObject jsonObject = widgetArgs.getJsonObject();
+        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+        final String key = jsonObject.optString(KEY, "");
+        StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
 
-            String nextStep = "";
-            if (Constants.FormFields.LBL_CARE_START.equals(key)) {
-                formFragment.getRdtActivity().setRdtType(Constants.RDTType.CARESTART_RDT);
-                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
-            } else if (Constants.FormFields.LBL_SCAN_QR_CODE.equals(key)) {
-                formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
-                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
-            } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_SCAN_BARCODE_PAGE);
-            } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_MANUAL_RDT_ENTRY_PAGE);
-            } else if (Constants.FormFields.LBL_CONDUCT_RDT.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_CONDUCT_RDT_PAGE);
-            } else if (Constants.FormFields.LBL_SKIP_RDT_TEST.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE);
-            } else if (Constants.FormFields.LBL_COLLECT_RESPIRATORY_SAMPLE.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE);
-            } else if (Constants.FormFields.LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_TEST_COMPLETE_PAGE);
-            } else if (Constants.FormFields.LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE);
-            } else if (Constants.FormFields.LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL.equals(key)) {
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE);
-            }
-            ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(nextStep);
-        } catch (JSONException e) {
-            Timber.e(e);
+        String nextStep = "";
+        if (Constants.FormFields.LBL_CARE_START.equals(key)) {
+            formFragment.getRdtActivity().setRdtType(Constants.RDTType.CARESTART_RDT);
+            nextStep = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
+        } else if (Constants.FormFields.LBL_SCAN_QR_CODE.equals(key)) {
+            formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
+            nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
+        } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_SCAN_BARCODE_PAGE);
+        } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_MANUAL_RDT_ENTRY_PAGE);
+        } else if (Constants.FormFields.LBL_CONDUCT_RDT.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_CONDUCT_RDT_PAGE);
+        } else if (Constants.FormFields.LBL_SKIP_RDT_TEST.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE);
+        } else if (Constants.FormFields.LBL_COLLECT_RESPIRATORY_SAMPLE.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE);
+        } else if (Constants.FormFields.LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_TEST_COMPLETE_PAGE);
+        } else if (Constants.FormFields.LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE);
+        } else if (Constants.FormFields.LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL.equals(key)) {
+            nextStep = stepStateConfig.getStepStateObj().optString(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE);
         }
+        ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(nextStep);
     }
 }

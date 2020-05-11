@@ -141,17 +141,13 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
     }
 
     private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
-        try {
-            org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null,
-                    false,
-                    RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY));
+        org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null,
+                false,
+                RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY));
 
-            if (rdtIdObs != null) {
-                String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
-                RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
-            }
-        } catch (JSONException e) {
-            Timber.e(e);
+        if (rdtIdObs != null) {
+            String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
         }
     }
 

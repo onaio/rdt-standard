@@ -5,6 +5,8 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import timber.log.Timber;
+
 /**
  * Created by Vincent Karuri on 29/11/2019
  */
@@ -16,11 +18,15 @@ public class StepStateConfig {
 
     private StepStateConfig() { }
 
-    public static StepStateConfig getInstance(Context context) throws JSONException {
-        if (stepStateConfig == null) {
-            stepStateConfig = new StepStateConfig();
-            JSONObject configJSONObj = new RDTJsonFormUtils().getFormJsonObject(STEP_STATE_CONFIG_FILE, context);
-            stepStateConfig.setStepStateObj(configJSONObj);
+    public static StepStateConfig getInstance(Context context) {
+        try {
+            if (stepStateConfig == null) {
+                stepStateConfig = new StepStateConfig();
+                JSONObject configJSONObj = new RDTJsonFormUtils().getFormJsonObject(STEP_STATE_CONFIG_FILE, context);
+                stepStateConfig.setStepStateObj(configJSONObj);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, "Error thrown when parsing StepStateConfig!");
         }
         return stepStateConfig;
     }

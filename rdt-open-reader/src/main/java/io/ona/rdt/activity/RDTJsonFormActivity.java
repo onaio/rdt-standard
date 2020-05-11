@@ -104,11 +104,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     @Override
     public void onStop() {
-        try {
-            RDTApplication.getInstance().getStepStateConfiguration().destroyInstance();
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
+        RDTApplication.getInstance().getStepStateConfiguration().destroyInstance();
         super.onStop();
     }
 }

@@ -38,6 +38,7 @@ public interface Constants {
         String DETAILS = "details";
         String ENCOUNTER_TYPE = "encounter_type";
         String ENTITY_ID = "entity_id";
+        String MANUAL_EXPIRATION_DATE = "manual_expiration_date";
         String LBL_CARE_START = "lbl_care_start";
         String LBL_SCAN_QR_CODE = "lbl_scan_qr_code";
         String LBL_SCAN_BARCODE = "lbl_scan_barcode";
@@ -131,6 +132,7 @@ public interface Constants {
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
         String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";
+        String COVID_RDT_EXPIRED_PAGE = "covid_rdt_expired_page";
     }
 
     interface Encounter {

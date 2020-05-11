@@ -139,7 +139,7 @@ public class RDTApplication extends DrishtiApplication {
         }
     }
 
-    public StepStateConfig getStepStateConfiguration() throws JSONException {
+    public StepStateConfig getStepStateConfiguration() {
         return StepStateConfig.getInstance(getApplicationContext());
     }
 

@@ -120,8 +120,8 @@ public class Utils {
         });
     }
 
-    public static boolean isExpired(Date date) {
-        return new Date().before(date);
+    public static boolean isExpired(Date expirationDate) {
+        return new Date().after(expirationDate);
     }
 
     public static List<String> convertJsonArrToStringList(JSONArray jsonArray) throws JSONException {
