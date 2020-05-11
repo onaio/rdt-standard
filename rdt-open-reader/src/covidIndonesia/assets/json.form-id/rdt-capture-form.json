@@ -537,7 +537,7 @@
     ]
   },
   "step13": {
-    "title": "RDT",
+    "title": "Respiratory sample",
     "display_back_button": "true",
     "fields": [
       {
@@ -563,7 +563,7 @@
     ]
   },
   "step14": {
-    "title": "Handle RDT",
+    "title": "Respiratory sample",
     "display_back_button": "true",
     "next": "step15",
     "bottom_navigation": "true",
@@ -571,7 +571,7 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "lbl_handle_rdt",
+        "key": "lbl_collect_respiratory_samplet",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -592,7 +592,7 @@
     "next_label": "KONFIRMASI",
     "fields": [
       {
-        "key": "lbl_handle_rdt",
+        "key": "lbl_store_respiratory_specimen",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -605,7 +605,7 @@
     ]
   },
   "step16": {
-    "title": "RDT",
+    "title": "Respiratory sample",
     "display_back_button": "true",
     "fields": [
       {
@@ -631,7 +631,7 @@
     ]
   },
   "step17": {
-    "title": "Respiratory specimen",
+    "title": "Respiratory sample",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "next": "step19",
@@ -651,14 +651,14 @@
     ]
   },
   "step18": {
-    "title": "RDT",
+    "title": "Respiratory sample",
     "display_back_button": "true",
     "next": "step19",
     "bottom_navigation": "true",
     "next_label": "CONDUCT RDT TEST",
     "fields": [
       {
-        "key": "lbl_one_scan_widget_rdt",
+        "key": "lbl_one_scan_widget_respiratory_sample",
         "type": "label",
         "text": "OneScan widget will go here",
         "text_color": "#000000",
@@ -671,7 +671,7 @@
     ]
   },
   "step19": {
-    "title": "Store specimen",
+    "title": "Store specimen for courier",
     "display_back_button": "true",
     "next": "step20",
     "bottom_navigation": "true",
@@ -679,7 +679,7 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "lbl_handle_rdt",
+        "key": "lbl_store_specimen_for_courier",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -700,7 +700,7 @@
     "submit_label": "SAVE AND EXIT",
     "fields": [
       {
-        "key": "lbl_store_respiratory_sample",
+        "key": "lbl_test_complete",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",

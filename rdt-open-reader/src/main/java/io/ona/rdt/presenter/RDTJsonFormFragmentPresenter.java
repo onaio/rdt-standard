@@ -27,7 +27,9 @@ import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
 import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
+import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isExpired;
+import static io.ona.rdt.util.Utils.isMalariaApp;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.conditionallyMoveToNextStep;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
 import static org.smartregister.util.JsonFormUtils.getJSONArray;
@@ -99,9 +101,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
-        if (BuildConfig.FLAVOR.equals("malariaKenya") || BuildConfig.FLAVOR.equals("malariaIndonesia")) {
+        if (isMalariaApp()) {
             handleMalariaTestFormClicks(currentStep, isSubmit);
-        } else if (BuildConfig.FLAVOR.equals("covidIndonesia")) {
+        } else if (isCovidApp()) {
             handleCovidTestFormClicks(currentStep, isSubmit);
         }
     }

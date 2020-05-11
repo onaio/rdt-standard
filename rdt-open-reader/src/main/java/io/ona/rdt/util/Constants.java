@@ -121,12 +121,12 @@ public interface Constants {
         String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
         String SCAN_QR_PAGE = "scan_qr_page";
         String SCAN_CARESTART_PAGE = "scan_carestart_page";
-        String SCAN_COVID_BARCODE_PAGE = "scan_covid_barcode_page";
         String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
         String TAKE_IMAGE_OF_RDT_PAGE = "take_image_of_rdt_page";
-        String CONDUCT_COVID_RDT_PAGE = "conduct_covid_rdt_page";
-        String RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE = "respiratory_specimen_collection_opt_in_page";
-        String COLLECT_RESPIRATORY_SPECIMEN_PAGE = "collect_respiratory_specimen_page";
+        String COVID_SCAN_BARCODE_PAGE = "covid_scan_barcode_page";
+        String COVID_CONDUCT_RDT_PAGE = "covid_conduct_rdt_page";
+        String COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE = "covid_respiratory_specimen_collection_opt_in_page";
+        String COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE = "covid_collect_respiratory_specimen_page";
         String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
