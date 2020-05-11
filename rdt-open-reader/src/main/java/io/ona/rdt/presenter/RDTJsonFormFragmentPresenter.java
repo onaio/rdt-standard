@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -98,6 +99,22 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
+        if (BuildConfig.FLAVOR.equals("malariaKenya") || BuildConfig.FLAVOR.equals("malariaIndonesia")) {
+            handleMalariaTestFormClicks(currentStep, isSubmit);
+        } else if (BuildConfig.FLAVOR.equals("covidIndonesia")) {
+            handleCovidTestFormClicks(currentStep, isSubmit);
+        }
+    }
+
+    private void handleCovidTestFormClicks(String currentStep, Object isSubmit) {
+        if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
+            rdtFormFragment.saveForm();
+        } else {
+            rdtFormFragment.moveToNextStep();
+        }
+    }
+
+    private void handleMalariaTestFormClicks(String currentStep, Object isSubmit) {
         try {
             StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
             if (isCurrentStep(stepStateConfig, BLOT_PAPER_TASK_PAGE, currentStep)) {
@@ -115,7 +132,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
                 rdtFormFragment.moveToNextStep();
             } else if (isCurrentStep(stepStateConfig, MANUAL_ENTRY_EXPIRATION_PAGE, currentStep)) {
                 JsonFormFragment formFragment = (JsonFormFragment) rdtFormFragment;
-                String dateStr =  value(getJSONArray(formFragment.getStep(stepStateConfig.getStepStateObj()
+                String dateStr = value(getJSONArray(formFragment.getStep(stepStateConfig.getStepStateObj()
                         .optString(MANUAL_ENTRY_EXPIRATION_PAGE)), FIELDS), "", "");
                 if (StringUtils.isNotBlank(dateStr)) {
                     Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);

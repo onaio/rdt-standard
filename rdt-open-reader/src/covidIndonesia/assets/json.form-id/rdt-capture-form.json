@@ -63,8 +63,8 @@
   "step2": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step27",
-    "bottom_navigation" : "true",
+    "next": "step3",
+    "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "RDT",
     "fields": [
@@ -94,7 +94,32 @@
   "step3": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step4",
+    "fields": [
+      {
+        "key": "lbl_conduct_rdt",
+        "type": "label",
+        "text": "Conduct RDT",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_rdt_test",
+        "type": "label",
+        "text": "Skip RDT test",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step4": {
+    "title": "RDT",
+    "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_which_rdt",
@@ -129,28 +154,130 @@
       }
     ]
   },
-  "step4": {
-    "title": "RDT",
+  "step5": {
+    "title": "Record RDT information",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step6",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "expiration_date_reader",
+        "key": "lbl_rdt_manufacturer",
+        "type": "label",
+        "text": "Enter manufacturer name",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "rdt_manufacturer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "expiration_date_capture",
+        "type": "edit_text",
         "v_required": {
-          "value": "true",
-          "err": "Silakan masukkan ID RDT "
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "lbl_rdt_test_name",
+        "type": "label",
+        "text": "Enter RDT name",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "rdt_test_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "lbl_rdt_batch_id",
+        "type": "label",
+        "text": "Enter RDT batch ID",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "rdt_batch_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "lbl_record_expiration_date",
+        "type": "label",
+        "text": "Catat Tanggal Kedaluwarsa",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "manual_expiration_date",
+        "type": "date_picker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Tanggal kadaluarsa",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the expiration date"
         }
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Record ID on RDT"
+      }
+    ]
+  },
+  "step7": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step9",
     "bottom_navigation": "true",
     "next_label": "CONDUCT RDT TEST",
     "fields": [
@@ -167,7 +294,7 @@
       }
     ]
   },
-  "step6": {
+  "step8": {
     "title": "RDT",
     "display_back_button": "true",
     "next": "step3",
@@ -199,10 +326,10 @@
       }
     ]
   },
-  "step7": {
+  "step9": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step16",
+    "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CAPTURE RDT",
@@ -220,11 +347,10 @@
       }
     ]
   },
-  "step16": {
+  "step10": {
     "title": "RDT",
-    "next": "step17",
-    "display_back_button":
-    "true",
+    "next": "step11",
+    "display_back_button": "true",
     "fields": [
       {
         "key": "rdt_capture",
@@ -305,13 +431,13 @@
       }
     ]
   },
-  "step17": {
+  "step11": {
     "title": "Hasil tes RDT",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "SIMPAN HASIL RDT",
-    "next": "step21",
+    "next": "step12",
     "fields": [
       {
         "key": "chw_result",
@@ -372,10 +498,10 @@
       }
     ]
   },
-  "step21": {
+  "step12": {
     "title": "Handle RDT",
     "display_back_button": "true",
-    "next": "step22",
+    "next": "step13",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -393,10 +519,9 @@
       }
     ]
   },
-  "step22": {
+  "step13": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step23",
     "fields": [
       {
         "key": "lbl_collect_respiratory_sample",
@@ -420,31 +545,31 @@
       }
     ]
   },
-  "step23": {
-  "title": "Handle RDT",
-  "display_back_button": "true",
-  "next": "step24",
-  "bottom_navigation": "true",
-  "bottom_navigation_orientation": "vertical",
-  "next_label": "CONTINUE",
-  "fields": [
-    {
-      "key": "lbl_handle_rdt",
-      "type": "label",
-      "text_color": "#000000",
-      "text_size": "10sp",
-      "top_margin": "15dp",
-      "has_bg": true,
-      "bg_color": "#ffffff",
-      "label_text_style": "bold",
-      "text": "Collect respiratory specimen using approved methods"
-    }
-  ]
-},
-  "step24": {
+  "step14": {
+    "title": "Handle RDT",
+    "display_back_button": "true",
+    "next": "step15",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Collect respiratory specimen using approved methods"
+      }
+    ]
+  },
+  "step15": {
     "title": "Store specimen",
     "display_back_button": "true",
-    "next": "step25",
+    "next": "step16",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "KONFIRMASI",
@@ -462,10 +587,9 @@
       }
     ]
   },
-  "step25": {
+  "step16": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step24",
     "fields": [
       {
         "key": "lbl_scan_respiratory_specimen_barcode",
@@ -489,82 +613,12 @@
       }
     ]
   },
-  "step26": {
-    "title": "Test complete",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SAVE AND EXIT",
-    "fields": [
-      {
-        "key": "lbl_store_respiratory_sample",
-        "type": "label",
-        "text_color": "#000000",
-        "text_size": "10sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold",
-        "text": "Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures"
-      }
-    ]
-  },
-  "step27": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step3",
-    "fields": [
-      {
-        "key": "lbl_conduct_rdt",
-        "type": "label",
-        "text": "Conduct RDT",
-        "text_color": "#000000",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "has_drawable_end": true,
-        "bg_color": "#ffffff"
-      },
-      {
-        "key": "lbl_skip_rdt_test",
-        "type": "label",
-        "text": "Skip RDT test",
-        "top_margin": "30dp",
-        "text_color": "#000000",
-        "has_bg": true,
-        "has_drawable_end": true,
-        "bg_color": "#ffffff"
-      }
-    ]
-  },
-  "step28": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step30",
-    "bottom_navigation": "true",
-    "next_label": "CONDUCT RDT TEST",
-    "fields": [
-      {
-        "key": "lbl_one_scan_widget_specimen",
-        "type": "label",
-        "text": "OneScan widget will go here",
-        "text_color": "#000000",
-        "text_size": "12sp",
-        "label_text_style": "bold",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff"
-      }
-    ]
-  },
-  "step29": {
+  "step17": {
     "title": "Respiratory specimen",
     "display_back_button": "true",
     "bottom_navigation": "true",
-    "next": "step30",
+    "next": "step19",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SAVE AND EXIT",
     "fields": [
       {
         "key": "lbl_affix_respiratory_sample_id",
@@ -579,10 +633,30 @@
       }
     ]
   },
-  "step30": {
+  "step18": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step19",
+    "bottom_navigation": "true",
+    "next_label": "CONDUCT RDT TEST",
+    "fields": [
+      {
+        "key": "lbl_one_scan_widget_rdt",
+        "type": "label",
+        "text": "OneScan widget will go here",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step19": {
     "title": "Store specimen",
     "display_back_button": "true",
-    "next": "step26",
+    "next": "step20",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -600,115 +674,16 @@
       }
     ]
   },
-  "step31": {
-  "title": "Record RDT information",
-  "display_back_button": "true",
-  "next": "step32",
-  "bottom_navigation": "true",
-  "bottom_navigation_orientation": "vertical",
-  "next_label": "CONTINUE",
-  "fields": [
-{
-  "key": "lbl_rdt_manufacturer",
-  "type": "label",
-  "text": "Enter manufacturer name",
-  "text_color": "#000000",
-  "text_size": "9sp",
-  "top_margin": "15dp",
-  "has_bg": true,
-  "bg_color": "#ffffff",
-  "bottom_margin": "50dp"
-},
-    {
-      "key": "rdt_manufacturer",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "v_required": {
-        "value": "false",
-        "err": ""
-      }
-    },
-    {
-    "key": "lbl_rdt_test_name",
-    "type": "label",
-    "text": "Enter RDT name",
-    "text_color": "#000000",
-    "text_size": "9sp",
-    "top_margin": "15dp",
-    "has_bg": true,
-    "bg_color": "#ffffff",
-    "bottom_margin": "50dp"
-    },
-    {
-      "key": "rdt_test_name",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "v_required": {
-        "value": "false",
-        "err": ""
-      }
-    },
-    {
-    "key": "lbl_rdt_batch_id",
-    "type": "label",
-    "text": "Enter RDT batch ID",
-    "text_color": "#000000",
-    "text_size": "9sp",
-    "top_margin": "15dp",
-    "has_bg": true,
-    "bg_color": "#ffffff",
-    "bottom_margin": "50dp"
-    },
-    {
-      "key": "rdt_batch_id",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "v_required": {
-        "value": "false",
-        "err": ""
-      }
-    },
-    {
-      "key": "lbl_record_expiration_date",
-      "type": "label",
-      "text": "Catat Tanggal Kedaluwarsa",
-      "text_color": "#000000",
-      "text_size": "9sp",
-      "top_margin": "15dp",
-      "has_bg": true,
-      "bg_color": "#ffffff",
-      "bottom_margin": "50dp"
-    },
-    {
-      "key": "manual_expiration_date",
-      "type": "date_picker",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "hint": "Tanggal kadaluarsa",
-      "v_required": {
-        "value": true,
-        "err": "Please specify the expiration date"
-      }
-    }
-  ]
-},
-  "step32": {
-    "title": "RDT",
+  "step20": {
+    "title": "Test complete",
     "display_back_button": "true",
-    "next": "step7",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "next_type": "submit",
+    "submit_label": "SAVE AND EXIT",
     "fields": [
       {
-        "key": "lbl_handle_rdt",
+        "key": "lbl_store_respiratory_sample",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -716,40 +691,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Record ID on RDT"
-      }
-    ]
-  },
-  "step20": {
-    "title": "Scan RDT timed out",
-    "next": "step7",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "TERUS",
-    "fields": [
-      {
-        "key": "lbl_record_expiration_date",
-        "type": "label",
-        "text": "Catat Tanggal Kedaluwarsa",
-        "text_color": "#000000",
-        "text_size": "9sp",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "bottom_margin": "50dp"
-      },
-      {
-        "key": "manual_expiration_date",
-        "type": "date_picker",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "Tanggal kadaluarsa",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the expiration date"
-        }
+        "text": "Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures"
       }
     ]
   }

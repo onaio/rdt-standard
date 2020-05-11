@@ -128,7 +128,6 @@ public interface Constants {
         String RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE = "respiratory_specimen_collection_opt_in_page";
         String COLLECT_RESPIRATORY_SPECIMEN_PAGE = "collect_respiratory_specimen_page";
         String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
-        String COVID_STORE_RESPIRATORY_SAMPLE_PAGE = "covid_store_respiratory_sample_page";
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
         String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";

@@ -16,15 +16,14 @@ import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static io.ona.rdt.util.Constants.Step.COLLECT_RESPIRATORY_SPECIMEN_PAGE;
+import static io.ona.rdt.util.Constants.Step.CONDUCT_COVID_RDT_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_STORE_RESPIRATORY_SAMPLE_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_TEST_COMPLETE_PAGE;
 import static io.ona.rdt.util.Constants.Step.RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE;
-import static io.ona.rdt.util.Constants.Step.CONDUCT_COVID_RDT_PAGE;
-import static io.ona.rdt.util.Constants.Step.SCAN_COVID_BARCODE_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
+import static io.ona.rdt.util.Constants.Step.SCAN_COVID_BARCODE_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 
 /**
