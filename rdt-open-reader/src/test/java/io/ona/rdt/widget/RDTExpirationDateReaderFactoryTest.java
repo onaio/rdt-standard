@@ -90,7 +90,7 @@ public class RDTExpirationDateReaderFactoryTest {
     public void testConditionallyMoveToNextStepShouldMoveToNextStep() throws Exception {
         mockStaticMethods();
         mockStaticClasses();
-        readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), stepStateConfig, true);
+        readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), "step1", false);
         verify(widgetArgs.getFormFragment()).next();
     }
 
@@ -98,7 +98,7 @@ public class RDTExpirationDateReaderFactoryTest {
     public void testConditionallyMoveToNextStepShouldMoveToStep1() throws Exception {
         mockStaticClasses();
         mockStaticMethods();
-        readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), stepStateConfig, false);
+        readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), "step1", true);
         verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
     }
 
@@ -123,12 +123,12 @@ public class RDTExpirationDateReaderFactoryTest {
         mockStaticClasses();
         mockStaticMethods();
         Intent data = mock(Intent.class);
-        Bundle extras = new Bundle();
-        extras.putBoolean(EXPIRATION_DATE_RESULT, false);
-        extras.putString(EXPIRATION_DATE, "31012999");
+        Bundle extras = mock(Bundle.class);
+        doReturn(true).when(extras).getBoolean(eq(EXPIRATION_DATE_RESULT));
+        doReturn("3101999").when(extras).getString(eq(EXPIRATION_DATE));
         doReturn(extras).when(data).getExtras();
         readerFactory.onActivityResult(RDT_CAPTURE_CODE, RESULT_OK, data);
-        verify(jsonFormActivity, atLeastOnce()).writeValue(anyString(), anyString(), isNull(), anyString(), anyString(), anyString(), eq(false));
+        verify(jsonFormActivity, atLeastOnce()).writeValue(anyString(), anyString(), eq("3101999"), anyString(), anyString(), anyString(), eq(false));
         verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
     }
 
@@ -208,7 +208,7 @@ public class RDTExpirationDateReaderFactoryTest {
 
         JSONObject jsonObject = mock(JSONObject.class);
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn("step1").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE_ADDRESS), anyString());
+        doReturn("step1").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE_ADDRESS));
         doReturn("").when(jsonObject).optString(eq(MANUAL_ENTRY_EXPIRATION_PAGE), anyString());
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 

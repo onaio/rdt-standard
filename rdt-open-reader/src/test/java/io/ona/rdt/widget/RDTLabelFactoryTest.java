@@ -112,7 +112,7 @@ public class RDTLabelFactoryTest {
         onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.CARESTART_RDT));
 
-        jsonObject.remove(KEY);
+        jsonObject.put(KEY, Constants.FormFields.LBL_SCAN_QR_CODE);
         onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.ONA_RDT));
         verify(presenter, times(2)).moveToNextStep(eq(jsonObject.optString(NEXT)));

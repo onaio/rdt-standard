@@ -36,6 +36,7 @@ import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
+import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -86,35 +87,43 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() {
-        doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
-        mockStaticClasses();
-        presenter.performNextButtonAction("step9", null);
-        verify(rdtFormFragment).transactFragment(eq(formFragment));
+        if (isMalariaApp()) {
+            doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
+            mockStaticClasses();
+            presenter.performNextButtonAction("step9", null);
+            verify(rdtFormFragment).transactFragment(eq(formFragment));
+        }
     }
 
     @Test
     public void testPerformNextButtonActionShouldShowImageViewsForONARDT() throws JSONException {
-        mockStaticMethods();
-        mockStaticClasses();
-        doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
-        presenter.performNextButtonAction("step8", null);
-        verify(rdtFormFragment).moveToNextStep();
+        if (isMalariaApp()) {
+            mockStaticMethods();
+            mockStaticClasses();
+            doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
+            presenter.performNextButtonAction("step8", null);
+            verify(rdtFormFragment).moveToNextStep();
+        }
     }
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForDefaultNextButton() throws JSONException {
-        mockStaticMethods();
-        mockStaticClasses();
-        presenter.performNextButtonAction("step1", null);
-        verify(rdtFormFragment).moveToNextStep();
+        if (isMalariaApp()) {
+            mockStaticMethods();
+            mockStaticClasses();
+            presenter.performNextButtonAction("step1", null);
+            verify(rdtFormFragment).moveToNextStep();
+        }
     }
 
     @Test
     public void testPerformNextButtonActionShouldSubmitFormForSubmitTypeNextButton() throws JSONException {
-        mockStaticMethods();
-        mockStaticClasses();
-        presenter.performNextButtonAction("step1", true);
-        verify(rdtFormFragment).saveForm();
+        if (isMalariaApp()) {
+            mockStaticMethods();
+            mockStaticClasses();
+            presenter.performNextButtonAction("step1", true);
+            verify(rdtFormFragment).saveForm();
+        }
     }
 
     @Test
@@ -141,10 +150,12 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() {
-        doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
-        mockStaticClasses();
-        presenter.performNextButtonAction("step9", null);
-        verify(rdtFormFragment).moveToNextStep();
+        if (isMalariaApp()) {
+            doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
+            mockStaticClasses();
+            presenter.performNextButtonAction("step9", null);
+            verify(rdtFormFragment).moveToNextStep();
+        }
     }
 
     private void addViewAndMockStaticClasses() throws JSONException {

@@ -18,6 +18,8 @@ import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.util.Constants.Step.DISABLED_BACK_PRESS_PAGES;
+import static io.ona.rdt.util.Utils.isCovidApp;
+import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -54,24 +56,25 @@ public class RDTJsonFormActivityPresenterTest {
     public void testOnBackPress() throws JSONException {
         mockStaticClasses();
         mockStaticMethods();
+        if (isMalariaApp()) {
+            // test back-press disabled for expiration date and rdt-capture screens
+            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(6);
+            presenter.onBackPress();
+            verifyZeroInteractions(activity);
 
-        // test back-press disabled for expiration date and rdt-capture screens
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(6);
-        presenter.onBackPress();
-        verifyZeroInteractions(activity);
+            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(13);
+            presenter.onBackPress();
+            verifyZeroInteractions(activity);
 
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(13);
-        presenter.onBackPress();
-        verifyZeroInteractions(activity);
+            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(14);
+            presenter.onBackPress();
+            verifyZeroInteractions(activity);
 
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(14);
-        presenter.onBackPress();
-        verifyZeroInteractions(activity);
-
-        // allow back-press for other screens
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
-        presenter.onBackPress();
-        verify(activity).onBackPress();
+            // allow back-press for other screens
+            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
+            presenter.onBackPress();
+            verify(activity).onBackPress();
+        }
     }
 
     private void mockStaticClasses() {
