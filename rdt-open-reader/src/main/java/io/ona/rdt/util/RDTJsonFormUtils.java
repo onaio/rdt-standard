@@ -227,7 +227,7 @@ public class RDTJsonFormUtils {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             if (RDT_TEST_FORM.equals(formName)) {
-                prePopulateFormFields(formJsonObject, patient, uniqueIDs, Integer.parseInt(formJsonObject.optString(AllConstants.COUNT, "1")));
+                prePopulateFormFields(formJsonObject, patient, uniqueIDs);
             }
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
@@ -235,7 +235,7 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, List<String> uniqueIDs, int numFields) throws JSONException {
+    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, List<String> uniqueIDs) throws JSONException {
         Map<String, String> idsMap = getIDsMap(uniqueIDs);
         jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
