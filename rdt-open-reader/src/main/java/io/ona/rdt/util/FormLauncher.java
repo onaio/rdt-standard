@@ -15,6 +15,7 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Utils.isCovidApp;
 
 /**
  * Created by Vincent Karuri on 06/08/2019
@@ -30,10 +31,20 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
             args.withActivity(activity)
                     .withFormJsonObj(formUtils.getFormJsonObject(formName, activity))
                     .withPatient(patient);
-            formUtils.getNextUniqueIds(args, this, 2);
+            formUtils.getNextUniqueIds(args, this, getNumOfIDsToGenerate());
         } else {
             formUtils.launchForm(activity, formName, patient, null);
         }
+    }
+
+    private int getNumOfIDsToGenerate() {
+        int numOfIDsToGenerate;
+        if (isCovidApp()) {
+            numOfIDsToGenerate = 2;
+        } else {
+            numOfIDsToGenerate = 1;
+        }
+        return numOfIDsToGenerate;
     }
 
     @Override

@@ -251,7 +251,7 @@ public class RDTJsonFormUtils {
             }
 
             if (isCovidApp()) {
-                // pre-populate rdt id labels
+                // pre-populate respiratory sample id labels
                 if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
                     field.put("text", "Respiratory sample ID: " + idsMap.get(RESPIRATORY_SAMPLE_ID));
                 }
@@ -278,10 +278,14 @@ public class RDTJsonFormUtils {
     }
 
     private Map<String, String> getIDsMap(List<String> uniqueIDValues) {
-        Map<String, String> idsMap = new HashMap<>();
+        // specify keys for each type of unique id
         List<String> uniqueIDKeys = new ArrayList<>();
         uniqueIDKeys.add(RDT_ID);
-        uniqueIDKeys.add(RESPIRATORY_SAMPLE_ID);
+        if (isCovidApp()) {
+            uniqueIDKeys.add(RESPIRATORY_SAMPLE_ID);
+        }
+        // populate idsMap
+        Map<String, String> idsMap = new HashMap<>();
         for (int i = 0; i < uniqueIDValues.size(); i++) {
             idsMap.put(uniqueIDKeys.get(i), uniqueIDValues.get(i));
         }
