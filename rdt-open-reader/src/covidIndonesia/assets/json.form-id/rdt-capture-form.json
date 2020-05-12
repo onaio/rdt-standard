@@ -571,7 +571,7 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "lbl_collect_respiratory_samplet",
+        "key": "lbl_collect_respiratory_sample",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -641,12 +641,29 @@
         "key": "lbl_affix_respiratory_sample_id",
         "type": "label",
         "text_color": "#000000",
-        "text_size": "10sp",
+        "text_size": "13sp",
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
         "text": "Affix Label or record ID on transport tube"
+      },
+      {
+        "key": "lbl_respiratory_sample_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      },
+      {
+        "key": "respiratory_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

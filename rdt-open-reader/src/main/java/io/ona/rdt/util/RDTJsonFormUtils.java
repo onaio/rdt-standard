@@ -18,7 +18,6 @@ import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
-import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +26,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
@@ -35,7 +38,7 @@ import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
-import io.ona.rdt.callback.OnUniqueIdFetchedCallback;
+import io.ona.rdt.callback.OnUniqueIdsFetchedCallback;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
@@ -43,12 +46,15 @@ import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
+import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
+import static io.ona.rdt.util.Utils.isCovidApp;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -217,11 +223,11 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void launchForm(Activity activity, String formName, Patient patient, String rdtId) {
+    public void launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             if (RDT_TEST_FORM.equals(formName)) {
-                prePopulateFormFields(formJsonObject, patient, rdtId, Integer.parseInt(formJsonObject.optString(AllConstants.COUNT, "1")));
+                prePopulateFormFields(formJsonObject, patient, uniqueIDs, Integer.parseInt(formJsonObject.optString(AllConstants.COUNT, "1")));
             }
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
@@ -229,33 +235,57 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException {
+    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, List<String> uniqueIDs, int numFields) throws JSONException {
+        Map<String, String> idsMap = getIDsMap(uniqueIDs);
         jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // pre-populate rdt id labels
-            if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
-                field.put("text", "RDT ID: " + rdtId);
+            if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
+                field.put("text", "RDT ID: " + idsMap.get(RDT_ID));
             }
             // pre-populate rdt id field
             if (isRDTIdField(field)) {
-                field.put(VALUE, rdtId);
+                field.put(VALUE, idsMap.get(RDT_ID));
             }
+
+            if (isCovidApp()) {
+                // pre-populate rdt id labels
+                if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
+                    field.put("text", "Respiratory sample ID: " + idsMap.get(RESPIRATORY_SAMPLE_ID));
+                }
+                // pre-populate respiratory sample id field
+                if (isRDTIdField(field)) {
+                    field.put(VALUE, idsMap.get(RESPIRATORY_SAMPLE_ID));
+                }
+            }
+
             // pre-populate patient fields
             if (patient != null) {
-                if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+                if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
                     String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
                             ? patient.getPatientId() : patient.getPatientName();
 
                     field.put(VALUE, patientIdentifier);
                     field.put("text", patientIdentifier);
-                } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+                } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, patient.getPatientSex());
                     field.put("text", getPatientSexAndId(patient));
                 }
             }
         }
+    }
+
+    private Map<String, String> getIDsMap(List<String> uniqueIDValues) {
+        Map<String, String> idsMap = new HashMap<>();
+        List<String> uniqueIDKeys = new ArrayList<>();
+        uniqueIDKeys.add(RDT_ID);
+        uniqueIDKeys.add(RESPIRATORY_SAMPLE_ID);
+        for (int i = 0; i < uniqueIDValues.size(); i++) {
+            idsMap.put(uniqueIDKeys.get(i), uniqueIDValues.get(i));
+        }
+        return idsMap;
     }
 
     public static String getPatientSexAndId(Patient patient) {
@@ -266,17 +296,21 @@ public class RDTJsonFormUtils {
         return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY).equals(field.getString(KEY));
     }
 
-    public synchronized void getNextUniqueId(final FormLaunchArgs args, final OnUniqueIdFetchedCallback callBack) {
-        class FetchUniqueIdTask extends AsyncTask<Void, Void, UniqueId> {
+    public synchronized void getNextUniqueIds(final FormLaunchArgs args, final OnUniqueIdsFetchedCallback callBack, int numOfIDs) {
+        class FetchUniqueIdTask extends AsyncTask<Void, Void, List<UniqueId>> {
             @Override
-            protected UniqueId doInBackground(Void... voids) {
-                return RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId();
+            protected  List<UniqueId> doInBackground(Void... voids) {
+                List<UniqueId> uniqueIds = new ArrayList<>();
+                for (int i = 0; i < numOfIDs; i++) {
+                    uniqueIds.add(RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId());
+                }
+                return uniqueIds;
             }
 
             @Override
-            protected void onPostExecute(UniqueId result) {
+            protected void onPostExecute(List<UniqueId> uniqueIds) {
                 if (callBack != null) {
-                    callBack.onUniqueIdFetched(args, result == null ? new UniqueId() : result);
+                    callBack.onUniqueIdsFetched(args, uniqueIds);
                 }
             }
         }

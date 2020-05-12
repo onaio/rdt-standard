@@ -49,6 +49,15 @@ public interface Constants {
         String LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION = "lbl_skip_respiratory_sample_collection";
         String LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE = "lbl_scan_respiratory_specimen_barcode";
         String LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL = "lbl_affix_respiratory_specimen_label";
+        String LBL_RDT_ID = "lbl_rdt_id";
+        String LBL_PATIENT_NAME = "lbl_patient_name";
+        String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
+        String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
+        String RDT_ID = "rdt_id";
+        String RESPIRATORY_SAMPLE_ID = "respiratory_sample_id";
+        String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
+        String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
+        String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
     }
 
     interface RequestCodes {
@@ -82,12 +91,6 @@ public interface Constants {
     interface Form {
         String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form.json";
-        String LBL_RDT_ID = "lbl_rdt_id";
-        String LBL_PATIENT_NAME = "lbl_patient_name";
-        String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
-        String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
-        String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
-        String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
         String RDT_TYPE = "rdt_type";
     }
 
