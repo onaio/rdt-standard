@@ -1,7 +1,6 @@
 package io.ona.rdt.presenter;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
@@ -47,8 +46,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
-import static org.powermock.api.support.membermodification.MemberMatcher.methods;
-import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 
 /**
  * Created by Vincent Karuri on 14/08/2019
@@ -79,10 +76,12 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-        presenter.attachView((JsonFormFragment) rdtFormFragment);
-        presenter.performNextButtonAction("step6", null);
-        verify(interactor).saveForm(any(JSONObject.class));
-        verify(rdtFormFragment).moveToNextStep();
+        if (isMalariaApp()) {
+            presenter.attachView((JsonFormFragment) rdtFormFragment);
+            presenter.performNextButtonAction("step6", null);
+            verify(interactor).saveForm(any(JSONObject.class));
+            verify(rdtFormFragment).moveToNextStep();
+        }
     }
 
     @Test

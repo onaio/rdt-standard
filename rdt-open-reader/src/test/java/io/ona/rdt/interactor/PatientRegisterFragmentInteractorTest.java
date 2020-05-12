@@ -30,6 +30,7 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.JsonFormUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -47,15 +48,20 @@ import io.ona.rdt.util.StepStateConfig;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
+import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
+import static io.ona.rdt.util.Utils.isCovidApp;
+import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
@@ -166,7 +172,7 @@ public class PatientRegisterFragmentInteractorTest {
         Whitebox.setInternalState(interactor, "formUtils", formUtils);
         interactor.launchForm(activity, FORM_NAME, null);
 
-        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(""), eq(2));
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(any(new ArrayList<String>().getClass())));
         verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
     }
 
@@ -180,7 +186,11 @@ public class PatientRegisterFragmentInteractorTest {
 
         Whitebox.setInternalState(interactor, "formUtils", formUtils);
         interactor.launchForm(activity, FORM_NAME, patient);
-        verify(formUtils).getNextUniqueId(formLaunchArgsArgumentCaptor.capture(), eq(interactor));
+        if (isMalariaApp()) {
+            verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(interactor), eq(1));
+        } else if (isCovidApp()) {
+            verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(interactor), eq(2));
+        }
 
         FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
         assertEquals(args.getActivity(), activity);
@@ -208,10 +218,18 @@ public class PatientRegisterFragmentInteractorTest {
         org.smartregister.domain.db.Event dbEvent = mock(org.smartregister.domain.db.Event.class);
         org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
         obs.setValue("rdt_id");
-        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), anyString());
+        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RDT_ID));
+        obs = new org.smartregister.domain.db.Obs();
+        obs.setValue("respiratory_sample_id");
+        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RESPIRATORY_SAMPLE_ID));
 
-        Whitebox.invokeMethod(interactor, "closeRDTId", dbEvent);
-        verify(uniqueIdRepository).close(eq("rdt_id"));
+        Whitebox.invokeMethod(interactor, "closeIDs", dbEvent);
+        if (isMalariaApp()) {
+            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
+        } else if (isCovidApp())  {
+            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
+            verify(uniqueIdRepository, times(1)).close(eq("respiratory_sample_id"));
+        }
     }
 
     @Test

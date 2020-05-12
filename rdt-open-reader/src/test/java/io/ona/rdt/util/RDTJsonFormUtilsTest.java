@@ -25,6 +25,8 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
@@ -694,7 +696,8 @@ public class RDTJsonFormUtilsTest {
 
         JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
         Patient patient = new Patient("patient", "female", "entity_id");
-        formUtils.prePopulateFormFields(formObject, patient, "rdt_id", 8);
+
+        formUtils.prePopulateFormFields(formObject, patient, getIDs());
 
         boolean populatedLblRDTId = false;
         boolean populatedRDTId = false;
@@ -704,7 +707,7 @@ public class RDTJsonFormUtilsTest {
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // test rdt id labels are populated
-            if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
+            if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
                assertEquals(field.getString("text"), "RDT ID: " + "rdt_id");
                populatedLblRDTId = true;
             }
@@ -714,10 +717,10 @@ public class RDTJsonFormUtilsTest {
                 populatedRDTId = true;
             }
             // test patient fields are populated
-            if (Constants.Form.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+            if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
                 assertEquals(field.getString("text"), patient.getPatientName());
                 populatedPatientName = true;
-            } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+            } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                 assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
                 populatedPatientSex = true;
             }
@@ -736,7 +739,7 @@ public class RDTJsonFormUtilsTest {
     @Test
     public void testLaunchFormShouldntThrowException() throws JSONException {
         mockStaticMethods();
-        formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), "rdt_id");
+        formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), getIDs());
     }
 
     @Test
@@ -854,5 +857,12 @@ public class RDTJsonFormUtilsTest {
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
         doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
+    }
+
+    private List<String> getIDs() {
+        List<String> rdtIds = new ArrayList<>();
+        rdtIds.add("rdt_id");
+        rdtIds.add("respiratory_sample_id");
+        return rdtIds;
     }
 }

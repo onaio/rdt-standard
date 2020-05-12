@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.ImageRepository;
@@ -256,7 +255,7 @@ public class RDTJsonFormUtils {
                     field.put("text", "Respiratory sample ID: " + idsMap.get(RESPIRATORY_SAMPLE_ID));
                 }
                 // pre-populate respiratory sample id field
-                if (isRDTIdField(field)) {
+                if (Constants.FormFields.RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, idsMap.get(RESPIRATORY_SAMPLE_ID));
                 }
             }
@@ -286,7 +285,7 @@ public class RDTJsonFormUtils {
         }
         // populate idsMap
         Map<String, String> idsMap = new HashMap<>();
-        for (int i = 0; i < uniqueIDValues.size(); i++) {
+        for (int i = 0; i < uniqueIDKeys.size(); i++) {
             idsMap.put(uniqueIDKeys.get(i), uniqueIDValues.get(i));
         }
         return idsMap;
