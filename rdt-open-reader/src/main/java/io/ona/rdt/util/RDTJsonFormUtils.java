@@ -13,10 +13,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.ByteArrayOutputStream;
@@ -219,7 +221,7 @@ public class RDTJsonFormUtils {
         try {
             JSONObject formJsonObject = getFormJsonObject(formName, activity);
             if (RDT_TEST_FORM.equals(formName)) {
-                prePopulateFormFields(formJsonObject, patient, rdtId, 8);
+                prePopulateFormFields(formJsonObject, patient, rdtId, Integer.parseInt(formJsonObject.optString(AllConstants.COUNT, "1")));
             }
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
@@ -230,18 +232,15 @@ public class RDTJsonFormUtils {
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String rdtId, int numFields) throws JSONException {
         jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
-        int fieldsPopulated = 0;
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // pre-populate rdt id labels
             if (Constants.Form.LBL_RDT_ID.equals(field.getString(KEY))) {
                 field.put("text", "RDT ID: " + rdtId);
-                fieldsPopulated++;
             }
             // pre-populate rdt id field
             if (isRDTIdField(field)) {
                 field.put(VALUE, rdtId);
-                fieldsPopulated++;
             }
             // pre-populate patient fields
             if (patient != null) {
@@ -251,16 +250,10 @@ public class RDTJsonFormUtils {
 
                     field.put(VALUE, patientIdentifier);
                     field.put("text", patientIdentifier);
-                    fieldsPopulated++;
                 } else if (Constants.Form.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, patient.getPatientSex());
                     field.put("text", getPatientSexAndId(patient));
-                    fieldsPopulated++;
                 }
-            }
-            // save cpu time
-            if (fieldsPopulated == numFields) {
-                break;
             }
         }
     }
