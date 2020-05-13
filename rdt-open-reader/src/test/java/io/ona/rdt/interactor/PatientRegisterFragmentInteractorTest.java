@@ -242,11 +242,9 @@ public class PatientRegisterFragmentInteractorTest {
         formJsonObj.put(ENCOUNTER_TYPE, COVID_RDT_TEST);
         Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
 
-        if (isMalariaApp()) {
-            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
-        } else if (isCovidApp()) {
+        verify(uniqueIdRepository, times(2)).close(eq("rdt_id"));
+        if (isCovidApp()) {
             verify(uniqueIdRepository, times(2)).close(eq("respiratory_sample_id"));
-            verify(uniqueIdRepository, times(2)).close(eq("rdt_id"));
         }
         verify(clientProcessor, times(3)).processClient(any(List.class));
     }

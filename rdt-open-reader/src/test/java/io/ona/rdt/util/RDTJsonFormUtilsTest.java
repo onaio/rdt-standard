@@ -49,6 +49,7 @@ import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static io.ona.rdt.util.Utils.isCovidApp;
+import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -885,8 +886,14 @@ public class RDTJsonFormUtilsTest {
                 }
             }
         }
-        assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId
-                && populatedPatientSex && populatedLblRespiratorySampleID && populatedRespiratorySampleID);
+
+        if (isMalariaApp()) {
+            assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId
+                    && populatedPatientSex);
+        } else if (isCovidApp()) {
+            assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId
+                    && populatedPatientSex && populatedLblRespiratorySampleID && populatedRespiratorySampleID);
+        }
     }
 
     @Test
