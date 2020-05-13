@@ -36,6 +36,14 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
+import static io.ona.rdt.util.Constants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_CONDUCT_RDT_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_SCAN_BARCODE_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_TEST_COMPLETE_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.widget.RDTLabelFactory.CENTER_LABEL;
@@ -111,11 +119,44 @@ public class RDTLabelFactoryTest {
         OnLabelClickedListener onLabelClickedListener = new OnLabelClickedListener(widgetArgs);
         onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.CARESTART_RDT));
+        verify(presenter).moveToNextStep(eq(SCAN_CARESTART_PAGE));
 
         jsonObject.put(KEY, Constants.FormFields.LBL_SCAN_QR_CODE);
         onLabelClickedListener.onClick(mock(View.class));
         verify(jsonFormFragment.getRdtActivity()).setRdtType(eq(Constants.RDTType.ONA_RDT));
-        verify(presenter, times(2)).moveToNextStep(eq(jsonObject.optString(NEXT)));
+        verify(presenter).moveToNextStep(eq(SCAN_QR_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_SCAN_BARCODE);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_SCAN_BARCODE_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_ENTER_RDT_MANUALLY);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_MANUAL_RDT_ENTRY_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_CONDUCT_RDT);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_CONDUCT_RDT_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_SKIP_RDT_TEST);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_COLLECT_RESPIRATORY_SAMPLE);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_TEST_COMPLETE_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE));
+
+        jsonObject.put(KEY, Constants.FormFields.LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL);
+        onLabelClickedListener.onClick(mock(View.class));
+        verify(presenter).moveToNextStep(eq(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE));
     }
 
     @Test
@@ -130,7 +171,16 @@ public class RDTLabelFactoryTest {
         PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
 
         JSONObject jsonObject = mock(JSONObject.class);
-        doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
+        doReturn(SCAN_CARESTART_PAGE).when(jsonObject).optString(eq(SCAN_CARESTART_PAGE));
+        doReturn(SCAN_QR_PAGE).when(jsonObject).optString(eq(SCAN_QR_PAGE));
+        doReturn(COVID_SCAN_BARCODE_PAGE).when(jsonObject).optString(eq(COVID_SCAN_BARCODE_PAGE));
+        doReturn(COVID_MANUAL_RDT_ENTRY_PAGE).when(jsonObject).optString(eq(COVID_MANUAL_RDT_ENTRY_PAGE));
+        doReturn(COVID_CONDUCT_RDT_PAGE).when(jsonObject).optString(eq(COVID_CONDUCT_RDT_PAGE));
+        doReturn(COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE).when(jsonObject).optString(eq(COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE));
+        doReturn(COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE).when(jsonObject).optString(eq(COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE));
+        doReturn(COVID_TEST_COMPLETE_PAGE).when(jsonObject).optString(eq(COVID_TEST_COMPLETE_PAGE));
+        doReturn(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE).when(jsonObject).optString(eq(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE));
+        doReturn(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE).when(jsonObject).optString(eq(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE));
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
     }
 }
