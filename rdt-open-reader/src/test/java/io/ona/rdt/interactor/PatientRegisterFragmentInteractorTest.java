@@ -47,12 +47,21 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
 import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
+import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
 import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertEquals;
@@ -215,21 +224,8 @@ public class PatientRegisterFragmentInteractorTest {
 
     @Test
     public void testCloseRDTIdShouldCloseRDTId() throws Exception {
-        org.smartregister.domain.db.Event dbEvent = mock(org.smartregister.domain.db.Event.class);
-        org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
-        obs.setValue("rdt_id");
-        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RDT_ID));
-        obs = new org.smartregister.domain.db.Obs();
-        obs.setValue("respiratory_sample_id");
-        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RESPIRATORY_SAMPLE_ID));
-
-        Whitebox.invokeMethod(interactor, "closeIDs", dbEvent);
-        if (isMalariaApp()) {
-            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
-        } else if (isCovidApp())  {
-            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
-            verify(uniqueIdRepository, times(1)).close(eq("respiratory_sample_id"));
-        }
+        Whitebox.invokeMethod(interactor, "closeIDs", getDBEvent());
+        verifyIDsAreClosed();
     }
 
     @Test
@@ -237,7 +233,30 @@ public class PatientRegisterFragmentInteractorTest {
         mockStaticMethods();
         Whitebox.setInternalState(interactor, "clientProcessor", clientProcessor);
         Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
-        verify(clientProcessor).processClient(any(List.class));
+
+        formJsonObj.put(ENCOUNTER_TYPE, RDT_TEST);
+        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
+        verifyIDsAreClosed();
+
+        formJsonObj.put(ENCOUNTER_TYPE, COVID_RDT_TEST);
+        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
+
+        if (isMalariaApp()) {
+            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
+        } else if (isCovidApp()) {
+            verify(uniqueIdRepository, times(2)).close(eq("respiratory_sample_id"));
+            verify(uniqueIdRepository, times(2)).close(eq("rdt_id"));
+        }
+        verify(clientProcessor, times(3)).processClient(any(List.class));
+    }
+
+    @Test
+    public void testGetBindTypeShouldGetCorrectBindType() throws Exception {
+        assertEquals(RDT_PATIENTS, Whitebox.invokeMethod(interactor, "getBindType", PATIENT_REGISTRATION));
+        assertEquals(RDT_TESTS, Whitebox.invokeMethod(interactor, "getBindType", RDT_TEST));
+        assertEquals(PCR_RESULTS, Whitebox.invokeMethod(interactor, "getBindType", PCR_RESULT));
+        assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(interactor, "getBindType", COVID_PATIENT_REGISTRATION));
+        assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(interactor, "getBindType", COVID_RDT_TEST));
     }
 
     private void mockStaticMethods() throws JSONException {
@@ -277,7 +296,7 @@ public class PatientRegisterFragmentInteractorTest {
         when(JsonFormUtils.getJSONObject(any(JSONObject.class), anyString())).thenReturn(new JSONObject());
         when(JsonFormUtils.getString(any(JSONObject.class), anyString())).thenReturn(PATIENT_BASE_ENTITY_ID);
         when(JsonFormUtils.createBaseClient(any(JSONArray.class), any(FormTag.class), anyString())).thenReturn(new Client(UUID.randomUUID().toString()));
-        when(JsonFormUtils.createEvent(any(JSONArray.class), any(JSONObject.class), any(FormTag.class), anyString(), anyString(), anyString())).thenReturn(new Event());
+        when(JsonFormUtils.createEvent(any(JSONArray.class), any(JSONObject.class), any(FormTag.class), anyString(), anyString(), anyString())).thenReturn(getEvent());
         when(JsonFormUtils.fields(any(JSONObject.class))).thenReturn(formFields);
 
         // mock AssetHandler
@@ -287,5 +306,39 @@ public class PatientRegisterFragmentInteractorTest {
 
     private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {
         return formJsonObj.getJSONObject("step1").getJSONArray("fields");
+    }
+
+    private void verifyIDsAreClosed() throws Exception {
+        if (isMalariaApp()) {
+            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
+        } else if (isCovidApp())  {
+            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
+            verify(uniqueIdRepository, times(1)).close(eq("respiratory_sample_id"));
+        }
+    }
+
+    private org.smartregister.domain.db.Event getDBEvent() {
+        org.smartregister.domain.db.Event dbEvent = mock(org.smartregister.domain.db.Event.class);
+        org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
+        obs.setValue("rdt_id");
+        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RDT_ID));
+        obs = new org.smartregister.domain.db.Obs();
+        obs.setValue("respiratory_sample_id");
+        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RESPIRATORY_SAMPLE_ID));
+        return dbEvent;
+    }
+
+    private Event getEvent() {
+        Event event = new Event();
+        event.setObs(new ArrayList<>());
+        Obs obs = new Obs();
+        obs.setValue("rdt_id");
+        obs.setFieldCode("rdt_id");
+        event.getObs().add(obs);
+        obs = new Obs();
+        obs.setValue("respiratory_sample_id");
+        obs.setFieldCode("respiratory_sample_id");
+        event.getObs().add(obs);
+        return event;
     }
 }
