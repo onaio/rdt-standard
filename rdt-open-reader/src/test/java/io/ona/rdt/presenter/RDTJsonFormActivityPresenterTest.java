@@ -74,6 +74,9 @@ public class RDTJsonFormActivityPresenterTest {
             when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
             presenter.onBackPress();
             verify(activity).onBackPress();
+        } else if (isCovidApp()) {
+            presenter.onBackPress();
+            verify(activity).onBackPress();
         }
     }
 
