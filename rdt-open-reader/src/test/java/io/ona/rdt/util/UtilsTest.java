@@ -32,6 +32,7 @@ import static io.ona.rdt.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -128,6 +129,17 @@ public class UtilsTest {
     public void testIsImageSyncEnabled() throws Exception {
         mockStaticClasses();
         assertFalse(Whitebox.invokeMethod(utils, "isImageSyncEnabled"));
+    }
+
+    @Test
+    public void testIsExpiredShouldReturnCorrectStatus() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.YEAR, 1);
+        assertFalse(Utils.isExpired(calendar.getTime()));
+        calendar.setTime(new Date());
+        calendar.add(Calendar.YEAR, -1);
+        assertTrue(Utils.isExpired(calendar.getTime()));
     }
 
     private void mockStaticClasses() {
