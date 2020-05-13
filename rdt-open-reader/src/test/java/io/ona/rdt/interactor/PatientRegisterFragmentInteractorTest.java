@@ -209,7 +209,7 @@ public class PatientRegisterFragmentInteractorTest {
     @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
         Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj, PATIENT_REGISTRATION, RDT_PATIENTS);
-        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj,  COVID_PATIENT_REGISTRATION, RDT_PATIENTS);
+        Whitebox.invokeMethod(interactor, "saveEventClient", formJsonObj,  COVID_PATIENT_REGISTRATION, COVID_PATIENTS);
         verify(eventClientRepository, times(2)).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
         verify(eventClientRepository, times(2)).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
     }

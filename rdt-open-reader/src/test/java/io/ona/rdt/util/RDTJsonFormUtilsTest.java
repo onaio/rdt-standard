@@ -92,7 +92,7 @@ public class RDTJsonFormUtilsTest {
     @Mock
     private StepStateConfig stepStateConfig;
 
-    private static final String RDT_TEST_JSON_FORM = "{\n" +
+    public static final String RDT_TEST_JSON_FORM = "{\n" +
             "  \"count\": \"20\",\n" +
             "  \"encounter_type\": \"covid_rdt_test\",\n" +
             "  \"entity_id\": \"\",\n" +
@@ -1012,7 +1012,7 @@ public class RDTJsonFormUtilsTest {
         }
     }
 
-    private void mockStaticMethods() throws JSONException {
+    private void mockStaticMethods() {
         // mock AssetHandler
         mockStatic(AssetHandler.class);
         PowerMockito.when(AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(RDT_TEST_JSON_FORM);
