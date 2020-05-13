@@ -19,7 +19,9 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.ImageRepository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -38,12 +40,15 @@ import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
+import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
+import static io.ona.rdt.util.Utils.isCovidApp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -82,11 +87,14 @@ public class RDTJsonFormUtilsTest {
     private ImageRepository imageRepository;
 
     @Mock
+    private UniqueIdRepository uniqueIdRepository;
+
+    @Mock
     private StepStateConfig stepStateConfig;
 
     private static final String RDT_TEST_JSON_FORM = "{\n" +
-            "  \"count\": \"18\",\n" +
-            "  \"encounter_type\": \"rdt_test\",\n" +
+            "  \"count\": \"20\",\n" +
+            "  \"encounter_type\": \"covid_rdt_test\",\n" +
             "  \"entity_id\": \"\",\n" +
             "  \"metadata\": {\n" +
             "    \"start\": {\n" +
@@ -133,10 +141,24 @@ public class RDTJsonFormUtilsTest {
             "    \"encounter_location\": \"\"\n" +
             "  },\n" +
             "  \"step1\": {\n" +
+            "    \"title\": \"Temukan lokasi\",\n" +
+            "    \"next\": \"step2\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"gps\",\n" +
+            "        \"type\": \"gps\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step2\": {\n" +
             "    \"title\": \"RDT\",\n" +
             "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step2\",\n" +
-            "    \"bottom_navigation\" : \"true\",\n" +
+            "    \"next\": \"step3\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
             "    \"bottom_navigation_orientation\": \"vertical\",\n" +
             "    \"next_label\": \"RDT\",\n" +
             "    \"fields\": [\n" +
@@ -163,10 +185,35 @@ public class RDTJsonFormUtilsTest {
             "      }\n" +
             "    ]\n" +
             "  },\n" +
-            "  \"step2\": {\n" +
+            "  \"step3\": {\n" +
             "    \"title\": \"RDT\",\n" +
             "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step3\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_conduct_rdt\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Conduct RDT\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"has_drawable_end\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_skip_rdt_test\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Skip RDT test\",\n" +
+            "        \"top_margin\": \"30dp\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"has_drawable_end\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step4\": {\n" +
+            "    \"title\": \"RDT\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
             "    \"fields\": [\n" +
             "      {\n" +
             "        \"key\": \"lbl_which_rdt\",\n" +
@@ -180,82 +227,188 @@ public class RDTJsonFormUtilsTest {
             "        \"bg_color\": \"#ffffff\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"lbl_scan_qr_code\",\n" +
+            "        \"key\": \"lbl_scan_barcode\",\n" +
             "        \"type\": \"label\",\n" +
-            "        \"text\": \"Scan QR Code\",\n" +
+            "        \"text\": \"Scan barcode\",\n" +
             "        \"text_color\": \"#000000\",\n" +
             "        \"top_margin\": \"15dp\",\n" +
             "        \"has_bg\": true,\n" +
             "        \"has_drawable_end\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"next\": \"step4\"\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"lbl_care_start\",\n" +
+            "        \"key\": \"lbl_enter_rdt_manually\",\n" +
             "        \"type\": \"label\",\n" +
-            "        \"text\": \"Scan Carestart Exp. Date\",\n" +
+            "        \"text\": \"Enter RDT manually\",\n" +
             "        \"top_margin\": \"30dp\",\n" +
             "        \"text_color\": \"#000000\",\n" +
             "        \"has_bg\": true,\n" +
             "        \"has_drawable_end\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"next\": \"step3\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step3\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step6\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"expiration_date_reader\",\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"type\": \"expiration_date_capture\",\n" +
-            "        \"expired_page_address\": \"step5\",\n" +
-            "        \"v_required\": {\n" +
-            "          \"value\": \"true\",\n" +
-            "          \"err\": \"Please enter the RDT ID\"\n" +
-            "        }\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step4\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step6\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"qr_code_reader\",\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"type\": \"barcode\",\n" +
-            "        \"barcode_type\": \"qrcode\",\n" +
-            "        \"hint\": \"RDT ID *\",\n" +
-            "        \"scanButtonText\": \"Scan QR Code\",\n" +
-            "        \"value\": \"0\",\n" +
-            "        \"rdt_id_lbl_addresses\": \"step6:lbl_rdt_id, step7:lbl_rdt_id, step8:lbl_rdt_id, step17:lbl_rdt_id, step18:lbl_rdt_id\",\n" +
-            "        \"rdt_id_address\": \"step16:rdt_id\",\n" +
-            "        \"expiration_date_address\": \"step3:expiration_date_reader\",\n" +
-            "        \"expired_page_address\": \"step5\",\n" +
-            "        \"v_numeric\": {\n" +
-            "          \"value\": \"true\",\n" +
-            "          \"err\": \"Please enter a valid ID\"\n" +
-            "        },\n" +
-            "        \"v_required\": {\n" +
-            "          \"value\": \"true\",\n" +
-            "          \"err\": \"Please enter the RDT ID\"\n" +
-            "        }\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
             "      }\n" +
             "    ]\n" +
             "  },\n" +
             "  \"step5\": {\n" +
+            "    \"title\": \"Record RDT information\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step6\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_label\": \"CONTINUE\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_rdt_manufacturer\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Enter manufacturer name\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"9sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"bottom_margin\": \"50dp\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_manufacturer\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"edit_text\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"false\",\n" +
+            "          \"err\": \"\"\n" +
+            "        }\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_rdt_test_name\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Enter RDT name\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"9sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"bottom_margin\": \"50dp\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_test_name\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"edit_text\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"false\",\n" +
+            "          \"err\": \"\"\n" +
+            "        }\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_rdt_batch_id\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Enter RDT batch ID\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"9sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"bottom_margin\": \"50dp\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_batch_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"edit_text\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"false\",\n" +
+            "          \"err\": \"\"\n" +
+            "        }\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_record_expiration_date\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Catat Tanggal Kedaluwarsa\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"9sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"bottom_margin\": \"50dp\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"manual_expiration_date\",\n" +
+            "        \"type\": \"date_picker\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"hint\": \"Tanggal kadaluarsa\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": true,\n" +
+            "          \"err\": \"Please specify the expiration date\"\n" +
+            "        }\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step6\": {\n" +
             "    \"title\": \"RDT\",\n" +
             "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step2\",\n" +
+            "    \"next\": \"step9\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_label\": \"CONTINUE\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_handle_rdt\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"14sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"text\": \"Record ID on RDT\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_rdt_id\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"12sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"label_text_style\": \"bold\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step7\": {\n" +
+            "    \"title\": \"RDT\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step9\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"next_label\": \"CONDUCT RDT TEST\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_one_scan_widget_rdt\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"OneScan widget will go here\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"12sp\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step8\": {\n" +
+            "    \"title\": \"RDT\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step3\",\n" +
             "    \"bottom_navigation\": \"true\",\n" +
             "    \"next_label\": \"OK\",\n" +
             "    \"fields\": [\n" +
@@ -269,7 +422,7 @@ public class RDTJsonFormUtilsTest {
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
             "        \"center_label\": \"true\",\n" +
-            "        \"text\": \"RDT has expired\"\n" +
+            "        \"text\": \"RDT telah kadaluwarsa\"\n" +
             "      },\n" +
             "      {\n" +
             "        \"key\": \"lbl_use_new_test\",\n" +
@@ -280,117 +433,7 @@ public class RDTJsonFormUtilsTest {
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
             "        \"center_label\": \"true\",\n" +
-            "        \"text\": \"Use new test and rescan\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step6\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step7\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_label\": \"CONTINUE TO MICROSCOPY\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_rdt_id\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"12sp\",\n" +
-            "        \"label_text_style\": \"bold\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_record_rdt_id\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Write this number on back of RDT.\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step7\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step8\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_label\": \"MICROSCOPY SLIDE COMPLETE\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_microscopy_slide_instruction\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Collect Thick and Thin Bloodsmear on Microscopy Slide\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_microscopy_slide\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Label slide with:\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_rdt_id\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"12sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"label_text_style\": \"bold\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step8\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step9\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_label\": \"BLOT PAPER COMPLETE\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_blot_paper_instructions\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Saturate the Filter Paper Bloodspot Circle\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_blot_paper\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Place Bloodspot in a labeled tube with ID number displayed. Do Not Close top of Bloodspot until dry.\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_rdt_id\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"12sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"label_text_style\": \"bold\"\n" +
+            "        \"text\": \"Gunakan tes baru dan pindai ulang\"\n" +
             "      }\n" +
             "    ]\n" +
             "  },\n" +
@@ -400,19 +443,18 @@ public class RDTJsonFormUtilsTest {
             "    \"next\": \"step10\",\n" +
             "    \"bottom_navigation\": \"true\",\n" +
             "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_type\": \"next\",\n" +
-            "    \"next_label\": \"CONTINUE\",\n" +
+            "    \"next_label\": \"CAPTURE RDT\",\n" +
             "    \"fields\": [\n" +
             "      {\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"key\": \"illustration_text_description\",\n" +
-            "        \"type\": \"image_view\",\n" +
-            "        \"text\": \"Collect the blood sample (5㎕) using a pipette provided or micropipette.\",\n" +
-            "        \"label_text_size\": \"18sp\",\n" +
+            "        \"key\": \"lbl_rdt_instructions\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Conduct the RDT according to manufacturing guidelines\",\n" +
             "        \"text_color\": \"#000000\",\n" +
-            "        \"image_file\": \"collect_blood_sample.jpg\"\n" +
+            "        \"text_size\": \"12sp\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
             "      }\n" +
             "    ]\n" +
             "  },\n" +
@@ -420,179 +462,69 @@ public class RDTJsonFormUtilsTest {
             "    \"title\": \"RDT\",\n" +
             "    \"next\": \"step11\",\n" +
             "    \"display_back_button\": \"true\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_type\": \"next\",\n" +
-            "    \"next_label\": \"CONTINUE\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"key\": \"add_blood\",\n" +
-            "        \"type\": \"image_view\",\n" +
-            "        \"text\": \"Add 5 ㎕ of whole blood into the 'S' well.\",\n" +
-            "        \"label_text_size\": \"18sp\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"image_file\": \"add_blood.jpg\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step11\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"next\": \"step12\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_type\": \"next\",\n" +
-            "    \"next_label\": \"START 20 MINUTE TIMER\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"key\": \"add_buffer_solution\",\n" +
-            "        \"type\": \"image_view\",\n" +
-            "        \"text\": \"Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \\\"A\\\" well.\\nStart a timer.\",\n" +
-            "        \"label_text_size\": \"18sp\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"image_file\": \"add_buffer_solution.jpg\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step12\": {\n" +
-            "    \"title\": \"RDT Timer\",\n" +
-            "    \"next\": \"step13\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_type\": \"next\",\n" +
-            "    \"next_label\": \"TAKE IMAGE OF RDT\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"countdown_timer\",\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"timer\",\n" +
-            "        \"type\": \"countdown_timer\",\n" +
-            "        \"label\": \"Read results in 20 minutes.\",\n" +
-            "        \"label_text_size\": \"8sp\",\n" +
-            "        \"label_text_color\": \"#525252\",\n" +
-            "        \"countdown_time_unit\": \"minutes\",\n" +
-            "        \"countdown_time_value\": \"20\",\n" +
-            "        \"countdown_interval\": \"1\",\n" +
-            "        \"progressbar_background_color\": \"#e2e2e2\",\n" +
-            "        \"progressbar_color\": \"#E9D61E\",\n" +
-            "        \"progressbar_text_color\": \"#505050\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step13\": {\n" +
-            "    \"title\": \"RDT Result Ready\",\n" +
-            "    \"next\": \"step15\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_type\": \"next\",\n" +
-            "    \"next_label\": \"TAKE IMAGE OF RDT\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"countdown_timer_results_ready\",\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"timer\",\n" +
-            "        \"type\": \"countdown_timer\",\n" +
-            "        \"label\": \"Read results within 10 minutes.\",\n" +
-            "        \"label_text_size\": \"8sp\",\n" +
-            "        \"label_text_color\": \"#4b4b4b\",\n" +
-            "        \"countdown_time_unit\": \"minutes\",\n" +
-            "        \"countdown_time_value\": \"10\",\n" +
-            "        \"countdown_interval\": \"1\",\n" +
-            "        \"progressbar_background_color\": \"#e2e2e2\",\n" +
-            "        \"progressbar_color\": \"#3EBB22\",\n" +
-            "        \"progressbar_text_color\": \"#505050\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step14\": {\n" +
-            "    \"title\": \"Carestart RDT\",\n" +
-            "    \"next\": \"step15\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_label\": \"TAKE IMAGE OF RDT\",\n" +
-            "    \"fields\": [\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_conduct_carestart\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Conduct Carestart RDT\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_conduct_carestart\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"10sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Take image of RDT once test is complete\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step15\": {\n" +
-            "    \"title\": \"RDT\",\n" +
-            "    \"next\": \"step16\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
             "    \"fields\": [\n" +
             "      {\n" +
             "        \"key\": \"rdt_capture\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"type\": \"rdt_capture\",\n" +
-            "        \"carestart_rdt_prev\": \"step14\",\n" +
-            "        \"image_id_address\": \"step15:rdt_capture\",\n" +
-            "        \"image_timestamp_address\": \"step16:time_img_saved\"\n" +
-            "      }\n" +
-            "    ]\n" +
-            "  },\n" +
-            "  \"step16\": {\n" +
-            "    \"title\": \"RDT Test Result\",\n" +
-            "    \"display_back_button\": \"true\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_label\": \"SAVE RDT RESULT\",\n" +
-            "    \"next\": \"step17\",\n" +
-            "    \"fields\": [\n" +
+            "        \"type\": \"rdt_capture\"\n" +
+            "      },\n" +
             "      {\n" +
-            "        \"key\": \"rdt_result\",\n" +
+            "        \"key\": \"rdt_capture_control_result\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"type\": \"native_radio\",\n" +
-            "        \"label\": \"Select RDT reader result\",\n" +
-            "        \"options\": [\n" +
-            "          {\n" +
-            "            \"key\": \"positive\",\n" +
-            "            \"text\": \"positive\"\n" +
-            "          },\n" +
-            "          {\n" +
-            "            \"key\": \"negative\",\n" +
-            "            \"text\": \"negative\"\n" +
-            "          },\n" +
-            "          {\n" +
-            "            \"key\": \"invalid\",\n" +
-            "            \"text\": \"invalid\"\n" +
-            "          }\n" +
-            "        ],\n" +
-            "        \"value\": \"negative\",\n" +
-            "        \"v_required\": {\n" +
-            "          \"value\": \"true\",\n" +
-            "          \"err\": \"Please select the RDT reader result\"\n" +
-            "        }\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_capture_pv_result\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_capture_pf_result\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_capture_duration\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"rdt_type\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"flash_on\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"cassette_boundary\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"cropped_img_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
             "      },\n" +
             "      {\n" +
             "        \"key\": \"time_img_saved\",\n" +
@@ -602,15 +534,7 @@ public class RDTJsonFormUtilsTest {
             "        \"type\": \"hidden\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"timer\",\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"type\": \"hidden\",\n" +
-            "        \"value\": \"834912438\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"rdt_id\",\n" +
+            "        \"key\": \"is_manual_capture\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +
@@ -618,16 +542,83 @@ public class RDTJsonFormUtilsTest {
             "      }\n" +
             "    ]\n" +
             "  },\n" +
-            "  \"step17\": {\n" +
-            "    \"title\": \"Confirm Labels\",\n" +
+            "  \"step11\": {\n" +
+            "    \"title\": \"Hasil tes RDT\",\n" +
             "    \"display_back_button\": \"true\",\n" +
-            "    \"next\": \"step18\",\n" +
             "    \"bottom_navigation\": \"true\",\n" +
             "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_label\": \"CONFIRM\",\n" +
+            "    \"next_label\": \"SIMPAN HASIL RDT\",\n" +
+            "    \"next\": \"step12\",\n" +
             "    \"fields\": [\n" +
             "      {\n" +
-            "        \"key\": \"lbl_confirm_labels\",\n" +
+            "        \"key\": \"chw_result\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"native_radio\",\n" +
+            "        \"label\": \"Pilih hasil pembaca RDT\",\n" +
+            "        \"options\": [\n" +
+            "          {\n" +
+            "            \"key\": \"positive\",\n" +
+            "            \"text\": \"positif\"\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"key\": \"negative\",\n" +
+            "            \"text\": \"negatif\"\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"key\": \"invalid\",\n" +
+            "            \"text\": \"tidak valid\"\n" +
+            "          }\n" +
+            "        ],\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"true\",\n" +
+            "          \"err\": \"Silakan pilih hasil pembaca RDT\"\n" +
+            "        }\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"parasite_type\",\n" +
+            "        \"label\": \"Positif untuk:\",\n" +
+            "        \"type\": \"check_box\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"combine_checkbox_option_values\": true,\n" +
+            "        \"options\": [\n" +
+            "          {\n" +
+            "            \"key\": \"igm_positive\",\n" +
+            "            \"text\": \"IgM\",\n" +
+            "            \"value\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"key\": \"igg_positive\",\n" +
+            "            \"text\": \"IgG\",\n" +
+            "            \"value\": false\n" +
+            "          }\n" +
+            "        ],\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": true,\n" +
+            "          \"err\": \"Please specify if positive for pv, pf or both\"\n" +
+            "        },\n" +
+            "        \"relevance\": {\n" +
+            "          \"step11:chw_result\": {\n" +
+            "            \"type\": \"string\",\n" +
+            "            \"ex\": \"equalTo(., \\\"positive\\\")\"\n" +
+            "          }\n" +
+            "        }\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step12\": {\n" +
+            "    \"title\": \"Handle RDT\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step13\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_label\": \"CONTINUE\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_handle_rdt\",\n" +
             "        \"type\": \"label\",\n" +
             "        \"text_color\": \"#000000\",\n" +
             "        \"text_size\": \"10sp\",\n" +
@@ -635,47 +626,200 @@ public class RDTJsonFormUtilsTest {
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
             "        \"label_text_style\": \"bold\",\n" +
-            "        \"text\": \"Ensure Microscopy slide, Bloodspot and RDT labels are\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"key\": \"lbl_rdt_id\",\n" +
-            "        \"type\": \"label\",\n" +
-            "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"12sp\",\n" +
-            "        \"top_margin\": \"15dp\",\n" +
-            "        \"has_bg\": true,\n" +
-            "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"label_text_style\": \"bold\"\n" +
+            "        \"text\": \"Store or dispose of RDT appropriately according to established protocol\"\n" +
             "      }\n" +
             "    ]\n" +
             "  },\n" +
-            "  \"step18\": {\n" +
-            "    \"title\": \"Sterile Storage\",\n" +
+            "  \"step13\": {\n" +
+            "    \"title\": \"Respiratory sample\",\n" +
             "    \"display_back_button\": \"true\",\n" +
-            "    \"bottom_navigation\": \"true\",\n" +
-            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
-            "    \"next_type\": \"submit\",\n" +
-            "    \"submit_label\": \"END TEST\",\n" +
             "    \"fields\": [\n" +
             "      {\n" +
-            "        \"key\": \"lbl_confirm_labels\",\n" +
+            "        \"key\": \"lbl_collect_respiratory_sample\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Collect respiratory sample\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"has_drawable_end\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_skip_respiratory_sample_collection\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Skip respiratory sample collection\",\n" +
+            "        \"top_margin\": \"30dp\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"has_drawable_end\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step14\": {\n" +
+            "    \"title\": \"Respiratory sample\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step15\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_label\": \"CONTINUE\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_collect_respiratory_sample\",\n" +
             "        \"type\": \"label\",\n" +
             "        \"text_color\": \"#000000\",\n" +
             "        \"text_size\": \"10sp\",\n" +
             "        \"top_margin\": \"15dp\",\n" +
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
-            "        \"text\": \"Place RDT, Blood spot and Microscopy slide in a provided Sterile Storage and affix\"\n" +
-            "      },\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"text\": \"Collect respiratory specimen using approved methods\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step15\": {\n" +
+            "    \"title\": \"Store specimen\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step16\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_label\": \"KONFIRMASI\",\n" +
+            "    \"fields\": [\n" +
             "      {\n" +
-            "        \"key\": \"lbl_rdt_id\",\n" +
+            "        \"key\": \"lbl_store_respiratory_specimen\",\n" +
             "        \"type\": \"label\",\n" +
             "        \"text_color\": \"#000000\",\n" +
-            "        \"text_size\": \"12sp\",\n" +
+            "        \"text_size\": \"10sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"text\": \"Safely store Respiratory Specimen in provided transport tube.\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step16\": {\n" +
+            "    \"title\": \"Respiratory sample\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_scan_respiratory_specimen_barcode\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Scan respiratory specimen barcode\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"has_drawable_end\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_affix_respiratory_specimen_label\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"Manually affix label\",\n" +
+            "        \"top_margin\": \"30dp\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"has_drawable_end\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step17\": {\n" +
+            "    \"title\": \"Respiratory sample\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"next\": \"step19\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_affix_respiratory_sample_id\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"13sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"text\": \"Affix Label or record ID on transport tube\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_respiratory_sample_id\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"10sp\",\n" +
             "        \"top_margin\": \"15dp\",\n" +
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
             "        \"label_text_style\": \"bold\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"respiratory_sample_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"hidden\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step18\": {\n" +
+            "    \"title\": \"Respiratory sample\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step19\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"next_label\": \"CONDUCT RDT TEST\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_one_scan_widget_respiratory_sample\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text\": \"OneScan widget will go here\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"12sp\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step19\": {\n" +
+            "    \"title\": \"Store specimen for courier\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"next\": \"step20\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_label\": \"CONTINUE\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_store_specimen_for_courier\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"10sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"text\": \"Store the respiratory sample appropriately until they have been picked up by the courier\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"step20\": {\n" +
+            "    \"title\": \"Test complete\",\n" +
+            "    \"display_back_button\": \"true\",\n" +
+            "    \"bottom_navigation\": \"true\",\n" +
+            "    \"bottom_navigation_orientation\": \"vertical\",\n" +
+            "    \"next_type\": \"submit\",\n" +
+            "    \"submit_label\": \"SAVE AND EXIT\",\n" +
+            "    \"fields\": [\n" +
+            "      {\n" +
+            "        \"key\": \"lbl_test_complete\",\n" +
+            "        \"type\": \"label\",\n" +
+            "        \"text_color\": \"#000000\",\n" +
+            "        \"text_size\": \"10sp\",\n" +
+            "        \"top_margin\": \"15dp\",\n" +
+            "        \"has_bg\": true,\n" +
+            "        \"bg_color\": \"#ffffff\",\n" +
+            "        \"label_text_style\": \"bold\",\n" +
+            "        \"text\": \"Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures\"\n" +
             "      }\n" +
             "    ]\n" +
             "  }\n" +
@@ -703,17 +847,19 @@ public class RDTJsonFormUtilsTest {
         boolean populatedRDTId = false;
         boolean populatedPatientName = false;
         boolean populatedPatientSex = false;
+        boolean populatedLblRespiratorySampleID = false;
+        boolean populatedRespiratorySampleID = false;
         JSONArray fields = getMultiStepFormFields(formObject);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // test rdt id labels are populated
             if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
-               assertEquals(field.getString("text"), "RDT ID: " + "rdt_id");
+               assertEquals(field.getString("text"), "RDT ID: " + RDT_ID);
                populatedLblRDTId = true;
             }
             // test rdt id is populated
             if (formUtils.isRDTIdField(field)) {
-                assertEquals(field.getString(VALUE), "rdt_id");
+                assertEquals(field.getString(VALUE), RDT_ID);
                 populatedRDTId = true;
             }
             // test patient fields are populated
@@ -724,8 +870,44 @@ public class RDTJsonFormUtilsTest {
                 assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
                 populatedPatientSex = true;
             }
+
+            // test respiratory sample IDs
+            if (isCovidApp()) {
+                // pre-populate respiratory sample id labels
+                if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
+                    assertEquals(field.getString("text"), "Respiratory sample ID: " + RESPIRATORY_SAMPLE_ID);
+                    populatedLblRespiratorySampleID = true;
+                }
+                // pre-populate respiratory sample id field
+                if (RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
+                    assertEquals(field.getString(VALUE), RESPIRATORY_SAMPLE_ID);
+                    populatedRespiratorySampleID = true;
+                }
+            }
         }
-        assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId && populatedPatientSex);
+        assertTrue(populatedRDTId && populatedPatientName && populatedLblRDTId
+                && populatedPatientSex && populatedLblRespiratorySampleID && populatedRespiratorySampleID);
+    }
+
+    @Test
+    public void testGetUniqueIDsShouldGetIDs() throws Exception {
+        mockStaticMethods();
+
+        UniqueId uniqueId = new UniqueId();
+        uniqueId.setOpenmrsId("openmrsID1");
+        doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
+
+        List<UniqueId> uniqueIds = Whitebox.invokeMethod(formUtils, "getUniqueIDs", 2);
+        assertEquals("openmrsID1", uniqueIds.get(0).getOpenmrsId());
+        assertEquals("openmrsID1", uniqueIds.get(1).getOpenmrsId());
+
+        uniqueId = new UniqueId();
+        uniqueId.setOpenmrsId("openmrsID2");
+        doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
+
+        uniqueIds = Whitebox.invokeMethod(formUtils, "getUniqueIDs", 2);
+        assertEquals("openmrsID2", uniqueIds.get(0).getOpenmrsId());
+        assertEquals("openmrsID2", uniqueIds.get(1).getOpenmrsId());
     }
 
     @Test
@@ -844,6 +1026,7 @@ public class RDTJsonFormUtilsTest {
 
         // mock repositories
         PowerMockito.when(drishtiContext.imageRepository()).thenReturn(imageRepository);
+        PowerMockito.when(drishtiContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
 
         // Drishti
         mockStatic(DrishtiApplication.class);
@@ -861,8 +1044,8 @@ public class RDTJsonFormUtilsTest {
 
     private List<String> getIDs() {
         List<String> rdtIds = new ArrayList<>();
-        rdtIds.add("rdt_id");
-        rdtIds.add("respiratory_sample_id");
+        rdtIds.add(RDT_ID);
+        rdtIds.add(RESPIRATORY_SAMPLE_ID);
         return rdtIds;
     }
 }

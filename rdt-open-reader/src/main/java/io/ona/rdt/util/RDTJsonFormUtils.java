@@ -303,11 +303,7 @@ public class RDTJsonFormUtils {
         class FetchUniqueIdTask extends AsyncTask<Void, Void, List<UniqueId>> {
             @Override
             protected  List<UniqueId> doInBackground(Void... voids) {
-                List<UniqueId> uniqueIds = new ArrayList<>();
-                for (int i = 0; i < numOfIDs; i++) {
-                    uniqueIds.add(RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId());
-                }
-                return uniqueIds;
+                return getUniqueIDs(numOfIDs);
             }
 
             @Override
@@ -318,6 +314,14 @@ public class RDTJsonFormUtils {
             }
         }
         new FetchUniqueIdTask().execute();
+    }
+
+    private List<UniqueId> getUniqueIDs(int numOfIDs) {
+        List<UniqueId> uniqueIds = new ArrayList<>();
+        for (int i = 0; i < numOfIDs; i++) {
+            uniqueIds.add(RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId());
+        }
+        return uniqueIds;
     }
 
     public static String appendEntityId(JSONObject jsonForm) throws JSONException {
