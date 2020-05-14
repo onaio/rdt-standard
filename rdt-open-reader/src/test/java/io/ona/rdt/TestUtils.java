@@ -3,6 +3,8 @@ package io.ona.rdt;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,5 +39,15 @@ public class TestUtils {
         calendar.setTime(new Date());
         calendar.add(Calendar.YEAR, offset);
         return calendar.getTime();
+    }
+
+    public static void setStaticFinalField(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+        field.set(null, newValue);
     }
 }
