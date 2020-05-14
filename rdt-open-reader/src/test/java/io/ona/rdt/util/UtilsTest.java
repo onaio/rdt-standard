@@ -26,6 +26,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncServiceJob;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 
+import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Utils.convertDate;
 import static io.ona.rdt.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
@@ -133,13 +134,8 @@ public class UtilsTest {
 
     @Test
     public void testIsExpiredShouldReturnCorrectStatus() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.YEAR, 1);
-        assertFalse(Utils.isExpired(calendar.getTime()));
-        calendar.setTime(new Date());
-        calendar.add(Calendar.YEAR, -1);
-        assertTrue(Utils.isExpired(calendar.getTime()));
+        assertFalse(Utils.isExpired(getDateWithOffset(1)));
+        assertTrue(Utils.isExpired(getDateWithOffset(-1)));
     }
 
     private void mockStaticClasses() {
