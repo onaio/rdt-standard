@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
+import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -329,5 +331,15 @@ public class RDTJsonFormUtils {
         entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);
         return entityId;
+    }
+
+    public static FormTag getFormTag() {
+        AllSettings settings = RDTApplication.getInstance().getContext().allSettings();
+        FormTag formTag = new FormTag();
+        formTag.providerId = settings.fetchRegisteredANM();
+        formTag.locationId = settings.fetchANMLocation();
+        formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);;
+        formTag.team = settings.fetchDefaultTeam(formTag.providerId);
+        return formTag;
     }
 }
