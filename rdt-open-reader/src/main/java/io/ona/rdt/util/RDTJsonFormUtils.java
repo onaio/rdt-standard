@@ -337,7 +337,7 @@ public class RDTJsonFormUtils {
         AllSettings settings = RDTApplication.getInstance().getContext().allSettings();
         FormTag formTag = new FormTag();
         formTag.providerId = settings.fetchRegisteredANM();
-        formTag.locationId = settings.fetchANMLocation();
+        formTag.locationId = settings.fetchDefaultLocalityId(formTag.providerId);
         formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);;
         formTag.team = settings.fetchDefaultTeam(formTag.providerId);
         return formTag;
