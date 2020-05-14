@@ -20,6 +20,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
+import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
@@ -56,6 +58,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doReturn;
@@ -89,6 +92,9 @@ public class RDTJsonFormUtilsTest {
 
     @Mock
     private UniqueIdRepository uniqueIdRepository;
+
+    @Mock
+    private AllSettings allSettings;
 
     @Mock
     private StepStateConfig stepStateConfig;
@@ -1012,6 +1018,20 @@ public class RDTJsonFormUtilsTest {
         verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
     }
 
+    @Test
+    public void testGetFormTagShouldPopulateTagWithCorrectMetadata() {
+        mockStaticMethods();
+        doReturn("provider").when(allSettings).fetchRegisteredANM();
+        doReturn("location-id").when(allSettings).fetchANMLocation();
+        doReturn("team-id").when(allSettings).fetchDefaultTeamId(anyString());
+        doReturn("team").when(allSettings).fetchDefaultTeam(anyString());
+        FormTag formTag = formUtils.getFormTag();
+        assertEquals("provider", formTag.providerId);
+        assertEquals("location-id", formTag.locationId);
+        assertEquals("team-id", formTag.teamId);
+        assertEquals("team", formTag.team);
+    }
+
     private void cleanUpFiles(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
@@ -1034,6 +1054,7 @@ public class RDTJsonFormUtilsTest {
         // mock repositories
         PowerMockito.when(drishtiContext.imageRepository()).thenReturn(imageRepository);
         PowerMockito.when(drishtiContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
+        PowerMockito.when(drishtiContext.allSettings()).thenReturn(allSettings);
 
         // Drishti
         mockStatic(DrishtiApplication.class);
