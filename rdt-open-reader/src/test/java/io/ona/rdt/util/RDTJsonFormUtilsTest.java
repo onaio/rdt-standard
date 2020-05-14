@@ -1022,7 +1022,7 @@ public class RDTJsonFormUtilsTest {
     public void testGetFormTagShouldPopulateTagWithCorrectMetadata() {
         mockStaticMethods();
         doReturn("provider").when(allSettings).fetchRegisteredANM();
-        doReturn("location-id").when(allSettings).fetchANMLocation();
+        doReturn("location-id").when(allSettings).fetchDefaultLocalityId(anyString());
         doReturn("team-id").when(allSettings).fetchDefaultTeamId(anyString());
         doReturn("team").when(allSettings).fetchDefaultTeam(anyString());
         FormTag formTag = formUtils.getFormTag();
