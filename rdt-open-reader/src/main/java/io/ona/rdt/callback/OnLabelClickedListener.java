@@ -45,28 +45,41 @@ public class OnLabelClickedListener implements View.OnClickListener {
         StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
 
         String nextStep = "";
-        if (Constants.FormFields.LBL_CARE_START.equals(key)) {
-            formFragment.getRdtActivity().setRdtType(Constants.RDTType.CARESTART_RDT);
-            nextStep = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
-        } else if (Constants.FormFields.LBL_SCAN_QR_CODE.equals(key)) {
-            formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
-            nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
-        } else if (Constants.FormFields.LBL_SCAN_BARCODE.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_SCAN_BARCODE_PAGE);
-        } else if (Constants.FormFields.LBL_ENTER_RDT_MANUALLY.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_MANUAL_RDT_ENTRY_PAGE);
-        } else if (Constants.FormFields.LBL_CONDUCT_RDT.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_CONDUCT_RDT_PAGE);
-        } else if (Constants.FormFields.LBL_SKIP_RDT_TEST.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE);
-        } else if (Constants.FormFields.LBL_COLLECT_RESPIRATORY_SAMPLE.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE);
-        } else if (Constants.FormFields.LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_TEST_COMPLETE_PAGE);
-        } else if (Constants.FormFields.LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE);
-        } else if (Constants.FormFields.LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL.equals(key)) {
-            nextStep = stepStateConfig.getStepStateObj().optString(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE);
+        switch (key) {
+            case Constants.FormFields.LBL_CARE_START:
+                formFragment.getRdtActivity().setRdtType(Constants.RDTType.CARESTART_RDT);
+                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
+                break;
+            case Constants.FormFields.LBL_SCAN_QR_CODE:
+                formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
+                nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
+                break;
+            case Constants.FormFields.LBL_SCAN_BARCODE:
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_SCAN_BARCODE_PAGE);
+                break;
+            case Constants.FormFields.LBL_ENTER_RDT_MANUALLY:
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_MANUAL_RDT_ENTRY_PAGE);
+                break;
+            case Constants.FormFields.LBL_CONDUCT_RDT:
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_CONDUCT_RDT_PAGE);
+                break;
+            case Constants.FormFields.LBL_SKIP_RDT_TEST:
+                nextStep = stepStateConfig.getStepStateObj().optString(
+                        COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE);
+                break;
+            case Constants.FormFields.LBL_COLLECT_RESPIRATORY_SAMPLE:
+                nextStep = stepStateConfig.getStepStateObj().optString(
+                        COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE);
+                break;
+            case Constants.FormFields.LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION:
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_TEST_COMPLETE_PAGE);
+                break;
+            case Constants.FormFields.LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE:
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE);
+                break;
+            case Constants.FormFields.LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL:
+                nextStep = stepStateConfig.getStepStateObj().optString(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE);
+                break;
         }
         ((RDTJsonFormFragmentPresenter) formFragment.getPresenter()).moveToNextStep(nextStep);
     }
