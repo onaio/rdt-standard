@@ -33,7 +33,7 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
     protected void onResult(String expDate, boolean isValid) {
         super.onResult(expDate, isValid);
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(EXPIRATION_DATE_RESULT, isValid);
+        resultIntent.putExtra(EXPIRATION_DATE_RESULT, !isValid); // is not valid means is expired
         resultIntent.putExtra(EXPIRATION_DATE, expDate);
         setResult(RESULT_OK, resultIntent);
         finish();

@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
-import com.vijay.jsonwizard.widgets.RDTCaptureFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +33,9 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
-import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_CONTROL_RESULT;
-import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_PF_RESULT;
-import static io.ona.rdt.util.Constants.Form.RDT_CAPTURE_PV_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_CONTROL_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PF_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;

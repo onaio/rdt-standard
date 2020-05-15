@@ -10,6 +10,7 @@ import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Step.DISABLED_BACK_PRESS_PAGES;
+import static io.ona.rdt.util.Utils.isCovidApp;
 
 /**
  * Created by Vincent Karuri on 16/08/2019
@@ -29,7 +30,7 @@ public class RDTJsonFormActivityPresenter implements RDTJsonFormActivityContract
             StepStateConfig stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
             JSONArray disabledBackPressPgs = stepStateConfig.getStepStateObj().optJSONArray(DISABLED_BACK_PRESS_PAGES);
             // disable backpress for timer, rdt capture and expiration date screens
-            if (!isDisabledBackPress(disabledBackPressPgs, currentStep)) {
+            if (!isDisabledBackPress(disabledBackPressPgs, currentStep) || isCovidApp()) {
                 activity.onBackPress();
             }
         } catch (JSONException e) {

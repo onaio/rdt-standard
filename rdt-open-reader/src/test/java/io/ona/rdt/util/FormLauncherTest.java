@@ -20,11 +20,16 @@ import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.AssetHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Utils.isCovidApp;
+import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -90,8 +95,11 @@ public class FormLauncherTest {
 
         Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
         formLauncher.launchForm(activity, FORM_NAME, patient);
-        verify(formUtils).getNextUniqueId(formLaunchArgsArgumentCaptor.capture(), eq(formLauncher));
-
+        if (isMalariaApp()) {
+            verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(formLauncher), eq(1));
+        } else if (isCovidApp()) {
+            verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(formLauncher), eq(2));
+        }
         FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
         assertEquals(args.getActivity(), activity);
         assertEquals(args.getPatient(), patient);
@@ -109,9 +117,9 @@ public class FormLauncherTest {
 
 
         Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
-        formLauncher.onUniqueIdFetched(args, uniqueId);
+        formLauncher.onUniqueIdsFetched(args, getUniqueIDs());
 
-        verify(formUtils).launchForm(eq(activity), eq(RDT_TEST_FORM), eq(patient), eq(OPENMRS_ID));
+        verify(formUtils).launchForm(eq(activity), eq(RDT_TEST_FORM), eq(patient), eq(getUniqueIDStrings()));
     }
 
     private void mockStaticMethods() {
@@ -128,5 +136,17 @@ public class FormLauncherTest {
         // mock AssetHandler
         mockStatic(AssetHandler.class);
         PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
+    }
+
+    private List<UniqueId> getUniqueIDs() {
+        List<UniqueId> rdtIds = new ArrayList<>();
+        rdtIds.add(uniqueId);
+        return rdtIds;
+    }
+
+    private List<String> getUniqueIDStrings() {
+        List<String> rdtIds = new ArrayList<>();
+        rdtIds.add(uniqueId.getOpenmrsId());
+        return rdtIds;
     }
 }

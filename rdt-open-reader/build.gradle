@@ -64,11 +64,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     flavorDimensions "version"
 
     productFlavors {
@@ -85,6 +80,7 @@ android {
         }
 
         covidIndonesia {
+            applicationId "io.ona.rdt.covid.id"
             resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
             versionNameSuffix "-COVID-ID"

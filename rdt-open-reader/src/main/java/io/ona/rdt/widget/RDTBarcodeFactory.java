@@ -70,11 +70,7 @@ public class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResul
                 .withFormFragment(formFragment)
                 .withStepName(stepName);
 
-        try {
-            stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
+        stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 

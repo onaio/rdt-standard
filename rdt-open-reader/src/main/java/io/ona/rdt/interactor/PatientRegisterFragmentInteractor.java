@@ -1,7 +1,6 @@
 package io.ona.rdt.interactor;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,6 +32,7 @@ import io.ona.rdt.util.FormLauncher;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
+import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
@@ -42,11 +42,14 @@ import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
 import static io.ona.rdt.util.Constants.FormFields.METADATA;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
-import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
+import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
+import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
+import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
+import static io.ona.rdt.util.Utils.isCovidApp;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getJSONObject;
@@ -99,8 +102,8 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
         String bindType = getBindType(encounterType);
         EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
-        if (RDT_TESTS.equals(bindType)) {
-            closeRDTId(eventClient.getEvent());
+        if (RDT_TESTS.equals(bindType) || COVID_RDT_TESTS.equals(bindType)) {
+            closeIDs(eventClient.getEvent());
         }
         clientProcessor.processClient(Collections.singletonList(eventClient));
     }
@@ -116,6 +119,8 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             bindType = PCR_RESULTS;
         } else if (COVID_PATIENT_REGISTRATION.equals(encounterType)) {
             bindType = COVID_PATIENTS;
+        } else if (COVID_RDT_TEST.equals(encounterType)) {
+            bindType = COVID_RDT_TESTS;
         }
         return bindType;
     }
@@ -136,18 +141,20 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         }
     }
 
-    private void closeRDTId(org.smartregister.domain.db.Event dbEvent) {
-        try {
-            org.smartregister.domain.db.Obs rdtIdObs = dbEvent.findObs(null,
-                    false,
-                    RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY));
-
-            if (rdtIdObs != null) {
-                String rdtId = rdtIdObs.getValue() == null ? "" : rdtIdObs.getValue().toString();
+    private void closeIDs(org.smartregister.domain.db.Event dbEvent) {
+        // close rdt id
+        org.smartregister.domain.db.Obs idObs = dbEvent.findObs(null, false, RDT_ID);
+        if (idObs != null) {
+            String rdtId = idObs.getValue() == null ? "" : idObs.getValue().toString();
+            RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
+        }
+        // close respiratory sample id
+        if (isCovidApp()) {
+            idObs = dbEvent.findObs(null, false, RESPIRATORY_SAMPLE_ID);
+            if (idObs != null) {
+                String rdtId = idObs.getValue() == null ? "" : idObs.getValue().toString();
                 RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
             }
-        } catch (JSONException e) {
-            Timber.e(e);
         }
     }
 

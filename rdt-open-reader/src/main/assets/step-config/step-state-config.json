@@ -19,5 +19,14 @@
   "scan_qr_page": "step5",
   "scan_carestart_page": "step4",
   "twenty_min_countdown_timer_page": "step13",
-  "take_image_of_rdt_page": "step15"
+  "take_image_of_rdt_page": "step15",
+  "covid_manual_rdt_entry_page": "step5",
+  "covid_scan_barcode_page": "step7",
+  "covid_conduct_rdt_page": "step4",
+  "covid_respiratory_specimen_collection_opt_in_page": "step13",
+  "covid_collect_respiratory_specimen_page": "step14",
+  "covid_test_complete_page": "step20",
+  "covid_one_scan_widget_specimen_page": "step18",
+  "covid_affix_respiratory_sample_id_page": "step17",
+  "covid_rdt_expired_page": "step8"
 }

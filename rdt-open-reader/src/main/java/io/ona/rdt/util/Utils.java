@@ -120,8 +120,8 @@ public class Utils {
         });
     }
 
-    public static boolean isExpired(Date date) {
-        return new Date().before(date);
+    public static boolean isExpired(Date expirationDate) {
+        return new Date().after(expirationDate);
     }
 
     public static List<String> convertJsonArrToStringList(JSONArray jsonArray) throws JSONException {
@@ -131,5 +131,13 @@ public class Utils {
             strings.add(jsonArray.getString(i));
         }
         return strings;
+    }
+
+    public static boolean isMalariaApp() {
+        return BuildConfig.FLAVOR.equals("malariaKenya") || BuildConfig.FLAVOR.equals("malariaIndonesia");
+    }
+
+    public static boolean isCovidApp() {
+        return BuildConfig.FLAVOR.equals("covidIndonesia");
     }
 }

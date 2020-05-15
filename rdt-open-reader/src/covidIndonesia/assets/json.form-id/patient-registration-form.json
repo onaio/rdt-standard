@@ -103,11 +103,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter patient ID"
-        }
+        "type": "edit_text"
       },
       {
         "key": "sex",

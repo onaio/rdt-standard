@@ -53,7 +53,8 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
 
     public static final String EXPIRATION_DATE_CAPTURE = "expiration_date_capture";
     private static final String TAG = RDTExpirationDateReaderFactory.class.getName();
-    private final long EXPIRATION_DATE_CAPTURE_TIMEOUT = 15000;
+    private long expirationDateCaptureTimeout = 15000;
+    private final String EXPIRATION_DATE_CAPTURE_TIMEOUT_KEY = "expiration_date_capture_timeout";
 
     private WidgetArgs widgetArgs;
     private View rootLayout;
@@ -71,6 +72,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
 
         this.rootLayout = LayoutInflater.from(context).inflate(getLayout(), null);
         this.stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
+        this.expirationDateCaptureTimeout = jsonObject.optLong(EXPIRATION_DATE_CAPTURE_TIMEOUT_KEY, expirationDateCaptureTimeout);
 
         addWidgetTags();
         setUpRDTExpirationDateActivity();
@@ -96,7 +98,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
                         finishExpirationDateActivity();
                     }
                 }
-            }, EXPIRATION_DATE_CAPTURE_TIMEOUT);
+            }, expirationDateCaptureTimeout);
         }
     }
 
@@ -133,13 +135,12 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
                 openMrsEntity, openMrsEntityId, widgetArgs.isPopup());
     }
 
-    public static void conditionallyMoveToNextStep(JsonFormFragment formFragment, StepStateConfig stepStateConfig, boolean isNotExpired) {
-        if (isNotExpired) {
-            moveToNextOrSave(formFragment);
-        } else {
-            String expiredPageAddress = stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE_ADDRESS, "step2");
-            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddress);
+    public static void conditionallyMoveToNextStep(JsonFormFragment formFragment, String expiredPageStep, boolean isExpired) {
+        if (isExpired) {
+            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageStep);
             formFragment.transactThis(nextFragment);
+        } else {
+            moveToNextOrSave(formFragment);
         }
     }
 
@@ -162,10 +163,12 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
         hideProgressDialog();
         if (requestCode == RDT_CAPTURE_CODE && resultCode == RESULT_OK && data != null) {
             try {
-                Boolean isNotExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
+                Boolean isExpired = data.getExtras().getBoolean(EXPIRATION_DATE_RESULT);
                 String expirationDate = data.getExtras().getString(EXPIRATION_DATE);
                 populateRelevantFields(expirationDate);
-                conditionallyMoveToNextStep(widgetArgs.getFormFragment(), stepStateConfig, isNotExpired);
+                conditionallyMoveToNextStep(widgetArgs.getFormFragment(),
+                        stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE_ADDRESS),
+                        isExpired);
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());
             }

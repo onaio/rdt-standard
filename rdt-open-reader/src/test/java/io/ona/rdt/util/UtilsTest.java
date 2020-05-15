@@ -26,12 +26,14 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncServiceJob;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 
+import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Utils.convertDate;
 import static io.ona.rdt.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -128,6 +130,12 @@ public class UtilsTest {
     public void testIsImageSyncEnabled() throws Exception {
         mockStaticClasses();
         assertFalse(Whitebox.invokeMethod(utils, "isImageSyncEnabled"));
+    }
+
+    @Test
+    public void testIsExpiredShouldReturnCorrectStatus() {
+        assertFalse(Utils.isExpired(getDateWithOffset(1)));
+        assertTrue(Utils.isExpired(getDateWithOffset(-1)));
     }
 
     private void mockStaticClasses() {

@@ -38,7 +38,26 @@ public interface Constants {
         String DETAILS = "details";
         String ENCOUNTER_TYPE = "encounter_type";
         String ENTITY_ID = "entity_id";
+        String MANUAL_EXPIRATION_DATE = "manual_expiration_date";
         String LBL_CARE_START = "lbl_care_start";
+        String LBL_SCAN_QR_CODE = "lbl_scan_qr_code";
+        String LBL_SCAN_BARCODE = "lbl_scan_barcode";
+        String LBL_ENTER_RDT_MANUALLY = "lbl_enter_rdt_manually";
+        String LBL_CONDUCT_RDT = "lbl_conduct_rdt";
+        String LBL_SKIP_RDT_TEST = "lbl_skip_rdt_test";
+        String LBL_COLLECT_RESPIRATORY_SAMPLE = "lbl_collect_respiratory_sample";
+        String LBL_SKIP_RESPIRATORY_SAMPLE_COLLECTION = "lbl_skip_respiratory_sample_collection";
+        String LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE = "lbl_scan_respiratory_specimen_barcode";
+        String LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL = "lbl_affix_respiratory_specimen_label";
+        String LBL_RDT_ID = "lbl_rdt_id";
+        String LBL_PATIENT_NAME = "lbl_patient_name";
+        String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
+        String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
+        String RDT_ID = "rdt_id";
+        String RESPIRATORY_SAMPLE_ID = "respiratory_sample_id";
+        String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
+        String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
+        String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
     }
 
     interface RequestCodes {
@@ -72,12 +91,6 @@ public interface Constants {
     interface Form {
         String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form.json";
-        String LBL_RDT_ID = "lbl_rdt_id";
-        String LBL_PATIENT_NAME = "lbl_patient_name";
-        String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
-        String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
-        String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
-        String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
         String RDT_TYPE = "rdt_type";
     }
 
@@ -114,12 +127,22 @@ public interface Constants {
         String SCAN_CARESTART_PAGE = "scan_carestart_page";
         String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
         String TAKE_IMAGE_OF_RDT_PAGE = "take_image_of_rdt_page";
+        String COVID_SCAN_BARCODE_PAGE = "covid_scan_barcode_page";
+        String COVID_CONDUCT_RDT_PAGE = "covid_conduct_rdt_page";
+        String COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE = "covid_respiratory_specimen_collection_opt_in_page";
+        String COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE = "covid_collect_respiratory_specimen_page";
+        String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
+        String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
+        String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
+        String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";
+        String COVID_RDT_EXPIRED_PAGE = "covid_rdt_expired_page";
     }
 
     interface Encounter {
         String PATIENT_REGISTRATION = "patient_registration";
         String COVID_PATIENT_REGISTRATION = "covid_patient_registration";
         String RDT_TEST = "rdt_test";
+        String COVID_RDT_TEST = "covid_rdt_test";
         String PCR_RESULT = "pcr_result";
     }
 
@@ -127,6 +150,7 @@ public interface Constants {
         String RDT_PATIENTS = "rdt_patients";
         String COVID_PATIENTS = "covid_patients";
         String RDT_TESTS = "rdt_tests";
+        String COVID_RDT_TESTS = "covid_rdt_tests";
         String PCR_RESULTS = "pcr_results";
         String MICROSCOPY_RESULTS = "microscopy_results";
     }
