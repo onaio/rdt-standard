@@ -112,7 +112,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.10.8-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.10.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.google.android.gms', module:'play-services-basement'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
