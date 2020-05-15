@@ -15,7 +15,6 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.tag.FormTag;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.DateTimeTypeConverter;
@@ -49,6 +48,7 @@ import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
+import static io.ona.rdt.util.RDTJsonFormUtils.getFormTag;
 import static io.ona.rdt.util.Utils.isCovidApp;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -162,12 +162,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         JSONObject metadata = getJSONObject(jsonForm, METADATA);
         String entityId = getString(jsonForm, ENTITY_ID);
-
-        FormTag formTag = new FormTag();
-        formTag.providerId = "";
-        formTag.locationId = "";
-        formTag.teamId = "";
-        formTag.team = "";
+        FormTag formTag = getFormTag();
 
         Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
         JSONObject clientJson = new JSONObject(gson.toJson(client));
@@ -176,11 +171,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
             eventClientRepository.addorUpdateClient(entityId, clientJson);
         }
 
-        AllSharedPreferences sharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
-        String providerId = sharedPreferences.fetchRegisteredANM();
         Event event = JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, bindType);
-        event.setProviderId(providerId);
-        event.setTeam(sharedPreferences.fetchDefaultTeam(providerId));
         populatePhoneMetadata(event);
 
         JSONObject eventJson = new JSONObject(gson.toJson(event));

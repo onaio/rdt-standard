@@ -62,12 +62,12 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
 
 
     public String countSelect(String tableName, String mainCondition) {
-        smartRegisterQueryBuilder.SelectInitiateMainTableCounts(tableName);
+        smartRegisterQueryBuilder.selectInitiateMainTableCounts(tableName);
         return smartRegisterQueryBuilder.mainCondition(mainCondition);
     }
 
     public String mainSelect(String tableName, String mainCondition) {
-        smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, this.mainColumns(tableName));
+        smartRegisterQueryBuilder.selectInitiateMainTable(tableName, this.mainColumns(tableName));
         return smartRegisterQueryBuilder.mainCondition(mainCondition);
     }
 
