@@ -78,7 +78,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTApplication.class, ClientProcessorForJava.class, JsonFormUtils.class, AssetHandler.class})
+@PrepareForTest({RDTApplication.class, ClientProcessorForJava.class, JsonFormUtils.class, AssetHandler.class, RDTJsonFormUtils.class})
 public class PatientRegisterFragmentInteractorTest {
 
     @Mock
@@ -297,6 +297,10 @@ public class PatientRegisterFragmentInteractorTest {
         when(JsonFormUtils.createBaseClient(any(JSONArray.class), any(FormTag.class), anyString())).thenReturn(new Client(UUID.randomUUID().toString()));
         when(JsonFormUtils.createEvent(any(JSONArray.class), any(JSONObject.class), any(FormTag.class), anyString(), anyString(), anyString())).thenReturn(getEvent());
         when(JsonFormUtils.fields(any(JSONObject.class))).thenReturn(formFields);
+
+        // mock RDTJsonFormUtils
+        mockStatic(RDTJsonFormUtils.class);
+        when(RDTJsonFormUtils.getFormTag()).thenReturn(new FormTag());
 
         // mock AssetHandler
         mockStatic(AssetHandler.class);
