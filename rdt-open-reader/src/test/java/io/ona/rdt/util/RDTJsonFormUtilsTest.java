@@ -1013,9 +1013,16 @@ public class RDTJsonFormUtilsTest {
         CompositeImage compositeImage = mock(CompositeImage.class);
         doReturn(mock(Bitmap.class)).when(compositeImage).getFullImage();
         doReturn(mock(Bitmap.class)).when(compositeImage).getCroppedImage();
+        doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
         Whitebox.invokeMethod(formUtils, "saveImage", "entity_id", parcelableImageMetadata, compositeImage, mock(Context.class));
         verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
         verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
+    }
+
+
+    @Test
+    public void testGetFileMD5HashShouldGetCorrectHash() throws Exception {
+        assertEquals("d41d8cd98f00b204e9800998ecf8427e", Whitebox.invokeMethod(formUtils, "getFileMD5Hash", getTestFilePath() + "5de70b65-9597-4a0c-aac0-8c7b0ecef001.JPEG"));
     }
 
     @Test

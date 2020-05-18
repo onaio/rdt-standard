@@ -20,7 +20,6 @@ public class ParcelableImageMetadata implements Parcelable {
     private boolean isFlashOn;
     private LineReadings lineReadings;
     private String fullImageMD5Hash;
-
     private String croppedImageMD5Hash;
 
     public ParcelableImageMetadata() {
@@ -213,7 +212,7 @@ public class ParcelableImageMetadata implements Parcelable {
         return this;
     }
 
-    public ParcelableImageMetadata withImageMD5Hash(String croppedImageMD5Hash) {
+    public ParcelableImageMetadata withCroppedImageMD5Hash(String croppedImageMD5Hash) {
         setCroppedImageMD5Hash(croppedImageMD5Hash);
         return this;
     }
