@@ -33,9 +33,9 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_CONTROL_RESULT;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PF_RESULT;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PV_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_TOP_LINE_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_RESULT;
 import static io.ona.rdt.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;
@@ -96,9 +96,9 @@ public class CustomRDTCaptureFactoryTest {
 
         Whitebox.invokeMethod(rdtCaptureFactory, "populateRelevantFields", parcelableImageMetadata);
 
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_CONTROL_RESULT), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_PV_RESULT), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_PF_RESULT), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_TOP_LINE_RESULT), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_MIDDLE_LINE_RESULT), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_BOTTOM_LINE_RESULT), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
         verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_DURATION), eq(String.valueOf(parcelableImageMetadata.getCaptureDuration())), eq(""), eq(""), eq(""), eq(false));
         verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_TYPE), eq("rdt_type"), eq(""), eq(""), eq(""), eq(false));
         verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(CROPPED_IMG_ID), eq(parcelableImageMetadata.getCroppedImageId()), eq(""), eq(""), eq(""), eq(false));

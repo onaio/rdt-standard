@@ -328,7 +328,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "rdt_capture_control_result"
+            "concept": "rdt_capture_top_line_result"
           }
         },
         {
@@ -336,7 +336,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "rdt_capture_pv_result"
+            "concept": "rdt_capture_middle_line_result"
           }
         },
         {
@@ -344,7 +344,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "rdt_capture_pf_result"
+            "concept": "rdt_capture_bottom_line_result"
           }
         },
         {

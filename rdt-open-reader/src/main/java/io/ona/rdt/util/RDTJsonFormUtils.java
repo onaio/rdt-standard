@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.widget.Toast;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +24,11 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +48,7 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
+import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
@@ -110,17 +114,19 @@ public class RDTJsonFormUtils {
 
             if (success) {
                 parcelableImageMetadata.setImageToSave(FULL_IMAGE);
-                saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
+                String filePath = saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
+                compositeImage.getParcelableImageMetadata().setFullImageMD5Hash(getFileMD5Hash(filePath));
 
                 parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
-                saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
+                filePath = saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
+                compositeImage.getParcelableImageMetadata().setCroppedImageMD5Hash(getFileMD5Hash(filePath));
             } else {
                 Timber.e(TAG, "Sorry, could not create image folder!");
             }
         }
     }
 
-    private static void saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
+    private static String saveImage(String imgFolderPath, Bitmap image, Context context, ParcelableImageMetadata parcelableImageMetadata) {
         ProfileImage profileImage = new ProfileImage();
         Pair<Boolean, String> writeResult = writeImageToDisk(imgFolderPath, image, context);
         boolean isSuccessfulWrite = writeResult.first;
@@ -134,6 +140,7 @@ public class RDTJsonFormUtils {
                 parcelableImageMetadata.setCroppedImageId(profileImage.getImageid());
             }
         }
+        return absoluteFilePath;
     }
 
     private static void saveImgDetails(String absoluteFilePath, ParcelableImageMetadata parcelableImageMetadata, ProfileImage profileImage) {
@@ -181,6 +188,20 @@ public class RDTJsonFormUtils {
         }
 
         return result;
+    }
+
+    private static String getFileMD5Hash(String absoluteFilePath) {
+        String md5Hash = "";
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(absoluteFilePath);
+            md5Hash = DigestUtils.md5Hex(inputStream);
+        } catch (IOException e) {
+            Timber.e(e);
+        } finally {
+            closeCloseable(inputStream);
+        }
+        return md5Hash;
     }
 
     private static void saveImageToGallery(Context context, Bitmap image) {

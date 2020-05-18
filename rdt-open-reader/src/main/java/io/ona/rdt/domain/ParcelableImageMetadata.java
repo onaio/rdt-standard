@@ -19,6 +19,8 @@ public class ParcelableImageMetadata implements Parcelable {
     private boolean isManualCapture;
     private boolean isFlashOn;
     private LineReadings lineReadings;
+    private String fullImageMD5Hash;
+    private String croppedImageMD5Hash;
 
     public ParcelableImageMetadata() {
     }
@@ -29,12 +31,14 @@ public class ParcelableImageMetadata implements Parcelable {
         fullImageId = in.readString();
         croppedImageId = in.readString();
         imageToSave = in.readString();
+        cassetteBoundary = in.readString();
         imageTimeStamp = in.readLong();
         captureDuration = in.readLong();
+        isManualCapture = in.readByte() != 0;
         isFlashOn = in.readByte() != 0;
         lineReadings = in.readParcelable(LineReadings.class.getClassLoader());
-        cassetteBoundary = in.readString();
-        isManualCapture = in.readByte() != 0;
+        fullImageMD5Hash = in.readString();
+        croppedImageMD5Hash = in.readString();
     }
 
     public static final Creator<ParcelableImageMetadata> CREATOR = new Creator<ParcelableImageMetadata>() {
@@ -87,6 +91,22 @@ public class ParcelableImageMetadata implements Parcelable {
 
     public String getCassetteBoundary() {
         return cassetteBoundary;
+    }
+
+    public String getFullImageMD5Hash() {
+        return fullImageMD5Hash;
+    }
+
+    public String getCroppedImageMD5Hash() {
+        return croppedImageMD5Hash;
+    }
+
+    public void setCroppedImageMD5Hash(String croppedImageMD5Hash) {
+        this.croppedImageMD5Hash = croppedImageMD5Hash;
+    }
+
+    public void setFullImageMD5Hash(String fullImageMD5Hash) {
+        this.fullImageMD5Hash = fullImageMD5Hash;
     }
 
     public boolean isManualCapture() {
@@ -187,6 +207,16 @@ public class ParcelableImageMetadata implements Parcelable {
         return this;
     }
 
+    public ParcelableImageMetadata withFullImageMD5Hash(String fullImageMD5Hash) {
+        setFullImageMD5Hash(fullImageMD5Hash);
+        return this;
+    }
+
+    public ParcelableImageMetadata withCroppedImageMD5Hash(String croppedImageMD5Hash) {
+        setCroppedImageMD5Hash(croppedImageMD5Hash);
+        return this;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -194,16 +224,18 @@ public class ParcelableImageMetadata implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.providerId);
-        dest.writeString(this.baseEntityId);
-        dest.writeString(this.fullImageId);
-        dest.writeString(this.croppedImageId);
-        dest.writeString(this.imageToSave);
-        dest.writeLong(this.imageTimeStamp);
-        dest.writeLong(this.captureDuration);
-        dest.writeByte((byte) (this.isFlashOn ? 1 : 0));
-        dest.writeParcelable(this.lineReadings, flags);
-        dest.writeString(this.cassetteBoundary);
-        dest.writeByte((byte) (this.isManualCapture ? 1 : 0));
+        dest.writeString(providerId);
+        dest.writeString(baseEntityId);
+        dest.writeString(fullImageId);
+        dest.writeString(croppedImageId);
+        dest.writeString(imageToSave);
+        dest.writeString(cassetteBoundary);
+        dest.writeLong(imageTimeStamp);
+        dest.writeLong(captureDuration);
+        dest.writeByte((byte) (isManualCapture ? 1 : 0));
+        dest.writeByte((byte) (isFlashOn ? 1 : 0));
+        dest.writeParcelable(lineReadings, flags);
+        dest.writeString(fullImageMD5Hash);
+        dest.writeString(croppedImageMD5Hash);
     }
 }

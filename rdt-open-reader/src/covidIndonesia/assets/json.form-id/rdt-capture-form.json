@@ -377,21 +377,21 @@
         "type": "rdt_capture"
       },
       {
-        "key": "rdt_capture_control_result",
+        "key": "rdt_capture_top_line_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
       },
       {
-        "key": "rdt_capture_pv_result",
+        "key": "rdt_capture_middle_line_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
       },
       {
-        "key": "rdt_capture_pf_result",
+        "key": "rdt_capture_bottom_line_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -441,6 +441,20 @@
       },
       {
         "key": "is_manual_capture",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "cropped_img_md5_hash",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "full_img_md5_hash",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -504,7 +518,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please specify if positive for pv, pf or both"
+          "err": "Please specify if positive for IgM, IgG or both"
         },
         "relevance": {
           "step11:chw_result": {
