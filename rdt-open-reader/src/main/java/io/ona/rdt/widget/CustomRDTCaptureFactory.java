@@ -34,9 +34,9 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_CONTROL_RESULT;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PF_RESULT;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PV_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_TOP_LINE_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_RESULT;
 import static io.ona.rdt.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;
@@ -136,9 +136,9 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
     private void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
         LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
         JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_CONTROL_RESULT , String.valueOf(lineReadings.isTopLine()), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PV_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
-        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_PF_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_TOP_LINE_RESULT, String.valueOf(lineReadings.isTopLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_MIDDLE_LINE_RESULT, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_BOTTOM_LINE_RESULT, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_DURATION, String.valueOf(parcelableImageMetadata.getCaptureDuration()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), RDT_TYPE, ((RDTJsonFormActivity) widgetArgs.getContext()).getRdtType(), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), CROPPED_IMG_ID, parcelableImageMetadata.getCroppedImageId(), "", "", "", false);

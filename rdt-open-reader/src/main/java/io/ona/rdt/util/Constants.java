@@ -55,9 +55,9 @@ public interface Constants {
         String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
         String RDT_ID = "rdt_id";
         String RESPIRATORY_SAMPLE_ID = "respiratory_sample_id";
-        String RDT_CAPTURE_CONTROL_RESULT = "rdt_capture_control_result";
-        String RDT_CAPTURE_PV_RESULT = "rdt_capture_pv_result";
-        String RDT_CAPTURE_PF_RESULT = "rdt_capture_pf_result";
+        String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
+        String RDT_CAPTURE_MIDDLE_LINE_RESULT = "rdt_capture_middle_line_result";
+        String RDT_CAPTURE_BOTTOM_LINE_RESULT = "rdt_capture_bottom_line_result";
     }
 
     interface RequestCodes {
