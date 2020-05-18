@@ -47,19 +47,19 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Data Pasien Baru",
+    "title": "{{patient-registration-form.step1.title}}",
     "display_back_button": "true",
-    "previous_label": "SIMPAN DAN KELUAR ",
+    "previous_label": "{{patient-registration-form.step1.previous_label}}",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "SIMPAN",
+    "submit_label": "{{patient-registration-form.step1.submit_label}}",
     "next_form": "json.form/patient-registration-form.json",
     "fields": [
       {
         "key": "patient_first_name_label",
         "type": "label",
-        "text": "Nama Depan",
+        "text": "{{patient-registration-form.step1.patient_first_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -71,13 +71,13 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Nama depan pasien harus diisi"
+          "err": "{{patient-registration-form.step1.patient_first_name.v_required.err}}"
         }
       },
       {
         "key": "patient_last_name_label",
         "type": "label",
-        "text": "Nama Belakang",
+        "text": "{{patient-registration-form.step1.patient_last_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -89,13 +89,13 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Nama belakang pasien harus diisi"
+          "err": "{{patient-registration-form.step1.patient_last_name.v_required.err}}"
         }
       },
       {
         "key": "patient_id_label",
         "type": "label",
-        "text": "Patient ID",
+        "text": "{{patient-registration-form.step1.patient_id_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -111,20 +111,20 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "native_radio",
-        "label": "Jenis kelamin pasien",
+        "label": "{{patient-registration-form.step1.sex.label}}",
         "options": [
           {
             "key": "Female",
-            "text": "Perempuan"
+            "text": "{{patient-registration-form.step1.sex.options.Female.text}}"
           },
           {
             "key": "Male",
-            "text": "Laki-laki"
+            "text": "{{patient-registration-form.step1.sex.options.Male.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tanggal lahir pasien harus diisi"
+          "err": "{{patient-registration-form.step1.sex.v_required.err}}"
         }
       },
       {
@@ -133,16 +133,16 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Tanggal lahir pasien ",
+        "hint": "{{patient-registration-form.step1.patient_dob.hint}}",
         "expanded": false,
         "duration": {
-          "label": "Usia"
+          "label": "{{patient-registration-form.step1.patient_dob.duration.label}}"
         },
         "min_date": "today-100y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Jenis kelamin pasien harus diisi"
+          "err": "{{patient-registration-form.step1.patient_dob.v_required.err}}"
         }
       },
       {
@@ -163,7 +163,7 @@
       {
         "key": "patient_occupation_label",
         "type": "label",
-        "text": "Pekerjaan pasien",
+        "text": "{{patient-registration-form.step1.patient_occupation_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -174,13 +174,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{patient-registration-form.step1.patient_occupation.v_required.err}}"
         }
       },
       {
         "key": "patient_phone_number_lbl",
         "type": "label",
-        "text": "Nomor Telepon Pasien",
+        "text": "{{patient-registration-form.step1.patient_phone_number_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -191,7 +191,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{patient-registration-form.step1.patient_phone_number.v_required.err}}"
         }
       },
       {
@@ -200,20 +200,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami demam (≥38 °C) atau memiliki riwayat demam?",
+        "label": "{{patient-registration-form.step1.has_fever.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_fever.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_fever.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan demam harus diisi"
+          "err": "{{patient-registration-form.step1.has_fever.v_required.err}}"
         }
       },
       {
@@ -222,20 +222,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat hipertensi?",
+        "label": "{{patient-registration-form.step1.has_hypertension.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_hypertension.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_hypertension.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan hipertensi harus diisi"
+          "err": "{{patient-registration-form.step1.has_hypertension.v_required.err}}"
         }
       },
       {
@@ -244,20 +244,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit autoimun?",
+        "label": "{{patient-registration-form.step1.has_autoimmune_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_autoimmune_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_autoimmune_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan penyakit autoimun harus diisi"
+          "err": "{{patient-registration-form.step1.has_autoimmune_disease_history.v_required.err}}"
         }
       },
       {
@@ -266,20 +266,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit yang ditetapkan oleh dokter yang dapat menyebabkan sistem kekebalan tubuh menurun? (HIV/AIDS)",
+        "label": "{{patient-registration-form.step1.has_diagnosed_disease.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_diagnosed_disease.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_diagnosed_disease.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom riwayat penyakit penurunan sistem kekebalan tubuh harus diisi"
+          "err": "{{patient-registration-form.step1.has_diagnosed_disease.v_required.err}}"
         }
       },
       {
@@ -288,20 +288,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit jantung kronis?",
+        "label": "{{patient-registration-form.step1.has_chronic_heart_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_chronic_heart_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_chronic_heart_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom riwayat penyakit jantung kronis harus diisi"
+          "err": "{{patient-registration-form.step1.has_chronic_heart_disease_history.v_required.err}}"
         }
       },
       {
@@ -310,20 +310,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit paru-paru kronis?",
+        "label": "{{patient-registration-form.step1.has_chronic_lung_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_chronic_lung_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_chronic_lung_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom riwayat penyakit paru-paru kronis harus diisi"
+          "err": "{{patient-registration-form.step1.has_chronic_lung_disease_history.v_required.err}}"
         }
       },
       {
@@ -332,20 +332,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit ginjal kronis?",
+        "label": "{{patient-registration-form.step1.has_chronic_kidney_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_chronic_kidney_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_chronic_kidney_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan penyakit ginjal kronis harus diisi"
+          "err": "{{patient-registration-form.step1.has_chronic_kidney_disease_history.v_required.err}}"
         }
       },
       {
@@ -354,20 +354,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien menderita Diabetes?",
+        "label": "{{patient-registration-form.step1.has_diabetes.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_diabetes.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_diabetes.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan diabetes harus diisi"
+          "err": "{{patient-registration-form.step1.has_diabetes.v_required.err}}"
         }
       },
       {
@@ -376,20 +376,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit asam urat?",
+        "label": "{{patient-registration-form.step1.has_gout_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_gout_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_gout_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan asam urat harus diisi"
+          "err": "{{patient-registration-form.step1.has_gout_history.v_required.err}}"
         }
       },
       {
@@ -398,20 +398,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat penyakit saluran kemih atau penyakit ginjal?",
+        "label": "{{patient-registration-form.step1.has_urinary_or_kidney_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_urinary_or_kidney_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_urinary_or_kidney_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan penyakit ginjal harus diisi"
+          "err": "{{patient-registration-form.step1.has_urinary_or_kidney_disease_history.v_required.err}}"
         }
       },
       {
@@ -420,20 +420,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami sakit tenggorokan?",
+        "label": "{{patient-registration-form.step1.has_sore_throat.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_sore_throat.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_sore_throat.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan sakit tenggorokan harus diisi"
+          "err": "{{patient-registration-form.step1.has_sore_throat.v_required.err}}"
         }
       },
       {
@@ -442,20 +442,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami batuk?",
+        "label": "{{patient-registration-form.step1.has_cough.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_cough.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_cough.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan batuk harus diisi"
+          "err": "{{patient-registration-form.step1.has_cough.v_required.err}}"
         }
       },
       {
@@ -464,20 +464,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Pernahkah belakangan ini pasien kehilangan kemampuan untuk mendeteksi aroma/bau?",
+        "label": "{{patient-registration-form.step1.has_lost_smell.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_lost_smell.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_lost_smell.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan anosmia (kehilangan kemampuan deteksi bau) harus diisi"
+          "err": "{{patient-registration-form.step1.has_lost_smell.v_required.err}}"
         }
       },
       {
@@ -486,20 +486,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami pilek?",
+        "label": "{{patient-registration-form.step1.has_runny_nose.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_runny_nose.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_runny_nose.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan pilek harus diisi"
+          "err": "{{patient-registration-form.step1.has_runny_nose.v_required.err}}"
         }
       },
       {
@@ -508,20 +508,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami sesak napas yang tidak biasa?",
+        "label": "{{patient-registration-form.step1.has_shortness_of_breath.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_shortness_of_breath.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_shortness_of_breath.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan sesak nafas harus diisi"
+          "err": "{{patient-registration-form.step1.has_shortness_of_breath.v_required.err}}"
         }
       },
       {
@@ -530,20 +530,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Pernahkah pasien mengalami penurunan sensitivitas rasa/indera pengecap?",
+        "label": "{{patient-registration-form.step1.has_decreased_taste_sensitivity.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_decreased_taste_sensitivity.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_decreased_taste_sensitivity.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan dysgeusia (penurunan sensitivitas rasa) harus diisi"
+          "err": "{{patient-registration-form.step1.has_decreased_taste_sensitivity.v_required.err}}"
         }
       },
       {
@@ -552,20 +552,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami sakit kepala yang tidak biasa?",
+        "label": "{{patient-registration-form.step1.has_abnormal_headaches.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_abnormal_headaches.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_abnormal_headaches.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan sakit kepala harus diisi"
+          "err": "{{patient-registration-form.step1.has_abnormal_headaches.v_required.err}}"
         }
       },
       {
@@ -574,20 +574,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami nyeri dada?",
+        "label": "{{patient-registration-form.step1.has_chest_pains.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_chest_pains.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_chest_pains.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan nyeri dada harus diisi"
+          "err": "{{patient-registration-form.step1.has_chest_pains.v_required.err}}"
         }
       },
       {
@@ -596,20 +596,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami nyeri otot?",
+        "label": "{{patient-registration-form.step1.has_muscle_pains.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_muscle_pains.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_muscle_pains.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan nyeri otot harus diisi"
+          "err": "{{patient-registration-form.step1.has_muscle_pains.v_required.err}}"
         }
       },
       {
@@ -618,20 +618,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien mengalami kelelahan yang tidak biasa?",
+        "label": "{{patient-registration-form.step1.has_fatigue.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_fatigue.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_fatigue.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan kelelahan harus diisi"
+          "err": "{{patient-registration-form.step1.has_fatigue.v_required.err}}"
         }
       },
       {
@@ -640,20 +640,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki masalah kesehatan lain?",
+        "label": "{{patient-registration-form.step1.has_other_health_issues.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_other_health_issues.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_other_health_issues.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan masalah kesehatan lainnya harus diisi"
+          "err": "{{patient-registration-form.step1.has_other_health_issues.v_required.err}}"
         }
       },
       {
@@ -662,20 +662,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat perjalanan internasional atau domestik dalam 14 hari terakhir?",
+        "label": "{{patient-registration-form.step1.has_travel_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_travel_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_travel_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom riwayat perjalanan harus diisi"
+          "err": "{{patient-registration-form.step1.has_travel_history.v_required.err}}"
         }
       },
       {
@@ -684,20 +684,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki kontak dekat dengan seseorang yang baru saja bepergian ke luar negeri dalam 14 hari terakhir yang menjadi sakit?",
+        "label": "{{patient-registration-form.step1.has_close_contact_with_traveller.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_close_contact_with_traveller.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_close_contact_with_traveller.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan kontak saat perjalanan harus diisi"
+          "err": "{{patient-registration-form.step1.has_close_contact_with_traveller.v_required.err}}"
         }
       },
       {
@@ -706,20 +706,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah ada orang lain di rumah/lingkungan komplek yang terdiagnosis positif Covid-19?",
+        "label": "{{patient-registration-form.step1.compound_has_covid_patient.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.compound_has_covid_patient.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.compound_has_covid_patient.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom pertanyaan kontak di rumah/lingkungan komplek harus diisi"
+          "err": "{{patient-registration-form.step1.compound_has_covid_patient.v_required.err}}"
         }
       },
       {
@@ -728,20 +728,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat kontak dekat atau terpapar dengan orang terkonfirmasi Covid-19?",
+        "label": "{{patient-registration-form.step1.has_close_contact_with_covid_patient.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_close_contact_with_covid_patient.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_close_contact_with_covid_patient.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom riwayat kontak atau terpapar harus diisi"
+          "err": "{{patient-registration-form.step1.has_close_contact_with_covid_patient.v_required.err}}"
         }
       },
       {
@@ -750,22 +750,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Apakah pasien memiliki riwayat kontak dengan hewan yang tertular Covid-19 (apabila hewan tertular tersebut telah teridentifikasi)",
+        "label": "{{patient-registration-form.step1.has_close_contact_with_infectious_animal.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Ya"
+            "text": "{{patient-registration-form.step1.has_close_contact_with_infectious_animal.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "Tidak"
+            "text": "{{patient-registration-form.step1.has_close_contact_with_infectious_animal.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Kolom riwayat kontak atau terpapar harus diisi"
+          "err": "{{patient-registration-form.step1.has_close_contact_with_infectious_animal.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "patient-registration-form"
 }

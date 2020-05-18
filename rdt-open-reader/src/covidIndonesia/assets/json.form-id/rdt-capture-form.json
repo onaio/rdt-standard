@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Temukan lokasi",
+    "title": "{{rdt-capture-form.step1.title}}",
     "next": "step2",
     "display_back_button": "true",
     "fields": [
@@ -61,12 +61,12 @@
     ]
   },
   "step2": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step2.title}}",
     "display_back_button": "true",
     "next": "step3",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "RDT",
+    "next_label": "{{rdt-capture-form.step2.next_label}}",
     "fields": [
       {
         "key": "lbl_patient_name",
@@ -92,13 +92,13 @@
     ]
   },
   "step3": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step3.title}}",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_conduct_rdt",
         "type": "label",
-        "text": "Conduct RDT",
+        "text": "{{rdt-capture-form.step3.lbl_conduct_rdt.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
         "has_bg": true,
@@ -108,7 +108,7 @@
       {
         "key": "lbl_skip_rdt_test",
         "type": "label",
-        "text": "Skip RDT test",
+        "text": "{{rdt-capture-form.step3.lbl_skip_rdt_test.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -118,13 +118,13 @@
     ]
   },
   "step4": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step4.title}}",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_which_rdt",
         "type": "label",
-        "text": "Which RDT?",
+        "text": "{{rdt-capture-form.step4.lbl_which_rdt.text}}",
         "text_color": "#000000",
         "text_size": "10sp",
         "label_text_style": "bold",
@@ -135,7 +135,7 @@
       {
         "key": "lbl_scan_barcode",
         "type": "label",
-        "text": "Scan barcode",
+        "text": "{{rdt-capture-form.step4.lbl_scan_barcode.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
         "has_bg": true,
@@ -145,7 +145,7 @@
       {
         "key": "lbl_enter_rdt_manually",
         "type": "label",
-        "text": "Enter RDT manually",
+        "text": "{{rdt-capture-form.step4.lbl_enter_rdt_manually.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -155,17 +155,17 @@
     ]
   },
   "step5": {
-    "title": "Record RDT information",
+    "title": "{{rdt-capture-form.step5.title}}",
     "display_back_button": "true",
     "next": "step6",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step5.next_label}}",
     "fields": [
       {
         "key": "lbl_rdt_manufacturer",
         "type": "label",
-        "text": "Enter manufacturer name",
+        "text": "{{rdt-capture-form.step5.lbl_rdt_manufacturer.text}}",
         "text_color": "#000000",
         "text_size": "9sp",
         "top_margin": "15dp",
@@ -181,13 +181,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{rdt-capture-form.step5.rdt_manufacturer.v_required.err}}"
         }
       },
       {
         "key": "lbl_rdt_test_name",
         "type": "label",
-        "text": "Enter RDT name",
+        "text": "{{rdt-capture-form.step5.lbl_rdt_test_name.text}}",
         "text_color": "#000000",
         "text_size": "9sp",
         "top_margin": "15dp",
@@ -203,13 +203,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{rdt-capture-form.step5.rdt_test_name.v_required.err}}"
         }
       },
       {
         "key": "lbl_rdt_batch_id",
         "type": "label",
-        "text": "Enter RDT batch ID",
+        "text": "{{rdt-capture-form.step5.lbl_rdt_batch_id.text}}",
         "text_color": "#000000",
         "text_size": "9sp",
         "top_margin": "15dp",
@@ -225,13 +225,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{rdt-capture-form.step5.rdt_batch_id.v_required.err}}"
         }
       },
       {
         "key": "lbl_record_expiration_date",
         "type": "label",
-        "text": "Catat Tanggal Kedaluwarsa",
+        "text": "{{rdt-capture-form.step5.lbl_record_expiration_date.text}}",
         "text_color": "#000000",
         "text_size": "9sp",
         "top_margin": "15dp",
@@ -245,10 +245,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "Tanggal kadaluarsa",
+        "hint": "{{rdt-capture-form.step5.manual_expiration_date.hint}}",
         "v_required": {
           "value": true,
-          "err": "Please specify the expiration date"
+          "err": "{{rdt-capture-form.step5.manual_expiration_date.v_required.err}}"
         }
       },
       {
@@ -261,12 +261,12 @@
     ]
   },
   "step6": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step6.title}}",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step6.next_label}}",
     "fields": [
       {
         "key": "lbl_handle_rdt",
@@ -277,7 +277,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Record ID on RDT"
+        "text": "{{rdt-capture-form.step6.lbl_handle_rdt.text}}"
       },
       {
         "key": "lbl_rdt_id",
@@ -292,16 +292,16 @@
     ]
   },
   "step7": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step7.title}}",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
-    "next_label": "CONDUCT RDT TEST",
+    "next_label": "{{rdt-capture-form.step7.next_label}}",
     "fields": [
       {
         "key": "lbl_one_scan_widget_rdt",
         "type": "label",
-        "text": "OneScan widget will go here",
+        "text": "{{rdt-capture-form.step7.lbl_one_scan_widget_rdt.text}}",
         "text_color": "#000000",
         "text_size": "12sp",
         "label_text_style": "bold",
@@ -312,11 +312,11 @@
     ]
   },
   "step8": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step8.title}}",
     "display_back_button": "true",
     "next": "step3",
     "bottom_navigation": "true",
-    "next_label": "OK",
+    "next_label": "{{rdt-capture-form.step8.next_label}}",
     "fields": [
       {
         "key": "lbl_rdt_expired",
@@ -328,7 +328,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "center_label": "true",
-        "text": "RDT telah kadaluwarsa"
+        "text": "{{rdt-capture-form.step8.lbl_rdt_expired.text}}"
       },
       {
         "key": "lbl_use_new_test",
@@ -339,22 +339,22 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "center_label": "true",
-        "text": "Gunakan tes baru dan pindai ulang"
+        "text": "{{rdt-capture-form.step8.lbl_use_new_test.text}}"
       }
     ]
   },
   "step9": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step9.title}}",
     "display_back_button": "true",
     "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CAPTURE RDT",
+    "next_label": "{{rdt-capture-form.step9.next_label}}",
     "fields": [
       {
         "key": "lbl_rdt_instructions",
         "type": "label",
-        "text": "Conduct the RDT according to manufacturing guidelines",
+        "text": "{{rdt-capture-form.step9.lbl_rdt_instructions.text}}",
         "text_color": "#000000",
         "text_size": "12sp",
         "label_text_style": "bold",
@@ -365,7 +365,7 @@
     ]
   },
   "step10": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step10.title}}",
     "next": "step11",
     "display_back_button": "true",
     "fields": [
@@ -463,11 +463,11 @@
     ]
   },
   "step11": {
-    "title": "Hasil tes RDT",
+    "title": "{{rdt-capture-form.step11.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "SIMPAN HASIL RDT",
+    "next_label": "{{rdt-capture-form.step11.next_label}}",
     "next": "step12",
     "fields": [
       {
@@ -476,29 +476,29 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Pilih hasil pembaca RDT",
+        "label": "{{rdt-capture-form.step11.chw_result.label}}",
         "options": [
           {
             "key": "positive",
-            "text": "positif"
+            "text": "{{rdt-capture-form.step11.chw_result.options.positive.text}}"
           },
           {
             "key": "negative",
-            "text": "negatif"
+            "text": "{{rdt-capture-form.step11.chw_result.options.negative.text}}"
           },
           {
             "key": "invalid",
-            "text": "tidak valid"
+            "text": "{{rdt-capture-form.step11.chw_result.options.invalid.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Silakan pilih hasil pembaca RDT"
+          "err": "{{rdt-capture-form.step11.chw_result.v_required.err}}"
         }
       },
       {
         "key": "parasite_type",
-        "label": "Positif untuk:",
+        "label": "{{rdt-capture-form.step11.parasite_type.label}}",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -507,18 +507,18 @@
         "options": [
           {
             "key": "igm_positive",
-            "text": "IgM",
+            "text": "{{rdt-capture-form.step11.parasite_type.options.igm_positive.text}}",
             "value": false
           },
           {
             "key": "igg_positive",
-            "text": "IgG",
+            "text": "{{rdt-capture-form.step11.parasite_type.options.igg_positive.text}}",
             "value": false
           }
         ],
         "v_required": {
           "value": true,
-          "err": "Please specify if positive for IgM, IgG or both"
+          "err": "{{rdt-capture-form.step11.parasite_type.v_required.err}}"
         },
         "relevance": {
           "step11:chw_result": {
@@ -530,12 +530,12 @@
     ]
   },
   "step12": {
-    "title": "Handle RDT",
+    "title": "{{rdt-capture-form.step12.title}}",
     "display_back_button": "true",
     "next": "step13",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step12.next_label}}",
     "fields": [
       {
         "key": "lbl_handle_rdt",
@@ -546,18 +546,18 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Store or dispose of RDT appropriately according to established protocol"
+        "text": "{{rdt-capture-form.step12.lbl_handle_rdt.text}}"
       }
     ]
   },
   "step13": {
-    "title": "Respiratory sample",
+    "title": "{{rdt-capture-form.step13.title}}",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_collect_respiratory_sample",
         "type": "label",
-        "text": "Collect respiratory sample",
+        "text": "{{rdt-capture-form.step13.lbl_collect_respiratory_sample.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
         "has_bg": true,
@@ -567,7 +567,7 @@
       {
         "key": "lbl_skip_respiratory_sample_collection",
         "type": "label",
-        "text": "Skip respiratory sample collection",
+        "text": "{{rdt-capture-form.step13.lbl_skip_respiratory_sample_collection.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -577,12 +577,12 @@
     ]
   },
   "step14": {
-    "title": "Respiratory sample",
+    "title": "{{rdt-capture-form.step14.title}}",
     "display_back_button": "true",
     "next": "step15",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step14.next_label}}",
     "fields": [
       {
         "key": "lbl_collect_respiratory_sample",
@@ -593,17 +593,17 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Collect respiratory specimen using approved methods"
+        "text": "{{rdt-capture-form.step14.lbl_collect_respiratory_sample.text}}"
       }
     ]
   },
   "step15": {
-    "title": "Store specimen",
+    "title": "{{rdt-capture-form.step15.title}}",
     "display_back_button": "true",
     "next": "step16",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "KONFIRMASI",
+    "next_label": "{{rdt-capture-form.step15.next_label}}",
     "fields": [
       {
         "key": "lbl_store_respiratory_specimen",
@@ -614,18 +614,18 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Safely store Respiratory Specimen in provided transport tube."
+        "text": "{{rdt-capture-form.step15.lbl_store_respiratory_specimen.text}}"
       }
     ]
   },
   "step16": {
-    "title": "Respiratory sample",
+    "title": "{{rdt-capture-form.step16.title}}",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_scan_respiratory_specimen_barcode",
         "type": "label",
-        "text": "Scan respiratory specimen barcode",
+        "text": "{{rdt-capture-form.step16.lbl_scan_respiratory_specimen_barcode.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
         "has_bg": true,
@@ -635,7 +635,7 @@
       {
         "key": "lbl_affix_respiratory_specimen_label",
         "type": "label",
-        "text": "Manually affix label",
+        "text": "{{rdt-capture-form.step16.lbl_affix_respiratory_specimen_label.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -645,7 +645,7 @@
     ]
   },
   "step17": {
-    "title": "Respiratory sample",
+    "title": "{{rdt-capture-form.step17.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "next": "step19",
@@ -660,7 +660,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Affix Label or record ID on transport tube"
+        "text": "{{rdt-capture-form.step17.lbl_affix_respiratory_sample_id.text}}"
       },
       {
         "key": "lbl_respiratory_sample_id",
@@ -682,16 +682,16 @@
     ]
   },
   "step18": {
-    "title": "Respiratory sample",
+    "title": "{{rdt-capture-form.step18.title}}",
     "display_back_button": "true",
     "next": "step19",
     "bottom_navigation": "true",
-    "next_label": "CONDUCT RDT TEST",
+    "next_label": "{{rdt-capture-form.step18.next_label}}",
     "fields": [
       {
         "key": "lbl_one_scan_widget_respiratory_sample",
         "type": "label",
-        "text": "OneScan widget will go here",
+        "text": "{{rdt-capture-form.step18.lbl_one_scan_widget_respiratory_sample.text}}",
         "text_color": "#000000",
         "text_size": "12sp",
         "label_text_style": "bold",
@@ -702,12 +702,12 @@
     ]
   },
   "step19": {
-    "title": "Store specimen for courier",
+    "title": "{{rdt-capture-form.step19.title}}",
     "display_back_button": "true",
     "next": "step20",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step19.next_label}}",
     "fields": [
       {
         "key": "lbl_store_specimen_for_courier",
@@ -718,17 +718,17 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Store the respiratory sample appropriately until they have been picked up by the courier"
+        "text": "{{rdt-capture-form.step19.lbl_store_specimen_for_courier.text}}"
       }
     ]
   },
   "step20": {
-    "title": "Test complete",
+    "title": "{{rdt-capture-form.step20.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "SAVE AND EXIT",
+    "submit_label": "{{rdt-capture-form.step20.submit_label}}",
     "fields": [
       {
         "key": "lbl_test_complete",
@@ -739,8 +739,9 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures"
+        "text": "{{rdt-capture-form.step20.lbl_test_complete.text}}"
       }
     ]
-  }
+  },
+  "properties_file_name": "rdt-capture-form"
 }
