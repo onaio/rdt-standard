@@ -40,7 +40,9 @@ import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_PV_RESULT;
 import static io.ona.rdt.util.Constants.Form.RDT_TYPE;
 import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;
+import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_MD5_HASH;
 import static io.ona.rdt.util.Constants.Test.FLASH_ON;
+import static io.ona.rdt.util.Constants.Test.FULL_IMG_MD5_HASH;
 import static io.ona.rdt.util.Constants.Test.IS_MANUAL_CAPTURE;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt.util.Constants.Test.RDT_CAPTURE_DURATION;
@@ -145,6 +147,8 @@ public class CustomRDTCaptureFactory extends RDTCaptureFactory implements OnActi
         jsonApi.writeValue(widgetArgs.getStepName(), FLASH_ON, String.valueOf(parcelableImageMetadata.isFlashOn()), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), CASSETTE_BOUNDARY, parcelableImageMetadata.getCassetteBoundary(), "", "", "", false);
         jsonApi.writeValue(widgetArgs.getStepName(), IS_MANUAL_CAPTURE, String.valueOf(parcelableImageMetadata.isManualCapture()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), CROPPED_IMG_MD5_HASH, String.valueOf(parcelableImageMetadata.getCroppedImageMD5Hash()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), FULL_IMG_MD5_HASH, String.valueOf(parcelableImageMetadata.getFullImageMD5Hash()), "", "", "", false);
     }
 
     @Override

@@ -445,6 +445,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
+      },
+      {
+        "key": "cropped_img_md5_hash",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "full_img_md5_hash",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

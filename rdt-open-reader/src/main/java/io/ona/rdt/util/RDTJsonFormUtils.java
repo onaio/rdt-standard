@@ -115,11 +115,11 @@ public class RDTJsonFormUtils {
             if (success) {
                 parcelableImageMetadata.setImageToSave(FULL_IMAGE);
                 String filePath = saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
-                compositeImage.setFullImageMD5Hash(getFileMD5Hash(filePath));
+                compositeImage.getParcelableImageMetadata().setFullImageMD5Hash(getFileMD5Hash(filePath));
 
                 parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
                 filePath = saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
-                compositeImage.setCroppedImageMD5Hash(getFileMD5Hash(filePath));
+                compositeImage.getParcelableImageMetadata().setCroppedImageMD5Hash(getFileMD5Hash(filePath));
             } else {
                 Timber.e(TAG, "Sorry, could not create image folder!");
             }

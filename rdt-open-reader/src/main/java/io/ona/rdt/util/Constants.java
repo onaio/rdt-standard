@@ -112,6 +112,8 @@ public interface Constants {
         String BLOODSPOT_Q_PCR = "bloodspot";
         String MICROSCOPY = "microscopy";
         String Q_PCR = " qPCR";
+        String CROPPED_IMG_MD5_HASH = "cropped_img_md5_hash";
+        String FULL_IMG_MD5_HASH = "full_img_md5_hash";
     }
 
     interface Step {

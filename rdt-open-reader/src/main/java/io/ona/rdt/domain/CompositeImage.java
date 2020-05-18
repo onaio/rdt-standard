@@ -15,10 +15,6 @@ public class CompositeImage {
 
     private UnParcelableImageMetadata unParcelableImageMetadata;
 
-    private String fullImageMD5Hash;
-
-    private String croppedImageMD5Hash;
-
     public Bitmap getFullImage() {
         return fullImage;
     }
@@ -33,22 +29,6 @@ public class CompositeImage {
 
     public UnParcelableImageMetadata getUnParcelableImageMetadata() {
         return unParcelableImageMetadata;
-    }
-
-    public String getFullImageMD5Hash() {
-        return fullImageMD5Hash;
-    }
-
-    public String getCroppedImageMD5Hash() {
-        return croppedImageMD5Hash;
-    }
-
-    public void setCroppedImageMD5Hash(String croppedImageMD5Hash) {
-        this.croppedImageMD5Hash = croppedImageMD5Hash;
-    }
-
-    public void setFullImageMD5Hash(String fullImageMD5Hash) {
-        this.fullImageMD5Hash = fullImageMD5Hash;
     }
 
     public void setFullImage(Bitmap fullImage) {
@@ -84,16 +64,6 @@ public class CompositeImage {
 
     public CompositeImage withUnParcelableImageMetadata(UnParcelableImageMetadata unParcelableImageMetadata) {
         setUnParcelableImageMetadata(unParcelableImageMetadata);
-        return this;
-    }
-
-    public CompositeImage withFullImageMD5Hash(String fullImageMD5Hash) {
-        setFullImageMD5Hash(fullImageMD5Hash);
-        return this;
-    }
-
-    public CompositeImage withImageMD5Hash(String croppedImageMD5Hash) {
-        setCroppedImageMD5Hash(croppedImageMD5Hash);
         return this;
     }
 }
