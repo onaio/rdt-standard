@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Find location",
+    "title": "{{rdt-capture-form.step1.title}}",
     "next": "step2",
     "display_back_button": "true",
     "fields": [
@@ -61,12 +61,12 @@
     ]
   },
   "step2": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step2.title}}",
     "display_back_button": "true",
     "next": "step3",
-    "bottom_navigation" : "true",
+    "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "RDT",
+    "next_label": "{{rdt-capture-form.step2.next_label}}",
     "fields": [
       {
         "key": "lbl_patient_name",
@@ -92,14 +92,14 @@
     ]
   },
   "step3": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step3.title}}",
     "display_back_button": "true",
     "next": "step4",
     "fields": [
       {
         "key": "lbl_which_rdt",
         "type": "label",
-        "text": "Which RDT?",
+        "text": "{{rdt-capture-form.step3.lbl_which_rdt.text}}",
         "text_color": "#000000",
         "text_size": "10sp",
         "label_text_style": "bold",
@@ -110,7 +110,7 @@
       {
         "key": "lbl_scan_qr_code",
         "type": "label",
-        "text": "Scan QR Code",
+        "text": "{{rdt-capture-form.step3.lbl_scan_qr_code.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
         "has_bg": true,
@@ -120,7 +120,7 @@
       {
         "key": "lbl_care_start",
         "type": "label",
-        "text": "Scan Carestart Exp. Date",
+        "text": "{{rdt-capture-form.step3.lbl_care_start.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -130,7 +130,7 @@
     ]
   },
   "step4": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step4.title}}",
     "display_back_button": "true",
     "next": "step7",
     "fields": [
@@ -142,13 +142,13 @@
         "type": "expiration_date_capture",
         "v_required": {
           "value": "true",
-          "err": "Please enter the RDT ID"
+          "err": "{{rdt-capture-form.step4.expiration_date_reader.v_required.err}}"
         }
       }
     ]
   },
   "step5": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step5.title}}",
     "display_back_button": "true",
     "next": "step7",
     "fields": [
@@ -159,16 +159,16 @@
         "openmrs_entity_id": "",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "RDT ID *",
-        "scanButtonText": "Scan QR Code",
+        "hint": "{{rdt-capture-form.step5.qr_code_reader.hint}}",
+        "scanButtonText": "{{rdt-capture-form.step5.qr_code_reader.scanButtonText}}",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid ID"
+          "err": "{{rdt-capture-form.step5.qr_code_reader.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the RDT ID"
+          "err": "{{rdt-capture-form.step5.qr_code_reader.v_required.err}}"
         }
       },
       {
@@ -181,11 +181,11 @@
     ]
   },
   "step6": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step6.title}}",
     "display_back_button": "true",
     "next": "step3",
     "bottom_navigation": "true",
-    "next_label": "OK",
+    "next_label": "{{rdt-capture-form.step6.next_label}}",
     "fields": [
       {
         "key": "lbl_rdt_expired",
@@ -197,7 +197,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "center_label": "true",
-        "text": "RDT has expired"
+        "text": "{{rdt-capture-form.step6.lbl_rdt_expired.text}}"
       },
       {
         "key": "lbl_use_new_test",
@@ -208,17 +208,17 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "center_label": "true",
-        "text": "Use new test and rescan"
+        "text": "{{rdt-capture-form.step6.lbl_use_new_test.text}}"
       }
     ]
   },
   "step7": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step7.title}}",
     "display_back_button": "true",
     "next": "step8",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE TO MICROSCOPY",
+    "next_label": "{{rdt-capture-form.step7.next_label}}",
     "fields": [
       {
         "key": "lbl_rdt_id",
@@ -238,17 +238,17 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Write this number on back of RDT."
+        "text": "{{rdt-capture-form.step7.lbl_record_rdt_id.text}}"
       }
     ]
   },
   "step8": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step8.title}}",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "MICROSCOPY SLIDE COMPLETE",
+    "next_label": "{{rdt-capture-form.step8.next_label}}",
     "fields": [
       {
         "key": "lbl_microscopy_slide_instruction",
@@ -258,7 +258,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Collect Thick and Thin Bloodsmear on Microscopy Slide"
+        "text": "{{rdt-capture-form.step8.lbl_microscopy_slide_instruction.text}}"
       },
       {
         "key": "lbl_microscopy_slide",
@@ -268,7 +268,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Label slide with:"
+        "text": "{{rdt-capture-form.step8.lbl_microscopy_slide.text}}"
       },
       {
         "key": "lbl_rdt_id",
@@ -283,12 +283,12 @@
     ]
   },
   "step9": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step9.title}}",
     "display_back_button": "true",
     "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "BLOT PAPER COMPLETE",
+    "next_label": "{{rdt-capture-form.step9.next_label}}",
     "fields": [
       {
         "key": "lbl_blot_paper_instructions",
@@ -298,7 +298,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Saturate the Filter Paper Bloodspot Circle"
+        "text": "{{rdt-capture-form.step9.lbl_blot_paper_instructions.text}}"
       },
       {
         "key": "lbl_blot_paper",
@@ -308,7 +308,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Place Bloodspot in a labeled tube with ID number displayed. Do Not Close top of Bloodspot until dry."
+        "text": "{{rdt-capture-form.step9.lbl_blot_paper.text}}"
       },
       {
         "key": "lbl_rdt_id",
@@ -323,13 +323,13 @@
     ]
   },
   "step10": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step10.title}}",
     "display_back_button": "true",
     "next": "step11",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step10.next_label}}",
     "fields": [
       {
         "openmrs_entity_parent": "",
@@ -337,7 +337,7 @@
         "openmrs_entity_id": "",
         "key": "illustration_text_description",
         "type": "image_view",
-        "text": "Collect the blood sample (5㎕) using a pipette provided or micropipette.",
+        "text": "{{rdt-capture-form.step10.illustration_text_description.text}}",
         "label_text_size": "18sp",
         "text_color": "#000000",
         "image_file": "collect_blood_sample.jpg"
@@ -345,13 +345,13 @@
     ]
   },
   "step11": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step11.title}}",
     "next": "step12",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
-    "next_label": "CONTINUE",
+    "next_label": "{{rdt-capture-form.step11.next_label}}",
     "fields": [
       {
         "openmrs_entity_parent": "",
@@ -359,7 +359,7 @@
         "openmrs_entity_id": "",
         "key": "add_blood",
         "type": "image_view",
-        "text": "Add 5 ㎕ of whole blood into the 'S' well.",
+        "text": "{{rdt-capture-form.step11.add_blood.text}}",
         "label_text_size": "18sp",
         "text_color": "#000000",
         "image_file": "add_blood.jpg"
@@ -367,13 +367,13 @@
     ]
   },
   "step12": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step12.title}}",
     "next": "step13",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
-    "next_label": "START 20 MINUTE TIMER",
+    "next_label": "{{rdt-capture-form.step12.next_label}}",
     "fields": [
       {
         "openmrs_entity_parent": "",
@@ -381,7 +381,7 @@
         "openmrs_entity_id": "",
         "key": "add_buffer_solution",
         "type": "image_view",
-        "text": "Add 60 ㎕ assay buffer solution (3 drops for vial type or 2 drops for bottle type) into the \"A\" well.\nStart a timer.",
+        "text": "{{rdt-capture-form.step12.add_buffer_solution.text}}",
         "label_text_size": "18sp",
         "text_color": "#000000",
         "image_file": "add_buffer_solution.jpg"
@@ -389,12 +389,12 @@
     ]
   },
   "step13": {
-    "title": "RDT Timer",
+    "title": "{{rdt-capture-form.step13.title}}",
     "next": "step14",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
-    "next_label": "TAKE IMAGE OF RDT",
+    "next_label": "{{rdt-capture-form.step13.next_label}}",
     "fields": [
       {
         "key": "countdown_timer",
@@ -402,7 +402,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "timer",
         "type": "countdown_timer",
-        "label": "Read results in 20 minutes.",
+        "label": "{{rdt-capture-form.step13.countdown_timer.label}}",
         "label_text_size": "8sp",
         "label_text_color": "#525252",
         "countdown_time_unit": "minutes",
@@ -415,12 +415,12 @@
     ]
   },
   "step14": {
-    "title": "RDT Result Ready",
+    "title": "{{rdt-capture-form.step14.title}}",
     "next": "step16",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "next",
-    "next_label": "TAKE IMAGE OF RDT",
+    "next_label": "{{rdt-capture-form.step14.next_label}}",
     "fields": [
       {
         "key": "countdown_timer_results_ready",
@@ -428,7 +428,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "timer",
         "type": "countdown_timer",
-        "label": "Read results within 10 minutes.",
+        "label": "{{rdt-capture-form.step14.countdown_timer_results_ready.label}}",
         "label_text_size": "8sp",
         "label_text_color": "#4b4b4b",
         "countdown_time_unit": "minutes",
@@ -441,12 +441,12 @@
     ]
   },
   "step15": {
-    "title": "Carestart RDT",
+    "title": "{{rdt-capture-form.step15.title}}",
     "next": "step16",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "TAKE IMAGE OF RDT",
+    "next_label": "{{rdt-capture-form.step15.next_label}}",
     "fields": [
       {
         "key": "lbl_conduct_carestart",
@@ -456,7 +456,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Conduct Carestart RDT"
+        "text": "{{rdt-capture-form.step15.lbl_conduct_carestart.text}}"
       },
       {
         "key": "lbl_conduct_carestart",
@@ -466,12 +466,12 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Take image of RDT once test is complete"
+        "text": "{{rdt-capture-form.step15.lbl_conduct_carestart.text}}"
       }
     ]
   },
   "step16": {
-    "title": "RDT",
+    "title": "{{rdt-capture-form.step16.title}}",
     "next": "step17",
     "display_back_button": "true",
     "fields": [
@@ -555,11 +555,11 @@
     ]
   },
   "step17": {
-    "title": "RDT Test Result",
+    "title": "{{rdt-capture-form.step17.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "SAVE RDT RESULT",
+    "next_label": "{{rdt-capture-form.step17.next_label}}",
     "next": "step18",
     "fields": [
       {
@@ -568,29 +568,29 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Select RDT reader result",
+        "label": "{{rdt-capture-form.step17.chw_result.label}}",
         "options": [
           {
             "key": "positive",
-            "text": "positive"
+            "text": "{{rdt-capture-form.step17.chw_result.options.positive.text}}"
           },
           {
             "key": "negative",
-            "text": "negative"
+            "text": "{{rdt-capture-form.step17.chw_result.options.negative.text}}"
           },
           {
             "key": "invalid",
-            "text": "invalid"
+            "text": "{{rdt-capture-form.step17.chw_result.options.invalid.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select the RDT reader result"
+          "err": "{{rdt-capture-form.step17.chw_result.v_required.err}}"
         }
       },
       {
         "key": "parasite_type",
-        "label": "Positive for:",
+        "label": "{{rdt-capture-form.step17.parasite_type.label}}",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -599,18 +599,18 @@
         "options": [
           {
             "key": "pv_positive",
-            "text": "pv",
+            "text": "{{rdt-capture-form.step17.parasite_type.options.pv_positive.text}}",
             "value": false
           },
           {
             "key": "pf_positive",
-            "text": "pf",
+            "text": "{{rdt-capture-form.step17.parasite_type.options.pf_positive.text}}",
             "value": false
           }
         ],
         "v_required": {
           "value": true,
-          "err": "Please specify if positive for pv, pf or both"
+          "err": "{{rdt-capture-form.step17.parasite_type.v_required.err}}"
         },
         "relevance": {
           "step17:chw_result": {
@@ -622,12 +622,12 @@
     ]
   },
   "step18": {
-    "title": "Confirm Labels",
+    "title": "{{rdt-capture-form.step18.title}}",
     "display_back_button": "true",
     "next": "step19",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONFIRM",
+    "next_label": "{{rdt-capture-form.step18.next_label}}",
     "fields": [
       {
         "key": "lbl_confirm_labels",
@@ -638,7 +638,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Ensure Microscopy slide, Bloodspot and RDT labels are"
+        "text": "{{rdt-capture-form.step18.lbl_confirm_labels.text}}"
       },
       {
         "key": "lbl_rdt_id",
@@ -653,12 +653,12 @@
     ]
   },
   "step19": {
-    "title": "Sterile Storage",
+    "title": "{{rdt-capture-form.step19.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "END TEST",
+    "submit_label": "{{rdt-capture-form.step19.submit_label}}",
     "fields": [
       {
         "key": "lbl_confirm_labels",
@@ -668,7 +668,7 @@
         "top_margin": "15dp",
         "has_bg": true,
         "bg_color": "#ffffff",
-        "text": "Place RDT, Blood spot and Microscopy slide in a provided Sterile Storage and affix"
+        "text": "{{rdt-capture-form.step19.lbl_confirm_labels.text}}"
       },
       {
         "key": "lbl_rdt_id",
@@ -683,17 +683,17 @@
     ]
   },
   "step20": {
-    "title": "Scan RDT timed out",
+    "title": "{{rdt-capture-form.step20.title}}",
     "next": "step7",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE TO RECORD RDT ID",
+    "next_label": "{{rdt-capture-form.step20.next_label}}",
     "fields": [
       {
         "key": "lbl_record_expiration_date",
         "type": "label",
-        "text": "Record expiration date manually",
+        "text": "{{rdt-capture-form.step20.lbl_record_expiration_date.text}}",
         "text_color": "#000000",
         "text_size": "9sp",
         "top_margin": "15dp",
@@ -707,12 +707,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "Expiration date",
+        "hint": "{{rdt-capture-form.step20.manual_expiration_date.hint}}",
         "v_required": {
           "value": true,
-          "err": "Please specify the expiration date"
+          "err": "{{rdt-capture-form.step20.manual_expiration_date.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "rdt-capture-form"
 }
