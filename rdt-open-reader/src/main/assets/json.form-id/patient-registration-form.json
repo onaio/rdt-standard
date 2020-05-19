@@ -47,19 +47,19 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "{{patient-registration-form.step1.title}}",
+    "title": "{{patient-registration-form-original.step1.title}}",
     "display_back_button": "true",
-    "previous_label": "{{patient-registration-form.step1.previous_label}}",
+    "previous_label": "{{patient-registration-form-original.step1.previous_label}}",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "{{patient-registration-form.step1.submit_label}}",
+    "submit_label": "{{patient-registration-form-original.step1.submit_label}}",
     "next_form": "json.form/patient-registration-form.json",
     "fields": [
       {
         "key": "patient_name_label",
         "type": "label",
-        "text": "{{patient-registration-form.step1.patient_name_label.text}}",
+        "text": "{{patient-registration-form-original.step1.patient_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -73,7 +73,7 @@
       {
         "key": "patient_id_label",
         "type": "label",
-        "text": "{{patient-registration-form.step1.patient_id_label.text}}",
+        "text": "{{patient-registration-form-original.step1.patient_id_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -84,7 +84,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.patient_id.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.patient_id.v_required.err}}"
         }
       },
       {
@@ -93,20 +93,20 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.sex.label}}",
+        "label": "{{patient-registration-form-original.step1.sex.label}}",
         "options": [
           {
             "key": "Female",
-            "text": "{{patient-registration-form.step1.sex.options.Female.text}}"
+            "text": "{{patient-registration-form-original.step1.sex.options.Female.text}}"
           },
           {
             "key": "Male",
-            "text": "{{patient-registration-form.step1.sex.options.Male.text}}"
+            "text": "{{patient-registration-form-original.step1.sex.options.Male.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.sex.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.sex.v_required.err}}"
         }
       },
       {
@@ -115,13 +115,17 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "{{patient-registration-form.step1.patient_dob.hint}}",
+        "hint": "{{patient-registration-form-original.step1.patient_dob.hint}}",
         "expanded": false,
         "duration": {
-          "label": "{{patient-registration-form.step1.patient_dob.duration.label}}"
+          "label": "{{patient-registration-form-original.step1.patient_dob.duration.label}}"
         },
         "min_date": "today-100y",
-        "max_date": "today"
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_dob.v_required.err}}"
+        }
       },
       {
         "key": "age",
@@ -141,7 +145,7 @@
       {
         "key": "patient_occupation_label",
         "type": "label",
-        "text": "{{patient-registration-form.step1.patient_occupation_label.text}}",
+        "text": "{{patient-registration-form-original.step1.patient_occupation_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -152,22 +156,8 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{patient-registration-form.step1.patient_occupation.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.patient_occupation.v_required.err}}"
         }
-      },
-      {
-        "key": "skip_diagnostic_questions",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "skip_questions",
-            "text": "{{patient-registration-form.step1.skip_diagnostic_questions.options.skip_questions.text}}",
-            "value": "true"
-          }
-        ]
       },
       {
         "key": "been_treated",
@@ -175,31 +165,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.been_treated.label}}",
+        "label": "{{patient-registration-form-original.step1.been_treated.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.been_treated.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.been_treated.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.been_treated.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.been_treated.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.been_treated.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.been_treated.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.been_treated.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.been_treated.v_required.err}}"
         }
       },
       {
@@ -208,31 +191,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.had_malaria.label}}",
+        "label": "{{patient-registration-form-original.step1.had_malaria.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.had_malaria.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.had_malaria.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.had_malaria.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.had_malaria.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.had_malaria.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.had_malaria.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.had_malaria.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.had_malaria.v_required.err}}"
         }
       },
       {
@@ -241,31 +217,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.had_fever.label}}",
+        "label": "{{patient-registration-form-original.step1.had_fever.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.had_fever.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.had_fever.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.had_fever.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.had_fever.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.had_fever.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.had_fever.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.had_fever.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.had_fever.v_required.err}}"
         }
       },
       {
@@ -274,31 +243,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.experienced_abnormal_headaches.label}}",
+        "label": "{{patient-registration-form-original.step1.experienced_abnormal_headaches.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.experienced_abnormal_headaches.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.experienced_abnormal_headaches.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.experienced_abnormal_headaches.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.experienced_abnormal_headaches.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.experienced_abnormal_headaches.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.experienced_abnormal_headaches.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.experienced_abnormal_headaches.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.experienced_abnormal_headaches.v_required.err}}"
         }
       },
       {
@@ -307,31 +269,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.felt_nausea.label}}",
+        "label": "{{patient-registration-form-original.step1.felt_nausea.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.felt_nausea.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.felt_nausea.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.felt_nausea.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.felt_nausea.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.felt_nausea.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.felt_nausea.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.felt_nausea.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.felt_nausea.v_required.err}}"
         }
       },
       {
@@ -340,31 +295,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.has_vomited.label}}",
+        "label": "{{patient-registration-form-original.step1.has_vomited.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.has_vomited.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.has_vomited.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.has_vomited.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.has_vomited.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.has_vomited.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.has_vomited.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.has_vomited.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.has_vomited.v_required.err}}"
         }
       },
       {
@@ -373,31 +321,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.experienced_diarrhea.label}}",
+        "label": "{{patient-registration-form-original.step1.experienced_diarrhea.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.experienced_diarrhea.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.experienced_diarrhea.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.experienced_diarrhea.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.experienced_diarrhea.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.experienced_diarrhea.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.experienced_diarrhea.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.experienced_diarrhea.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.experienced_diarrhea.v_required.err}}"
         }
       },
       {
@@ -406,31 +347,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.experienced_chills.label}}",
+        "label": "{{patient-registration-form-original.step1.experienced_chills.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.experienced_chills.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.experienced_chills.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.experienced_chills.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.experienced_chills.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.experienced_chills.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.experienced_chills.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.experienced_chills.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.experienced_chills.v_required.err}}"
         }
       },
       {
@@ -439,31 +373,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.felt_aches.label}}",
+        "label": "{{patient-registration-form-original.step1.felt_aches.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.felt_aches.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.felt_aches.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.felt_aches.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.felt_aches.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.felt_aches.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.felt_aches.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.felt_aches.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.felt_aches.v_required.err}}"
         }
       },
       {
@@ -472,31 +399,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.had_muscle_pain.label}}",
+        "label": "{{patient-registration-form-original.step1.had_muscle_pain.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.had_muscle_pain.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.had_muscle_pain.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.had_muscle_pain.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.had_muscle_pain.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.had_muscle_pain.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.had_muscle_pain.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.had_muscle_pain.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.had_muscle_pain.v_required.err}}"
         }
       },
       {
@@ -505,31 +425,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.had_chest_pain.label}}",
+        "label": "{{patient-registration-form-original.step1.had_chest_pain.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.had_chest_pain.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.had_chest_pain.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.had_chest_pain.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.had_chest_pain.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.had_chest_pain.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.had_chest_pain.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.had_chest_pain.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.had_chest_pain.v_required.err}}"
         }
       },
       {
@@ -538,31 +451,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.felt_abnormal_fatigue.label}}",
+        "label": "{{patient-registration-form-original.step1.felt_abnormal_fatigue.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.felt_abnormal_fatigue.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.felt_abnormal_fatigue.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.felt_abnormal_fatigue.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.felt_abnormal_fatigue.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.felt_abnormal_fatigue.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.felt_abnormal_fatigue.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.felt_abnormal_fatigue.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.felt_abnormal_fatigue.v_required.err}}"
         }
       },
       {
@@ -571,31 +477,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.had_breathing_problems.label}}",
+        "label": "{{patient-registration-form-original.step1.had_breathing_problems.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.had_breathing_problems.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.had_breathing_problems.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.had_breathing_problems.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.had_breathing_problems.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.had_breathing_problems.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.had_breathing_problems.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.had_breathing_problems.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.had_breathing_problems.v_required.err}}"
         }
       },
       {
@@ -604,25 +503,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.poor_feeding.label}}",
+        "label": "{{patient-registration-form-original.step1.poor_feeding.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.poor_feeding.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.poor_feeding.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.poor_feeding.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.poor_feeding.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.poor_feeding.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.poor_feeding.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.poor_feeding.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.poor_feeding.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -638,25 +536,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.coughing.label}}",
+        "label": "{{patient-registration-form-original.step1.coughing.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.coughing.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.coughing.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.coughing.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.coughing.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.coughing.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.coughing.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.coughing.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.coughing.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -672,31 +569,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.anyone_else_diagnosed.label}}",
+        "label": "{{patient-registration-form-original.step1.anyone_else_diagnosed.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.anyone_else_diagnosed.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.anyone_else_diagnosed.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.anyone_else_diagnosed.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.anyone_else_diagnosed.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.anyone_else_diagnosed.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.anyone_else_diagnosed.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.anyone_else_diagnosed.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.anyone_else_diagnosed.v_required.err}}"
         }
       },
       {
@@ -705,31 +595,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.sprayed.label}}",
+        "label": "{{patient-registration-form-original.step1.sprayed.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.sprayed.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.sprayed.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.sprayed.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.sprayed.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.sprayed.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.sprayed.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.sprayed.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.sprayed.v_required.err}}"
         }
       },
       {
@@ -738,31 +621,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.lives_in_endemic_area.label}}",
+        "label": "{{patient-registration-form-original.step1.lives_in_endemic_area.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.lives_in_endemic_area.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.lives_in_endemic_area.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.lives_in_endemic_area.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.lives_in_endemic_area.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.lives_in_endemic_area.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.lives_in_endemic_area.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.lives_in_endemic_area.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
+          "err": "{{patient-registration-form-original.step1.lives_in_endemic_area.v_required.err}}"
         }
       },
       {
@@ -771,25 +647,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.history_of_visiting_endemic_areas.label}}",
+        "label": "{{patient-registration-form-original.step1.history_of_visiting_endemic_areas.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.history_of_visiting_endemic_areas.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.history_of_visiting_endemic_areas.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.history_of_visiting_endemic_areas.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.history_of_visiting_endemic_areas.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.history_of_visiting_endemic_areas.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.history_of_visiting_endemic_areas.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.history_of_visiting_endemic_areas.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.history_of_visiting_endemic_areas.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -805,31 +680,123 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form.step1.sleeps_under_bednet.label}}",
+        "label": "{{patient-registration-form-original.step1.sleeps_under_bednet.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-registration-form.step1.sleeps_under_bednet.options.Yes.text}}"
+            "text": "{{patient-registration-form-original.step1.sleeps_under_bednet.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-registration-form.step1.sleeps_under_bednet.options.No.text}}"
+            "text": "{{patient-registration-form-original.step1.sleeps_under_bednet.options.No.text}}"
           },
           {
-            "key": "not_answered",
-            "text": "{{patient-registration-form.step1.sleeps_under_bednet.options.not_answered.text}}"
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.sleeps_under_bednet.options.Not_Answered.text}}"
           }
         ],
-        "value": "not_answered",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form.step1.sleeps_under_bednet.v_required.err}}"
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
+          "err": "{{patient-registration-form-original.step1.sleeps_under_bednet.v_required.err}}"
+        }
+      },
+      {
+        "key": "latrine_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.latrine_in_household.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-registration-form-original.step1.latrine_in_household.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-registration-form-original.step1.latrine_in_household.options.No.text}}"
+          },
+          {
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.latrine_in_household.options.Not_Answered.text}}"
           }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.latrine_in_household.v_required.err}}"
+        }
+      },
+      {
+        "key": "running_water_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.running_water_in_household.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-registration-form-original.step1.running_water_in_household.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-registration-form-original.step1.running_water_in_household.options.No.text}}"
+          },
+          {
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.running_water_in_household.options.Not_Answered.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.running_water_in_household.v_required.err}}"
+        }
+      },
+      {
+        "key": "immunizations_up_to_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.immunizations_up_to_date.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-registration-form-original.step1.immunizations_up_to_date.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-registration-form-original.step1.immunizations_up_to_date.options.No.text}}"
+          },
+          {
+            "key": "Not Answered",
+            "text": "{{patient-registration-form-original.step1.immunizations_up_to_date.options.Not_Answered.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.immunizations_up_to_date.v_required.err}}"
+        }
+      },
+      {
+        "key": "children_under_5_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.children_under_5_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "children_under_5",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.children_under_5.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.children_under_5.v_numeric.err}}"
         }
       },
       {
@@ -844,15 +811,9 @@
               "rules-file": "conditional_save_calculation_rules.yml"
             }
           }
-        },
-        "relevance": {
-          "step1:skip_diagnostic_questions": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
-          }
         }
       }
     ]
   },
-  "properties_file_name": "patient-registration-form"
+  "properties_file_name": "patient-registration-form-original"
 }
