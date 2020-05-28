@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
-import org.json.JSONException;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.location.helper.LocationHelper;
@@ -18,7 +15,6 @@ import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import io.fabric.sdk.android.Fabric;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.job.RDTJobCreator;
@@ -64,8 +60,6 @@ public class RDTApplication extends DrishtiApplication {
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
         SyncStatusBroadcastReceiver.init(this);
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
