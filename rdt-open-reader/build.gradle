@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 repositories {
     maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
@@ -99,8 +100,13 @@ dependencies {
         exclude group: 'com.google.android.gms', module:'play-services-basement'
     }
 
-    implementation('org.smartregister:opensrp-client-native-form:1.8.3-SNAPSHOT@aar') {
+    implementation ('com.google.firebase:firebase-crashlytics:17.0.0') {
+        exclude group: 'com.google.android.gms', module:'play-services-basement'
+    }
+
+    implementation('org.smartregister:opensrp-client-native-form:1.10.0dkflsafdpasdk-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
         exclude group: 'com.google.android.gms', module:'play-services-basement'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -112,6 +118,7 @@ dependencies {
 
     implementation('org.smartregister:opensrp-client-core:1.10.9-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
         exclude group: 'com.google.android.gms', module:'play-services-basement'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -139,9 +146,6 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
-    testImplementation 'org.robolectric:robolectric:3.8'
-    testImplementation "org.robolectric:shadows-supportv4:3.8"
-    testImplementation "org.robolectric:shadows-multidex:4.0.1"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
