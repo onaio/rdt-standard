@@ -4,14 +4,11 @@ import android.os.Build;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.reflect.Whitebox;
 import org.smartregister.commonregistry.CommonFtsObject;
 
 import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
-import io.ona.rdt.robolectric.BaseRobolectricTest;
 import io.ona.rdt.util.Constants;
 
 import static io.ona.rdt.TestUtils.setStaticFinalField;

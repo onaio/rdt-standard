@@ -10,18 +10,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import io.ona.rdt.R;
-import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.Constants;
 
-import static org.hamcrest.Matchers.any;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
