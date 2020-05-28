@@ -104,7 +104,7 @@ dependencies {
         exclude group: 'com.google.android.gms', module:'play-services-basement'
     }
 
-    implementation('org.smartregister:opensrp-client-native-form:1.10.0dkflsafdpasdk-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.8.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
