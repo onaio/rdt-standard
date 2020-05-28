@@ -1,6 +1,6 @@
 package io.ona.rdt.contract;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import io.ona.rdt.callback.OnFormSavedCallback;
 

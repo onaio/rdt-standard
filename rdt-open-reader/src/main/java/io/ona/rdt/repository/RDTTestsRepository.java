@@ -1,6 +1,6 @@
 package io.ona.rdt.repository;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.ona.rdt.domain.RDTTestDetails;
