@@ -1,5 +1,6 @@
 package io.ona.rdt.interactor;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -25,11 +26,13 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Map;
 
+import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.util.FormLauncher;
 import timber.log.Timber;
 
+import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
@@ -89,6 +92,8 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
             @Override
             protected void onPostExecute(Void result) {
+                Context context = RDTApplication.getInstance();
+                showToast(context, context.getString(R.string.form_successfully_saved));
                 if (onFormSavedCallback != null) {
                     onFormSavedCallback.onFormSaved();
                 }
