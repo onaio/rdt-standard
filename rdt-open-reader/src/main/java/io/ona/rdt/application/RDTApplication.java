@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.preference.PreferenceManager;
 
 import com.evernote.android.job.JobManager;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -23,8 +24,10 @@ import io.ona.rdt.repository.ParasiteProfileRepository;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.repository.RDTTestsRepository;
 import io.ona.rdt.util.RDTSyncConfiguration;
+import io.ona.rdt.util.ReleaseTree;
 import io.ona.rdt.util.StepStateConfig;
 import io.ona.rdt.util.Utils;
+import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static org.smartregister.util.Log.logError;
@@ -49,6 +52,8 @@ public class RDTApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
+       initializeCrashlyticsAndLogging();
+
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
@@ -72,6 +77,16 @@ public class RDTApplication extends DrishtiApplication {
         com.vijay.jsonwizard.utils.AllSharedPreferences allSharedPreferences
                 = new com.vijay.jsonwizard.utils.AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this));
         allSharedPreferences.saveLanguagePreference(BuildConfig.LOCALE);
+    }
+
+    private void initializeCrashlyticsAndLogging() {
+        if (BuildConfig.DEBUG) {
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
+            Timber.plant(new ReleaseTree());
+        }
     }
 
     @Override

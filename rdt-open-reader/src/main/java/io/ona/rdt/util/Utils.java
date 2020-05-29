@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import androidx.annotation.StringRes;
 import android.util.TypedValue;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -139,5 +141,13 @@ public class Utils {
 
     public static boolean isCovidApp() {
         return BuildConfig.FLAVOR.equals("covidIndonesia");
+    }
+
+    public static void recordExceptionInCrashlytics(Throwable throwable) {
+        FirebaseCrashlytics.getInstance().recordException(throwable);
+    }
+
+    public static void logEventToCrashlytics(String eventMessage) {
+        FirebaseCrashlytics.getInstance().log(eventMessage);
     }
 }
