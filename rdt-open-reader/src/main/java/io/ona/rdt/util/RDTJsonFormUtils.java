@@ -48,6 +48,7 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.PERFORM_FORM_TRANSLATION;
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
@@ -223,6 +224,7 @@ public class RDTJsonFormUtils {
         Intent intent = new Intent(context, RDTJsonFormActivity.class);
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
+            intent.putExtra(PERFORM_FORM_TRANSLATION, true);
             context.startActivityForResult(intent, requestCode);
         } catch (Exception e) {
             Timber.e(TAG, e);
@@ -236,12 +238,7 @@ public class RDTJsonFormUtils {
 
     public void showToast(final Activity activity, final String text) {
         if (activity != null) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
-                }
-            });
+            activity.runOnUiThread(() -> Toast.makeText(activity, text, Toast.LENGTH_LONG).show());
         }
     }
 

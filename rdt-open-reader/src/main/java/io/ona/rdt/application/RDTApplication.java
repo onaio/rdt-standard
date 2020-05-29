@@ -2,6 +2,7 @@ package io.ona.rdt.application;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -72,6 +73,11 @@ public class RDTApplication extends DrishtiApplication {
         if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
             sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
         }
+
+        // set locale for MLS
+        com.vijay.jsonwizard.utils.AllSharedPreferences allSharedPreferences
+                = new com.vijay.jsonwizard.utils.AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this));
+        allSharedPreferences.saveLanguagePreference(BuildConfig.LOCALE);
     }
 
     @Override
