@@ -1,6 +1,6 @@
 package io.ona.rdt.job;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;

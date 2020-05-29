@@ -1,7 +1,7 @@
 package io.ona.rdt.widget;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.view.Gravity;
 import android.view.View;
 

@@ -2,10 +2,10 @@ package io.ona.rdt.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +15,10 @@ import java.util.List;
 
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.RDTTestListAdapter;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.RDTTestDetails;
 import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
-import io.ona.rdt.repository.RDTTestsRepository;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;

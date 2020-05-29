@@ -3,17 +3,16 @@ package io.ona.rdt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import io.ona.rdt.R;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
-import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;

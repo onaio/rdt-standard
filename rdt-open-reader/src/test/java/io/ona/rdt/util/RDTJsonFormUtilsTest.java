@@ -3,7 +3,7 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;

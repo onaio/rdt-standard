@@ -1,6 +1,6 @@
 package io.ona.rdt.repository;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
