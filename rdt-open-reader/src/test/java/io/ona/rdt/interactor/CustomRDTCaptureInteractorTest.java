@@ -39,7 +39,7 @@ public class CustomRDTCaptureInteractorTest {
         OnImageSavedCallback callback = mock(OnImageSavedCallback.class);
 
         interactor.saveImage(context, compositeImage, callback);
-        verifyStatic(times(1));
+        verifyStatic(RDTJsonFormUtils.class, times(1));
         RDTJsonFormUtils.saveStaticImagesToDisk(eq(context), eq(compositeImage), eq(callback));
     }
 

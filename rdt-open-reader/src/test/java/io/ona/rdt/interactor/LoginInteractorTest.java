@@ -29,7 +29,7 @@ public class LoginInteractorTest {
     public void testScheduleJobsPeriodicallyShouldScheduleJobsPeriodically() {
         mockStaticClasses();
         loginInteractor.scheduleJobsPeriodically();
-        verifyStatic(times(1));
+        verifyStatic(Utils.class, times(1));
         Utils.scheduleJobsPeriodically();
     }
 
@@ -37,7 +37,7 @@ public class LoginInteractorTest {
     public void testScheduleJobsImmediatelyShouldScheduleJobsImmediately() {
         mockStaticClasses();
         loginInteractor.scheduleJobsImmediately();
-        verifyStatic(times(1));
+        verifyStatic(Utils.class, times(1));
         Utils.scheduleJobsImmediately();
     }
 

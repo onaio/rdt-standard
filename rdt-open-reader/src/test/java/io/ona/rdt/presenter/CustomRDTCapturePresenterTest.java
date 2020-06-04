@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -20,6 +18,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 import edu.washington.cs.ubicomplab.rdt_reader.core.RDTCaptureResult;
 import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.contract.CustomRDTCaptureContract;
@@ -42,10 +41,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({ImageUtil.class, RDTJsonFormUtils.class, RDTApplication.class, org.smartregister.Context.class, DrishtiApplication.class})
-public class CustomRDTCapturePresenterTest {
+public class CustomRDTCapturePresenterTest extends PowerMockTest {
 
     private CustomRDTCapturePresenter presenter;
     private CustomRDTCaptureActivityStub activity;

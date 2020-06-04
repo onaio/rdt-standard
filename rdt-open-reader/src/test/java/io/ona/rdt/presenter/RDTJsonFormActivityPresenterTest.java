@@ -12,6 +12,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormActivityContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -31,9 +32,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 /**
  * Created by Vincent Karuri on 14/11/2019
  */
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTJsonFormFragment.class, RDTApplication.class})
-public class RDTJsonFormActivityPresenterTest {
+public class RDTJsonFormActivityPresenterTest extends PowerMockTest {
 
     @Mock
     private RDTJsonFormActivityContract.View activity;

@@ -11,6 +11,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 
 import io.ona.rdt.BuildConfig;
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
 
 import static org.junit.Assert.assertEquals;
@@ -22,9 +23,8 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 /**
  * Created by Vincent Karuri on 14/11/2019
  */
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class})
-public class RDTSyncConfigurationTest {
+public class RDTSyncConfigurationTest extends PowerMockTest {
 
     @Test
     public void testRDTSyncConfigurationInitialization() {

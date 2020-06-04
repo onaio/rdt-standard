@@ -16,6 +16,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
@@ -36,9 +37,8 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 /**
  * Created by Vincent Karuri on 02/08/2019
  */
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTJsonFormUtils.class})
-public class PatientRegisterActivityPresenterTest {
+public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
     private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityPresenter presenter;
@@ -73,7 +73,7 @@ public class PatientRegisterActivityPresenterTest {
         assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
         assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
 
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(RDTJsonFormUtils.class);
         RDTJsonFormUtils.appendEntityId(any(JSONObject.class));
     }
 }
