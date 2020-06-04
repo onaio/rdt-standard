@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import androidx.core.util.Pair;
 import android.widget.Toast;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -196,7 +197,7 @@ public class RDTJsonFormUtils {
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(absoluteFilePath);
-            md5Hash = DigestUtils.md5Hex(inputStream);
+            md5Hash = new String(Hex.encodeHex(DigestUtils.md5(inputStream)));
         } catch (IOException e) {
             Timber.e(e);
         } finally {
