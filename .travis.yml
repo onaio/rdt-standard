@@ -48,11 +48,8 @@ script:
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
   - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaIndonesiaDebugUnitTestCoverage
-#  - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaKenyaDebugUnitTestCoverage
-#  - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testCovidIndonesiaDebugUnitTestCoverage
-  - ls -la $(pwd)/rdt-open-reader/build/reports/jacoco/jacocoRootReport/merged.xml
-
-after_success:
+  - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaKenyaDebugUnitTestCoverage
+  - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testCovidIndonesiaDebugUnitTestCoverage
   - ./gradlew coveralls --stacktrace --info
 
 notifications:
