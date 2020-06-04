@@ -222,5 +222,6 @@ tasks.withType(Test) {
 }
 
 coveralls {
+    sourceDirs += files(android.sourceSets.main.java.srcDirs).files.absolutePath
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
