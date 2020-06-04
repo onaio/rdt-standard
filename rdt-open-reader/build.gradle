@@ -186,7 +186,7 @@ project.afterEvaluate {
                         getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
                         classDirectories = fileTree(
-                                dir: "${project.buildDir}/intermediates/classes/${sourcePath}",
+                                dir: "${project.buildDir}/intermediates/javac/${sourceName}/classes/",
                                 excludes: [
                                         '**/R.class',
                                         '**/R$*.class',
@@ -222,6 +222,5 @@ tasks.withType(Test) {
 }
 
 coveralls {
-    sourceDirs += files(android.sourceSets.main.java.srcDirs).files.absolutePath
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
