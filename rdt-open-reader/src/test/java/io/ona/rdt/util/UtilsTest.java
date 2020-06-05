@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.ona.rdt.BuildConfig;
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncServiceJob;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
@@ -47,9 +48,8 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
  * Created by Vincent Karuri on 31/07/2019
  */
 
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class, PullUniqueIdsServiceJob.class, RDTSyncServiceJob.class, BaseJob.class})
-public class UtilsTest {
+public class UtilsTest extends PowerMockTest {
 
     private Utils utils;
 

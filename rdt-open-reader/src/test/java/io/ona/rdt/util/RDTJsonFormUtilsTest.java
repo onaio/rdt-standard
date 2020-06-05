@@ -34,6 +34,7 @@ import java.util.List;
 
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.domain.CompositeImage;
@@ -75,9 +76,8 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({AssetHandler.class, ImageUtil.class, RDTApplication.class, org.smartregister.Context.class, DrishtiApplication.class})
-public class RDTJsonFormUtilsTest {
+public class RDTJsonFormUtilsTest extends PowerMockTest {
 
     private static RDTJsonFormUtils formUtils;
 
@@ -949,7 +949,7 @@ public class RDTJsonFormUtilsTest {
         mockStaticMethods();
         Context context = mock(Context.class);
         Whitebox.invokeMethod(formUtils, "saveImageToGallery", context, mock(Bitmap.class));
-        verifyStatic(times(1));
+        verifyStatic(ImageUtil.class, times(1));
         ImageUtil.saveImage(eq(context), any(), eq(0L), eq(false), any(OnImageSavedCallBack.class));
     }
 

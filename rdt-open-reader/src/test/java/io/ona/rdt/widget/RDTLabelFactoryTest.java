@@ -25,6 +25,7 @@ import org.powermock.reflect.Whitebox;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnLabelClickedListener;
@@ -57,9 +58,8 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 /**
  * Created by Vincent Karuri on 20/11/2019
  */
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class})
-public class RDTLabelFactoryTest {
+public class RDTLabelFactoryTest extends PowerMockTest {
 
     private RDTLabelFactory rdtLabelFactory;
 

@@ -23,6 +23,7 @@ import org.smartregister.util.AssetHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
@@ -44,9 +45,8 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 /**
  * Created by Vincent Karuri on 07/08/2019
  */
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({AssetHandler.class, RDTApplication.class, Context.class})
-public class FormLauncherTest {
+public class FormLauncherTest extends PowerMockTest {
 
     @Captor
     private ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;

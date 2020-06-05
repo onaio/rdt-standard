@@ -21,10 +21,12 @@ import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -58,10 +60,8 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
-
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTJsonFormFragment.class, LayoutInflater.class, RDTApplication.class})
-public class RDTExpirationDateReaderFactoryTest {
+public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
 
     private RDTExpirationDateReaderFactory readerFactory;
     private WidgetArgs widgetArgs;
