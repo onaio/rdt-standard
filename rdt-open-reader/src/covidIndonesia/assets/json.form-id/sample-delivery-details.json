@@ -1,0 +1,149 @@
+{
+  "count": "1",
+  "encounter_type": "patient_registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Sample delivery details",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "courier_name_label",
+        "type": "label",
+        "text": "Courier name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "courier_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "courier_number_label",
+        "type": "label",
+        "text": "Courier phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "courier_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": ""
+      },
+      {
+        "key": "courier_id_lbl",
+        "type": "label",
+        "text": "Courier ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "courier_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "sender_name_label",
+        "type": "label",
+        "text": "Sender name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sender_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sender_number_label",
+        "type": "label",
+        "text": "Sender phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sender_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": ""
+      },
+      {
+        "key": "sender_email_lbl",
+        "type": "label",
+        "text": "Courier ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sender_email",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      }
+    ]
+  }
+}
