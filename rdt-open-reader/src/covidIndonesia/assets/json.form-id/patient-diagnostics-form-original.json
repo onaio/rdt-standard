@@ -882,7 +882,8 @@
           "value": "false",
           "err": ""
         }
-      }, {
+      },
+      {
         "key": "has_close_contact_with_sick_traveller",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -929,7 +930,8 @@
               "value": "false",
               "err": ""
             }
-          },{
+          },
+          {
             "key": "phone_number_lbl",
             "type": "label",
             "text": "Contact's phone number",

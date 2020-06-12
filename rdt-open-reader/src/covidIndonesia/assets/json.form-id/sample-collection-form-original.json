@@ -1,0 +1,496 @@
+{
+  "count": "1",
+  "encounter_type": "patient_registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_required": {
+          "value": "true",
+          "err": ""
+        }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "fields": [
+      {
+        "key": "sampler_name_lbl",
+        "type": "label",
+        "text": "Name of sampler",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sample_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Where is the assessment taking place?",
+        "options": [
+          {
+            "key": "nasopharyngeal",
+            "text": "Nasopharyngeal"
+          },
+          {
+            "key": "oropharyngeal",
+            "text": "Oropharyngeal"
+          },
+          {
+            "key": "sputum",
+            "text": "Sputum"
+          },
+          {
+            "key": "serum",
+            "text": "Serum / Serology Sputum"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_sample_type_lbl",
+        "type": "label",
+        "text": "Specify sample type",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_sample_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "vtm_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Brand of VTM?",
+        "options": [
+          {
+            "key": "copan",
+            "text": "Copan"
+          },
+          {
+            "key": "zeesan",
+            "text": "Zeesan"
+          },
+          {
+            "key": "nest",
+            "text": "NEST"
+          },
+          {
+            "key": "lmk",
+            "text": "LMK"
+          },
+      {
+        "key": "fkui",
+        "text": "FKUI"
+      },
+      {
+        "key": "i3l",
+        "text": "i3L"
+      },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_vtm_brand_lbl",
+        "type": "label",
+        "text": "Specify VTM brand",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_vtm_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "sample_expiration_date",
+        "type": "date_picker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Sample expiration date",
+        "v_required": {
+          "value": true,
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "sample_lot_number_lbl",
+        "type": "label",
+        "text": "Sample lot number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sample_lot_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "health_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Referral Health Facility?",
+        "options": [
+          {
+            "key": "hospital",
+            "text": "Hospital"
+          },
+          {
+            "key": "clinic",
+            "text": "Clinic"
+          },
+          {
+            "key": "health_facility",
+            "text": "Health Facility"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_health_facility_type_lbl",
+        "type": "label",
+        "text": "Other facility type",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_health_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "name_of_primary_care_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Referral Health Facility?",
+        "options": [
+          {
+            "key": "jenis_fasyankes",
+            "text": "Jenis Fasyankes"
+          },
+          {
+            "key": "dinas_kesehatan",
+            "text": "Dinas Kesehatan"
+          },
+          {
+            "key": "alamat_fasyankes",
+            "text": "Alamat Fasyankes"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_primary_care_facility_type_lbl",
+        "type": "label",
+        "text": "Other primary care facility",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_primary_care_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "doctor_name_label",
+        "type": "label",
+        "text": "Doctor's name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "doctor_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "doctor_phone_number_lbl",
+        "type": "label",
+        "text": "Doctor's phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "doctor_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "booking_date",
+        "type": "date_picker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Testing booking slot",
+        "v_required": {
+          "value": true,
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "gsi_sample_number_lbl",
+        "type": "label",
+        "text": "GSI sample number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "gsi_sample_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "hospital_sample_number_lbl",
+        "type": "label",
+        "text": "Name of sampler",
+        "text_color": "#000000"
+      },
+      {
+        "key": "hospital_sample_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "patient_health_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Patient health status?",
+        "options": [
+          {
+            "key": "ill",
+            "text": "Ill"
+          },
+          {
+            "key": "undergoing_care",
+            "text": "Undergoing care"
+          },
+          {
+            "key": "recovered",
+            "text": "Recovered"
+          },
+          {
+            "key": "dead",
+            "text": "Dead"
+          },
+          {
+            "key": "no_covid_detected",
+            "text": "No Covid-19 Detected"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      }
+    ]
+  }
+}
