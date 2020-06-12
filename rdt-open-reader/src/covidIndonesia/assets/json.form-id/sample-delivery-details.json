@@ -47,6 +47,38 @@
     "encounter_location": ""
   },
   "step1": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_required": {
+          "value": "true",
+          "err": ""
+        }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step2": {
     "title": "Sample delivery details",
     "display_back_button": "true",
     "bottom_navigation": "true",

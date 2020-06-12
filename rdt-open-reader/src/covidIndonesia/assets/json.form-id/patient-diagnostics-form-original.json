@@ -51,8 +51,7 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "next": "step2",
     "fields": [
       {
         "key": "facility_type",
@@ -455,8 +454,7 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "next": "step3",
     "fields": [
       {
         "key": "date_of_onset_of_symptoms",
