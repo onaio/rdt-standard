@@ -49,8 +49,10 @@
   "step1": {
     "title": "Sample collection",
     "display_back_button": "true",
+    "next": "step2",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -82,6 +84,8 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
     "fields": [
       {
         "key": "sampler_name_lbl",
