@@ -1,0 +1,197 @@
+{
+  "count": "5",
+  "encounter_type": "patient_registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "lbl_add_xray_results",
+        "type": "label",
+        "text": "Add X-Ray results",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "text_size": "13sp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_xray_results",
+        "type": "label",
+        "text_size": "13sp",
+        "text": "Skip X-Ray results",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "lung_xray_result_lbl",
+        "type": "label",
+        "text": "Lung X-Ray",
+        "text_color": "#000000"
+      },
+      {
+        "key": "lung_xray_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      }
+    ]
+  },
+  "step3": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "lbl_add_wbc_results",
+        "type": "label",
+        "text": "Add white blood cell count results",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "text_size": "13sp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_wbc_results",
+        "type": "label",
+        "text_size": "13sp",
+        "text": "Skip white blood cell count results",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next" : "step5",
+    "fields": [
+      {
+        "key": "leukocytes_lbl",
+        "type": "label",
+        "text": "Leukocytes /uL",
+        "text_color": "#000000"
+      },
+      {
+        "key": "leukocyte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "lymphocytes_lbl",
+        "type": "label",
+        "text": "Lymphocytes /uL",
+        "text_color": "#000000"
+      },
+      {
+        "key": "lymphocytes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "platelets_lbl",
+        "type": "label",
+        "text": "Platelets /uL",
+        "text_color": "#000000"
+      },
+      {
+        "key": "platelets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      }
+    ]
+  },
+  "step5": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "leukocytes_lbl",
+        "type": "label",
+        "text": "Support investigation is complete",
+        "text_color": "#000000"
+      }
+    ]
+  }
+}

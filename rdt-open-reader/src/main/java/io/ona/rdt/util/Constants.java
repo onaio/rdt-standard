@@ -53,6 +53,10 @@ public interface Constants {
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
         String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
+        String LBL_ADD_XRAY_RESULTS = "lbl_add_xray_results";
+        String LBL_SKIP_XRAY_RESULTS = "lbl_skip_xray_results";
+        String LBL_ADD_WBC_RESULTS = "lbl_add_wbc_results";
+        String LBL_SKIP_WBC_RESULTS = "lbl_skip_wbc_results";
         String RDT_ID = "rdt_id";
         String RESPIRATORY_SAMPLE_ID = "respiratory_sample_id";
         String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
@@ -138,6 +142,10 @@ public interface Constants {
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
         String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";
         String COVID_RDT_EXPIRED_PAGE = "covid_rdt_expired_page";
+        String COVID_XRAY_PAGE = "covid_xray_page";
+        String COVID_OPT_IN_WBC_PAGE = "covid_opt_in_wbc_page";
+        String COVID_WBC_PAGE = "covid_wbc_page";
+        String COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE = "covid_support_investigation_complete_page";
     }
 
     interface Encounter {
