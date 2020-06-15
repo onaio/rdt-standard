@@ -55,27 +55,15 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "qr_code_reader",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "v_numeric": {
-          "value": "true",
-          "err": ""
-        },
-        "v_required": {
-          "value": "true",
-          "err": ""
-        }
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
+        "key": "lbl_collect_respiratory_sample",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Collect respiratory specimen using approved methods"
       }
     ]
   },
@@ -84,8 +72,7 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "next": "step3",
     "fields": [
       {
         "key": "sampler_name_lbl",
@@ -494,6 +481,167 @@
           "value": "true",
           "err": "This field is required"
         }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Store specimen",
+    "display_back_button": "true",
+    "next": "step4",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_store_respiratory_specimen",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Safely store Respiratory Specimen in provided transport tube."
+      }
+    ]
+  },
+  "step4": {
+    "title": "Respiratory sample",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "lbl_scan_respiratory_specimen_barcode",
+        "type": "label",
+        "text": "Scan respiratory specimen barcode",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_affix_respiratory_specimen_label",
+        "type": "label",
+        "text": "Manually affix label",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step5": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "next": "step7",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_required": {
+          "value": "true",
+          "err": ""
+        }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step6": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "next": "step7",
+    "bottom_navigation_orientation": "vertical",
+    "fields": [
+      {
+        "key": "lbl_affix_respiratory_sample_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "13sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Affix Label or record ID on transport tube"
+      },
+      {
+        "key": "lbl_respiratory_sample_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      },
+      {
+        "key": "respiratory_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step7": {
+    "title": "Store specimen for courier",
+    "display_back_button": "true",
+    "next": "step8",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_store_specimen_for_courier",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Store the respiratory sample appropriately until they have been picked up by the courier"
+      }
+    ]
+  },
+  "step8": {
+    "title": "Test complete",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SAVE AND EXIT",
+    "fields": [
+      {
+        "key": "lbl_test_complete",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Sample collection for the patient is complete"
       }
     ]
   }
