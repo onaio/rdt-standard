@@ -1,0 +1,720 @@
+{
+  "count": "20",
+  "encounter_type": "rdt_test",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Find location",
+    "next": "step2",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "gps",
+        "type": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": ""
+      }
+    ]
+  },
+  "step2": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step3",
+    "bottom_navigation" : "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "RDT",
+    "fields": [
+      {
+        "key": "lbl_patient_name",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      },
+      {
+        "key": "lbl_patient_gender_and_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true"
+      }
+    ]
+  },
+  "step3": {
+    "title": "RDT",
+    "next": "step4",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "health_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Referral Health Facility?",
+        "options": [
+          {
+            "key": "hospital",
+            "text": "Hospital"
+          },
+          {
+            "key": "clinic",
+            "text": "Clinic"
+          },
+          {
+            "key": "health_facility",
+            "text": "Health Facility"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_health_facility_type_lbl",
+        "type": "label",
+        "text": "Other facility type",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_health_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "name_of_primary_care_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Referral Health Facility?",
+        "options": [
+          {
+            "key": "jenis_fasyankes",
+            "text": "Jenis Fasyankes"
+          },
+          {
+            "key": "dinas_kesehatan",
+            "text": "Dinas Kesehatan"
+          },
+          {
+            "key": "alamat_fasyankes",
+            "text": "Alamat Fasyankes"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_primary_care_facility_type_lbl",
+        "type": "label",
+        "text": "Other primary care facility",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_primary_care_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "lbl_which_rdt",
+        "type": "label",
+        "text": "Which RDT?",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_scan_barcode",
+        "type": "label",
+        "text": "Scan barcode",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_enter_rdt_manually",
+        "type": "label",
+        "text": "Enter RDT manually",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step5": {
+    "title": "Record RDT information",
+    "display_back_button": "true",
+    "next": "step6",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_rdt_manufacturer",
+        "type": "label",
+        "text": "Enter manufacturer name",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "rdt_manufacturer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "lbl_rdt_test_name",
+        "type": "label",
+        "text": "Enter RDT name",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "rdt_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "RDT type?",
+        "options": [
+          {
+            "key": "double_line",
+            "text": "IgG/IgM Double Line"
+          },
+          {
+            "key": "single_line",
+            "text": "IgG/IgM Single Line Combo"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_rdt_type_lbl",
+        "type": "label",
+        "text": "Other RDT type",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_rdt_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient_registration_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "rdt_test_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "lbl_rdt_batch_id",
+        "type": "label",
+        "text": "Enter RDT batch ID",
+        "text_color": "#000000",
+        "text_size": "9sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "bottom_margin": "50dp"
+      },
+      {
+        "key": "rdt_batch_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "manual_expiration_date",
+        "type": "date_picker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "RDT expiration date",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the expiration date"
+        }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step6": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "14sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Record ID on RDT"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold"
+      }
+    ]
+  },
+  "step7": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Invalid ID, value must be numeric"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step8": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step4",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_rdt_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "text": "RDT is expired!"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "8sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "text": "Please use a new test."
+      }
+    ]
+  },
+  "step9": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step10",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CAPTURE RDT",
+    "fields": [
+      {
+        "key": "lbl_rdt_instructions",
+        "type": "label",
+        "text": "Conduct the RDT according to manufacturing guidelines",
+        "text_color": "#000000",
+        "text_size": "12sp",
+        "label_text_style": "bold",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step10": {
+    "title": "RDT",
+    "next": "step11",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "rdt_capture",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "rdt_capture"
+      },
+      {
+        "key": "rdt_capture_control_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_pv_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_pf_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_capture_duration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "rdt_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "flash_on",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "cassette_boundary",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "cropped_img_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "time_img_saved",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "is_manual_capture",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step11": {
+    "title": "Record result",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "next": "step12",
+    "fields": [
+      {
+        "key": "chw_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "RDT result?",
+        "options": [
+          {
+            "key": "positive",
+            "text": "positive"
+          },
+          {
+            "key": "negative",
+            "text": "negative"
+          },
+          {
+            "key": "invalid",
+            "text": "invalid"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "parasite_type",
+        "label": "Parasite type:",
+        "type": "check_box",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "combine_checkbox_option_values": true,
+        "options": [
+          {
+            "key": "igm_positive",
+            "text": "IgM",
+            "value": false
+          },
+          {
+            "key": "igg_positive",
+            "text": "IgG",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify if positive for pv, pf or both"
+        },
+        "relevance": {
+          "step11:chw_result": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }
+      }
+    ]
+  },
+  "step12": {
+    "title": "Handle RDT",
+    "display_back_button": "true",
+    "next": "step13",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "lbl_handle_rdt",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Store or dispose of RDT appropriately according to established protocol"
+      }
+    ]
+  },
+  "step13": {
+    "title": "Test complete",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SAVE AND EXIT",
+    "fields": [
+      {
+        "key": "lbl_test_complete",
+        "type": "label",
+        "text_color": "#000000",
+        "text_size": "10sp",
+        "top_margin": "15dp",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "label_text_style": "bold",
+        "text": "Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures"
+      }
+    ]
+  }
+}
