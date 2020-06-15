@@ -71,7 +71,7 @@
       {
         "key": "patient_last_name_label",
         "type": "label",
-        "text": "First name",
+        "text": "Last name",
         "text_color": "#000000"
       },
       {
@@ -119,7 +119,7 @@
       {
         "key": "national_id_type_label",
         "type": "label",
-        "text": "National ID",
+        "text": "Government ID type",
         "text_color": "#000000"
       },
       {
@@ -136,7 +136,7 @@
       {
         "key": "national_id_label",
         "type": "label",
-        "text": "National ID",
+        "text": "Government ID",
         "text_color": "#000000"
       },
       {

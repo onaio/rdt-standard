@@ -162,7 +162,7 @@
       {
         "key": "sender_email_lbl",
         "type": "label",
-        "text": "Courier ID",
+        "text": "Sender email address",
         "text_color": "#000000"
       },
       {

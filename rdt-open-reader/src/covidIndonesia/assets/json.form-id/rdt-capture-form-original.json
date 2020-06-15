@@ -95,6 +95,9 @@
     "title": "RDT",
     "next": "step4",
     "display_back_button": "true",
+    "bottom_navigation" : "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "health_facility_type",
@@ -141,67 +144,6 @@
       },
       {
         "key": "other_health_facility_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": "false",
-          "err": ""
-        }
-      },
-      {
-        "key": "name_of_primary_care_facility",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Referral Health Facility?",
-        "options": [
-          {
-            "key": "jenis_fasyankes",
-            "text": "Jenis Fasyankes"
-          },
-          {
-            "key": "dinas_kesehatan",
-            "text": "Dinas Kesehatan"
-          },
-          {
-            "key": "alamat_fasyankes",
-            "text": "Alamat Fasyankes"
-          },
-          {
-            "key": "other",
-            "text": "Other"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
-      },
-      {
-        "key": "other_primary_care_facility_type_lbl",
-        "type": "label",
-        "text": "Other primary care facility",
-        "text_color": "#000000",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "other_primary_care_facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

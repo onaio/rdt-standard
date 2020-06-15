@@ -887,7 +887,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a close contact with someone that just back from international travel in the past 14 days who became ill?",
+        "label": "Does the patient have close contact with someone that just came back from international travel in the past 14 days who became ill?",
         "options": [
           {
             "key": "Yes",
@@ -904,10 +904,16 @@
         }
       },
       {
+        "key": "covid_patients_in_compound_lbl",
+        "type": "label",
+        "text": "Number of Covid-19 patients in household / compound?",
+        "text_color": "#000000"
+      },
+      {
         "key": "covid_patients_in_compound",
         "type": "repeating_group",
         "reference_edit_text_hint":"# of covid patients",
-        "repeating_group_label": "Number of Covid-19 patients in household/compound",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -994,10 +1000,16 @@
         ]
       },
       {
+        "key": "has_close_contact_with_covid_patient_lbl",
+        "type": "label",
+        "text": "Number of Covid-19 patients who are close contacts?",
+        "text_color": "#000000"
+      },
+      {
         "key": "has_close_contact_with_covid_patient",
         "type": "repeating_group",
         "reference_edit_text_hint":"# of covid patients",
-        "repeating_group_label": "Number of Covid-19 patients who are close contacts",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1083,10 +1095,16 @@
         ]
       },
       {
+        "key": "has_close_contact_with_someone_outside_household_lbl",
+        "type": "label",
+        "text": "Number of close contacts outside patient household?",
+        "text_color": "#000000"
+      },
+      {
         "key": "has_close_contact_with_someone_outside_household",
         "type": "repeating_group",
         "reference_edit_text_hint":"# of covid patients",
-        "repeating_group_label": "Number of close contacts outside patient household",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
