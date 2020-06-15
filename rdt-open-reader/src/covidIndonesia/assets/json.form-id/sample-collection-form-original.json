@@ -537,9 +537,6 @@
     "next": "step7",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -548,6 +545,9 @@
         "openmrs_entity_id": "",
         "type": "barcode",
         "barcode_type": "qrcode",
+        "hint": "",
+        "scanButtonText": "",
+        "value": "0",
         "v_numeric": {
           "value": "true",
           "err": ""
