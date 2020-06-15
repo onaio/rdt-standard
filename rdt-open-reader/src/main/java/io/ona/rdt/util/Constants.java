@@ -93,8 +93,13 @@ public interface Constants {
     }
 
     interface Form {
-        String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form.json";
-        String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form.json";
+        // todo: remove the original suffix after mls
+        String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form-original.json";
+        String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form-original.json";
+        String PATIENT_DIAGNOSTICS_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-diagnostics-form-original.json";
+        String SAMPLE_COLLECTION_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-collection-form-original.json";
+        String SAMPLE_DELIVERY_DETAILS_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-delivery-details-form-original.json";
+        String SUPPORT_INVESTIGATION_FORM = "json.form-" + BuildConfig.LOCALE + "/support-investigation-form-original.json";
         String RDT_TYPE = "rdt_type";
     }
 
