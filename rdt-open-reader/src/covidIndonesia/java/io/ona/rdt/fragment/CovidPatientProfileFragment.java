@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
@@ -37,7 +38,7 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootLayout = inflater.inflate(R.layout.fragment_patient_profile, container, false);
+        View rootLayout = inflater.inflate(R.layout.fragment_covid_patient_profile, container, false);
         addListeners(rootLayout);
         populatePatientDetails(rootLayout);
         return rootLayout;
@@ -69,19 +70,22 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
                 getActivity().onBackPressed();
                 break;
             default:
-                patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
+                Pair<String, Patient> formMetadata = getFormMetadata(v);
+                patientProfileFragmentPresenter.launchForm(getActivity(), formMetadata.first, formMetadata.second);
         }
     }
 
 
-    private String getFormName(View view) {
+    private Pair<String, Patient> getFormMetadata(View view) {
         String formName = null;
+        Patient patient = null;
         switch (view.getId()) {
             case R.id.tv_covid_delivery_details:
                 formName = SAMPLE_DELIVERY_DETAILS_FORM;
                 break;
             case R.id.tv_covid_rdt:
                 formName = RDT_TEST_FORM;
+                patient = this.currPatient;
                 break;
             case R.id.tv_covid_sample_collection:
                 formName = SAMPLE_COLLECTION_FORM;
@@ -93,6 +97,6 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
                 formName = PATIENT_DIAGNOSTICS_FORM;
                 break;
         }
-        return formName;
+        return new Pair<>(formName, patient);
     }
 }

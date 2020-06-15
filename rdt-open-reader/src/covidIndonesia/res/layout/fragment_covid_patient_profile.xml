@@ -81,7 +81,9 @@
 
     <View android:id="@+id/symptoms_result_divider" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/tv_covid_rdt"
@@ -98,7 +100,9 @@
 
     <View android:id="@+id/covid_rdt_result_divider" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
 
 
     <TextView
@@ -116,7 +120,9 @@
 
     <View android:id="@+id/covid_sample_collection_divider" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/tv_covid_support_investigation"
@@ -133,7 +139,9 @@
 
     <View android:id="@+id/covid_support_investigation_divider" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/tv_covid_delivery_details"
@@ -150,6 +158,8 @@
 
     <View android:id="@+id/covid_delivery_details_result_divider" style="@style/Divider.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_covid_delivery_details"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

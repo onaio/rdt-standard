@@ -41,6 +41,9 @@
         <activity
             android:name=".activity.CustomRDTCaptureActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CovidPatientProfileActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".sync.RDTSyncIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
