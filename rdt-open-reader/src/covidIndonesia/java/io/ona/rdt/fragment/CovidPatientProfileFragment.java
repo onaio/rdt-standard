@@ -12,7 +12,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidPatientProfileFragmentPresenter;
-import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;

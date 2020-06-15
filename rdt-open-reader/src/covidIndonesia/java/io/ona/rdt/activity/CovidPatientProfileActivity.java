@@ -10,28 +10,31 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import io.ona.rdt.R;
 import io.ona.rdt.callback.OnFormSavedCallback;
-import io.ona.rdt.contract.PatientProfileActivityContract;
-import io.ona.rdt.fragment.PatientProfileFragment;
-import io.ona.rdt.presenter.PatientProfileActivityPresenter;
+import io.ona.rdt.contract.CovidPatientProfileActivityContract;
+import io.ona.rdt.fragment.CovidPatientProfileFragment;
+import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 
-public class PatientProfileActivity extends FragmentActivity implements PatientProfileActivityContract.View, OnFormSavedCallback {
+/**
+ * Created by Vincent Karuri on 15/06/2020
+ */
+public class CovidPatientProfileActivity extends FragmentActivity implements CovidPatientProfileActivityContract.View, OnFormSavedCallback {
 
-    private PatientProfileActivityPresenter presenter;
+    private CovidPatientProfileActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PatientProfileActivityPresenter(this);
-        setContentView(R.layout.activity_patient_profile);
+        setContentView(R.layout.activity_covid_patient_profile);
         attachPatientProfileFragment();
+        presenter = new CovidPatientProfileActivityPresenter(this);
     }
 
     private void attachPatientProfileFragment() {
-        PatientProfileFragment patientProfileFragment = new PatientProfileFragment();
+        CovidPatientProfileFragment patientProfileFragment = new CovidPatientProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(PATIENT, getIntent().getParcelableExtra(PATIENT));
         patientProfileFragment.setArguments(bundle);
@@ -43,7 +46,7 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
         }
-        fragmentTransaction.replace(R.id.patient_profile_fragment_container, fragment);
+        fragmentTransaction.replace(R.id.covid_patient_profile_fragment_container, fragment);
         fragmentTransaction.commit();
     }
 
