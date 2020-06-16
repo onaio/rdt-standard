@@ -1,0 +1,28 @@
+---
+name: step3_other_health_facility_type_lbl
+description: Other facility type label
+priority: 1
+condition: "step3_health_facility_type != '' && step3_health_facility_type == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_health_facility_type
+description: Other facility type
+priority: 1
+condition: "step3_health_facility_type != '' && step3_health_facility_type == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_other_rdt_type_lbl
+description: Other RDT type label
+priority: 1
+condition: "step5_rdt_type != '' && step5_rdt_type == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_other_rdt_type
+description: Other RDT type
+priority: 1
+condition:  "step5_rdt_type != '' && step5_rdt_type == 'Other'"
+actions:
+  - "isRelevant = true"

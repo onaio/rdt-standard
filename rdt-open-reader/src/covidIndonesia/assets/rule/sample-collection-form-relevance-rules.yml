@@ -1,0 +1,56 @@
+---
+name: step2_other_sample_type_lbl
+description: Other sample type label
+priority: 1
+condition: "step2_sample_type != '' && step2_sample_type == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_sample_type
+description: Other sample type
+priority: 1
+condition: "step2_sample_type != '' && step2_sample_type == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_vtm_brand_lbl
+description: Other sample type label
+priority: 1
+condition: "step2_vtm_brand != '' && step2_vtm_brand == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_vtm_brand
+description: Other sample type
+priority: 1
+condition: "step2_vtm_brand != '' && step2_vtm_brand == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_primary_care_facility_type_lbl
+description: Other primary care facility label
+priority: 1
+condition: "step2_name_of_primary_care_facility != '' && step2_name_of_primary_care_facility == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_primary_care_facility_type
+description: Other primary care facility
+priority: 1
+condition: "step2_name_of_primary_care_facility != '' && step2_name_of_primary_care_facility == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_health_facility_type_lbl
+description: Other facility type label
+priority: 1
+condition: "step2_health_facility_type != '' && step2_health_facility_type == 'Other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_health_facility_type
+description: Other facility type
+priority: 1
+condition: "step2_health_facility_type != '' && step2_health_facility_type == 'Other'"
+actions:
+  - "isRelevant = true"

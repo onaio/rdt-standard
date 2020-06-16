@@ -137,7 +137,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
             }
           }
         }
@@ -151,7 +151,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
             }
           }
         },
@@ -274,7 +274,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
             }
           }
         }
@@ -288,7 +288,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
             }
           }
         },

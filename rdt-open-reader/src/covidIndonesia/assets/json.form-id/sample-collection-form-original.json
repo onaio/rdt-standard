@@ -130,7 +130,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         }
@@ -144,7 +144,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         },
@@ -203,7 +203,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         }
@@ -217,7 +217,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         },
@@ -290,7 +290,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         }
@@ -304,7 +304,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         },
@@ -351,7 +351,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         }
@@ -365,7 +365,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "patient_registration_relevance_rules.yml"
+              "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
         },

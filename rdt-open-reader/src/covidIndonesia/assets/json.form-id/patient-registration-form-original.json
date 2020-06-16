@@ -200,7 +200,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "conditional_save_calculation_rules.yml"
+              "rules-file": "patient-registration-form-calculation-rules.yml"
             }
           }
         }
