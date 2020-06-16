@@ -16,14 +16,14 @@ actions:
 name: step3_other_location_lbl
 description: Other health issues label
 priority: 1
-condition: "step3_travel_location != '' && step3_travel_location == 'Other'"
+condition: "step3_travel_location.contains('other')"
 actions:
   - "isRelevant = true"
 ---
 name: step3_other_location
 description: Other health issues
 priority: 1
-condition: "step3_travel_location != '' && step3_travel_location == 'Other'"
+condition: "step3_travel_location.contains('other')"
 actions:
   - "isRelevant = true"
 ---
