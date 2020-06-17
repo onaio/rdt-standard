@@ -31,6 +31,7 @@ import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
+import static io.ona.rdt.util.Utils.isCovidApp;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -74,14 +75,12 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
         String currStep = "step" + currentStep;
         boolean isNextButtonEnabled = true;
-        try {
-            // Disable bottom navigation for the 20min countdown timer
-            if (is20minTimerPage(currStep)) {
-                isNextButtonEnabled = false;
-            }
-        } catch (JSONException e) {
-            Timber.e(e);
+
+        // Disable bottom navigation for the 20min countdown timer
+        if (is20minTimerPage(currStep)) {
+            isNextButtonEnabled = false;
         }
+
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
         rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
@@ -100,8 +99,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         });
     }
 
-    private boolean is20minTimerPage(String currStep) throws JSONException {
-        return currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
+    private boolean is20minTimerPage(String currStep) {
+        return isCovidApp() ? false : currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
                 .getStepStateObj()
                 .optString(TWENTY_MIN_COUNTDOWN_TIMER_PAGE));
     }

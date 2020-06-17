@@ -351,6 +351,8 @@
         "openmrs_entity_id": "",
         "type": "covid_rdt_barcode_reader",
         "barcode_type": "qrcode",
+        "hint": "",
+        "scanButtonText": "",
         "value": "0",
         "v_numeric": {
           "value": "true",
