@@ -7,6 +7,10 @@ import io.ona.rdt.BuildConfig;
  */
 public interface Constants {
 
+    interface Widget {
+        String UW_COVID_RDT_CAPTURE = "uw_covid_rdt_capture";
+    }
+
     interface Format {
         String BULLET_DOT = " \u00B7 ";
         String PROFILE_DATE_FORMAT = "dd MMM yyyy";

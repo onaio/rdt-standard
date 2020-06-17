@@ -68,14 +68,14 @@ import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_PARENT;
 @PrepareForTest({RDTJsonFormFragment.class, LayoutInflater.class})
 public class CustomRDTCaptureFactoryTest {
 
-    private CustomRDTCaptureFactory rdtCaptureFactory;
+    private UWMalariaRDTCaptureFactory rdtCaptureFactory;
     private WidgetArgs widgetArgs;
     private RDTJsonFormActivity jsonFormActivity;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        rdtCaptureFactory = new CustomRDTCaptureFactory();
+        rdtCaptureFactory = new UWMalariaRDTCaptureFactory();
     }
 
     @Test

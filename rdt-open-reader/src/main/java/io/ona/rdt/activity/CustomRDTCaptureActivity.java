@@ -21,7 +21,7 @@ import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt.util.Utils.hideProgressDialogFromFG;
 import static io.ona.rdt.util.Utils.showProgressDialogInFG;
 import static io.ona.rdt.util.Utils.updateLocale;
-import static io.ona.rdt.widget.CustomRDTCaptureFactory.CAPTURE_TIMEOUT;
+import static io.ona.rdt.widget.UWRDTCaptureFactory.CAPTURE_TIMEOUT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
