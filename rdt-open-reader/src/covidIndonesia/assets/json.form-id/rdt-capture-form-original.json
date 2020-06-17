@@ -349,7 +349,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "barcode",
+        "type": "covid_rdt_barcode_reader",
         "barcode_type": "qrcode",
         "value": "0",
         "v_numeric": {

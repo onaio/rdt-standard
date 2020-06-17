@@ -9,6 +9,7 @@ public interface Constants {
 
     interface Widget {
         String UW_COVID_RDT_CAPTURE = "uw_covid_rdt_capture";
+        String COVID_RDT_BARCODE_READER = "covid_rdt_barcode_reader";
     }
 
     interface Format {

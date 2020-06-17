@@ -4,6 +4,8 @@ import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
 import org.json.JSONObject;
 
+import io.ona.rdt.widget.CovidRDTBarcodeFactory;
+import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
 import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
 import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 import io.ona.rdt.widget.RDTBarcodeFactory;
@@ -17,6 +19,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNTDOWN_TIMER;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.GPS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.LABEL;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
+import static io.ona.rdt.util.Constants.Widget.COVID_RDT_BARCODE_READER;
 import static io.ona.rdt.util.Constants.Widget.UW_COVID_RDT_CAPTURE;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.EXPIRATION_DATE_CAPTURE;
 
@@ -36,13 +39,14 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
     @Override
     protected void registerWidgets() {
         super.registerWidgets();
-        map.put(BARCODE, new RDTBarcodeFactory());
+        map.put(BARCODE, new MalariaRDTBarcodeFactory());
         map.put(LABEL, new RDTLabelFactory());
         map.put(EXPIRATION_DATE_CAPTURE, new RDTExpirationDateReaderFactory());
         map.put(RDT_CAPTURE, new UWMalariaRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
         map.put(GPS, new RDTGpsFactory());
         map.put(UW_COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
+        map.put(COVID_RDT_BARCODE_READER, new CovidRDTBarcodeFactory());
     }
 
     public void saveForm(JSONObject jsonForm) {
