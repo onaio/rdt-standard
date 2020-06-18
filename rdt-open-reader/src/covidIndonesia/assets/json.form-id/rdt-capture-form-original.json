@@ -49,7 +49,9 @@
   "step1": {
     "title": "Find location",
     "next": "step2",
-    "display_back_button": "true",
+    "bottom_navigation" : "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "gps",
@@ -66,7 +68,7 @@
     "next": "step3",
     "bottom_navigation" : "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "RDT",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_patient_name",

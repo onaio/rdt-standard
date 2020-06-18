@@ -73,6 +73,7 @@
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step3",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "sampler_name_lbl",
@@ -572,6 +573,7 @@
     "bottom_navigation": "true",
     "next": "step7",
     "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_affix_respiratory_sample_id",

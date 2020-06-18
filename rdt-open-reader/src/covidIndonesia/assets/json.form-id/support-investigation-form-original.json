@@ -83,6 +83,7 @@
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step3",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lung_xray_result_lbl",
@@ -136,6 +137,7 @@
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next" : "step5",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "leukocytes_lbl",

@@ -52,6 +52,7 @@
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step2",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "qr_code_reader",
