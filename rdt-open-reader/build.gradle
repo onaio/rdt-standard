@@ -19,8 +19,8 @@ android {
         applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 3
-        versionName "v1.14.0"
+        versionCode 4
+        versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
     }
@@ -80,7 +80,7 @@ android {
 
         covidIndonesia {
             applicationId "io.ona.rdt.covid.id"
-            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
             versionNameSuffix "-COVID-ID"
         }
