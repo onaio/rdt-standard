@@ -35,9 +35,13 @@ import timber.log.Timber;
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_DIAGNOSTICS;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.Constants.Encounter.SAMPLE_COLLECTION;
+import static io.ona.rdt.util.Constants.Encounter.SAMPLE_DELIVERY_DETAILS;
+import static io.ona.rdt.util.Constants.Encounter.SUPPORT_INVESTIGATION;
 import static io.ona.rdt.util.Constants.FormFields.DETAILS;
 import static io.ona.rdt.util.Constants.FormFields.DOB;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
@@ -48,9 +52,13 @@ import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
 import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
+import static io.ona.rdt.util.Constants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
+import static io.ona.rdt.util.Constants.Table.SAMPLE_COLLECTIONS;
+import static io.ona.rdt.util.Constants.Table.SAMPLE_DELIVERY_RECORDS;
+import static io.ona.rdt.util.Constants.Table.SUPPORT_INVESTIGATIONS;
 import static io.ona.rdt.util.RDTJsonFormUtils.getFormTag;
 import static io.ona.rdt.util.Utils.isCovidApp;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -116,16 +124,34 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
 
     private String getBindType(String encounterType) {
         String bindType = "";
-        if (PATIENT_REGISTRATION.equals(encounterType)) {
-            bindType = RDT_PATIENTS;
-        } else if (RDT_TEST.equals(encounterType)){
-            bindType = RDT_TESTS;
-        } else if (PCR_RESULT.equals(encounterType)) {
-            bindType = PCR_RESULTS;
-        } else if (COVID_PATIENT_REGISTRATION.equals(encounterType)) {
-            bindType = COVID_PATIENTS;
-        } else if (COVID_RDT_TEST.equals(encounterType)) {
-            bindType = COVID_RDT_TESTS;
+        switch (encounterType) {
+            case PATIENT_REGISTRATION:
+                bindType = RDT_PATIENTS;
+                break;
+            case RDT_TEST:
+                bindType = RDT_TESTS;
+                break;
+            case PCR_RESULT:
+                bindType = PCR_RESULTS;
+                break;
+            case COVID_PATIENT_REGISTRATION:
+                bindType = COVID_PATIENTS;
+                break;
+            case COVID_RDT_TEST:
+                bindType = COVID_RDT_TESTS;
+                break;
+            case PATIENT_DIAGNOSTICS:
+                bindType = PATIENT_DIAGNOSTIC_RESULTS;
+                break;
+            case SAMPLE_COLLECTION:
+                bindType = SAMPLE_COLLECTIONS;
+                break;
+            case SAMPLE_DELIVERY_DETAILS:
+                bindType = SAMPLE_DELIVERY_RECORDS;
+                break;
+            case SUPPORT_INVESTIGATION:
+                bindType = SUPPORT_INVESTIGATIONS;
+                break;
         }
         return bindType;
     }

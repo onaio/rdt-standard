@@ -1,6 +1,6 @@
 {
   "count": "8",
-  "encounter_type": "patient_registration",
+  "encounter_type": "sample_collection",
   "entity_id": "",
   "metadata": {
     "start": {

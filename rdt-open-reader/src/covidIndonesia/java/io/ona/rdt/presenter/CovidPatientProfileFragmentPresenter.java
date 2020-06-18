@@ -12,8 +12,7 @@ import timber.log.Timber;
 /**
  * Created by Vincent Karuri on 15/06/2020
  */
-public class CovidPatientProfileFragmentPresenter implements CovidPatientProfileFragmentContract.Presenter
-{
+public class CovidPatientProfileFragmentPresenter implements CovidPatientProfileFragmentContract.Presenter {
 
     private CovidPatientProfileFragmentContract.View view;
     private CovidPatientProfileFragmentInteractor interactor;

@@ -164,6 +164,10 @@ public interface Constants {
         String RDT_TEST = "rdt_test";
         String COVID_RDT_TEST = "covid_rdt_test";
         String PCR_RESULT = "pcr_result";
+        String PATIENT_DIAGNOSTICS = "patient_diagnostics";
+        String SAMPLE_COLLECTION = "sample_collection";
+        String SAMPLE_DELIVERY_DETAILS = "sample_delivery_details";
+        String SUPPORT_INVESTIGATION = "support_investigation";
     }
 
     interface Table {
@@ -173,5 +177,9 @@ public interface Constants {
         String COVID_RDT_TESTS = "covid_rdt_tests";
         String PCR_RESULTS = "pcr_results";
         String MICROSCOPY_RESULTS = "microscopy_results";
+        String PATIENT_DIAGNOSTIC_RESULTS = "patient_diagnostic_results";
+        String SAMPLE_COLLECTIONS = "sample_collections";
+        String SAMPLE_DELIVERY_RECORDS = "sample_delivery_records";
+        String SUPPORT_INVESTIGATIONS = "support_investigations";
     }
 }
