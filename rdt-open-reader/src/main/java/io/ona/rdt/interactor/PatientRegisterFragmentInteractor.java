@@ -49,7 +49,7 @@ import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
 import static io.ona.rdt.util.Constants.FormFields.METADATA;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
-import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
 import static io.ona.rdt.util.Constants.Table.PATIENT_DIAGNOSTIC_RESULTS;
@@ -115,7 +115,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         final String encounterType = jsonForm.getString(ENCOUNTER_TYPE);
         String bindType = getBindType(encounterType);
         EventClient eventClient = saveEventClient(jsonForm, encounterType, bindType);
-        if (RDT_TESTS.equals(bindType) || COVID_RDT_TESTS.equals(bindType)) {
+        if (RDT_TESTS.equals(bindType) || COVID_RDT_TESTS.equals(bindType) || SAMPLE_COLLECTIONS.equals(bindType)) {
             closeIDs(eventClient.getEvent());
         }
         clientProcessor.processClient(Collections.singletonList(eventClient));
@@ -181,7 +181,7 @@ public class PatientRegisterFragmentInteractor extends FormLauncher {
         }
         // close respiratory sample id
         if (isCovidApp()) {
-            idObs = dbEvent.findObs(null, false, RESPIRATORY_SAMPLE_ID);
+            idObs = dbEvent.findObs(null, false, COVID_SAMPLE_ID);
             if (idObs != null) {
                 String rdtId = idObs.getValue() == null ? "" : idObs.getValue().toString();
                 RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);

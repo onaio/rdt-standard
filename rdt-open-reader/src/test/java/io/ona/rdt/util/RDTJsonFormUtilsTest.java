@@ -10,13 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
@@ -44,7 +42,7 @@ import io.ona.rdt.domain.Patient;
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
-import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
@@ -882,12 +880,12 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
             if (isCovidApp()) {
                 // pre-populate respiratory sample id labels
                 if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    assertEquals(field.getString("text"), "Respiratory sample ID: " + RESPIRATORY_SAMPLE_ID);
+                    assertEquals(field.getString("text"), "Respiratory sample ID: " + COVID_SAMPLE_ID);
                     populatedLblRespiratorySampleID = true;
                 }
                 // pre-populate respiratory sample id field
-                if (RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    assertEquals(field.getString(VALUE), RESPIRATORY_SAMPLE_ID);
+                if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
+                    assertEquals(field.getString(VALUE), COVID_SAMPLE_ID);
                     populatedRespiratorySampleID = true;
                 }
             }
@@ -1080,7 +1078,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
     private List<String> getIDs() {
         List<String> rdtIds = new ArrayList<>();
         rdtIds.add(RDT_ID);
-        rdtIds.add(RESPIRATORY_SAMPLE_ID);
+        rdtIds.add(COVID_SAMPLE_ID);
         return rdtIds;
     }
 }

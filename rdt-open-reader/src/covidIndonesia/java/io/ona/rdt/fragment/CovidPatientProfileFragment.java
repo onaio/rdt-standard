@@ -89,6 +89,7 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
                 break;
             case R.id.tv_covid_sample_collection:
                 formName = SAMPLE_COLLECTION_FORM;
+                patient = this.currPatient;
                 break;
             case R.id.tv_covid_support_investigation:
                 formName = SUPPORT_INVESTIGATION_FORM;

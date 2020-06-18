@@ -54,7 +54,7 @@ import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
-import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
@@ -327,7 +327,7 @@ public class PatientRegisterFragmentInteractorTest {
         doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RDT_ID));
         obs = new org.smartregister.domain.db.Obs();
         obs.setValue("respiratory_sample_id");
-        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RESPIRATORY_SAMPLE_ID));
+        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(COVID_SAMPLE_ID));
         return dbEvent;
     }
 

@@ -558,7 +558,7 @@
         }
       },
       {
-        "key": "rdt_id",
+        "key": "covid_sample_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -595,7 +595,7 @@
         "label_text_style": "bold"
       },
       {
-        "key": "respiratory_sample_id",
+        "key": "covid_sample_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

@@ -22,7 +22,6 @@ import static io.ona.rdt.util.Utils.isCovidApp;
  */
 public class FormLauncher implements OnUniqueIdsFetchedCallback {
 
-    private final String TAG = FormLauncher.class.getName();
     private RDTJsonFormUtils formUtils = new RDTJsonFormUtils();
 
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
@@ -30,21 +29,12 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
             FormLaunchArgs args = new FormLaunchArgs();
             args.withActivity(activity)
                     .withFormJsonObj(formUtils.getFormJsonObject(formName, activity))
-                    .withPatient(patient);
-            formUtils.getNextUniqueIds(args, this, getNumOfIDsToGenerate());
+                    .withPatient(patient)
+                    .withFormName(formName);
+            formUtils.getNextUniqueIds(args, this, 1);
         } else {
             formUtils.launchForm(activity, formName, patient, null);
         }
-    }
-
-    private int getNumOfIDsToGenerate() {
-        int numOfIDsToGenerate;
-        if (isCovidApp()) {
-            numOfIDsToGenerate = 2;
-        } else {
-            numOfIDsToGenerate = 1;
-        }
-        return numOfIDsToGenerate;
     }
 
     @Override
@@ -62,9 +52,9 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
                 break;
             }
         }
-        // only launch for if you have all the unique ids you need
+        // only launch form if you have all the unique ids you need
         if (!ids.isEmpty()) {
-            formUtils.launchForm(activity, RDT_TEST_FORM, args.getPatient(), ids);
+            formUtils.launchForm(activity, args.getFormName(), args.getPatient(), ids);
         }
     }
 }

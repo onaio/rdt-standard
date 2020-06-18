@@ -63,7 +63,7 @@ public interface Constants {
         String LBL_ADD_WBC_RESULTS = "lbl_add_wbc_results";
         String LBL_SKIP_WBC_RESULTS = "lbl_skip_wbc_results";
         String RDT_ID = "rdt_id";
-        String RESPIRATORY_SAMPLE_ID = "respiratory_sample_id";
+        String COVID_SAMPLE_ID = "covid_sample_id";
         String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
         String RDT_CAPTURE_MIDDLE_LINE_RESULT = "rdt_capture_middle_line_result";
         String RDT_CAPTURE_BOTTOM_LINE_RESULT = "rdt_capture_bottom_line_result";
