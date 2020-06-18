@@ -32,5 +32,9 @@
   "covid_xray_page": "step2",
   "covid_opt_in_wbc_page": "step3",
   "covid_wbc_page": "step4",
-  "covid_support_investigation_complete_page": "step5"
+  "covid_support_investigation_complete_page": "step5",
+  "covid_disabled_back_press_pages" : [
+    "step7",
+    "step10"
+  ]
 }

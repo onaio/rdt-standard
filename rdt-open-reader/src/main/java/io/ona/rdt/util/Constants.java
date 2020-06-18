@@ -134,6 +134,7 @@ public interface Constants {
         String RDT_EXPIRED_PAGE = "rdt_expired_page";
         String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
         String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
+        String COVID_DISABLED_BACK_PRESS_PAGES = "covid_disabled_back_press_pages";
         String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
         String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
         String EXPIRATION_DATE_READER_ADDRESS = "expiration_date_reader_address";
