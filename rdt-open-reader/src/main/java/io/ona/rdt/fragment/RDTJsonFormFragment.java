@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +18,19 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import androidx.annotation.Nullable;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
-import timber.log.Timber;
 
+import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
 import static io.ona.rdt.util.Utils.isCovidApp;
 
@@ -94,7 +95,12 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
             @Override
             public void onClick(View v) {
                 Object isSubmit = v.getTag(R.id.submit);
-                getFragmentPresenter().performNextButtonAction(currStep, isSubmit);
+                String eventType = getJsonApi().getmJSONObject().optString(ENCOUNTER_TYPE);
+                if (RDT_TEST.equals(eventType) || COVID_RDT_TEST.equals(eventType)) {
+                    getFragmentPresenter().performNextButtonAction(currStep, isSubmit);
+                } else {
+                    getFragmentPresenter().handleCommonTestFormClicks(isSubmit);
+                }
             }
         });
     }

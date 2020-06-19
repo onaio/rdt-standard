@@ -5,20 +5,15 @@ import android.util.Log;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONException;
-
-import java.text.ParseException;
-import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 
 /**
  * Created by Vincent Karuri on 17/06/2020

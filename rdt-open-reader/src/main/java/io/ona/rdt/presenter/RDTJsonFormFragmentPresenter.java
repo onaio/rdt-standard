@@ -117,13 +117,13 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             if (isCurrentStep(stepStateConfig, COVID_RDT_EXPIRED_PAGE, currentStep)) {
                 saveFormAndMoveToNextStep();
             } else if (isCurrentStep(stepStateConfig, COVID_MANUAL_RDT_ENTRY_PAGE, currentStep)) {
-                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(COVID_RDT_EXPIRED_PAGE));
+                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj()
+                        .optString(COVID_RDT_EXPIRED_PAGE));
             } else {
-                handleCommonTestFormClicks(stepStateConfig, currentStep, isSubmit);
+                handleCommonTestFormClicks(isSubmit);
             }
         } catch (JSONException e) {
             Timber.e(e);
-            return;
         } catch (ParseException e) {
             Timber.e(e);
         }
@@ -146,7 +146,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             } else if (isCurrentStep(stepStateConfig, MANUAL_ENTRY_EXPIRATION_PAGE, currentStep)) {
                 navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(RDT_EXPIRED_PAGE_ADDRESS));
             } else {
-                handleCommonTestFormClicks(stepStateConfig, currentStep, isSubmit);
+                handleCommonTestFormClicks(isSubmit);
             }
         } catch (JSONException e) {
             Timber.e(e);
@@ -161,7 +161,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         rdtFormFragment.moveToNextStep();
     }
 
-    private void handleCommonTestFormClicks(StepStateConfig stepStateConfig, String currentStep, Object isSubmit) throws ParseException, JSONException {
+    public void handleCommonTestFormClicks(Object isSubmit) {
         if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
             rdtFormFragment.saveForm();
         } else {
