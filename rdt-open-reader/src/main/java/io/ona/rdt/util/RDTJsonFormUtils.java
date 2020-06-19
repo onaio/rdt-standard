@@ -247,6 +247,7 @@ public class RDTJsonFormUtils {
                 String uniqueId = uniqueIDs.get(0);
                 prePopulateFormFields(formJsonObject, patient, uniqueId);
             }
+            formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(TAG, e);
@@ -254,7 +255,6 @@ public class RDTJsonFormUtils {
     }
 
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
-        jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);

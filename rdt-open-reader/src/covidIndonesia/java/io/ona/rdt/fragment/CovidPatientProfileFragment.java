@@ -70,26 +70,22 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
                 getActivity().onBackPressed();
                 break;
             default:
-                Pair<String, Patient> formMetadata = getFormMetadata(v);
-                patientProfileFragmentPresenter.launchForm(getActivity(), formMetadata.first, formMetadata.second);
+                patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
         }
     }
 
 
-    private Pair<String, Patient> getFormMetadata(View view) {
+    private String getFormName(View view) {
         String formName = null;
-        Patient patient = null;
         switch (view.getId()) {
             case R.id.tv_covid_delivery_details:
                 formName = SAMPLE_DELIVERY_DETAILS_FORM;
                 break;
             case R.id.tv_covid_rdt:
                 formName = RDT_TEST_FORM;
-                patient = this.currPatient;
                 break;
             case R.id.tv_covid_sample_collection:
                 formName = SAMPLE_COLLECTION_FORM;
-                patient = this.currPatient;
                 break;
             case R.id.tv_covid_support_investigation:
                 formName = SUPPORT_INVESTIGATION_FORM;
@@ -98,6 +94,6 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
                 formName = PATIENT_DIAGNOSTICS_FORM;
                 break;
         }
-        return new Pair<>(formName, patient);
+        return formName;
     }
 }

@@ -15,6 +15,7 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Utils.isCovidApp;
 
 /**
@@ -25,7 +26,7 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
     private RDTJsonFormUtils formUtils = new RDTJsonFormUtils();
 
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        if (patient != null) {
+        if (RDT_TEST_FORM.equals(formName) || SAMPLE_COLLECTION_FORM.equals(formName)) {
             FormLaunchArgs args = new FormLaunchArgs();
             args.withActivity(activity)
                     .withFormJsonObj(formUtils.getFormJsonObject(formName, activity))
