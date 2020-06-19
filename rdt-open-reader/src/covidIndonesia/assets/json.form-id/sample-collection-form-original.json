@@ -515,7 +515,7 @@
         "type": "label",
         "text": "Scan respiratory specimen barcode",
         "text_color": "#000000",
-        "top_margin": "15dp",
+        "top_margin": "40dp",
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff"
@@ -524,7 +524,7 @@
         "key": "lbl_affix_respiratory_specimen_label",
         "type": "label",
         "text": "Manually affix label",
-        "top_margin": "30dp",
+        "top_margin": "40dp",
         "text_color": "#000000",
         "has_bg": true,
         "has_drawable_end": true,

@@ -1,0 +1,14 @@
+---
+name: step3_manual_sample_id_label
+description: Sample ID label
+priority: 1
+condition: "step2_barcode_sample_id != '' && step2_barcode_sample_id == 'nil'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_manual_sample_id
+description: Sample ID
+priority: 1
+condition:  "step2_barcode_sample_id != '' && step2_barcode_sample_id == 'nil'"
+actions:
+  - "isRelevant = true"

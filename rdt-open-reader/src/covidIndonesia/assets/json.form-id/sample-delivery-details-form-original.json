@@ -49,9 +49,35 @@
   "step1": {
     "title": "Sample collection",
     "display_back_button": "true",
+    "fields": [
+      {
+        "key": "lbl_scan_sample_barcode",
+        "type": "label",
+        "text": "Scan sample barcode",
+        "text_color": "#000000",
+        "top_margin": "40dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_enter_sample_details_manually",
+        "type": "label",
+        "text": "Enter sample details manually",
+        "top_margin": "40dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Sample collection",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step2",
+    "next": "step3",
     "next_label": "CONTINUE",
     "fields": [
       {
@@ -74,15 +100,16 @@
         }
       },
       {
-        "key": "rdt_id",
+        "key": "barcode_sample_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "value": "nil"
       }
     ]
   },
-  "step2": {
+  "step3": {
     "title": "Sample delivery details",
     "display_back_button": "true",
     "bottom_navigation": "true",
@@ -90,6 +117,20 @@
     "next_type": "submit",
     "submit_label": "SUBMIT",
     "fields": [
+      {
+        "key": "manual_sample_id_label",
+        "type": "label",
+        "text": "Sample id",
+        "text_color": "#000000"
+      },
+      {
+        "key": "manual_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
       {
         "key": "courier_name_label",
         "type": "label",

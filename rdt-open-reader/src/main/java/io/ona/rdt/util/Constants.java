@@ -62,6 +62,8 @@ public interface Constants {
         String LBL_SKIP_XRAY_RESULTS = "lbl_skip_xray_results";
         String LBL_ADD_WBC_RESULTS = "lbl_add_wbc_results";
         String LBL_SKIP_WBC_RESULTS = "lbl_skip_wbc_results";
+        String LBL_SCAN_SAMPLE_BARCODE = "lbl_scan_sample_barcode";
+        String LBL_ENTER_SAMPLE_DETAILS_MANUALLY = "lbl_enter_sample_details_manually";
         String RDT_ID = "rdt_id";
         String COVID_SAMPLE_ID = "covid_sample_id";
         String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
@@ -157,6 +159,8 @@ public interface Constants {
         String COVID_OPT_IN_WBC_PAGE = "covid_opt_in_wbc_page";
         String COVID_WBC_PAGE = "covid_wbc_page";
         String COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE = "covid_support_investigation_complete_page";
+        String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
+        String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
     }
 
     interface Encounter {

@@ -36,5 +36,7 @@
   "covid_disabled_back_press_pages" : [
     "step7",
     "step10"
-  ]
+  ],
+  "covid_scan_sample_for_delivery_page": "step2",
+  "covid_enter_delivery_details_page": "step3"
 }
