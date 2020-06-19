@@ -15,10 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/RDTAppTheme">
-        <activity android:name=".activity.PatientProfileActivity"></activity>
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.CovidLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
@@ -28,24 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".activity.PatientRegisterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.RDTJsonFormActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.RDTExpirationDateActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.CustomRDTCaptureActivity"
+            android:name=".activity.CovidPatientRegisterActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".sync.RDTSyncIntentService" />
-        <service android:name="org.smartregister.service.ImageUploadSyncService" />
-        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name=".sync.RDTSettingsSyncIntentService" />
+        <activity
+            android:name=".activity.CovidPatientProfileActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
