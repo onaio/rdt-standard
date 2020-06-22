@@ -7,6 +7,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -29,9 +30,10 @@ public class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
             try {
                 Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
                 Log.d("Scanned QR Code", barcode.displayValue);
+                String barcodeVals = StringUtils.join(barcode.displayValue.split("\u001D"), ",");
                 jsonApi.writeValue(widgetArgs.getStepName(),
                         widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
-                        barcode.displayValue, "", "", "",
+                        removeLeadingAndTrailingCommas(barcodeVals), "", "", "",
                         false);
                 moveToNextStep();
             } catch (JSONException e) {
@@ -42,6 +44,14 @@ public class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         } else if (data == null) {
             Log.i("", "No result for qr code");
         }
+    }
+
+    private String removeLeadingAndTrailingCommas(String str) {
+        if (StringUtils.isBlank(str)) { return str; }
+        String truncatedStr = str.trim().charAt(0) == ',' ? str.substring(1) : str.trim();
+        int truncatedStrLen = truncatedStr.length();
+        return truncatedStr.charAt(truncatedStrLen - 1) == ','
+                ? truncatedStr.substring(0, truncatedStrLen - 1) : truncatedStr;
     }
 
     private void moveToNextStep() {

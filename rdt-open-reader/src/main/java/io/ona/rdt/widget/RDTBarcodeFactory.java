@@ -54,6 +54,8 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
 
         clickThenHideScanButton(rootLayout);
 
+        ((JsonApi) context).getFormDataViews().clear(); // we do not need the edit text and it causes weird validation issues
+
         return views;
     }
 

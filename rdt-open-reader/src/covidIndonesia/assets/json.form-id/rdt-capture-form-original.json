@@ -355,7 +355,6 @@
         "barcode_type": "qrcode",
         "hint": "",
         "scanButtonText": "",
-        "value": "0",
         "v_numeric": {
           "value": "true",
           "err": "Invalid ID, value must be numeric"
