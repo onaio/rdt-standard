@@ -49,9 +49,7 @@
   "step1": {
     "title": "Find location",
     "next": "step2",
-    "bottom_navigation" : "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
+    "display_back_button": "true",
     "fields": [
       {
         "key": "gps",

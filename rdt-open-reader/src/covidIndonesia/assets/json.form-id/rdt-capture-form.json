@@ -49,9 +49,7 @@
   "step1": {
     "title": "{{rdt-capture-form-original.step1.title}}",
     "next": "step2",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "{{rdt-capture-form-original.step1.next_label}}",
+    "display_back_button": "true",
     "fields": [
       {
         "key": "gps",
