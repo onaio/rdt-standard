@@ -21,13 +21,17 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <activity-alias
+            android:name="io.ona.rdt.activity.Launcher"
+            android:targetActivity=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
         <activity
             android:name=".activity.PatientRegisterActivity"
             android:screenOrientation="portrait" />

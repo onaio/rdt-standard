@@ -20,13 +20,12 @@
             android:name=".activity.CovidLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity-alias
+            android:name="io.ona.rdt.activity.Launcher"
+            android:targetActivity=".activity.CovidLoginActivity"
+            tools:replace="android:targetActivity" />
 
         <activity
             android:name=".activity.CovidPatientRegisterActivity"
