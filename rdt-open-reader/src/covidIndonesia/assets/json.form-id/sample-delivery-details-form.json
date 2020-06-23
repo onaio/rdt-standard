@@ -1,0 +1,227 @@
+{
+  "count": "2",
+  "encounter_type": "sample_delivery_details",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "{{sample-delivery-details-form-original.step1.title}}",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "lbl_scan_sample_barcode",
+        "type": "label",
+        "text": "{{sample-delivery-details-form-original.step1.lbl_scan_sample_barcode.text}}",
+        "text_color": "#000000",
+        "top_margin": "40dp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_enter_sample_details_manually",
+        "type": "label",
+        "text": "{{sample-delivery-details-form-original.step1.lbl_enter_sample_details_manually.text}}",
+        "top_margin": "40dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step2": {
+    "title": "{{sample-delivery-details-form-original.step2.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step3",
+    "next_label": "{{sample-delivery-details-form-original.step2.next_label}}",
+    "fields": [
+      {
+        "key": "qr_code_reader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "covid_rdt_barcode_reader",
+        "barcode_type": "qrcode",
+        "hint": "{{sample-delivery-details-form-original.step2.qr_code_reader.hint}}",
+        "scanButtonText": "{{sample-delivery-details-form-original.step2.qr_code_reader.scanButtonText}}",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{sample-delivery-details-form-original.step2.qr_code_reader.v_numeric.err}}"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{sample-delivery-details-form-original.step2.qr_code_reader.v_required.err}}"
+        }
+      },
+      {
+        "key": "barcode_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "nil"
+      }
+    ]
+  },
+  "step3": {
+    "title": "Sample delivery details",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "manual_sample_id_label",
+        "type": "label",
+        "text": "Sample id",
+        "text_color": "#000000"
+      },
+      {
+        "key": "manual_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "courier_name_label",
+        "type": "label",
+        "text": "Courier name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "courier_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "courier_number_label",
+        "type": "label",
+        "text": "Courier phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "courier_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": ""
+      },
+      {
+        "key": "courier_id_lbl",
+        "type": "label",
+        "text": "Courier ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "courier_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "sender_name_label",
+        "type": "label",
+        "text": "Sender name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sender_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sender_number_label",
+        "type": "label",
+        "text": "Sender phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sender_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": ""
+      },
+      {
+        "key": "sender_email_lbl",
+        "type": "label",
+        "text": "Sender email address",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sender_email",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      }
+    ]
+  },
+  "properties_file_name": "sample-delivery-details-form"
+}
