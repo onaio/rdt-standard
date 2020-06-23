@@ -181,7 +181,7 @@ public class PatientRegisterFragmentInteractorTest {
         Whitebox.setInternalState(interactor, "formUtils", formUtils);
         interactor.launchForm(activity, FORM_NAME, null);
 
-        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), eq(any(new ArrayList<String>().getClass())));
+        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), anyString());
         verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
     }
 

@@ -54,7 +54,7 @@ import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Utils.convertDate;
-import static io.ona.rdt.widget.RDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
+import static io.ona.rdt.widget.MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -97,7 +97,7 @@ public class RDTBarcodeFactoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        barcodeFactory = new RDTBarcodeFactory();
+        barcodeFactory = new MalariaRDTBarcodeFactory();
     }
 
     @Test

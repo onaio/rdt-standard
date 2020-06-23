@@ -846,7 +846,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
         JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
         Patient patient = new Patient("patient", "female", "entity_id");
 
-        formUtils.prePopulateFormFields(formObject, patient, getIDs());
+        formUtils.prePopulateFormFields(formObject, patient, "unique_id");
 
         boolean populatedLblRDTId = false;
         boolean populatedRDTId = false;
