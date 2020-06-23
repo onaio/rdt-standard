@@ -30,7 +30,7 @@ public class RDTJsonFormActivityPresenter implements RDTJsonFormActivityContract
         try {
             String currentStep = "step" + RDTJsonFormFragment.getCurrentStep();
             // disable backpress for timer, rdt capture and expiration date screens
-            if (!isDisabledBackPress(currentStep) || isCovidApp()) {
+            if (!isDisabledBackPress(currentStep)) {
                 activity.onBackPress();
             }
         } catch (JSONException e) {

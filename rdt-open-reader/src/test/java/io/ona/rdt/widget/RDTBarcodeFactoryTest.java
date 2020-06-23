@@ -160,7 +160,7 @@ public class RDTBarcodeFactoryTest {
         RelativeLayout rootLayout = mock(RelativeLayout.class);
         Button scanBtn = mock(Button.class);
         doReturn(scanBtn).when(rootLayout).findViewById(eq(com.vijay.jsonwizard.R.id.scan_button));
-        Whitebox.invokeMethod(barcodeFactory, "hideAndClickScanButton", rootLayout);
+        Whitebox.invokeMethod(barcodeFactory, "clickThenHideScanButton", rootLayout);
 
         verify(scanBtn).setVisibility(eq(View.GONE));
         verify(scanBtn).performClick();

@@ -47,7 +47,6 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
     public static final String CAPTURE_TIMEOUT = "capture_timeout";
 
     private String baseEntityId;
-    protected WidgetArgs widgetArgs;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {

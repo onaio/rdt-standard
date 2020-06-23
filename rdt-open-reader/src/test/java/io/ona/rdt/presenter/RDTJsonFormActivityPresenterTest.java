@@ -18,6 +18,7 @@ import io.ona.rdt.contract.RDTJsonFormActivityContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.StepStateConfig;
 
+import static io.ona.rdt.util.Constants.Step.COVID_DISABLED_BACK_PRESS_PAGES;
 import static io.ona.rdt.util.Constants.Step.DISABLED_BACK_PRESS_PAGES;
 import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isMalariaApp;
@@ -56,28 +57,24 @@ public class RDTJsonFormActivityPresenterTest extends PowerMockTest {
     public void testOnBackPress() throws JSONException {
         mockStaticClasses();
         mockStaticMethods();
-        if (isMalariaApp()) {
-            // test back-press disabled for expiration date and rdt-capture screens
-            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(6);
-            presenter.onBackPress();
-            verifyZeroInteractions(activity);
 
-            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(13);
-            presenter.onBackPress();
-            verifyZeroInteractions(activity);
+        // test back-press disabled for expiration date and rdt-capture screens
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(6);
+        presenter.onBackPress();
+        verifyZeroInteractions(activity);
 
-            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(14);
-            presenter.onBackPress();
-            verifyZeroInteractions(activity);
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(13);
+        presenter.onBackPress();
+        verifyZeroInteractions(activity);
 
-            // allow back-press for other screens
-            when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
-            presenter.onBackPress();
-            verify(activity).onBackPress();
-        } else if (isCovidApp()) {
-            presenter.onBackPress();
-            verify(activity).onBackPress();
-        }
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(14);
+        presenter.onBackPress();
+        verifyZeroInteractions(activity);
+
+        // allow back-press for other screens
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
+        presenter.onBackPress();
+        verify(activity).onBackPress();
     }
 
     private void mockStaticClasses() {
@@ -97,6 +94,12 @@ public class RDTJsonFormActivityPresenterTest extends PowerMockTest {
                 "    \"step13\",\n" +
                 "    \"step14\"\n" +
                 "  ]")).when(jsonObject).optJSONArray(eq(DISABLED_BACK_PRESS_PAGES));
+
+        doReturn(new JSONArray("[\n" +
+                "    \"step6\",\n" +
+                "    \"step13\",\n" +
+                "    \"step14\"\n" +
+                "  ]")).when(jsonObject).optJSONArray(eq(COVID_DISABLED_BACK_PRESS_PAGES));
 
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
     }

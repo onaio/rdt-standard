@@ -52,6 +52,8 @@ import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
 import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
@@ -80,6 +82,8 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RDTApplication.class, ClientProcessorForJava.class, JsonFormUtils.class, AssetHandler.class, RDTJsonFormUtils.class})
 public class PatientRegisterFragmentInteractorTest {
+
+    private final String UNIQUE_ID = "unique_id";
 
     @Mock
     private RDTApplication rdtApplication;
@@ -190,15 +194,14 @@ public class PatientRegisterFragmentInteractorTest {
     public void testLaunchFormShouldFetchUniqueIdBeforeFormLaunch() throws JSONException {
         RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
         Activity activity = mock(Activity.class);
-        final String FORM_NAME = "form";
         Patient patient = mock(Patient.class);
-
         Whitebox.setInternalState(interactor, "formUtils", formUtils);
-        interactor.launchForm(activity, FORM_NAME, patient);
+        interactor.launchForm(activity, RDT_TEST_FORM, patient);
         if (isMalariaApp()) {
             verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(interactor), eq(1));
         } else if (isCovidApp()) {
-            verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(interactor), eq(2));
+            interactor.launchForm(activity, SAMPLE_COLLECTION_FORM, patient);
+            verify(formUtils, times(2)).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(interactor), eq(1));
         }
 
         FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
@@ -226,27 +229,27 @@ public class PatientRegisterFragmentInteractorTest {
     @Test
     public void testCloseRDTIdShouldCloseRDTId() throws Exception {
         Whitebox.invokeMethod(interactor, "closeIDs", getDBEvent());
-        verifyIDsAreClosed();
+        if (isCovidApp()) {
+            verifyIDsAreClosed(2);
+        } else {
+            verifyIDsAreClosed(1);
+        }
     }
 
     @Test
     public void testProcessAndSaveFormShouldProcessClient() throws Exception {
         mockStaticMethods();
         Whitebox.setInternalState(interactor, "clientProcessor", clientProcessor);
-        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
-
-        formJsonObj.put(ENCOUNTER_TYPE, RDT_TEST);
-        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
-        verifyIDsAreClosed();
-
-        formJsonObj.put(ENCOUNTER_TYPE, COVID_RDT_TEST);
-        Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
-
-        verify(uniqueIdRepository, times(2)).close(eq("rdt_id"));
         if (isCovidApp()) {
-            verify(uniqueIdRepository, times(2)).close(eq("respiratory_sample_id"));
+            formJsonObj.put(ENCOUNTER_TYPE, COVID_RDT_TEST);
+            Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
+            verifyIDsAreClosed(2);
+        } else {
+            formJsonObj.put(ENCOUNTER_TYPE, RDT_TEST);
+            Whitebox.invokeMethod(interactor, "processAndSaveForm", formJsonObj);
+            verifyIDsAreClosed(1);
         }
-        verify(clientProcessor, times(3)).processClient(any(List.class));
+        verify(clientProcessor, times(1)).processClient(any(List.class));
     }
 
     @Test
@@ -277,7 +280,7 @@ public class PatientRegisterFragmentInteractorTest {
         PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
 
         JSONObject jsonObject = Mockito.mock(JSONObject.class);
-        Mockito.doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
+        Mockito.doReturn(RDT_ID).when(jsonObject).optString(eq(RDT_ID_KEY));
         Mockito.doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
         // mock repositories
@@ -311,23 +314,20 @@ public class PatientRegisterFragmentInteractorTest {
         return formJsonObj.getJSONObject("step1").getJSONArray("fields");
     }
 
-    private void verifyIDsAreClosed() throws Exception {
-        if (isMalariaApp()) {
-            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
-        } else if (isCovidApp())  {
-            verify(uniqueIdRepository, times(1)).close(eq("rdt_id"));
-            verify(uniqueIdRepository, times(1)).close(eq("respiratory_sample_id"));
-        }
+    private void verifyIDsAreClosed(int times) {
+        verify(uniqueIdRepository, times(times)).close(eq(UNIQUE_ID));
     }
 
     private org.smartregister.domain.db.Event getDBEvent() {
-        org.smartregister.domain.db.Event dbEvent = mock(org.smartregister.domain.db.Event.class);
+        org.smartregister.domain.db.Event dbEvent = new org.smartregister.domain.db.Event();
         org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
-        obs.setValue("rdt_id");
-        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(RDT_ID));
+        obs.setValue(UNIQUE_ID);
+        obs.setFieldCode(RDT_ID);
+        dbEvent.addObs(obs);
         obs = new org.smartregister.domain.db.Obs();
-        obs.setValue("respiratory_sample_id");
-        doReturn(obs).when(dbEvent).findObs(any(), anyBoolean(), eq(COVID_SAMPLE_ID));
+        obs.setFieldCode(COVID_SAMPLE_ID);
+        obs.setValue(UNIQUE_ID);
+        dbEvent.addObs(obs);
         return dbEvent;
     }
 
@@ -335,12 +335,12 @@ public class PatientRegisterFragmentInteractorTest {
         Event event = new Event();
         event.setObs(new ArrayList<>());
         Obs obs = new Obs();
-        obs.setValue("rdt_id");
-        obs.setFieldCode("rdt_id");
+        obs.setValue(UNIQUE_ID);
+        obs.setFieldCode(RDT_ID);
         event.getObs().add(obs);
         obs = new Obs();
-        obs.setValue("respiratory_sample_id");
-        obs.setFieldCode("respiratory_sample_id");
+        obs.setValue(UNIQUE_ID);
+        obs.setFieldCode(COVID_SAMPLE_ID);
         event.getObs().add(obs);
         return event;
     }
