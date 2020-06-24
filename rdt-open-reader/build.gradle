@@ -23,6 +23,8 @@ android {
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
+        buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
+        buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
     }
 
     lintOptions {
@@ -38,20 +40,16 @@ android {
     buildTypes {
         debug {
             resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
-            buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '50'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'true'
         }
 
         release {
-            buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'false'
         }
     }
@@ -84,6 +82,7 @@ android {
             buildConfigField "String", "LOCALE", "\"id\""
             versionName "v1.1.0"
             versionNameSuffix "-COVID-ID"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
         }
     }
 }
