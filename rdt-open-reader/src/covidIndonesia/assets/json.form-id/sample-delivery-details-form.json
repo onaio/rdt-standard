@@ -148,7 +148,14 @@
         "key": "manual_sample_id_label",
         "type": "label",
         "text": "Sample id",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-delivery-details-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "manual_sample_id",
@@ -156,7 +163,14 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-delivery-details-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "courier_name_label",
