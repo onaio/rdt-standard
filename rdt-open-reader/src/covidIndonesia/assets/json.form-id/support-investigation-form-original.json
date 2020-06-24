@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Sample collection",
+    "title": "Supporting investigations",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -78,7 +78,7 @@
     ]
   },
   "step2": {
-    "title": "Sample collection",
+    "title": "Supporting investigations",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -101,7 +101,7 @@
     ]
   },
   "step3": {
-    "title": "Sample collection",
+    "title": "Supporting investigations",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -132,7 +132,7 @@
     ]
   },
   "step4": {
-    "title": "Sample collection",
+    "title": "Supporting investigations",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -181,7 +181,7 @@
     ]
   },
   "step5": {
-    "title": "Sample collection",
+    "title": "Supporting investigations",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -191,7 +191,7 @@
       {
         "key": "leukocytes_lbl",
         "type": "label",
-        "text": "Support investigation is complete",
+        "text": "Supporting investigation(s) completed",
         "text_color": "#000000"
       }
     ]

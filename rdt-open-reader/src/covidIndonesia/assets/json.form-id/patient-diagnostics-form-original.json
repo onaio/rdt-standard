@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "New client record",
+    "title": "Pre-existing conditions",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -451,7 +451,7 @@
     ]
   },
   "step2": {
-    "title": "New client record",
+    "title": "Signs & symptoms",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -765,7 +765,7 @@
     ]
   },
   "step3": {
-    "title": "New client record",
+    "title": "Travel & contact exposure",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",

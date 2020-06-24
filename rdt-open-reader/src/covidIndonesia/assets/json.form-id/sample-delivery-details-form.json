@@ -137,7 +137,7 @@
     ]
   },
   "step3": {
-    "title": "Sample delivery details",
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",

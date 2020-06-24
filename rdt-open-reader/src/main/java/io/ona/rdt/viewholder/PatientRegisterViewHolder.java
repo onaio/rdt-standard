@@ -26,6 +26,8 @@ import io.ona.rdt.R;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.Constants;
 
+import static io.ona.rdt.util.Utils.isCovidApp;
+
 /**
  * Created by Vincent Karuri on 17/06/2019
  */
@@ -116,6 +118,9 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
         final View view = inflater().inflate(R.layout.register_row_item, parent, false);
+        if (isCovidApp()) {
+            view.findViewById(R.id.btn_record_rdt_test).setVisibility(View.GONE);
+        }
         return new RegisterViewHolder(view);
     }
 

@@ -82,6 +82,7 @@ android {
             applicationId "io.ona.rdt.covid.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
+            versionName "v1.1.0"
             versionNameSuffix "-COVID-ID"
         }
     }
