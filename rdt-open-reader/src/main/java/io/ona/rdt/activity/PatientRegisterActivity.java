@@ -38,6 +38,7 @@ import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
+import static io.ona.rdt.util.Constants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_RDT_PERMISSIONS;
 import static io.ona.rdt.util.Utils.updateLocale;
@@ -189,6 +190,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 break;
             case R.id.menu_item_logout:
                 RDTApplication.getInstance().logoutCurrentUser();
+                break;
+            case R.id.menu_item_create_shipment:
+                getPresenter().launchForm(this, SAMPLE_DELIVERY_DETAILS_FORM, null);
                 break;
             default:
                 // do nothing

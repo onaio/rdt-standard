@@ -20,7 +20,7 @@ import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 /**
  * Created by Vincent Karuri on 07/06/2019
  */
-public class PatientRegisterActivityPresenter implements BaseRegisterContract.Presenter, PatientRegisterActivityContract.Presenter {
+public class PatientRegisterActivityPresenter implements PatientRegisterActivityContract.Presenter {
 
     private final String TAG = PatientRegisterActivityPresenter.class.getName();
 
@@ -62,6 +62,15 @@ public class PatientRegisterActivityPresenter implements BaseRegisterContract.Pr
             if (patient != null) {
                 interactor.launchForm((Activity) activity, RDT_TEST_FORM, patient);
             }
+        } catch (JSONException e) {
+            Timber.e(TAG, e);
+        }
+    }
+
+    @Override
+    public void launchForm(Activity activity, String formName, Patient patient) {
+        try {
+            interactor.launchForm(activity, formName, patient);
         } catch (JSONException e) {
             Timber.e(TAG, e);
         }
