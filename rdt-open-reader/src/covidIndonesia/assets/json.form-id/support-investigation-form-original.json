@@ -49,9 +49,6 @@
   "step1": {
     "title": "Supporting investigations",
     "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next": "step2",
     "fields": [
       {
         "key": "lbl_add_xray_results",
@@ -103,9 +100,6 @@
   "step3": {
     "title": "Supporting investigations",
     "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next": "step4",
     "fields": [
       {
         "key": "lbl_add_wbc_results",
@@ -189,7 +183,7 @@
     "submit_label": "SUBMIT",
     "fields": [
       {
-        "key": "leukocytes_lbl",
+        "key": "supporting_investigations_complete_lbl",
         "type": "label",
         "text": "Supporting investigation(s) completed",
         "text_color": "#000000"
