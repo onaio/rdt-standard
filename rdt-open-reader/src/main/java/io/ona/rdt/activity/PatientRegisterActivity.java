@@ -182,24 +182,23 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public boolean selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.menu_item_sync:
                 closeDrawerLayout();
                 Utils.scheduleJobsImmediately();
-                break;
+                return true;
             case R.id.menu_item_logout:
                 RDTApplication.getInstance().logoutCurrentUser();
-                break;
+                return true;
             case R.id.menu_item_create_shipment:
                 getPresenter().launchForm(this, SAMPLE_DELIVERY_DETAILS_FORM, null);
-                break;
-            default:
-                // do nothing
+                return true;
         }
+        return false;
     }
 
-    private PatientRegisterActivityPresenter getPresenter() {
+    protected PatientRegisterActivityPresenter getPresenter() {
         return (PatientRegisterActivityPresenter) this.presenter;
     }
 }
