@@ -191,9 +191,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             case R.id.menu_item_logout:
                 RDTApplication.getInstance().logoutCurrentUser();
                 return true;
-            case R.id.menu_item_create_shipment:
-                getPresenter().launchForm(this, SAMPLE_DELIVERY_DETAILS_FORM, null);
-                return true;
         }
         return false;
     }

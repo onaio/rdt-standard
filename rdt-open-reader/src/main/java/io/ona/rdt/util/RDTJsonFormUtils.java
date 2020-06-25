@@ -240,9 +240,10 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
+    public JSONObject launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
+        JSONObject formJsonObject = null;
         try {
-            JSONObject formJsonObject = getFormJsonObject(formName, activity);
+            formJsonObject = getFormJsonObject(formName, activity);
             if (RDT_TEST_FORM.equals(formName) || SAMPLE_COLLECTION_FORM.equals(formName)) {
                 String uniqueId = uniqueIDs.get(0);
                 prePopulateFormFields(formJsonObject, patient, uniqueId);
@@ -252,6 +253,7 @@ public class RDTJsonFormUtils {
         } catch (JSONException e) {
             Timber.e(TAG, e);
         }
+        return formJsonObject;
     }
 
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {

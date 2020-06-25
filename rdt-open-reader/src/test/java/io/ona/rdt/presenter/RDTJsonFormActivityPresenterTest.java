@@ -18,6 +18,8 @@ import io.ona.rdt.contract.RDTJsonFormActivityContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.StepStateConfig;
 
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.Step.COVID_DISABLED_BACK_PRESS_PAGES;
 import static io.ona.rdt.util.Constants.Step.DISABLED_BACK_PRESS_PAGES;
 import static io.ona.rdt.util.Utils.isCovidApp;
@@ -25,6 +27,7 @@ import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -58,20 +61,24 @@ public class RDTJsonFormActivityPresenterTest extends PowerMockTest {
         mockStaticClasses();
         mockStaticMethods();
 
-        // test back-press disabled for expiration date and rdt-capture screens
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(ENCOUNTER_TYPE, RDT_TEST);
+        doReturn(jsonObject).when(activity).getmJSONObject();
+
+        // verify back-press can be disabled
         when(RDTJsonFormFragment.getCurrentStep()).thenReturn(6);
         presenter.onBackPress();
-        verifyZeroInteractions(activity);
+        verify(activity, never()).onBackPress();
 
         when(RDTJsonFormFragment.getCurrentStep()).thenReturn(13);
         presenter.onBackPress();
-        verifyZeroInteractions(activity);
+        verify(activity, never()).onBackPress();
 
         when(RDTJsonFormFragment.getCurrentStep()).thenReturn(14);
         presenter.onBackPress();
-        verifyZeroInteractions(activity);
+        verify(activity, never()).onBackPress();
 
-        // allow back-press for other screens
+        // verify back-press is allowed for all steps that are not flagged
         when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
         presenter.onBackPress();
         verify(activity).onBackPress();

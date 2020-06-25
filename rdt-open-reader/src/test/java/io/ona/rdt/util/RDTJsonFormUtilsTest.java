@@ -41,6 +41,7 @@ import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
 import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
@@ -844,10 +845,8 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
     public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {
         mockStaticMethods();
 
-        JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
         Patient patient = new Patient("patient", "female", "entity_id");
-
-        formUtils.prePopulateFormFields(formObject, patient, UNIQUE_ID);
+        JSONObject formJsonObj = formUtils.launchForm(mock(Activity.class), RDT_TEST_FORM, patient, getIDs());
 
         boolean populatedLblRDTId = false;
         boolean populatedRDTId = false;
@@ -855,7 +854,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
         boolean populatedPatientSex = false;
         boolean populatedLblRespiratorySampleID = false;
         boolean populatedRespiratorySampleID = false;
-        JSONArray fields = getMultiStepFormFields(formObject);
+        JSONArray fields = getMultiStepFormFields(formJsonObj);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // test rdt id labels are populated
@@ -928,12 +927,6 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
         assertNotNull(entityId);
         assertFalse(entityId.isEmpty());
         assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.FormFields.ENTITY_ID), entityId);
-    }
-
-    @Test
-    public void testLaunchFormShouldntThrowException() throws JSONException {
-        mockStaticMethods();
-        formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), getIDs());
     }
 
     @Test
@@ -1078,8 +1071,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
 
     private List<String> getIDs() {
         List<String> rdtIds = new ArrayList<>();
-        rdtIds.add(RDT_ID);
-        rdtIds.add(COVID_SAMPLE_ID);
+        rdtIds.add(UNIQUE_ID);
         return rdtIds;
     }
 }

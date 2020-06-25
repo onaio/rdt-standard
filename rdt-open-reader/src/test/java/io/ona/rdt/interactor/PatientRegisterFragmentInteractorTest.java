@@ -49,9 +49,13 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
+import static io.ona.rdt.util.Constants.Encounter.PATIENT_DIAGNOSTICS;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.Constants.Encounter.PCR_RESULT;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.Constants.Encounter.SAMPLE_COLLECTION;
+import static io.ona.rdt.util.Constants.Encounter.SAMPLE_DELIVERY_DETAILS;
+import static io.ona.rdt.util.Constants.Encounter.SUPPORT_INVESTIGATION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
@@ -61,9 +65,13 @@ import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.COVID_RDT_TESTS;
+import static io.ona.rdt.util.Constants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
+import static io.ona.rdt.util.Constants.Table.SAMPLE_COLLECTIONS;
+import static io.ona.rdt.util.Constants.Table.SAMPLE_DELIVERY_RECORDS;
+import static io.ona.rdt.util.Constants.Table.SUPPORT_INVESTIGATIONS;
 import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertEquals;
@@ -259,6 +267,10 @@ public class PatientRegisterFragmentInteractorTest {
         assertEquals(PCR_RESULTS, Whitebox.invokeMethod(interactor, "getBindType", PCR_RESULT));
         assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(interactor, "getBindType", COVID_PATIENT_REGISTRATION));
         assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(interactor, "getBindType", COVID_RDT_TEST));
+        assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(interactor, "getBindType", PATIENT_DIAGNOSTICS));
+        assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(interactor, "getBindType", SAMPLE_COLLECTION));
+        assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(interactor, "getBindType", SAMPLE_DELIVERY_DETAILS));
+        assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(interactor, "getBindType", SUPPORT_INVESTIGATION));
     }
 
     private void mockStaticMethods() throws JSONException {
