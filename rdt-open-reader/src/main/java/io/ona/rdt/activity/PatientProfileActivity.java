@@ -18,20 +18,20 @@ import timber.log.Timber;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 
-public class PatientProfileActivity extends FragmentActivity implements PatientProfileActivityContract.View, OnFormSavedCallback {
+public class PatientProfileActivity extends FragmentActivity implements PatientProfileActivityContract.View {
 
     private PatientProfileActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PatientProfileActivityPresenter(this);
-        setContentView(R.layout.activity_patient_profile);
+        presenter = getPresenter();
+        setContentView(getContentViewId());
         attachPatientProfileFragment();
     }
 
-    private void attachPatientProfileFragment() {
-        PatientProfileFragment patientProfileFragment = new PatientProfileFragment();
+    protected void attachPatientProfileFragment() {
+        Fragment patientProfileFragment = getPatientProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(PATIENT, getIntent().getParcelableExtra(PATIENT));
         patientProfileFragment.setArguments(bundle);
@@ -43,7 +43,7 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
         }
-        fragmentTransaction.replace(R.id.patient_profile_fragment_container, fragment);
+        fragmentTransaction.replace(getFragmentId(), fragment);
         fragmentTransaction.commit();
     }
 
@@ -52,12 +52,23 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
             Timber.d(jsonForm);
-            presenter.saveForm(jsonForm, this);
+            presenter.saveForm(jsonForm, null);
         }
     }
 
-    @Override
-    public void onFormSaved() {
+    protected int getFragmentId() {
+        return R.id.patient_profile_fragment_container;
+    }
 
+    protected int getContentViewId() {
+        return (R.layout.activity_patient_profile);
+    }
+
+    protected PatientProfileActivityPresenter getPresenter() {
+        return new PatientProfileActivityPresenter(this);
+    }
+
+    protected Fragment getPatientProfileFragment() {
+        return new PatientProfileFragment();
     }
 }

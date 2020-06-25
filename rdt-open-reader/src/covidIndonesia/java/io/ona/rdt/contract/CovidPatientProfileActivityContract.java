@@ -7,9 +7,7 @@ import io.ona.rdt.callback.OnFormSavedCallback;
  * Created by Vincent Karuri on 16/07/2019
  */
 public interface CovidPatientProfileActivityContract {
-    interface View extends OnFormSavedCallback { }
+    interface View extends PatientProfileActivityContract.View { }
 
-    interface Presenter {
-        void saveForm(String jsonForm, OnFormSavedCallback callback);
-    }
+    interface Presenter extends PatientProfileActivityContract.Presenter { }
 }

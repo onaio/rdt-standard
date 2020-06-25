@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.contract.CovidPatientProfileFragmentContract;

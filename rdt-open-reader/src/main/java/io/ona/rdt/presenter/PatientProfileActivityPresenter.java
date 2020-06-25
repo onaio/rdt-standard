@@ -13,8 +13,8 @@ import timber.log.Timber;
  */
 public class PatientProfileActivityPresenter implements PatientProfileActivityContract.Presenter {
 
-    private PatientProfileActivityInteractor interactor;
-    private PatientProfileActivityContract.View activity;
+    protected PatientProfileActivityInteractor interactor;
+    protected PatientProfileActivityContract.View activity;
 
     public PatientProfileActivityPresenter(PatientProfileActivityContract.View activity) {
         this.interactor = new PatientProfileActivityInteractor();
