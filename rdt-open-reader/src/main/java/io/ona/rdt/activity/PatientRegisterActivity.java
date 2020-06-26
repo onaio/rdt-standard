@@ -5,17 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
@@ -26,6 +22,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -38,7 +39,6 @@ import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_RDT_PERMISSIONS;
 import static io.ona.rdt.util.Utils.updateLocale;
@@ -189,10 +189,24 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 Utils.scheduleJobsImmediately();
                 return true;
             case R.id.menu_item_logout:
-                RDTApplication.getInstance().logoutCurrentUser();
+                logoutCurrentUser();
                 return true;
         }
         return false;
+    }
+
+    public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), getHomePage());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        RDTApplication.getInstance().getContext().userService().logoutSession();
+    }
+
+    protected Class getHomePage() {
+        return LoginActivity.class;
     }
 
     protected PatientRegisterActivityPresenter getPresenter() {

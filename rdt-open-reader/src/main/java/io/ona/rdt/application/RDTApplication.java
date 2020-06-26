@@ -1,7 +1,6 @@
 package io.ona.rdt.application;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.preference.PreferenceManager;
 
 import com.evernote.android.job.JobManager;
@@ -17,7 +16,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import io.ona.rdt.BuildConfig;
-import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.job.RDTJobCreator;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.ParasiteProfileRepository;
@@ -91,13 +89,7 @@ public class RDTApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
+        // do nothing
     }
 
     @Override

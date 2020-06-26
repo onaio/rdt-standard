@@ -5,9 +5,7 @@ import android.view.MenuItem;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
-import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 
@@ -32,5 +30,10 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected Class getHomePage() {
+        return CovidLoginActivity.class;
     }
 }
