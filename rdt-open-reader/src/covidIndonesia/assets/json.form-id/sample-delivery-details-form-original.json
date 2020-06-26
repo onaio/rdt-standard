@@ -47,13 +47,13 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "{{sample-delivery-details-form-original.step1.title}}",
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_scan_sample_barcode",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step1.lbl_scan_sample_barcode.text}}",
+        "text": "Scan sample barcode",
         "text_color": "#000000",
         "top_margin": "40dp",
         "has_bg": true,
@@ -63,7 +63,7 @@
       {
         "key": "lbl_enter_sample_details_manually",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step1.lbl_enter_sample_details_manually.text}}",
+        "text": "Enter sample details manually",
         "top_margin": "40dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -73,12 +73,12 @@
     ]
   },
   "step2": {
-    "title": "{{sample-delivery-details-form-original.step2.title}}",
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step3",
-    "next_label": "{{sample-delivery-details-form-original.step2.next_label}}",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -87,16 +87,16 @@
         "openmrs_entity_id": "",
         "type": "covid_rdt_barcode_reader",
         "barcode_type": "qrcode",
-        "hint": "{{sample-delivery-details-form-original.step2.qr_code_reader.hint}}",
-        "scanButtonText": "{{sample-delivery-details-form-original.step2.qr_code_reader.scanButtonText}}",
+        "hint": "",
+        "scanButtonText": "",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step2.qr_code_reader.v_numeric.err}}"
+          "err": ""
         },
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step2.qr_code_reader.v_required.err}}"
+          "err": ""
         }
       },
       {
@@ -137,17 +137,17 @@
     ]
   },
   "step3": {
-    "title": "{{sample-delivery-details-form-original.step3.title}}",
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "{{sample-delivery-details-form-original.step3.submit_label}}",
+    "submit_label": "SUBMIT",
     "fields": [
       {
         "key": "manual_sample_id_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.manual_sample_id_label.text}}",
+        "text": "Sample id",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -175,7 +175,7 @@
       {
         "key": "courier_name_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.courier_name_label.text}}",
+        "text": "Courier name",
         "text_color": "#000000"
       },
       {
@@ -187,23 +187,27 @@
         "edit_type": "name"
       },
       {
-        "key": "courier_number_label",
+        "key": "courier_phone_number_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.courier_number_label.text}}",
+        "text": "Courier phone number",
         "text_color": "#000000"
       },
       {
-        "key": "courier_number",
+        "key": "courier_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": ""
+        "edit_type": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        }
       },
       {
         "key": "courier_id_lbl",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.courier_id_lbl.text}}",
+        "text": "Courier ID",
         "text_color": "#000000"
       },
       {
@@ -214,13 +218,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.courier_id.v_required.err}}"
+          "err": "This field is required"
         }
       },
       {
         "key": "sender_name_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.sender_name_label.text}}",
+        "text": "Sender name",
         "text_color": "#000000"
       },
       {
@@ -232,23 +236,27 @@
         "edit_type": "name"
       },
       {
-        "key": "sender_number_label",
+        "key": "sender_phone_number_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.sender_number_label.text}}",
+        "text": "Sender phone number",
         "text_color": "#000000"
       },
       {
-        "key": "sender_number",
+        "key": "sender_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": ""
+        "edit_type": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        }
       },
       {
         "key": "sender_email_lbl",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.sender_email_lbl.text}}",
+        "text": "Sender email address",
         "text_color": "#000000"
       },
       {
@@ -259,10 +267,9 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.sender_email.v_required.err}}"
+          "err": "This field is required"
         }
       }
     ]
-  },
-  "properties_file_name": "sample-delivery-details-form-"
+  }
 }

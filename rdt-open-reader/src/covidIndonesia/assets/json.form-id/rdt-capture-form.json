@@ -568,8 +568,8 @@
         }
       },
       {
-        "key": "parasite_type",
-        "label": "{{rdt-capture-form-original.step11.parasite_type.label}}",
+        "key": "antibody_type",
+        "label": "{{rdt-capture-form-original.step11.antibody_type.label}}",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -578,18 +578,18 @@
         "options": [
           {
             "key": "igm_positive",
-            "text": "{{rdt-capture-form-original.step11.parasite_type.options.igm_positive.text}}",
+            "text": "{{rdt-capture-form-original.step11.antibody_type.options.igm_positive.text}}",
             "value": false
           },
           {
             "key": "igg_positive",
-            "text": "{{rdt-capture-form-original.step11.parasite_type.options.igg_positive.text}}",
+            "text": "{{rdt-capture-form-original.step11.antibody_type.options.igg_positive.text}}",
             "value": false
           }
         ],
         "v_required": {
           "value": true,
-          "err": "{{rdt-capture-form-original.step11.parasite_type.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step11.antibody_type.v_required.err}}"
         },
         "relevance": {
           "step11:chw_result": {

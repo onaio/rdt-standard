@@ -1,5 +1,5 @@
 {
-  "count": "2",
+  "count": "3",
   "encounter_type": "sample_delivery_details",
   "entity_id": "",
   "metadata": {
@@ -137,17 +137,17 @@
     ]
   },
   "step3": {
-    "title": "Sample shipment details",
+    "title": "{{sample-delivery-details-form-original.step3.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "submit_label": "{{sample-delivery-details-form-original.step3.submit_label}}",
     "fields": [
       {
         "key": "manual_sample_id_label",
         "type": "label",
-        "text": "Sample id",
+        "text": "{{sample-delivery-details-form-original.step3.manual_sample_id_label.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -175,7 +175,7 @@
       {
         "key": "courier_name_label",
         "type": "label",
-        "text": "Courier name",
+        "text": "{{sample-delivery-details-form-original.step3.courier_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -187,23 +187,27 @@
         "edit_type": "name"
       },
       {
-        "key": "courier_number_label",
+        "key": "courier_phone_number_label",
         "type": "label",
-        "text": "Courier phone number",
+        "text": "{{sample-delivery-details-form-original.step3.courier_phone_number_label.text}}",
         "text_color": "#000000"
       },
       {
-        "key": "courier_number",
+        "key": "courier_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": ""
+        "edit_type": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{sample-delivery-details-form-original.step3.courier_phone_number.v_numeric.err}}"
+        }
       },
       {
         "key": "courier_id_lbl",
         "type": "label",
-        "text": "Courier ID",
+        "text": "{{sample-delivery-details-form-original.step3.courier_id_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -214,13 +218,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{sample-delivery-details-form-original.step3.courier_id.v_required.err}}"
         }
       },
       {
         "key": "sender_name_label",
         "type": "label",
-        "text": "Sender name",
+        "text": "{{sample-delivery-details-form-original.step3.sender_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -232,23 +236,27 @@
         "edit_type": "name"
       },
       {
-        "key": "sender_number_label",
+        "key": "sender_phone_number_label",
         "type": "label",
-        "text": "Sender phone number",
+        "text": "{{sample-delivery-details-form-original.step3.sender_phone_number_label.text}}",
         "text_color": "#000000"
       },
       {
-        "key": "sender_number",
+        "key": "sender_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": ""
+        "edit_type": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{sample-delivery-details-form-original.step3.sender_phone_number.v_numeric.err}}"
+        }
       },
       {
         "key": "sender_email_lbl",
         "type": "label",
-        "text": "Sender email address",
+        "text": "{{sample-delivery-details-form-original.step3.sender_email_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -259,7 +267,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{sample-delivery-details-form-original.step3.sender_email.v_required.err}}"
         }
       }
     ]

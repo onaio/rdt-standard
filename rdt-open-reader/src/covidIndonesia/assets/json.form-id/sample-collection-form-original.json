@@ -63,7 +63,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Collect respiratory specimen using approved methods"
+        "text": "Collect sample using appropriate methods"
       }
     ]
   },
@@ -407,6 +407,10 @@
         "v_required": {
           "value": "false",
           "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
         }
       },
       {

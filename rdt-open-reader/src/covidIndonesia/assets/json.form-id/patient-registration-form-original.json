@@ -93,11 +93,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter patient ID"
-        }
+        "type": "edit_text"
       },
       {
         "key": "medical_record_id_label",
@@ -113,24 +109,29 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter patient ID"
+          "err": "Please enter medical record ID"
         }
-      },
-      {
-        "key": "national_id_type_label",
-        "type": "label",
-        "text": "Government ID type",
-        "text_color": "#000000"
       },
       {
         "key": "national_id_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "native_radio",
+        "label": "Government ID type",
+        "options": [
+          {
+            "key": "drivers_license",
+            "text": "Driver's License"
+          },
+          {
+            "key": "passport",
+            "text": "Passport"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter national ID type"
+          "err": "This field is required"
         }
       },
       {
@@ -237,6 +238,10 @@
         "v_required": {
           "value": "false",
           "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
         }
       },
       {

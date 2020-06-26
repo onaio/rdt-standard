@@ -568,8 +568,8 @@
         }
       },
       {
-        "key": "parasite_type",
-        "label": "Parasite type:",
+        "key": "antibody_type",
+        "label": "Antibody:",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

@@ -959,6 +959,10 @@
             "v_required": {
               "value": "false",
               "err": ""
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Value must be numeric"
             }
           },
           {
@@ -1054,6 +1058,10 @@
             "v_required": {
               "value": "false",
               "err": ""
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Value must be numeric"
             }
           },
           {
@@ -1149,6 +1157,10 @@
             "v_required": {
               "value": "false",
               "err": ""
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Value must be numeric"
             }
           },
           {

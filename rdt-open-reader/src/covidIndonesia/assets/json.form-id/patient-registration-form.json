@@ -93,11 +93,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "{{patient-registration-form-original.step1.patient_id.v_required.err}}"
-        }
+        "type": "edit_text"
       },
       {
         "key": "medical_record_id_label",
@@ -117,17 +113,22 @@
         }
       },
       {
-        "key": "national_id_type_label",
-        "type": "label",
-        "text": "{{patient-registration-form-original.step1.national_id_type_label.text}}",
-        "text_color": "#000000"
-      },
-      {
         "key": "national_id_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.national_id_type.label}}",
+        "options": [
+          {
+            "key": "drivers_license",
+            "text": "{{patient-registration-form-original.step1.national_id_type.options.drivers_license.text}}"
+          },
+          {
+            "key": "passport",
+            "text": "{{patient-registration-form-original.step1.national_id_type.options.passport.text}}"
+          }
+        ],
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.national_id_type.v_required.err}}"
@@ -237,6 +238,10 @@
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_phone_number.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_numeric.err}}"
         }
       },
       {
