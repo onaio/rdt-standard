@@ -39,4 +39,6 @@ Silakan klik pada tombol <i>Cari lokasi saya</i> di bawah layar dan kami akan se
     <string name="microscopy">Mikroskopi</string>
     <string name="blood_spot">Bintik Darah</string>
     <string name="form_successfully_saved">Diselamatkan!</string>
+    <string name="yes">Iya</string>
+    <string name="no">Tidak</string>
 </resources>
