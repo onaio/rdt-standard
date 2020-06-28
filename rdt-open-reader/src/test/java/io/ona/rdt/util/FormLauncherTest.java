@@ -29,6 +29,7 @@ import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertEquals;
@@ -37,6 +38,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -82,9 +84,9 @@ public class FormLauncherTest extends PowerMockTest {
 
         doReturn(jsonForm).when(formUtils).getFormJsonObject(anyString(), any(Activity.class));
         Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
-        formLauncher.launchForm(activity, RDT_TEST_FORM, null);
+        formLauncher.launchForm(activity, "form", null);
 
-        verify(formUtils).launchForm(eq(activity), eq(RDT_TEST_FORM), isNull(Patient.class), isNull());
+        verify(formUtils).launchForm(eq(activity), eq("form"), isNull(Patient.class), isNull());
     }
 
     @Test
@@ -94,11 +96,12 @@ public class FormLauncherTest extends PowerMockTest {
         Patient patient = mock(Patient.class);
 
         Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
-        formLauncher.launchForm(activity, FORM_NAME, patient);
+        formLauncher.launchForm(activity, RDT_TEST_FORM, patient);
         if (isMalariaApp()) {
             verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(formLauncher), eq(1));
         } else if (isCovidApp()) {
-            verify(formUtils).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(formLauncher), eq(2));
+            formLauncher.launchForm(activity, SAMPLE_COLLECTION_FORM, patient);
+            verify(formUtils, times(2)).getNextUniqueIds(formLaunchArgsArgumentCaptor.capture(), eq(formLauncher), eq(1));
         }
         FormLaunchArgs args = formLaunchArgsArgumentCaptor.getValue();
         assertEquals(args.getActivity(), activity);
@@ -113,13 +116,13 @@ public class FormLauncherTest extends PowerMockTest {
         JSONObject jsonForm = new JSONObject();
         args.withActivity(activity)
                 .withFormJsonObj(jsonForm)
-                .withPatient(patient);
-
+                .withPatient(patient)
+                .withFormName("form_name");
 
         Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
         formLauncher.onUniqueIdsFetched(args, getUniqueIDs());
 
-        verify(formUtils).launchForm(eq(activity), eq(RDT_TEST_FORM), eq(patient), eq(getUniqueIDStrings()));
+        verify(formUtils).launchForm(eq(activity), eq("form_name"), eq(patient), eq(getUniqueIDStrings()));
     }
 
     private void mockStaticMethods() {

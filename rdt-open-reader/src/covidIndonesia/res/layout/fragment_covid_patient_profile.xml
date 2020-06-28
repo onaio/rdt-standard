@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingBottom="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/covid_patient_profile_details"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#fafafa"
+        android:minHeight="200dp">
+
+        <ImageButton
+            android:id="@+id/btn_covid_back_to_patient_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_left_arrow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/covid_previous_step_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="#36A8DC"
+            app:layout_constraintLeft_toRightOf="@+id/btn_covid_back_to_patient_register"
+            app:layout_constraintTop_toTopOf="@id/btn_covid_back_to_patient_register"
+            app:layout_constraintBottom_toBottomOf="@id/btn_covid_back_to_patient_register"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/covid_profile_patient_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Charity Otala"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/covid_previous_step_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/covid_profile_sex_and_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female . ID: 99358357"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/covid_profile_patient_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_covid_symptoms_and_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:text="Symptoms and history"
+        app:layout_constraintTop_toBottomOf="@id/covid_patient_profile_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/symptoms_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/tv_covid_rdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:text="RDT"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/covid_rdt_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+
+    <TextView
+        android:id="@+id/tv_covid_sample_collection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:text="Sample collection"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/covid_sample_collection_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/tv_covid_support_investigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="15dp"
+        android:text="Supporting investigations"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/covid_support_investigation_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/tv_covid_delivery_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:text="Sample shipment"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/covid_delivery_details_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_delivery_details"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

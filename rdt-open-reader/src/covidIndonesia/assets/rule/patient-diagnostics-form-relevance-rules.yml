@@ -1,0 +1,35 @@
+---
+name: step1_additional_health_issues_lbl
+description: Other health issues label
+priority: 1
+condition: "step1_has_other_health_issues != '' && step1_has_other_health_issues == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_additional_health_issues
+description: Other health issues
+priority: 1
+condition: "step1_has_other_health_issues != '' && step1_has_other_health_issues == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_location_lbl
+description: Other health issues label
+priority: 1
+condition: "step3_travel_location.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_location
+description: Other health issues
+priority: 1
+condition: "step3_travel_location.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_travel_location
+description: Location of travel
+priority: 1
+condition: "step3_has_travel_history != '' && step3_has_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"

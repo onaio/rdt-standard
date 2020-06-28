@@ -13,6 +13,7 @@ public class FormLaunchArgs {
     private Activity activity;
     private Patient patient;
     private JSONObject formJsonObject;
+    private String formName;
 
     public FormLaunchArgs withActivity(Activity activity) {
         this.activity = activity;
@@ -29,10 +30,14 @@ public class FormLaunchArgs {
         return this;
     }
 
+    public FormLaunchArgs withFormName(String formName) {
+        this.formName = formName;
+        return this;
+    }
+
     public Activity getActivity() {
         return activity;
     }
-
 
     public Patient getPatient() {
         return patient;
@@ -40,5 +45,9 @@ public class FormLaunchArgs {
 
     public JSONObject getFormJsonObject() {
         return formJsonObject;
+    }
+
+    public String getFormName() {
+        return formName;
     }
 }

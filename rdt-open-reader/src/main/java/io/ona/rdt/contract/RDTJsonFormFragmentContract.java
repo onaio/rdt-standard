@@ -27,5 +27,7 @@ public interface RDTJsonFormFragmentContract {
         void performNextButtonAction(String currentStep, Object isSubmit);
 
         boolean hasNextStep();
+
+        void handleCommonTestFormClicks(Object isSubmit);
     }
 }

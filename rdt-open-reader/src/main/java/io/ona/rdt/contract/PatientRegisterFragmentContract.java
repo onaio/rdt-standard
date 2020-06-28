@@ -19,6 +19,7 @@ public interface PatientRegisterFragmentContract {
 
     interface View extends BaseRegisterFragmentContract.View {
         void initializeAdapter();
+        void launchPatientProfile(Patient patient);
     }
 }
 

@@ -7,6 +7,11 @@ import io.ona.rdt.BuildConfig;
  */
 public interface Constants {
 
+    interface Widget {
+        String UW_COVID_RDT_CAPTURE = "uw_covid_rdt_capture";
+        String COVID_RDT_BARCODE_READER = "covid_rdt_barcode_reader";
+    }
+
     interface Format {
         String BULLET_DOT = " \u00B7 ";
         String PROFILE_DATE_FORMAT = "dd MMM yyyy";
@@ -53,8 +58,14 @@ public interface Constants {
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
         String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
+        String LBL_ADD_XRAY_RESULTS = "lbl_add_xray_results";
+        String LBL_SKIP_XRAY_RESULTS = "lbl_skip_xray_results";
+        String LBL_ADD_WBC_RESULTS = "lbl_add_wbc_results";
+        String LBL_SKIP_WBC_RESULTS = "lbl_skip_wbc_results";
+        String LBL_SCAN_SAMPLE_BARCODE = "lbl_scan_sample_barcode";
+        String LBL_ENTER_SAMPLE_DETAILS_MANUALLY = "lbl_enter_sample_details_manually";
         String RDT_ID = "rdt_id";
-        String RESPIRATORY_SAMPLE_ID = "respiratory_sample_id";
+        String COVID_SAMPLE_ID = "covid_sample_id";
         String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
         String RDT_CAPTURE_MIDDLE_LINE_RESULT = "rdt_capture_middle_line_result";
         String RDT_CAPTURE_BOTTOM_LINE_RESULT = "rdt_capture_bottom_line_result";
@@ -91,6 +102,10 @@ public interface Constants {
     interface Form {
         String PATIENT_REGISTRATION_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-registration-form.json";
         String RDT_TEST_FORM = "json.form-" + BuildConfig.LOCALE + "/rdt-capture-form.json";
+        String PATIENT_DIAGNOSTICS_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-diagnostics-form.json";
+        String SAMPLE_COLLECTION_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-collection-form.json";
+        String SAMPLE_DELIVERY_DETAILS_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-delivery-details-form.json";
+        String SUPPORT_INVESTIGATION_FORM = "json.form-" + BuildConfig.LOCALE + "/support-investigation-form.json";
         String RDT_TYPE = "rdt_type";
     }
 
@@ -120,6 +135,7 @@ public interface Constants {
         String RDT_EXPIRED_PAGE = "rdt_expired_page";
         String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
         String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
+        String COVID_DISABLED_BACK_PRESS_PAGES = "covid_disabled_back_press_pages";
         String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
         String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
         String EXPIRATION_DATE_READER_ADDRESS = "expiration_date_reader_address";
@@ -138,6 +154,12 @@ public interface Constants {
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
         String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";
         String COVID_RDT_EXPIRED_PAGE = "covid_rdt_expired_page";
+        String COVID_XRAY_PAGE = "covid_xray_page";
+        String COVID_OPT_IN_WBC_PAGE = "covid_opt_in_wbc_page";
+        String COVID_WBC_PAGE = "covid_wbc_page";
+        String COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE = "covid_support_investigation_complete_page";
+        String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
+        String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
     }
 
     interface Encounter {
@@ -146,6 +168,10 @@ public interface Constants {
         String RDT_TEST = "rdt_test";
         String COVID_RDT_TEST = "covid_rdt_test";
         String PCR_RESULT = "pcr_result";
+        String PATIENT_DIAGNOSTICS = "patient_diagnostics";
+        String SAMPLE_COLLECTION = "sample_collection";
+        String SAMPLE_DELIVERY_DETAILS = "sample_delivery_details";
+        String SUPPORT_INVESTIGATION = "support_investigation";
     }
 
     interface Table {
@@ -155,5 +181,9 @@ public interface Constants {
         String COVID_RDT_TESTS = "covid_rdt_tests";
         String PCR_RESULTS = "pcr_results";
         String MICROSCOPY_RESULTS = "microscopy_results";
+        String PATIENT_DIAGNOSTIC_RESULTS = "patient_diagnostic_results";
+        String SAMPLE_COLLECTIONS = "sample_collections";
+        String SAMPLE_DELIVERY_RECORDS = "sample_delivery_records";
+        String SUPPORT_INVESTIGATIONS = "support_investigations";
     }
 }

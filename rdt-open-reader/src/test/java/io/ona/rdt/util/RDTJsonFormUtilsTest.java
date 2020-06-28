@@ -10,13 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
@@ -43,8 +41,9 @@ import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
+import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
-import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
@@ -80,6 +79,7 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 public class RDTJsonFormUtilsTest extends PowerMockTest {
 
     private static RDTJsonFormUtils formUtils;
+    private final String UNIQUE_ID = "unique_id";
 
     @Mock
     private RDTApplication rdtApplication;
@@ -760,7 +760,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
             "        \"label_text_style\": \"bold\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"respiratory_sample_id\",\n" +
+            "        \"key\": \"covid_sample_id\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +
@@ -845,10 +845,8 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
     public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {
         mockStaticMethods();
 
-        JSONObject formObject = new JSONObject(RDT_TEST_JSON_FORM);
         Patient patient = new Patient("patient", "female", "entity_id");
-
-        formUtils.prePopulateFormFields(formObject, patient, getIDs());
+        JSONObject formJsonObj = formUtils.launchForm(mock(Activity.class), RDT_TEST_FORM, patient, getIDs());
 
         boolean populatedLblRDTId = false;
         boolean populatedRDTId = false;
@@ -856,17 +854,17 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
         boolean populatedPatientSex = false;
         boolean populatedLblRespiratorySampleID = false;
         boolean populatedRespiratorySampleID = false;
-        JSONArray fields = getMultiStepFormFields(formObject);
+        JSONArray fields = getMultiStepFormFields(formJsonObj);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // test rdt id labels are populated
             if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
-               assertEquals(field.getString("text"), "RDT ID: " + RDT_ID);
+               assertEquals(field.getString("text"), "RDT ID: " + UNIQUE_ID);
                populatedLblRDTId = true;
             }
             // test rdt id is populated
             if (formUtils.isRDTIdField(field)) {
-                assertEquals(field.getString(VALUE), RDT_ID);
+                assertEquals(field.getString(VALUE), UNIQUE_ID);
                 populatedRDTId = true;
             }
             // test patient fields are populated
@@ -882,12 +880,12 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
             if (isCovidApp()) {
                 // pre-populate respiratory sample id labels
                 if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    assertEquals(field.getString("text"), "Respiratory sample ID: " + RESPIRATORY_SAMPLE_ID);
+                    assertEquals(field.getString("text"), "Sample ID: " + UNIQUE_ID);
                     populatedLblRespiratorySampleID = true;
                 }
                 // pre-populate respiratory sample id field
-                if (RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    assertEquals(field.getString(VALUE), RESPIRATORY_SAMPLE_ID);
+                if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
+                    assertEquals(field.getString(VALUE), UNIQUE_ID);
                     populatedRespiratorySampleID = true;
                 }
             }
@@ -929,12 +927,6 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
         assertNotNull(entityId);
         assertFalse(entityId.isEmpty());
         assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.FormFields.ENTITY_ID), entityId);
-    }
-
-    @Test
-    public void testLaunchFormShouldntThrowException() throws JSONException {
-        mockStaticMethods();
-        formUtils.launchForm(mock(Activity.class), "form_name", mock(Patient.class), getIDs());
     }
 
     @Test
@@ -1079,8 +1071,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
 
     private List<String> getIDs() {
         List<String> rdtIds = new ArrayList<>();
-        rdtIds.add(RDT_ID);
-        rdtIds.add(RESPIRATORY_SAMPLE_ID);
+        rdtIds.add(UNIQUE_ID);
         return rdtIds;
     }
 }

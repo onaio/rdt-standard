@@ -1,0 +1,194 @@
+{
+  "count": "5",
+  "encounter_type": "support_investigation",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "{{support-investigation-form-original.step1.title}}",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "lbl_add_xray_results",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step1.lbl_add_xray_results.text}}",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "text_size": "13sp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_xray_results",
+        "type": "label",
+        "text_size": "13sp",
+        "text": "{{support-investigation-form-original.step1.lbl_skip_xray_results.text}}",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step2": {
+    "title": "{{support-investigation-form-original.step2.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step3",
+    "next_label": "{{support-investigation-form-original.step2.next_label}}",
+    "fields": [
+      {
+        "key": "lung_xray_result_lbl",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step2.lung_xray_result_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "lung_xray_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      }
+    ]
+  },
+  "step3": {
+    "title": "{{support-investigation-form-original.step3.title}}",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "lbl_add_wbc_results",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step3.lbl_add_wbc_results.text}}",
+        "text_color": "#000000",
+        "top_margin": "15dp",
+        "text_size": "13sp",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_skip_wbc_results",
+        "type": "label",
+        "text_size": "13sp",
+        "text": "{{support-investigation-form-original.step3.lbl_skip_wbc_results.text}}",
+        "top_margin": "30dp",
+        "text_color": "#000000",
+        "has_bg": true,
+        "has_drawable_end": true,
+        "bg_color": "#ffffff"
+      }
+    ]
+  },
+  "step4": {
+    "title": "{{support-investigation-form-original.step4.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step5",
+    "next_label": "{{support-investigation-form-original.step4.next_label}}",
+    "fields": [
+      {
+        "key": "leukocytes_lbl",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step4.leukocytes_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "leukocyte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "lymphocytes_lbl",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step4.lymphocytes_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "lymphocytes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "platelets_lbl",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step4.platelets_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "platelets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      }
+    ]
+  },
+  "step5": {
+    "title": "{{support-investigation-form-original.step5.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "{{support-investigation-form-original.step5.submit_label}}",
+    "fields": [
+      {
+        "key": "leukocytes_lbl",
+        "type": "label",
+        "text": "{{support-investigation-form-original.step5.supporting_investigations_complete_lbl.text}}",
+        "text_color": "#000000"
+      }
+    ]
+  },
+  "properties_file_name": "support-investigation-form"
+}

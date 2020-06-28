@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import androidx.core.util.Pair;
 import android.widget.Toast;
 
 import org.apache.commons.codec.binary.Hex;
@@ -32,11 +31,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
+import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
@@ -53,8 +51,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.PERFORM_FORM_TRAN
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
-import static io.ona.rdt.util.Constants.FormFields.RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
@@ -243,41 +240,43 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public void launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
+    public JSONObject launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
+        JSONObject formJsonObject = null;
         try {
-            JSONObject formJsonObject = getFormJsonObject(formName, activity);
-            if (RDT_TEST_FORM.equals(formName)) {
-                prePopulateFormFields(formJsonObject, patient, uniqueIDs);
+            formJsonObject = getFormJsonObject(formName, activity);
+            if (RDT_TEST_FORM.equals(formName) || SAMPLE_COLLECTION_FORM.equals(formName)) {
+                String uniqueId = uniqueIDs.get(0);
+                prePopulateFormFields(formJsonObject, patient, uniqueId);
             }
+            formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(TAG, e);
         }
+        return formJsonObject;
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, List<String> uniqueIDs) throws JSONException {
-        Map<String, String> idsMap = getIDsMap(uniqueIDs);
-        jsonForm.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
+    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             // pre-populate rdt id labels
             if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
-                field.put("text", "RDT ID: " + idsMap.get(RDT_ID));
+                field.put("text", "RDT ID: " + uniqueID);
             }
             // pre-populate rdt id field
             if (isRDTIdField(field)) {
-                field.put(VALUE, idsMap.get(RDT_ID));
+                field.put(VALUE, uniqueID);
             }
 
             if (isCovidApp()) {
                 // pre-populate respiratory sample id labels
                 if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    field.put("text", "Respiratory sample ID: " + idsMap.get(RESPIRATORY_SAMPLE_ID));
+                    field.put("text", "Sample ID: " + uniqueID);
                 }
                 // pre-populate respiratory sample id field
-                if (Constants.FormFields.RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    field.put(VALUE, idsMap.get(RESPIRATORY_SAMPLE_ID));
+                if (Constants.FormFields.COVID_SAMPLE_ID.equals(field.getString(KEY))) {
+                    field.put(VALUE, uniqueID);
                 }
             }
 
@@ -295,21 +294,6 @@ public class RDTJsonFormUtils {
                 }
             }
         }
-    }
-
-    private Map<String, String> getIDsMap(List<String> uniqueIDValues) {
-        // specify keys for each type of unique id
-        List<String> uniqueIDKeys = new ArrayList<>();
-        uniqueIDKeys.add(RDT_ID);
-        if (isCovidApp()) {
-            uniqueIDKeys.add(RESPIRATORY_SAMPLE_ID);
-        }
-        // populate idsMap
-        Map<String, String> idsMap = new HashMap<>();
-        for (int i = 0; i < uniqueIDKeys.size(); i++) {
-            idsMap.put(uniqueIDKeys.get(i), uniqueIDValues.get(i));
-        }
-        return idsMap;
     }
 
     public static String getPatientSexAndId(Patient patient) {

@@ -5,17 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
@@ -26,6 +22,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -181,21 +182,34 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public boolean selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.menu_item_sync:
                 closeDrawerLayout();
                 Utils.scheduleJobsImmediately();
-                break;
+                return true;
             case R.id.menu_item_logout:
-                RDTApplication.getInstance().logoutCurrentUser();
-                break;
-            default:
-                // do nothing
+                logoutCurrentUser();
+                return true;
         }
+        return false;
     }
 
-    private PatientRegisterActivityPresenter getPresenter() {
+    public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), getHomePage());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        RDTApplication.getInstance().getContext().userService().logoutSession();
+    }
+
+    protected Class getHomePage() {
+        return LoginActivity.class;
+    }
+
+    protected PatientRegisterActivityPresenter getPresenter() {
         return (PatientRegisterActivityPresenter) this.presenter;
     }
 }

@@ -3,8 +3,6 @@ package io.ona.rdt.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 
@@ -13,6 +11,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.PatientProfileActivity;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
@@ -24,7 +24,6 @@ import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
-import static io.ona.rdt.util.Utils.isMalariaApp;
 
 public class PatientRegisterFragment extends BaseRegisterFragment implements PatientRegisterFragmentContract.View, View.OnClickListener {
 
@@ -77,12 +76,13 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void onViewClicked(View view) {
-        if (view.getId() != R.id.btn_record_rdt_test && isMalariaApp()) {
+        if (view.getId() != R.id.btn_record_rdt_test) {
             launchPatientProfile((Patient) view.getTag(R.id.patient_tag));
         }
     }
 
-    private void launchPatientProfile(Patient patient) {
+    @Override
+    public void launchPatientProfile(Patient patient) {
         Intent intent = new Intent(getActivity(), PatientProfileActivity.class);
         intent.putExtra(PATIENT, patient);
         startActivity(intent, null);
