@@ -115,8 +115,8 @@
       {
         "key": "national_id_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Government ID type",
         "options": [
