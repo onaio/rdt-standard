@@ -466,9 +466,6 @@
         "type": "date_picker",
         "hint": "Date of onset of symptoms",
         "expanded": false,
-        "duration": {
-          "label": "Onset of symptoms"
-        },
         "min_date": "today-100y",
         "max_date": "today",
         "v_required": {
