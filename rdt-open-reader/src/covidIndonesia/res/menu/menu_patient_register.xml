@@ -23,7 +23,7 @@
     <group android:checkableBehavior="single" android:id="@+id/form_controls">
         <item
             android:id="@+id/menu_item_create_shipment"
-            android:title="@string/drawer_menu_item_create_shipment"
+            android:title="@string/covid_patient_profile_sample_shipments"
             android:icon="@drawable/ic_shipping"/>
     </group>
 </menu>
