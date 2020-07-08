@@ -69,8 +69,9 @@ public class OneScanHelper {
         IntentResultCallback callback = mCallbacks.get(requestCode);
         if (callback != null) {
             Bundle bundle = null;
-            if (resultCode == Activity.RESULT_OK)
+            if (resultCode == Activity.RESULT_OK) {
                 bundle = data.getBundleExtra("Extras");
+            }
             callback.onResult(resultCode, bundle);
             mCallbacks.delete(requestCode);
         }
@@ -78,24 +79,24 @@ public class OneScanHelper {
 
     /****** Internal Types *******/
 
-    interface IntentResultCallback {
+    public interface IntentResultCallback {
         void onResult(int resultCode, Bundle bundle);
     }
 
     private static class Request {
         private String action;
 
-        Request(String action) {
+        public Request(String action) {
             this.action = action;
         }
 
-        Bundle getBundle() {
+        public Bundle getBundle() {
             return null;
         }
     }
 
     public static class VersionRequest extends Request {
-        VersionRequest() {
+        public VersionRequest() {
             super(OneScanHelper.ACTION_GET_VERSION);
         }
     }
@@ -103,7 +104,7 @@ public class OneScanHelper {
     public static class VersionResponse {
         public String version;
 
-        VersionResponse(Bundle bundle) {
+        public VersionResponse(Bundle bundle) {
             version = bundle.getString("version");
         }
     }
@@ -117,12 +118,12 @@ public class OneScanHelper {
         public String appVersion;
         public String appUserName;
 
-        ScanRequest() {
+        public ScanRequest() {
             super(OneScanHelper.ACTION_SCANNER);
         }
 
         @Override
-        Bundle getBundle() {
+        public Bundle getBundle() {
             Bundle bundle = new Bundle();
             bundle.putString("reader", reader);
             bundle.putString("title", title);
@@ -145,7 +146,7 @@ public class OneScanHelper {
         public String additionalIdentifier;
         public boolean sensorTriggered;
 
-        ScanResponse (Bundle bundle) {
+        public ScanResponse (Bundle bundle) {
             status = bundle.getString("status");
             barcodeText = bundle.getString("barcodeText");
             sensorTriggered = bundle.getBoolean("sensorTriggered");
