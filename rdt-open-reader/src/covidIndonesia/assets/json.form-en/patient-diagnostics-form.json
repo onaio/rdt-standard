@@ -466,9 +466,6 @@
         "type": "date_picker",
         "hint": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.hint}}",
         "expanded": false,
-        "duration": {
-          "label": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.duration.label}}"
-        },
         "min_date": "today-100y",
         "max_date": "today",
         "v_required": {
