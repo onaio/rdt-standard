@@ -1,7 +1,6 @@
 package io.ona.rdt.widget;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -17,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -33,8 +33,6 @@ import static io.ona.rdt.util.Utils.convertDate;
  */
 public class MalariaGoogleBarcodeFactory extends RDTBarcodeFactory {
 
-    private static final String TAG = MalariaGoogleBarcodeFactory.class.getName();
-
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
     @Override
@@ -43,7 +41,7 @@ public class MalariaGoogleBarcodeFactory extends RDTBarcodeFactory {
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
                 Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
-                Log.d("Scanned QR Code", barcode.displayValue);
+                Timber.d("Scanned QR Code " + barcode.displayValue);
                 String[] barcodeValues = barcode.displayValue.split(",");
 
                 Date expDate = null;
@@ -53,14 +51,14 @@ public class MalariaGoogleBarcodeFactory extends RDTBarcodeFactory {
                 }
                 moveToNextStep(expDate);
             } catch (JSONException e) {
-                Log.e(TAG, e.getStackTrace().toString());
+                Timber.e(e);
             } catch (ParseException e) {
-                Log.e(TAG, e.getStackTrace().toString());
+                Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
             ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
         } else if (data == null) {
-            Log.i("", "No result for qr code");
+            Timber.i("No result for qr code");
         }
     }
 
@@ -105,9 +103,7 @@ public class MalariaGoogleBarcodeFactory extends RDTBarcodeFactory {
     private void moveToNextStep(Date expDate) {
         JsonFormFragment formFragment = widgetArgs.getFormFragment();
         if (!isRDTExpired(expDate)) {
-            if (!formFragment.next()) {
-                formFragment.save(true);
-            }
+            moveToNextStep();
         } else {
             String expiredPageAddr = stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE, "step1");
             JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);

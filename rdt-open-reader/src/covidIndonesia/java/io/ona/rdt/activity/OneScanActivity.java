@@ -3,13 +3,18 @@ package io.ona.rdt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.TextView;
+
+import com.google.android.gms.vision.barcode.Barcode;
 
 import androidx.appcompat.app.AppCompatActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.util.OneScanHelper;
+
+import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
 
 public class OneScanActivity extends AppCompatActivity {
 
@@ -48,6 +53,7 @@ public class OneScanActivity extends AppCompatActivity {
         request.appName = getResources().getString(R.string.app_name);
         request.appVersion = BuildConfig.VERSION_NAME;
         request.appUserName = RDTApplication.getInstance().getContext().allSettings().fetchRegisteredANM();
+
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
                 OneScanHelper.ScanResponse response = new OneScanHelper.ScanResponse(bundle);
@@ -62,8 +68,26 @@ public class OneScanActivity extends AppCompatActivity {
                         response.lot,
                         response.expirationDate,
                         response.sensorTriggered ? "yes" : "no"));
+                        setResultAndFinishDelayed(response, 1500);
             }
         });
+    }
+
+
+    private void setResultAndFinishDelayed(OneScanHelper.ScanResponse response, long milliseconds) {
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> setResultAndFinish(response), milliseconds);
+    }
+
+    private void setResultAndFinish(OneScanHelper.ScanResponse response) {
+        Intent resultIntent = new Intent();
+        Barcode barcode = new Barcode();
+        barcode.displayValue = response.productId + "," + response.lot + ","
+                + response.expirationDate + "," + response.serialNumber + "," + response.sensorTriggered
+                + "," + response.status;
+        resultIntent.putExtra(BARCODE_KEY, barcode);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 
     @Override

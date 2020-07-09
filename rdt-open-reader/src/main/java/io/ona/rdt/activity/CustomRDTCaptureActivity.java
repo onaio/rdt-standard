@@ -77,12 +77,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     private void showManualCaptureBtnDelayed(long milliseconds) {
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-               modifyLayout();
-            }
-        }, milliseconds);
+        handler.postDelayed(() -> modifyLayout(), milliseconds);
     }
 
     private void modifyLayout() {

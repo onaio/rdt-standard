@@ -75,4 +75,10 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
             ((JsonApi) context).addOnActivityResultListener(BARCODE_REQUEST_CODE, this);
         }
     }
+
+    protected void moveToNextStep() {
+        if (!widgetArgs.getFormFragment().next()) {
+            widgetArgs.getFormFragment().save(true);
+        }
+    }
 }
