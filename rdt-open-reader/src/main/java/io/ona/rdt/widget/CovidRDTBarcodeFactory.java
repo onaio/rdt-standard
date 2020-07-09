@@ -17,7 +17,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 /**
  * Created by Vincent Karuri on 09/07/2020
  */
-public abstract class CovidBarcodeFactory extends RDTBarcodeFactory {
+public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     private final String UNIQUE_ID = "unique_id";
     private final String LOT_NO = "lot_no";

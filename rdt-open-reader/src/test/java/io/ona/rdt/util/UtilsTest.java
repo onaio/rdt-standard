@@ -28,7 +28,7 @@ import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Utils.convertDate;
-import static io.ona.rdt.widget.MalariaGoogleBarcodeFactory.OPEN_RDT_DATE_FORMAT;
+import static io.ona.rdt.widget.MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;

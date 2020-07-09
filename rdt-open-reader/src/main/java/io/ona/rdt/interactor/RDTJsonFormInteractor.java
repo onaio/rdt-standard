@@ -4,9 +4,9 @@ import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
 import org.json.JSONObject;
 
-import io.ona.rdt.widget.CovidGoogleBarcodeFactory;
-import io.ona.rdt.widget.CovidOneScanBarcodeFactory;
-import io.ona.rdt.widget.MalariaGoogleBarcodeFactory;
+import io.ona.rdt.widget.GoogleCovidRDTBarcodeFactory;
+import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
+import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
 import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
 import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 import io.ona.rdt.widget.RDTCountdownTimerFactory;
@@ -40,15 +40,15 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
     @Override
     protected void registerWidgets() {
         super.registerWidgets();
-        map.put(BARCODE, new MalariaGoogleBarcodeFactory());
+        map.put(BARCODE, new MalariaRDTBarcodeFactory());
         map.put(LABEL, new RDTLabelFactory());
         map.put(EXPIRATION_DATE_CAPTURE, new RDTExpirationDateReaderFactory());
         map.put(RDT_CAPTURE, new UWMalariaRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
         map.put(GPS, new RDTGpsFactory());
         map.put(UW_COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
-        map.put(COVID_GOOGLE_BARCODE_READER, new CovidGoogleBarcodeFactory());
-        map.put(COVID_ONE_SCAN_BARCODE_READER, new CovidOneScanBarcodeFactory());
+        map.put(COVID_GOOGLE_BARCODE_READER, new GoogleCovidRDTBarcodeFactory());
+        map.put(COVID_ONE_SCAN_BARCODE_READER, new OneScanCovidRDTBarcodeFactory());
     }
 
     public void saveForm(JSONObject jsonForm) {

@@ -19,7 +19,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
  * Created by Vincent Karuri on 09/07/2020
  */
 
-public class CovidOneScanBarcodeFactory extends CovidBarcodeFactory {
+public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
 
     protected void launchBarcodeScanner(Activity activity, MaterialEditText editText, String barcodeType) {
         InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);

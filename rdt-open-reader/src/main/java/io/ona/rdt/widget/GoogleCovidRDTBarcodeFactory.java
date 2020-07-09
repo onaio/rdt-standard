@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Created by Vincent Karuri on 17/06/2020
  */
-public class CovidGoogleBarcodeFactory extends CovidBarcodeFactory {
+public class GoogleCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
 
     @Override
     protected String getBarcodeValsAsCSV(Intent data) {
