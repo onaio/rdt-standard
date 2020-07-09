@@ -11,8 +11,8 @@ import io.ona.rdt.widget.GoogleCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
 
-import static io.ona.rdt.util.Constants.Widget.COVID_GOOGLE_BARCODE_READER;
-import static io.ona.rdt.util.Constants.Widget.COVID_ONE_SCAN_BARCODE_READER;
+import static io.ona.rdt.util.Constants.Widget.GOOGLE_COVID_BARCODE_READER;
+import static io.ona.rdt.util.Constants.Widget.ONE_SCAN_COVID_BARCODE_READER;
 import static io.ona.rdt.util.Constants.Widget.UW_COVID_RDT_CAPTURE;
 
 /**
@@ -29,8 +29,8 @@ public class CovidLoginActivity extends LoginActivity {
     private void registerWidgets() {
         Map<String, FormWidgetFactory> widgetFactoryMap = RDTJsonFormInteractor.getInstance().map;
         widgetFactoryMap.put(UW_COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
-        widgetFactoryMap.put(COVID_GOOGLE_BARCODE_READER, new GoogleCovidRDTBarcodeFactory());
-        widgetFactoryMap.put(COVID_ONE_SCAN_BARCODE_READER, new OneScanCovidRDTBarcodeFactory());
+        widgetFactoryMap.put(GOOGLE_COVID_BARCODE_READER, new GoogleCovidRDTBarcodeFactory());
+        widgetFactoryMap.put(ONE_SCAN_COVID_BARCODE_READER, new OneScanCovidRDTBarcodeFactory());
     }
 
     @Override

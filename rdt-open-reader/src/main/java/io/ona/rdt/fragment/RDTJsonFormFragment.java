@@ -157,7 +157,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-        presenter = new RDTJsonFormFragmentPresenter(this, new RDTJsonFormInteractor());
+        presenter = new RDTJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
         return presenter;
     }
 
