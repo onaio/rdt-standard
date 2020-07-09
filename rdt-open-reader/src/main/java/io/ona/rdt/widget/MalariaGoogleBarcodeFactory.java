@@ -31,9 +31,9 @@ import static io.ona.rdt.util.Utils.convertDate;
 /**
  * Created by Vincent Karuri on 17/06/2020
  */
-public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
+public class MalariaGoogleBarcodeFactory extends RDTBarcodeFactory {
 
-    private static final String TAG = MalariaRDTBarcodeFactory.class.getName();
+    private static final String TAG = MalariaGoogleBarcodeFactory.class.getName();
 
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 

@@ -19,9 +19,9 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 /**
  * Created by Vincent Karuri on 17/06/2020
  */
-public class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
+public class CovidGoogleBarcodeFactory extends RDTBarcodeFactory {
 
-    private static final String TAG = CovidRDTBarcodeFactory.class.getName();
+    private static final String TAG = CovidGoogleBarcodeFactory.class.getName();
     private final String UNIQUE_ID = "unique_id";
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";

@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -17,21 +14,18 @@ import io.ona.rdt.util.OneScanHelper;
 public class OneScanActivity extends AppCompatActivity {
 
     private OneScanHelper oneScanHelper;
-    private TextView resultView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_scan);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setSupportActionBar(findViewById(R.id.toolbar));
         oneScanHelper = new OneScanHelper(this);
-        resultView = findViewById(R.id.textViewResult);
+        doScan("camera");
+        getOneScanVersion();
+    }
 
-        FloatingActionButton cameraButton = findViewById(R.id.fabCamera);
-        cameraButton.setOnClickListener(view -> doScan("camera"));
-
+    private void getOneScanVersion() {
         TextView versionView = findViewById(R.id.textView);
         OneScanHelper.VersionRequest request = new OneScanHelper.VersionRequest();
         oneScanHelper.send(request, (resultCode, bundle) -> {
@@ -42,11 +36,10 @@ public class OneScanActivity extends AppCompatActivity {
                 versionView.setText("OneScan Version\nError: OneScan not installed");
             }
         });
-
-        cameraButton.performClick();
     }
 
-    void doScan(String reader) {
+    private void doScan(String reader) {
+        TextView resultView = findViewById(R.id.textViewResult);
         OneScanHelper.ScanRequest request = new OneScanHelper.ScanRequest();
         request.reader = reader;
         request.title = "Scan barcode";
