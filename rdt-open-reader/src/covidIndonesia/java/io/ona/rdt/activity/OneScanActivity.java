@@ -94,5 +94,8 @@ public class OneScanActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            onBackPressed();
+        }
     }
 }
