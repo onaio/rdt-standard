@@ -7,12 +7,15 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONException;
 
+import java.text.ParseException;
+
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
+import static io.ona.rdt.util.Utils.convertDate;
 
 /**
  * Created by Vincent Karuri on 09/07/2020
@@ -34,9 +37,13 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 jsonApi.writeValue(widgetArgs.getStepName(),
                         widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
                         barcodeVals, "", "", "", false);
-                populateRelevantFields(splitCSV(barcodeVals));
-                moveToNextStep();
+
+                String[] individualVals = splitCSV(barcodeVals);
+                populateRelevantFields(individualVals);
+                moveToNextStep(convertDate(individualVals[2], "YYYY-MM-dd"));
             } catch (JSONException e) {
+                Timber.e(e);
+            } catch (ParseException e) {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {

@@ -133,12 +133,10 @@ public interface Constants {
     }
 
     interface Step {
-        String RDT_EXPIRED_PAGE = "rdt_expired_page";
+        String PRODUCT_EXPIRED_PAGE = "product_expired_page";
         String BLOT_PAPER_TASK_PAGE = "blot_paper_task_page";
         String DISABLED_BACK_PRESS_PAGES = "disabled_back_press_pages";
-        String COVID_DISABLED_BACK_PRESS_PAGES = "covid_disabled_back_press_pages";
-        String MANUAL_ENTRY_EXPIRATION_PAGE = "manual_entry_expiration_page";
-        String RDT_EXPIRED_PAGE_ADDRESS = "rdt_expired_page";
+        String MANUAL_EXPIRATION_DATE_ENTRY_PAGE = "manual_expiration_date_entry_page";
         String EXPIRATION_DATE_READER_ADDRESS = "expiration_date_reader_address";
         String RDT_ID_KEY = "rdt_id_key";
         String RDT_ID_LBL_ADDRESSES = "rdt_id_lbl_addresses";
@@ -153,8 +151,6 @@ public interface Constants {
         String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
-        String COVID_MANUAL_RDT_ENTRY_PAGE = "covid_manual_rdt_entry_page";
-        String COVID_RDT_EXPIRED_PAGE = "covid_rdt_expired_page";
         String COVID_XRAY_PAGE = "covid_xray_page";
         String COVID_OPT_IN_WBC_PAGE = "covid_opt_in_wbc_page";
         String COVID_WBC_PAGE = "covid_wbc_page";

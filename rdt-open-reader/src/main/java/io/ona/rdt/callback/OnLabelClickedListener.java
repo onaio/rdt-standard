@@ -4,7 +4,6 @@ import android.view.View;
 
 import com.vijay.jsonwizard.domain.WidgetArgs;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt.application.RDTApplication;
@@ -12,24 +11,23 @@ import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
-import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
+import static io.ona.rdt.util.Constants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_COLLECT_RESPIRATORY_SPECIMEN_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_CONDUCT_RDT_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_ENTER_DELIVERY_DETAILS_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_OPT_IN_WBC_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE;
+import static io.ona.rdt.util.Constants.Step.COVID_SCAN_BARCODE_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_TEST_COMPLETE_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_WBC_PAGE;
 import static io.ona.rdt.util.Constants.Step.COVID_XRAY_PAGE;
+import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_SCAN_BARCODE_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 
 /**
@@ -64,7 +62,7 @@ public class OnLabelClickedListener implements View.OnClickListener {
                 nextStep = stepStateConfig.getStepStateObj().optString(COVID_SCAN_BARCODE_PAGE);
                 break;
             case Constants.FormFields.LBL_ENTER_RDT_MANUALLY:
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_MANUAL_RDT_ENTRY_PAGE);
+                nextStep = stepStateConfig.getStepStateObj().optString(MANUAL_EXPIRATION_DATE_ENTRY_PAGE);
                 break;
             case Constants.FormFields.LBL_CONDUCT_RDT:
                 nextStep = stepStateConfig.getStepStateObj().optString(COVID_CONDUCT_RDT_PAGE);

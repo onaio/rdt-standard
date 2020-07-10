@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Handler;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.core.content.ContextCompat;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -43,8 +43,8 @@ import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
-import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
+import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -86,7 +86,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
     }
 
     private void moveToNextStepDelayed() {
-        String manualExpPage = stepStateConfig.getStepStateObj().optString(MANUAL_ENTRY_EXPIRATION_PAGE, "");
+        String manualExpPage = stepStateConfig.getStepStateObj().optString(MANUAL_EXPIRATION_DATE_ENTRY_PAGE, "");
         if (!manualExpPage.isEmpty()) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -167,7 +167,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
                 String expirationDate = data.getExtras().getString(EXPIRATION_DATE);
                 populateRelevantFields(expirationDate);
                 conditionallyMoveToNextStep(widgetArgs.getFormFragment(),
-                        stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE_ADDRESS),
+                        stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE),
                         isExpired);
             } catch (JSONException e) {
                 Log.e(TAG, e.getStackTrace().toString());

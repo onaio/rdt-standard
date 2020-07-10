@@ -25,14 +25,14 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 public class StepStateConfigTest {
 
     private final String STEP_STATE_CONFIG = "{\n" +
-            "  \"rdt_expired_page\": \"step6\",\n" +
+            "  \"product_expired_page\": \"step6\",\n" +
             "  \"blot_paper_task_page\": \"step9\",\n" +
             "  \"disabled_back_press_pages\" : [\n" +
             "    \"step6\",\n" +
             "    \"step13\",\n" +
             "    \"step14\"\n" +
             "  ],\n" +
-            "  \"manual_entry_expiration_page\": \"step20\",\n" +
+            "  \"manual_expiration_date_entry_page\": \"step20\",\n" +
             "  \"rdt_id_key\": \"rdt_id\",\n" +
             "  \"expiration_date_reader_address\": \"step4:expiration_date_reader\",\n" +
             "  \"rdt_id_lbl_addresses\": [\n" +
@@ -54,7 +54,7 @@ public class StepStateConfigTest {
             "  \"covid_test_complete_page\": \"step20\",\n" +
             "  \"covid_one_scan_widget_specimen_page\": \"step18\",\n" +
             "  \"covid_affix_respiratory_sample_id_page\": \"step17\",\n" +
-            "  \"covid_rdt_expired_page\": \"step8\"\n" +
+            "  \"covid_product_expired_page\": \"step8\"\n" +
             "}";
 
     @Test
@@ -62,7 +62,7 @@ public class StepStateConfigTest {
         mockStaticMethods();
         assertNotNull(StepStateConfig.getInstance(mock(Context.class)));
         assertNotNull(StepStateConfig.getInstance(mock(Context.class)).getStepStateObj());
-        assertEquals("step6", StepStateConfig.getInstance(mock(Context.class)).getStepStateObj().getString("rdt_expired_page"));
+        assertEquals("step6", StepStateConfig.getInstance(mock(Context.class)).getStepStateObj().getString("product_expired_page"));
     }
 
     private void mockStaticMethods() {

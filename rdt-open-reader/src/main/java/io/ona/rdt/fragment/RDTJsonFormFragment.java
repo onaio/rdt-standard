@@ -27,6 +27,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
+import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
@@ -62,7 +63,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     public static JsonFormFragment getFormFragment(String stepName) {
         String stepNum = stepName.substring(4);
         prevStep = currentStep;
-        currentStep = Integer.valueOf(stepNum);
+        currentStep = Integer.parseInt(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", stepName);
@@ -84,29 +85,21 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
-        rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveForm();
-            }
-        });
+        rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(v -> saveForm());
 
-        rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Object isSubmit = v.getTag(R.id.submit);
-                String eventType = getJsonApi().getmJSONObject().optString(ENCOUNTER_TYPE);
-                if (RDT_TEST.equals(eventType) || COVID_RDT_TEST.equals(eventType)) {
-                    getFragmentPresenter().performNextButtonAction(currStep, isSubmit);
-                } else {
-                    getFragmentPresenter().handleCommonTestFormClicks(isSubmit);
-                }
+        rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(v -> {
+            Object isSubmit = v.getTag(R.id.submit);
+            String eventType = getJsonApi().getmJSONObject().optString(ENCOUNTER_TYPE);
+            if (RDT_TEST.equals(eventType) || COVID_RDT_TEST.equals(eventType)) {
+                getFragmentPresenter().performNextButtonAction(currStep, isSubmit);
+            } else {
+                getFragmentPresenter().submitOrMoveToNextStep(isSubmit);
             }
         });
     }
 
     private boolean is20minTimerPage(String currStep) {
-        return isCovidApp() ? false : currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
+        return !isCovidApp() && currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
                 .getStepStateObj()
                 .optString(TWENTY_MIN_COUNTDOWN_TIMER_PAGE));
     }
@@ -173,7 +166,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
                 }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName());
+                        Timber.d("No button on dialog in %s", JsonFormActivity.class.getCanonicalName());
                     }
                 }).create();
 

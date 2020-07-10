@@ -4,7 +4,6 @@ import android.content.Intent;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONArray;
@@ -23,7 +22,6 @@ import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Utils.convertDate;
@@ -94,20 +92,5 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
     private String getDateStr(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         return date == null ? "" : simpleDateFormat.format(date);
-    }
-
-    private boolean isRDTExpired(Date date) {
-        return date == null ? true : new Date().after(date);
-    }
-
-    private void moveToNextStep(Date expDate) {
-        JsonFormFragment formFragment = widgetArgs.getFormFragment();
-        if (!isRDTExpired(expDate)) {
-            moveToNextStep();
-        } else {
-            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE, "step1");
-            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-            formFragment.transactThis(nextFragment);
-        }
     }
 }

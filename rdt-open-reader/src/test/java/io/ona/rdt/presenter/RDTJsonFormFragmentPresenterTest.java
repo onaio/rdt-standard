@@ -30,18 +30,15 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
-import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
+import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
+import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 import static io.ona.rdt.util.RDTJsonFormUtilsTest.RDT_TEST_JSON_FORM;
-import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -85,11 +82,7 @@ public class RDTJsonFormFragmentPresenterTest {
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
         presenter.attachView((JsonFormFragment) rdtFormFragment);
-        if (isMalariaApp()) {
-            presenter.performNextButtonAction("step6", null);
-        } else if (isCovidApp()) {
-            presenter.performNextButtonAction("step8", null);
-        }
+        presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class));
         verify(rdtFormFragment).moveToNextStep();
     }
@@ -179,11 +172,7 @@ public class RDTJsonFormFragmentPresenterTest {
     }
 
     private void invokePerformNextButtonActionFromExpirationPage() {
-        if (isMalariaApp()) {
-            presenter.performNextButtonAction("step20", null);
-        } else if (isCovidApp()) {
-            presenter.performNextButtonAction("step5", null);
-        }
+        presenter.performNextButtonAction("step20", null);
     }
 
     private void addViewAndMockStaticClasses() throws JSONException {
@@ -216,14 +205,12 @@ public class RDTJsonFormFragmentPresenterTest {
 
         JSONObject jsonObject = mock(JSONObject.class);
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn("step1").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE), anyString());
-        doReturn("step6").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE));
+        doReturn("step1").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE), anyString());
+        doReturn("step6").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE));
         doReturn("step9").when(jsonObject).optString(eq(BLOT_PAPER_TASK_PAGE));
         doReturn("step1:expiration_date_reader").when(jsonObject).optString(eq(EXPIRATION_DATE_READER_ADDRESS), anyString());
         doReturn("step1").when(jsonObject).optString(eq(TAKE_IMAGE_OF_RDT_PAGE));
         doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
-        doReturn("step8").when(jsonObject).optString(eq(COVID_RDT_EXPIRED_PAGE));
-        doReturn("step5").when(jsonObject).optString(eq(COVID_MANUAL_RDT_ENTRY_PAGE));
         doReturn(new JSONArray("[\n" +
                 "    \"step7:lbl_rdt_id\",\n" +
                 "    \"step8:lbl_rdt_id\",\n" +
@@ -231,7 +218,7 @@ public class RDTJsonFormFragmentPresenterTest {
                 "    \"step18:lbl_rdt_id\",\n" +
                 "    \"step19:lbl_rdt_id\"\n" +
                 "  ]")).when(jsonObject).optJSONArray(eq(RDT_ID_LBL_ADDRESSES));
-        doReturn("step20").when(jsonObject).optString(eq(MANUAL_ENTRY_EXPIRATION_PAGE));
+        doReturn("step20").when(jsonObject).optString(eq(MANUAL_EXPIRATION_DATE_ENTRY_PAGE));
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
     }
 
