@@ -48,7 +48,7 @@
   },
   "step1": {
     "title": "{{rdt-capture-form-original.step1.title}}",
-    "next": "step2",
+    "next": "step3",
     "display_back_button": "true",
     "fields": [
       {
@@ -63,10 +63,40 @@
   "step2": {
     "title": "{{rdt-capture-form-original.step2.title}}",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step5",
+    "bottom_navigation": "true",
+    "next_label": "{{rdt-capture-form-original.step2.next_label}}",
+    "fields": [
+      {
+        "key": "lbl_rdt_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "{{rdt-capture-form-original.step2.lbl_rdt_expired.text}}"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "{{rdt-capture-form-original.step2.lbl_use_new_test.text}}"
+      }
+    ]
+  },
+  "step3": {
+    "title": "{{rdt-capture-form-original.step3.title}}",
+    "display_back_button": "true",
+    "next": "step4",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{rdt-capture-form-original.step2.next_label}}",
+    "next_label": "{{rdt-capture-form-original.step3.next_label}}",
     "fields": [
       {
         "key": "lbl_patient_name",
@@ -89,13 +119,13 @@
       }
     ]
   },
-  "step3": {
-    "title": "{{rdt-capture-form-original.step3.title}}",
-    "next": "step4",
+  "step4": {
+    "title": "{{rdt-capture-form-original.step4.title}}",
+    "next": "step5",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{rdt-capture-form-original.step3.next_label}}",
+    "next_label": "{{rdt-capture-form-original.step4.next_label}}",
     "fields": [
       {
         "key": "health_facility_type",
@@ -103,34 +133,34 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step3.health_facility_type.label}}",
+        "label": "{{rdt-capture-form-original.step4.health_facility_type.label}}",
         "options": [
           {
             "key": "hospital",
-            "text": "{{rdt-capture-form-original.step3.health_facility_type.options.hospital.text}}"
+            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.hospital.text}}"
           },
           {
             "key": "clinic",
-            "text": "{{rdt-capture-form-original.step3.health_facility_type.options.clinic.text}}"
+            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.clinic.text}}"
           },
           {
             "key": "health_facility",
-            "text": "{{rdt-capture-form-original.step3.health_facility_type.options.health_facility.text}}"
+            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.health_facility.text}}"
           },
           {
             "key": "other",
-            "text": "{{rdt-capture-form-original.step3.health_facility_type.options.other.text}}"
+            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{rdt-capture-form-original.step3.health_facility_type.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step4.health_facility_type.v_required.err}}"
         }
       },
       {
         "key": "health_facility_name_lbl",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step3.health_facility_name_lbl.text}}",
+        "text": "{{rdt-capture-form-original.step4.health_facility_name_lbl.text}}",
         "top_margin": "15dp",
         "text_color": "#000000"
       },
@@ -142,19 +172,19 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{rdt-capture-form-original.step3.health_facility_name.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
         }
       }
     ]
   },
-  "step4": {
-    "title": "{{rdt-capture-form-original.step4.title}}",
+  "step5": {
+    "title": "{{rdt-capture-form-original.step5.title}}",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_which_rdt",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step4.lbl_which_rdt.text}}",
+        "text": "{{rdt-capture-form-original.step5.lbl_which_rdt.text}}",
         "text_color": "#000000",
         "label_text_style": "bold",
         "has_bg": true,
@@ -164,7 +194,7 @@
       {
         "key": "lbl_scan_barcode",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step4.lbl_scan_barcode.text}}",
+        "text": "{{rdt-capture-form-original.step5.lbl_scan_barcode.text}}",
         "text_color": "#000000",
         "has_bg": true,
         "has_drawable_end": true,
@@ -174,7 +204,7 @@
       {
         "key": "lbl_enter_rdt_manually",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step4.lbl_enter_rdt_manually.text}}",
+        "text": "{{rdt-capture-form-original.step5.lbl_enter_rdt_manually.text}}",
         "text_color": "#000000",
         "has_bg": true,
         "has_drawable_end": true,
@@ -183,18 +213,18 @@
       }
     ]
   },
-  "step5": {
-    "title": "{{rdt-capture-form-original.step5.title}}",
+  "step6": {
+    "title": "{{rdt-capture-form-original.step6.title}}",
     "display_back_button": "true",
-    "next": "step6",
+    "next": "step7",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{rdt-capture-form-original.step5.next_label}}",
+    "next_label": "{{rdt-capture-form-original.step6.next_label}}",
     "fields": [
       {
         "key": "lbl_rdt_manufacturer",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step5.lbl_rdt_manufacturer.text}}",
+        "text": "{{rdt-capture-form-original.step6.lbl_rdt_manufacturer.text}}",
         "text_color": "#000000",
         "has_bg": true,
         "top_margin": "15dp",
@@ -208,7 +238,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{rdt-capture-form-original.step5.rdt_manufacturer.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step6.rdt_manufacturer.v_required.err}}"
         }
       },
       {
@@ -217,30 +247,30 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step5.rdt_type.label}}",
+        "label": "{{rdt-capture-form-original.step6.rdt_type.label}}",
         "options": [
           {
             "key": "double_line",
-            "text": "{{rdt-capture-form-original.step5.rdt_type.options.double_line.text}}"
+            "text": "{{rdt-capture-form-original.step6.rdt_type.options.double_line.text}}"
           },
           {
             "key": "single_line",
-            "text": "{{rdt-capture-form-original.step5.rdt_type.options.single_line.text}}"
+            "text": "{{rdt-capture-form-original.step6.rdt_type.options.single_line.text}}"
           },
           {
             "key": "other",
-            "text": "{{rdt-capture-form-original.step5.rdt_type.options.other.text}}"
+            "text": "{{rdt-capture-form-original.step6.rdt_type.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{rdt-capture-form-original.step5.rdt_type.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step6.rdt_type.v_required.err}}"
         }
       },
       {
         "key": "other_rdt_type_lbl",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step5.other_rdt_type_lbl.text}}",
+        "text": "{{rdt-capture-form-original.step6.other_rdt_type_lbl.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
         "relevance": {
@@ -266,13 +296,13 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{rdt-capture-form-original.step5.other_rdt_type.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step6.other_rdt_type.v_required.err}}"
         }
       },
       {
         "key": "lbl_rdt_batch_id",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step5.lbl_rdt_batch_id.text}}",
+        "text": "{{rdt-capture-form-original.step6.lbl_rdt_batch_id.text}}",
         "text_color": "#000000",
         "has_bg": true,
         "top_margin": "15dp",
@@ -286,7 +316,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{rdt-capture-form-original.step5.rdt_batch_id.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step6.rdt_batch_id.v_required.err}}"
         }
       },
       {
@@ -295,10 +325,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{rdt-capture-form-original.step5.manual_expiration_date.hint}}",
+        "hint": "{{rdt-capture-form-original.step6.manual_expiration_date.hint}}",
         "v_required": {
           "value": true,
-          "err": "{{rdt-capture-form-original.step5.manual_expiration_date.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step6.manual_expiration_date.v_required.err}}"
         }
       },
       {
@@ -310,13 +340,13 @@
       }
     ]
   },
-  "step6": {
-    "title": "{{rdt-capture-form-original.step6.title}}",
+  "step7": {
+    "title": "{{rdt-capture-form-original.step7.title}}",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{rdt-capture-form-original.step6.next_label}}",
+    "next_label": "{{rdt-capture-form-original.step7.next_label}}",
     "fields": [
       {
         "key": "lbl_handle_rdt",
@@ -326,7 +356,7 @@
         "bg_color": "#ffffff",
         "label_text_style": "bold",
         "top_margin": "15dp",
-        "text": "{{rdt-capture-form-original.step6.lbl_handle_rdt.text}}"
+        "text": "{{rdt-capture-form-original.step7.lbl_handle_rdt.text}}"
       },
       {
         "key": "lbl_rdt_id",
@@ -339,8 +369,8 @@
       }
     ]
   },
-  "step7": {
-    "title": "{{rdt-capture-form-original.step7.title}}",
+  "step8": {
+    "title": "{{rdt-capture-form-original.step8.title}}",
     "display_back_button": "true",
     "next": "step9",
     "fields": [
@@ -351,15 +381,15 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
-        "hint": "{{rdt-capture-form-original.step7.qr_code_reader.hint}}",
-        "scanButtonText": "{{rdt-capture-form-original.step7.qr_code_reader.scanButtonText}}",
+        "hint": "{{rdt-capture-form-original.step8.qr_code_reader.hint}}",
+        "scanButtonText": "{{rdt-capture-form-original.step8.qr_code_reader.scanButtonText}}",
         "v_numeric": {
           "value": "true",
-          "err": "{{rdt-capture-form-original.step7.qr_code_reader.v_numeric.err}}"
+          "err": "{{rdt-capture-form-original.step8.qr_code_reader.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "{{rdt-capture-form-original.step7.qr_code_reader.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step8.qr_code_reader.v_required.err}}"
         }
       },
       {
@@ -396,36 +426,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
-      }
-    ]
-  },
-  "step8": {
-    "title": "{{rdt-capture-form-original.step8.title}}",
-    "display_back_button": "true",
-    "next": "step4",
-    "bottom_navigation": "true",
-    "next_label": "{{rdt-capture-form-original.step8.next_label}}",
-    "fields": [
-      {
-        "key": "lbl_rdt_expired",
-        "type": "label",
-        "text_color": "#000000",
-        "label_text_style": "bold",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true",
-        "top_margin": "15dp",
-        "text": "{{rdt-capture-form-original.step8.lbl_rdt_expired.text}}"
-      },
-      {
-        "key": "lbl_use_new_test",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true",
-        "top_margin": "15dp",
-        "text": "{{rdt-capture-form-original.step8.lbl_use_new_test.text}}"
       }
     ]
   },
