@@ -15,6 +15,7 @@ import org.smartregister.sync.ClientProcessorForJava;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.util.FormSaver;
 
 import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
@@ -61,8 +62,10 @@ public class PatientRegisterActivityInteractorTest {
 
         JSONObject jsonForm = mock(JSONObject.class);
         OnFormSavedCallback callback = mock(OnFormSavedCallback.class);
-        interactor.saveForm(jsonForm, callback);
 
-        verify(patientRegisterFragmentInteractor).saveForm(eq(jsonForm), eq(callback));
+        FormSaver formSaver =  mock(FormSaver.class);
+        Whitebox.setInternalState(interactor, "formSaver", formSaver);
+        interactor.saveForm(jsonForm, callback);
+        verify(formSaver).saveForm(eq(jsonForm), eq(callback));
     }
 }

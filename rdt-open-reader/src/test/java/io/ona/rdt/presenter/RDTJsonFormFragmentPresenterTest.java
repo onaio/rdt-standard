@@ -24,6 +24,7 @@ import java.util.Date;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
@@ -61,9 +62,11 @@ public class RDTJsonFormFragmentPresenterTest {
 
     private RDTJsonFormFragmentPresenter presenter;
     private RDTJsonFormFragmentContract.View rdtFormFragment;
-    private RDTJsonFormInteractor interactor;
     private RDTJsonFormFragment formFragment;
     private JsonFormFragmentView<JsonFormFragmentViewState> view;
+
+    @Mock
+    private RDTJsonFormFragmentInteractor interactor;
 
     @Mock
     private RDTApplication rdtApplication;
@@ -73,9 +76,8 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Before
     public void setUp() throws JSONException {
-        interactor = mock(RDTJsonFormInteractor.class);
         rdtFormFragment = spy(new PatientRegisterFragmentStub());
-        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragment, interactor);
+        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragment, mock(RDTJsonFormInteractor.class));
         mockStaticMethods();
     }
 
@@ -83,7 +85,7 @@ public class RDTJsonFormFragmentPresenterTest {
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
         presenter.attachView((JsonFormFragment) rdtFormFragment);
         presenter.performNextButtonAction("step6", null);
-        verify(interactor).saveForm(any(JSONObject.class));
+        verify(interactor).saveForm(any(JSONObject.class), null);
         verify(rdtFormFragment).moveToNextStep();
     }
 
