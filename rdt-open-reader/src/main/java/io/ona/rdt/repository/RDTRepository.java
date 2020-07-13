@@ -14,6 +14,8 @@ import org.smartregister.repository.UniqueIdRepository;
 import io.ona.rdt.application.RDTApplication;
 import timber.log.Timber;
 
+import static io.ona.rdt.util.Utils.isMalariaApp;
+
 /**
  * Created by Vincent Karuri on 07/06/2019
  */
@@ -34,9 +36,11 @@ public class RDTRepository extends Repository {
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
         UniqueIdRepository.createTable(database);
-        RDTTestsRepository.createIndexes(database);
-        ParasiteProfileRepository.createIndexes(database);
         SettingsRepository.onUpgrade(database);
+        if (isMalariaApp()) {
+            RDTTestsRepository.createIndexes(database);
+            ParasiteProfileRepository.createIndexes(database);
+        }
     }
 
     @Override

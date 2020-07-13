@@ -42,8 +42,7 @@ import io.ona.rdt.domain.Patient;
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
-import static io.ona.rdt.util.Constants.FormFields.COVID_SAMPLE_ID;
+import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
@@ -879,7 +878,7 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
             // test respiratory sample IDs
             if (isCovidApp()) {
                 // pre-populate respiratory sample id labels
-                if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
+                if (CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
                     assertEquals(field.getString("text"), "Sample ID: " + UNIQUE_ID);
                     populatedLblRespiratorySampleID = true;
                 }

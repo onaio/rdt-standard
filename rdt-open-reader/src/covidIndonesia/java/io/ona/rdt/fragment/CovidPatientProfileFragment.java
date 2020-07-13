@@ -13,11 +13,11 @@ import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidPatientProfileFragmentPresenter;
 
-import static io.ona.rdt.util.Constants.Form.PATIENT_DIAGNOSTICS_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
-import static io.ona.rdt.util.Constants.Form.SUPPORT_INVESTIGATION_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.SUPPORT_INVESTIGATION_FORM;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
 

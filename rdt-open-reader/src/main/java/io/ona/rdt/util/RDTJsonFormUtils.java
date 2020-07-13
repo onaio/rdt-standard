@@ -51,7 +51,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.PERFORM_FORM_TRAN
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
@@ -271,11 +271,11 @@ public class RDTJsonFormUtils {
 
             if (isCovidApp()) {
                 // pre-populate respiratory sample id labels
-                if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
+                if (CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
                     field.put("text", "Sample ID: " + uniqueID);
                 }
                 // pre-populate respiratory sample id field
-                if (Constants.FormFields.COVID_SAMPLE_ID.equals(field.getString(KEY))) {
+                if (CovidConstants.FormFields.COVID_SAMPLE_ID.equals(field.getString(KEY))) {
                     field.put(VALUE, uniqueID);
                 }
             }

@@ -16,21 +16,6 @@
       }
     },
     {
-      "comment": "COVID-19 patient details",
-      "rule": {
-        "type": "event",
-        "fields": [
-          {
-            "field": "eventType",
-            "field_value": "covid_patient_registration",
-            "creates_case": [
-              "rdt_patients"
-            ]
-          }
-        ]
-      }
-    },
-    {
       "comment": "RDT test info",
       "rule": {
         "type": "event",

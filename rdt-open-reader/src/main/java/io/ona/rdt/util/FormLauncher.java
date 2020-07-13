@@ -15,8 +15,7 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
-import static io.ona.rdt.util.Utils.isCovidApp;
+import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 
 /**
  * Created by Vincent Karuri on 06/08/2019
