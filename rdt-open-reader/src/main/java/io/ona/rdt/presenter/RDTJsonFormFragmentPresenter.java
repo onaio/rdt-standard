@@ -17,6 +17,7 @@ import java.util.Date;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
@@ -40,14 +41,14 @@ import static org.smartregister.util.JsonFormUtils.getJSONArray;
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
 
-    private RDTJsonFormInteractor interactor;
     private RDTJsonFormFragmentContract.View rdtFormFragment;
     private StepStateConfig stepStateConfig;
+    private RDTJsonFormFragmentInteractor rdtJsonFormFragmentInteractor;
 
     public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
         super((JsonFormFragment) rdtFormFragment, jsonFormInteractor);
-        this.interactor = (RDTJsonFormInteractor) jsonFormInteractor;
         this.rdtFormFragment = rdtFormFragment;
+        this.rdtJsonFormFragmentInteractor = new RDTJsonFormFragmentInteractor();
     }
 
     @Override
@@ -97,7 +98,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void saveForm() throws JSONException {
-        interactor.saveForm(new JSONObject(getView().getCurrentJsonState()));
+        rdtJsonFormFragmentInteractor.saveForm(new JSONObject(getView().getCurrentJsonState()), null);
     }
 
     @Override

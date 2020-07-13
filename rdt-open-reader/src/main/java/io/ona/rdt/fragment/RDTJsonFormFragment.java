@@ -28,7 +28,6 @@ import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import timber.log.Timber;
 
-import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
@@ -39,7 +38,6 @@ import static io.ona.rdt.util.Utils.isCovidApp;
  */
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
-    private final String TAG = RDTJsonFormFragment.class.getName();
     private static int currentStep = 1; // step of the fragment coming into view
     private static int prevStep; // step of the fragment coming out of view
     private boolean moveBackOneStep = false;
@@ -89,12 +87,16 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(v -> {
             Object isSubmit = v.getTag(R.id.submit);
             String eventType = getJsonApi().getmJSONObject().optString(ENCOUNTER_TYPE);
-            if (RDT_TEST.equals(eventType) || COVID_RDT_TEST.equals(eventType)) {
+            if (formHasSpecialNavigationRules(eventType)) {
                 getFragmentPresenter().performNextButtonAction(currStep, isSubmit);
             } else {
                 getFragmentPresenter().submitOrMoveToNextStep(isSubmit);
             }
         });
+    }
+
+    protected boolean formHasSpecialNavigationRules(String eventType) {
+        return RDT_TEST.equals(eventType);
     }
 
     private boolean is20minTimerPage(String currStep) {

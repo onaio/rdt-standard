@@ -25,8 +25,6 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
 
     private static final RDTJsonFormInteractor INSTANCE = new RDTJsonFormInteractor();
 
-    private PatientRegisterFragmentInteractor patientRegisterFragmentInteractor;
-
     public static JsonFormInteractor getInstance() {
         return INSTANCE;
     }
@@ -40,16 +38,5 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
         map.put(RDT_CAPTURE, new UWMalariaRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
         map.put(GPS, new RDTGpsFactory());
-    }
-
-    public void saveForm(JSONObject jsonForm) {
-        getPatientRegisterFragmentInteractor().saveForm(jsonForm, null);
-    }
-
-    public PatientRegisterFragmentInteractor getPatientRegisterFragmentInteractor() {
-        if (patientRegisterFragmentInteractor == null) {
-            patientRegisterFragmentInteractor = new PatientRegisterFragmentInteractor();
-        }
-        return patientRegisterFragmentInteractor;
     }
 }

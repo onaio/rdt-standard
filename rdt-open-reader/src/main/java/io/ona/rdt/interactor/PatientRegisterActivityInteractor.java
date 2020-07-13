@@ -10,6 +10,7 @@ import org.smartregister.util.JsonFormUtils;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.FormLauncher;
+import io.ona.rdt.util.FormLauncherAndSaver;
 
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
@@ -24,9 +25,7 @@ import static org.smartregister.util.JsonFormUtils.getString;
 /**
  * Created by Vincent Karuri on 05/08/2019
  */
-public class PatientRegisterActivityInteractor extends FormLauncher {
-
-    private PatientRegisterFragmentInteractor patientRegisterFragmentInteractor;
+public class PatientRegisterActivityInteractor extends FormLauncherAndSaver {
 
     /**
      * Get the patient for whom the RDT is to be conducted
@@ -49,17 +48,5 @@ public class PatientRegisterActivityInteractor extends FormLauncher {
             }
         }
         return rdtPatient;
-    }
-
-    public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
-        getPatientRegisterFragmentInteractor().saveForm(jsonForm, callback);
-    }
-
-
-    public PatientRegisterFragmentInteractor getPatientRegisterFragmentInteractor() {
-        if (patientRegisterFragmentInteractor == null) {
-            patientRegisterFragmentInteractor = new PatientRegisterFragmentInteractor();
-        }
-        return patientRegisterFragmentInteractor;
     }
 }
