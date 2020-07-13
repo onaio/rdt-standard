@@ -50,7 +50,7 @@ public class CovidFormSaver extends FormSaver {
 
     @Override
     protected String getBindType(String encounterType) {
-        String bindType = encounterType;
+        String bindType = getBindType(encounterType);
         if (StringUtils.isNotBlank(bindType)) { return bindType; }
         switch (encounterType) {
             case COVID_PATIENT_REGISTRATION:
