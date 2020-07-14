@@ -18,7 +18,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
-import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
@@ -28,9 +27,7 @@ import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
 import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
 import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
-import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isExpired;
-import static io.ona.rdt.util.Utils.isMalariaApp;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.conditionallyMoveToNextStep;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
 import static org.smartregister.util.JsonFormUtils.getFieldValue;
@@ -103,11 +100,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
-        if (isMalariaApp()) {
-            handleMalariaTestFormClicks(getStepStateConfig(), currentStep, isSubmit);
-        } else if (isCovidApp()) {
-            handleCommonTestFormClicks(isSubmit, currentStep);
-        }
+        handleMalariaTestFormClicks(getStepStateConfig(), currentStep, isSubmit);
     }
 
     private void handleMalariaTestFormClicks(StepStateConfig stepStateConfig, String currentStep, Object isSubmit) {

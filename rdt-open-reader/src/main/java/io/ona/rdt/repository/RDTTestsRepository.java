@@ -1,7 +1,5 @@
 package io.ona.rdt.repository;
 
-import androidx.annotation.Nullable;
-
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -12,11 +10,13 @@ import org.smartregister.repository.BaseRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import io.ona.rdt.domain.RDTTestDetails;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
 import static io.ona.rdt.util.Utils.convertJsonArrToStringList;
+import static io.ona.rdt.util.Utils.tableExists;
 
 /**
  * Created by Vincent Karuri on 23/01/2020
@@ -34,7 +34,9 @@ public class RDTTestsRepository extends BaseRepository {
     private static final String RDT_TESTS_TABLES = "rdt_tests";
 
     public static void createIndexes(SQLiteDatabase db) {
-        db.execSQL("CREATE INDEX IF NOT EXISTS base_entity_id_index ON " + RDT_TESTS + "(" + BASE_ENTITY_ID +")");
+        if (tableExists(db, RDT_TESTS)) {
+            db.execSQL("CREATE INDEX IF NOT EXISTS base_entity_id_index ON " + RDT_TESTS + "(" + BASE_ENTITY_ID + ")");
+        }
     }
 
     @Nullable

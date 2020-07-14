@@ -31,7 +31,6 @@ import timber.log.Timber;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
-import static io.ona.rdt.util.Utils.isCovidApp;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -99,8 +98,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         return RDT_TEST.equals(eventType);
     }
 
-    private boolean is20minTimerPage(String currStep) {
-        return !isCovidApp() && currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
+    protected boolean is20minTimerPage(String currStep) {
+        return currStep.equals(RDTApplication.getInstance().getStepStateConfiguration()
                 .getStepStateObj()
                 .optString(TWENTY_MIN_COUNTDOWN_TIMER_PAGE));
     }
