@@ -8,8 +8,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;

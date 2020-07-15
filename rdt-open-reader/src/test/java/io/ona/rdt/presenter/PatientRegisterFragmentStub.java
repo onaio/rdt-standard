@@ -7,7 +7,7 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
+import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
 import static org.mockito.Mockito.mock;
 
 /**

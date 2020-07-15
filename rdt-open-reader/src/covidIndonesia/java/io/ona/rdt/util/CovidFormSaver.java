@@ -6,14 +6,12 @@ import org.smartregister.domain.db.Obs;
 import io.ona.rdt.application.RDTApplication;
 
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
-import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.PATIENT_DIAGNOSTICS;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
 import static io.ona.rdt.util.CovidConstants.Encounter.SUPPORT_INVESTIGATION;
-import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_RDT_TESTS;

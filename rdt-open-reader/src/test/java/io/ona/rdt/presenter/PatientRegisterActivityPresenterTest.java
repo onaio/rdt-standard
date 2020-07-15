@@ -6,14 +6,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import io.ona.rdt.PowerMockTest;
@@ -22,9 +20,9 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
+import static io.ona.rdt.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;

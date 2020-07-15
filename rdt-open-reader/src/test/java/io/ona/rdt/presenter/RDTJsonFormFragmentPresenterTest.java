@@ -26,7 +26,6 @@ import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.TestUtils.getDateWithOffset;
@@ -40,7 +39,6 @@ import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 import static io.ona.rdt.util.RDTJsonFormUtilsTest.RDT_TEST_JSON_FORM;
-import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -60,9 +58,9 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest({RDTJsonFormFragment.class, RDTApplication.class})
 public class RDTJsonFormFragmentPresenterTest {
 
-    private RDTJsonFormFragmentPresenter presenter;
-    private RDTJsonFormFragmentContract.View rdtFormFragment;
-    private RDTJsonFormFragment formFragment;
+    protected RDTJsonFormFragmentPresenter presenter;
+    protected RDTJsonFormFragmentContract.View rdtFormFragmentView;
+    protected RDTJsonFormFragment formFragment;
     private JsonFormFragmentView<JsonFormFragmentViewState> view;
 
     @Mock
@@ -76,38 +74,17 @@ public class RDTJsonFormFragmentPresenterTest {
 
     @Before
     public void setUp() throws JSONException {
-        rdtFormFragment = spy(new PatientRegisterFragmentStub());
-        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragment, mock(RDTJsonFormInteractor.class));
+        rdtFormFragmentView = spy(new PatientRegisterFragmentStub());
+        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragmentView, mock(RDTJsonFormInteractor.class));
         mockStaticMethods();
     }
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-        presenter.attachView((JsonFormFragment) rdtFormFragment);
+        presenter.attachView((JsonFormFragment) rdtFormFragmentView);
         presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class), null);
-        verify(rdtFormFragment).moveToNextStep();
-    }
-
-    @Test
-    public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() throws JSONException {
-        if (isMalariaApp()) {
-            doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
-            mockStaticClasses();
-            presenter.performNextButtonAction("step9", null);
-            verify(rdtFormFragment).transactFragment(eq(formFragment));
-        }
-    }
-
-    @Test
-    public void testPerformNextButtonActionShouldShowImageViewsForONARDT() throws JSONException {
-        if (isMalariaApp()) {
-            mockStaticMethods();
-            mockStaticClasses();
-            doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
-            presenter.performNextButtonAction("step8", null);
-            verify(rdtFormFragment).moveToNextStep();
-        }
+        verify(rdtFormFragmentView).moveToNextStep();
     }
 
     @Test
@@ -115,7 +92,7 @@ public class RDTJsonFormFragmentPresenterTest {
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", null);
-        verify(rdtFormFragment).moveToNextStep();
+        verify(rdtFormFragmentView).moveToNextStep();
     }
 
     @Test
@@ -123,7 +100,7 @@ public class RDTJsonFormFragmentPresenterTest {
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", true);
-        verify(rdtFormFragment).saveForm();
+        verify(rdtFormFragmentView).saveForm();
     }
 
     @Test
@@ -149,28 +126,18 @@ public class RDTJsonFormFragmentPresenterTest {
     }
 
     @Test
-    public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() throws JSONException {
-        if (isMalariaApp()) {
-            doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
-            mockStaticClasses();
-            presenter.performNextButtonAction("step9", null);
-            verify(rdtFormFragment).moveToNextStep();
-        }
-    }
-
-    @Test
     public void testPerformNextButtonActionShouldNavigateToCorrectStepFromExpirationPage() throws Exception {
         // valid rdt
         mockStaticClasses();
         mockStaticMethods();
-        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
+        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragmentView).getStep(anyString());
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragment).next();
+        verify((JsonFormFragment) rdtFormFragmentView).next();
         // expired rdt
-        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
-        doNothing().when((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
+        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragmentView).getStep(anyString());
+        doNothing().when((JsonFormFragment) rdtFormFragmentView).transactThis(any(JsonFormFragment.class));
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
+        verify((JsonFormFragment) rdtFormFragmentView).transactThis(any(JsonFormFragment.class));
     }
 
     private void invokePerformNextButtonActionFromExpirationPage() {
@@ -193,13 +160,13 @@ public class RDTJsonFormFragmentPresenterTest {
         Whitebox.setInternalState(presenter, "mStepDetails", mStepDetails);
     }
 
-    private void mockStaticClasses() throws JSONException {
+    protected void mockStaticClasses() throws JSONException {
         mockStatic(RDTJsonFormFragment.class);
         formFragment = mock(RDTJsonFormFragment.class);
         when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
     }
 
-    private void mockStaticMethods() throws JSONException {
+    protected void mockStaticMethods() throws JSONException {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);

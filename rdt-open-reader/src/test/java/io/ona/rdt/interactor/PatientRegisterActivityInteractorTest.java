@@ -17,7 +17,8 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.FormSaver;
 
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
+import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
+import static io.ona.rdt.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
@@ -36,7 +37,7 @@ public class PatientRegisterActivityInteractorTest {
 
     @BeforeClass
     public static void init() throws JSONException {
-        formJsonObj = new JSONObject(PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM);
+        formJsonObj = new JSONObject(PATIENT_REGISTRATION_JSON_FORM);
     }
 
     @Before
