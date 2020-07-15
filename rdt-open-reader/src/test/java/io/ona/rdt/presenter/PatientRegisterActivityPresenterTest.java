@@ -6,15 +6,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt.PowerMockTest;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
@@ -35,11 +40,20 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 /**
  * Created by Vincent Karuri on 02/08/2019
  */
-@PrepareForTest({RDTJsonFormUtils.class})
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({RDTJsonFormUtils.class, RDTApplication.class, ClientProcessorForJava.class})
 public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
     private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityPresenter presenter;
+
+    @Mock
+    private RDTApplication rdtApplication;
+    @Mock
+    private org.smartregister.Context drishtiContext;
+    @Mock
+    protected EventClientRepository eventClientRepository;
 
     @Mock
     private PatientRegisterActivityInteractor interactor;
@@ -50,6 +64,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        mockStaticMethods();
         activity = spy(new PatientRegisterActivityStub());
         presenter = new PatientRegisterActivityPresenter(activity);
     }
@@ -73,5 +88,15 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
         PowerMockito.verifyStatic(RDTJsonFormUtils.class);
         RDTJsonFormUtils.appendEntityId(any(JSONObject.class));
+    }
+
+    private void mockStaticMethods() {
+        // mock RDTApplication and Drishti context
+        mockStatic(RDTApplication.class);
+        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
+        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
+
+        // mock repositories
+        PowerMockito.when(drishtiContext.getEventClientRepository()).thenReturn(eventClientRepository);
     }
 }

@@ -28,6 +28,7 @@ import io.ona.rdt.domain.Patient;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
+import static io.ona.rdt.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -113,21 +114,6 @@ public class FormLauncherTest extends PowerMockTest {
         formLauncher.onUniqueIdsFetched(args, getUniqueIDs());
 
         verify(formUtils).launchForm(eq(activity), eq("form_name"), eq(patient), eq(getUniqueIDStrings()));
-    }
-
-    @Test
-    public void testLaunchFormShouldPrepopulateFieldsAndLaunchForm() throws JSONException {
-        RDTJsonFormUtils formUtils = mock(RDTJsonFormUtils.class);
-        Activity activity = mock(Activity.class);
-        JSONObject jsonForm = new JSONObject();
-        final String FORM_NAME = "form";
-
-        PowerMockito.doReturn(jsonForm).when(formUtils).getFormJsonObject(anyString(), any(Activity.class));
-        Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
-        formLauncher.launchForm(activity, FORM_NAME, null);
-
-        verify(formUtils).prePopulateFormFields(eq(jsonForm), isNull(Patient.class), anyString());
-        verify(formUtils).startJsonForm(eq(jsonForm), eq(activity), eq(REQUEST_CODE_GET_JSON));
     }
 
     protected FormLauncher getFormLauncher() {

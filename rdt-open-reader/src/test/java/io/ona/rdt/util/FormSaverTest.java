@@ -38,7 +38,6 @@ import java.util.UUID;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
-import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
@@ -100,9 +99,6 @@ public class FormSaverTest {
 
     public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID, PATIENT_ID);
 
-
-    protected PatientRegisterFragmentInteractor interactor;
-
     public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
             "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
             "\"fields\":[{\n" +
@@ -148,7 +144,7 @@ public class FormSaverTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockStaticMethods();
-        formSaver = new FormSaver();
+        formSaver = getFormSaver();
     }
 
 
@@ -202,6 +198,10 @@ public class FormSaverTest {
         assertEquals(PCR_RESULTS, Whitebox.invokeMethod(formSaver, "getBindType", PCR_RESULT));
     }
 
+    protected FormSaver getFormSaver() {
+        return new FormSaver();
+    }
+
     protected String getEventType() {
         return PATIENT_REGISTRATION;
     }
@@ -224,7 +224,7 @@ public class FormSaverTest {
         verifyIDsAreClosed(getNumOfIDsToClose());
     }
 
-    private void mockStaticMethods() throws JSONException {
+    private void mockStaticMethods() {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
@@ -286,7 +286,6 @@ public class FormSaverTest {
         org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
         obs.setValue(UNIQUE_ID);
         obs.setFieldCode(RDT_ID);
-        dbEvent.addObs(obs);
         dbEvent.addObs(obs);
         return dbEvent;
     }

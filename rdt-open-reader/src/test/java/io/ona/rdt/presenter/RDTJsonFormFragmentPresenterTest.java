@@ -1,5 +1,7 @@
 package io.ona.rdt.presenter;
 
+import android.content.Context;
+
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
@@ -16,6 +18,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.EventClientRepository;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -43,6 +47,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -72,18 +77,25 @@ public class RDTJsonFormFragmentPresenterTest {
     @Mock
     private StepStateConfig stepStateConfig;
 
+    @Mock
+    private org.smartregister.Context drishtiContext;
+
+    @Mock
+    protected EventClientRepository eventClientRepository;
+
     @Before
     public void setUp() throws JSONException {
+        mockStaticMethods();
         rdtFormFragmentView = spy(new PatientRegisterFragmentStub());
         presenter = new RDTJsonFormFragmentPresenter(rdtFormFragmentView, mock(RDTJsonFormInteractor.class));
-        mockStaticMethods();
+        Whitebox.setInternalState(presenter, "rdtJsonFormFragmentInteractor", interactor);
     }
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
         presenter.attachView((JsonFormFragment) rdtFormFragmentView);
         presenter.performNextButtonAction("step6", null);
-        verify(interactor).saveForm(any(JSONObject.class), null);
+        verify(interactor).saveForm(any(JSONObject.class), isNull());
         verify(rdtFormFragmentView).moveToNextStep();
     }
 
@@ -171,6 +183,10 @@ public class RDTJsonFormFragmentPresenterTest {
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
         PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
+        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
+
+        // mock repositories
+        PowerMockito.when(drishtiContext.getEventClientRepository()).thenReturn(eventClientRepository);
 
         JSONObject jsonObject = mock(JSONObject.class);
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));

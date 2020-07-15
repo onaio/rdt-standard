@@ -13,12 +13,15 @@ import io.ona.rdt.domain.Patient;
  */
 public class FormLauncherAndSaver {
 
+    private FormSaver formSaver = getFormSaver();
+    private FormLauncher formLauncher = getFormLauncher();
+
     public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
-        getFormSaver().saveForm(jsonForm, callback);
+        formSaver.saveForm(jsonForm, callback);
     }
 
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        getFormLauncher().launchForm(activity, formName, patient);
+        formLauncher.launchForm(activity, formName, patient);
     }
 
     protected FormLauncher getFormLauncher() {
