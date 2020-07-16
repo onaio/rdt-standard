@@ -3,7 +3,7 @@ package presenter;
 import org.json.JSONException;
 import org.junit.Test;
 
-import io.ona.rdt.presenter.RDTJsonFormFragmentPresenterTest;
+import io.ona.rdt.presenter.BaseRDTJsonFormFragmentPresenterTest;
 import io.ona.rdt.util.Constants;
 
 import static org.mockito.ArgumentMatchers.eq;
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 15/07/2020
  */
-public class MalariaRDTJsonFormFragmentPresenterTest extends RDTJsonFormFragmentPresenterTest {
+public class MalariaRDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPresenterTest {
 
     @Test
     public void testPerformNextButtonActionShouldShowImageViewsForONARDT() throws JSONException {

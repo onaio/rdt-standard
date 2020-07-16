@@ -14,7 +14,7 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
 /**
  * Created by Vincent Karuri on 15/07/2020
  */
-public class CovidRDTJsonFormUtilsTest extends RDTJsonFormUtilsTest {
+public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     public static final String SAMPLE_COLLECTION_JSON_FORM = "{\n" +
             "  \"count\": \"9\",\n" +

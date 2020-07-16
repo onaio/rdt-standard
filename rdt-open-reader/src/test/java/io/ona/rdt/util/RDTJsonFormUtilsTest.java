@@ -1,51 +1,34 @@
 package io.ona.rdt.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.AdditionalMatchers;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.tag.FormTag;
-import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
-import org.smartregister.repository.UniqueIdRepository;
-import org.smartregister.util.AssetHandler;
-import org.smartregister.view.activity.DrishtiApplication;
 
-import java.io.File;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
-import io.ona.rdt.PowerMockTest;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
 
+import static io.ona.rdt.TestUtils.cleanUpFiles;
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
-import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
-import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
-import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
@@ -61,37 +44,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
-@PrepareForTest({AssetHandler.class, ImageUtil.class, RDTApplication.class, org.smartregister.Context.class, DrishtiApplication.class})
-public class RDTJsonFormUtilsTest extends PowerMockTest {
-
-    protected final String UNIQUE_ID = "unique_id";
-
-    @Mock
-    private RDTApplication rdtApplication;
-
-    @Mock
-    private org.smartregister.Context drishtiContext;
-
-    @Mock
-    private ImageRepository imageRepository;
-
-    @Mock
-    private UniqueIdRepository uniqueIdRepository;
-
-    @Mock
-    private AllSettings allSettings;
-
-    @Mock
-    private StepStateConfig stepStateConfig;
+public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     public static final String RDT_TEST_JSON_FORM = "{\n" +
             "  \"count\": \"20\",\n" +
@@ -830,53 +790,8 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
 
     @Before
     public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
         RDT_TEST_JSON_FORM_OBJ = new JSONObject(RDT_TEST_JSON_FORM);
-    }
-
-    @Test
-    public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {
-        mockStaticMethods();
-
-        Patient patient = new Patient("patient", "female", "entity_id");
-        JSONObject formJsonObj = getFormUtils().launchForm(mock(Activity.class), getFormToPrepopulate(), patient, getIDs());
-
-        int numOfPopulatedFields = 0;
-        JSONArray fields = getMultiStepFormFields(formJsonObj);
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-            numOfPopulatedFields = assertFieldsArePopulated(field, patient, numOfPopulatedFields);
-        }
-        assertAllFieldsArePopulated(numOfPopulatedFields);
-    }
-
-    protected String getFormToPrepopulate() {
-        return RDT_TEST_FORM;
-    }
-
-    protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(4, numOfPopulatedFields);
-    }
-
-    protected int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException {
-        if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
-            // test patient fields are populated
-            assertEquals(field.getString("text"), patient.getPatientName());
-            numOfPopulatedFields++;;
-        } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
-            // test patient fields are populated
-            assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
-            numOfPopulatedFields++;
-        } else if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
-            // test rdt id labels are populated
-            assertEquals(field.getString("text"), "RDT ID: " + UNIQUE_ID);
-            numOfPopulatedFields++;
-        } else if (getFormUtils().isRDTIdField(field)) {
-            // test rdt id is populated
-            assertEquals(field.getString(VALUE), UNIQUE_ID);
-            numOfPopulatedFields++;
-        }
-        return numOfPopulatedFields;
     }
 
     @Test
@@ -1010,54 +925,44 @@ public class RDTJsonFormUtilsTest extends PowerMockTest {
         assertEquals("team", formTag.team);
     }
 
-    private void cleanUpFiles(String filePath) {
-        File file = new File(filePath);
-        if (file.exists()) {
-            file.delete();
-        }
-    }
-
+    @Override
     protected String getMockForm() {
         return RDT_TEST_JSON_FORM;
     }
 
-    private void mockStaticMethods() {
-        // mock AssetHandler
-        mockStatic(AssetHandler.class);
-        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(getMockForm());
-
-        mockStatic(ImageUtil.class);
-
-        // mock RDTApplication and Drishti context
-        mockStatic(RDTApplication.class);
-        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
-        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
-
-        // mock repositories
-        PowerMockito.when(drishtiContext.imageRepository()).thenReturn(imageRepository);
-        PowerMockito.when(drishtiContext.getUniqueIdRepository()).thenReturn(uniqueIdRepository);
-        PowerMockito.when(drishtiContext.allSettings()).thenReturn(allSettings);
-
-        // Drishti
-        mockStatic(DrishtiApplication.class);
-        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn(getTestFilePath());
-
-        mockStatic(RDTApplication.class);
-        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
-        PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
-
-        JSONObject jsonObject = mock(JSONObject.class);
-        doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
-        doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
+    @Override
+    protected String getFormToPrepopulate() {
+        return RDT_TEST_FORM;
     }
 
-    private List<String> getIDs() {
-        List<String> rdtIds = new ArrayList<>();
-        rdtIds.add(UNIQUE_ID);
-        return rdtIds;
+    @Override
+    protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
+        assertEquals(4, numOfPopulatedFields);
     }
 
+    @Override
+    protected int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException {
+        if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+            // test patient fields are populated
+            assertEquals(field.getString("text"), patient.getPatientName());
+            numOfPopulatedFields++;;
+        } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+            // test patient fields are populated
+            assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
+            numOfPopulatedFields++;
+        } else if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
+            // test rdt id labels are populated
+            assertEquals(field.getString("text"), "RDT ID: " + UNIQUE_ID);
+            numOfPopulatedFields++;
+        } else if (getFormUtils().isRDTIdField(field)) {
+            // test rdt id is populated
+            assertEquals(field.getString(VALUE), UNIQUE_ID);
+            numOfPopulatedFields++;
+        }
+        return numOfPopulatedFields;
+    }
+
+    @Override
     protected RDTJsonFormUtils getFormUtils() {
         return new RDTJsonFormUtils();
     }

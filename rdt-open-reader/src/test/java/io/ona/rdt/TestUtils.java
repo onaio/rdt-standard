@@ -27,7 +27,12 @@ public class TestUtils {
     }
 
     private boolean testFileExists() {
-        return new File(getTestFilePath()).exists();
+        return getFile(getTestFilePath()) != null;
+    }
+
+    private static File getFile(String filePath) {
+        File file = new File(filePath);
+        return file.exists() ? file : null;
     }
 
     public static String getTestFilePath() {
@@ -49,5 +54,12 @@ public class TestUtils {
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
         field.set(null, newValue);
+    }
+
+    public static void cleanUpFiles(String filePath) {
+        File file = getFile(filePath);
+        if (file != null) {
+            file.delete();
+        }
     }
 }

@@ -23,19 +23,19 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Vincent Karuri on 15/07/2020
  */
-public class CovidFormSaverTest extends FormSaverTest {
+public class CovidFormSaverTest extends BaseFormSaverTest {
 
-    @Override
     @Test
     public void testGetBindTypeShouldGetCorrectBindType() throws Exception {
-        assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(formSaver, "getBindType", COVID_PATIENT_REGISTRATION));
-        assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(formSaver, "getBindType", COVID_RDT_TEST));
-        assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(formSaver, "getBindType", PATIENT_DIAGNOSTICS));
-        assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(formSaver, "getBindType", SAMPLE_COLLECTION));
-        assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(formSaver, "getBindType", SAMPLE_DELIVERY_DETAILS));
-        assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(formSaver, "getBindType", SUPPORT_INVESTIGATION));
+        assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_PATIENT_REGISTRATION));
+        assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_RDT_TEST));
+        assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_DIAGNOSTICS));
+        assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_COLLECTION));
+        assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_DELIVERY_DETAILS));
+        assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SUPPORT_INVESTIGATION));
     }
 
+    @Override
     protected FormSaver getFormSaver() {
         return new CovidFormSaver();
     }

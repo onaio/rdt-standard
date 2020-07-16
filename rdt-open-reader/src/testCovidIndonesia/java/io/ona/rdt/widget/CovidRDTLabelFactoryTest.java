@@ -30,9 +30,8 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 15/07/2020
  */
-public class CovidRDTLabelFactoryTest extends RDTLabelFactoryTest {
+public class CovidRDTLabelFactoryTest extends BaseRDTLabelFactoryTest {
 
-    @Override
     @Test
     public void testOnClickShouldPerformCorrectAction() throws Exception {
         mockStaticMethods();
@@ -94,5 +93,9 @@ public class CovidRDTLabelFactoryTest extends RDTLabelFactoryTest {
         jsonObject.put(COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE, COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE);
         jsonObject.put(COVID_ENTER_DELIVERY_DETAILS_PAGE, COVID_ENTER_DELIVERY_DETAILS_PAGE);
         jsonObject.put(COVID_WBC_PAGE, COVID_WBC_PAGE);
+    }
+
+    protected RDTLabelFactory getRdtLabelFactory() {
+        return new CovidRDTLabelFactory();
     }
 }
