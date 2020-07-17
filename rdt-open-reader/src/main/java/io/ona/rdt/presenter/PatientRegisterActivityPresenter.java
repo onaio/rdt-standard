@@ -29,7 +29,7 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
 
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
-        interactor = new PatientRegisterActivityInteractor();
+        interactor = getInteractor();
     }
 
     @Override
@@ -74,5 +74,9 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
         } catch (JSONException e) {
             Timber.e(TAG, e);
         }
+    }
+
+    protected PatientRegisterActivityInteractor getInteractor() {
+        return new PatientRegisterActivityInteractor();
     }
 }
