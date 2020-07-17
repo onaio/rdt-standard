@@ -27,7 +27,11 @@ public class TestUtils {
     }
 
     private boolean testFileExists() {
-        return getFile(getTestFilePath()) != null;
+        return fileExists(getTestFilePath());
+    }
+
+    public static boolean fileExists(String filePath) {
+        return getFile(filePath) != null;
     }
 
     private static File getFile(String filePath) {

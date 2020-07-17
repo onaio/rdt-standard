@@ -9,7 +9,7 @@
             "field": "eventType",
             "field_value": "covid_patient_registration",
             "creates_case": [
-              "rdt_patients"
+              "covid_patients"
             ]
           }
         ]
