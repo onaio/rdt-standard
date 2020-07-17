@@ -13,6 +13,7 @@ import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.LABEL;
+import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.CovidConstants.Widget.GOOGLE_COVID_BARCODE_READER;
 import static io.ona.rdt.util.CovidConstants.Widget.ONE_SCAN_COVID_BARCODE_READER;
 import static io.ona.rdt.util.CovidConstants.Widget.UW_COVID_RDT_CAPTURE;
@@ -39,5 +40,10 @@ public class CovidLoginActivity extends LoginActivity {
     @Override
     protected Class getLoginActivityClass() {
         return CovidPatientRegisterActivity.class;
+    }
+
+    @Override
+    protected String getRegisterTableName() {
+        return COVID_PATIENTS;
     }
 }

@@ -1,7 +1,6 @@
 package io.ona.rdt.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -11,7 +10,6 @@ import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
 
-import io.ona.rdt.application.RDTApplication;
 import timber.log.Timber;
 
 /**
@@ -19,13 +17,12 @@ import timber.log.Timber;
  */
 public class RDTRepository extends Repository {
 
-    private static final String TAG = RDTRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
 
 
     public RDTRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, 1, openSRPContext.session(), RDTApplication.getInstance().getPresenter().createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, 1, openSRPContext.session(), openSRPContext.commonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
     @Override
@@ -62,7 +59,7 @@ public class RDTRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Log.e(TAG, "Database Error. " + e.getMessage());
+            Timber.e("Database Error. %s", e.getMessage());
             return null;
         }
     }

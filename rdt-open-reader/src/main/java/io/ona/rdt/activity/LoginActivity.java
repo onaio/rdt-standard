@@ -10,8 +10,11 @@ import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.presenter.LoginPresenter;
+import io.ona.rdt.presenter.RDTApplicationPresenter;
 
+import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Utils.updateLocale;
 
 /**
@@ -22,8 +25,21 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         updateLocale(this);
+        updateFTSDetails();
         super.onCreate(savedInstanceState);
         addAttributionText();
+    }
+
+    private void updateFTSDetails() {
+        // NB: assumes the Repository is first accessed within the LoginActivity through the UserService
+        RDTApplication rdtApplication = RDTApplication.getInstance();
+        RDTApplicationPresenter rdtApplicationPresenter = rdtApplication.getPresenter();
+        rdtApplicationPresenter.setRegisterTableName(getRegisterTableName());
+        rdtApplication.getContext().updateCommonFtsObject(rdtApplicationPresenter.createCommonFtsObject());
+    }
+
+    protected String getRegisterTableName() {
+        return RDT_PATIENTS;
     }
 
     private void addAttributionText() {

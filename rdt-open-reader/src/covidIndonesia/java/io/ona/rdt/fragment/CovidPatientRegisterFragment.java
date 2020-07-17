@@ -31,9 +31,4 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
-
-    @Override
-    public String getTableName() {
-        return COVID_PATIENTS;
-    }
 }
