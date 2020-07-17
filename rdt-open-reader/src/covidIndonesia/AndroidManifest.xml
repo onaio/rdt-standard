@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/RDTAppTheme"
         tools:replace="android:theme">
-        <activity android:name=".activity.OneScanActivity"></activity>
+
+        <activity android:name=".activity.OneScanActivity" />
+
         <activity
             android:name=".activity.CovidLoginActivity"
             android:screenOrientation="portrait"
@@ -30,9 +32,15 @@
         <activity
             android:name=".activity.CovidPatientRegisterActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.CovidPatientProfileActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".activity.CovidJsonFormActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
     </application>
 
 </manifest>

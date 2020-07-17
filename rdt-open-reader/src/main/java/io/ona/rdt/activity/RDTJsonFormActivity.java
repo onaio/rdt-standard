@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -47,8 +48,11 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     @Override
     public void initializeFormFragment() {
-        RDTJsonFormFragment jsonFormFragment = (RDTJsonFormFragment) RDTJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, jsonFormFragment).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, getFirstStep()).commitAllowingStateLoss();
+    }
+
+    protected JsonFormFragment getFirstStep() {
+        return RDTJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
     }
 
     @Override

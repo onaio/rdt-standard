@@ -27,7 +27,7 @@ public class CovidFormSaver extends FormSaver {
 
     @Override
     protected boolean isPatientRegistrationEvent(String encounterType) {
-        return PATIENT_REGISTRATION.equals(encounterType) || COVID_PATIENT_REGISTRATION.equals(encounterType);
+        return COVID_PATIENT_REGISTRATION.equals(encounterType);
     }
 
     @Override
