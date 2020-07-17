@@ -95,7 +95,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Where is the assessment taking place?",
+        "label": "Type of Sample?",
         "options": [
           {
             "key": "nasopharyngeal",
