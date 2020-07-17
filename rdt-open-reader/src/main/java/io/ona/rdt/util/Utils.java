@@ -156,6 +156,14 @@ public class Utils {
 
     public static boolean tableExists(SQLiteDatabase db, String tableName) {
         Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type=? AND name=?", new String[]{"table", tableName});
-        return cursor.moveToFirst();
+        boolean tableExists = !isEmptyCursor(cursor);
+        if (cursor != null) {
+            cursor.close();
+        }
+        return tableExists;
+    }
+
+    public static boolean isEmptyCursor(Cursor cursor) {
+        return cursor == null || cursor.getCount() == 0;
     }
 }
