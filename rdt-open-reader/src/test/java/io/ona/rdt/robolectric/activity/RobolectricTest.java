@@ -9,8 +9,9 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
+import io.ona.rdt.robolectric.shadow.FirebaseCrashlyticsShadow;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {ClientCoreUtilsShadow.class})
+@Config(shadows = {ClientCoreUtilsShadow.class, FirebaseCrashlyticsShadow.class})
 public abstract class  RobolectricTest {
 }
