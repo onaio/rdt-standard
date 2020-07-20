@@ -135,6 +135,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 
+    testImplementation "org.robolectric:shadows-multidex:4.3.1"
+    testImplementation "org.robolectric:robolectric:4.3.1"
+
     testImplementation 'junit:junit:4.12'
     // PowerMock
     def powerMockVersion = '2.0.2'
