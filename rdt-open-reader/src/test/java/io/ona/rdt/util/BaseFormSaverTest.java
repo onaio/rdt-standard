@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -35,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import io.ona.rdt.TestUtils;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
@@ -80,63 +80,31 @@ public abstract class BaseFormSaverTest {
     @Captor
     protected ArgumentCaptor<FormLaunchArgs> formLaunchArgsArgumentCaptor;
 
-    private static final String PATIENT_NAME = "Mr. Patient";
-    private static final String PATIENT_GENDER = "Male";
-    protected static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
-    private static final String PATIENT_ID = "patient id";
-    protected static final int PATIENT_AGE = 20;
+    public static final String PATIENT_NAME = "Mr. Patient";
+    public static final String PATIENT_GENDER = "Male";
+    public static final String PATIENT_BASE_ENTITY_ID = "2b66831d";
+    public static final String PATIENT_ID = "patient id";
+    public static final int PATIENT_AGE = 20;
+
     private Map<String, String > properties = new HashMap();
 
     public static final Patient expectedPatient = new Patient(PATIENT_NAME, PATIENT_GENDER, PATIENT_BASE_ENTITY_ID, PATIENT_ID);
 
-    public static final String PATIENT_REGISTRATION_JSON_FORM = "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":\"patient_registration\", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
-            "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
-            "\"fields\":[{\n" +
-            "        \"key\": \"patient_id\",\n" +
-            "        \"openmrs_entity_parent\": \"\",\n" +
-            "        \"openmrs_entity\": \"\",\n" +
-            "        \"openmrs_entity_id\": \"\",\n" +
-            "        \"type\": \"edit_text\",\n" +
-            "        \"v_required\": {\n" +
-            "          \"value\": \"true\",\n" +
-            "          \"err\": \"Please enter patient ID\"\n" +
-            "        }\n" + ",\"value\":\"" + PATIENT_ID + "\"" +
-            "      }, {\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
-            "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
-            "\"v_regex\":{\"value\":\"[^([0-9]*)$]*\",\"err\":\"Please enter a valid name\"},\"value\":\"" + PATIENT_NAME + "\"},{\"key\":\"patient_age_label\",\"type\":\"label\",\"text\":\"Age\",\"text_color\":\"#000000\"}," +
-            "{\"key\":\"patient_age\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"age\",\"type\":\"edit_text\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient age\"}," +
-            "\"v_numeric_integer\":{\"value\":\"true\",\"err\":\"Age must be a rounded number\"},\"step\":\"step1\",\"is-rule-check\":true,\"value\":\"" + PATIENT_AGE + "\"},{\"key\":\"sex\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
-            "\"openmrs_entity_id\":\"gender\",\"type\":\"native_radio\",\"label\":\"Sex\",\"options\":[{\"key\":\"Female\",\"text\":\"Female\"},{\"key\":\"Male\",\"text\":\"Male\"}],\"v_required\":{\"value\":\"true\"," +
-            "\"err\":\"Please specify sex\"},\"value\":\"" + PATIENT_GENDER + "\"},{\"key\":\"is_fever\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"type\":\"native_radio\",\"label\":\"Signs of fever in the last 3 days?\"," +
-            "\"options\":[{\"key\":\"Yes\",\"text\":\"Yes\"},{\"key\":\"No\",\"text\":\"No\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Has patient had a fever in last 3 days\"}," +
-            "\"step\":\"step1\",\"is-rule-check\":true,\"value\":\"No\"},{\"key\":\"is_malaria\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"type\":\"native_radio\"," +
-            "\"label\":\"Had malaria in the last year?\",\"options\":[{\"key\":\"Yes\",\"text\":\"Yes\"},{\"key\":\"No\",\"text\":\"No\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Has patient had malaria in the last year\"}," +
-            "\"value\":\"No\"},{\"key\":\"is_treated\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"type\":\"native_radio\",\"label\":\"Have been treated for malaria within last 3 months?\"," +
-            "\"options\":[{\"key\":\"Yes\",\"text\":\"Yes\"},{\"key\":\"No\",\"text\":\"No\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Has patient been treated for malaria within last 3 months\"},\"value\":\"No\"}," +
-            "{\"key\":\"other_symptoms_label\",\"type\":\"label\",\"text\":\"Other symptoms?\",\"text_color\":\"#000000\"},{\"key\":\"other_symptoms\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\"," +
-            "\"openmrs_entity_id\":\"\",\"type\":\"edit_text\",\"v_regex\":{\"value\":\"[^([0-9]*)$]*\",\"err\":\"Please enter a valid symptom\"},\"value\":\"\"},{\"key\":\"estimated_dob\",\"openmrs_entity_parent\":\"\"," +
-            "\"openmrs_entity\":\"person\",\"openmrs_entity_id\":\"birthdate_estimated\",\"type\":\"hidden\",\"value\":\"true\"},{\"key\":\"dob\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\",\"openmrs_entity_id\":\"birthdate\"," +
-            "\"type\":\"hidden\",\"value\":\"\"},{\"key\":\"conditional_save\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"conditional_save\",\"type\":\"hidden\"," +
-            "\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"conditional_save_rules.yml\"}}},\"value\":\"1\"}]}}";
-
     protected static JSONArray formFields;
     protected static JSONObject formJsonObj;
 
-    @BeforeClass
-    public static void init() throws JSONException {
-        formFields = getFormFields(new JSONObject(PATIENT_REGISTRATION_JSON_FORM));
-        formJsonObj = new JSONObject(PATIENT_REGISTRATION_JSON_FORM);
-    }
 
     @Before
-    public void setUp() {
+    public void setUp() throws JSONException {
         MockitoAnnotations.initMocks(this);
         mockStaticMethods();
+        formJsonObj = new JSONObject(TestUtils.getPatientRegistrationJsonForm(getPatientRegistrationEventType()));
+        formFields = getFormFields(formJsonObj);
     }
 
     @Test
     public void testSaveEventClientShouldSaveEventAndClient() throws Exception {
-        Whitebox.invokeMethod(getFormSaver(), "saveEventClient", formJsonObj, getEventType(), getBindType());
+        Whitebox.invokeMethod(getFormSaver(), "saveEventClient", formJsonObj, getPatientRegistrationEventType(), getRDTPatientBindType());
         verify(eventClientRepository).addorUpdateClient(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
         verify(eventClientRepository).addEvent(eq(PATIENT_BASE_ENTITY_ID), any(JSONObject.class));
     }
@@ -155,7 +123,7 @@ public abstract class BaseFormSaverTest {
     }
 
     private void processFormAndVerifyIDsAreClosed() throws Exception {
-        formJsonObj.put(ENCOUNTER_TYPE, getEncounterType());
+        formJsonObj.put(ENCOUNTER_TYPE, getRDTTestEncounterType());
         Whitebox.invokeMethod(getFormSaver(), "processAndSaveForm", formJsonObj);
         verifyIDsAreClosed(getNumOfIDsToClose());
     }
@@ -207,7 +175,7 @@ public abstract class BaseFormSaverTest {
 
         // mock AssetHandler
         mockStatic(AssetHandler.class);
-        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
+        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(TestUtils.PATIENT_REGISTRATION_JSON_FORM);
     }
 
     private static JSONArray getFormFields(JSONObject formJsonObj) throws JSONException {
@@ -237,13 +205,14 @@ public abstract class BaseFormSaverTest {
         return event;
     }
 
+
+    protected abstract String getPatientRegistrationEventType();
+
     protected abstract FormSaver getFormSaver();
 
-    protected abstract String getEventType();
-
-    protected abstract String getBindType();
+    protected abstract String getRDTPatientBindType();
 
     protected abstract int getNumOfIDsToClose();
 
-    protected abstract String getEncounterType();
+    protected abstract String getRDTTestEncounterType();
 }

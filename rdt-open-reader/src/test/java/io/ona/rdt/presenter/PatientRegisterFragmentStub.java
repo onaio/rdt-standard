@@ -5,9 +5,9 @@ import android.view.View;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import io.ona.rdt.TestUtils;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 
-import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -47,6 +47,6 @@ public class PatientRegisterFragmentStub extends JsonFormFragment implements RDT
 
     @Override
     public String getCurrentJsonState() {
-        return PATIENT_REGISTRATION_JSON_FORM ;
+        return TestUtils.PATIENT_REGISTRATION_JSON_FORM ;
     }
 }

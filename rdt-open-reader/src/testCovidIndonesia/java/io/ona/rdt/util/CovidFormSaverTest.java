@@ -41,12 +41,12 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
     }
 
     @Override
-    protected String getEventType() {
+    protected String getPatientRegistrationEventType() {
         return COVID_PATIENT_REGISTRATION;
     }
 
     @Override
-    protected String getBindType() {
+    protected String getRDTPatientBindType() {
         return COVID_PATIENTS;
     }
 
@@ -56,7 +56,7 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
     }
 
     @Override
-    protected String getEncounterType() {
+    protected String getRDTTestEncounterType() {
         return COVID_RDT_TEST;
     }
 

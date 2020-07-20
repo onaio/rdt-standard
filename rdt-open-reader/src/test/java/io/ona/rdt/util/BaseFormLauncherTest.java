@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt.PowerMockTest;
+import io.ona.rdt.TestUtils;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
-import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -123,7 +123,7 @@ public abstract class BaseFormLauncherTest extends PowerMockTest {
 
         // mock AssetHandler
         mockStatic(AssetHandler.class);
-        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(PATIENT_REGISTRATION_JSON_FORM);
+        PowerMockito.when( AssetHandler.readFileFromAssetsFolder(any(), any())).thenReturn(TestUtils.PATIENT_REGISTRATION_JSON_FORM);
     }
 
 

@@ -19,6 +19,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt.PowerMockTest;
+import io.ona.rdt.TestUtils;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
@@ -26,7 +27,6 @@ import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.FormSaverTest.PATIENT_REGISTRATION_JSON_FORM;
 import static io.ona.rdt.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -75,7 +75,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
         doReturn(expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
         mockStatic(RDTJsonFormUtils.class);
 
-        presenter.saveForm(PATIENT_REGISTRATION_JSON_FORM, activity);
+        presenter.saveForm(TestUtils.PATIENT_REGISTRATION_JSON_FORM, activity);
         verify(interactor).saveForm(any(JSONObject.class), eq(activity));
         verify(interactor).getPatientForRDT(any(JSONObject.class));
         verify(interactor).launchForm(eq((Activity) activity), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());

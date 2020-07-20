@@ -58,12 +58,12 @@ public class FormSaverTest extends BaseFormSaverTest {
     }
 
     @Override
-    protected String getEventType() {
+    protected String getPatientRegistrationEventType() {
         return PATIENT_REGISTRATION;
     }
 
     @Override
-    protected String getBindType() {
+    protected String getRDTPatientBindType() {
         return RDT_PATIENTS;
     }
 
@@ -73,7 +73,7 @@ public class FormSaverTest extends BaseFormSaverTest {
     }
 
     @Override
-    protected String getEncounterType() {
+    protected String getRDTTestEncounterType() {
         return RDT_TEST;
     }
 }
