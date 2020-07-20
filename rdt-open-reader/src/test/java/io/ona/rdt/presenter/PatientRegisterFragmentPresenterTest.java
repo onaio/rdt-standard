@@ -84,11 +84,15 @@ public class PatientRegisterFragmentPresenterTest {
         SmartRegisterQueryBuilder smartRegisterQueryBuilder = mock(SmartRegisterQueryBuilder.class);
         doReturn("main_condition").when(smartRegisterQueryBuilder).mainCondition(anyString());
         Whitebox.setInternalState(presenter, "smartRegisterQueryBuilder", smartRegisterQueryBuilder);
+
+        String REGISTER_TABLE = "register_table";
+        doReturn(REGISTER_TABLE).when(patientRegisterFragment).getRegisterTableName();
+
         presenter.initializeQueries("main_condition");
         verify(patientRegisterFragment).initializeAdapter();
         verify(patientRegisterFragment).countExecute();
         verify(patientRegisterFragment).filterandSortInInitializeQueries();
-        verify(patientRegisterFragment).initializeQueryParams(eq(RDT_PATIENTS), eq("main_condition"), eq("main_condition"));
+        verify(patientRegisterFragment).initializeQueryParams(eq(REGISTER_TABLE), eq("main_condition"), eq("main_condition"));
     }
 
     @Test
