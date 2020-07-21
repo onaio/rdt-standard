@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.vision.barcode.Barcode;
 
+import org.apache.commons.lang3.StringUtils;
+
 import androidx.appcompat.app.AppCompatActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
@@ -82,9 +84,9 @@ public class OneScanActivity extends AppCompatActivity {
     private void setResultAndFinish(OneScanHelper.ScanResponse response) {
         Intent resultIntent = new Intent();
         Barcode barcode = new Barcode();
-        barcode.displayValue = response.productId + "," + response.lot + ","
-                + response.expirationDate + "," + response.serialNumber + "," + response.sensorTriggered
-                + "," + response.status;
+        barcode.displayValue = StringUtils.join(new String[]{response.productId, response.lot,
+                response.expirationDate, response.serialNumber, String.valueOf(response.sensorTriggered),
+                response.status}, ',');
         resultIntent.putExtra(BARCODE_KEY, barcode);
         setResult(RESULT_OK, resultIntent);
         finish();

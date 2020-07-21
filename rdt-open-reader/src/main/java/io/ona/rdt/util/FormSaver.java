@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -169,7 +170,8 @@ public class FormSaver {
             if (DOB.equals(field.get(KEY))) {
                 Calendar calendar = Calendar.getInstance();
                 int birthYear = calendar.get(Calendar.YEAR) - age;
-                String date = birthYear + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+                String date = StringUtils.join(new int[]{birthYear, calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)}, '-');
                 field.put(VALUE, date);
             }
         }

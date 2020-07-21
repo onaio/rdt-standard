@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class OneScanHelper {
     public OneScanHelper(Activity activity) {
         mActivity = activity;
         mPackageName = PACKAGE_NAME;
-        mActivityName = PACKAGE_NAME + "." + ACTIVITY_NAME;
+        mActivityName = StringUtils.join(new String[]{PACKAGE_NAME, ACTIVITY_NAME}, '.');
         mRequestCode = 1234;
     }
 

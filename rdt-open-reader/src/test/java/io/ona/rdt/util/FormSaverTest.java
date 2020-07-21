@@ -1,5 +1,6 @@
 package io.ona.rdt.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
@@ -31,7 +32,8 @@ public class FormSaverTest extends BaseFormSaverTest {
             if (Constants.FormFields.DOB.equals(field.get(KEY))) {
                 Calendar today = Calendar.getInstance();
                 int year = today.get(Calendar.YEAR) - PATIENT_AGE;
-                assertEquals(year + "-" + today.get(Calendar.MONTH) + "-" + today.get(Calendar.DAY_OF_MONTH), field.get(VALUE));
+                assertEquals(StringUtils.join(new int[]{year, today.get(Calendar.MONTH),
+                        today.get(Calendar.DAY_OF_MONTH)}, '-'), field.get(VALUE));
             }
         }
     }
