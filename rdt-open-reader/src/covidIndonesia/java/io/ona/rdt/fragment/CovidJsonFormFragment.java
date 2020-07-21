@@ -5,6 +5,10 @@ import android.os.Bundle;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.CovidJsonFormFragmentPresenter;
 
@@ -16,9 +20,11 @@ import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
  */
 public class CovidJsonFormFragment extends RDTJsonFormFragment {
 
+    private Set<String> formsWithSpecialNavigationRules = new HashSet<>(Arrays.asList(RDT_TEST, COVID_RDT_TEST));
+
     @Override
-    protected boolean formHasSpecialNavigationRules(String eventType) {
-        return RDT_TEST.equals(eventType) || COVID_RDT_TEST.equals(eventType);
+    protected boolean formHasSpecialNavigationRules(String formName) {
+        return formsWithSpecialNavigationRules.contains(formName);
     }
 
     @Override

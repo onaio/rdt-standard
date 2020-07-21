@@ -94,8 +94,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         });
     }
 
-    protected boolean formHasSpecialNavigationRules(String eventType) {
-        return RDT_TEST.equals(eventType);
+    protected boolean formHasSpecialNavigationRules(String formName) {
+        return RDT_TEST.equals(formName);
     }
 
     protected boolean is20minTimerPage(String currStep) {

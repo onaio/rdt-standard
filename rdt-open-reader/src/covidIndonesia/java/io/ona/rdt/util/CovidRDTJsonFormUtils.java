@@ -4,12 +4,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
@@ -22,6 +27,8 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  * Created by Vincent Karuri on 13/07/2020
  */
 public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
+
+    private Set<String> formsThatShouldBePrepopulated = new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, RDT_TEST_FORM));
 
     @Override
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
@@ -53,7 +60,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     @Override
     protected boolean formShouldBePrePopulated(String formName) {
-        return RDT_TEST_FORM.equals(formName) || SAMPLE_COLLECTION_FORM.equals(formName);
+        return formsThatShouldBePrepopulated.contains(formName);
     }
 
     @Override
