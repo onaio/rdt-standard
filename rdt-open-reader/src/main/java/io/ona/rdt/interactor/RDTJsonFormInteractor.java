@@ -4,23 +4,18 @@ import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
 import org.json.JSONObject;
 
-import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
-import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
-import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
-import io.ona.rdt.widget.RDTBarcodeFactory;
 import io.ona.rdt.widget.RDTCountdownTimerFactory;
 import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
 import io.ona.rdt.widget.RDTGpsFactory;
 import io.ona.rdt.widget.RDTLabelFactory;
+import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNTDOWN_TIMER;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.GPS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.LABEL;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
-import static io.ona.rdt.util.Constants.Widget.COVID_RDT_BARCODE_READER;
-import static io.ona.rdt.util.Constants.Widget.UW_COVID_RDT_CAPTURE;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.EXPIRATION_DATE_CAPTURE;
 
 /**
@@ -29,8 +24,6 @@ import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.EXPIRATION_DATE_C
 public class RDTJsonFormInteractor extends JsonFormInteractor {
 
     private static final RDTJsonFormInteractor INSTANCE = new RDTJsonFormInteractor();
-
-    private PatientRegisterFragmentInteractor patientRegisterFragmentInteractor;
 
     public static JsonFormInteractor getInstance() {
         return INSTANCE;
@@ -45,18 +38,5 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
         map.put(RDT_CAPTURE, new UWMalariaRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
         map.put(GPS, new RDTGpsFactory());
-        map.put(UW_COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
-        map.put(COVID_RDT_BARCODE_READER, new CovidRDTBarcodeFactory());
-    }
-
-    public void saveForm(JSONObject jsonForm) {
-        getPatientRegisterFragmentInteractor().saveForm(jsonForm, null);
-    }
-
-    public PatientRegisterFragmentInteractor getPatientRegisterFragmentInteractor() {
-        if (patientRegisterFragmentInteractor == null) {
-            patientRegisterFragmentInteractor = new PatientRegisterFragmentInteractor();
-        }
-        return patientRegisterFragmentInteractor;
     }
 }

@@ -15,12 +15,15 @@ import com.vijay.jsonwizard.widgets.BarcodeFactory;
 
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
+import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 
 /**
  * Created by Vincent Karuri on 19/06/2019
@@ -73,6 +76,27 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
         editText.setVisibility(View.GONE);
         if (context instanceof JsonApi) {
             ((JsonApi) context).addOnActivityResultListener(BARCODE_REQUEST_CODE, this);
+        }
+    }
+
+    protected void moveToNextStep() {
+        if (!widgetArgs.getFormFragment().next()) {
+            widgetArgs.getFormFragment().save(true);
+        }
+    }
+
+    private boolean isRDTExpired(Date date) {
+        return date == null ? true : new Date().after(date);
+    }
+
+    protected void moveToNextStep(Date expDate) {
+        JsonFormFragment formFragment = widgetArgs.getFormFragment();
+        if (!isRDTExpired(expDate)) {
+            moveToNextStep();
+        } else {
+            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE, "step1");
+            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+            formFragment.transactThis(nextFragment);
         }
     }
 }

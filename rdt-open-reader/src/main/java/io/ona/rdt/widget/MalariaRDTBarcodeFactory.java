@@ -1,11 +1,9 @@
 package io.ona.rdt.widget;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONArray;
@@ -17,13 +15,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Utils.convertDate;
@@ -33,8 +31,6 @@ import static io.ona.rdt.util.Utils.convertDate;
  */
 public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
 
-    private static final String TAG = MalariaRDTBarcodeFactory.class.getName();
-
     public static final String OPEN_RDT_DATE_FORMAT = "ddMMyy";
 
     @Override
@@ -43,7 +39,7 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
                 Barcode barcode = data.getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
-                Log.d("Scanned QR Code", barcode.displayValue);
+                Timber.d("Scanned QR Code " + barcode.displayValue);
                 String[] barcodeValues = barcode.displayValue.split(",");
 
                 Date expDate = null;
@@ -53,14 +49,14 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
                 }
                 moveToNextStep(expDate);
             } catch (JSONException e) {
-                Log.e(TAG, e.getStackTrace().toString());
+                Timber.e(e);
             } catch (ParseException e) {
-                Log.e(TAG, e.getStackTrace().toString());
+                Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
             ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
         } else if (data == null) {
-            Log.i("", "No result for qr code");
+            Timber.i("No result for qr code");
         }
     }
 
@@ -96,22 +92,5 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
     private String getDateStr(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         return date == null ? "" : simpleDateFormat.format(date);
-    }
-
-    private boolean isRDTExpired(Date date) {
-        return date == null ? true : new Date().after(date);
-    }
-
-    private void moveToNextStep(Date expDate) {
-        JsonFormFragment formFragment = widgetArgs.getFormFragment();
-        if (!isRDTExpired(expDate)) {
-            if (!formFragment.next()) {
-                formFragment.save(true);
-            }
-        } else {
-            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(RDT_EXPIRED_PAGE, "step1");
-            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-            formFragment.transactThis(nextFragment);
-        }
     }
 }

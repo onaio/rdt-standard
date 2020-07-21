@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "sample_delivery_details",
   "entity_id": "",
   "metadata": {
@@ -75,9 +75,39 @@
   "step2": {
     "title": "Sample shipment details",
     "display_back_button": "true",
+    "next": "step1",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_sample_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "Sample is expired!"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "Please collect another sample."
+      }
+    ]
+  },
+  "step3": {
+    "title": "Sample shipment details",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step3",
+    "next": "step4",
     "next_label": "CONTINUE",
     "fields": [
       {
@@ -85,7 +115,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "covid_rdt_barcode_reader",
+        "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
         "hint": "",
         "scanButtonText": "",
@@ -136,7 +166,7 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "Sample shipment details",
     "display_back_button": "true",
     "bottom_navigation": "true",

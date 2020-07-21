@@ -9,6 +9,9 @@ import android.util.TypedValue;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import net.sqlcipher.Cursor;
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,5 +152,18 @@ public class Utils {
 
     public static void logEventToCrashlytics(String eventMessage) {
         FirebaseCrashlytics.getInstance().log(eventMessage);
+    }
+
+    public static boolean tableExists(SQLiteDatabase db, String tableName) {
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type=? AND name=?", new String[]{"table", tableName});
+        boolean tableExists = !isEmptyCursor(cursor);
+        if (cursor != null) {
+            cursor.close();
+        }
+        return tableExists;
+    }
+
+    public static boolean isEmptyCursor(Cursor cursor) {
+        return cursor == null || cursor.getCount() == 0;
     }
 }

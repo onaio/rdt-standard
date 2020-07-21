@@ -51,14 +51,12 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.PERFORM_FORM_TRAN
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
-import static io.ona.rdt.util.Utils.isCovidApp;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -219,7 +217,7 @@ public class RDTJsonFormUtils {
     }
 
     public void startJsonForm(JSONObject form, Activity context, int requestCode) {
-        Intent intent = new Intent(context, RDTJsonFormActivity.class);
+        Intent intent = new Intent(context, getJsonFormActivityClass());
         try {
             intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
             intent.putExtra(PERFORM_FORM_TRANSLATION, true);
@@ -227,6 +225,10 @@ public class RDTJsonFormUtils {
         } catch (Exception e) {
             Timber.e(TAG, e);
         }
+    }
+
+    protected Class getJsonFormActivityClass() {
+        return RDTJsonFormActivity.class;
     }
 
     public JSONObject getFormJsonObject(String formName, Context context) throws JSONException {
@@ -244,7 +246,7 @@ public class RDTJsonFormUtils {
         JSONObject formJsonObject = null;
         try {
             formJsonObject = getFormJsonObject(formName, activity);
-            if (RDT_TEST_FORM.equals(formName) || SAMPLE_COLLECTION_FORM.equals(formName)) {
+            if (formShouldBePrePopulated(formName)) {
                 String uniqueId = uniqueIDs.get(0);
                 prePopulateFormFields(formJsonObject, patient, uniqueId);
             }
@@ -256,42 +258,41 @@ public class RDTJsonFormUtils {
         return formJsonObject;
     }
 
+    protected boolean formShouldBePrePopulated(String formName) {
+        return RDT_TEST_FORM.equals(formName);
+    }
+
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
-            // pre-populate rdt id labels
-            if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
-                field.put("text", "RDT ID: " + uniqueID);
-            }
-            // pre-populate rdt id field
-            if (isRDTIdField(field)) {
-                field.put(VALUE, uniqueID);
-            }
+            prePopulateRDTFormFields(field, uniqueID);
+            prePopulateRDTPatientFields(patient, field);
+        }
+    }
 
-            if (isCovidApp()) {
-                // pre-populate respiratory sample id labels
-                if (Constants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-                    field.put("text", "Sample ID: " + uniqueID);
-                }
-                // pre-populate respiratory sample id field
-                if (Constants.FormFields.COVID_SAMPLE_ID.equals(field.getString(KEY))) {
-                    field.put(VALUE, uniqueID);
-                }
-            }
+    protected void prePopulateRDTFormFields(JSONObject field, String uniqueID) throws JSONException {
+        // pre-populate rdt id labels
+        if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
+            field.put("text", "RDT ID: " + uniqueID);
+        }
+        // pre-populate rdt id field
+        if (isRDTIdField(field)) {
+            field.put(VALUE, uniqueID);
+        }
+    }
 
-            // pre-populate patient fields
-            if (patient != null) {
-                if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
-                    String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
-                            ? patient.getPatientId() : patient.getPatientName();
+    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
+        if (patient != null) {
+            if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+                String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
+                        ? patient.getPatientId() : patient.getPatientName();
 
-                    field.put(VALUE, patientIdentifier);
-                    field.put("text", patientIdentifier);
-                } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
-                    field.put(VALUE, patient.getPatientSex());
-                    field.put("text", getPatientSexAndId(patient));
-                }
+                field.put(VALUE, patientIdentifier);
+                field.put("text", patientIdentifier);
+            } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+                field.put(VALUE, patient.getPatientSex());
+                field.put("text", getPatientSexAndId(patient));
             }
         }
     }

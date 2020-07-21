@@ -1,7 +1,5 @@
 package io.ona.rdt.repository;
 
-import androidx.annotation.Nullable;
-
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -10,11 +8,13 @@ import org.smartregister.repository.BaseRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import io.ona.rdt.domain.ParasiteProfileResult;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
+import static io.ona.rdt.util.Utils.tableExists;
 
 /**
  * Created by Vincent Karuri on 04/02/2020
@@ -32,8 +32,10 @@ public class ParasiteProfileRepository extends BaseRepository {
 
 
     public static void createIndexes(SQLiteDatabase db) {
-        db.execSQL("CREATE INDEX IF NOT EXISTS pcr_results_rdt_id_and_experiment_type_index ON " + PCR_RESULTS + "(" + RDT_ID + "," + EXPERIMENT_TYPE  +")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS microscopy_results_rdt_id_index ON " + MICROSCOPY_RESULTS + "(" + RDT_ID +")");
+        if (tableExists(db, PCR_RESULTS) && tableExists(db, MICROSCOPY_RESULTS)) {
+            db.execSQL("CREATE INDEX IF NOT EXISTS pcr_results_rdt_id_and_experiment_type_index ON " + PCR_RESULTS + "(" + RDT_ID + "," + EXPERIMENT_TYPE + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS microscopy_results_rdt_id_index ON " + MICROSCOPY_RESULTS + "(" + RDT_ID + ")");
+        }
     }
 
     @Nullable

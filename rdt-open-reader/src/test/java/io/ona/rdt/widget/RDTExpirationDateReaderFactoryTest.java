@@ -17,13 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import io.ona.rdt.PowerMockTest;
@@ -35,11 +32,11 @@ import io.ona.rdt.util.StepStateConfig;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
+import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
-import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
-import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
+import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static org.junit.Assert.assertEquals;
@@ -208,8 +205,8 @@ public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
 
         JSONObject jsonObject = mock(JSONObject.class);
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn("step1").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE_ADDRESS));
-        doReturn("").when(jsonObject).optString(eq(MANUAL_ENTRY_EXPIRATION_PAGE), anyString());
+        doReturn("step1").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE));
+        doReturn("").when(jsonObject).optString(eq(MANUAL_EXPIRATION_DATE_ENTRY_PAGE), anyString());
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
         Whitebox.setInternalState(readerFactory, "stepStateConfig", stepStateConfig);

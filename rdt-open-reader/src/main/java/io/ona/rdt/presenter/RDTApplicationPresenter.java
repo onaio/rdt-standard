@@ -16,7 +16,6 @@ import static io.ona.rdt.util.Constants.PhoneProperties.APP_VERSION;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MANUFACTURER;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MODEL;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_OS_VERSION;
-import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 
 /**
  * Created by Vincent Karuri on 12/11/2019
@@ -25,6 +24,7 @@ public class RDTApplicationPresenter {
 
     private Map<String, String> phoneProperties;
     private static CommonFtsObject commonFtsObject;
+    private static String registerTableName;
 
     public RDTApplicationPresenter() {
         phoneProperties = new HashMap<>();
@@ -43,14 +43,14 @@ public class RDTApplicationPresenter {
     public CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
-            commonFtsObject.updateSearchFields(RDT_PATIENTS, getFtsSearchFields());
-            commonFtsObject.updateSortFields(RDT_PATIENTS, getFtsSortFields());
+            commonFtsObject.updateSearchFields(getRegisterTableName(), getFtsSearchFields());
+            commonFtsObject.updateSortFields(getRegisterTableName(), getFtsSortFields());
         }
         return commonFtsObject;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{RDT_PATIENTS};
+        return new String[]{ getRegisterTableName() };
     }
 
     private static String[] getFtsSearchFields() {
@@ -59,5 +59,13 @@ public class RDTApplicationPresenter {
 
     private static String[] getFtsSortFields() {
         return new String[]{FIRST_NAME, LAST_NAME, PATIENT_ID};
+    }
+
+    public static String getRegisterTableName() {
+        return registerTableName;
+    }
+
+    public void setRegisterTableName(String registerTableName) {
+        this.registerTableName = registerTableName;
     }
 }

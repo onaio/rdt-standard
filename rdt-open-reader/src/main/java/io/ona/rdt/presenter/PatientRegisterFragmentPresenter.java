@@ -15,14 +15,11 @@ import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
-import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 
 /**
  * Created by Vincent Karuri on 11/06/2019
  */
 public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
-
-    private final String TAG = PatientRegisterFragmentPresenter.class.getName();
 
     private PatientRegisterFragmentInteractor interactor;
     private PatientRegisterFragmentContract.View patientRegisterFragment;
@@ -41,7 +38,7 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = RDT_PATIENTS;
+        String tableName = patientRegisterFragment.getRegisterTableName();
         String countSelect = countSelect(tableName, mainCondition);
         String mainSelect = mainSelect(tableName, mainCondition);
         patientRegisterFragment.initializeQueryParams(tableName, countSelect, mainSelect);
@@ -86,7 +83,7 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
         try {
             interactor.launchForm(activity, formName, patient);
         } catch (JSONException e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
     }
 }

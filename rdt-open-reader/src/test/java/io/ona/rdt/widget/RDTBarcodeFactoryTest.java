@@ -48,7 +48,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.HINT;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
 import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
+import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
@@ -254,7 +254,7 @@ public class RDTBarcodeFactoryTest {
 
         JSONObject jsonObject = mock(JSONObject.class);
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn("step1").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE), anyString());
+        doReturn("step1").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE), anyString());
         doReturn("step1:expiration_date_reader").when(jsonObject).optString(eq(EXPIRATION_DATE_READER_ADDRESS), anyString());
         doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
         doReturn(new JSONArray("[\n" +

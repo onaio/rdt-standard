@@ -25,7 +25,7 @@ public class RDTLabelFactory extends LabelFactory {
 
     public static String HAS_DRAWABLE_END = "has_drawable_end";
     public static String CENTER_LABEL = "center_label";
-    private WidgetArgs widgetArgs;
+    protected WidgetArgs widgetArgs;
 
     @Override
     public List<View> getViewsFromJson(String stepName, final Context context, final JsonFormFragment formFragment,
@@ -54,8 +54,12 @@ public class RDTLabelFactory extends LabelFactory {
 
         if (jsonObject.optBoolean(HAS_DRAWABLE_END)) {
             labelText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
-            labelText.setOnClickListener(new OnLabelClickedListener(widgetArgs));
+            labelText.setOnClickListener(getOnLabelClickedListener());
         }
+    }
+
+    protected OnLabelClickedListener getOnLabelClickedListener() {
+        return new OnLabelClickedListener(widgetArgs);
     }
 
     @Override

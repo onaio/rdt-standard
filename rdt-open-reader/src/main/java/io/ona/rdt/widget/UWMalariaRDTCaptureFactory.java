@@ -9,7 +9,7 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
-import static io.ona.rdt.util.Constants.Form.RDT_TYPE;
+import static io.ona.rdt.util.Constants.RDTType.RDT_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT;
 import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_RESULT;
 import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_TOP_LINE_RESULT;

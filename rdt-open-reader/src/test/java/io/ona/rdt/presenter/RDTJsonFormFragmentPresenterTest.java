@@ -4,115 +4,43 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.contract.RDTJsonFormFragmentContract;
-import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.interactor.RDTJsonFormInteractor;
-import io.ona.rdt.util.Constants;
-import io.ona.rdt.util.StepStateConfig;
-
 import static io.ona.rdt.TestUtils.getDateWithOffset;
-import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_RDT_EXPIRED_PAGE;
-import static io.ona.rdt.util.Constants.Step.EXPIRATION_DATE_READER_ADDRESS;
-import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
-import static io.ona.rdt.util.Constants.Step.RDT_ID_LBL_ADDRESSES;
-import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
-import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
-import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 import static io.ona.rdt.util.RDTJsonFormUtilsTest.RDT_TEST_JSON_FORM;
-import static io.ona.rdt.util.Utils.isCovidApp;
-import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
  * Created by Vincent Karuri on 14/08/2019
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTJsonFormFragment.class, RDTApplication.class})
-public class RDTJsonFormFragmentPresenterTest {
 
-    private RDTJsonFormFragmentPresenter presenter;
-    private RDTJsonFormFragmentContract.View rdtFormFragment;
-    private RDTJsonFormInteractor interactor;
-    private RDTJsonFormFragment formFragment;
+public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPresenterTest {
+
+    @Mock
     private JsonFormFragmentView<JsonFormFragmentViewState> view;
-
-    @Mock
-    private RDTApplication rdtApplication;
-
-    @Mock
-    private StepStateConfig stepStateConfig;
-
-    @Before
-    public void setUp() throws JSONException {
-        interactor = mock(RDTJsonFormInteractor.class);
-        rdtFormFragment = spy(new PatientRegisterFragmentStub());
-        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragment, interactor);
-        mockStaticMethods();
-    }
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-        presenter.attachView((JsonFormFragment) rdtFormFragment);
-        if (isMalariaApp()) {
-            presenter.performNextButtonAction("step6", null);
-        } else if (isCovidApp()) {
-            presenter.performNextButtonAction("step8", null);
-        }
-        verify(interactor).saveForm(any(JSONObject.class));
-        verify(rdtFormFragment).moveToNextStep();
-    }
-
-    @Test
-    public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() throws JSONException {
-        if (isMalariaApp()) {
-            doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
-            mockStaticClasses();
-            presenter.performNextButtonAction("step9", null);
-            verify(rdtFormFragment).transactFragment(eq(formFragment));
-        }
-    }
-
-    @Test
-    public void testPerformNextButtonActionShouldShowImageViewsForONARDT() throws JSONException {
-        if (isMalariaApp()) {
-            mockStaticMethods();
-            mockStaticClasses();
-            doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
-            presenter.performNextButtonAction("step8", null);
-            verify(rdtFormFragment).moveToNextStep();
-        }
+        presenter.attachView((JsonFormFragment) rdtFormFragmentView);
+        presenter.performNextButtonAction("step6", null);
+        verify(interactor).saveForm(any(JSONObject.class), isNull());
+        verify(rdtFormFragmentView).moveToNextStep();
     }
 
     @Test
@@ -120,7 +48,7 @@ public class RDTJsonFormFragmentPresenterTest {
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", null);
-        verify(rdtFormFragment).moveToNextStep();
+        verify(rdtFormFragmentView).moveToNextStep();
     }
 
     @Test
@@ -128,7 +56,7 @@ public class RDTJsonFormFragmentPresenterTest {
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", true);
-        verify(rdtFormFragment).saveForm();
+        verify(rdtFormFragmentView).saveForm();
     }
 
     @Test
@@ -154,43 +82,28 @@ public class RDTJsonFormFragmentPresenterTest {
     }
 
     @Test
-    public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() throws JSONException {
-        if (isMalariaApp()) {
-            doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
-            mockStaticClasses();
-            presenter.performNextButtonAction("step9", null);
-            verify(rdtFormFragment).moveToNextStep();
-        }
-    }
-
-    @Test
     public void testPerformNextButtonActionShouldNavigateToCorrectStepFromExpirationPage() throws Exception {
         // valid rdt
         mockStaticClasses();
         mockStaticMethods();
-        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
+        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragmentView).getStep(anyString());
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragment).next();
+        verify((JsonFormFragment) rdtFormFragmentView).next();
         // expired rdt
-        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
-        doNothing().when((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
+        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragmentView).getStep(anyString());
+        doNothing().when((JsonFormFragment) rdtFormFragmentView).transactThis(any(JsonFormFragment.class));
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
+        verify((JsonFormFragment) rdtFormFragmentView).transactThis(any(JsonFormFragment.class));
     }
 
     private void invokePerformNextButtonActionFromExpirationPage() {
-        if (isMalariaApp()) {
-            presenter.performNextButtonAction("step20", null);
-        } else if (isCovidApp()) {
-            presenter.performNextButtonAction("step5", null);
-        }
+        presenter.performNextButtonAction("step20", null);
     }
 
     private void addViewAndMockStaticClasses() throws JSONException {
         addMockStepDetails();
         mockStaticClasses();
         WeakReference<JsonFormFragmentView<JsonFormFragmentViewState>> viewRef = mock(WeakReference.class);
-        view = mock(JsonFormFragmentView.class);
         doReturn(RDT_TEST_JSON_FORM).when(view).getCurrentJsonState();
         doReturn(view).when(viewRef).get();
         Whitebox.setInternalState(presenter, "viewRef", viewRef);
@@ -201,40 +114,6 @@ public class RDTJsonFormFragmentPresenterTest {
         mStepDetails.put("next", "step1");
         Whitebox.setInternalState(presenter, "mStepDetails", mStepDetails);
     }
-
-    private void mockStaticClasses() throws JSONException {
-        mockStatic(RDTJsonFormFragment.class);
-        formFragment = mock(RDTJsonFormFragment.class);
-        when(RDTJsonFormFragment.getFormFragment(anyString())).thenReturn(formFragment);
-    }
-
-    private void mockStaticMethods() throws JSONException {
-        // mock RDTApplication and Drishti context
-        mockStatic(RDTApplication.class);
-        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
-        PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
-
-        JSONObject jsonObject = mock(JSONObject.class);
-        doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn("step1").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE), anyString());
-        doReturn("step6").when(jsonObject).optString(eq(RDT_EXPIRED_PAGE));
-        doReturn("step9").when(jsonObject).optString(eq(BLOT_PAPER_TASK_PAGE));
-        doReturn("step1:expiration_date_reader").when(jsonObject).optString(eq(EXPIRATION_DATE_READER_ADDRESS), anyString());
-        doReturn("step1").when(jsonObject).optString(eq(TAKE_IMAGE_OF_RDT_PAGE));
-        doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));
-        doReturn("step8").when(jsonObject).optString(eq(COVID_RDT_EXPIRED_PAGE));
-        doReturn("step5").when(jsonObject).optString(eq(COVID_MANUAL_RDT_ENTRY_PAGE));
-        doReturn(new JSONArray("[\n" +
-                "    \"step7:lbl_rdt_id\",\n" +
-                "    \"step8:lbl_rdt_id\",\n" +
-                "    \"step9:lbl_rdt_id\",\n" +
-                "    \"step18:lbl_rdt_id\",\n" +
-                "    \"step19:lbl_rdt_id\"\n" +
-                "  ]")).when(jsonObject).optJSONArray(eq(RDT_ID_LBL_ADDRESSES));
-        doReturn("step20").when(jsonObject).optString(eq(MANUAL_ENTRY_EXPIRATION_PAGE));
-        doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
-    }
-
 
     private String getExpirationDatePage(boolean isExpired) {
         Date date = isExpired ? getDateWithOffset(-1) : getDateWithOffset(1);

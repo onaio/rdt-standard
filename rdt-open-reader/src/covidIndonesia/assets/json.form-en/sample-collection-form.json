@@ -1,5 +1,5 @@
 {
-  "count": "8",
+  "count": "9",
   "encounter_type": "sample_collection",
   "entity_id": "",
   "metadata": {
@@ -49,7 +49,7 @@
   "step1": {
     "title": "{{sample-collection-form-original.step1.title}}",
     "display_back_button": "true",
-    "next": "step2",
+    "next": "step3",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "{{sample-collection-form-original.step1.next_label}}",
@@ -70,15 +70,45 @@
   "step2": {
     "title": "{{sample-collection-form-original.step2.title}}",
     "display_back_button": "true",
+    "next": "step1",
+    "bottom_navigation": "true",
+    "next_label": "{{sample-collection-form-original.step2.next_label}}",
+    "fields": [
+      {
+        "key": "lbl_sample_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "{{sample-collection-form-original.step2.lbl_sample_expired.text}}"
+      },
+      {
+        "key": "lbl_collect_new_sample",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "{{sample-collection-form-original.step2.lbl_collect_new_sample.text}}"
+      }
+    ]
+  },
+  "step3": {
+    "title": "{{sample-collection-form-original.step3.title}}",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step3",
-    "next_label": "{{sample-collection-form-original.step2.next_label}}",
+    "next": "step4",
+    "next_label": "{{sample-collection-form-original.step3.next_label}}",
     "fields": [
       {
         "key": "sampler_name_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.sampler_name_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.sampler_name_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -95,38 +125,38 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "{{sample-collection-form-original.step2.sample_type.label}}",
+        "label": "{{sample-collection-form-original.step3.sample_type.label}}",
         "options": [
           {
             "key": "nasopharyngeal",
-            "text": "{{sample-collection-form-original.step2.sample_type.options.nasopharyngeal.text}}"
+            "text": "{{sample-collection-form-original.step3.sample_type.options.nasopharyngeal.text}}"
           },
           {
             "key": "oropharyngeal",
-            "text": "{{sample-collection-form-original.step2.sample_type.options.oropharyngeal.text}}"
+            "text": "{{sample-collection-form-original.step3.sample_type.options.oropharyngeal.text}}"
           },
           {
             "key": "sputum",
-            "text": "{{sample-collection-form-original.step2.sample_type.options.sputum.text}}"
+            "text": "{{sample-collection-form-original.step3.sample_type.options.sputum.text}}"
           },
           {
             "key": "serum",
-            "text": "{{sample-collection-form-original.step2.sample_type.options.serum.text}}"
+            "text": "{{sample-collection-form-original.step3.sample_type.options.serum.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step2.sample_type.options.other.text}}"
+            "text": "{{sample-collection-form-original.step3.sample_type.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step2.sample_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.sample_type.v_required.err}}"
         }
       },
       {
         "key": "other_sample_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.other_sample_type_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_sample_type_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -151,7 +181,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step2.other_sample_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.other_sample_type.v_required.err}}"
         }
       },
       {
@@ -160,46 +190,46 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "{{sample-collection-form-original.step2.vtm_brand.label}}",
+        "label": "{{sample-collection-form-original.step3.vtm_brand.label}}",
         "options": [
           {
             "key": "copan",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.copan.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.copan.text}}"
           },
           {
             "key": "zeesan",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.zeesan.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.zeesan.text}}"
           },
           {
             "key": "nest",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.nest.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.nest.text}}"
           },
           {
             "key": "lmk",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.lmk.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.lmk.text}}"
           },
           {
             "key": "fkui",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.fkui.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.fkui.text}}"
           },
           {
             "key": "i3l",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.i3l.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.i3l.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step2.vtm_brand.options.other.text}}"
+            "text": "{{sample-collection-form-original.step3.vtm_brand.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step2.vtm_brand.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.vtm_brand.v_required.err}}"
         }
       },
       {
         "key": "other_vtm_brand_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.other_vtm_brand_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_vtm_brand_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -224,7 +254,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step2.other_vtm_brand.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.other_vtm_brand.v_required.err}}"
         }
       },
       {
@@ -233,16 +263,16 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step2.sample_expiration_date.hint}}",
+        "hint": "{{sample-collection-form-original.step3.sample_expiration_date.hint}}",
         "v_required": {
           "value": true,
-          "err": "{{sample-collection-form-original.step2.sample_expiration_date.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.sample_expiration_date.v_required.err}}"
         }
       },
       {
         "key": "sample_lot_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.sample_lot_number_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.sample_lot_number_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -259,34 +289,34 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step2.health_facility_type.label}}",
+        "label": "{{sample-collection-form-original.step3.health_facility_type.label}}",
         "options": [
           {
             "key": "hospital",
-            "text": "{{sample-collection-form-original.step2.health_facility_type.options.hospital.text}}"
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.hospital.text}}"
           },
           {
             "key": "clinic",
-            "text": "{{sample-collection-form-original.step2.health_facility_type.options.clinic.text}}"
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.clinic.text}}"
           },
           {
             "key": "health_facility",
-            "text": "{{sample-collection-form-original.step2.health_facility_type.options.health_facility.text}}"
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.health_facility.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step2.health_facility_type.options.other.text}}"
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step2.health_facility_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.health_facility_type.v_required.err}}"
         }
       },
       {
         "key": "other_health_facility_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.other_health_facility_type_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_health_facility_type_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -311,7 +341,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step2.other_health_facility_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.other_health_facility_type.v_required.err}}"
         }
       },
       {
@@ -320,34 +350,34 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step2.name_of_primary_care_facility.label}}",
+        "label": "{{sample-collection-form-original.step3.name_of_primary_care_facility.label}}",
         "options": [
           {
             "key": "jenis_fasyankes",
-            "text": "{{sample-collection-form-original.step2.name_of_primary_care_facility.options.jenis_fasyankes.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.jenis_fasyankes.text}}"
           },
           {
             "key": "dinas_kesehatan",
-            "text": "{{sample-collection-form-original.step2.name_of_primary_care_facility.options.dinas_kesehatan.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.dinas_kesehatan.text}}"
           },
           {
             "key": "alamat_fasyankes",
-            "text": "{{sample-collection-form-original.step2.name_of_primary_care_facility.options.alamat_fasyankes.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.alamat_fasyankes.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step2.name_of_primary_care_facility.options.other.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step2.name_of_primary_care_facility.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.name_of_primary_care_facility.v_required.err}}"
         }
       },
       {
         "key": "other_primary_care_facility_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.other_primary_care_facility_type_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_primary_care_facility_type_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -372,13 +402,13 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step2.other_primary_care_facility_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.other_primary_care_facility_type.v_required.err}}"
         }
       },
       {
         "key": "doctor_name_label",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.doctor_name_label.text}}",
+        "text": "{{sample-collection-form-original.step3.doctor_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -389,13 +419,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step2.doctor_name.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.doctor_name.v_required.err}}"
         }
       },
       {
         "key": "doctor_phone_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.doctor_phone_number_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.doctor_phone_number_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -406,11 +436,11 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step2.doctor_phone_number.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.doctor_phone_number.v_required.err}}"
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step2.doctor_phone_number.v_numeric.err}}"
+          "err": "{{sample-collection-form-original.step3.doctor_phone_number.v_numeric.err}}"
         }
       },
       {
@@ -419,16 +449,16 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step2.booking_date.hint}}",
+        "hint": "{{sample-collection-form-original.step3.booking_date.hint}}",
         "v_required": {
           "value": true,
-          "err": "{{sample-collection-form-original.step2.booking_date.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.booking_date.v_required.err}}"
         }
       },
       {
         "key": "gsi_sample_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.gsi_sample_number_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.gsi_sample_number_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -442,7 +472,7 @@
       {
         "key": "hospital_sample_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step2.hospital_sample_number_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.hospital_sample_number_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -459,43 +489,43 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step2.patient_health_status.label}}",
+        "label": "{{sample-collection-form-original.step3.patient_health_status.label}}",
         "options": [
           {
             "key": "ill",
-            "text": "{{sample-collection-form-original.step2.patient_health_status.options.ill.text}}"
+            "text": "{{sample-collection-form-original.step3.patient_health_status.options.ill.text}}"
           },
           {
             "key": "undergoing_care",
-            "text": "{{sample-collection-form-original.step2.patient_health_status.options.undergoing_care.text}}"
+            "text": "{{sample-collection-form-original.step3.patient_health_status.options.undergoing_care.text}}"
           },
           {
             "key": "recovered",
-            "text": "{{sample-collection-form-original.step2.patient_health_status.options.recovered.text}}"
+            "text": "{{sample-collection-form-original.step3.patient_health_status.options.recovered.text}}"
           },
           {
             "key": "dead",
-            "text": "{{sample-collection-form-original.step2.patient_health_status.options.dead.text}}"
+            "text": "{{sample-collection-form-original.step3.patient_health_status.options.dead.text}}"
           },
           {
             "key": "no_covid_detected",
-            "text": "{{sample-collection-form-original.step2.patient_health_status.options.no_covid_detected.text}}"
+            "text": "{{sample-collection-form-original.step3.patient_health_status.options.no_covid_detected.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step2.patient_health_status.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.patient_health_status.v_required.err}}"
         }
       }
     ]
   },
-  "step3": {
-    "title": "{{sample-collection-form-original.step3.title}}",
+  "step4": {
+    "title": "{{sample-collection-form-original.step4.title}}",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step5",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step3.next_label}}",
+    "next_label": "{{sample-collection-form-original.step4.next_label}}",
     "fields": [
       {
         "key": "lbl_store_respiratory_specimen",
@@ -506,18 +536,18 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step3.lbl_store_respiratory_specimen.text}}"
+        "text": "{{sample-collection-form-original.step4.lbl_store_respiratory_specimen.text}}"
       }
     ]
   },
-  "step4": {
-    "title": "{{sample-collection-form-original.step4.title}}",
+  "step5": {
+    "title": "{{sample-collection-form-original.step5.title}}",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_scan_respiratory_specimen_barcode",
         "type": "label",
-        "text": "{{sample-collection-form-original.step4.lbl_scan_respiratory_specimen_barcode.text}}",
+        "text": "{{sample-collection-form-original.step5.lbl_scan_respiratory_specimen_barcode.text}}",
         "text_color": "#000000",
         "top_margin": "40dp",
         "has_bg": true,
@@ -527,7 +557,7 @@
       {
         "key": "lbl_affix_respiratory_specimen_label",
         "type": "label",
-        "text": "{{sample-collection-form-original.step4.lbl_affix_respiratory_specimen_label.text}}",
+        "text": "{{sample-collection-form-original.step5.lbl_affix_respiratory_specimen_label.text}}",
         "top_margin": "40dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -536,10 +566,10 @@
       }
     ]
   },
-  "step5": {
-    "title": "{{sample-collection-form-original.step5.title}}",
+  "step6": {
+    "title": "{{sample-collection-form-original.step6.title}}",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step8",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "fields": [
@@ -548,18 +578,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "covid_rdt_barcode_reader",
+        "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
-        "hint": "{{sample-collection-form-original.step5.qr_code_reader.hint}}",
-        "scanButtonText": "{{sample-collection-form-original.step5.qr_code_reader.scanButtonText}}",
+        "hint": "{{sample-collection-form-original.step6.qr_code_reader.hint}}",
+        "scanButtonText": "{{sample-collection-form-original.step6.qr_code_reader.scanButtonText}}",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step5.qr_code_reader.v_numeric.err}}"
+          "err": "{{sample-collection-form-original.step6.qr_code_reader.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step5.qr_code_reader.v_required.err}}"
+          "err": "{{sample-collection-form-original.step6.qr_code_reader.v_required.err}}"
         }
       },
       {
@@ -599,13 +629,13 @@
       }
     ]
   },
-  "step6": {
-    "title": "{{sample-collection-form-original.step6.title}}",
+  "step7": {
+    "title": "{{sample-collection-form-original.step7.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
-    "next": "step7",
+    "next": "step8",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step6.next_label}}",
+    "next_label": "{{sample-collection-form-original.step7.next_label}}",
     "fields": [
       {
         "key": "lbl_affix_respiratory_sample_id",
@@ -616,7 +646,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step6.lbl_affix_respiratory_sample_id.text}}"
+        "text": "{{sample-collection-form-original.step7.lbl_affix_respiratory_sample_id.text}}"
       },
       {
         "key": "lbl_respiratory_sample_id",
@@ -637,13 +667,13 @@
       }
     ]
   },
-  "step7": {
-    "title": "{{sample-collection-form-original.step7.title}}",
+  "step8": {
+    "title": "{{sample-collection-form-original.step8.title}}",
     "display_back_button": "true",
-    "next": "step8",
+    "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step7.next_label}}",
+    "next_label": "{{sample-collection-form-original.step8.next_label}}",
     "fields": [
       {
         "key": "lbl_store_specimen_for_courier",
@@ -654,17 +684,17 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step7.lbl_store_specimen_for_courier.text}}"
+        "text": "{{sample-collection-form-original.step8.lbl_store_specimen_for_courier.text}}"
       }
     ]
   },
-  "step8": {
-    "title": "{{sample-collection-form-original.step8.title}}",
+  "step9": {
+    "title": "{{sample-collection-form-original.step9.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "{{sample-collection-form-original.step8.submit_label}}",
+    "submit_label": "{{sample-collection-form-original.step9.submit_label}}",
     "fields": [
       {
         "key": "lbl_test_complete",
@@ -675,7 +705,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step8.lbl_test_complete.text}}"
+        "text": "{{sample-collection-form-original.step9.lbl_test_complete.text}}"
       }
     ]
   },

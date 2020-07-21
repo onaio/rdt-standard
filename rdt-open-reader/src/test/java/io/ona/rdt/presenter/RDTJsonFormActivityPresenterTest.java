@@ -5,12 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
@@ -20,16 +18,12 @@ import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
-import static io.ona.rdt.util.Constants.Step.COVID_DISABLED_BACK_PRESS_PAGES;
 import static io.ona.rdt.util.Constants.Step.DISABLED_BACK_PRESS_PAGES;
-import static io.ona.rdt.util.Utils.isCovidApp;
-import static io.ona.rdt.util.Utils.isMalariaApp;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -101,12 +95,6 @@ public class RDTJsonFormActivityPresenterTest extends PowerMockTest {
                 "    \"step13\",\n" +
                 "    \"step14\"\n" +
                 "  ]")).when(jsonObject).optJSONArray(eq(DISABLED_BACK_PRESS_PAGES));
-
-        doReturn(new JSONArray("[\n" +
-                "    \"step6\",\n" +
-                "    \"step13\",\n" +
-                "    \"step14\"\n" +
-                "  ]")).when(jsonObject).optJSONArray(eq(COVID_DISABLED_BACK_PRESS_PAGES));
 
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
     }

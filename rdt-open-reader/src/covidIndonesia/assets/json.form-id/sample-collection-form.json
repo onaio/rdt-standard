@@ -548,7 +548,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "covid_rdt_barcode_reader",
+        "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
         "hint": "{{sample-collection-form-original.step5.qr_code_reader.hint}}",
         "scanButtonText": "{{sample-collection-form-original.step5.qr_code_reader.scanButtonText}}",

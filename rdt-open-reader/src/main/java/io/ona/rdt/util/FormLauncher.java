@@ -15,18 +15,16 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.utils.Utils.showToast;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.Form.SAMPLE_COLLECTION_FORM;
-import static io.ona.rdt.util.Utils.isCovidApp;
 
 /**
  * Created by Vincent Karuri on 06/08/2019
  */
 public class FormLauncher implements OnUniqueIdsFetchedCallback {
 
-    private RDTJsonFormUtils formUtils = new RDTJsonFormUtils();
+    private RDTJsonFormUtils formUtils = getFormUtils();
 
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        if (RDT_TEST_FORM.equals(formName) || SAMPLE_COLLECTION_FORM.equals(formName)) {
+        if (formRequiresUniqueId(formName)) {
             FormLaunchArgs args = new FormLaunchArgs();
             args.withActivity(activity)
                     .withFormJsonObj(formUtils.getFormJsonObject(formName, activity))
@@ -36,6 +34,10 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
         } else {
             formUtils.launchForm(activity, formName, patient, null);
         }
+    }
+
+    protected boolean formRequiresUniqueId(String formName) {
+        return RDT_TEST_FORM.equals(formName);
     }
 
     @Override
@@ -57,5 +59,9 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
         if (!ids.isEmpty()) {
             formUtils.launchForm(activity, args.getFormName(), args.getPatient(), ids);
         }
+    }
+
+    protected RDTJsonFormUtils getFormUtils() {
+        return new RDTJsonFormUtils();
     }
 }

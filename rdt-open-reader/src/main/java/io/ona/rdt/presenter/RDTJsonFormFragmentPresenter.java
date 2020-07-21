@@ -17,22 +17,17 @@ import java.util.Date;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.interactor.RDTJsonFormInteractor;
+import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.FormFields.MANUAL_EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Step.BLOT_PAPER_TASK_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_MANUAL_RDT_ENTRY_PAGE;
-import static io.ona.rdt.util.Constants.Step.COVID_RDT_EXPIRED_PAGE;
-import static io.ona.rdt.util.Constants.Step.MANUAL_ENTRY_EXPIRATION_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE;
-import static io.ona.rdt.util.Constants.Step.RDT_EXPIRED_PAGE_ADDRESS;
+import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
+import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
-import static io.ona.rdt.util.Utils.isCovidApp;
 import static io.ona.rdt.util.Utils.isExpired;
-import static io.ona.rdt.util.Utils.isMalariaApp;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.conditionallyMoveToNextStep;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
 import static org.smartregister.util.JsonFormUtils.getFieldValue;
@@ -43,14 +38,14 @@ import static org.smartregister.util.JsonFormUtils.getJSONArray;
  */
 public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter implements RDTJsonFormFragmentContract.Presenter {
 
-    private RDTJsonFormInteractor interactor;
     private RDTJsonFormFragmentContract.View rdtFormFragment;
     private StepStateConfig stepStateConfig;
+    private RDTJsonFormFragmentInteractor rdtJsonFormFragmentInteractor;
 
     public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
         super((JsonFormFragment) rdtFormFragment, jsonFormInteractor);
-        this.interactor = (RDTJsonFormInteractor) jsonFormInteractor;
         this.rdtFormFragment = rdtFormFragment;
+        this.rdtJsonFormFragmentInteractor = new RDTJsonFormFragmentInteractor();
     }
 
     @Override
@@ -100,59 +95,27 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     @Override
     public void saveForm() throws JSONException {
-        interactor.saveForm(new JSONObject(getView().getCurrentJsonState()));
+        rdtJsonFormFragmentInteractor.saveForm(new JSONObject(getView().getCurrentJsonState()), null);
     }
 
     @Override
     public void performNextButtonAction(String currentStep, Object isSubmit) {
-        if (isMalariaApp()) {
-            handleMalariaTestFormClicks(getStepStateConfig(), currentStep, isSubmit);
-        } else if (isCovidApp()) {
-            handleCovidTestFormClicks(getStepStateConfig(), currentStep, isSubmit);
-        }
-    }
-
-    private void handleCovidTestFormClicks(StepStateConfig stepStateConfig, String currentStep, Object isSubmit) {
-        try {
-            if (isCurrentStep(stepStateConfig, COVID_RDT_EXPIRED_PAGE, currentStep)) {
-                saveFormAndMoveToNextStep();
-            } else if (isCurrentStep(stepStateConfig, COVID_MANUAL_RDT_ENTRY_PAGE, currentStep)) {
-                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj()
-                        .optString(COVID_RDT_EXPIRED_PAGE));
-            } else {
-                handleCommonTestFormClicks(isSubmit);
-            }
-        } catch (JSONException e) {
-            Timber.e(e);
-        } catch (ParseException e) {
-            Timber.e(e);
-        }
+        handleMalariaTestFormClicks(getStepStateConfig(), currentStep, isSubmit);
     }
 
     private void handleMalariaTestFormClicks(StepStateConfig stepStateConfig, String currentStep, Object isSubmit) {
-        try {
-            if (isCurrentStep(stepStateConfig, BLOT_PAPER_TASK_PAGE, currentStep)) {
-                String rdtType = rdtFormFragment.getRDTType();
-                if (Constants.RDTType.CARESTART_RDT.equals(rdtType)) {
-                    JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(
-                            stepStateConfig.getStepStateObj().optString(TAKE_IMAGE_OF_RDT_PAGE));
+        if (isCurrentStep(BLOT_PAPER_TASK_PAGE, currentStep)) {
+            String rdtType = rdtFormFragment.getRDTType();
+            if (Constants.RDTType.CARESTART_RDT.equals(rdtType)) {
+                JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(
+                        stepStateConfig.getStepStateObj().optString(TAKE_IMAGE_OF_RDT_PAGE));
 
-                    rdtFormFragment.transactFragment(nextFragment);
-                } else {
-                    rdtFormFragment.moveToNextStep();
-                }
-            } else if (isCurrentStep(stepStateConfig, RDT_EXPIRED_PAGE, currentStep)) {
-                saveFormAndMoveToNextStep();
-            } else if (isCurrentStep(stepStateConfig, MANUAL_ENTRY_EXPIRATION_PAGE, currentStep)) {
-                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(RDT_EXPIRED_PAGE_ADDRESS));
+                rdtFormFragment.transactFragment(nextFragment);
             } else {
-                handleCommonTestFormClicks(isSubmit);
+                rdtFormFragment.moveToNextStep();
             }
-        } catch (JSONException e) {
-            Timber.e(e);
-            return;
-        } catch (ParseException e) {
-            Timber.e(e);
+        }  else {
+            handleCommonTestFormClicks(isSubmit, currentStep);
         }
     }
 
@@ -161,8 +124,26 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         rdtFormFragment.moveToNextStep();
     }
 
-    public void handleCommonTestFormClicks(Object isSubmit) {
-        if (isSubmit != null && Boolean.valueOf(isSubmit.toString())) {
+    @Override
+    public void handleCommonTestFormClicks(Object isSubmit, String currentStep) {
+        try {
+            if (isCurrentStep(PRODUCT_EXPIRED_PAGE, currentStep)) {
+                saveFormAndMoveToNextStep();
+            } else if (isCurrentStep(MANUAL_EXPIRATION_DATE_ENTRY_PAGE, currentStep)) {
+                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(PRODUCT_EXPIRED_PAGE));;
+            }  else {
+                submitOrMoveToNextStep(isSubmit);
+            }
+        } catch (JSONException e) {
+            Timber.e(e);
+        } catch (ParseException e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void submitOrMoveToNextStep(Object isSubmit) {
+        if (isSubmit != null && Boolean.parseBoolean(isSubmit.toString())) {
             rdtFormFragment.saveForm();
         } else {
             rdtFormFragment.moveToNextStep();
@@ -181,12 +162,12 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     private String getDateStr(JsonFormFragment formFragment, StepStateConfig stepStateConfig) {
         JSONObject stepStateObj = stepStateConfig.getStepStateObj();
-        String dateStr = getFieldValue(getJSONArray(formFragment.getStep(stepStateObj.optString(MANUAL_ENTRY_EXPIRATION_PAGE)), FIELDS), MANUAL_EXPIRATION_DATE);
-        return dateStr == null ? getFieldValue(getJSONArray(formFragment.getStep(stepStateObj.optString(COVID_MANUAL_RDT_ENTRY_PAGE)), FIELDS), MANUAL_EXPIRATION_DATE) : dateStr;
+        return getFieldValue(getJSONArray(formFragment.getStep(
+                stepStateObj.optString(MANUAL_EXPIRATION_DATE_ENTRY_PAGE)), FIELDS), MANUAL_EXPIRATION_DATE);
     }
 
-    private boolean isCurrentStep(StepStateConfig stepStateConfig, String key, String currentStep) {
-        return currentStep.equals(stepStateConfig.getStepStateObj().optString(key));
+    private boolean isCurrentStep(String key, String currentStep) {
+        return currentStep.equals(getStepStateConfig().getStepStateObj().optString(key));
     }
 
     private StepStateConfig getStepStateConfig() {

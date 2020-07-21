@@ -6,8 +6,10 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
+import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
+import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 
-import static io.ona.rdt.util.Constants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 
 /**
  * Created by Vincent Karuri on 16/06/2020
@@ -35,5 +37,10 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     @Override
     protected Class getHomePage() {
         return CovidLoginActivity.class;
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new CovidPatientRegisterActivityPresenter(this);
     }
 }

@@ -15,16 +15,19 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import io.ona.rdt.PowerMockTest;
+import io.ona.rdt.TestUtils;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.PATIENT_REGISTRATION_JSON_FORM;
-import static io.ona.rdt.interactor.PatientRegisterFragmentInteractorTest.expectedPatient;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -37,11 +40,20 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 /**
  * Created by Vincent Karuri on 02/08/2019
  */
-@PrepareForTest({RDTJsonFormUtils.class})
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({RDTJsonFormUtils.class, RDTApplication.class, ClientProcessorForJava.class})
 public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
     private PatientRegisterActivityContract.View activity;
     private PatientRegisterActivityPresenter presenter;
+
+    @Mock
+    private RDTApplication rdtApplication;
+    @Mock
+    private org.smartregister.Context drishtiContext;
+    @Mock
+    protected EventClientRepository eventClientRepository;
 
     @Mock
     private PatientRegisterActivityInteractor interactor;
@@ -52,6 +64,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        mockStaticMethods();
         activity = spy(new PatientRegisterActivityStub());
         presenter = new PatientRegisterActivityPresenter(activity);
     }
@@ -62,7 +75,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
         doReturn(expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
         mockStatic(RDTJsonFormUtils.class);
 
-        presenter.saveForm(PATIENT_REGISTRATION_JSON_FORM, activity);
+        presenter.saveForm(TestUtils.PATIENT_REGISTRATION_JSON_FORM, activity);
         verify(interactor).saveForm(any(JSONObject.class), eq(activity));
         verify(interactor).getPatientForRDT(any(JSONObject.class));
         verify(interactor).launchForm(eq((Activity) activity), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());
@@ -75,5 +88,15 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
         PowerMockito.verifyStatic(RDTJsonFormUtils.class);
         RDTJsonFormUtils.appendEntityId(any(JSONObject.class));
+    }
+
+    private void mockStaticMethods() {
+        // mock RDTApplication and Drishti context
+        mockStatic(RDTApplication.class);
+        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
+        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
+
+        // mock repositories
+        PowerMockito.when(drishtiContext.getEventClientRepository()).thenReturn(eventClientRepository);
     }
 }

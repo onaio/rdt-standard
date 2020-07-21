@@ -48,7 +48,7 @@
   },
   "step1": {
     "title": "Find location",
-    "next": "step2",
+    "next": "step3",
     "display_back_button": "true",
     "fields": [
       {
@@ -63,7 +63,37 @@
   "step2": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step5",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_rdt_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "RDT is expired!"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "Please use a new test."
+      }
+    ]
+  },
+  "step3": {
+    "title": "RDT",
+    "display_back_button": "true",
+    "next": "step4",
     "bottom_navigation" : "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -89,9 +119,9 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "RDT",
-    "next": "step4",
+    "next": "step5",
     "display_back_button": "true",
     "bottom_navigation" : "true",
     "bottom_navigation_orientation": "vertical",
@@ -147,7 +177,7 @@
       }
     ]
   },
-  "step4": {
+  "step5": {
     "title": "RDT",
     "display_back_button": "true",
     "fields": [
@@ -183,10 +213,10 @@
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "Record RDT information",
     "display_back_button": "true",
-    "next": "step6",
+    "next": "step7",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -310,7 +340,7 @@
       }
     ]
   },
-  "step6": {
+  "step7": {
     "title": "RDT",
     "display_back_button": "true",
     "next": "step9",
@@ -339,7 +369,7 @@
       }
     ]
   },
-  "step7": {
+  "step8": {
     "title": "RDT",
     "display_back_button": "true",
     "next": "step9",
@@ -349,7 +379,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "covid_rdt_barcode_reader",
+        "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
         "hint": "",
         "scanButtonText": "",
@@ -396,36 +426,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
-      }
-    ]
-  },
-  "step8": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step4",
-    "bottom_navigation": "true",
-    "next_label": "OK",
-    "fields": [
-      {
-        "key": "lbl_rdt_expired",
-        "type": "label",
-        "text_color": "#000000",
-        "label_text_style": "bold",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true",
-        "top_margin": "15dp",
-        "text": "RDT is expired!"
-      },
-      {
-        "key": "lbl_use_new_test",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true",
-        "top_margin": "15dp",
-        "text": "Please use a new test."
       }
     ]
   },

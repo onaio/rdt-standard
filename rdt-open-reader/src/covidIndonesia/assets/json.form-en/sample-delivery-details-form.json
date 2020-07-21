@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "sample_delivery_details",
   "entity_id": "",
   "metadata": {
@@ -75,28 +75,58 @@
   "step2": {
     "title": "{{sample-delivery-details-form-original.step2.title}}",
     "display_back_button": "true",
+    "next": "step1",
+    "bottom_navigation": "true",
+    "next_label": "{{sample-delivery-details-form-original.step2.next_label}}",
+    "fields": [
+      {
+        "key": "lbl_sample_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "{{sample-delivery-details-form-original.step2.lbl_sample_expired.text}}"
+      },
+      {
+        "key": "lbl_use_new_test",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "{{sample-delivery-details-form-original.step2.lbl_use_new_test.text}}"
+      }
+    ]
+  },
+  "step3": {
+    "title": "{{sample-delivery-details-form-original.step3.title}}",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step3",
-    "next_label": "{{sample-delivery-details-form-original.step2.next_label}}",
+    "next": "step4",
+    "next_label": "{{sample-delivery-details-form-original.step3.next_label}}",
     "fields": [
       {
         "key": "qr_code_reader",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "covid_rdt_barcode_reader",
+        "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
-        "hint": "{{sample-delivery-details-form-original.step2.qr_code_reader.hint}}",
-        "scanButtonText": "{{sample-delivery-details-form-original.step2.qr_code_reader.scanButtonText}}",
+        "hint": "{{sample-delivery-details-form-original.step3.qr_code_reader.hint}}",
+        "scanButtonText": "{{sample-delivery-details-form-original.step3.qr_code_reader.scanButtonText}}",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step2.qr_code_reader.v_numeric.err}}"
+          "err": "{{sample-delivery-details-form-original.step3.qr_code_reader.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step2.qr_code_reader.v_required.err}}"
+          "err": "{{sample-delivery-details-form-original.step3.qr_code_reader.v_required.err}}"
         }
       },
       {
@@ -136,18 +166,18 @@
       }
     ]
   },
-  "step3": {
-    "title": "{{sample-delivery-details-form-original.step3.title}}",
+  "step4": {
+    "title": "{{sample-delivery-details-form-original.step4.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "{{sample-delivery-details-form-original.step3.submit_label}}",
+    "submit_label": "{{sample-delivery-details-form-original.step4.submit_label}}",
     "fields": [
       {
         "key": "manual_sample_id_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.manual_sample_id_label.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.manual_sample_id_label.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -175,7 +205,7 @@
       {
         "key": "courier_name_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.courier_name_label.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.courier_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -189,7 +219,7 @@
       {
         "key": "courier_phone_number_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.courier_phone_number_label.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.courier_phone_number_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -201,13 +231,13 @@
         "edit_type": "",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.courier_phone_number.v_numeric.err}}"
+          "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_numeric.err}}"
         }
       },
       {
         "key": "courier_id_lbl",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.courier_id_lbl.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.courier_id_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -218,13 +248,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.courier_id.v_required.err}}"
+          "err": "{{sample-delivery-details-form-original.step4.courier_id.v_required.err}}"
         }
       },
       {
         "key": "sender_name_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.sender_name_label.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.sender_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -238,7 +268,7 @@
       {
         "key": "sender_phone_number_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.sender_phone_number_label.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.sender_phone_number_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -250,13 +280,13 @@
         "edit_type": "",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.sender_phone_number.v_numeric.err}}"
+          "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_numeric.err}}"
         }
       },
       {
         "key": "sender_email_lbl",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step3.sender_email_lbl.text}}",
+        "text": "{{sample-delivery-details-form-original.step4.sender_email_lbl.text}}",
         "text_color": "#000000"
       },
       {
@@ -267,7 +297,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.sender_email.v_required.err}}"
+          "err": "{{sample-delivery-details-form-original.step4.sender_email.v_required.err}}"
         }
       }
     ]

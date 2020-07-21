@@ -19,6 +19,7 @@ import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
+import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
@@ -34,7 +35,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.tablename = "rdt_patients";
+        this.tablename = getRegisterTableName();
     }
 
     @Override
@@ -163,6 +164,10 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
             default:
                 // do nothing
         }
+    }
+
+    public String getRegisterTableName() {
+        return RDTApplicationPresenter.getRegisterTableName();
     }
 
     private void launchRDTTestForm(View view) {

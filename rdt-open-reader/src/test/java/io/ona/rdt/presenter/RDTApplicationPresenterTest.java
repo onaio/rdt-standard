@@ -33,10 +33,12 @@ public class RDTApplicationPresenterTest {
 
     @Test
     public void testCreateCommonFtsObjectShouldCreateCorrectFtsObject() {
+        String REGISTER_TABLE = "register_table";
+        presenter.setRegisterTableName(REGISTER_TABLE);
         CommonFtsObject ftsObject = presenter.createCommonFtsObject();
-        assertEquals(ftsObject.getSortFields(RDT_PATIENTS), new String[]{Constants.DBConstants.FIRST_NAME, Constants.DBConstants.LAST_NAME, Constants.DBConstants.PATIENT_ID});
-        assertEquals(ftsObject.getSearchFields(RDT_PATIENTS), new String[]{Constants.DBConstants.FIRST_NAME, Constants.DBConstants.LAST_NAME, Constants.DBConstants.PATIENT_ID});
-        assertEquals(ftsObject.getTables(), new String[]{RDT_PATIENTS});
+        assertEquals(new String[]{Constants.DBConstants.FIRST_NAME, Constants.DBConstants.LAST_NAME, Constants.DBConstants.PATIENT_ID}, ftsObject.getSortFields(REGISTER_TABLE));
+        assertEquals( new String[]{Constants.DBConstants.FIRST_NAME, Constants.DBConstants.LAST_NAME, Constants.DBConstants.PATIENT_ID}, ftsObject.getSearchFields(REGISTER_TABLE));
+        assertEquals(new String[]{REGISTER_TABLE}, ftsObject.getTables());
     }
 
     @Test

@@ -55,7 +55,6 @@ public class RDTApplication extends DrishtiApplication {
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(getPresenter().createCommonFtsObject());
 
         // Initialize Modules
         CoreLibrary.init(context, new RDTSyncConfiguration(), System.currentTimeMillis());

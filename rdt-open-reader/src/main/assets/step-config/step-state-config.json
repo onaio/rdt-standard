@@ -1,12 +1,12 @@
 {
-  "rdt_expired_page": "step6",
+  "product_expired_page": "step6",
   "blot_paper_task_page": "step9",
   "disabled_back_press_pages" : [
     "step6",
     "step13",
     "step14"
   ],
-  "manual_entry_expiration_page": "step20",
+  "manual_expiration_date_entry_page": "step20",
   "rdt_id_key": "rdt_id",
   "expiration_date_reader_address": "step4:expiration_date_reader",
   "rdt_id_lbl_addresses": [
@@ -19,24 +19,5 @@
   "scan_qr_page": "step5",
   "scan_carestart_page": "step4",
   "twenty_min_countdown_timer_page": "step13",
-  "take_image_of_rdt_page": "step15",
-  "covid_manual_rdt_entry_page": "step5",
-  "covid_scan_barcode_page": "step7",
-  "covid_conduct_rdt_page": "step4",
-  "covid_respiratory_specimen_collection_opt_in_page": "step13",
-  "covid_collect_respiratory_specimen_page": "step14",
-  "covid_test_complete_page": "step20",
-  "covid_one_scan_widget_specimen_page": "step5",
-  "covid_affix_respiratory_sample_id_page": "step6",
-  "covid_rdt_expired_page": "step8",
-  "covid_xray_page": "step2",
-  "covid_opt_in_wbc_page": "step3",
-  "covid_wbc_page": "step4",
-  "covid_support_investigation_complete_page": "step5",
-  "covid_disabled_back_press_pages" : [
-    "step7",
-    "step10"
-  ],
-  "covid_scan_sample_for_delivery_page": "step2",
-  "covid_enter_delivery_details_page": "step3"
+  "take_image_of_rdt_page": "step15"
 }
