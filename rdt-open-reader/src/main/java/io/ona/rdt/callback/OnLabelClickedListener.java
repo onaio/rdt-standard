@@ -11,6 +11,8 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
+import static io.ona.rdt.util.Constants.RDTType.CARESTART_RDT;
+import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
 import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 
@@ -37,11 +39,11 @@ public class OnLabelClickedListener implements View.OnClickListener {
         String nextStep = "";
         switch (key) {
             case Constants.FormFields.LBL_CARE_START:
-                formFragment.getRdtActivity().setRdtType(Constants.RDTType.CARESTART_RDT);
+                formFragment.getRdtActivity().setRdtType(CARESTART_RDT);
                 nextStep = stepStateConfig.getStepStateObj().optString(SCAN_CARESTART_PAGE);
                 break;
             case Constants.FormFields.LBL_SCAN_QR_CODE:
-                formFragment.getRdtActivity().setRdtType(Constants.RDTType.ONA_RDT);
+                formFragment.getRdtActivity().setRdtType(ONA_RDT);
                 nextStep = stepStateConfig.getStepStateObj().optString(SCAN_QR_PAGE);
                 break;
         }
