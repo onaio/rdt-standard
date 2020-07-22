@@ -2,6 +2,7 @@ package io.ona.rdt.robolectric.shadow;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.mock;
 public class FirebaseCrashlyticsShadow {
 
     @NonNull
+    @Implementation
     public static FirebaseCrashlytics getInstance() {
        return mock(FirebaseCrashlytics.class);
     }
