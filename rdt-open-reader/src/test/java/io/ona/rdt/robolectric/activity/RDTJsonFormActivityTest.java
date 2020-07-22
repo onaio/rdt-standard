@@ -46,7 +46,6 @@ public class RDTJsonFormActivityTest extends RobolectricTest {
     private RDTJsonFormActivity rdtJsonFormActivity;
 
     private Intent intent;
-
     private JSONObject mJSONObject;
 
     @Before

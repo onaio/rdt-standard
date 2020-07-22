@@ -67,7 +67,10 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
     }
 
     protected PatientProfileActivityPresenter getPresenter() {
-        return new PatientProfileActivityPresenter(this);
+        if (presenter == null) {
+            presenter = new PatientProfileActivityPresenter(this);
+        }
+        return presenter;
     }
 
     protected Fragment getPatientProfileFragment() {
