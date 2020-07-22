@@ -1,4 +1,4 @@
-package io.ona.rdt.robolectric.activity;
+package io.ona.rdt.robolectric;
 
 /**
  * Created by Vincent Karuri on 20/07/2020

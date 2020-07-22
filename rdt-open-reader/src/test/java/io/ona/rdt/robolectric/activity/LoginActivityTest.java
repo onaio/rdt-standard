@@ -26,6 +26,7 @@ import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.presenter.LoginPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
+import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.util.Constants;

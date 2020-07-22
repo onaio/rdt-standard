@@ -1,18 +1,17 @@
 package io.ona.rdt.activity;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.ActionBar;
 import android.view.WindowManager;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.FragmentManager;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormActivityContract;
@@ -58,9 +57,8 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
        if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Intent resultIntent = new Intent();
-            setResult(RESULT_CANCELED, resultIntent);
-            formUtils.showToast(this, getApplicationContext().getString(R.string.phone_state_permissions_required));
+            setResult(RESULT_CANCELED, null);
+            formUtils.showToast(this, getString(R.string.phone_state_permissions_required));
             finish();
        }
        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
