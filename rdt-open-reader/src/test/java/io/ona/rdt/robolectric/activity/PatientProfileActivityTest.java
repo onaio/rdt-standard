@@ -2,8 +2,6 @@ package io.ona.rdt.robolectric.activity;
 
 import android.content.Intent;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
