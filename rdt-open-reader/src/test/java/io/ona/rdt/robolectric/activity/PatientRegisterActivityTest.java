@@ -16,6 +16,7 @@ import org.smartregister.service.UserService;
 
 import java.util.Locale;
 
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import io.ona.rdt.BuildConfig;
@@ -100,13 +101,13 @@ public class PatientRegisterActivityTest extends RobolectricTest {
     @Test
     public void testOpenDrawerLayoutShouldOpenDrawer() {
         patientRegisterActivity.openDrawerLayout();
-        verify(drawerLayout).openDrawer(anyInt());
+        verify(drawerLayout).openDrawer(eq(GravityCompat.START));
     }
 
     @Test
     public void testCloseDrawerLayoutShouldCloseDrawer() {
         patientRegisterActivity.closeDrawerLayout();
-        verify(drawerLayout).closeDrawer(anyInt());
+        verify(drawerLayout).closeDrawer(eq(GravityCompat.START));
     }
 
     @Test

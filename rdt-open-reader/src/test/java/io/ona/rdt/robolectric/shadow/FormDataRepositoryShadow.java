@@ -13,7 +13,7 @@ import org.smartregister.repository.FormDataRepository;
 public class FormDataRepositoryShadow extends Shadow {
 
     @Implementation
-    public void  __constructor__() {
+    public void __constructor__() {
 
     }
 }

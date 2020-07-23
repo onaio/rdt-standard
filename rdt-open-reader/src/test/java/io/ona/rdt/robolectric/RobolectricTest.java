@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import io.ona.rdt.robolectric.shadow.BaseLoaderCallbackShadow;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.FirebaseCrashlyticsShadow;
 import io.ona.rdt.robolectric.shadow.FormDataRepositoryShadow;
@@ -16,6 +17,7 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = {ClientCoreUtilsShadow.class, FirebaseCrashlyticsShadow.class,
-        FormDataRepositoryShadow.class, UtilsShadow.class, CameraBridgeViewBaseShadow.class})
+        FormDataRepositoryShadow.class, UtilsShadow.class, CameraBridgeViewBaseShadow.class,
+        BaseLoaderCallbackShadow.class})
 public abstract class  RobolectricTest {
 }
