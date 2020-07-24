@@ -12,7 +12,7 @@ public interface RDTJsonFormFragmentContract {
     interface View {
         void setNextButtonState(android.view.View rootView, boolean buttonEnabled);
 
-        void moveToNextStep();
+        void navigateToNextStep();
 
         void saveForm();
 

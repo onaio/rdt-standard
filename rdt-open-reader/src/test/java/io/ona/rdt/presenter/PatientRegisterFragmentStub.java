@@ -21,7 +21,7 @@ public class PatientRegisterFragmentStub extends JsonFormFragment implements RDT
     }
 
     @Override
-    public void moveToNextStep() {
+    public void navigateToNextStep() {
         // do nothing
     }
 
