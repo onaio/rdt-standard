@@ -118,7 +118,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.15.0-COVID-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.15.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
