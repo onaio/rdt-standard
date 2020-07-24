@@ -30,6 +30,12 @@ android {
         def oneScanAuthToken = System.getenv('ONE_SCAN_AUTH_TOKEN')
         buildConfigField "String", "ONE_SCAN_CLIENT_ID", "\"$oneScanClientId\""
         buildConfigField "String", "ONE_SCAN_AUTH_TOKEN", "\"$oneScanAuthToken\""
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
     }
 
     lintOptions {
@@ -112,7 +118,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.10.9-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.15.0-COVID-PREVIEW-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -148,6 +154,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.1'
+
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
 }
 
 project.afterEvaluate {

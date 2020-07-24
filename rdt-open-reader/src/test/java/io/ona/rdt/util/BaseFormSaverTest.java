@@ -186,9 +186,9 @@ public abstract class BaseFormSaverTest {
         verify(uniqueIdRepository, times(times)).close(eq(UNIQUE_ID));
     }
 
-    protected org.smartregister.domain.db.Event getDBEvent() {
-        org.smartregister.domain.db.Event dbEvent = new org.smartregister.domain.db.Event();
-        org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
+    protected org.smartregister.domain.Event getDBEvent() {
+        org.smartregister.domain.Event dbEvent = new org.smartregister.domain.Event();
+        org.smartregister.domain.Obs obs = new org.smartregister.domain.Obs();
         obs.setValue(UNIQUE_ID);
         obs.setFieldCode(RDT_ID);
         dbEvent.addObs(obs);
