@@ -67,11 +67,11 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
         mockStaticMethods();
         activity = spy(new PatientRegisterActivityStub());
         presenter = new PatientRegisterActivityPresenter(activity);
+        Whitebox.setInternalState(presenter, "interactor", interactor);
     }
 
     @Test
     public void testSaveFormShouldSaveForm() throws JSONException {
-        Whitebox.setInternalState(presenter, "interactor", interactor);
         doReturn(expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
         mockStatic(RDTJsonFormUtils.class);
 
@@ -88,6 +88,19 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
         PowerMockito.verifyStatic(RDTJsonFormUtils.class);
         RDTJsonFormUtils.appendEntityId(any(JSONObject.class));
+    }
+
+    @Test
+    public void testLaunchFormShouldLaunchFormWithCorrectParameters() throws JSONException {
+        presenter.launchForm((Activity) activity, RDT_TEST_FORM, expectedPatient);
+
+        verify(interactor).launchForm(eq((Activity) activity), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());
+
+        Patient rdtPatient = patientArgumentCaptor.getValue();
+        assertNotNull(rdtPatient);
+        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
+        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
     }
 
     private void mockStaticMethods() {
