@@ -56,6 +56,7 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
             Timber.d(jsonForm);
             presenter.saveForm(jsonForm, null);
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     protected int getFragmentId() {
@@ -67,7 +68,10 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
     }
 
     protected PatientProfileActivityPresenter getPresenter() {
-        return new PatientProfileActivityPresenter(this);
+        if (presenter == null) {
+            presenter = new PatientProfileActivityPresenter(this);
+        }
+        return presenter;
     }
 
     protected Fragment getPatientProfileFragment() {

@@ -35,7 +35,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     }
 
     @Override
-    protected Class getHomePage() {
+    protected Class getLoginPage() {
         return CovidLoginActivity.class;
     }
 

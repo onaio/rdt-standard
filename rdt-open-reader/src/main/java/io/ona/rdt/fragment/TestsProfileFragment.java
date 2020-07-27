@@ -33,6 +33,7 @@ import static io.ona.rdt.util.Constants.Test.RDT_Q_PCR;
 import static io.ona.rdt.util.Constants.Test.RDT_TEST_DETAILS;
 import static io.ona.rdt.util.Utils.convertDate;
 import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by Vincent Karuri on 29/01/2020
@@ -148,7 +149,7 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
     @Override
     public synchronized void onParasiteProfileFetched(List<ParasiteProfileResult> parasiteProfileResults) {
-        if (parasiteProfileResults.isEmpty()) {
+        if (isEmptyCollection(parasiteProfileResults)) {
             return;
         }
         try {
@@ -206,18 +207,18 @@ public class TestsProfileFragment extends Fragment implements View.OnClickListen
 
     private void populateFormattedParasiteProfile(View parasiteProfile, ParasiteProfileResult parasiteProfileResult) {
         TextView tvFalciparum = parasiteProfile.findViewById(R.id.tv_qpcr_falciparum);
-        tvFalciparum.setText(tvFalciparum.getText() + capitalize(parasiteProfileResult.getpFalciparum()));
+        tvFalciparum.setText(String.format("%s%s", tvFalciparum.getText(), capitalize(parasiteProfileResult.getpFalciparum())));
 
         TextView tvVivax = parasiteProfile.findViewById(R.id.tv_qpcr_vivax);
-        tvVivax.setText(tvVivax.getText() + capitalize(parasiteProfileResult.getpVivax()));
+        tvVivax.setText(String.format("%s%s", tvVivax.getText(), capitalize(parasiteProfileResult.getpVivax())));
 
         TextView tvMalariae = parasiteProfile.findViewById(R.id.tv_qpcr_malariae);
-        tvMalariae.setText(tvMalariae.getText() + capitalize(parasiteProfileResult.getpMalariae()));
+        tvMalariae.setText(String.format("%s%s", tvMalariae.getText(), capitalize(parasiteProfileResult.getpMalariae())));
 
         TextView tvOvale = parasiteProfile.findViewById(R.id.tv_qpcr_ovale);
-        tvOvale.setText(tvOvale.getText() + capitalize(parasiteProfileResult.getpOvale()));
+        tvOvale.setText(String.format("%s%s", tvOvale.getText(), capitalize(parasiteProfileResult.getpOvale())));
 
         TextView tvGameto = parasiteProfile.findViewById(R.id.tv_qpcr_gameto);
-        tvGameto.setText(tvGameto.getText() + capitalize(parasiteProfileResult.getPfGameto()));
+        tvGameto.setText(String.format("%s%s", tvGameto.getText(), capitalize(parasiteProfileResult.getPfGameto())));
     }
 }

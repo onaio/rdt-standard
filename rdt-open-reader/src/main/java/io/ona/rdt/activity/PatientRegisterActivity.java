@@ -1,14 +1,12 @@
 package io.ona.rdt.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.google.android.material.navigation.NavigationView;
@@ -46,12 +44,13 @@ import static io.ona.rdt.util.Utils.updateLocale;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     private DrawerLayout drawerLayout;
-    private final String TAG = PatientRegisterActivity.class.getName();
+    private RDTJsonFormUtils formUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         updateLocale(this);
         super.onCreate(savedInstanceState);
+        formUtils = new RDTJsonFormUtils();
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         setupDrawerContent(navigationView);
@@ -68,7 +67,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_RDT_PERMISSIONS && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            new RDTJsonFormUtils().showToast(this, getApplicationContext().getString(R.string.rdt_permissions_required));
+            formUtils.showToast(this, getString(R.string.rdt_permissions_required));
             finish();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -76,12 +75,15 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void initializePresenter() {
-        presenter = new PatientRegisterActivityPresenter(this);
+        presenter = getPresenter();
     }
 
     @Override
     public BaseRegisterFragment getRegisterFragment() {
-        return new PatientRegisterFragment();
+        if (mBaseFragment == null) {
+            mBaseFragment = new PatientRegisterFragment();
+        }
+        return mBaseFragment;
     }
 
 
@@ -138,9 +140,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
-            Timber.d(TAG, jsonForm);
+            Timber.d(jsonForm);
             getPresenter().saveForm(jsonForm, this);
         }
     }
@@ -165,13 +167,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         MenuItem imgSyncToggle = menuNav.findItem(R.id.menu_item_toggle_img_sync);
         View actionView = imgSyncToggle.getActionView();
         Switch imgSyncToggleBtn = actionView.findViewById(R.id.img_sync_switch_button);
-        imgSyncToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                RDTApplication.getInstance().getContext()
-                        .allSharedPreferences()
-                        .savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(!Utils.isImageSyncEnabled()));
-            }
-        });
+        imgSyncToggleBtn.setOnCheckedChangeListener((buttonView, isChecked) -> RDTApplication.getInstance().getContext()
+                .allSharedPreferences()
+                .savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(!Utils.isImageSyncEnabled())));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -196,7 +194,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     public void logoutCurrentUser() {
-        Intent intent = new Intent(getApplicationContext(), getHomePage());
+        Intent intent = new Intent(getApplicationContext(), getLoginPage());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -205,11 +203,14 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         RDTApplication.getInstance().getContext().userService().logoutSession();
     }
 
-    protected Class getHomePage() {
+    protected Class getLoginPage() {
         return LoginActivity.class;
     }
 
     protected PatientRegisterActivityPresenter getPresenter() {
-        return (PatientRegisterActivityPresenter) this.presenter;
+        if (presenter == null) {
+            presenter = new PatientRegisterActivityPresenter(this);
+        }
+        return (PatientRegisterActivityPresenter) presenter;
     }
 }

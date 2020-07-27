@@ -112,7 +112,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
                 rdtFormFragment.transactFragment(nextFragment);
             } else {
-                rdtFormFragment.moveToNextStep();
+                rdtFormFragment.navigateToNextStep();
             }
         }  else {
             handleCommonTestFormClicks(isSubmit, currentStep);
@@ -121,7 +121,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     private void saveFormAndMoveToNextStep() throws JSONException {
         saveForm();
-        rdtFormFragment.moveToNextStep();
+        rdtFormFragment.navigateToNextStep();
     }
 
     @Override
@@ -146,7 +146,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         if (isSubmit != null && Boolean.parseBoolean(isSubmit.toString())) {
             rdtFormFragment.saveForm();
         } else {
-            rdtFormFragment.moveToNextStep();
+            rdtFormFragment.navigateToNextStep();
         }
     }
 

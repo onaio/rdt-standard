@@ -61,9 +61,9 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
     }
 
     @Override
-    protected org.smartregister.domain.db.Event getDBEvent() {
-        org.smartregister.domain.db.Event event = super.getDBEvent();
-        org.smartregister.domain.db.Obs obs = new org.smartregister.domain.db.Obs();
+    protected org.smartregister.domain.Event getDBEvent() {
+        org.smartregister.domain.Event event = super.getDBEvent();
+        org.smartregister.domain.Obs obs = new org.smartregister.domain.Obs();
         obs.setValue(UNIQUE_ID);
         obs.setFieldCode(COVID_SAMPLE_ID);
         obs.setFieldCode(COVID_SAMPLE_ID);

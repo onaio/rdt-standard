@@ -83,12 +83,9 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     private void modifyLayout() {
         ImageButton btnManualCapture = mImageQualityView.findViewById(R.id.btn_manual_capture);
         btnManualCapture.setVisibility(View.VISIBLE);
-        btnManualCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mImageQualityView.captureImage();
-                isManualCapture = true;
-            }
+        btnManualCapture.setOnClickListener(v -> {
+            mImageQualityView.captureImage();
+            isManualCapture = true;
         });
         mImageQualityView.findViewById(R.id.textInstruction).setVisibility(View.GONE);
         mImageQualityView.findViewById(R.id.img_quality_feedback_view).setVisibility(View.GONE);

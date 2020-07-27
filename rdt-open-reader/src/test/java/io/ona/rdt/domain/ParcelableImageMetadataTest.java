@@ -32,7 +32,9 @@ public class ParcelableImageMetadataTest {
                 .withManualCapture(true)
                 .withCassetteBoundary("(0, 0), (0, 0), (0, 0), (0, 0)")
                 .withLineReadings(lineReadings)
-                .withManualCapture(false);
+                .withManualCapture(false)
+                .withCroppedImageMD5Hash("cropped_img_hash")
+                .setFullImageMD5Hash(("full_img_hash"));
         
         assertParcelableImageContent(parcelableImageMetadata);
     }
@@ -69,5 +71,7 @@ public class ParcelableImageMetadataTest {
         assertEquals(false, parcelableImageMetadata.isManualCapture());
         assertEquals("(0, 0), (0, 0), (0, 0), (0, 0)", parcelableImageMetadata.getCassetteBoundary());
         assertEquals(lineReadings, parcelableImageMetadata.getLineReadings());
+        assertEquals("cropped_img_hash", parcelableImageMetadata.getCroppedImageMD5Hash());
+        assertEquals("full_img_hash", parcelableImageMetadata.getFullImageMD5Hash());
     }
 }

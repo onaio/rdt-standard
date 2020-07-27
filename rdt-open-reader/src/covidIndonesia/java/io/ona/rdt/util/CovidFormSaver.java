@@ -1,11 +1,10 @@
 package io.ona.rdt.util;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.domain.db.Obs;
+import org.smartregister.domain.Obs;
 
 import io.ona.rdt.application.RDTApplication;
 
-import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.PATIENT_DIAGNOSTICS;
@@ -31,7 +30,7 @@ public class CovidFormSaver extends FormSaver {
     }
 
     @Override
-    protected void closeIDs(org.smartregister.domain.db.Event dbEvent) {
+    protected void closeIDs(org.smartregister.domain.Event dbEvent) {
         super.closeIDs(dbEvent);
         // close respiratory sample id
         Obs idObs = dbEvent.findObs(null, false, COVID_SAMPLE_ID);

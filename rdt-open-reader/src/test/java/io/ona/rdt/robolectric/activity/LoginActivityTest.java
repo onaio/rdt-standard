@@ -12,7 +12,6 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -26,6 +25,7 @@ import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.presenter.LoginPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
+import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.util.Constants;
@@ -124,7 +124,7 @@ public class LoginActivityTest extends RobolectricTest {
         loginActivity.onResume();
         verify(loginPresenter).isUserLoggedOut();
         Intent expectedIntent = new Intent(loginActivity, PatientRegisterActivity.class);
-        Intent actualIntent = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actualIntent = shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
     }
 
@@ -135,7 +135,7 @@ public class LoginActivityTest extends RobolectricTest {
         ReflectionHelpers.setField(loginActivity, "mLoginPresenter", loginPresenter);
         loginActivity.onResume();
         verify(loginPresenter).isUserLoggedOut();
-        Intent actualIntent = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actualIntent = shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
         assertNull(actualIntent);
     }
 
@@ -148,7 +148,7 @@ public class LoginActivityTest extends RobolectricTest {
 
         loginActivity.goToHome(true);
         Intent expectedIntent = new Intent(loginActivity, PatientRegisterActivity.class);
-        Intent actualIntent = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actualIntent = shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
 
         assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
         assertEquals(1, mockCounter.getCount());

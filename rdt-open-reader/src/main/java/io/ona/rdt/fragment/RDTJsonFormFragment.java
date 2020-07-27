@@ -124,7 +124,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     }
 
     @Override
-    public void moveToNextStep() {
+    public void navigateToNextStep() {
         next();
     }
 

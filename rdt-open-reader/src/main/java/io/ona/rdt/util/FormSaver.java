@@ -111,9 +111,9 @@ public class FormSaver {
         return RDT_TESTS.equals(bindType);
     }
 
-    protected void closeIDs(org.smartregister.domain.db.Event dbEvent) {
+    protected void closeIDs(org.smartregister.domain.Event dbEvent) {
         // close rdt id
-        org.smartregister.domain.db.Obs idObs = dbEvent.findObs(null, false, RDT_ID);
+        org.smartregister.domain.Obs idObs = dbEvent.findObs(null, false, RDT_ID);
         if (idObs != null) {
             String rdtId = idObs.getValue() == null ? "" : idObs.getValue().toString();
             RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
@@ -128,7 +128,7 @@ public class FormSaver {
 
         Client client = JsonFormUtils.createBaseClient(fields, formTag, entityId);
         JSONObject clientJson = new JSONObject(gson.toJson(client));
-        org.smartregister.domain.db.Client dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.db.Client.class);
+        org.smartregister.domain.Client dbClient = gson.fromJson(clientJson.toString(), org.smartregister.domain.Client.class);
         if (isPatientRegistrationEvent(encounterType)) {
             eventClientRepository.addorUpdateClient(entityId, clientJson);
         }
@@ -139,7 +139,7 @@ public class FormSaver {
         JSONObject eventJson = new JSONObject(gson.toJson(event));
         eventJson.put(DETAILS, getJSONObject(jsonForm, DETAILS));
         eventClientRepository.addEvent(entityId, eventJson);
-        org.smartregister.domain.db.Event dbEvent = gson.fromJson(eventJson.toString(), org.smartregister.domain.db.Event.class);
+        org.smartregister.domain.Event dbEvent = gson.fromJson(eventJson.toString(), org.smartregister.domain.Event.class);
 
         return new EventClient(dbEvent, dbClient);
     }

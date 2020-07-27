@@ -40,7 +40,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         presenter.attachView((JsonFormFragment) rdtFormFragmentView);
         presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class), isNull());
-        verify(rdtFormFragmentView).moveToNextStep();
+        verify(rdtFormFragmentView).navigateToNextStep();
     }
 
     @Test
@@ -48,7 +48,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", null);
-        verify(rdtFormFragmentView).moveToNextStep();
+        verify(rdtFormFragmentView).navigateToNextStep();
     }
 
     @Test

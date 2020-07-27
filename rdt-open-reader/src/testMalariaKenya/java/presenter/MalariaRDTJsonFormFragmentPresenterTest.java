@@ -21,7 +21,7 @@ public class MalariaRDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFrag
         mockStaticClasses();
         doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragmentView).getRDTType();
         presenter.performNextButtonAction("step8", null);
-        verify(rdtFormFragmentView).moveToNextStep();
+        verify(rdtFormFragmentView).navigateToNextStep();
     }
 
     @Test
@@ -29,7 +29,7 @@ public class MalariaRDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFrag
         doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragmentView).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(rdtFormFragmentView).moveToNextStep();
+        verify(rdtFormFragmentView).navigateToNextStep();
     }
 
     @Test
