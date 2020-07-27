@@ -56,6 +56,7 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
             Timber.d(jsonForm);
             presenter.saveForm(jsonForm, null);
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     protected int getFragmentId() {
