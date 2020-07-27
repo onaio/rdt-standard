@@ -49,15 +49,14 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
             if (StringUtils.isNotBlank(currUniqueId)) {
                 currUniqueId = currUniqueId.replace("-", "");
                 ids.add(currUniqueId);
-            } else {
-                showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
-                ids.clear();
-                break;
             }
         }
+
         // only launch form if you have all the unique ids you need
         if (!ids.isEmpty()) {
             formUtils.launchForm(activity, args.getFormName(), args.getPatient(), ids);
+        } else {
+            showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
         }
     }
 

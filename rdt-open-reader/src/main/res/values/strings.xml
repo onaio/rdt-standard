@@ -14,7 +14,7 @@
     <string name="login_attributions">An <![CDATA[<b><font color=#467690>Ona</font></b>]]> deployment <![CDATA[<br/>]]>powered by <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]></string>
     <string name="confirm_close_msg">Are you sure you want to exit the form? All data entered on this form will be lost.</string>
     <string name="confirm_close_title">Please confirm</string>
-    <string name="unique_id_fetch_error_msg">"Sorry, unique IDs could not be fetched. Please turn on your network connection and perform manual sync."</string>
+    <string name="unique_id_fetch_error_msg">"Insufficient unique IDs. Please turn on your network connection and perform manual sync to fetch more."</string>
     <string name="txt_record_btn">Locate me</string>
     <string name="txt_location_generation_instructions">We\'ll need your location before proceeding to the test.
 Please click on the <i>Locate Me</i> button at the bottom of the screen and we will automatically determine your location.</string>

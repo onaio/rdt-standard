@@ -325,7 +325,14 @@ public class RDTJsonFormUtils {
     private List<UniqueId> getUniqueIDs(int numOfIDs) {
         List<UniqueId> uniqueIds = new ArrayList<>();
         for (int i = 0; i < numOfIDs; i++) {
-            uniqueIds.add(RDTApplication.getInstance().getContext().getUniqueIdRepository().getNextUniqueId());
+            UniqueId uniqueId = RDTApplication.getInstance().getContext().getUniqueIdRepository()
+                    .getNextUniqueId();
+            if (uniqueId != null) {
+                uniqueIds.add(uniqueId);
+            } else {
+                uniqueIds.clear();
+                break;
+            }
         }
         return uniqueIds;
     }

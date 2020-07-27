@@ -2,6 +2,8 @@ package io.ona.rdt.util;
 
 import android.app.Activity;
 
+import com.vijay.jsonwizard.utils.Utils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -28,6 +30,7 @@ import io.ona.rdt.domain.Patient;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -36,12 +39,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
 /**
  * Created by Vincent Karuri on 16/07/2020
  */
 
-@PrepareForTest({AssetHandler.class, RDTApplication.class, Context.class})
+@PrepareForTest({AssetHandler.class, RDTApplication.class, Context.class, Utils.class})
 public abstract class BaseFormLauncherTest extends PowerMockTest {
 
     @Mock
@@ -97,6 +101,7 @@ public abstract class BaseFormLauncherTest extends PowerMockTest {
     public void testOnUniqueIdFetchedShouldLaunchForm() {
         FormLaunchArgs args = new FormLaunchArgs();
         Activity activity = mock(Activity.class);
+        doReturn("message").when(activity).getString(anyInt());
         Patient patient = mock(Patient.class);
         JSONObject jsonForm = new JSONObject();
         args.withActivity(activity)
@@ -108,9 +113,16 @@ public abstract class BaseFormLauncherTest extends PowerMockTest {
         formLauncher.onUniqueIdsFetched(args, getUniqueIDs());
 
         verify(formUtils).launchForm(eq(activity), eq("form_name"), eq(patient), eq(getUniqueIDStrings()));
+
+        // For insufficient unique IDs
+        formLauncher.onUniqueIdsFetched(args, new ArrayList<>());
+        verifyStatic(Utils.class);
+        Utils.showToast(eq(activity), eq("message"));
     }
 
     private void mockStaticMethods() {
+        mockStatic(Utils.class);
+
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);

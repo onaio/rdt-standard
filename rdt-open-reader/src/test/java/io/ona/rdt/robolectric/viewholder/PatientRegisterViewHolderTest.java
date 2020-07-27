@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.powermock.reflect.Whitebox;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -17,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.viewholder.FooterViewHolder;
@@ -42,7 +42,7 @@ public class PatientRegisterViewHolderTest extends RobolectricTest {
 
     @Before
     public void setUp() {
-        patientRegisterViewHolder = new PatientRegisterViewHolder(RuntimeEnvironment.application, onClickListener, onClickListener);
+        patientRegisterViewHolder = new PatientRegisterViewHolder(RDTApplication.getInstance(), onClickListener, onClickListener);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class PatientRegisterViewHolderTest extends RobolectricTest {
 
         assertEquals(View.VISIBLE, footerViewHolder.nextPageView.getVisibility());
         assertEquals(View.VISIBLE, footerViewHolder.previousPageView.getVisibility());
-        assertEquals( MessageFormat.format(RuntimeEnvironment.application.getString(R.string.str_page_info), 2, 3),
+        assertEquals( MessageFormat.format(RDTApplication.getInstance().getString(R.string.str_page_info), 2, 3),
                 footerViewHolder.pageInfoView.getText());
         footerViewHolder.nextPageView.performClick();
         verify(paginationClickListener).onClick(eq(footerViewHolder.nextPageView));

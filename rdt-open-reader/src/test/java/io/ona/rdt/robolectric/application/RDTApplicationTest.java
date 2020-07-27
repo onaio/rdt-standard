@@ -3,7 +3,6 @@ package io.ona.rdt.robolectric.application;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RuntimeEnvironment;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.robolectric.RobolectricTest;
@@ -21,13 +20,7 @@ public class RDTApplicationTest extends RobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        application = (RDTApplication) RuntimeEnvironment.application;
-    }
-
-    @Test
-    public void testGetPasswordShouldGetCorrectPassword() {
-        application.getContext().allSharedPreferences().updateANMUserName("user");
-        assertEquals("password", application.getPassword());
+        application = RDTApplication.getInstance();
     }
 
     @Test
