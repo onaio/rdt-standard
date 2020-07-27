@@ -7,6 +7,7 @@ package io.ona.rdt.robolectric;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.smartregister.service.UserService;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import io.ona.rdt.robolectric.shadow.BaseLoaderCallbackShadow;
@@ -17,12 +18,13 @@ import io.ona.rdt.robolectric.shadow.CameraBridgeViewBaseShadow;
 import io.ona.rdt.robolectric.shadow.JsonFormFragmentPresenterShadow;
 import io.ona.rdt.robolectric.shadow.JsonFormFragmentShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
+import io.ona.rdt.robolectric.shadow.UserServiceShadow;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 
 @RunWith(AndroidJUnit4.class)
 @Config(shadows = {ClientCoreUtilsShadow.class, FirebaseCrashlyticsShadow.class,
         FormDataRepositoryShadow.class, UtilsShadow.class, CameraBridgeViewBaseShadow.class,
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
-        JsonFormFragmentPresenterShadow.class})
+        JsonFormFragmentPresenterShadow.class, UserServiceShadow.class})
 public abstract class  RobolectricTest {
 }
