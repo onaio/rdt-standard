@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.ona.rdt.R;
+import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 
 /**
  * Created by Vincent Karuri on 14/07/2020

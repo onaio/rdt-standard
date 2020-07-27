@@ -9,7 +9,6 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.viewholder.CovidPatientRegisterViewHolder;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
-import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
 
 /**
  * Created by Vincent Karuri on 16/06/2020
