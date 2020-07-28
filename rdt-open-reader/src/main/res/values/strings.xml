@@ -38,5 +38,10 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="microscopy">Microscopy</string>
     <string name="blood_spot">Blood Spot</string>
     <string name="form_successfully_saved">Saved!</string>
+    <string name="malariae_prefix">P. malariae - </string>
+    <string name="ovale_prefix">P. ovale - </string>
+    <string name="vivax_prefix">P. vivax - </string>
+    <string name="falciparum_prefix">P. falciparum - </string>
+    <string name="gameto_prefix">Pf. gameto - </string>
 </resources>
 
