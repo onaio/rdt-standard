@@ -112,7 +112,6 @@ public class TestsProfileFragmentTest extends RobolectricTest {
         });
     }
 
-
     @Test
     public void testPopulateRDTTestResultsShouldSetPositiveTestResults() {
         FormattedRDTTestDetails expectedformattedRDTTestDetails = getFormattedRDTTestDetails(POSITIVE,

@@ -28,7 +28,6 @@ import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
-import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
 /**
@@ -95,10 +94,10 @@ public class RDTApplication extends DrishtiApplication {
     public Repository getRepository() {
         try {
             if (repository == null) {
-                repository = new RDTRepository(getInstance().getApplicationContext(), context);
+                repository = new RDTRepository(this, context);
             }
         } catch (UnsatisfiedLinkError e) {
-            logError("Error on getRepository: " + e);
+            Timber.e(e);
         }
         return repository;
     }

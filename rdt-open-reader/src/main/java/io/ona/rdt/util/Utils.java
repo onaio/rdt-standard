@@ -129,7 +129,7 @@ public class Utils {
         return new Date().after(expirationDate);
     }
 
-    public static List<String> convertJsonArrToStringList(JSONArray jsonArray) throws JSONException {
+    public static List<String> convertJsonArrToListOfStrings(JSONArray jsonArray) throws JSONException {
         List<String> strings = new ArrayList<>();
         if (jsonArray == null) { return  strings; }
         for (int i = 0; i < jsonArray.length(); i++) {

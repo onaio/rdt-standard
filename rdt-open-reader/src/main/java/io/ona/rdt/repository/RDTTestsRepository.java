@@ -15,7 +15,7 @@ import io.ona.rdt.domain.RDTTestDetails;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Table.RDT_TESTS;
-import static io.ona.rdt.util.Utils.convertJsonArrToStringList;
+import static io.ona.rdt.util.Utils.convertJsonArrToListOfStrings;
 import static io.ona.rdt.util.Utils.tableExists;
 
 /**
@@ -25,13 +25,13 @@ public class RDTTestsRepository extends BaseRepository {
 
     private static final String RDT_ID = "rdt_id";
     private static final String RDT_TYPE = "rdt_type";
-    private static final String TEST_DATE = "time_form_closed";
-    private static final String PARASITE_TYPE = "parasite_type";
-    private static final String BASE_ENTITY_ID = "patient_id";
-    private static final String CHW_RESULT = "chw_result";
+    public static final String TEST_DATE = "time_form_closed";
+    public static final String PARASITE_TYPE = "parasite_type";
+    public static final String BASE_ENTITY_ID = "patient_id";
+    public static final String CHW_RESULT = "chw_result";
 
-    private static final String COLUMNS = String.format("%s, %s, %s, %s, %s, %s", BASE_ENTITY_ID, RDT_ID, RDT_TYPE, CHW_RESULT, PARASITE_TYPE, TEST_DATE);
-    private static final String RDT_TESTS_TABLES = "rdt_tests";
+    public static final String COLUMNS = String.format("%s, %s, %s, %s, %s, %s", BASE_ENTITY_ID, RDT_ID, RDT_TYPE, CHW_RESULT, PARASITE_TYPE, TEST_DATE);
+    public static final String RDT_TESTS_TABLES = "rdt_tests";
 
     public static void createIndexes(SQLiteDatabase db) {
         if (tableExists(db, RDT_TESTS)) {
@@ -95,7 +95,7 @@ public class RDTTestsRepository extends BaseRepository {
             rdtTestDetails.setTestResult(cursor.getString(cursor.getColumnIndex(CHW_RESULT)));
             String parasites = cursor.getString(cursor.getColumnIndex(PARASITE_TYPE));
             List<String> parasiteTypes = parasites == null ? null
-                    : convertJsonArrToStringList(new JSONArray(parasites));
+                    : convertJsonArrToListOfStrings(new JSONArray(parasites));
             rdtTestDetails.setParasiteTypes(parasiteTypes);
         } catch (JSONException e) {
             Timber.e(e);
