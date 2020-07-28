@@ -500,16 +500,16 @@
             "text": "Undergoing care"
           },
           {
+            "key": "no_covid_detected",
+            "text": "No Covid-19 Detected"
+          },
+          {
             "key": "recovered",
             "text": "Recovered"
           },
           {
             "key": "dead",
             "text": "Dead"
-          },
-          {
-            "key": "no_covid_detected",
-            "text": "No Covid-19 Detected"
           }
         ],
         "v_required": {

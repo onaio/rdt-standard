@@ -470,16 +470,16 @@
             "text": "{{sample-collection-form-original.step2.patient_health_status.options.undergoing_care.text}}"
           },
           {
+            "key": "no_covid_detected",
+            "text": "{{sample-collection-form-original.step2.patient_health_status.options.no_covid_detected.text}}"
+          },
+          {
             "key": "recovered",
             "text": "{{sample-collection-form-original.step2.patient_health_status.options.recovered.text}}"
           },
           {
             "key": "dead",
             "text": "{{sample-collection-form-original.step2.patient_health_status.options.dead.text}}"
-          },
-          {
-            "key": "no_covid_detected",
-            "text": "{{sample-collection-form-original.step2.patient_health_status.options.no_covid_detected.text}}"
           }
         ],
         "v_required": {
