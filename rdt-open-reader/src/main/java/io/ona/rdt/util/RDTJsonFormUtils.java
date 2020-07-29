@@ -30,7 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +38,6 @@ import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
-import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
@@ -53,7 +51,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.PERFORM_FORM_TRAN
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
@@ -355,11 +352,5 @@ public class RDTJsonFormUtils {
         formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);;
         formTag.team = settings.fetchDefaultTeam(formTag.providerId);
         return formTag;
-    }
-
-    public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
-        Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
-        intent.putExtra(PATIENT, patient);
-        activity.get().startActivity(intent, null);
     }
 }

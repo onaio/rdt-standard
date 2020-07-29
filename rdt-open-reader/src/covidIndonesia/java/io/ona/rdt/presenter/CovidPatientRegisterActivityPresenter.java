@@ -6,7 +6,7 @@ import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.CovidPatientRegisterActivityInteractor;
 import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
-import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.CovidRDTJsonFormUtils;
 
 /**
  * Created by Vincent Karuri on 17/07/2020
@@ -24,6 +24,6 @@ public class CovidPatientRegisterActivityPresenter extends PatientRegisterActivi
 
     @Override
     protected void launchPostRegistrationView(Patient patient) {
-        RDTJsonFormUtils.launchPatientProfile(patient, new WeakReference<>(getActivity()));
+        CovidRDTJsonFormUtils.launchPatientProfile(patient, new WeakReference<>(getActivity()));
     }
 }
