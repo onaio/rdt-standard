@@ -40,13 +40,16 @@ public class PatientRegisterActivityInteractor extends FormLauncherAndSaver {
             JSONArray formFields = JsonFormUtils.fields(jsonFormObject);
             JSONObject conditionalSave = FormUtils.getFieldJSONObject(formFields, CONDITIONAL_SAVE);
             if (conditionalSave != null && conditionalSave.optInt(VALUE) == 1){
-                String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
-                String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-                String baseEntityId = getString(jsonFormObject, ENTITY_ID);
-                String patientId = FormUtils.getFieldJSONObject(formFields, PATIENT_ID).optString(VALUE);
-                rdtPatient = new Patient(name, sex, baseEntityId, patientId);
+                rdtPatient = createPatient(getString(jsonFormObject, ENTITY_ID), formFields);
             }
         }
         return rdtPatient;
+    }
+
+    protected Patient createPatient(String baseEntityId, JSONArray formFields) {
+        String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
+        String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
+        String patientId = FormUtils.getFieldJSONObject(formFields, PATIENT_ID).optString(VALUE);
+        return new Patient(name, sex, baseEntityId, patientId);
     }
 }

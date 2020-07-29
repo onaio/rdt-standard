@@ -1,11 +1,15 @@
 package io.ona.rdt.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
+import java.lang.ref.WeakReference;
+
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.viewholder.CovidPatientRegisterViewHolder;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
@@ -17,9 +21,7 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
 
     @Override
     public void launchPatientProfile(Patient patient) {
-        Intent intent = new Intent(getActivity(), CovidPatientProfileActivity.class);
-        intent.putExtra(PATIENT, patient);
-        startActivity(intent, null);
+        RDTJsonFormUtils.launchPatientProfile(patient, new WeakReference<>(getActivity()));
     }
 
     @Override

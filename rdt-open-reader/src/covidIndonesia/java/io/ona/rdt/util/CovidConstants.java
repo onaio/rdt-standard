@@ -67,6 +67,9 @@ public interface CovidConstants extends Constants {
         String LBL_SCAN_SAMPLE_BARCODE = "lbl_scan_sample_barcode";
         String LBL_ENTER_SAMPLE_DETAILS_MANUALLY = "lbl_enter_sample_details_manually";
         String COVID_SAMPLE_ID = "covid_sample_id";
+        String PATIENT_FIRST_NAME = "patient_first_name";
+        String PATIENT_LAST_NAME = "patient_last_name";
+        String NATIONAL_ID_NUMBER = "national_id_number";
     }
 
     interface RDTType {

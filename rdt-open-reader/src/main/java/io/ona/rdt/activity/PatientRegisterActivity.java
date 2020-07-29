@@ -86,6 +86,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         return mBaseFragment;
     }
 
+    public PatientRegisterFragment getPatientRegisterFragment() {
+        return (PatientRegisterFragment) getRegisterFragment();
+    }
 
     @Override
     protected Fragment[] getOtherFragments() {
@@ -145,6 +148,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             Timber.d(jsonForm);
             getPresenter().saveForm(jsonForm, this);
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
