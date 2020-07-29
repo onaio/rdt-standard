@@ -59,13 +59,26 @@ public class ParasiteProfileRepositoryTest extends RobolectricTest {
 
     private void verifyParasiteProfileResultsAreCorrect(List<ParasiteProfileResult> parasiteProfileResults, String experimentType) {
         ParasiteProfileResult actualParasiteProfileResult = parasiteProfileResults.get(0);
-        assertEquals("rdt_id", actualParasiteProfileResult.getRdtId());
+        ParasiteProfileResult expectedParasiteProfileResult = getParasiteProfileResult();
+        assertEquals(expectedParasiteProfileResult.getRdtId(), actualParasiteProfileResult.getRdtId());
         assertEquals(experimentType, actualParasiteProfileResult.getExperimentType());
-        assertEquals("experiment_date", actualParasiteProfileResult.getExperimentDate());
-        assertEquals("negative", actualParasiteProfileResult.getpFalciparum());
-        assertEquals("positive", actualParasiteProfileResult.getpMalariae());
-        assertEquals("negative", actualParasiteProfileResult.getpOvale());
-        assertEquals("positive", actualParasiteProfileResult.getpVivax());
-        assertEquals("negative", actualParasiteProfileResult.getPfGameto());
+        assertEquals(expectedParasiteProfileResult.getExperimentDate(), actualParasiteProfileResult.getExperimentDate());
+        assertEquals(expectedParasiteProfileResult.getpFalciparum(), actualParasiteProfileResult.getpFalciparum());
+        assertEquals(expectedParasiteProfileResult.getpMalariae(), actualParasiteProfileResult.getpMalariae());
+        assertEquals(actualParasiteProfileResult.getpOvale(), actualParasiteProfileResult.getpOvale());
+        assertEquals(expectedParasiteProfileResult.getpVivax(), actualParasiteProfileResult.getpVivax());
+        assertEquals(expectedParasiteProfileResult.getPfGameto(), actualParasiteProfileResult.getPfGameto());
+    }
+
+    public static ParasiteProfileResult getParasiteProfileResult() {
+        ParasiteProfileResult parasiteProfileResult = new ParasiteProfileResult();
+        parasiteProfileResult.setRdtId("rdt_id");
+        parasiteProfileResult.setExperimentDate("2019-07-09T00:00:00.000+03:00");
+        parasiteProfileResult.setpFalciparum("negative");
+        parasiteProfileResult.setpMalariae("positive");
+        parasiteProfileResult.setpOvale("negative");
+        parasiteProfileResult.setpVivax("positive");
+        parasiteProfileResult.setPfGameto("negative");
+        return parasiteProfileResult;
     }
 }

@@ -21,6 +21,7 @@ import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.fragment.TestsProfileFragment;
 import io.ona.rdt.robolectric.RobolectricTest;
 
+import static io.ona.rdt.robolectric.repository.ParasiteProfileRepositoryTest.getParasiteProfileResult;
 import static io.ona.rdt.util.Constants.Test.BLOODSPOT_Q_PCR;
 import static io.ona.rdt.util.Constants.Test.INVALID;
 import static io.ona.rdt.util.Constants.Test.MICROSCOPY;
@@ -194,9 +195,7 @@ public class TestsProfileFragmentTest extends RobolectricTest {
     private void verifyParasiteProfileIsCorrectlyPopulated(TestsProfileFragment fragment, int id, String experimentType) {
         View rootLayout = ReflectionHelpers.getField(fragment, "rootLayout");
         View parasiteProfile = rootLayout.findViewById(id);
-        List<ParasiteProfileResult> parasiteProfileResults = getParasiteProfileResults(experimentType);
-        ParasiteProfileResult parasiteProfileResult = parasiteProfileResults.get(0);
-        fragment.onParasiteProfileFetched(parasiteProfileResults);
+        ParasiteProfileResult parasiteProfileResult = getParasiteProfileResult();
 
         TextView tvFalciparum = parasiteProfile.findViewById(R.id.tv_qpcr_falciparum);
         assertEquals(String.format("%s %s", RDTApplication.getInstance().getString(R.string.falciparum_prefix),
@@ -227,20 +226,5 @@ public class TestsProfileFragmentTest extends RobolectricTest {
         expectedformattedRDTTestDetails.setFormattedTestResults(formattedTestResults);
         expectedformattedRDTTestDetails.setTestResult(testResult);
         return expectedformattedRDTTestDetails;
-    }
-
-    private List<ParasiteProfileResult> getParasiteProfileResults(String experimentType) {
-        List<ParasiteProfileResult> parasiteProfileResults = new ArrayList<>();
-        ParasiteProfileResult parasiteProfileResult = new ParasiteProfileResult();
-        parasiteProfileResult.setExperimentType(experimentType);
-        parasiteProfileResult.setExperimentDate("2019-07-09T00:00:00.000+03:00");
-        parasiteProfileResult.setpFalciparum("negative");
-        parasiteProfileResult.setPfGameto("negative");
-        parasiteProfileResult.setpOvale("negative");
-        parasiteProfileResult.setpMalariae("positive");
-        parasiteProfileResult.setpVivax("positive");
-        parasiteProfileResult.setRdtId("rdt_id");
-        parasiteProfileResults.add(parasiteProfileResult);
-        return parasiteProfileResults;
     }
 }
