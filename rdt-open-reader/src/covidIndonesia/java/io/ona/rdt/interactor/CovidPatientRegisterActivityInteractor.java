@@ -13,10 +13,8 @@ import io.ona.rdt.util.CovidFormSaver;
 import io.ona.rdt.util.FormLauncher;
 import io.ona.rdt.util.FormSaver;
 
-import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
-import static io.ona.rdt.util.Constants.FormFields.PATIENT_NAME;
 import static io.ona.rdt.util.CovidConstants.FormFields.NATIONAL_ID_NUMBER;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_FIRST_NAME;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_LAST_NAME;
