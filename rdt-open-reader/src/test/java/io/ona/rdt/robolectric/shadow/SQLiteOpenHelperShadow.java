@@ -52,8 +52,12 @@ public class SQLiteOpenHelperShadow extends Shadow {
 
     private SQLiteDatabase getDb() {
         SQLiteDatabase db =  mock(SQLiteDatabase.class);
+
         doReturn(getRDTTestsCursor()).when(db).rawQuery(eq("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
                 " WHERE " + BASE_ENTITY_ID + " =?"), any(String[].class));
+
+        doReturn(getRDTTestsCursor()).when(db).rawQuery(eq("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
+                " WHERE " + RDT_ID + " =?"), any(String[].class));
 
         doReturn(getParasiteProfileCursor()).when(db).rawQuery(eq("SELECT *" + " FROM " + MICROSCOPY_RESULTS +
                 " WHERE " + RDT_ID + " =?" + " ORDER BY experiment_date"), any(String[].class));

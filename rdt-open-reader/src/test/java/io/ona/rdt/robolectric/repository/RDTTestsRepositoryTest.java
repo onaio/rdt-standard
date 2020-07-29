@@ -50,24 +50,34 @@ public class RDTTestsRepositoryTest extends RobolectricTest {
 
     @Test
     public void testGetRDTTestDetailsByBaseEntityIdShouldFetchTestDetailsByEntityID() throws JSONException {
-        List<RDTTestDetails> expectedRDTTestDetails = new ArrayList<>();
+        assertCorrectTestDetailsAreFetched(rdtTestsRepository.getRDTTestDetailsByBaseEntityId("base-entity-id"));
+    }
 
-        RDTTestDetails expectedRdtTestDetail = new RDTTestDetails();
-        expectedRdtTestDetail.setRdtId("rdt_id");
-        expectedRdtTestDetail.setDate("test_date");
-        expectedRdtTestDetail.setParasiteTypes(convertJsonArrToListOfStrings(getParasiteTypes()));
-        expectedRdtTestDetail.setRdtType("rdt_type");
-        expectedRdtTestDetail.setTestResult("chw_result");
-        expectedRDTTestDetails.add(expectedRdtTestDetail);
+    @Test
+    public void testGetRDTTestDetailsByRDTIdShouldFetchTestDetailsByRDTId() throws JSONException {
+        List<RDTTestDetails> rdtTestDetails = new ArrayList<>();
+        rdtTestDetails.add(rdtTestsRepository.getRDTTestDetailsByRDTId("rdt-id"));
+        assertCorrectTestDetailsAreFetched(rdtTestDetails);
+    }
 
-        List<RDTTestDetails> actualRdtTestDetails = rdtTestsRepository.getRDTTestDetailsByBaseEntityId("base-entity-id");
+    private void assertCorrectTestDetailsAreFetched(List<RDTTestDetails> actualRdtTestDetails) throws JSONException {
         RDTTestDetails actualRDTTestDetails = actualRdtTestDetails.get(0);
-
+        RDTTestDetails expectedRdtTestDetail = getExpectedRDTTestDetails();
         assertEquals(expectedRdtTestDetail.getRdtId(), actualRDTTestDetails.getRdtId());
         assertEquals(expectedRdtTestDetail.getDate(), actualRDTTestDetails.getDate());
         assertEquals(expectedRdtTestDetail.getRdtType(), actualRDTTestDetails.getRdtType());
         assertEquals(expectedRdtTestDetail.getTestResult(), actualRDTTestDetails.getTestResult());
         assertEquals(StringUtils.join(expectedRdtTestDetail.getParasiteTypes(), ","),
                 StringUtils.join(actualRDTTestDetails.getParasiteTypes(), ","));
+    }
+
+    private RDTTestDetails getExpectedRDTTestDetails() throws JSONException {
+        RDTTestDetails expectedRdtTestDetail = new RDTTestDetails();
+        expectedRdtTestDetail.setRdtId("rdt_id");
+        expectedRdtTestDetail.setDate("test_date");
+        expectedRdtTestDetail.setParasiteTypes(convertJsonArrToListOfStrings(getParasiteTypes()));
+        expectedRdtTestDetail.setRdtType("rdt_type");
+        expectedRdtTestDetail.setTestResult("chw_result");
+        return expectedRdtTestDetail;
     }
 }
