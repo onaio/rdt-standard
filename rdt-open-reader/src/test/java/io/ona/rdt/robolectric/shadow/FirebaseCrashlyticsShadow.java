@@ -16,9 +16,14 @@ import static org.mockito.Mockito.mock;
 @Implements(FirebaseCrashlytics.class)
 public class FirebaseCrashlyticsShadow {
 
+    private static FirebaseCrashlytics firebaseCrashlytics;
+
     @NonNull
     @Implementation
     public static FirebaseCrashlytics getInstance() {
-       return mock(FirebaseCrashlytics.class);
+        if (firebaseCrashlytics == null) {
+            firebaseCrashlytics = mock(FirebaseCrashlytics.class);
+        }
+       return firebaseCrashlytics;
     }
 }

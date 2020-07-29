@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
+import net.sqlcipher.Cursor;
+import net.sqlcipher.database.SQLiteDatabase;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,9 +20,12 @@ import org.smartregister.job.BaseJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.PowerMockTest;
@@ -134,6 +142,42 @@ public class UtilsTest extends PowerMockTest {
     public void testIsExpiredShouldReturnCorrectStatus() {
         assertFalse(Utils.isExpired(getDateWithOffset(1)));
         assertTrue(Utils.isExpired(getDateWithOffset(-1)));
+    }
+
+    @Test
+    public void testConvertJsonArrToListOfStringsShouldAddAllJsonArrElements() throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put("str1");
+        jsonArray.put("str2");
+        jsonArray.put("str3");
+
+        Set<String> expectedStrings = new HashSet<>();
+        expectedStrings.add("str1");
+        expectedStrings.add("str2");
+        expectedStrings.add("str3");
+
+        Set<String> actualStrings = new HashSet<>(Utils.convertJsonArrToListOfStrings(jsonArray));
+        assertEquals(expectedStrings.size(), actualStrings.size());
+        for (String str : actualStrings) {
+            assertTrue(expectedStrings.contains(str));
+        }
+    }
+
+    @Test
+    public void testTableExistsShouldReturnTrueForExistingTableFalseOtherwise() {
+        SQLiteDatabase db = mock(SQLiteDatabase.class);
+        Cursor cursor = mock(Cursor.class);
+        doReturn(1).when(cursor).getCount();
+        doReturn(cursor).when(db).rawQuery(eq("SELECT name FROM sqlite_master WHERE type=? AND name=?"),
+                any(String[].class));
+        assertTrue(Utils.tableExists(db, "table"));
+        doReturn(0).when(cursor).getCount();
+        assertFalse(Utils.tableExists(db, "table"));
+    }
+
+    @Test
+    public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
+        assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
     }
 
     private void mockStaticClasses() {

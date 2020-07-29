@@ -138,14 +138,6 @@ public class Utils {
         return strings;
     }
 
-    public static boolean isMalariaApp() {
-        return BuildConfig.FLAVOR.equals("malariaKenya") || BuildConfig.FLAVOR.equals("malariaIndonesia");
-    }
-
-    public static boolean isCovidApp() {
-        return BuildConfig.FLAVOR.equals("covidIndonesia");
-    }
-
     public static void recordExceptionInCrashlytics(Throwable throwable) {
         FirebaseCrashlytics.getInstance().recordException(throwable);
     }
