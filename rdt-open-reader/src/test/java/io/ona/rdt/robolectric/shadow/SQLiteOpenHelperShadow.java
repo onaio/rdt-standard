@@ -5,13 +5,17 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
 
-import java.util.ArrayList;
-
+import static io.ona.rdt.repository.ParasiteProfileRepository.EXPERIMENT_DATE;
+import static io.ona.rdt.repository.ParasiteProfileRepository.EXPERIMENT_TYPE;
+import static io.ona.rdt.repository.ParasiteProfileRepository.PF_GAMETO;
+import static io.ona.rdt.repository.ParasiteProfileRepository.P_FALCIPARUM;
+import static io.ona.rdt.repository.ParasiteProfileRepository.P_MALARIAE;
+import static io.ona.rdt.repository.ParasiteProfileRepository.P_OVALE;
+import static io.ona.rdt.repository.ParasiteProfileRepository.P_VIVAX;
 import static io.ona.rdt.repository.RDTTestsRepository.BASE_ENTITY_ID;
 import static io.ona.rdt.repository.RDTTestsRepository.CHW_RESULT;
 import static io.ona.rdt.repository.RDTTestsRepository.COLUMNS;
@@ -20,7 +24,10 @@ import static io.ona.rdt.repository.RDTTestsRepository.RDT_TESTS_TABLES;
 import static io.ona.rdt.repository.RDTTestsRepository.TEST_DATE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
 import static io.ona.rdt.util.Constants.RDTType.RDT_TYPE;
+import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
+import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -45,12 +52,20 @@ public class SQLiteOpenHelperShadow extends Shadow {
 
     private SQLiteDatabase getDb() {
         SQLiteDatabase db =  mock(SQLiteDatabase.class);
-        doReturn(getCursor()).when(db).rawQuery(eq("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
+        doReturn(getRDTTestsCursor()).when(db).rawQuery(eq("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
                 " WHERE " + BASE_ENTITY_ID + " =?"), any(String[].class));
+
+        doReturn(getParasiteProfileCursor()).when(db).rawQuery(eq("SELECT *" + " FROM " + MICROSCOPY_RESULTS +
+                " WHERE " + RDT_ID + " =?" + " ORDER BY experiment_date"), any(String[].class));
+
+        doReturn(getParasiteProfileCursor()).when(db).rawQuery(eq("SELECT *" + " FROM " + PCR_RESULTS +
+                " WHERE " + RDT_ID + "=?" + " AND " + EXPERIMENT_TYPE +  "=?" + " ORDER BY experiment_date"),
+                any(String[].class));
+
         return db;
     }
 
-    private Cursor getCursor() {
+    private Cursor getRDTTestsCursor() {
         Cursor cursor = mock(Cursor.class);
         doReturn(0).when(cursor).getColumnIndex(eq(RDT_ID));
         doReturn(1).when(cursor).getColumnIndex(eq(TEST_DATE));
@@ -67,6 +82,28 @@ public class SQLiteOpenHelperShadow extends Shadow {
 
         when(cursor.moveToNext()).thenReturn(true).thenReturn(false);
 
+        return cursor;
+    }
+
+    private Cursor getParasiteProfileCursor() {
+        Cursor cursor = mock(Cursor.class);
+        doReturn(0).when(cursor).getColumnIndex(eq(RDT_ID));
+        doReturn(1).when(cursor).getColumnIndex(eq(EXPERIMENT_DATE));
+        doReturn(2).when(cursor).getColumnIndex(eq(P_FALCIPARUM));
+        doReturn(3).when(cursor).getColumnIndex(eq(P_MALARIAE));
+        doReturn(4).when(cursor).getColumnIndex(eq(P_OVALE));
+        doReturn(5).when(cursor).getColumnIndex(eq(P_VIVAX));
+        doReturn(6).when(cursor).getColumnIndex(eq(PF_GAMETO));
+
+        doReturn("rdt_id").when(cursor).getString(eq(0));
+        doReturn("experiment_date").when(cursor).getString(eq(1));
+        doReturn("negative").when(cursor).getString(eq(2));
+        doReturn("positive").when(cursor).getString(eq(3));
+        doReturn("negative").when(cursor).getString(eq(4));
+        doReturn("positive").when(cursor).getString(eq(5));
+        doReturn("negative").when(cursor).getString(eq(6));
+
+        when(cursor.moveToNext()).thenReturn(true).thenReturn(false);
         return cursor;
     }
 

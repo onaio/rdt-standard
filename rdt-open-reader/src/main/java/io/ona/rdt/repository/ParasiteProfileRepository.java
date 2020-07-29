@@ -21,14 +21,14 @@ import static io.ona.rdt.util.Utils.tableExists;
  */
 public class ParasiteProfileRepository extends BaseRepository {
 
-    private static final String P_FALCIPARUM = "p_falciparum";
-    private static final String P_VIVAX = "p_vivax";
-    private static final String P_MALARIAE = "p_malariae";
-    private static final String P_OVALE = "p_ovale";
-    private static final String PF_GAMETO = "pf_gameto";
-    private static final String EXPERIMENT_DATE = "experiment_date";
-    private static final String EXPERIMENT_TYPE = "experiment_type";
-    private static final String RDT_ID = "rdt_id";
+    public static final String P_FALCIPARUM = "p_falciparum";
+    public static final String P_VIVAX = "p_vivax";
+    public static final String P_MALARIAE = "p_malariae";
+    public static final String P_OVALE = "p_ovale";
+    public static final String PF_GAMETO = "pf_gameto";
+    public static final String EXPERIMENT_DATE = "experiment_date";
+    public static final String EXPERIMENT_TYPE = "experiment_type";
+    public static final String RDT_ID = "rdt_id";
 
 
     public static void createIndexes(SQLiteDatabase db) {
@@ -46,7 +46,7 @@ public class ParasiteProfileRepository extends BaseRepository {
             if (MICROSCOPY_RESULTS.equals(tableName)) {
                 cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
                         " WHERE " + RDT_ID + " =?" + " ORDER BY experiment_date", new String[]{rdtId});
-            } else {
+            } else if (PCR_RESULTS.equals(tableName)) {
                 cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
                         " WHERE " + RDT_ID + "=?" + " AND " + EXPERIMENT_TYPE +  "=?" + " ORDER BY experiment_date",
                         new String[]{rdtId, experimentType});
