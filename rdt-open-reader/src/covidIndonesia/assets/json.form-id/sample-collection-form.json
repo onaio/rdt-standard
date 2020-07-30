@@ -561,6 +561,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{sample-collection-form-original.step3.doctor_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {

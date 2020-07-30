@@ -202,6 +202,14 @@
         "v_numeric": {
           "value": "true",
           "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -251,6 +259,14 @@
         "v_numeric": {
           "value": "true",
           "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -268,6 +284,10 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "v_regex": {
+          "value": "\\S+@\\S+\\.\\S+",
+          "err": "Please enter a valid email address"
         }
       }
     ]

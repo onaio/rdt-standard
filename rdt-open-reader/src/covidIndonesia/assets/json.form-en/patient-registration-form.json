@@ -242,6 +242,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.patient_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -259,6 +267,10 @@
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_email_address.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "\\S+@\\S+\\.\\S+",
+          "err": "{{patient-registration-form-original.step1.patient_email_address.v_regex.err}}"
         }
       },
       {
