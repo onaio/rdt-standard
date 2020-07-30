@@ -1,5 +1,5 @@
 {
-  "count": "8",
+  "count": "9",
   "encounter_type": "sample_collection",
   "entity_id": "",
   "metadata": {
@@ -49,7 +49,7 @@
   "step1": {
     "title": "Sample collection",
     "display_back_button": "true",
-    "next": "step2",
+    "next": "step3",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -70,9 +70,39 @@
   "step2": {
     "title": "Sample collection",
     "display_back_button": "true",
+    "next": "step1",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_sample_expired",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "Sample is expired!"
+      },
+      {
+        "key": "lbl_collect_new_sample",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "Please collect another sample."
+      }
+    ]
+  },
+  "step3": {
+    "title": "Sample collection",
+    "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step3",
+    "next": "step4",
     "next_label": "CONTINUE",
     "fields": [
       {
@@ -95,15 +125,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Type of Sample?",
+        "label": "Type of sample?",
         "options": [
           {
-            "key": "nasopharyngeal",
-            "text": "Nasopharyngeal"
-          },
-          {
-            "key": "oropharyngeal",
-            "text": "Oropharyngeal"
+            "key": "swab",
+            "text": "Swab"
           },
           {
             "key": "sputum",
@@ -114,6 +140,10 @@
             "text": "Serum / Serology Sputum"
           },
           {
+            "key": "saliva",
+            "text": "Saliva"
+          },
+          {
             "key": "other",
             "text": "Other"
           }
@@ -121,6 +151,112 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand_lbl",
+        "type": "label",
+        "text": "Saliva collection kit brand?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "serum_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Type of blood?",
+        "options": [
+          {
+            "key": "capillary",
+            "text": "Capillary"
+          },
+          {
+            "key": "venus",
+            "text": "Venus"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand_lbl",
+        "type": "label",
+        "text": "Sputum collection tube brand?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "swab_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Type of swab?",
+        "options": [
+          {
+            "key": "nasopharyngeal",
+            "text": "Nasopharyngeal"
+          },
+          {
+            "key": "oropharyngeal",
+            "text": "Oropharyngeal"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -178,14 +314,14 @@
             "key": "lmk",
             "text": "LMK"
           },
-      {
-        "key": "fkui",
-        "text": "FKUI"
-      },
-      {
-        "key": "i3l",
-        "text": "i3L"
-      },
+          {
+            "key": "fkui",
+            "text": "FKUI"
+          },
+          {
+            "key": "i3l",
+            "text": "i3L"
+          },
           {
             "key": "other",
             "text": "Other"
@@ -194,6 +330,13 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -228,7 +371,7 @@
         }
       },
       {
-        "key": "sample_expiration_date",
+        "key": "vtm_expiration_date",
         "type": "date_picker",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -237,12 +380,19 @@
         "v_required": {
           "value": true,
           "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
         "key": "sample_lot_number_lbl",
         "type": "label",
-        "text": "VTM lot number",
+        "text": "Sample lot number",
         "text_color": "#000000"
       },
       {
@@ -489,10 +639,10 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "Store specimen",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step5",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -510,7 +660,7 @@
       }
     ]
   },
-  "step4": {
+  "step5": {
     "title": "Respiratory sample",
     "display_back_button": "true",
     "fields": [
@@ -536,10 +686,10 @@
       }
     ]
   },
-  "step5": {
+  "step6": {
     "title": "Sample collection",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step8",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "fields": [
@@ -599,11 +749,11 @@
       }
     ]
   },
-  "step6": {
+  "step7": {
     "title": "Sample collection",
     "display_back_button": "true",
     "bottom_navigation": "true",
-    "next": "step7",
+    "next": "step8",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
     "fields": [
@@ -637,10 +787,10 @@
       }
     ]
   },
-  "step7": {
+  "step8": {
     "title": "Store specimen for courier",
     "display_back_button": "true",
-    "next": "step8",
+    "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -658,7 +808,7 @@
       }
     ]
   },
-  "step8": {
+  "step9": {
     "title": "Test complete",
     "display_back_button": "true",
     "bottom_navigation": "true",

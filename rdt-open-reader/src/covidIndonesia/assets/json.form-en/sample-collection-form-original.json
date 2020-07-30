@@ -125,15 +125,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Type of Sample?",
+        "label": "Type of sample?",
         "options": [
           {
-            "key": "nasopharyngeal",
-            "text": "Nasopharyngeal"
-          },
-          {
-            "key": "oropharyngeal",
-            "text": "Oropharyngeal"
+            "key": "swab",
+            "text": "Swab"
           },
           {
             "key": "sputum",
@@ -144,6 +140,10 @@
             "text": "Serum / Serology Sputum"
           },
           {
+            "key": "saliva",
+            "text": "Saliva"
+          },
+          {
             "key": "other",
             "text": "Other"
           }
@@ -151,6 +151,112 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand_lbl",
+        "type": "label",
+        "text": "Saliva collection kit brand?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "serum_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Type of blood?",
+        "options": [
+          {
+            "key": "capillary",
+            "text": "Capillary"
+          },
+          {
+            "key": "venus",
+            "text": "Venus"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand_lbl",
+        "type": "label",
+        "text": "Sputum collection tube brand?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "swab_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Type of swab?",
+        "options": [
+          {
+            "key": "nasopharyngeal",
+            "text": "Nasopharyngeal"
+          },
+          {
+            "key": "oropharyngeal",
+            "text": "Oropharyngeal"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -224,6 +330,13 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -258,7 +371,7 @@
         }
       },
       {
-        "key": "sample_expiration_date",
+        "key": "vtm_expiration_date",
         "type": "date_picker",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -267,12 +380,19 @@
         "v_required": {
           "value": true,
           "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
         "key": "sample_lot_number_lbl",
         "type": "label",
-        "text": "VTM lot number",
+        "text": "Sample lot number",
         "text_color": "#000000"
       },
       {

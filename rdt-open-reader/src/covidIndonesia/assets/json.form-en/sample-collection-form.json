@@ -128,12 +128,8 @@
         "label": "{{sample-collection-form-original.step3.sample_type.label}}",
         "options": [
           {
-            "key": "nasopharyngeal",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.nasopharyngeal.text}}"
-          },
-          {
-            "key": "oropharyngeal",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.oropharyngeal.text}}"
+            "key": "swab",
+            "text": "{{sample-collection-form-original.step3.sample_type.options.swab.text}}"
           },
           {
             "key": "sputum",
@@ -144,6 +140,10 @@
             "text": "{{sample-collection-form-original.step3.sample_type.options.serum.text}}"
           },
           {
+            "key": "saliva",
+            "text": "{{sample-collection-form-original.step3.sample_type.options.saliva.text}}"
+          },
+          {
             "key": "other",
             "text": "{{sample-collection-form-original.step3.sample_type.options.other.text}}"
           }
@@ -151,6 +151,112 @@
         "v_required": {
           "value": "true",
           "err": "{{sample-collection-form-original.step3.sample_type.v_required.err}}"
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step3.saliva_collection_kit_brand_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "serum_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{sample-collection-form-original.step3.serum_type.label}}",
+        "options": [
+          {
+            "key": "capillary",
+            "text": "{{sample-collection-form-original.step3.serum_type.options.capillary.text}}"
+          },
+          {
+            "key": "venus",
+            "text": "{{sample-collection-form-original.step3.serum_type.options.venus.text}}"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step3.sputum_collection_tube_brand_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "swab_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{sample-collection-form-original.step3.swab_type.label}}",
+        "options": [
+          {
+            "key": "nasopharyngeal",
+            "text": "{{sample-collection-form-original.step3.swab_type.options.nasopharyngeal.text}}"
+          },
+          {
+            "key": "oropharyngeal",
+            "text": "{{sample-collection-form-original.step3.swab_type.options.oropharyngeal.text}}"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -224,6 +330,13 @@
         "v_required": {
           "value": "true",
           "err": "{{sample-collection-form-original.step3.vtm_brand.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -258,15 +371,22 @@
         }
       },
       {
-        "key": "sample_expiration_date",
+        "key": "vtm_expiration_date",
         "type": "date_picker",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step3.sample_expiration_date.hint}}",
+        "hint": "{{sample-collection-form-original.step3.vtm_expiration_date.hint}}",
         "v_required": {
           "value": true,
-          "err": "{{sample-collection-form-original.step3.sample_expiration_date.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.vtm_expiration_date.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
