@@ -135,20 +135,77 @@
         }
       },
       {
-        "key": "national_id_label",
+        "key": "passport_no_label",
         "type": "label",
-        "text": "Government ID",
-        "text_color": "#000000"
+        "text": "Passport number?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
-        "key": "national_id_number",
+        "key": "passport_no",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter national ID number"
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "drivers_license_number_lbl",
+        "type": "label",
+        "text": "Driver's license number?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "drivers_license_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "16",
+          "err": "Phone number cannot be more than 16 digits"
+        },
+        "v_min_length": {
+          "value": "16",
+          "err": "Phone number cannot be less than 16 digits"
         }
       },
       {
