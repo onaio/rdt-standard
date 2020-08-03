@@ -1,5 +1,5 @@
 {
-  "count": "9",
+  "count": "10",
   "encounter_type": "sample_collection",
   "entity_id": "",
   "metadata": {
@@ -650,7 +650,7 @@
   "step4": {
     "title": "{{sample-collection-form-original.step4.title}}",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "{{sample-collection-form-original.step4.next_label}}",
@@ -834,6 +834,81 @@
         "bg_color": "#ffffff",
         "label_text_style": "bold",
         "text": "{{sample-collection-form-original.step9.lbl_test_complete.text}}"
+      }
+    ]
+  },
+  "step10": {
+    "title": "{{sample-collection-form-original.step10.title}}",
+    "display_back_button": "true",
+    "next": "step5",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "{{sample-collection-form-original.step10.next_label}}",
+    "fields": [
+      {
+        "key": "sputum_color",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{sample-collection-form-original.step10.sputum_color.label}}",
+        "options": [
+          {
+            "key": "clear",
+            "text": "{{sample-collection-form-original.step10.sputum_color.options.clear.text}}"
+          },
+          {
+            "key": "off_white",
+            "text": "{{sample-collection-form-original.step10.sputum_color.options.off_white.text}}"
+          },
+          {
+            "key": "red_or_rusty",
+            "text": "{{sample-collection-form-original.step10.sputum_color.options.red_or_rusty.text}}"
+          },
+          {
+            "key": "gray_or_black",
+            "text": "{{sample-collection-form-original.step10.sputum_color.options.gray_or_black.text}}"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "quantity_of_serum_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step10.quantity_of_serum_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "quantity_of_serum",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step10.quantity_of_serum.v_numeric.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },

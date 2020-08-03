@@ -1,5 +1,5 @@
 {
-  "count": "9",
+  "count": "10",
   "encounter_type": "sample_collection",
   "entity_id": "",
   "metadata": {
@@ -314,14 +314,14 @@
             "key": "lmk",
             "text": "LMK"
           },
-      {
-        "key": "fkui",
-        "text": "FKUI"
-      },
-      {
-        "key": "i3l",
-        "text": "i3L"
-      },
+          {
+            "key": "fkui",
+            "text": "FKUI"
+          },
+          {
+            "key": "i3l",
+            "text": "i3L"
+          },
           {
             "key": "other",
             "text": "Other"
@@ -650,7 +650,7 @@
   "step4": {
     "title": "Store specimen",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -834,6 +834,81 @@
         "bg_color": "#ffffff",
         "label_text_style": "bold",
         "text": "Sample collection for the patient is complete"
+      }
+    ]
+  },
+  "step10": {
+    "title": "Post-collection",
+    "display_back_button": "true",
+    "next": "step5",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "sputum_color",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Color of sputum?",
+        "options": [
+          {
+            "key": "clear",
+            "text": "Clear"
+          },
+          {
+            "key": "off_white",
+            "text": "Off-white, yellow or green"
+          },
+          {
+            "key": "red_or_rusty",
+            "text": "Red or rusty"
+          },
+          {
+            "key": "gray_or_black",
+            "text": "Gray or black"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "quantity_of_serum_lbl",
+        "type": "label",
+        "text": "Quantity of serum in mL?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "quantity_of_serum",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   }
