@@ -664,7 +664,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Safely store Respiratory Specimen in provided transport tube."
+        "text": "Safely store specimen in provided transport tube."
       }
     ]
   },
