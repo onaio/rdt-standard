@@ -12,6 +12,7 @@ public class Patient implements Parcelable {
     private String patientSex;
     private String baseEntityId;
     private String patientId;
+    private int age;
 
     public Patient(String patientName, String patientSex, String baseEntityId) {
         this.patientName = patientName;
@@ -24,11 +25,17 @@ public class Patient implements Parcelable {
         setPatientId(patientId);
     }
 
+    public Patient(String patientName, String patientSex, String baseEntityId, String patientId, int age) {
+        this(patientName, patientSex, baseEntityId, patientId);
+        setAge(age);
+    }
+
     protected Patient(Parcel in) {
         patientName = in.readString();
         patientSex = in.readString();
         baseEntityId = in.readString();
         patientId = in.readString();
+        age = in.readInt();
     }
 
     public static final Creator<Patient> CREATOR = new Creator<Patient>() {
@@ -75,6 +82,14 @@ public class Patient implements Parcelable {
         this.patientId = patientId;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,5 +101,6 @@ public class Patient implements Parcelable {
         dest.writeString(this.patientSex);
         dest.writeString(this.baseEntityId);
         dest.writeString(this.patientSex);
+        dest.writeInt(this.age);
     }
 }

@@ -1,7 +1,5 @@
 package io.ona.rdt.util;
 
-import io.ona.rdt.BuildConfig;
-
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
@@ -73,6 +71,8 @@ public interface CovidConstants extends Constants {
         String PATIENT_FIRST_NAME = "patient_first_name";
         String PATIENT_LAST_NAME = "patient_last_name";
         String NATIONAL_ID_NUMBER = "national_id_number";
+        String PATIENT_AGE = "patient_age";
+        String PATIENT_SEX = "patient_sex";
     }
 
     interface RDTType {
