@@ -32,10 +32,13 @@ public interface CovidConstants extends Constants {
     }
 
     interface Form {
-        String PATIENT_DIAGNOSTICS_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-diagnostics-form.json";
-        String SAMPLE_COLLECTION_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-collection-form.json";
-        String SAMPLE_DELIVERY_DETAILS_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-delivery-details-form.json";
-        String SUPPORT_INVESTIGATION_FORM = "json.form-" + BuildConfig.LOCALE + "/support-investigation-form.json";
+        String JSON_FORM_FOLDER = "json.form/";
+        String PATIENT_DIAGNOSTICS_FORM = JSON_FORM_FOLDER + "patient-diagnostics-form.json";
+        String SAMPLE_COLLECTION_FORM = JSON_FORM_FOLDER + "sample-collection-form.json";
+        String SAMPLE_DELIVERY_DETAILS_FORM = JSON_FORM_FOLDER + "sample-delivery-details-form.json";
+        String SUPPORT_INVESTIGATION_FORM = JSON_FORM_FOLDER + "support-investigation-form.json";
+        String COVID_PATIENT_REGISTRATION_FORM = JSON_FORM_FOLDER + "patient-registration-form.json";
+        String COVID_RDT_TEST_FORM = JSON_FORM_FOLDER + "rdt-capture-form.json";
     }
 
     interface Step {

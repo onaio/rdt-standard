@@ -13,12 +13,12 @@ import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidPatientProfileFragmentPresenter;
 
+import static io.ona.rdt.util.Constants.FormFields.PATIENT;
+import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
-import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SUPPORT_INVESTIGATION_FORM;
-import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
 
 /**
@@ -81,7 +81,7 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
                 formName = SAMPLE_DELIVERY_DETAILS_FORM;
                 break;
             case R.id.tv_covid_rdt:
-                formName = RDT_TEST_FORM;
+                formName = COVID_RDT_TEST_FORM;
                 break;
             case R.id.tv_covid_sample_collection:
                 formName = SAMPLE_COLLECTION_FORM;

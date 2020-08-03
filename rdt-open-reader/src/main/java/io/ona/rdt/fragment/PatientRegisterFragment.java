@@ -155,7 +155,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register_patient:
-                getPresenter().launchForm(getActivity(), PATIENT_REGISTRATION_FORM, null);
+                getPresenter().launchForm(getActivity(), getPatientRegistrationForm(), null);
                 break;
             case R.id.drawerMenu:
                 getParentView().openDrawerLayout();
@@ -166,6 +166,10 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
             default:
                 // do nothing
         }
+    }
+
+    protected String getPatientRegistrationForm() {
+        return PATIENT_REGISTRATION_FORM;
     }
 
     public String getRegisterTableName() {
