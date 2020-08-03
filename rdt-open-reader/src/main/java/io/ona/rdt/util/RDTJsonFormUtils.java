@@ -65,6 +65,7 @@ import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 import static org.smartregister.util.JsonFormUtils.getString;
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -250,7 +251,7 @@ public class RDTJsonFormUtils {
         try {
             formJsonObject = getFormJsonObject(formName, activity);
             if (formShouldBePrePopulated(formName)) {
-                String uniqueId = uniqueIDs.get(0);
+                String uniqueId = isEmptyCollection(uniqueIDs) ? "" : uniqueIDs.get(0);
                 prePopulateFormFields(formJsonObject, patient, uniqueId);
             }
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());

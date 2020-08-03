@@ -7,6 +7,7 @@ import org.json.JSONException;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
@@ -30,7 +31,7 @@ public class CovidFormLauncherTest extends BaseFormLauncherTest {
 
     @Override
     protected void launchForms(Activity activity, Patient patient) throws JSONException {
-        formLauncher.launchForm(activity, RDT_TEST_FORM, patient);
+        formLauncher.launchForm(activity, COVID_RDT_TEST_FORM, patient);
         formLauncher.launchForm(activity, SAMPLE_COLLECTION_FORM, patient);
     }
 

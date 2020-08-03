@@ -14,7 +14,7 @@ import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 public class CovidFormLauncher extends FormLauncher {
 
     private Set<String> formsThatRequireUniqueIDs = new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM,
-            COVID_RDT_TEST_FORM, PATIENT_DIAGNOSTICS_FORM));
+            COVID_RDT_TEST_FORM));
 
     @Override
     protected boolean formRequiresUniqueId(String formName) {
