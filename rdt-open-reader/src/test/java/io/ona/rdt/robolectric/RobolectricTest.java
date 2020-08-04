@@ -13,6 +13,7 @@ import io.ona.rdt.robolectric.shadow.CameraBridgeViewBaseShadow;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.FirebaseCrashlyticsShadow;
 import io.ona.rdt.robolectric.shadow.FormDataRepositoryShadow;
+import io.ona.rdt.robolectric.shadow.GpsDialogShadow;
 import io.ona.rdt.robolectric.shadow.JsonFormFragmentPresenterShadow;
 import io.ona.rdt.robolectric.shadow.JsonFormFragmentShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
@@ -25,6 +26,6 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
         FormDataRepositoryShadow.class, UtilsShadow.class, CameraBridgeViewBaseShadow.class,
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,
-        SQLiteDatabaseShadow.class})
+        SQLiteDatabaseShadow.class, GpsDialogShadow.class})
 public abstract class RobolectricTest {
 }

@@ -30,11 +30,6 @@ public class RDTGpsDialog extends GpsDialog {
         super.onLocationChanged(location);
         saveAndDismiss();
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getFormFragment().next();
-            }
-        }, 900);
+        handler.postDelayed(() -> getFormFragment().next(), 900);
     }
 }
