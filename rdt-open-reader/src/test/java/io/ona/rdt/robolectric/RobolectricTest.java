@@ -26,5 +26,5 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,
         SQLiteDatabaseShadow.class})
-public abstract class  RobolectricTest {
+public abstract class RobolectricTest {
 }
