@@ -1,6 +1,9 @@
 package io.ona.rdt.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Obs;
 
 import io.ona.rdt.application.RDTApplication;
@@ -12,6 +15,7 @@ import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
 import static io.ona.rdt.util.CovidConstants.Encounter.SUPPORT_INVESTIGATION;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
+import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_RDT_TESTS;
 import static io.ona.rdt.util.CovidConstants.Table.PATIENT_DIAGNOSTIC_RESULTS;
@@ -70,5 +74,17 @@ public class CovidFormSaver extends FormSaver {
                 break;
         }
         return bindType;
+    }
+
+    @Override
+    protected void populatePhoneMetadata(Event event) {
+        super.populatePhoneMetadata(event);
+        // add location information
+        org.smartregister.clientandeventmodel.Obs obs = new org.smartregister.clientandeventmodel.Obs();
+        obs.setFieldCode(LAST_KNOWN_LOCATION);
+        obs.setValue(RDTApplication.getInstance().getContext().allSettings().get(LAST_KNOWN_LOCATION,
+                new JSONObject().toString()));
+        obs.setFormSubmissionField(LAST_KNOWN_LOCATION);
+        event.addObs(obs);
     }
 }

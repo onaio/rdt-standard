@@ -48,9 +48,12 @@ import io.ona.rdt.domain.Patient;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.PERFORM_FORM_TRANSLATION;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.FormFields.LBL_PATIENT_GENDER_AND_ID;
+import static io.ona.rdt.util.Constants.FormFields.LBL_PATIENT_NAME;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.Result.JSON_FORM_PARAM_JSON;
@@ -62,6 +65,7 @@ import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 import static org.smartregister.util.JsonFormUtils.getString;
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -247,7 +251,7 @@ public class RDTJsonFormUtils {
         try {
             formJsonObject = getFormJsonObject(formName, activity);
             if (formShouldBePrePopulated(formName)) {
-                String uniqueId = uniqueIDs.get(0);
+                String uniqueId = isEmptyCollection(uniqueIDs) ? "" : uniqueIDs.get(0);
                 prePopulateFormFields(formJsonObject, patient, uniqueId);
             }
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
@@ -284,15 +288,15 @@ public class RDTJsonFormUtils {
 
     protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
         if (patient != null) {
-            if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+            String key = field.getString(KEY);
+            if (LBL_PATIENT_NAME.equals(key)) {
                 String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
                         ? patient.getPatientId() : patient.getPatientName();
-
                 field.put(VALUE, patientIdentifier);
-                field.put("text", patientIdentifier);
-            } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+                field.put(TEXT, patientIdentifier);
+            } else if (LBL_PATIENT_GENDER_AND_ID.equals(key)) {
                 field.put(VALUE, patient.getPatientSex());
-                field.put("text", getPatientSexAndId(patient));
+                field.put(TEXT, getPatientSexAndId(patient));
             }
         }
     }

@@ -129,21 +129,13 @@ public class Utils {
         return new Date().after(expirationDate);
     }
 
-    public static List<String> convertJsonArrToStringList(JSONArray jsonArray) throws JSONException {
+    public static List<String> convertJsonArrToListOfStrings(JSONArray jsonArray) throws JSONException {
         List<String> strings = new ArrayList<>();
         if (jsonArray == null) { return  strings; }
         for (int i = 0; i < jsonArray.length(); i++) {
             strings.add(jsonArray.getString(i));
         }
         return strings;
-    }
-
-    public static boolean isMalariaApp() {
-        return BuildConfig.FLAVOR.equals("malariaKenya") || BuildConfig.FLAVOR.equals("malariaIndonesia");
-    }
-
-    public static boolean isCovidApp() {
-        return BuildConfig.FLAVOR.equals("covidIndonesia");
     }
 
     public static void recordExceptionInCrashlytics(Throwable throwable) {

@@ -128,11 +128,8 @@ public class PatientRegisterActivityTest extends RobolectricTest {
     public void testSelectDrawerItemShouldLogoutUser() {
         MenuItem menuItem = mock(MenuItem.class);
         doReturn(R.id.menu_item_logout).when(menuItem).getItemId();
-
-        UserService userService = mock(UserService.class);
-        ReflectionHelpers.setField(RDTApplication.getInstance().getContext(), "userService", userService);
         patientRegisterActivity.selectDrawerItem(menuItem);
-        verify(userService).logoutSession();
+        verify(RDTApplication.getInstance().getContext().userService()).logoutSession();
     }
 
     @Test

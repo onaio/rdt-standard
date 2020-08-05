@@ -32,4 +32,15 @@ public class RDTApplicationTest extends RobolectricTest {
     public void testGetParasiteProfileRepositoryShouldReturnNonNullParasiteProfileRepository() {
         assertNotNull(application.getParasiteProfileRepository());
     }
+
+    @Test
+    public void testGetRepositoryShouldReturnNonNullRepository() {
+        assertNotNull(application.getRepository());
+    }
+
+    @Test
+    public void testGetPasswordShouldGetCorrectPassword() {
+        application.getContext().allSharedPreferences().updateANMUserName("user");
+        assertEquals("password", application.getPassword());
+    }
 }

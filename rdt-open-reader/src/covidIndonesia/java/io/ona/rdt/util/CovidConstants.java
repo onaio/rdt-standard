@@ -1,7 +1,5 @@
 package io.ona.rdt.util;
 
-import io.ona.rdt.BuildConfig;
-
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
@@ -32,10 +30,13 @@ public interface CovidConstants extends Constants {
     }
 
     interface Form {
-        String PATIENT_DIAGNOSTICS_FORM = "json.form-" + BuildConfig.LOCALE + "/patient-diagnostics-form.json";
-        String SAMPLE_COLLECTION_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-collection-form.json";
-        String SAMPLE_DELIVERY_DETAILS_FORM = "json.form-" + BuildConfig.LOCALE + "/sample-delivery-details-form.json";
-        String SUPPORT_INVESTIGATION_FORM = "json.form-" + BuildConfig.LOCALE + "/support-investigation-form.json";
+        String JSON_FORM_FOLDER = "json.form/";
+        String PATIENT_DIAGNOSTICS_FORM = JSON_FORM_FOLDER + "patient-diagnostics-form.json";
+        String SAMPLE_COLLECTION_FORM = JSON_FORM_FOLDER + "sample-collection-form.json";
+        String SAMPLE_DELIVERY_DETAILS_FORM = JSON_FORM_FOLDER + "sample-delivery-details-form.json";
+        String SUPPORT_INVESTIGATION_FORM = JSON_FORM_FOLDER + "support-investigation-form.json";
+        String COVID_PATIENT_REGISTRATION_FORM = JSON_FORM_FOLDER + "patient-registration-form.json";
+        String COVID_RDT_TEST_FORM = JSON_FORM_FOLDER + "rdt-capture-form.json";
     }
 
     interface Step {
@@ -67,10 +68,24 @@ public interface CovidConstants extends Constants {
         String LBL_SCAN_SAMPLE_BARCODE = "lbl_scan_sample_barcode";
         String LBL_ENTER_SAMPLE_DETAILS_MANUALLY = "lbl_enter_sample_details_manually";
         String COVID_SAMPLE_ID = "covid_sample_id";
+        String PATIENT_FIRST_NAME = "patient_first_name";
+        String PATIENT_LAST_NAME = "patient_last_name";
+        String NATIONAL_ID_NUMBER = "national_id_number";
+        String PATIENT_AGE = "patient_age";
+        String PATIENT_SEX = "patient_sex";
+        String LAST_KNOWN_LOCATION = "last_known_location";
+        String DRIVERS_LICENSE_NUMBER = "drivers_license_number";
+        String PASSPORT_NO = "passport_no";
+        String LAT = "lat";
+        String LNG = "lng";
     }
 
     interface RDTType {
         String COVID_WONDFO = "covid19-wondfo";
         String COVID_ALLTEST = "covid19-jalmedical";
+    }
+
+    interface RequestCodes {
+        int LOCATION_PERMISSIONS = 8732;
     }
 }

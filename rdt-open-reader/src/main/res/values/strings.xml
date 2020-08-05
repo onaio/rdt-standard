@@ -6,6 +6,7 @@
     <string name="launching_expiration_date_widget">Launching expiration date widget</string>
     <string name="phone_state_permissions_required">Phone state permissions are required to submit this form</string>
     <string name="rdt_permissions_required">RDT image capture requires camera and storage permissions</string>
+    <string name="location_permissions">Location permissions are required to continue</string>
     <string name="time_expired">Time has expired.\nRead RDT result.</string>
     <string name="opensrp_url" translatable="false">@string/opensrp_base_url</string>
     <string name="login_app_name">RDT Open Reader</string>
@@ -38,5 +39,10 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="microscopy">Microscopy</string>
     <string name="blood_spot">Blood Spot</string>
     <string name="form_successfully_saved">Saved!</string>
+    <string name="malariae_prefix">P. malariae - </string>
+    <string name="ovale_prefix">P. ovale - </string>
+    <string name="vivax_prefix">P. vivax - </string>
+    <string name="falciparum_prefix">P. falciparum - </string>
+    <string name="gameto_prefix">Pf. gameto - </string>
 </resources>
 

@@ -48,6 +48,19 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE.md'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
+
     buildTypes {
         debug {
             resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
@@ -91,7 +104,7 @@ android {
             applicationId "io.ona.rdt.covid.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.1.0"
+            versionName "v1.3.0"
             versionNameSuffix "-COVID-ID"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
         }
@@ -118,7 +131,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.15.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.15.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'

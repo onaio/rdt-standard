@@ -47,12 +47,12 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Pre-existing conditions",
+    "title": "{{patient-diagnostics-form-original.step1.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step2",
-    "next_label": "CONTINUE",
+    "next_label": "{{patient-diagnostics-form-original.step1.next_label}}",
     "fields": [
       {
         "key": "facility_type",
@@ -60,38 +60,38 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Where is the assessment taking place?",
+        "label": "{{patient-diagnostics-form-original.step1.facility_type.label}}",
         "options": [
           {
             "key": "hospital",
-            "text": "hospital"
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.hospital.text}}"
           },
           {
             "key": "clinic",
-            "text": "clinic"
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.clinic.text}}"
           },
           {
             "key": "office",
-            "text": "office"
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.office.text}}"
           },
           {
             "key": "home",
-            "text": "home"
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.home.text}}"
           },
           {
             "key": "other",
-            "text": "other"
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.facility_type.v_required.err}}"
         }
       },
       {
         "key": "facility_name_label",
         "type": "label",
-        "text": "Name of facility",
+        "text": "{{patient-diagnostics-form-original.step1.facility_name_label.text}}",
         "text_color": "#000000"
       },
       {
@@ -102,8 +102,22 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{patient-diagnostics-form-original.step1.facility_name.v_required.err}}"
         }
+      },
+      {
+        "key": "patient_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "patient_sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       },
       {
         "key": "is_pregnant_or_post_partum",
@@ -111,20 +125,27 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Is the patient pregnant or post-partum?",
+        "label": "{{patient-diagnostics-form-original.step1.is_pregnant_or_post_partum.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.is_pregnant_or_post_partum.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.is_pregnant_or_post_partum.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.is_pregnant_or_post_partum.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -133,20 +154,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Is the patient using a ventilator?",
+        "label": "{{patient-diagnostics-form-original.step1.using_ventilator.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.using_ventilator.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.using_ventilator.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.using_ventilator.v_required.err}}"
         }
       },
       {
@@ -155,24 +176,24 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Patient case category?",
+        "label": "{{patient-diagnostics-form-original.step1.patient_case_category.label}}",
         "options": [
           {
             "key": "under_monitoring",
-            "text": "Under monitoring"
+            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.under_monitoring.text}}"
           },
           {
             "key": "under_surveillance",
-            "text": "Under surveillance"
+            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.under_surveillance.text}}"
           },
           {
             "key": "without_symptoms",
-            "text": "Without symptoms"
+            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.without_symptoms.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.patient_case_category.v_required.err}}"
         }
       },
       {
@@ -181,20 +202,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic heart disease?",
+        "label": "{{patient-diagnostics-form-original.step1.has_chronic_heart_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_heart_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_heart_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_chronic_heart_disease_history.v_required.err}}"
         }
       },
       {
@@ -203,20 +224,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic lung disease?",
+        "label": "{{patient-diagnostics-form-original.step1.has_chronic_lung_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_lung_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_lung_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_chronic_lung_disease_history.v_required.err}}"
         }
       },
       {
@@ -225,20 +246,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic kidney disease?",
+        "label": "{{patient-diagnostics-form-original.step1.has_chronic_kidney_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_kidney_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_kidney_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_chronic_kidney_disease_history.v_required.err}}"
         }
       },
       {
@@ -247,20 +268,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a history with urinary or kidney disease?",
+        "label": "{{patient-diagnostics-form-original.step1.has_urinary_or_kidney_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_urinary_or_kidney_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_urinary_or_kidney_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_urinary_or_kidney_disease_history.v_required.err}}"
         }
       },
       {
@@ -269,20 +290,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have diabetes?",
+        "label": "{{patient-diagnostics-form-original.step1.has_diabetes.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_diabetes.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_diabetes.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_diabetes.v_required.err}}"
         }
       },
       {
@@ -291,20 +312,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a history of gout?",
+        "label": "{{patient-diagnostics-form-original.step1.has_gout_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_gout_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_gout_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_gout_history.v_required.err}}"
         }
       },
       {
@@ -313,20 +334,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have an autoimmune disease?",
+        "label": "{{patient-diagnostics-form-original.step1.has_autoimmune_disease_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_autoimmune_disease_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_autoimmune_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_autoimmune_disease_history.v_required.err}}"
         }
       },
       {
@@ -335,20 +356,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic neurological or neuromuscular disease",
+        "label": "{{patient-diagnostics-form-original.step1.has_neurological_disease.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_neurological_disease.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_neurological_disease.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_neurological_disease.v_required.err}}"
         }
       },
       {
@@ -357,20 +378,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have HIV/AIDS?",
+        "label": "{{patient-diagnostics-form-original.step1.has_hiv.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_hiv.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_hiv.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_hiv.v_required.err}}"
         }
       },
       {
@@ -379,20 +400,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have hypertension?",
+        "label": "{{patient-diagnostics-form-original.step1.has_hypertension.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_hypertension.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_hypertension.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_hypertension.v_required.err}}"
         }
       },
       {
@@ -401,26 +422,26 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have any other health issues?",
+        "label": "{{patient-diagnostics-form-original.step1.has_other_health_issues.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step1.has_other_health_issues.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step1.has_other_health_issues.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step1.has_other_health_issues.v_required.err}}"
         }
       },
       {
         "key": "additional_health_issues_lbl",
         "type": "label",
-        "text": "Enter additional health issues",
+        "text": "{{patient-diagnostics-form-original.step1.additional_health_issues_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -445,18 +466,18 @@
         },
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{patient-diagnostics-form-original.step1.additional_health_issues.v_required.err}}"
         }
       }
     ]
   },
   "step2": {
-    "title": "Signs & symptoms",
+    "title": "{{patient-diagnostics-form-original.step2.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step3",
-    "next_label": "CONTINUE",
+    "next_label": "{{patient-diagnostics-form-original.step2.next_label}}",
     "fields": [
       {
         "key": "date_of_onset_of_symptoms",
@@ -464,13 +485,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "Date of onset of symptoms",
+        "hint": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.hint}}",
         "expanded": false,
         "min_date": "today-100y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.v_required.err}}"
         }
       },
       {
@@ -479,20 +500,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a fever?",
+        "label": "{{patient-diagnostics-form-original.step2.has_fever.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_fever.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_fever.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_fever.v_required.err}}"
         }
       },
       {
@@ -501,20 +522,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient feel nauseated?",
+        "label": "{{patient-diagnostics-form-original.step2.has_nausea.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_nausea.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_nausea.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_nausea.v_required.err}}"
         }
       },
       {
@@ -523,20 +544,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Is the patient experiencing diarrhoea?",
+        "label": "{{patient-diagnostics-form-original.step2.has_diarrhoea.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_diarrhoea.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_diarrhoea.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_diarrhoea.v_required.err}}"
         }
       },
       {
@@ -545,20 +566,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a sore throat?",
+        "label": "{{patient-diagnostics-form-original.step2.has_sore_throat.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_sore_throat.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_sore_throat.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_sore_throat.v_required.err}}"
         }
       },
       {
@@ -567,20 +588,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a cough?",
+        "label": "{{patient-diagnostics-form-original.step2.has_cough.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_cough.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_cough.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_cough.v_required.err}}"
         }
       },
       {
@@ -589,20 +610,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have a cold?",
+        "label": "{{patient-diagnostics-form-original.step2.has_cold.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_cold.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_cold.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_cold.v_required.err}}"
         }
       },
       {
@@ -611,20 +632,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has the patient lost the ability to detect odors?",
+        "label": "{{patient-diagnostics-form-original.step2.has_lost_smell.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_lost_smell.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_lost_smell.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_lost_smell.v_required.err}}"
         }
       },
       {
@@ -633,20 +654,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have shortness of breath?",
+        "label": "{{patient-diagnostics-form-original.step2.has_shortness_of_breath.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_shortness_of_breath.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_shortness_of_breath.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_shortness_of_breath.v_required.err}}"
         }
       },
       {
@@ -655,20 +676,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have decreased taste sensitivity?",
+        "label": "{{patient-diagnostics-form-original.step2.has_decreased_taste_sensitivity.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_decreased_taste_sensitivity.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_decreased_taste_sensitivity.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_decreased_taste_sensitivity.v_required.err}}"
         }
       },
       {
@@ -677,20 +698,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have abnormal headaches?",
+        "label": "{{patient-diagnostics-form-original.step2.has_abnormal_headaches.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_abnormal_headaches.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_abnormal_headaches.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_abnormal_headaches.v_required.err}}"
         }
       },
       {
@@ -699,20 +720,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chest pains?",
+        "label": "{{patient-diagnostics-form-original.step2.has_chest_pains.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_chest_pains.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_chest_pains.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_chest_pains.v_required.err}}"
         }
       },
       {
@@ -721,20 +742,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have muscle pains?",
+        "label": "{{patient-diagnostics-form-original.step2.has_muscle_pains.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_muscle_pains.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_muscle_pains.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_muscle_pains.v_required.err}}"
         }
       },
       {
@@ -743,31 +764,31 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have abnormal fatigue?",
+        "label": "{{patient-diagnostics-form-original.step2.has_fatigue.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step2.has_fatigue.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step2.has_fatigue.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step2.has_fatigue.v_required.err}}"
         }
       }
     ]
   },
   "step3": {
-    "title": "Travel & contact exposure",
+    "title": "{{patient-diagnostics-form-original.step3.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "submit_label": "{{patient-diagnostics-form-original.step3.submit_label}}",
     "fields": [
       {
         "key": "has_travel_history",
@@ -775,20 +796,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has the patient travelled internationally / domestically in the past 14 days?",
+        "label": "{{patient-diagnostics-form-original.step3.has_travel_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step3.has_travel_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step3.has_travel_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step3.has_travel_history.v_required.err}}"
         }
       },
       {
@@ -797,56 +818,56 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Location travelled?",
+        "label": "{{patient-diagnostics-form-original.step3.travel_location.label}}",
         "options": [
           {
             "key": "jakarta",
-            "text": "Jakarta"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.jakarta.text}}"
           },
           {
             "key": "bandung",
-            "text": "Bandung"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.bandung.text}}"
           },
           {
             "key": "yogyakarta",
-            "text": "Yogyakarta"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.yogyakarta.text}}"
           },
           {
             "key": "depok",
-            "text": "Depok"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.depok.text}}"
           },
           {
             "key": "tangerang",
-            "text": "Tangerang"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.tangerang.text}}"
           },
           {
             "key": "bogor",
-            "text": "Bogor"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.bogor.text}}"
           },
           {
             "key": "manado",
-            "text": "Manado"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.manado.text}}"
           },
           {
             "key": "pontianak",
-            "text": "Pontianak"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.pontianak.text}}"
           },
           {
             "key": "solo",
-            "text": "Solo"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.solo.text}}"
           },
           {
             "key": "denpasa",
-            "text": "Denpasa"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.denpasa.text}}"
           },
           {
             "key": "other",
-            "text": "Other"
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step3.travel_location.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -859,7 +880,7 @@
       {
         "key": "other_location_lbl",
         "type": "label",
-        "text": "Specify location",
+        "text": "{{patient-diagnostics-form-original.step3.other_location_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -884,7 +905,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": ""
+          "err": "{{patient-diagnostics-form-original.step3.other_location.v_required.err}}"
         }
       },
       {
@@ -893,32 +914,32 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have close contact with someone that just came back from international travel in the past 14 days who became ill?",
+        "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_sick_traveller.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_sick_traveller.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_sick_traveller.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_sick_traveller.v_required.err}}"
         }
       },
       {
         "key": "covid_patients_in_compound_lbl",
         "type": "label",
-        "text": "Number of Covid-19 patients in household / compound?",
+        "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound_lbl.text}}",
         "text_color": "#000000"
       },
       {
         "key": "covid_patients_in_compound",
         "type": "repeating_group",
-        "reference_edit_text_hint":"# of covid patients",
+        "reference_edit_text_hint": "# of covid patients",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -927,7 +948,7 @@
           {
             "key": "name_label",
             "type": "label",
-            "text": "Contact's name",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -944,7 +965,7 @@
           {
             "key": "phone_number_lbl",
             "type": "label",
-            "text": "Contact's phone number",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -960,6 +981,14 @@
             "v_numeric": {
               "value": "true",
               "err": "Value must be numeric"
+            },
+            "v_max_length": {
+              "value": "13",
+              "err": "Phone number cannot be more than 13 digits"
+            },
+            "v_min_length": {
+              "value": "8",
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
@@ -1012,13 +1041,13 @@
       {
         "key": "has_close_contact_with_covid_patient_lbl",
         "type": "label",
-        "text": "Number of Covid-19 patients who are close contacts?",
+        "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient_lbl.text}}",
         "text_color": "#000000"
       },
       {
         "key": "has_close_contact_with_covid_patient",
         "type": "repeating_group",
-        "reference_edit_text_hint":"# of covid patients",
+        "reference_edit_text_hint": "# of covid patients",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1027,7 +1056,7 @@
           {
             "key": "name_label",
             "type": "label",
-            "text": "Contact's name",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -1040,10 +1069,11 @@
               "value": "false",
               "err": ""
             }
-          },{
+          },
+          {
             "key": "phone_number_lbl",
             "type": "label",
-            "text": "Contact's phone number",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -1059,6 +1089,14 @@
             "v_numeric": {
               "value": "true",
               "err": "Value must be numeric"
+            },
+            "v_max_length": {
+              "value": "13",
+              "err": "Phone number cannot be more than 13 digits"
+            },
+            "v_min_length": {
+              "value": "8",
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
@@ -1111,13 +1149,13 @@
       {
         "key": "has_close_contact_with_someone_outside_household_lbl",
         "type": "label",
-        "text": "Number of close contacts outside patient household?",
+        "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household_lbl.text}}",
         "text_color": "#000000"
       },
       {
         "key": "has_close_contact_with_someone_outside_household",
         "type": "repeating_group",
-        "reference_edit_text_hint":"# of covid patients",
+        "reference_edit_text_hint": "# of covid patients",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1126,7 +1164,7 @@
           {
             "key": "name_label",
             "type": "label",
-            "text": "Contact's name",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -1139,10 +1177,11 @@
               "value": "false",
               "err": ""
             }
-          },{
+          },
+          {
             "key": "phone_number_lbl",
             "type": "label",
-            "text": "Contact's phone number",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -1158,6 +1197,14 @@
             "v_numeric": {
               "value": "true",
               "err": "Value must be numeric"
+            },
+            "v_max_length": {
+              "value": "13",
+              "err": "Phone number cannot be more than 13 digits"
+            },
+            "v_min_length": {
+              "value": "8",
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
@@ -1230,22 +1277,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have history of contact with an infectious animal with Covid-19 (if an infectious animal has been identified)",
+        "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "Yes"
+            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "No"
+            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "patient-diagnostics-form"
 }

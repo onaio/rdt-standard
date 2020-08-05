@@ -8,6 +8,7 @@ import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
@@ -25,7 +26,7 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     private final String TAG = PatientRegisterActivityPresenter.class.getName();
 
     private PatientRegisterActivityContract.View activity;
-    private PatientRegisterActivityInteractor interactor;
+    protected PatientRegisterActivityInteractor interactor;
 
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
@@ -60,11 +61,15 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
             interactor.saveForm(jsonFormObj, callback);
             Patient patient = interactor.getPatientForRDT(jsonFormObj);
             if (patient != null) {
-                interactor.launchForm((Activity) activity, RDT_TEST_FORM, patient);
+                launchPostRegistrationView(patient);
             }
         } catch (JSONException e) {
             Timber.e(TAG, e);
         }
+    }
+
+    protected void launchPostRegistrationView(Patient patient) throws JSONException {
+        interactor.launchForm((Activity) activity, RDT_TEST_FORM, patient);
     }
 
     @Override
@@ -77,6 +82,17 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     }
 
     protected PatientRegisterActivityInteractor getInteractor() {
+        if (interactor == null) {
+            interactor = createInteractor();
+        }
+        return interactor;
+    }
+
+    protected PatientRegisterActivityInteractor createInteractor() {
         return new PatientRegisterActivityInteractor();
+    }
+
+    protected PatientRegisterActivity getActivity() {
+        return (PatientRegisterActivity) activity;
     }
 }

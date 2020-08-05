@@ -135,20 +135,77 @@
         }
       },
       {
-        "key": "national_id_label",
+        "key": "passport_no_label",
         "type": "label",
-        "text": "{{patient-registration-form-original.step1.national_id_label.text}}",
-        "text_color": "#000000"
+        "text": "{{patient-registration-form-original.step1.passport_no_label.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
-        "key": "national_id_number",
+        "key": "passport_no",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form-original.step1.national_id_number.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.passport_no.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "drivers_license_number_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.drivers_license_number_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "drivers_license_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.drivers_license_number.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.drivers_license_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "16",
+          "err": "Phone number cannot be more than 16 digits"
+        },
+        "v_min_length": {
+          "value": "16",
+          "err": "Phone number cannot be less than 16 digits"
         }
       },
       {
@@ -242,6 +299,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.patient_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -259,6 +324,10 @@
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_email_address.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "\\S+@\\S+\\.\\S+",
+          "err": "{{patient-registration-form-original.step1.patient_email_address.v_regex.err}}"
         }
       },
       {
@@ -310,23 +379,6 @@
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.head_of_household.v_required.err}}"
-        }
-      },
-      {
-        "key": "gsi_id_lbl",
-        "type": "label",
-        "text": "{{patient-registration-form-original.step1.gsi_id_lbl.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "gsi_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{patient-registration-form-original.step1.gsi_id.v_required.err}}"
         }
       }
     ]

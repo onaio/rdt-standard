@@ -39,8 +39,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
         return CovidLoginActivity.class;
     }
 
-    @Override
-    protected void initializePresenter() {
-        presenter = new CovidPatientRegisterActivityPresenter(this);
+    protected PatientRegisterActivityPresenter createPatientRegisterActivityPresenter() {
+        return new CovidPatientRegisterActivityPresenter(this);
     }
 }

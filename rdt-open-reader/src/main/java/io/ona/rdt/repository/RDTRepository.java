@@ -59,7 +59,7 @@ public class RDTRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Timber.e("Database Error. %s", e.getMessage());
+            Timber.e(e);
             return null;
         }
     }

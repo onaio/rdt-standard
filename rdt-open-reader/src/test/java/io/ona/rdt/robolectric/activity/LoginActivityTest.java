@@ -1,5 +1,6 @@
 package io.ona.rdt.robolectric.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.text.Html;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -53,6 +55,8 @@ public class LoginActivityTest extends RobolectricTest {
     @Captor
     private ArgumentCaptor<CommonFtsObject> commonFtsObjectCaptor;
 
+    private ActivityController<LoginActivity> loginActivityActivityController;
+
     private LoginActivity loginActivity;
 
     @Before
@@ -63,9 +67,8 @@ public class LoginActivityTest extends RobolectricTest {
         ReflectionHelpers.setField(RDTApplication.getInstance(), "presenter", presenter);
         ReflectionHelpers.setField(RDTApplication.getInstance(), "context", context);
 
-        loginActivity = Robolectric.buildActivity(LoginActivity.class)
-                .create()
-                .resume()
+        loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
+        loginActivity = loginActivityActivityController.create()
                 .get();
     }
 
@@ -119,6 +122,7 @@ public class LoginActivityTest extends RobolectricTest {
 
     @Test
     public void testGoToHomeShouldLaunchHomePageForLocalLogins() {
+        loginActivityActivityController.resume();
         LoginPresenter loginPresenter = mock(LoginPresenter.class);
         ReflectionHelpers.setField(loginActivity, "mLoginPresenter", loginPresenter);
         loginActivity.onResume();

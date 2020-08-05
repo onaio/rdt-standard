@@ -1,26 +1,35 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.util.JsonFormUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import io.ona.rdt.activity.CovidJsonFormActivity;
+import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
-import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.FormFields.PATIENT;
+import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
+import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
@@ -28,7 +37,14 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  */
 public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
-    private Set<String> formsThatShouldBePrepopulated = new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, RDT_TEST_FORM));
+    private Set<String> formsThatShouldBePrepopulated = new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM,
+            COVID_RDT_TEST_FORM, PATIENT_DIAGNOSTICS_FORM));
+
+    public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
+        Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
+        intent.putExtra(PATIENT, patient);
+        activity.get().startActivity(intent, null);
+    }
 
     @Override
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
@@ -66,5 +82,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     @Override
     protected Class getJsonFormActivityClass() {
         return CovidJsonFormActivity.class;
+    }
+
+    @Override
+    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
+        super.prePopulateRDTPatientFields(patient, field);
+        String key = field.getString(JsonFormUtils.KEY);
+        if (PATIENT_SEX.equals(key)) {
+            field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
+        } else if (PATIENT_AGE.equals(key)) {
+            field.put(JsonFormUtils.VALUE, patient.getAge());
+        }
     }
 }

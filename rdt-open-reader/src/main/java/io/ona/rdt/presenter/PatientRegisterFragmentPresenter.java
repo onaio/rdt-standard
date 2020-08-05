@@ -21,13 +21,13 @@ import static io.ona.rdt.util.Constants.DBConstants.SEX;
  */
 public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
 
-    private PatientRegisterFragmentInteractor interactor;
+    protected PatientRegisterFragmentInteractor interactor;
     private PatientRegisterFragmentContract.View patientRegisterFragment;
     private SmartRegisterQueryBuilder smartRegisterQueryBuilder;
 
     public PatientRegisterFragmentPresenter(PatientRegisterFragmentContract.View patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
-        this.interactor = new PatientRegisterFragmentInteractor();
+        this.interactor = getInteractor();
         this.smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
     }
 
@@ -85,5 +85,16 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    protected PatientRegisterFragmentInteractor getInteractor() {
+        if (interactor == null) {
+            interactor = createInteractor();
+        }
+        return interactor;
+    }
+
+    protected PatientRegisterFragmentInteractor createInteractor() {
+        return new PatientRegisterFragmentInteractor();
     }
 }

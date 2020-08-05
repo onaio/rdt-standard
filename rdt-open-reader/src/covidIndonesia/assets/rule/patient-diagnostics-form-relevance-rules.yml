@@ -6,6 +6,13 @@ condition: "step1_has_other_health_issues != '' && step1_has_other_health_issues
 actions:
   - "isRelevant = true"
 ---
+name: step1_is_pregnant_or_post_partum
+description: Is the patient pregnant or post-partum?
+priority: 1
+condition: "step1_patient_age > 12 && step1_patient_sex == 'female'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_additional_health_issues
 description: Other health issues
 priority: 1

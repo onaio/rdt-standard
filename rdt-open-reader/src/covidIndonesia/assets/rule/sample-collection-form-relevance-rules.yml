@@ -1,56 +1,133 @@
 ---
-name: step2_other_sample_type_lbl
+name: step3_swab_type
+description: Swab type
+priority: 1
+condition: "step3_sample_type.contains('swab')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_serum_type
+description: Serum type
+priority: 1
+condition: "step3_sample_type.contains('serum')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_sputum_collection_tube_brand_lbl
+description: Collection tube brand label
+priority: 1
+condition: "step3_sample_type.contains('sputum')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_sputum_collection_tube_brand
+description: Collection tube brand
+priority: 1
+condition: "step3_sample_type.contains('sputum')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_saliva_collection_kit_brand_lbl
+description: Collection tube brand label
+priority: 1
+condition: "step3_sample_type.contains('saliva')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_saliva_collection_kit_brand
+description: Collection tube brand
+priority: 1
+condition: "step3_sample_type.contains('saliva')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_sample_type_lbl
 description: Other sample type label
 priority: 1
-condition: "step2_sample_type.contains('other')"
+condition: "step3_sample_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_sample_type
+name: step3_other_sample_type
 description: Other sample type
 priority: 1
-condition: "step2_sample_type.contains('other')"
+condition: "step3_sample_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_vtm_brand_lbl
-description: Other sample type label
+name: step3_vtm_brand
+description: VTM brand
 priority: 1
-condition: "step2_vtm_brand.contains('other')"
+condition: "step3_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_vtm_brand
-description: Other sample type
+name: step3_vtm_expiration_date
+description: VTM expiration date
 priority: 1
-condition: "step2_vtm_brand.contains('other')"
+condition: "step3_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_primary_care_facility_type_lbl
+name: step3_other_vtm_brand_lbl
+description: Other VTM brand label
+priority: 1
+condition: "step3_vtm_brand.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_vtm_brand
+description: Other VTM brand
+priority: 1
+condition: "step3_vtm_brand.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_primary_care_facility_type_lbl
 description: Other primary care facility label
 priority: 1
-condition: "step2_name_of_primary_care_facility != '' && step2_name_of_primary_care_facility == 'other'"
+condition: "step3_name_of_primary_care_facility != '' && step3_name_of_primary_care_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_primary_care_facility_type
+name: step3_other_primary_care_facility_type
 description: Other primary care facility
 priority: 1
-condition: "step2_name_of_primary_care_facility != '' && step2_name_of_primary_care_facility == 'other'"
+condition: "step3_name_of_primary_care_facility != '' && step3_name_of_primary_care_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_health_facility_type_lbl
+name: step3_other_health_facility_type_lbl
 description: Other facility type label
 priority: 1
-condition: "step2_health_facility_type != '' && step2_health_facility_type == 'other'"
+condition: "step3_health_facility_type != '' && step3_health_facility_type == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step2_other_health_facility_type
+name: step3_other_health_facility_type
 description: Other facility type
 priority: 1
-condition: "step2_health_facility_type != '' && step2_health_facility_type == 'other'"
+condition: "step3_health_facility_type != '' && step3_health_facility_type == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step10_sputum_color
+description: Sputum color
+priority: 1
+condition: "step3_sample_type.contains('sputum')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_quantity_of_serum_lbl
+description: Quantity of serum label
+priority: 1
+condition: "step3_sample_type.contains('serum')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_quantity_of_serum
+description: Quantity of serum
+priority: 1
+condition: "step3_sample_type.contains('serum')"
 actions:
   - "isRelevant = true"

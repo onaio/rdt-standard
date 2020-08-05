@@ -1,5 +1,5 @@
 {
-  "count": "4",
+  "count": "3",
   "encounter_type": "sample_delivery_details",
   "entity_id": "",
   "metadata": {
@@ -47,13 +47,13 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "{{sample-delivery-details-form-original.step1.title}}",
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_scan_sample_barcode",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step1.lbl_scan_sample_barcode.text}}",
+        "text": "Scan sample barcode",
         "text_color": "#000000",
         "top_margin": "40dp",
         "has_bg": true,
@@ -63,7 +63,7 @@
       {
         "key": "lbl_enter_sample_details_manually",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step1.lbl_enter_sample_details_manually.text}}",
+        "text": "Enter sample details manually",
         "top_margin": "40dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -73,42 +73,12 @@
     ]
   },
   "step2": {
-    "title": "{{sample-delivery-details-form-original.step2.title}}",
-    "display_back_button": "true",
-    "next": "step1",
-    "bottom_navigation": "true",
-    "next_label": "{{sample-delivery-details-form-original.step2.next_label}}",
-    "fields": [
-      {
-        "key": "lbl_sample_expired",
-        "type": "label",
-        "text_color": "#000000",
-        "label_text_style": "bold",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true",
-        "top_margin": "15dp",
-        "text": "{{sample-delivery-details-form-original.step2.lbl_sample_expired.text}}"
-      },
-      {
-        "key": "lbl_use_new_test",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "center_label": "true",
-        "top_margin": "15dp",
-        "text": "{{sample-delivery-details-form-original.step2.lbl_use_new_test.text}}"
-      }
-    ]
-  },
-  "step3": {
-    "title": "{{sample-delivery-details-form-original.step3.title}}",
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step4",
-    "next_label": "{{sample-delivery-details-form-original.step3.next_label}}",
+    "next": "step3",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -117,16 +87,16 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
-        "hint": "{{sample-delivery-details-form-original.step3.qr_code_reader.hint}}",
-        "scanButtonText": "{{sample-delivery-details-form-original.step3.qr_code_reader.scanButtonText}}",
+        "hint": "",
+        "scanButtonText": "",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.qr_code_reader.v_numeric.err}}"
+          "err": ""
         },
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step3.qr_code_reader.v_required.err}}"
+          "err": ""
         }
       },
       {
@@ -166,18 +136,18 @@
       }
     ]
   },
-  "step4": {
-    "title": "{{sample-delivery-details-form-original.step4.title}}",
+  "step3": {
+    "title": "Sample shipment details",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "{{sample-delivery-details-form-original.step4.submit_label}}",
+    "submit_label": "SUBMIT",
     "fields": [
       {
         "key": "manual_sample_id_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.manual_sample_id_label.text}}",
+        "text": "Sample id",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -205,7 +175,7 @@
       {
         "key": "courier_name_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.courier_name_label.text}}",
+        "text": "Courier name",
         "text_color": "#000000"
       },
       {
@@ -219,7 +189,7 @@
       {
         "key": "courier_phone_number_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.courier_phone_number_label.text}}",
+        "text": "Courier phone number",
         "text_color": "#000000"
       },
       {
@@ -231,13 +201,21 @@
         "edit_type": "",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_numeric.err}}"
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
         "key": "courier_id_lbl",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.courier_id_lbl.text}}",
+        "text": "Courier ID",
         "text_color": "#000000"
       },
       {
@@ -248,13 +226,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step4.courier_id.v_required.err}}"
+          "err": "This field is required"
         }
       },
       {
         "key": "sender_name_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.sender_name_label.text}}",
+        "text": "Sender name",
         "text_color": "#000000"
       },
       {
@@ -268,7 +246,7 @@
       {
         "key": "sender_phone_number_label",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.sender_phone_number_label.text}}",
+        "text": "Sender phone number",
         "text_color": "#000000"
       },
       {
@@ -280,13 +258,21 @@
         "edit_type": "",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_numeric.err}}"
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
         "key": "sender_email_lbl",
         "type": "label",
-        "text": "{{sample-delivery-details-form-original.step4.sender_email_lbl.text}}",
+        "text": "Sender email address",
         "text_color": "#000000"
       },
       {
@@ -297,10 +283,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{sample-delivery-details-form-original.step4.sender_email.v_required.err}}"
+          "err": "This field is required"
+        },
+        "v_regex": {
+          "value": "\\S+@\\S+\\.\\S+",
+          "err": "Please enter a valid email address"
         }
       }
     ]
-  },
-  "properties_file_name": "sample-delivery-details-form"
+  }
 }

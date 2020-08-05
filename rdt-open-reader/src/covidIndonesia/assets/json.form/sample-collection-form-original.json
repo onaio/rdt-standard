@@ -1,5 +1,5 @@
 {
-  "count": "9",
+  "count": "10",
   "encounter_type": "sample_collection",
   "entity_id": "",
   "metadata": {
@@ -47,12 +47,12 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "{{sample-collection-form-original.step1.title}}",
+    "title": "Sample collection",
     "display_back_button": "true",
     "next": "step3",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step1.next_label}}",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_collect_respiratory_sample",
@@ -63,16 +63,16 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step1.lbl_collect_respiratory_sample.text}}"
+        "text": "Collect sample using appropriate methods"
       }
     ]
   },
   "step2": {
-    "title": "{{sample-collection-form-original.step2.title}}",
+    "title": "Sample collection",
     "display_back_button": "true",
     "next": "step1",
     "bottom_navigation": "true",
-    "next_label": "{{sample-collection-form-original.step2.next_label}}",
+    "next_label": "OK",
     "fields": [
       {
         "key": "lbl_sample_expired",
@@ -83,7 +83,7 @@
         "bg_color": "#ffffff",
         "center_label": "true",
         "top_margin": "15dp",
-        "text": "{{sample-collection-form-original.step2.lbl_sample_expired.text}}"
+        "text": "Sample is expired!"
       },
       {
         "key": "lbl_collect_new_sample",
@@ -93,22 +93,22 @@
         "bg_color": "#ffffff",
         "center_label": "true",
         "top_margin": "15dp",
-        "text": "{{sample-collection-form-original.step2.lbl_collect_new_sample.text}}"
+        "text": "Please collect another sample."
       }
     ]
   },
   "step3": {
-    "title": "{{sample-collection-form-original.step3.title}}",
+    "title": "Sample collection",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next": "step4",
-    "next_label": "{{sample-collection-form-original.step3.next_label}}",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "sampler_name_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.sampler_name_lbl.text}}",
+        "text": "Name of sampler",
         "text_color": "#000000"
       },
       {
@@ -125,38 +125,144 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "{{sample-collection-form-original.step3.sample_type.label}}",
+        "label": "Type of sample?",
         "options": [
           {
-            "key": "nasopharyngeal",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.nasopharyngeal.text}}"
-          },
-          {
-            "key": "oropharyngeal",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.oropharyngeal.text}}"
+            "key": "swab",
+            "text": "Swab"
           },
           {
             "key": "sputum",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.sputum.text}}"
+            "text": "Sputum"
           },
           {
             "key": "serum",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.serum.text}}"
+            "text": "Serum / Serology Sputum"
+          },
+          {
+            "key": "saliva",
+            "text": "Saliva"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step3.sample_type.options.other.text}}"
+            "text": "Other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.sample_type.v_required.err}}"
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand_lbl",
+        "type": "label",
+        "text": "Saliva collection kit brand?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "saliva_collection_kit_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "serum_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Type of blood?",
+        "options": [
+          {
+            "key": "capillary",
+            "text": "Capillary"
+          },
+          {
+            "key": "venus",
+            "text": "Venus"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand_lbl",
+        "type": "label",
+        "text": "Sputum collection tube brand?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sputum_collection_tube_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "swab_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Type of swab?",
+        "options": [
+          {
+            "key": "nasopharyngeal",
+            "text": "Nasopharyngeal"
+          },
+          {
+            "key": "oropharyngeal",
+            "text": "Oropharyngeal"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
         "key": "other_sample_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_sample_type_lbl.text}}",
+        "text": "Specify sample type",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -181,7 +287,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.other_sample_type.v_required.err}}"
+          "err": ""
         }
       },
       {
@@ -190,46 +296,53 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "{{sample-collection-form-original.step3.vtm_brand.label}}",
+        "label": "Brand of VTM?",
         "options": [
           {
             "key": "copan",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.copan.text}}"
+            "text": "Copan"
           },
           {
             "key": "zeesan",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.zeesan.text}}"
+            "text": "Zeesan"
           },
           {
             "key": "nest",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.nest.text}}"
+            "text": "NEST"
           },
           {
             "key": "lmk",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.lmk.text}}"
+            "text": "LMK"
           },
           {
             "key": "fkui",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.fkui.text}}"
+            "text": "FKUI"
           },
           {
             "key": "i3l",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.i3l.text}}"
+            "text": "i3L"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step3.vtm_brand.options.other.text}}"
+            "text": "Other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.vtm_brand.v_required.err}}"
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
         "key": "other_vtm_brand_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_vtm_brand_lbl.text}}",
+        "text": "Specify VTM brand",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -254,25 +367,32 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.other_vtm_brand.v_required.err}}"
+          "err": ""
         }
       },
       {
-        "key": "sample_expiration_date",
+        "key": "vtm_expiration_date",
         "type": "date_picker",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step3.sample_expiration_date.hint}}",
+        "hint": "VTM expiration date",
         "v_required": {
           "value": true,
-          "err": "{{sample-collection-form-original.step3.sample_expiration_date.v_required.err}}"
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
         "key": "sample_lot_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.sample_lot_number_lbl.text}}",
+        "text": "Sample lot number",
         "text_color": "#000000"
       },
       {
@@ -289,34 +409,34 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step3.health_facility_type.label}}",
+        "label": "Referral Health Facility?",
         "options": [
           {
             "key": "hospital",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.hospital.text}}"
+            "text": "Hospital"
           },
           {
             "key": "clinic",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.clinic.text}}"
+            "text": "Clinic"
           },
           {
             "key": "health_facility",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.health_facility.text}}"
+            "text": "Health Facility"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.other.text}}"
+            "text": "Other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.health_facility_type.v_required.err}}"
+          "err": "This field is required"
         }
       },
       {
         "key": "other_health_facility_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_health_facility_type_lbl.text}}",
+        "text": "Other facility type",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -341,7 +461,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.other_health_facility_type.v_required.err}}"
+          "err": ""
         }
       },
       {
@@ -350,34 +470,34 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step3.name_of_primary_care_facility.label}}",
+        "label": "Name of Primary Care Facility?",
         "options": [
           {
             "key": "jenis_fasyankes",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.jenis_fasyankes.text}}"
+            "text": "Jenis Fasyankes"
           },
           {
             "key": "dinas_kesehatan",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.dinas_kesehatan.text}}"
+            "text": "Dinas Kesehatan"
           },
           {
             "key": "alamat_fasyankes",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.alamat_fasyankes.text}}"
+            "text": "Alamat Fasyankes"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.other.text}}"
+            "text": "Other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.name_of_primary_care_facility.v_required.err}}"
+          "err": "This field is required"
         }
       },
       {
         "key": "other_primary_care_facility_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_primary_care_facility_type_lbl.text}}",
+        "text": "Other primary care facility",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -402,13 +522,13 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.other_primary_care_facility_type.v_required.err}}"
+          "err": ""
         }
       },
       {
         "key": "doctor_name_label",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.doctor_name_label.text}}",
+        "text": "Doctor's name",
         "text_color": "#000000"
       },
       {
@@ -419,13 +539,13 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.doctor_name.v_required.err}}"
+          "err": ""
         }
       },
       {
         "key": "doctor_phone_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.doctor_phone_number_lbl.text}}",
+        "text": "Doctor's phone number",
         "text_color": "#000000"
       },
       {
@@ -436,11 +556,19 @@
         "type": "edit_text",
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.doctor_phone_number.v_required.err}}"
+          "err": ""
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.doctor_phone_number.v_numeric.err}}"
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -449,16 +577,16 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step3.booking_date.hint}}",
+        "hint": "Testing booking slot",
         "v_required": {
           "value": true,
-          "err": "{{sample-collection-form-original.step3.booking_date.v_required.err}}"
+          "err": "This field is required"
         }
       },
       {
         "key": "gsi_sample_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.gsi_sample_number_lbl.text}}",
+        "text": "GSI sample ID",
         "text_color": "#000000"
       },
       {
@@ -472,7 +600,7 @@
       {
         "key": "hospital_sample_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.hospital_sample_number_lbl.text}}",
+        "text": "Hospital sample ID",
         "text_color": "#000000"
       },
       {
@@ -489,43 +617,43 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step3.patient_health_status.label}}",
+        "label": "Patient health status?",
         "options": [
           {
             "key": "ill",
-            "text": "{{sample-collection-form-original.step3.patient_health_status.options.ill.text}}"
+            "text": "Ill"
           },
           {
             "key": "undergoing_care",
-            "text": "{{sample-collection-form-original.step3.patient_health_status.options.undergoing_care.text}}"
-          },
-          {
-            "key": "recovered",
-            "text": "{{sample-collection-form-original.step3.patient_health_status.options.recovered.text}}"
-          },
-          {
-            "key": "dead",
-            "text": "{{sample-collection-form-original.step3.patient_health_status.options.dead.text}}"
+            "text": "Undergoing care"
           },
           {
             "key": "no_covid_detected",
-            "text": "{{sample-collection-form-original.step3.patient_health_status.options.no_covid_detected.text}}"
+            "text": "No Covid-19 Detected"
+          },
+          {
+            "key": "recovered",
+            "text": "Recovered"
+          },
+          {
+            "key": "dead",
+            "text": "Dead"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.patient_health_status.v_required.err}}"
+          "err": "This field is required"
         }
       }
     ]
   },
   "step4": {
-    "title": "{{sample-collection-form-original.step4.title}}",
+    "title": "Store specimen",
     "display_back_button": "true",
-    "next": "step5",
+    "next": "step10",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step4.next_label}}",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_store_respiratory_specimen",
@@ -536,18 +664,18 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step4.lbl_store_respiratory_specimen.text}}"
+        "text": "Safely store specimen in provided transport tube."
       }
     ]
   },
   "step5": {
-    "title": "{{sample-collection-form-original.step5.title}}",
+    "title": "Respiratory sample",
     "display_back_button": "true",
     "fields": [
       {
         "key": "lbl_scan_respiratory_specimen_barcode",
         "type": "label",
-        "text": "{{sample-collection-form-original.step5.lbl_scan_respiratory_specimen_barcode.text}}",
+        "text": "Scan respiratory specimen barcode",
         "text_color": "#000000",
         "top_margin": "40dp",
         "has_bg": true,
@@ -557,7 +685,7 @@
       {
         "key": "lbl_affix_respiratory_specimen_label",
         "type": "label",
-        "text": "{{sample-collection-form-original.step5.lbl_affix_respiratory_specimen_label.text}}",
+        "text": "Manually affix label",
         "top_margin": "40dp",
         "text_color": "#000000",
         "has_bg": true,
@@ -567,7 +695,7 @@
     ]
   },
   "step6": {
-    "title": "{{sample-collection-form-original.step6.title}}",
+    "title": "Sample collection",
     "display_back_button": "true",
     "next": "step8",
     "bottom_navigation": "true",
@@ -580,16 +708,16 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
-        "hint": "{{sample-collection-form-original.step6.qr_code_reader.hint}}",
-        "scanButtonText": "{{sample-collection-form-original.step6.qr_code_reader.scanButtonText}}",
+        "hint": "",
+        "scanButtonText": "",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step6.qr_code_reader.v_numeric.err}}"
+          "err": ""
         },
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step6.qr_code_reader.v_required.err}}"
+          "err": ""
         }
       },
       {
@@ -630,12 +758,12 @@
     ]
   },
   "step7": {
-    "title": "{{sample-collection-form-original.step7.title}}",
+    "title": "Sample collection",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "next": "step8",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step7.next_label}}",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_affix_respiratory_sample_id",
@@ -646,7 +774,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step7.lbl_affix_respiratory_sample_id.text}}"
+        "text": "Affix Label or record ID on transport tube"
       },
       {
         "key": "lbl_respiratory_sample_id",
@@ -668,12 +796,12 @@
     ]
   },
   "step8": {
-    "title": "{{sample-collection-form-original.step8.title}}",
+    "title": "Store specimen for courier",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step8.next_label}}",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "lbl_store_specimen_for_courier",
@@ -684,17 +812,17 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step8.lbl_store_specimen_for_courier.text}}"
+        "text": "Store the respiratory sample appropriately until they have been picked up by the courier"
       }
     ]
   },
   "step9": {
-    "title": "{{sample-collection-form-original.step9.title}}",
+    "title": "Test complete",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "{{sample-collection-form-original.step9.submit_label}}",
+    "submit_label": "SAVE AND EXIT",
     "fields": [
       {
         "key": "lbl_test_complete",
@@ -705,9 +833,83 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step9.lbl_test_complete.text}}"
+        "text": "Sample collection for the patient is complete"
       }
     ]
   },
-  "properties_file_name": "sample-collection-form"
+  "step10": {
+    "title": "Post-collection",
+    "display_back_button": "true",
+    "next": "step5",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "sputum_color",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Color of sputum?",
+        "options": [
+          {
+            "key": "clear",
+            "text": "Clear"
+          },
+          {
+            "key": "off_white",
+            "text": "Off-white, yellow or green"
+          },
+          {
+            "key": "red_or_rusty",
+            "text": "Red or rusty"
+          },
+          {
+            "key": "gray_or_black",
+            "text": "Gray or black"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "quantity_of_serum_lbl",
+        "type": "label",
+        "text": "Quantity of serum in mL?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "quantity_of_serum",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
 }

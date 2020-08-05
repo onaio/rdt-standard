@@ -54,12 +54,14 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String patientLastName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.LAST_NAME, true);
         String patientName = (patientFirstName + " " + patientLastName).trim();
         String patientAge = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.AGE, true);
+        patientAge = StringUtils.isBlank(patientAge) ? "0" : patientAge;
         String sex = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.SEX, true);
         String baseEntityId = commonPersonObjectClient.getCaseId();
         String patientId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.PATIENT_ID, true);
         String nameAndAge = createNameAndAgeLabel(patientName, patientId, patientAge);
 
-        final Patient patient = new Patient(patientName, sex, baseEntityId, patientId);
+        final Patient patient = new Patient(patientName, sex, baseEntityId, patientId,
+                Integer.parseInt(patientAge));
         viewHolder.tvPatientNameAndAge.setText(nameAndAge);
         viewHolder.tvPatientSex.setText(sex);
         viewHolder.rowItem.setTag(R.id.patient_tag, patient);

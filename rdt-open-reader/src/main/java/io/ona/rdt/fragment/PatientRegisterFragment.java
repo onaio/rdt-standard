@@ -47,9 +47,18 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void initializePresenter() {
+        getPatientRegisterFragmentPresenter();
+    }
+
+    protected PatientRegisterFragmentPresenter getPatientRegisterFragmentPresenter() {
         if (presenter == null) {
-            presenter = new PatientRegisterFragmentPresenter(this);
+            presenter = createPatientRegisterFragmentPresenter();
         }
+        return (PatientRegisterFragmentPresenter) presenter;
+    }
+
+    protected PatientRegisterFragmentPresenter createPatientRegisterFragmentPresenter() {
+        return new PatientRegisterFragmentPresenter(this);
     }
 
     @Override
@@ -125,11 +134,15 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     public void initializeAdapter() {
-        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(),
-                registerActionHandler, paginationViewHandler, this);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, viewHolder, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, getPatientRegisterViewHolder(),
+                context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    protected PatientRegisterViewHolder getPatientRegisterViewHolder() {
+        return new PatientRegisterViewHolder(getActivity(),
+                registerActionHandler, paginationViewHandler, this);
     }
 
     @Override
@@ -155,7 +168,7 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register_patient:
-                getPresenter().launchForm(getActivity(), PATIENT_REGISTRATION_FORM, null);
+                getPresenter().launchForm(getActivity(), getPatientRegistrationForm(), null);
                 break;
             case R.id.drawerMenu:
                 getParentView().openDrawerLayout();
@@ -166,6 +179,10 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
             default:
                 // do nothing
         }
+    }
+
+    protected String getPatientRegistrationForm() {
+        return PATIENT_REGISTRATION_FORM;
     }
 
     public String getRegisterTableName() {
