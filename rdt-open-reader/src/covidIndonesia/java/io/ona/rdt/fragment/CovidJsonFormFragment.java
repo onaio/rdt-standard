@@ -3,7 +3,6 @@ package io.ona.rdt.fragment;
 import android.os.Bundle;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,6 +10,7 @@ import java.util.Set;
 
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.CovidJsonFormFragmentPresenter;
+import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
@@ -33,9 +33,8 @@ public class CovidJsonFormFragment extends RDTJsonFormFragment {
     }
 
     @Override
-    protected JsonFormFragmentPresenter createPresenter() {
-        presenter = new CovidJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
-        return presenter;
+    protected RDTJsonFormFragmentPresenter createRDTJsonFormFragmentPresenter() {
+        return new CovidJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
     }
 
     public static JsonFormFragment getFormFragment(String stepName) {

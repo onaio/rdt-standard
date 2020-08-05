@@ -76,6 +76,7 @@ public class CovidFormSaver extends FormSaver {
         return bindType;
     }
 
+    @Override
     protected void populatePhoneMetadata(Event event) {
         super.populatePhoneMetadata(event);
         // add location information

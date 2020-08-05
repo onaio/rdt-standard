@@ -21,7 +21,7 @@ import static io.ona.rdt.util.Utils.updateLocale;
 
 public class PatientProfileActivity extends FragmentActivity implements PatientProfileActivityContract.View {
 
-    private PatientProfileActivityPresenter presenter;
+    protected PatientProfileActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +69,13 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
 
     protected PatientProfileActivityPresenter getPresenter() {
         if (presenter == null) {
-            presenter = new PatientProfileActivityPresenter(this);
+            presenter = createPresenter();
         }
         return presenter;
+    }
+
+    protected PatientProfileActivityPresenter createPresenter() {
+        return new PatientProfileActivityPresenter(this);
     }
 
     protected Fragment getPatientProfileFragment() {

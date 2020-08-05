@@ -11,12 +11,12 @@ import io.ona.rdt.util.FormSaver;
 public class CovidPatientRegisterFragmentInteractor extends PatientRegisterFragmentInteractor {
 
     @Override
-    protected FormLauncher getFormLauncher() {
+    protected FormLauncher createFormLauncher() {
         return new CovidFormLauncher();
     }
 
     @Override
-    protected FormSaver getFormSaver() {
+    protected FormSaver createFormSaver() {
         return new CovidFormSaver();
     }
 }

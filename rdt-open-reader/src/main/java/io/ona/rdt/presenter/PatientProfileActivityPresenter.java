@@ -17,7 +17,7 @@ public class PatientProfileActivityPresenter implements PatientProfileActivityCo
     protected PatientProfileActivityContract.View activity;
 
     public PatientProfileActivityPresenter(PatientProfileActivityContract.View activity) {
-        this.interactor = new PatientProfileActivityInteractor();
+        this.interactor = getInteractor();
         this.activity = activity;
     }
 
@@ -28,5 +28,16 @@ public class PatientProfileActivityPresenter implements PatientProfileActivityCo
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    protected PatientProfileActivityInteractor getInteractor() {
+        if (interactor == null) {
+            interactor = createInteractor();
+        }
+        return interactor;
+    }
+
+    protected PatientProfileActivityInteractor createInteractor() {
+        return new PatientProfileActivityInteractor();
     }
 }

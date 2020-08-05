@@ -18,7 +18,7 @@ public class CovidPatientRegisterActivityPresenter extends PatientRegisterActivi
     }
 
     @Override
-    protected PatientRegisterActivityInteractor getInteractor() {
+    protected PatientRegisterActivityInteractor createInteractor() {
         return new CovidPatientRegisterActivityInteractor();
     }
 

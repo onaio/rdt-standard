@@ -2,7 +2,6 @@ package io.ona.rdt.activity;
 
 import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
-import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.CovidPatientProfileActivityContract;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
@@ -24,7 +23,7 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     }
 
     @Override
-    protected PatientProfileActivityPresenter getPresenter() {
+    protected PatientProfileActivityPresenter createPresenter() {
         return new CovidPatientProfileActivityPresenter(this);
     }
 
