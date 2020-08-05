@@ -21,6 +21,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.UniqueIdRepository;
@@ -64,11 +65,13 @@ public abstract class BaseFormSaverTest {
     @Mock
     private RDTApplication rdtApplication;
     @Mock
-    private org.smartregister.Context drishtiContext;
+    protected org.smartregister.Context drishtiContext;
     @Mock
     private Context context;
     @Mock
     protected EventClientRepository eventClientRepository;
+    @Mock
+    protected AllSettings settings;
     @Mock
     private ClientProcessorForJava clientProcessor;
     @Mock
@@ -128,7 +131,7 @@ public abstract class BaseFormSaverTest {
         verifyIDsAreClosed(getNumOfIDsToClose());
     }
 
-    private void mockStaticMethods() {
+    protected void mockStaticMethods() throws JSONException {
         // mock RDTApplication and Drishti context
         mockStatic(RDTApplication.class);
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
