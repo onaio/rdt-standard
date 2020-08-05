@@ -177,7 +177,7 @@ public class FormSaver {
         }
     }
 
-    private void populatePhoneMetadata(Event event) {
+    protected void populatePhoneMetadata(Event event) {
         for (Map.Entry<String, String> phoneProperty : RDTApplication.getInstance().getPresenter().getPhoneProperties().entrySet()) {
             Obs obs = new Obs();
             obs.setFieldCode(phoneProperty.getKey());

@@ -73,10 +73,17 @@ public interface CovidConstants extends Constants {
         String NATIONAL_ID_NUMBER = "national_id_number";
         String PATIENT_AGE = "patient_age";
         String PATIENT_SEX = "patient_sex";
+        String LAST_KNOWN_LOCATION = "last_known_location";
+        String DRIVERS_LICENSE_NUMBER = "drivers_license_number";
+        String PASSPORT_NO = "passport_no";
     }
 
     interface RDTType {
         String COVID_WONDFO = "covid19-wondfo";
         String COVID_ALLTEST = "covid19-jalmedical";
+    }
+
+    interface RequestCodes {
+        int LOCATION_PERMISSIONS = 8732;
     }
 }

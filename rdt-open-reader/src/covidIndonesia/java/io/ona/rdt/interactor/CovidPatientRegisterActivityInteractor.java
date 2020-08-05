@@ -15,7 +15,9 @@ import io.ona.rdt.util.FormSaver;
 
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.FormFields.ENTITY_ID;
+import static io.ona.rdt.util.CovidConstants.FormFields.DRIVERS_LICENSE_NUMBER;
 import static io.ona.rdt.util.CovidConstants.FormFields.NATIONAL_ID_NUMBER;
+import static io.ona.rdt.util.CovidConstants.FormFields.PASSPORT_NO;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_FIRST_NAME;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_LAST_NAME;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -46,7 +48,12 @@ public class CovidPatientRegisterActivityInteractor extends PatientRegisterActiv
         String firstName = FormUtils.getFieldJSONObject(formFields, PATIENT_FIRST_NAME).optString(VALUE);
         String lastName = FormUtils.getFieldJSONObject(formFields, PATIENT_LAST_NAME).optString(VALUE);
         String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
-        String patientId = FormUtils.getFieldJSONObject(formFields, NATIONAL_ID_NUMBER).optString(VALUE);
-        return new Patient(StringUtils.join(new String[]{firstName, lastName}, ' '), sex, baseEntityId, patientId);
+
+        JSONObject patientIdObj = FormUtils.getFieldJSONObject(formFields, DRIVERS_LICENSE_NUMBER);
+        patientIdObj = patientIdObj == null ? FormUtils.getFieldJSONObject(formFields, PASSPORT_NO) : patientIdObj;
+        String patientId = patientIdObj.optString(VALUE);
+
+        return new Patient(StringUtils.join(new String[]{firstName, lastName}, ' '),
+                sex, baseEntityId, patientId);
     }
 }

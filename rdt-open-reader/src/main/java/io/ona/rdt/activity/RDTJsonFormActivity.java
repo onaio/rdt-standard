@@ -25,7 +25,7 @@ import static io.ona.rdt.util.Utils.updateLocale;
 
 public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonFormActivityContract.View {
 
-    private RDTJsonFormUtils formUtils;
+    protected RDTJsonFormUtils formUtils;
     private String rdtType = ONA_RDT;
     private RDTJsonFormActivityPresenter presenter;
 
@@ -55,8 +55,9 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-       if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+       if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0
+               && grantResults[0] == PackageManager.PERMISSION_DENIED) {
             setResult(RESULT_CANCELED, null);
             formUtils.showToast(this, getString(R.string.phone_state_permissions_required));
             finish();
