@@ -12,8 +12,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -23,6 +23,8 @@ import io.ona.rdt.fragment.CovidJsonFormFragment;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
+import static io.ona.rdt.util.CovidConstants.FormFields.LAT;
+import static io.ona.rdt.util.CovidConstants.FormFields.LNG;
 import static io.ona.rdt.util.CovidConstants.RequestCodes.LOCATION_PERMISSIONS;
 
 /**
@@ -74,11 +76,11 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSucc
     public void onSuccess(Location location) {
         if (location != null) {
             try {
-                JSONArray locationArr = new JSONArray();
-                locationArr.put(location.getLongitude());
-                locationArr.put(location.getLatitude());
+                JSONObject locationObj = new JSONObject();
+                locationObj.put(LNG, location.getLongitude());
+                locationObj.put(LAT, location.getLatitude());
                 RDTApplication.getInstance().getContext().allSettings().put(LAST_KNOWN_LOCATION,
-                        locationArr.toString());
+                        locationObj.toString());
             } catch (JSONException e) {
                 Timber.e(e);
             }

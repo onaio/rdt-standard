@@ -27,7 +27,7 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
 
     public PatientRegisterFragmentPresenter(PatientRegisterFragmentContract.View patientRegisterFragment) {
         this.patientRegisterFragment = patientRegisterFragment;
-        this.interactor = new PatientRegisterFragmentInteractor();
+        this.interactor = getInteractor();
         this.smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
     }
 
@@ -85,5 +85,9 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    protected PatientRegisterFragmentInteractor getInteractor() {
+        return new PatientRegisterFragmentInteractor();
     }
 }

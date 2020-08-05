@@ -48,8 +48,12 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
     @Override
     protected void initializePresenter() {
         if (presenter == null) {
-            presenter = new PatientRegisterFragmentPresenter(this);
+            presenter = getPatientRegisterFragmentPresenter();
         }
+    }
+
+    protected PatientRegisterFragmentPresenter getPatientRegisterFragmentPresenter() {
+        return new PatientRegisterFragmentPresenter(this);
     }
 
     @Override

@@ -2,6 +2,7 @@ package io.ona.rdt.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Obs;
 
@@ -81,7 +82,7 @@ public class CovidFormSaver extends FormSaver {
         org.smartregister.clientandeventmodel.Obs obs = new org.smartregister.clientandeventmodel.Obs();
         obs.setFieldCode(LAST_KNOWN_LOCATION);
         obs.setValue(RDTApplication.getInstance().getContext().allSettings().get(LAST_KNOWN_LOCATION,
-                new JSONArray().toString()));
+                new JSONObject().toString()));
         obs.setFormSubmissionField(LAST_KNOWN_LOCATION);
         event.addObs(obs);
     }

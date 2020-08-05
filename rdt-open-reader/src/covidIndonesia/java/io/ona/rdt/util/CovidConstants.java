@@ -76,6 +76,8 @@ public interface CovidConstants extends Constants {
         String LAST_KNOWN_LOCATION = "last_known_location";
         String DRIVERS_LICENSE_NUMBER = "drivers_license_number";
         String PASSPORT_NO = "passport_no";
+        String LAT = "lat";
+        String LNG = "lng";
     }
 
     interface RDTType {
