@@ -26,7 +26,7 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     private final String TAG = PatientRegisterActivityPresenter.class.getName();
 
     private PatientRegisterActivityContract.View activity;
-    private PatientRegisterActivityInteractor interactor;
+    protected PatientRegisterActivityInteractor interactor;
 
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
@@ -82,6 +82,13 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     }
 
     protected PatientRegisterActivityInteractor getInteractor() {
+        if (interactor == null) {
+            interactor = createInteractor();
+        }
+        return interactor;
+    }
+
+    protected PatientRegisterActivityInteractor createInteractor() {
         return new PatientRegisterActivityInteractor();
     }
 

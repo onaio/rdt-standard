@@ -2,6 +2,7 @@
   "count": "10",
   "encounter_type": "sample_collection",
   "entity_id": "",
+  "skip_blank_steps": true,
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",

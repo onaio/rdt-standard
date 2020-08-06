@@ -213,8 +213,12 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     protected PatientRegisterActivityPresenter getPresenter() {
         if (presenter == null) {
-            presenter = new PatientRegisterActivityPresenter(this);
+            presenter = createPatientRegisterActivityPresenter();
         }
         return (PatientRegisterActivityPresenter) presenter;
+    }
+
+    protected PatientRegisterActivityPresenter createPatientRegisterActivityPresenter() {
+        return new PatientRegisterActivityPresenter(this);
     }
 }

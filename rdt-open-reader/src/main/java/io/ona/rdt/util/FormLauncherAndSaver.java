@@ -13,8 +13,8 @@ import io.ona.rdt.domain.Patient;
  */
 public class FormLauncherAndSaver {
 
-    private FormSaver formSaver = getFormSaver();
-    private FormLauncher formLauncher = getFormLauncher();
+    protected FormSaver formSaver = getFormSaver();
+    protected FormLauncher formLauncher = getFormLauncher();
 
     public void saveForm(JSONObject jsonForm, OnFormSavedCallback callback) {
         formSaver.saveForm(jsonForm, callback);
@@ -25,10 +25,24 @@ public class FormLauncherAndSaver {
     }
 
     protected FormLauncher getFormLauncher() {
+        if (formLauncher == null) {
+            formLauncher = createFormLauncher();
+        }
+        return formLauncher;
+    }
+
+    protected FormLauncher createFormLauncher() {
         return new FormLauncher();
     }
 
     protected FormSaver getFormSaver() {
+        if (formSaver == null) {
+           formSaver = createFormSaver();
+        }
+        return formSaver;
+    }
+
+    protected FormSaver createFormSaver() {
         return new FormSaver();
     }
 }

@@ -11,7 +11,10 @@ public class CovidPatientProfileActivityPresenter extends PatientProfileActivity
 
     public CovidPatientProfileActivityPresenter(PatientProfileActivityContract.View activity) {
         super(activity);
-        this.interactor = new CovidPatientProfileActivityInteractor();
-        this.activity = activity;
+    }
+
+    @Override
+    protected PatientProfileActivityInteractor createInteractor() {
+        return new CovidPatientProfileActivityInteractor();
     }
 }

@@ -47,12 +47,17 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     protected void initializePresenter() {
-        if (presenter == null) {
-            presenter = getPatientRegisterFragmentPresenter();
-        }
+        getPatientRegisterFragmentPresenter();
     }
 
     protected PatientRegisterFragmentPresenter getPatientRegisterFragmentPresenter() {
+        if (presenter == null) {
+            presenter = createPatientRegisterFragmentPresenter();
+        }
+        return (PatientRegisterFragmentPresenter) presenter;
+    }
+
+    protected PatientRegisterFragmentPresenter createPatientRegisterFragmentPresenter() {
         return new PatientRegisterFragmentPresenter(this);
     }
 
@@ -129,11 +134,15 @@ public class PatientRegisterFragment extends BaseRegisterFragment implements Pat
 
     @Override
     public void initializeAdapter() {
-        PatientRegisterViewHolder viewHolder = new PatientRegisterViewHolder(getActivity(),
-                registerActionHandler, paginationViewHandler, this);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, viewHolder, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, getPatientRegisterViewHolder(),
+                context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    protected PatientRegisterViewHolder getPatientRegisterViewHolder() {
+        return new PatientRegisterViewHolder(getActivity(),
+                registerActionHandler, paginationViewHandler, this);
     }
 
     @Override
