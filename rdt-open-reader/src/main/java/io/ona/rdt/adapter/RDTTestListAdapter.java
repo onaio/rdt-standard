@@ -58,19 +58,16 @@ public class RDTTestListAdapter extends RecyclerView.Adapter<RDTTestViewHolder> 
         FormattedRDTTestDetails formattedRDTTestDetails = getFormattedRDTTestDetails(rdtTestDetails);
         rdtTestViewHolder.rdtId.setText(formattedRDTTestDetails.getFormattedRDTId());
         rdtTestViewHolder.testDate.setText(formattedRDTTestDetails.getFormattedRDTTestDate());
-        rdtTestViewHolder.rdtType.setText(formattedRDTTestDetails.getFormattedRDTType()  + ": ");
+        rdtTestViewHolder.rdtType.setText(String.format("%s: ", formattedRDTTestDetails.getFormattedRDTType()));
         rdtTestViewHolder.rdtResult.setText(formattedRDTTestDetails.getFormattedTestResults());
         rdtTestViewHolder.btnGoToTestProfile.setTag(R.id.rdt_test_details, formattedRDTTestDetails);
 
-        rdtTestViewHolder.btnGoToTestProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TestsProfileFragment testsProfileFragment = new TestsProfileFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(RDT_TEST_DETAILS, (FormattedRDTTestDetails) v.getTag(R.id.rdt_test_details));
-                testsProfileFragment.setArguments(bundle);
-                ((PatientProfileActivityContract.View) context).replaceFragment(testsProfileFragment, true);
-            }
+        rdtTestViewHolder.btnGoToTestProfile.setOnClickListener(v -> {
+            TestsProfileFragment testsProfileFragment = new TestsProfileFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(RDT_TEST_DETAILS, (FormattedRDTTestDetails) v.getTag(R.id.rdt_test_details));
+            testsProfileFragment.setArguments(bundle);
+            ((PatientProfileActivityContract.View) context).replaceFragment(testsProfileFragment, true);
         });
     }
 
