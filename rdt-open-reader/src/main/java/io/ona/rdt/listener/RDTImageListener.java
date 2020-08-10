@@ -1,6 +1,7 @@
 package io.ona.rdt.listener;
 
 import android.graphics.Bitmap;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -18,10 +19,12 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 /**
  * Created by Vincent Karuri on 02/07/2019
  */
+
 public class RDTImageListener extends OpenSRPImageListener {
 
-    public RDTImageListener(RemoteViews remoteView, int imageViewId, int defaultImageResId, int errorImageResId) {
-        super(remoteView, imageViewId, defaultImageResId, errorImageResId);
+
+    public RDTImageListener(ImageView imageView, String entityId, int defaultImageResId, int errorImageResId) {
+        super(imageView, entityId, defaultImageResId, errorImageResId);
     }
 
     @Override
