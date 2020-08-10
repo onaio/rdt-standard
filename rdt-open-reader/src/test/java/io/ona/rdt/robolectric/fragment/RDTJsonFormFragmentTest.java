@@ -17,9 +17,7 @@ import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
 import androidx.fragment.app.testing.FragmentScenario;
-import androidx.lifecycle.Lifecycle;
 import io.ona.rdt.R;
-import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.robolectric.RobolectricTest;

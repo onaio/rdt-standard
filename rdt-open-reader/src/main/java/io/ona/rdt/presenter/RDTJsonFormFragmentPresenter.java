@@ -67,9 +67,8 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             this.getView().hideKeyBoard();
             this.getView().transactThis(next);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
