@@ -465,39 +465,39 @@
         }
       },
       {
-        "key": "name_of_primary_care_facility",
+        "key": "name_of_health_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step3.name_of_primary_care_facility.label}}",
+        "label": "{{sample-collection-form-original.step3.name_of_health_facility.label}}",
         "options": [
           {
             "key": "jenis_fasyankes",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.jenis_fasyankes.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.jenis_fasyankes.text}}"
           },
           {
             "key": "dinas_kesehatan",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.dinas_kesehatan.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.dinas_kesehatan.text}}"
           },
           {
             "key": "alamat_fasyankes",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.alamat_fasyankes.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.alamat_fasyankes.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.other.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.name_of_primary_care_facility.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.name_of_health_facility.v_required.err}}"
         }
       },
       {
-        "key": "other_primary_care_facility_type_lbl",
+        "key": "other_health_facility_type_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_primary_care_facility_type_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_health_facility_type_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -508,7 +508,7 @@
         }
       },
       {
-        "key": "other_primary_care_facility_type",
+        "key": "other_health_facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

@@ -465,12 +465,12 @@
         }
       },
       {
-        "key": "name_of_primary_care_facility",
+        "key": "name_of_health_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Name of Primary Care Facility?",
+        "label": "Name of Health Facility?",
         "options": [
           {
             "key": "jenis_fasyankes",
@@ -495,9 +495,9 @@
         }
       },
       {
-        "key": "other_primary_care_facility_type_lbl",
+        "key": "other_health_facility_type_lbl",
         "type": "label",
-        "text": "Other primary care facility",
+        "text": "Other health facility",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -508,7 +508,7 @@
         }
       },
       {
-        "key": "other_primary_care_facility_type",
+        "key": "other_health_facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
