@@ -1,9 +1,7 @@
-package io.ona.rdt.widget;
+package io.ona.rdt.robolectric.widget;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -17,48 +15,51 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLooper;
 
-import io.ona.rdt.PowerMockTest;
+import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.robolectric.RobolectricTest;
+import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.util.StepStateConfig;
+import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
-import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
 import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
-import static io.ona.rdt.util.Constants.Step.SCAN_CARESTART_PAGE;
-import static io.ona.rdt.util.Constants.Step.SCAN_QR_PAGE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.support.membermodification.MemberMatcher.methods;
 import static org.powermock.api.support.membermodification.MemberModifier.suppress;
+import static org.robolectric.Shadows.shadowOf;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
  */
-@PrepareForTest({RDTJsonFormFragment.class, LayoutInflater.class, RDTApplication.class})
-public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
+
+@Config(shadows = {ContextCompatShadow.class})
+public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
 
     private RDTExpirationDateReaderFactory readerFactory;
     private WidgetArgs widgetArgs;
@@ -66,13 +67,16 @@ public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
     private View rootLayout;
 
     @Mock
-    private RDTApplication rdtApplication;
-
-    @Mock
     private StepStateConfig stepStateConfig;
 
     @Before
     public void setUp() throws JSONException {
+        MockitoAnnotations.initMocks(this);
+        jsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class,  getJsonFormActivityIntent())
+                .create()
+                .resume()
+                .get();
+        jsonFormActivity = spy(jsonFormActivity);
         readerFactory = new RDTExpirationDateReaderFactory();
         setWidgetArgs();
     }
@@ -85,16 +89,12 @@ public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
 
     @Test
     public void testConditionallyMoveToNextStepShouldMoveToNextStep() throws Exception {
-        mockStaticMethods();
-        mockStaticClasses();
         readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), "step1", false);
         verify(widgetArgs.getFormFragment()).next();
     }
 
     @Test
     public void testConditionallyMoveToNextStepShouldMoveToStep1() throws Exception {
-        mockStaticClasses();
-        mockStaticMethods();
         readerFactory.conditionallyMoveToNextStep(widgetArgs.getFormFragment(), "step1", true);
         verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
     }
@@ -117,13 +117,18 @@ public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
 
     @Test
     public void testOnActivityResultShouldPerformAppropriateActions() throws JSONException {
-        mockStaticClasses();
-        mockStaticMethods();
         Intent data = mock(Intent.class);
         Bundle extras = mock(Bundle.class);
         doReturn(true).when(extras).getBoolean(eq(EXPIRATION_DATE_RESULT));
         doReturn("3101999").when(extras).getString(eq(EXPIRATION_DATE));
         doReturn(extras).when(data).getExtras();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(PRODUCT_EXPIRED_PAGE, "step10");
+        doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
+
+        Whitebox.setInternalState(readerFactory, "stepStateConfig", stepStateConfig);
+
         readerFactory.onActivityResult(RDT_CAPTURE_CODE, RESULT_OK, data);
         verify(jsonFormActivity, atLeastOnce()).writeValue(anyString(), anyString(), eq("3101999"), anyString(), anyString(), anyString(), eq(false));
         verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
@@ -143,30 +148,47 @@ public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
 
     @Test
     public void testGetViewsFromJson() throws Exception {
-        mockStaticMethods();
-        mockStaticClasses();
-        setWidgetArgs();
-
         JSONObject jsonObject = widgetArgs.getJsonObject();
         suppress(methods(RDTCaptureFactory.class, "getViewsFromJson"));
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
         JsonFormFragment formFragment = mock(JsonFormFragment.class);
+        doReturn(true).when(formFragment).isVisible();
         readerFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
-                jsonObject, mock(CommonListener.class), false);
+                jsonObject, mock(CommonListener.class));
 
         WidgetArgs actualWidgetArgs =  Whitebox.getInternalState(readerFactory, "widgetArgs");
         assertEquals(formFragment, actualWidgetArgs.getFormFragment());
         assertEquals(jsonObject, actualWidgetArgs.getJsonObject());
         assertEquals(jsonFormActivity, actualWidgetArgs.getContext());
         assertEquals("step1", actualWidgetArgs.getStepName());
+
+        // verify camera is launched
+        Intent expectedIntent = new Intent(jsonFormActivity, RDTExpirationDateActivity.class);
+        Intent actualIntent = shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
+        assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+
+        // verify camera closes out after timeout
+        RDTExpirationDateActivity rdtExpirationDateActivity = mock(RDTExpirationDateActivity.class);
+        RDTApplication.getInstance().setCurrentActivity(rdtExpirationDateActivity);
+        ShadowLooper.runUiThreadTasksIncludingDelayedTasks();
+        verify(rdtExpirationDateActivity).setResult(eq(RESULT_OK));
+        verify(rdtExpirationDateActivity).finish();
+        verify(formFragment).transactThis(any(JsonFormFragment.class));
     }
 
+    private Intent getJsonFormActivityIntent() throws JSONException {
+        JSONObject mJSONObject = new JSONObject();
+        mJSONObject.put(STEP1, new JSONObject());
+        mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
+        Intent intent = new Intent();
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
+        return intent;
+    }
 
     private void setWidgetArgs() throws JSONException {
         widgetArgs = new WidgetArgs();
         RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
-        jsonFormActivity = mock(RDTJsonFormActivity.class);
         doReturn("rdt_type").when(jsonFormActivity).getRdtType();
 
         JSONObject jsonObject = new JSONObject();
@@ -190,25 +212,8 @@ public class RDTExpirationDateReaderFactoryTest extends PowerMockTest {
         Whitebox.setInternalState(readerFactory, "widgetArgs", widgetArgs);
     }
 
-    private void mockStaticClasses() {
-        mockStatic(LayoutInflater.class);
-        LayoutInflater layoutInflater = mock(LayoutInflater.class);
-        PowerMockito.when(LayoutInflater.from(any(Context.class))).thenReturn(layoutInflater);
-        doReturn(rootLayout).when(layoutInflater).inflate(anyInt(), isNull());
-    }
-
-    private void mockStaticMethods() throws JSONException {
-        // mock RDTApplication and Drishti context
-        mockStatic(RDTApplication.class);
-        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
-        PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
-
-        JSONObject jsonObject = mock(JSONObject.class);
-        doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
-        doReturn("step1").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE));
-        doReturn("").when(jsonObject).optString(eq(MANUAL_EXPIRATION_DATE_ENTRY_PAGE), anyString());
-        doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
-
-        Whitebox.setInternalState(readerFactory, "stepStateConfig", stepStateConfig);
+    @Test
+    public void testGetCustomTranslatableWidgetFieldsShouldReturnNonNullSet() {
+        assertNotNull(readerFactory.getCustomTranslatableWidgetFields());
     }
 }
