@@ -26,7 +26,6 @@ import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.presenter.CustomRDTCapturePresenter;
-import io.ona.rdt.robolectric.RobolectricTest;
 
 import static android.app.Activity.RESULT_OK;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;

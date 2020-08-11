@@ -16,7 +16,6 @@ import java.util.Locale;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.robolectric.RobolectricTest;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;

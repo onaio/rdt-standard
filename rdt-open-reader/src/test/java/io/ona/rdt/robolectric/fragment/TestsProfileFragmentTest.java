@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.testing.FragmentScenario;
+import androidx.lifecycle.Lifecycle;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
@@ -37,7 +38,9 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Vincent Karuri on 27/07/2020
  */
-public class TestsProfileFragmentTest extends RobolectricTest {
+public class TestsProfileFragmentTest extends FragmentRobolectricTest {
+
+    private FragmentScenario<TestsProfileFragment> fragmentScenario;
 
     @Before
     public void setUp() {
@@ -46,13 +49,11 @@ public class TestsProfileFragmentTest extends RobolectricTest {
 
     @Test
     public void testFragmentCreationShouldInitializeFragmentState() {
-
         FormattedRDTTestDetails expectedformattedRDTTestDetails = getFormattedRDTTestDetails(NEGATIVE, "");
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
-
-        FragmentScenario<TestsProfileFragment> fragmentScenario =
+        fragmentScenario =
                 FragmentScenario.launchInContainer(TestsProfileFragment.class,
                         bundle, R.style.AppTheme, null);
 
@@ -101,7 +102,7 @@ public class TestsProfileFragmentTest extends RobolectricTest {
         Bundle bundle = new Bundle();
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
 
-        FragmentScenario<TestsProfileFragment> fragmentScenario =
+        fragmentScenario =
                 FragmentScenario.launchInContainer(TestsProfileFragment.class,
                         bundle, R.style.AppTheme, null);
 
@@ -122,7 +123,7 @@ public class TestsProfileFragmentTest extends RobolectricTest {
         Bundle bundle = new Bundle();
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
 
-        FragmentScenario<TestsProfileFragment> fragmentScenario =
+       fragmentScenario =
                 FragmentScenario.launchInContainer(TestsProfileFragment.class,
                         bundle, R.style.AppTheme, null);
 
@@ -170,7 +171,7 @@ public class TestsProfileFragmentTest extends RobolectricTest {
         Bundle bundle = new Bundle();
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
 
-        FragmentScenario<TestsProfileFragment> fragmentScenario =
+        fragmentScenario =
                 FragmentScenario.launchInContainer(TestsProfileFragment.class,
                         bundle, R.style.AppTheme, null);
 
@@ -226,5 +227,10 @@ public class TestsProfileFragmentTest extends RobolectricTest {
         expectedformattedRDTTestDetails.setFormattedTestResults(formattedTestResults);
         expectedformattedRDTTestDetails.setTestResult(testResult);
         return expectedformattedRDTTestDetails;
+    }
+
+    @Override
+    public FragmentScenario getFragmentScenario() {
+        return fragmentScenario;
     }
 }

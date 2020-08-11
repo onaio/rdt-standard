@@ -20,7 +20,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.activity.PatientProfileActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
-import io.ona.rdt.robolectric.RobolectricTest;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
