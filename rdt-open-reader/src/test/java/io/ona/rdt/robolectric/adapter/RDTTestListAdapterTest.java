@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -23,16 +26,8 @@ import io.ona.rdt.domain.FormattedRDTTestDetails;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.RDTTestDetails;
 import io.ona.rdt.robolectric.RobolectricTest;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.viewholder.RDTTestViewHolder;
-
-import static io.ona.rdt.util.Constants.FormFields.PATIENT;
-import static io.ona.rdt.util.Constants.Test.POSITIVE;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 
 /**
  * Created by Vincent Karuri on 07/08/2020
@@ -51,10 +46,10 @@ public class RDTTestListAdapterTest extends RobolectricTest {
 
     @Test
     public void testAdapterConstructionShouldCorrectlyBootstrapAllComponents() {
-       Context context = ReflectionHelpers.getField(listAdapter, "context");
-       assertEquals(patientProfileActivity, context);
-       assertEquals(patientProfileActivity.getResources(), ReflectionHelpers.getField(listAdapter, "resources"));
-       assertEquals(rdtTestDetailsList, ReflectionHelpers.getField(listAdapter, "rdtTestDetails"));
+        Context context = ReflectionHelpers.getField(listAdapter, "context");
+        Assert.assertEquals(patientProfileActivity, context);
+        Assert.assertEquals(patientProfileActivity.getResources(), ReflectionHelpers.getField(listAdapter, "resources"));
+        Assert.assertEquals(rdtTestDetailsList, ReflectionHelpers.getField(listAdapter, "rdtTestDetails"));
     }
 
     @Test
@@ -64,7 +59,7 @@ public class RDTTestListAdapterTest extends RobolectricTest {
         RDTTestViewHolder viewHolder = new RDTTestViewHolder(rootLayout);
         listAdapter.onBindViewHolder(viewHolder, 0);
         viewHolder.btnGoToTestProfile.performClick();
-        verify(patientProfileActivity).replaceFragment(any(Fragment.class), anyBoolean());
+        Mockito.verify(patientProfileActivity).replaceFragment(ArgumentMatchers.any(Fragment.class), ArgumentMatchers.anyBoolean());
     }
 
     @Test
@@ -78,26 +73,27 @@ public class RDTTestListAdapterTest extends RobolectricTest {
         FormattedRDTTestDetails expectedFormattedRDTTestDetails = ReflectionHelpers.callInstanceMethod(listAdapter,
                 "getFormattedRDTTestDetails",
                 ReflectionHelpers.ClassParameter.from(RDTTestDetails.class, rdtTestDetails));
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTId(), viewHolder.rdtId.getText());
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTTestDate(), viewHolder.testDate.getText());
-        assertEquals(String.format("%s: ", expectedFormattedRDTTestDetails.getFormattedRDTType()), viewHolder.rdtType.getText());
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedTestResults(), viewHolder.rdtResult.getText());
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTId(), viewHolder.rdtId.getText());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTId(), viewHolder.rdtId.getText());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTTestDate(), viewHolder.testDate.getText());
+        Assert.assertEquals(String.format("%s: ", expectedFormattedRDTTestDetails.getFormattedRDTType()), viewHolder.rdtType.getText());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedTestResults(), viewHolder.rdtResult.getText());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTId(), viewHolder.rdtId.getText());
 
         FormattedRDTTestDetails actualFormattedRDTTestDetails = (FormattedRDTTestDetails) viewHolder.btnGoToTestProfile.getTag(R.id.rdt_test_details);
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTTestDate(), actualFormattedRDTTestDetails.getFormattedRDTTestDate());
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTType(), actualFormattedRDTTestDetails.getFormattedRDTType());
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTId(), actualFormattedRDTTestDetails.getFormattedRDTId());
-        assertEquals(expectedFormattedRDTTestDetails.getFormattedTestResults(), actualFormattedRDTTestDetails.getFormattedTestResults());
-        assertEquals(expectedFormattedRDTTestDetails.getTestResult(), actualFormattedRDTTestDetails.getTestResult());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTTestDate(), actualFormattedRDTTestDetails.getFormattedRDTTestDate());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTType(), actualFormattedRDTTestDetails.getFormattedRDTType());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedRDTId(), actualFormattedRDTTestDetails.getFormattedRDTId());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getFormattedTestResults(), actualFormattedRDTTestDetails.getFormattedTestResults());
+        Assert.assertEquals(expectedFormattedRDTTestDetails.getTestResult(), actualFormattedRDTTestDetails.getTestResult());
     }
 
     private void init() {
+        final String TEST_DATE = "2020-04-30";
         rdtTestDetailsList = new ArrayList<>();
         RDTTestDetails rdtTestDetails = new RDTTestDetails();
-        rdtTestDetails.setTestResult(POSITIVE);
+        rdtTestDetails.setTestResult(Constants.Test.POSITIVE);
 
-        rdtTestDetails.setDate("2020-04-30");
+        rdtTestDetails.setDate(TEST_DATE);
         rdtTestDetails.setRdtId("rdt_id");
         rdtTestDetails.setRdtType("rdt_type");
 
@@ -108,8 +104,8 @@ public class RDTTestListAdapterTest extends RobolectricTest {
         rdtTestDetailsList.add(rdtTestDetails);
 
         rdtTestDetails = new RDTTestDetails();
-        rdtTestDetails.setTestResult(POSITIVE);
-        rdtTestDetails.setDate("2020-04-30");
+        rdtTestDetails.setTestResult(Constants.Test.POSITIVE);
+        rdtTestDetails.setDate(TEST_DATE);
         rdtTestDetails.setRdtId("rdt_id2");
         rdtTestDetails.setRdtType("rdt_type2");
 
@@ -121,14 +117,14 @@ public class RDTTestListAdapterTest extends RobolectricTest {
 
         Patient patient = new Patient("name", "sex", "entity_id", "patient_id");
         Intent intent = new Intent();
-        intent.putExtra(PATIENT, patient);
+        intent.putExtra(Constants.FormFields.PATIENT, patient);
 
         patientProfileActivity =
-                spy(Robolectric.buildActivity(PatientProfileActivity.class, intent)
+                Mockito.spy(Robolectric.buildActivity(PatientProfileActivity.class, intent)
                         .create()
                         .resume()
                         .get());
-        doNothing().when(patientProfileActivity).replaceFragment(any(Fragment.class), anyBoolean());
+        Mockito.doNothing().when(patientProfileActivity).replaceFragment(ArgumentMatchers.any(Fragment.class), ArgumentMatchers.anyBoolean());
 
         listAdapter = new RDTTestListAdapter(patientProfileActivity, rdtTestDetailsList);
     }

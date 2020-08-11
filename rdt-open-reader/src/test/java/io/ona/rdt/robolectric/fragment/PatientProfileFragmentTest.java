@@ -61,7 +61,7 @@ public class PatientProfileFragmentTest extends FragmentRobolectricTest {
         ReflectionHelpers.setField(patientProfileFragment, "currPatient", expectedPatient);
 
         patientProfileFragment.onClick(view);
-        verify( patientProfileFragmentPresenter).launchForm(eq(patientProfileFragment.getActivity()), patientArgumentCaptor.capture());
+        verify(patientProfileFragmentPresenter).launchForm(eq(patientProfileFragment.getActivity()), patientArgumentCaptor.capture());
         Patient actualPatient = patientArgumentCaptor.getValue();
         assertNotNull(actualPatient);
         assertEquals(expectedPatient.getPatientName(), actualPatient.getPatientName());

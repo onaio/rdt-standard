@@ -6,6 +6,7 @@ import android.view.View;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
 
 import androidx.fragment.app.testing.FragmentScenario;
@@ -15,6 +16,7 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
+import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
@@ -43,6 +45,9 @@ public class PatientRegisterFragmentTest extends FragmentRobolectricTest {
         fragmentScenario =
                 FragmentScenario.launchInContainer(PatientRegisterFragment.class,
                         null, R.style.AppTheme, null);
+        fragmentScenario.onFragment(fragment -> {
+            patientRegisterFragment = fragment;
+        });
     }
 
     @Test
@@ -55,7 +60,7 @@ public class PatientRegisterFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testOnViewClickedShouldLaunchPatientProfile() {
-        Patient patient = new Patient("name", "sex", "entity_id", "patient_id");
+        Patient patient = getPatient();
         View view = mock(View.class);
         doReturn(patient).when(view).getTag(eq(R.id.patient_tag));
         ReflectionHelpers.callInstanceMethod(patientRegisterFragment, "onViewClicked",
@@ -77,11 +82,15 @@ public class PatientRegisterFragmentTest extends FragmentRobolectricTest {
         patientRegisterFragment.onClick(view);
         verify(presenter).launchForm(eq(patientRegisterFragment.getActivity()), eq(PATIENT_REGISTRATION_FORM), isNull());
 
-        Patient patient = new Patient("name", "sex", "entity_id", "patient_id");
+        Patient patient = getPatient();
         doReturn(patient).when(view).getTag(eq(R.id.patient_tag));
         doReturn(R.id.btn_record_rdt_test).when(view).getId();
         patientRegisterFragment.onClick(view);
         verify(presenter).launchForm(eq(patientRegisterFragment.getActivity()), eq(RDT_TEST_FORM), eq(patient));
+    }
+
+    private Patient getPatient() {
+        return new Patient("name", "sex", "entity_id", "patient_id");
     }
 
     @Override

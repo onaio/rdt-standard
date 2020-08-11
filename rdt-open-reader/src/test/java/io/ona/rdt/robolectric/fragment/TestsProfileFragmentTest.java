@@ -10,17 +10,12 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.util.ReflectionHelpers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.fragment.app.testing.FragmentScenario;
-import androidx.lifecycle.Lifecycle;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
 import io.ona.rdt.domain.ParasiteProfileResult;
 import io.ona.rdt.fragment.TestsProfileFragment;
-import io.ona.rdt.robolectric.RobolectricTest;
 
 import static io.ona.rdt.robolectric.repository.ParasiteProfileRepositoryTest.getParasiteProfileResult;
 import static io.ona.rdt.util.Constants.Test.BLOODSPOT_Q_PCR;
@@ -118,12 +113,12 @@ public class TestsProfileFragmentTest extends FragmentRobolectricTest {
     public void testPopulateRDTTestResultsShouldSetPositiveTestResults() {
         FormattedRDTTestDetails expectedformattedRDTTestDetails = getFormattedRDTTestDetails(POSITIVE,
                 StringUtils.join(new String[]{RDTApplication.getInstance().getString(R.string.pf_positive_result) + "," +
-                RDTApplication.getInstance().getString(R.string.pv_positive_result)}, ","));
+                        RDTApplication.getInstance().getString(R.string.pv_positive_result)}, ","));
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
 
-       fragmentScenario =
+        fragmentScenario =
                 FragmentScenario.launchInContainer(TestsProfileFragment.class,
                         bundle, R.style.AppTheme, null);
 
@@ -141,7 +136,7 @@ public class TestsProfileFragmentTest extends FragmentRobolectricTest {
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
 
         fragmentScenario = FragmentScenario.launchInContainer(TestsProfileFragment.class,
-                        bundle, R.style.AppTheme, null);
+                bundle, R.style.AppTheme, null);
 
         fragmentScenario.onFragment(fragment -> {
             verifyRDTResultsAreCorrectlyPopulated(RDTApplication.getInstance().getString(R.string.pf_positive_result),
@@ -156,7 +151,7 @@ public class TestsProfileFragmentTest extends FragmentRobolectricTest {
         bundle.putParcelable(RDT_TEST_DETAILS, expectedformattedRDTTestDetails);
 
         fragmentScenario = FragmentScenario.launchInContainer(TestsProfileFragment.class,
-                        bundle, R.style.AppTheme, null);
+                bundle, R.style.AppTheme, null);
 
         fragmentScenario.onFragment(fragment -> {
             verifyRDTResultsAreCorrectlyPopulated(RDTApplication.getInstance().getString(R.string.pv_positive_result),

@@ -16,6 +16,7 @@ import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.powermock.reflect.Whitebox;
 
@@ -32,7 +33,6 @@ import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.RDTJsonFormUtilsTest.RDT_TEST_JSON_FORM;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -49,6 +49,8 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
 
     @Mock
     private JsonFormFragmentView<JsonFormFragmentViewState> view;
+
+    private final String DUMMY_STR_VAL = "string";
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
@@ -79,7 +81,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragmentView).getRDTType();
-        presenter.performNextButtonAction("step9", false);
+        presenter.performNextButtonAction(BLOT_PAPER_TASK_PAGE_NO, false);
         verify(rdtFormFragmentView).transactFragment(any(JsonFormFragment.class));
     }
 
@@ -87,7 +89,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
     public void testPerformNextButtonActionShouldSkipToRDTCaptureForOGRDT() throws JSONException {
         mockStaticMethods();
         mockStaticClasses();
-        presenter.performNextButtonAction("step9", false);
+        presenter.performNextButtonAction(BLOT_PAPER_TASK_PAGE_NO, false);
         verify(rdtFormFragmentView).navigateToNextStep();
     }
 
@@ -158,13 +160,13 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         addMockStepDetails();
 
         Map<String, ValidationStatus> invalidFields = new HashMap<>();
-        invalidFields.put("string", new ValidationStatus(false, "", view, mock(View.class)));
+        invalidFields.put(DUMMY_STR_VAL, new ValidationStatus(false, "", view, mock(View.class)));
         Whitebox.setInternalState(presenter, "invalidFields", invalidFields);
         JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragmentView;
         jsonFormFragment.setOnFieldsInvalid(mock(OnFieldsInvalid.class));
 
         presenter.onNextClick(mock(LinearLayout.class));
-        verify(view).showSnackBar(eq("string"));
+        verify(view).showSnackBar(eq(DUMMY_STR_VAL));
     }
 
     private void invokePerformNextButtonActionFromExpirationPage() {
@@ -180,7 +182,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         Context context = mock(Context.class);
         Resources resources = mock(Resources.class);
         doReturn(resources).when(context).getResources();
-        doReturn("string").when(resources).getString(anyInt());
+        doReturn(DUMMY_STR_VAL).when(resources).getString(ArgumentMatchers.anyInt());
         doReturn(context).when(view).getContext();
         Whitebox.setInternalState(presenter, "viewRef", viewRef);
     }

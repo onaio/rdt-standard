@@ -43,6 +43,8 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
 
     private FragmentScenario<RDTJsonFormFragment> fragmentScenario;
     private RDTJsonFormFragment jsonFormFragment;
+    private String PRESENTER_FIELD = "presenter";
+    private String STEP_3 = "step3";
 
     @Before
     public void setUp() {
@@ -52,7 +54,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
                         null, R.style.AppTheme, null);
         fragmentScenario.onFragment(fragment -> {
             jsonFormFragment = fragment;
-            Whitebox.setInternalState(jsonFormFragment, "presenter", mock(RDTJsonFormFragmentPresenter.class));
+            Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, mock(RDTJsonFormFragmentPresenter.class));
         });
     }
 
@@ -64,20 +66,23 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
     @Test
     public void testGetFormFragmentShouldSetStepAndReturnValidJsonFormFragment() {
         jsonFormFragment.setCurrentStep(2);
-        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) jsonFormFragment.getFormFragment("step3");
+        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) jsonFormFragment.getFormFragment(STEP_3);
         assertNotNull(formFragment);
-        assertEquals("step3", formFragment.getArguments().getString("stepName"));
-        assertEquals(3, jsonFormFragment.getCurrentStep());
-        assertEquals(2, (int) ReflectionHelpers.getField(jsonFormFragment, "prevStep"));
+        assertEquals(STEP_3, formFragment.getArguments().getString("stepName"));
+        final int currStep = 3;
+        final int prevStep = 2;
+        assertEquals(currStep, jsonFormFragment.getCurrentStep());
+        assertEquals(prevStep, (int) ReflectionHelpers.getField(jsonFormFragment, "prevStep"));
     }
 
     @Test
     public void testFormHasSpecialNavigationRulesShouldReturnCorrectStatus() {
+        String methodName = "formHasSpecialNavigationRules";
         assertTrue(ReflectionHelpers.callInstanceMethod(jsonFormFragment,
-                "formHasSpecialNavigationRules",
+                methodName,
                 ReflectionHelpers.ClassParameter.from(String.class, RDT_TEST)));
         assertFalse(ReflectionHelpers.callInstanceMethod(jsonFormFragment,
-                "formHasSpecialNavigationRules",
+                methodName,
                 ReflectionHelpers.ClassParameter.from(String.class, "form")));
     }
 
@@ -88,17 +93,17 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
 
         jsonFormFragment.setNextButtonState(view, false);
         verify(view).setEnabled(eq(false));
-        verify(((GradientDrawable) view.getBackground())).setColor(eq(Color.parseColor("#D1D1D1")));
+        verify((GradientDrawable) view.getBackground()).setColor(eq(Color.parseColor("#D1D1D1")));
 
         jsonFormFragment.setNextButtonState(view, true);
         verify(view).setEnabled(eq(true));
-        verify(((GradientDrawable) view.getBackground())).setColor(eq(Color.parseColor("#0192D4")));
+        verify((GradientDrawable) view.getBackground()).setColor(eq(Color.parseColor("#0192D4")));
     }
 
     @Test
     public void testNavigateToNextStepShouldNavigateToNextStep() {
         JsonFormFragmentPresenter presenter = mock(JsonFormFragmentPresenter.class);
-        ReflectionHelpers.setField(jsonFormFragment, "presenter", presenter);
+        ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);
         jsonFormFragment.navigateToNextStep();
         verify(presenter).onNextClick(any());
     }
@@ -106,7 +111,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
     @Test
     public void testSaveFormShouldSaveForm() {
         JsonFormFragmentPresenter presenter = mock(JsonFormFragmentPresenter.class);
-        ReflectionHelpers.setField(jsonFormFragment, "presenter", presenter);
+        ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);
         jsonFormFragment.saveForm();
         verify(presenter).onSaveClick(any());
     }
@@ -125,7 +130,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
                 ReflectionHelpers.ClassParameter.from(View.class, jsonFormFragment.getRootLayout()));
         RDTJsonFormFragmentPresenter presenter = mock(RDTJsonFormFragmentPresenter.class);
 
-        ReflectionHelpers.setField(jsonFormFragment, "presenter", presenter);
+        ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);
         jsonFormFragment.getRootLayout().findViewById(com.vijay.jsonwizard.R.id.previous_button).performClick();
         verify(presenter).onSaveClick(any());
 

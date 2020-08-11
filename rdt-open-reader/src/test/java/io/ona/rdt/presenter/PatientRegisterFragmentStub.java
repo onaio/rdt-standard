@@ -6,11 +6,11 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
 import org.json.JSONObject;
+import org.mockito.Mockito;
 
 import io.ona.rdt.TestUtils;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -46,7 +46,7 @@ public class PatientRegisterFragmentStub extends JsonFormFragment implements RDT
     @Override
     public JsonApi getJsonApi() {
         JsonApi jsonApi = mock(JsonApi.class);
-        doReturn(new JSONObject()).when(jsonApi).getmJSONObject();
+        Mockito.doReturn(new JSONObject()).when(jsonApi).getmJSONObject();
         return jsonApi;
     }
 

@@ -46,6 +46,7 @@ public abstract class BaseRDTJsonFormFragmentPresenterTest extends PowerMockTest
     protected RDTJsonFormFragmentPresenter presenter;
     protected RDTJsonFormFragmentContract.View rdtFormFragmentView;
     protected RDTJsonFormFragment formFragment;
+    protected String BLOT_PAPER_TASK_PAGE_NO = "step9";
 
     @Mock
     protected RDTJsonFormFragmentInteractor interactor;
@@ -91,7 +92,7 @@ public abstract class BaseRDTJsonFormFragmentPresenterTest extends PowerMockTest
         doReturn("step1").when(jsonObject).optString(AdditionalMatchers.or(eq(SCAN_CARESTART_PAGE), eq(SCAN_QR_PAGE)));
         doReturn("step1").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE), anyString());
         doReturn("step6").when(jsonObject).optString(eq(PRODUCT_EXPIRED_PAGE));
-        doReturn("step9").when(jsonObject).optString(eq(BLOT_PAPER_TASK_PAGE));
+        doReturn(BLOT_PAPER_TASK_PAGE_NO).when(jsonObject).optString(eq(BLOT_PAPER_TASK_PAGE));
         doReturn("step1:expiration_date_reader").when(jsonObject).optString(eq(EXPIRATION_DATE_READER_ADDRESS), anyString());
         doReturn("step1").when(jsonObject).optString(eq(TAKE_IMAGE_OF_RDT_PAGE));
         doReturn("rdt_id").when(jsonObject).optString(eq(RDT_ID_KEY));

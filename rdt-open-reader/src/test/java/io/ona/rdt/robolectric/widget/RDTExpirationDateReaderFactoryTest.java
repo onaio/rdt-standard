@@ -13,12 +13,15 @@ import com.vijay.jsonwizard.widgets.RDTCaptureFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLooper;
 
@@ -34,24 +37,20 @@ import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
 import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.support.membermodification.MemberMatcher.methods;
 import static org.powermock.api.support.membermodification.MemberModifier.suppress;
-import static org.robolectric.Shadows.shadowOf;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
@@ -76,7 +75,7 @@ public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
                 .create()
                 .resume()
                 .get();
-        jsonFormActivity = spy(jsonFormActivity);
+        jsonFormActivity = Mockito.spy(jsonFormActivity);
         readerFactory = new RDTExpirationDateReaderFactory();
         setWidgetArgs();
     }
@@ -165,7 +164,7 @@ public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
 
         // verify camera is launched
         Intent expectedIntent = new Intent(jsonFormActivity, RDTExpirationDateActivity.class);
-        Intent actualIntent = shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
+        Intent actualIntent = Shadows.shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
 
         // verify camera closes out after timeout
@@ -179,7 +178,7 @@ public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
 
     private Intent getJsonFormActivityIntent() throws JSONException {
         JSONObject mJSONObject = new JSONObject();
-        mJSONObject.put(STEP1, new JSONObject());
+        mJSONObject.put(JsonFormConstants.STEP1, new JSONObject());
         mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
         Intent intent = new Intent();
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
@@ -214,6 +213,6 @@ public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
 
     @Test
     public void testGetCustomTranslatableWidgetFieldsShouldReturnNonNullSet() {
-        assertNotNull(readerFactory.getCustomTranslatableWidgetFields());
+        Assert.assertNotNull(readerFactory.getCustomTranslatableWidgetFields());
     }
 }

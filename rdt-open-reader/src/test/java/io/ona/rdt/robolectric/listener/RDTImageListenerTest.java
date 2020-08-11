@@ -7,15 +7,13 @@ import com.android.volley.toolbox.ImageLoader;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 
 import io.ona.rdt.listener.RDTImageListener;
 import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
-
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by Vincent Karuri on 07/08/2020
@@ -29,14 +27,14 @@ public class RDTImageListenerTest extends RobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        imageListener = new RDTImageListener(mock(ImageView.class), "entity_id", 0, 0);
+        imageListener = new RDTImageListener(Mockito.mock(ImageView.class), "entity_id", 0, 0);
     }
 
     @Test
     public void testOnResponse() {
-        ImageLoader.ImageContainer imageContainer = mock(ImageLoader.ImageContainer.class);
-        Bitmap bitmap = mock(Bitmap.class);
-        doReturn(bitmap).when(imageContainer).getBitmap();
+        ImageLoader.ImageContainer imageContainer = Mockito.mock(ImageLoader.ImageContainer.class);
+        Bitmap bitmap = Mockito.mock(Bitmap.class);
+        Mockito.doReturn(bitmap).when(imageContainer).getBitmap();
         imageListener.onResponse(imageContainer, false);
     }
 }
