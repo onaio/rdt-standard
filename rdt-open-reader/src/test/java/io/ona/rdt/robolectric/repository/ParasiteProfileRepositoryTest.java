@@ -73,7 +73,7 @@ public class ParasiteProfileRepositoryTest extends RobolectricTest {
     public static ParasiteProfileResult getParasiteProfileResult() {
         ParasiteProfileResult parasiteProfileResult = new ParasiteProfileResult();
         parasiteProfileResult.setRdtId("rdt_id");
-        parasiteProfileResult.setExperimentDate("2019-07-09T00:00:00.000+03:00");
+        parasiteProfileResult.setExperimentDate("2020-12-03T21:00:00.000Z");
         parasiteProfileResult.setpFalciparum("negative");
         parasiteProfileResult.setpMalariae("positive");
         parasiteProfileResult.setpOvale("negative");

@@ -2,6 +2,7 @@ package io.ona.rdt.robolectric.widget;
 
 import android.content.Intent;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
@@ -18,8 +19,6 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
-import io.ona.rdt.activity.RDTExpirationDateActivity;
-import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
@@ -34,25 +33,15 @@ import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_RESULT;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_TOP_LINE_RESULT;
-import static io.ona.rdt.util.Constants.RDTType.RDT_TYPE;
-import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
-import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;
-import static io.ona.rdt.util.Constants.Test.FLASH_ON;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
-import static io.ona.rdt.util.Constants.Test.RDT_CAPTURE_DURATION;
-import static io.ona.rdt.util.Constants.Test.TIME_IMG_SAVED;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
@@ -94,16 +83,16 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
 
         Whitebox.invokeMethod(rdtCaptureFactory, "populateRelevantFields", parcelableImageMetadata);
 
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_TOP_LINE_RESULT), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_MIDDLE_LINE_RESULT), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_BOTTOM_LINE_RESULT), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE_DURATION), eq(String.valueOf(parcelableImageMetadata.getCaptureDuration())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_TYPE), eq("rdt_type"), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(CROPPED_IMG_ID), eq(parcelableImageMetadata.getCroppedImageId()), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(TIME_IMG_SAVED), eq(String.valueOf(parcelableImageMetadata.getImageTimeStamp())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(RDT_CAPTURE), eq(parcelableImageMetadata.getFullImageId()), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(FLASH_ON), eq(String.valueOf(parcelableImageMetadata.isFlashOn())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(CASSETTE_BOUNDARY), eq(parcelableImageMetadata.getCassetteBoundary()), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_TOP_LINE_RESULT), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_RESULT), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.RDT_CAPTURE_DURATION), eq(String.valueOf(parcelableImageMetadata.getCaptureDuration())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.RDTType.RDT_TYPE), eq(rdtType), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CROPPED_IMG_ID), eq(parcelableImageMetadata.getCroppedImageId()), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.TIME_IMG_SAVED), eq(String.valueOf(parcelableImageMetadata.getImageTimeStamp())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(JsonFormConstants.RDT_CAPTURE), eq(parcelableImageMetadata.getFullImageId()), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.FLASH_ON), eq(String.valueOf(parcelableImageMetadata.isFlashOn())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CASSETTE_BOUNDARY), eq(parcelableImageMetadata.getCassetteBoundary()), eq(""), eq(""), eq(""), eq(false));
     }
 
     @Test
