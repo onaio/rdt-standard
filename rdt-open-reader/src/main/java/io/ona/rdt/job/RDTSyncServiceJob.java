@@ -1,6 +1,9 @@
 package io.ona.rdt.job;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
+import io.ona.rdt.application.RDTApplication;
 
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
@@ -20,5 +23,10 @@ public class RDTSyncServiceJob extends SyncServiceJob {
     @Override
     protected Result onRunJob(@NonNull Params params) {
         return super.onRunJob(params);
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return RDTApplication.getInstance().getApplicationContext();
     }
 }
