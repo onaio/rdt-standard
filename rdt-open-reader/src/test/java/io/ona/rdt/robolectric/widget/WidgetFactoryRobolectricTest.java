@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 
@@ -30,6 +31,7 @@ public abstract class WidgetFactoryRobolectricTest extends RobolectricTest {
                 .create()
                 .resume()
                 .get();
+        jsonFormActivity = Mockito.spy(jsonFormActivity);
     }
 
     @After
