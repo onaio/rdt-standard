@@ -1,5 +1,6 @@
 package io.ona.rdt.robolectric.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -46,7 +47,7 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 /**
  * Created by Vincent Karuri on 23/07/2020
  */
-public class CustomRDTCaptureActivityTest extends RobolectricTest {
+public class CustomRDTCaptureActivityTest extends ActivityRobolectricTest {
 
     private ActivityController<CustomRDTCaptureActivity> controller;
     private CustomRDTCaptureActivity customRDTCaptureActivity;
@@ -147,5 +148,10 @@ public class CustomRDTCaptureActivityTest extends RobolectricTest {
         assertEquals(RESULT_OK, shadowActivity.getResultCode());
         assertTrue(customRDTCaptureActivity.isFinishing());
         assertFalse(Utils.getProgressDialog().isShowing());
+    }
+
+    @Override
+    public Activity getActivity() {
+        return customRDTCaptureActivity;
     }
 }

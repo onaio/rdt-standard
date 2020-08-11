@@ -46,7 +46,7 @@ import static org.robolectric.Shadows.shadowOf;
  * Created by Vincent Karuri on 16/07/2020
  */
 
-public class LoginActivityTest extends RobolectricTest {
+public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Mock
     private  Context context;
@@ -165,5 +165,10 @@ public class LoginActivityTest extends RobolectricTest {
         expectedCommonFtsObject.updateSearchFields(RDT_PATIENTS, sortAndSearchFields);
         expectedCommonFtsObject.updateSortFields(RDT_PATIENTS, sortAndSearchFields);
         doReturn(expectedCommonFtsObject).when(presenter).createCommonFtsObject();
+    }
+
+    @Override
+    public Activity getActivity() {
+        return loginActivity;
     }
 }

@@ -40,7 +40,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
-public class RDTJsonFormActivityTest extends RobolectricTest {
+public class RDTJsonFormActivityTest extends ActivityRobolectricTest {
 
     private ActivityController<RDTJsonFormActivity> controller;
     private RDTJsonFormActivity rdtJsonFormActivity;
@@ -113,5 +113,10 @@ public class RDTJsonFormActivityTest extends RobolectricTest {
         mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
         intent = new Intent();
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
+    }
+
+    @Override
+    public Activity getActivity() {
+        return rdtJsonFormActivity;
     }
 }

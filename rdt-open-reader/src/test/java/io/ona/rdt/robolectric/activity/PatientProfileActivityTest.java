@@ -33,7 +33,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
-public class PatientProfileActivityTest extends RobolectricTest {
+public class PatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Mock
     private PatientProfileActivityPresenter presenter;
@@ -80,5 +80,10 @@ public class PatientProfileActivityTest extends RobolectricTest {
                 ReflectionHelpers.ClassParameter.from(Intent.class, intent));
 
         verify(presenter).saveForm(eq(jsonObject.toString()), isNull());
+    }
+
+    @Override
+    public Activity getActivity() {
+        return patientProfileActivity;
     }
 }

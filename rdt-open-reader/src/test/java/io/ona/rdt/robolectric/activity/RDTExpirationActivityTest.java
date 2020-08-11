@@ -1,5 +1,6 @@
 package io.ona.rdt.robolectric.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import org.junit.Before;
@@ -29,7 +30,7 @@ import static org.robolectric.Shadows.shadowOf;
 /**
  * Created by Vincent Karuri on 23/07/2020
  */
-public class RDTExpirationActivityTest extends RobolectricTest {
+public class RDTExpirationActivityTest extends ActivityRobolectricTest {
 
     private ActivityController<RDTExpirationDateActivity> controller;
     private RDTExpirationDateActivity rdtExpirationDateActivity;
@@ -82,5 +83,10 @@ public class RDTExpirationActivityTest extends RobolectricTest {
         assertEquals("12/12/2012", resultIntent.getStringExtra(EXPIRATION_DATE));
         assertEquals(RESULT_OK, shadowActivity.getResultCode());
         assertTrue(rdtExpirationDateActivity.isFinishing());
+    }
+
+    @Override
+    public Activity getActivity() {
+        return rdtExpirationDateActivity;
     }
 }

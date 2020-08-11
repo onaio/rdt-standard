@@ -46,7 +46,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
-public class PatientRegisterActivityTest extends RobolectricTest {
+public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private PatientRegisterActivity patientRegisterActivity;
 
@@ -142,5 +142,10 @@ public class PatientRegisterActivityTest extends RobolectricTest {
         assertEquals(0, UtilsShadow.getMockCounter().getCount());
         patientRegisterActivity.selectDrawerItem(menuItem);
         assertEquals(1, UtilsShadow.getMockCounter().getCount());
+    }
+
+    @Override
+    public Activity getActivity() {
+        return patientRegisterActivity;
     }
 }
