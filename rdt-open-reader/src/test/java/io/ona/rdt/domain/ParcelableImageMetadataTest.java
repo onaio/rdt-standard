@@ -34,7 +34,7 @@ public class ParcelableImageMetadataTest {
                 .withLineReadings(lineReadings)
                 .withManualCapture(false)
                 .withCroppedImageMD5Hash("cropped_img_hash")
-                .setFullImageMD5Hash(("full_img_hash"));
+                .withFullImageMD5Hash(("full_img_hash"));
         
         assertParcelableImageContent(parcelableImageMetadata);
     }
