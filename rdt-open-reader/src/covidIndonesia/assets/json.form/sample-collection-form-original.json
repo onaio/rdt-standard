@@ -409,19 +409,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Referral Health Facility?",
+        "label": "Type of health facility",
         "options": [
           {
             "key": "hospital",
             "text": "Hospital"
           },
           {
-            "key": "clinic",
-            "text": "Clinic"
+            "key": "primary_health_care_center",
+            "text": "Primary health care center"
           },
           {
-            "key": "health_facility",
-            "text": "Health Facility"
+            "key": "community_health_facility",
+            "text": "Community health facility"
           },
           {
             "key": "other",

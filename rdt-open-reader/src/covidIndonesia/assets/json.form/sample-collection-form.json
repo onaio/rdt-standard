@@ -416,12 +416,12 @@
             "text": "{{sample-collection-form-original.step3.health_facility_type.options.hospital.text}}"
           },
           {
-            "key": "clinic",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.clinic.text}}"
+            "key": "primary_health_care_center",
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.primary_health_care_center.text}}"
           },
           {
-            "key": "health_facility",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.health_facility.text}}"
+            "key": "community_health_facility",
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.community_health_facility.text}}"
           },
           {
             "key": "other",
