@@ -27,7 +27,7 @@ public class RDTSyncSettingsServiceJobTest extends RobolectricTest {
     public void testOnRunJobShouldStartService() {
         RDTSyncSettingsServiceJob rdtSyncSettingsServiceJob = new RDTSyncSettingsServiceJob();
         ReflectionHelpers.callInstanceMethod(rdtSyncSettingsServiceJob, "onRunJob",
-        ReflectionHelpers.ClassParameter.from(Job.Params.class, null));
+                ReflectionHelpers.ClassParameter.from(Job.Params.class, null));
 
         Context applicationContext = RDTApplication.getInstance().getApplicationContext();
         Intent expectedIntent = new Intent(applicationContext, RDTSettingsSyncIntentService.class);

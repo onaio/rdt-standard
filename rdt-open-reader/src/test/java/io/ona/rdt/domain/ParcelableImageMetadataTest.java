@@ -17,6 +17,7 @@ public class ParcelableImageMetadataTest {
 
     private ParcelableImageMetadata parcelableImageMetadata;
     private LineReadings lineReadings = new LineReadings(false, true, false);
+    private final String FULL_IMG_HASH = "full_img_hash";
 
     @Before
     public void setUp() {
@@ -34,7 +35,7 @@ public class ParcelableImageMetadataTest {
                 .withLineReadings(lineReadings)
                 .withManualCapture(false)
                 .withCroppedImageMD5Hash("cropped_img_hash")
-                .withFullImageMD5Hash(("full_img_hash"));
+                .withFullImageMD5Hash(FULL_IMG_HASH);
         
         assertParcelableImageContent(parcelableImageMetadata);
     }
@@ -72,6 +73,6 @@ public class ParcelableImageMetadataTest {
         assertEquals("(0, 0), (0, 0), (0, 0), (0, 0)", parcelableImageMetadata.getCassetteBoundary());
         assertEquals(lineReadings, parcelableImageMetadata.getLineReadings());
         assertEquals("cropped_img_hash", parcelableImageMetadata.getCroppedImageMD5Hash());
-        assertEquals("full_img_hash", parcelableImageMetadata.getFullImageMD5Hash());
+        assertEquals(FULL_IMG_HASH, parcelableImageMetadata.getFullImageMD5Hash());
     }
 }
