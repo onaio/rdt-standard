@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -148,6 +149,13 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    @Test
+    public void testGetPresenterShouldNotBeNull() {
+        Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, (RDTJsonFormFragmentPresenter) null);
+        ReflectionHelpers.callInstanceMethod(jsonFormFragment, "createPresenter");
+        Assert.assertNotNull(jsonFormFragment.getFragmentPresenter());
     }
 
     @Override
