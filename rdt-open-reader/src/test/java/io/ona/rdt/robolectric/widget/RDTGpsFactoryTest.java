@@ -1,12 +1,10 @@
 package io.ona.rdt.robolectric.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.LocationManager;
 import android.view.View;
 import android.widget.ScrollView;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 
@@ -18,18 +16,14 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.List;
 
 import io.ona.rdt.R;
-import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.util.RDTGpsDialog;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.RDTGpsFactory;
@@ -38,7 +32,7 @@ import io.ona.rdt.widget.RDTGpsFactory;
  * Created by Vincent Karuri on 08/11/2019
  */
 
-public class RDTGpsFactoryTest extends RobolectricTest {
+public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
 
     @Mock
     private RDTJsonFormFragment formFragment;
@@ -54,19 +48,13 @@ public class RDTGpsFactoryTest extends RobolectricTest {
     private View mainLayout;
 
     private RDTGpsFactory gpsFactory;
-    private RDTJsonFormActivity jsonFormActivity;
     private final String STEP1 = "step1";
 
     @Before
     public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
         mockMethods();
         gpsFactory = new RDTGpsFactory();
-        jsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class,
-                getJsonFormActivityIntent())
-                .create()
-                .resume()
-                .get();
     }
 
     @Test
@@ -136,17 +124,6 @@ public class RDTGpsFactoryTest extends RobolectricTest {
         View rootLayout = views.get(0);
         rootLayout.findViewById(R.id.record_button).performClick();
         Assert.assertNotNull(ShadowAlertDialog.getLatestAlertDialog());
-    }
-
-    private Intent getJsonFormActivityIntent() throws JSONException {
-        JSONObject mJSONObject = new JSONObject();
-        mJSONObject.put(JsonFormConstants.STEP1, new JSONObject());
-        mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
-
-        Intent intent = new Intent();
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
-
-        return intent;
     }
 
     private void mockMethods() {

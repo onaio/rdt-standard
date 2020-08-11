@@ -18,9 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLooper;
@@ -29,7 +27,6 @@ import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.util.StepStateConfig;
 import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
@@ -58,11 +55,10 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
  */
 
 @Config(shadows = {ContextCompatShadow.class})
-public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
+public class RDTExpirationDateReaderFactoryTest extends WidgetFactoryRobolectricTest {
 
     private RDTExpirationDateReaderFactory readerFactory;
     private WidgetArgs widgetArgs;
-    private RDTJsonFormActivity jsonFormActivity;
     private View rootLayout;
 
     @Mock
@@ -70,11 +66,7 @@ public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
 
     @Before
     public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
-        jsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class,  getJsonFormActivityIntent())
-                .create()
-                .resume()
-                .get();
+        super.setUp();
         jsonFormActivity = Mockito.spy(jsonFormActivity);
         readerFactory = new RDTExpirationDateReaderFactory();
         setWidgetArgs();
@@ -174,15 +166,6 @@ public class RDTExpirationDateReaderFactoryTest extends RobolectricTest {
         verify(rdtExpirationDateActivity).setResult(eq(RESULT_OK));
         verify(rdtExpirationDateActivity).finish();
         verify(formFragment).transactThis(any(JsonFormFragment.class));
-    }
-
-    private Intent getJsonFormActivityIntent() throws JSONException {
-        JSONObject mJSONObject = new JSONObject();
-        mJSONObject.put(JsonFormConstants.STEP1, new JSONObject());
-        mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
-        Intent intent = new Intent();
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
-        return intent;
     }
 
     private void setWidgetArgs() throws JSONException {

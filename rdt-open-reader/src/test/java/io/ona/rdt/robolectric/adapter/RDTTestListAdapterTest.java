@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +43,11 @@ public class RDTTestListAdapterTest extends RobolectricTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         init();
+    }
+
+    @After
+    public void tearDown() {
+        patientProfileActivity.finish();
     }
 
     @Test
