@@ -17,7 +17,7 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
 
-import static io.ona.rdt.util.BaseFormSaverTest.expectedPatient;
+import static io.ona.rdt.robolectric.util.BaseFormSaverTest.expectedPatient;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -1,13 +1,18 @@
-package io.ona.rdt.util;
+package io.ona.rdt.robolectric.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
 import java.util.Calendar;
+
+import io.ona.rdt.robolectric.util.BaseFormSaverTest;
+import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.FormSaver;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
@@ -49,9 +54,9 @@ public class FormSaverTest extends BaseFormSaverTest {
 
     @Test
     public void testGetBindTypeShouldGetCorrectBindType() throws Exception {
-        assertEquals(RDT_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_REGISTRATION));
-        assertEquals(RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", RDT_TEST));
-        assertEquals(PCR_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PCR_RESULT));
+        Assert.assertEquals(RDT_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_REGISTRATION));
+        Assert.assertEquals(RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", RDT_TEST));
+        Assert.assertEquals(PCR_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PCR_RESULT));
     }
 
     @Override

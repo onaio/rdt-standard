@@ -21,7 +21,7 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.FormSaver;
 
-import static io.ona.rdt.util.FormSaverTest.expectedPatient;
+import static io.ona.rdt.robolectric.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;

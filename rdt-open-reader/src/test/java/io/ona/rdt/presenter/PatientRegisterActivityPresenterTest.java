@@ -27,7 +27,7 @@ import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.FormSaverTest.expectedPatient;
+import static io.ona.rdt.robolectric.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;

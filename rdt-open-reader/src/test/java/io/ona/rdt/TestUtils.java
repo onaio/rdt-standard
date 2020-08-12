@@ -9,11 +9,11 @@ import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
 
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_AGE;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_BASE_ENTITY_ID;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_GENDER;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_ID;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_NAME;
+import static io.ona.rdt.robolectric.util.BaseFormSaverTest.PATIENT_AGE;
+import static io.ona.rdt.robolectric.util.BaseFormSaverTest.PATIENT_BASE_ENTITY_ID;
+import static io.ona.rdt.robolectric.util.BaseFormSaverTest.PATIENT_GENDER;
+import static io.ona.rdt.robolectric.util.BaseFormSaverTest.PATIENT_ID;
+import static io.ona.rdt.robolectric.util.BaseFormSaverTest.PATIENT_NAME;
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 
 /**
@@ -28,6 +28,22 @@ public class TestUtils {
         return  "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":" +  encounterType + ", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
                 "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
                 "\"fields\":[{\n" +
+                "        \"key\": \"rdt_id\",\n" +
+                "        \"openmrs_entity_parent\": \"\",\n" +
+                "        \"openmrs_entity\": \"\",\n" +
+                "        \"openmrs_entity_id\": \"\",\n" +
+                "        \"type\": \"hidden\",\n" +
+                "        \"value\": \"unique_id\"\n" +
+                "      }," +
+                "{\n" +
+                "        \"key\": \"covid_sample_id\",\n" +
+                "        \"openmrs_entity_parent\": \"\",\n" +
+                "        \"openmrs_entity\": \"\",\n" +
+                "        \"openmrs_entity_id\": \"\",\n" +
+                "        \"type\": \"hidden\",\n" +
+                "        \"value\": \"unique_id\"\n" +
+                "      }," +
+                "{\n" +
                 "        \"key\": \"patient_id\",\n" +
                 "        \"openmrs_entity_parent\": \"\",\n" +
                 "        \"openmrs_entity\": \"\",\n" +

@@ -1,12 +1,15 @@
-package io.ona.rdt.util;
+package io.ona.rdt.robolectric.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+
+import io.ona.rdt.util.CovidFormSaver;
+import io.ona.rdt.util.FormSaver;
 
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
@@ -24,7 +27,6 @@ import static io.ona.rdt.util.CovidConstants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_COLLECTIONS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_DELIVERY_RECORDS;
 import static io.ona.rdt.util.CovidConstants.Table.SUPPORT_INVESTIGATIONS;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 
@@ -33,15 +35,14 @@ import static org.powermock.api.mockito.PowerMockito.doReturn;
  */
 public class CovidFormSaverTest extends BaseFormSaverTest {
 
-
     @Test
     public void testGetBindTypeShouldGetCorrectBindType() throws Exception {
-        assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_PATIENT_REGISTRATION));
-        assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_RDT_TEST));
-        assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_DIAGNOSTICS));
-        assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_COLLECTION));
-        assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_DELIVERY_DETAILS));
-        assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SUPPORT_INVESTIGATION));
+        Assert.assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_PATIENT_REGISTRATION));
+        Assert.assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_RDT_TEST));
+        Assert.assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_DIAGNOSTICS));
+        Assert.assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_COLLECTION));
+        Assert.assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_DELIVERY_DETAILS));
+        Assert.assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SUPPORT_INVESTIGATION));
     }
 
     @Override
@@ -91,9 +92,6 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
     }
 
     protected void mockStaticMethods() throws JSONException {
-        super.mockStaticMethods();
-
-        PowerMockito.when(drishtiContext.allSettings()).thenReturn(settings);
         JSONObject coordinates = new JSONObject();
         coordinates.put(LNG, "1");
         coordinates.put(LAT, "2");

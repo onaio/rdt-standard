@@ -1,10 +1,13 @@
 package io.ona.rdt.robolectric.shadow;
 
+import org.mockito.Mockito;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -19,10 +22,16 @@ import static org.mockito.Mockito.mock;
 public class OpenSRPContextShadow extends Shadow {
 
     private UserService userService;
+    private CommonRepository commonRepository;
+    private UniqueIdRepository uniqueIdRepository;
+    private EventClientRepository eventClientRepository;
 
     @Implementation
     public CommonRepository commonrepository(String tablename) {
-        return mock(CommonRepository.class);
+        if (commonRepository == null) {
+            commonRepository = mock(CommonRepository.class);
+        }
+        return commonRepository;
     }
 
     @Implementation
@@ -32,5 +41,21 @@ public class OpenSRPContextShadow extends Shadow {
             doReturn("password").when(userService).getGroupId(any());
         }
         return userService;
+    }
+
+   @Implementation
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (uniqueIdRepository == null) {
+            uniqueIdRepository = mock(UniqueIdRepository.class);
+        }
+        return uniqueIdRepository;
+    }
+
+    @Implementation
+    public EventClientRepository getEventClientRepository() {
+        if (eventClientRepository == null) {
+            eventClientRepository = mock(EventClientRepository.class);
+        }
+        return eventClientRepository;
     }
 }
