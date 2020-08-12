@@ -350,7 +350,7 @@
       {
         "key": "patient_whatsapp_lbl",
         "type": "label",
-        "text": "Whatsapp",
+        "text": "WhatsApp",
         "text_color": "#000000"
       },
       {
