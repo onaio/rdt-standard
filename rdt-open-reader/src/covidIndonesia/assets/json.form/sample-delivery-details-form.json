@@ -232,6 +232,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -281,6 +289,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -298,6 +314,10 @@
         "v_required": {
           "value": "true",
           "err": "{{sample-delivery-details-form-original.step4.sender_email.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "\\S+@\\S+\\.\\S+",
+          "err": "{{sample-delivery-details-form-original.step4.sender_email.v_regex.err}}"
         }
       }
     ]
