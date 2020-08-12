@@ -5,9 +5,6 @@ import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
 import org.smartregister.job.BaseJob;
 
-import io.ona.rdt.job.ImageUploadSyncServiceJob;
-import io.ona.rdt.sync.RDTSyncIntentService;
-
 /**
  * Created by Vincent Karuri on 12/08/2020
  */
@@ -15,14 +12,18 @@ import io.ona.rdt.sync.RDTSyncIntentService;
 @Implements(BaseJob.class)
 public class BaseJobShadow extends Shadow {
 
-    private static MockCounter mockCounter = new MockCounter();
+    private static String jobTag;
 
     @Implementation
     public static void scheduleJobImmediately(String jobTag) {
-        mockCounter.setCount(1);
+        BaseJobShadow.jobTag = jobTag;
     }
 
-    public static MockCounter getMockCounter() {
-        return mockCounter;
+    public static String getJobTag() {
+        return jobTag;
+    }
+
+    public static void setJobTag(String jobTag) {
+        BaseJobShadow.jobTag = jobTag;
     }
 }
