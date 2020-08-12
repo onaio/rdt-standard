@@ -83,15 +83,15 @@ condition: "step3_vtm_brand.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_health_facility_type_lbl
-description: Other health facility label
+name: step3_other_health_facility_type_name_lbl
+description: Other health facility name label
 priority: 1
 condition: "step3_name_of_health_facility != '' && step3_name_of_health_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_health_facility_type
-description: Other health facility
+name: step3_other_health_facility_type_name
+description: Other health facility name
 priority: 1
 condition: "step3_name_of_health_facility != '' && step3_name_of_health_facility == 'other'"
 actions:
