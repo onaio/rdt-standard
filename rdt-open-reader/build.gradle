@@ -83,6 +83,10 @@ android {
             includeAndroidResources = true
             returnDefaultValues = true
         }
+
+        unitTests.all {
+            jvmArgs "-Xmx3g"
+        }
     }
 
     flavorDimensions "version"
