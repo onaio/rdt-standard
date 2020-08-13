@@ -15,6 +15,10 @@ public class CompositeImage {
 
     private UnParcelableImageMetadata unParcelableImageMetadata;
 
+    private String fullImageFilePath;
+
+    private String croppedImageFilePath;
+
     public Bitmap getFullImage() {
         return fullImage;
     }
@@ -29,6 +33,22 @@ public class CompositeImage {
 
     public UnParcelableImageMetadata getUnParcelableImageMetadata() {
         return unParcelableImageMetadata;
+    }
+
+    public String getFullImageFilePath() {
+        return fullImageFilePath;
+    }
+
+    public void setFullImageFilePath(String fullImageFilePath) {
+        this.fullImageFilePath = fullImageFilePath;
+    }
+
+    public String getCroppedImageFilePath() {
+        return croppedImageFilePath;
+    }
+
+    public void setCroppedImageFilePath(String croppedImageFilePath) {
+        this.croppedImageFilePath = croppedImageFilePath;
     }
 
     public void setFullImage(Bitmap fullImage) {
@@ -64,6 +84,16 @@ public class CompositeImage {
 
     public CompositeImage withUnParcelableImageMetadata(UnParcelableImageMetadata unParcelableImageMetadata) {
         setUnParcelableImageMetadata(unParcelableImageMetadata);
+        return this;
+    }
+
+    public CompositeImage withFullImageFilePath(String fullImageFilePath) {
+        setFullImageFilePath(fullImageFilePath);
+        return this;
+    }
+
+    public CompositeImage withCroppedImageFilePath(String croppedImageFilePath) {
+        setCroppedImageFilePath(croppedImageFilePath);
         return this;
     }
 }

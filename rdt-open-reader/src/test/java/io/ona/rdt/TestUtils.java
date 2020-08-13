@@ -9,11 +9,8 @@ import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
 
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_AGE;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_BASE_ENTITY_ID;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_GENDER;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_ID;
-import static io.ona.rdt.util.BaseFormSaverTest.PATIENT_NAME;
+import io.ona.rdt.robolectric.util.BaseFormSaverTest;
+
 import static io.ona.rdt.util.Constants.Encounter.PATIENT_REGISTRATION;
 
 /**
@@ -25,25 +22,41 @@ public class TestUtils {
 
     public static String getPatientRegistrationJsonForm(String encounterType) {
         encounterType = encounterType == null ? PATIENT_REGISTRATION : encounterType;
-        return  "{\"count\":\"1\",\"entity_id\": \"" + PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":" +  encounterType + ", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
+        return  "{\"count\":\"1\",\"entity_id\": \"" + BaseFormSaverTest.PATIENT_BASE_ENTITY_ID + "\",\"encounter_type\":" +  encounterType + ", \"metadata\": {},\"step1\":{\"title\":\"New client record\",\"display_back_button\":\"true\",\"previous_label\":\"SAVE AND EXIT\"," +
                 "\"bottom_navigation\":\"true\",\"bottom_navigation_orientation\":\"vertical\",\"next_type\":\"submit\",\"submit_label\":\"SAVE\",\"next_form\":\"json.form\\/patient-registration-form.json\"," +
                 "\"fields\":[{\n" +
-                "        \"key\": \"patient_id\",\n" +
+                "        \"key\": \"rdt_id\",\n" +
                 "        \"openmrs_entity_parent\": \"\",\n" +
                 "        \"openmrs_entity\": \"\",\n" +
                 "        \"openmrs_entity_id\": \"\",\n" +
-                "        \"type\": \"edit_text\",\n" +
-                "        \"v_required\": {\n" +
+                "        \"type\": \"hidden\",\n" +
+                "        \"value\": \"unique_id\"\n" +
+                "      }," +
+                "    {\n" +
+                "       \"key\": \"covid_sample_id\",\n" +
+                "       \"openmrs_entity_parent\": \"\",\n" +
+                "       \"openmrs_entity\": \"\",\n" +
+                "       \"openmrs_entity_id\": \"\",\n" +
+                "       \"type\": \"hidden\",\n" +
+                "       \"value\": \"unique_id\"\n" +
+                "     }," +
+                "  {\n" +
+                "     \"key\": \"patient_id\",\n" +
+                "     \"openmrs_entity_parent\": \"\",\n" +
+                "     \"openmrs_entity\": \"\",\n" +
+                "     \"openmrs_entity_id\": \"\",\n" +
+                "     \"type\": \"edit_text\",\n" +
+                "     \"v_required\": {\n" +
                 "          \"value\": \"true\",\n" +
                 "          \"err\": \"Please enter patient ID\"\n" +
-                "        }\n" + ",\"value\":\"" + PATIENT_ID + "\"" +
+                "        }\n" + ",\"value\":\"" + BaseFormSaverTest.PATIENT_ID + "\"" +
                 "      }, {\"key\":\"patient_name_label\",\"type\":\"label\",\"text\":\"Name\",\"text_color\":\"#000000\"},{\"key\":\"patient_name\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
                 "\"openmrs_entity_id\":\"first_name\",\"type\":\"edit_text\",\"edit_type\":\"name\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient name\"}," +
-                "\"v_regex\":{\"value\":\"[^([0-9]*)$]*\",\"err\":\"Please enter a valid name\"},\"value\":\"" + PATIENT_NAME + "\"},{\"key\":\"patient_age_label\",\"type\":\"label\",\"text\":\"Age\",\"text_color\":\"#000000\"}," +
+                "\"v_regex\":{\"value\":\"[^([0-9]*)$]*\",\"err\":\"Please enter a valid name\"},\"value\":\"" + BaseFormSaverTest.PATIENT_NAME + "\"},{\"key\":\"patient_age_label\",\"type\":\"label\",\"text\":\"Age\",\"text_color\":\"#000000\"}," +
                 "{\"key\":\"patient_age\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"age\",\"type\":\"edit_text\",\"v_required\":{\"value\":\"true\",\"err\":\"Please specify patient age\"}," +
-                "\"v_numeric_integer\":{\"value\":\"true\",\"err\":\"Age must be a rounded number\"},\"step\":\"step1\",\"is-rule-check\":true,\"value\":\"" + PATIENT_AGE + "\"},{\"key\":\"sex\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
+                "\"v_numeric_integer\":{\"value\":\"true\",\"err\":\"Age must be a rounded number\"},\"step\":\"step1\",\"is-rule-check\":true,\"value\":\"" + BaseFormSaverTest.PATIENT_AGE + "\"},{\"key\":\"sex\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person\"," +
                 "\"openmrs_entity_id\":\"gender\",\"type\":\"native_radio\",\"label\":\"Sex\",\"options\":[{\"key\":\"Female\",\"text\":\"Female\"},{\"key\":\"Male\",\"text\":\"Male\"}],\"v_required\":{\"value\":\"true\"," +
-                "\"err\":\"Please specify sex\"},\"value\":\"" + PATIENT_GENDER + "\"},{\"key\":\"is_fever\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"type\":\"native_radio\",\"label\":\"Signs of fever in the last 3 days?\"," +
+                "\"err\":\"Please specify sex\"},\"value\":\"" + BaseFormSaverTest.PATIENT_GENDER + "\"},{\"key\":\"is_fever\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"type\":\"native_radio\",\"label\":\"Signs of fever in the last 3 days?\"," +
                 "\"options\":[{\"key\":\"Yes\",\"text\":\"Yes\"},{\"key\":\"No\",\"text\":\"No\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Has patient had a fever in last 3 days\"}," +
                 "\"step\":\"step1\",\"is-rule-check\":true,\"value\":\"No\"},{\"key\":\"is_malaria\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"type\":\"native_radio\"," +
                 "\"label\":\"Had malaria in the last year?\",\"options\":[{\"key\":\"Yes\",\"text\":\"Yes\"},{\"key\":\"No\",\"text\":\"No\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Has patient had malaria in the last year\"}," +

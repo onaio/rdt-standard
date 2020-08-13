@@ -18,9 +18,8 @@ import org.smartregister.repository.EventClientRepository;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.robolectric.util.BaseFormSaverTest;
 
-import static io.ona.rdt.util.BaseFormSaverTest.expectedPatient;
-import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
@@ -66,9 +65,9 @@ public class FormLauncherAndSaverTest {
 
         Patient rdtPatient = patientArgumentCaptor.getValue();
         assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
-        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
-        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
+        assertEquals(rdtPatient.getPatientName(), BaseFormSaverTest.expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getPatientSex(), BaseFormSaverTest.expectedPatient.getPatientSex());
+        assertEquals(rdtPatient.getBaseEntityId(), BaseFormSaverTest.expectedPatient.getBaseEntityId());
     }
 
     private void mockStaticMethods() {

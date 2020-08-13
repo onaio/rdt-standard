@@ -22,7 +22,12 @@ public class UtilsShadow extends Shadow {
 
     @Implementation
     public static void scheduleJobsImmediately() {
-        getMockCounter().setCount(getMockCounter().getCount() + 1);
+        getMockCounter().setCount(1);
+    }
+
+    @Implementation
+    public static boolean isImageSyncEnabled() {
+        return true;
     }
 
     public static synchronized void setMockCounter(MockCounter mockCounter) {

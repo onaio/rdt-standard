@@ -89,14 +89,11 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
         String manualExpPage = stepStateConfig.getStepStateObj().optString(MANUAL_EXPIRATION_DATE_ENTRY_PAGE, "");
         if (!manualExpPage.isEmpty()) {
             final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (widgetArgs.getFormFragment().isVisible()) {
-                        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(manualExpPage);
-                        widgetArgs.getFormFragment().transactThis(nextFragment);
-                        finishExpirationDateActivity();
-                    }
+            handler.postDelayed(() -> {
+                if (widgetArgs.getFormFragment().isVisible()) {
+                    JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(manualExpPage);
+                    widgetArgs.getFormFragment().transactThis(nextFragment);
+                    finishExpirationDateActivity();
                 }
             }, expirationDateCaptureTimeout);
         }
@@ -104,7 +101,7 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
 
     private void finishExpirationDateActivity() {
         Activity rdtExpirationDateActivity = RDTApplication.getInstance().getCurrentActivity();
-        rdtExpirationDateActivity.setResult(RESULT_OK, null);
+        rdtExpirationDateActivity.setResult(RESULT_OK);
         rdtExpirationDateActivity.finish();
     }
 
@@ -197,7 +194,8 @@ public class RDTExpirationDateReaderFactory implements FormWidgetFactory, OnActi
     }
 
     private void launchRDTExpirationDateActivity() {
-        if (ContextCompat.checkSelfPermission(widgetArgs.getContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(widgetArgs.getContext(), Manifest.permission.READ_PHONE_STATE)
+                == PackageManager.PERMISSION_GRANTED) {
             new LaunchRDTCameraTask().execute();
         }
     }

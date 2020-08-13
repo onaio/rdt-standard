@@ -9,6 +9,7 @@ import org.smartregister.repository.UniqueIdRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Vincent Karuri on 04/08/2020
@@ -18,10 +19,21 @@ import java.util.List;
 public class UniqueIdRepositoryShadow extends Shadow {
 
     private static List<Object> args = new ArrayList<>();
+    public static Set<String> openmrsIds;
 
     @Implementation
     public static void createTable(SQLiteDatabase db) {
         args.add(db);
+    }
+
+    @Implementation
+    public int close(String openmrsId) {
+        openmrsIds.add(openmrsId);
+        return 0;
+    }
+
+    public static void setOpenmrsIds(Set<String> openmrsIds) {
+        UniqueIdRepositoryShadow.openmrsIds = openmrsIds;
     }
 
     public static List<Object> getArgs() {

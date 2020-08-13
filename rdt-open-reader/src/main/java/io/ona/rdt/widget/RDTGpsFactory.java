@@ -56,14 +56,11 @@ public class RDTGpsFactory extends GpsFactory {
 
         new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
 
-        rootLayout.findViewById(R.id.record_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isLocationServiceDisabled(context)) {
-                    showLocationServicesDialog(context);
-                } else {
-                    requestPermissionsForLocation(context);
-                }
+        rootLayout.findViewById(R.id.record_button).setOnClickListener(v -> {
+            if (isLocationServiceDisabled(context)) {
+                showLocationServicesDialog(context);
+            } else {
+                requestPermissionsForLocation(context);
             }
         });
 

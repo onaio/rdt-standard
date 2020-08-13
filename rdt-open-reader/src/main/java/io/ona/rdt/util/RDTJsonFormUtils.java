@@ -117,10 +117,12 @@ public class RDTJsonFormUtils {
                 parcelableImageMetadata.setImageToSave(FULL_IMAGE);
                 String filePath = saveImage(imgFolderPath, compositeImage.getFullImage(), context, parcelableImageMetadata);
                 compositeImage.getParcelableImageMetadata().setFullImageMD5Hash(getFileMD5Hash(filePath));
+                compositeImage.withFullImageFilePath(filePath);
 
                 parcelableImageMetadata.setImageToSave(CROPPED_IMAGE);
                 filePath = saveImage(imgFolderPath, compositeImage.getCroppedImage(), context, parcelableImageMetadata);
                 compositeImage.getParcelableImageMetadata().setCroppedImageMD5Hash(getFileMD5Hash(filePath));
+                compositeImage.withCroppedImageFilePath(filePath);
             } else {
                 Timber.e(TAG, "Sorry, could not create image folder!");
             }
@@ -208,11 +210,8 @@ public class RDTJsonFormUtils {
     private static void saveImageToGallery(Context context, Bitmap image) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        ImageUtil.saveImage(context, stream.toByteArray(), 0, false, new OnImageSavedCallBack() {
-            @Override
-            public void onImageSaved(String imageLocation) {
-                // do nothing
-            }
+        ImageUtil.saveImage(context, stream.toByteArray(), 0, false, imageLocation -> {
+            // do nothing
         });
     }
 
@@ -306,7 +305,8 @@ public class RDTJsonFormUtils {
     }
 
     public boolean isRDTIdField(JSONObject field) throws JSONException {
-        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY).equals(field.getString(KEY));
+        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj()
+                .optString(RDT_ID_KEY).equals(field.getString(KEY));
     }
 
     public synchronized void getNextUniqueIds(final FormLaunchArgs args, final OnUniqueIdsFetchedCallback callBack, int numOfIDs) {

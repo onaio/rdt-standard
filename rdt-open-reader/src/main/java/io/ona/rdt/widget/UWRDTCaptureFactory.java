@@ -40,9 +40,9 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = UWRDTCaptureFactory.class.getName();
-    private final String RDT_NAME = "rdt_name";
+    public static final String RDT_NAME = "rdt_name";
 
-    private static final long CAPTURE_TIMEOUT_MS = 30000;
+    public static final long CAPTURE_TIMEOUT_MS = 30000;
 
     public static final String CAPTURE_TIMEOUT = "capture_timeout";
 

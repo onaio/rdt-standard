@@ -19,18 +19,12 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 /**
  * Created by Vincent Karuri on 02/07/2019
  */
+
 public class RDTImageListener extends OpenSRPImageListener {
 
-    public RDTImageListener(ImageView imageView, int defaultImageResId, int errorImageResId) {
-        super(imageView, defaultImageResId, errorImageResId);
-    }
 
     public RDTImageListener(ImageView imageView, String entityId, int defaultImageResId, int errorImageResId) {
         super(imageView, entityId, defaultImageResId, errorImageResId);
-    }
-
-    public RDTImageListener(RemoteViews remoteView, int imageViewId, int defaultImageResId, int errorImageResId) {
-        super(remoteView, imageViewId, defaultImageResId, errorImageResId);
     }
 
     @Override
@@ -52,11 +46,8 @@ public class RDTImageListener extends OpenSRPImageListener {
 
         if (image != null) {
             // todo: this has a default false result
-            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), compositeImage, new OnImageSavedCallback() {
-                @Override
-                public void onImageSaved(CompositeImage compositeImage) {
-                    // do nothing
-                }
+            RDTJsonFormUtils.saveStaticImagesToDisk(application.getApplicationContext(), compositeImage, compositeImage1 -> {
+                // do nothing
             });
         }
     }

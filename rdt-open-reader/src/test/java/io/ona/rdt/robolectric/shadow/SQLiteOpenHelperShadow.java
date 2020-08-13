@@ -100,7 +100,7 @@ public class SQLiteOpenHelperShadow extends Shadow {
         doReturn(6).when(cursor).getColumnIndex(eq(PF_GAMETO));
 
         doReturn("rdt_id").when(cursor).getString(eq(0));
-        doReturn("2019-07-09T00:00:00.000+03:00").when(cursor).getString(eq(1));
+        doReturn("2020-12-03T21:00:00.000Z").when(cursor).getString(eq(1));
         doReturn("negative").when(cursor).getString(eq(2));
         doReturn("positive").when(cursor).getString(eq(3));
         doReturn("negative").when(cursor).getString(eq(4));
