@@ -50,5 +50,6 @@ public abstract class RobolectricTest {
         OpenSRPContextShadow.setAllSettings(null);
         OpenSRPContextShadow.setUniqueIdRepository(null);
         ReflectionHelpers.setField(context, "uniqueIdRepository", null);
+        ImageUtilShadow.getMockCounter().setCount(0);
     }
 }

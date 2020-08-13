@@ -5,8 +5,12 @@ import android.graphics.Bitmap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.domain.ProfileImage;
@@ -23,6 +27,7 @@ import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
+import io.ona.rdt.callback.OnUniqueIdsFetchedCallback;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
@@ -792,6 +797,9 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     private static JSONObject RDT_TEST_JSON_FORM_OBJ;
 
+    @Captor
+    private ArgumentCaptor<List<UniqueId>> uniqueIdsArgumentCaptor;
+
     @Before
     public void setUp() throws JSONException {
         super.setUp();
@@ -799,8 +807,14 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testGetUniqueIDsShouldGetIDs() throws Exception {
-        List<UniqueId> uniqueIds = Whitebox.invokeMethod(getFormUtils(), "getUniqueIDs", 2);
+    public void testGetUniqueIDsShouldGetIDs() {
+        OnUniqueIdsFetchedCallback uniqueIdsFetchedCallback = mock(OnUniqueIdsFetchedCallback.class);
+        FormLaunchArgs formLaunchArgs = mock(FormLaunchArgs.class);
+        getFormUtils().getNextUniqueIds(formLaunchArgs, uniqueIdsFetchedCallback, 2);
+
+        verify(uniqueIdsFetchedCallback).onUniqueIdsFetched(eq(formLaunchArgs), uniqueIdsArgumentCaptor.capture());
+
+        List<UniqueId> uniqueIds = uniqueIdsArgumentCaptor.getValue();
         assertEquals("openmrsID1", uniqueIds.get(0).getOpenmrsId());
         assertEquals("openmrsID1", uniqueIds.get(1).getOpenmrsId());
     }
@@ -818,15 +832,6 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         JSONObject jsonObject = getFormUtils().getFormJsonObject("form_name.json",
                 RuntimeEnvironment.application);
         assertEquals(new JSONObject(getMockForm()).toString(), jsonObject.toString());
-    }
-
-    @Test
-    public void testSaveImageToGalleryShouldSaveImageToGallery() throws Exception {
-        assertEquals(0, ImageUtilShadow.getMockCounter().getCount());
-        Context context = mock(Context.class);
-        Whitebox.invokeMethod(getFormUtils(), "saveImageToGallery", context, mock(Bitmap.class));
-        assertEquals(1, ImageUtilShadow.getMockCounter().getCount());
-        ImageUtilShadow.getMockCounter().setCount(0);
     }
 
     @Test
@@ -854,41 +859,48 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     }
 
     @Test
-    public void testSaveImageShouldSaveImage() throws Exception {
-        ParcelableImageMetadata parcelableImageMetadata = spy(new ParcelableImageMetadata());
-        parcelableImageMetadata.withProviderId("anm_id")
-                .withBaseEntityId("entity_id");
-        Whitebox.invokeMethod(getFormUtils(), "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
-        verify(parcelableImageMetadata).setCroppedImageId(any());
-
-        parcelableImageMetadata.setImageToSave(FULL_IMAGE);
-        Whitebox.invokeMethod(getFormUtils(), "saveImage", getTestFilePath(), mock(Bitmap.class), mock(Context.class), parcelableImageMetadata);
-        verify(parcelableImageMetadata).setFullImageId(any());
-        verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
-    }
-
-    @Test
     public void testSaveStaticImagesToDiskShouldReturnIfMissingInformation() throws Exception {
         OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
         CompositeImage compositeImage = mock(CompositeImage.class);
         doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
-        Whitebox.invokeMethod(getFormUtils(), "saveStaticImagesToDisk", mock(Context.class), compositeImage, onImageSavedCallback);
+        getFormUtils().saveStaticImagesToDisk(mock(Context.class), compositeImage, onImageSavedCallback);
         verify(onImageSavedCallback).onImageSaved(isNull());
     }
 
     @Test
-    public void testSaveImage() throws Exception {
-        ParcelableImageMetadata parcelableImageMetadata = mock(ParcelableImageMetadata.class);
+    public void testSaveImageShouldSaveImage() {
+        assertEquals(0, ImageUtilShadow.getMockCounter().getCount());
 
-        CompositeImage compositeImage = mock(CompositeImage.class);
-        doReturn(mock(Bitmap.class)).when(compositeImage).getFullImage();
-        doReturn(mock(Bitmap.class)).when(compositeImage).getCroppedImage();
-        doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
-        Whitebox.invokeMethod(getFormUtils(), "saveImage", "entity_id", parcelableImageMetadata, compositeImage, mock(Context.class));
+        ParcelableImageMetadata parcelableImageMetadata = Mockito.spy(new ParcelableImageMetadata());
+        parcelableImageMetadata.withBaseEntityId("entity_id")
+                .withProviderId("provider_id");
+
+        CompositeImage compositeImage = new CompositeImage();
+        compositeImage.withCroppedImage(mock(Bitmap.class))
+                .withFullImage(mock(Bitmap.class))
+                .withParcelableImageMetadata(parcelableImageMetadata);
+
+        OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
+        getFormUtils().saveStaticImagesToDisk(RuntimeEnvironment.application, compositeImage, onImageSavedCallback);
+
+        // verify cropped and full image get a turn being saved
         verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
         verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
-    }
 
+        // verify cropped image is saved
+        verify(parcelableImageMetadata).setCroppedImageId(any());
+        Assert.assertNotNull(compositeImage.getCroppedImageFilePath());
+
+        // verify full image is saved
+        verify(parcelableImageMetadata).setFullImageId(any());
+        verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
+        Assert.assertNotNull(compositeImage.getFullImageFilePath());
+
+        // image should be saved to gallery for debug builds
+        assertEquals(1, ImageUtilShadow.getMockCounter().getCount());
+
+        verify(onImageSavedCallback).onImageSaved(eq(compositeImage));
+    }
 
     @Test
     public void testGetFileMD5HashShouldGetCorrectHash() throws Exception {
