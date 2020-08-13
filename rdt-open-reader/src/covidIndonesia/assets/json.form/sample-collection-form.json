@@ -497,7 +497,7 @@
       {
         "key": "other_health_facility_type_name_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_health_facility_type_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_health_facility_type_name_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -522,7 +522,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.other_primary_care_facility_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.other_health_facility_type_name.v_required.err}}"
         }
       },
       {
