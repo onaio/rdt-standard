@@ -56,7 +56,6 @@
         "text": "Add X-Ray results",
         "text_color": "#000000",
         "top_margin": "15dp",
-        "text_size": "13sp",
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff"
@@ -64,7 +63,6 @@
       {
         "key": "lbl_skip_xray_results",
         "type": "label",
-        "text_size": "13sp",
         "text": "Skip X-Ray results",
         "top_margin": "30dp",
         "text_color": "#000000",
@@ -107,7 +105,6 @@
         "text": "Add white blood cell count results",
         "text_color": "#000000",
         "top_margin": "15dp",
-        "text_size": "13sp",
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff"
@@ -115,7 +112,6 @@
       {
         "key": "lbl_skip_wbc_results",
         "type": "label",
-        "text_size": "13sp",
         "text": "Skip white blood cell count results",
         "top_margin": "30dp",
         "text_color": "#000000",
