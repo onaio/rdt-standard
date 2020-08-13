@@ -19,9 +19,9 @@ import io.ona.rdt.TestUtils;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.robolectric.util.FormSaverTest;
 import io.ona.rdt.util.FormSaver;
 
-import static io.ona.rdt.robolectric.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
@@ -62,10 +62,10 @@ public class PatientRegisterActivityInteractorTest {
     public void getPatientForRDTReturnsValidPatient() throws JSONException {
         Patient rdtPatient = interactor.getPatientForRDT(formJsonObj);
         assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
-        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
-        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
-        assertEquals(rdtPatient.getPatientId(), expectedPatient.getPatientId());
+        assertEquals(rdtPatient.getPatientName(), FormSaverTest.expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getPatientSex(), FormSaverTest.expectedPatient.getPatientSex());
+        assertEquals(rdtPatient.getBaseEntityId(), FormSaverTest.expectedPatient.getBaseEntityId());
+        assertEquals(rdtPatient.getPatientId(), FormSaverTest.expectedPatient.getPatientId());
     }
 
     @Test

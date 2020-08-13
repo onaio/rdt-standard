@@ -30,8 +30,6 @@ import io.ona.rdt.robolectric.shadow.SQLiteDatabaseShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 
-import static org.mockito.Mockito.mock;
-
 @RunWith(AndroidJUnit4.class)
 @Config(shadows = {ClientCoreUtilsShadow.class, FirebaseCrashlyticsShadow.class,
         FormDataRepositoryShadow.class, UtilsShadow.class, CameraBridgeViewBaseShadow.class,
@@ -46,7 +44,7 @@ public abstract class RobolectricTest {
         Context context = RDTApplication.getInstance().getContext();
         Mockito.reset(context.getUniqueIdRepository());
         Mockito.reset(context.getEventClientRepository());
-        Mockito.reset(ClientProcessorForJava.getInstance(mock(android.content.Context.class)));
+        Mockito.reset(ClientProcessorForJava.getInstance(Mockito.mock(android.content.Context.class)));
         OpenSRPContextShadow.setAllSettings(null);
         OpenSRPContextShadow.setUniqueIdRepository(null);
         ReflectionHelpers.setField(context, "uniqueIdRepository", null);

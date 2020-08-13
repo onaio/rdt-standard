@@ -16,8 +16,8 @@ import io.ona.rdt.R;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
+import io.ona.rdt.robolectric.util.BaseFormSaverTest;
 
-import static io.ona.rdt.robolectric.util.BaseFormSaverTest.expectedPatient;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -44,7 +44,7 @@ public class PatientProfileFragmentTest extends FragmentRobolectricTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(PATIENT, expectedPatient);
+        bundle.putParcelable(PATIENT, BaseFormSaverTest.expectedPatient);
         fragmentScenario =
                 FragmentScenario.launchInContainer(PatientProfileFragment.class,
                         bundle, R.style.AppTheme, null);
@@ -58,15 +58,15 @@ public class PatientProfileFragmentTest extends FragmentRobolectricTest {
         View view = mock(View.class);
         doReturn(R.id.btn_profile_record_rdt_test).when(view).getId();
         ReflectionHelpers.setField(patientProfileFragment, "patientProfileFragmentPresenter", patientProfileFragmentPresenter);
-        ReflectionHelpers.setField(patientProfileFragment, "currPatient", expectedPatient);
+        ReflectionHelpers.setField(patientProfileFragment, "currPatient", BaseFormSaverTest.expectedPatient);
 
         patientProfileFragment.onClick(view);
         verify(patientProfileFragmentPresenter).launchForm(eq(patientProfileFragment.getActivity()), patientArgumentCaptor.capture());
         Patient actualPatient = patientArgumentCaptor.getValue();
         assertNotNull(actualPatient);
-        assertEquals(expectedPatient.getPatientName(), actualPatient.getPatientName());
-        assertEquals(expectedPatient.getPatientSex(), actualPatient.getPatientSex());
-        assertEquals(expectedPatient.getBaseEntityId(), actualPatient.getBaseEntityId());
+        assertEquals(BaseFormSaverTest.expectedPatient.getPatientName(), actualPatient.getPatientName());
+        assertEquals(BaseFormSaverTest.expectedPatient.getPatientSex(), actualPatient.getPatientSex());
+        assertEquals(BaseFormSaverTest.expectedPatient.getBaseEntityId(), actualPatient.getBaseEntityId());
     }
 
     @Override

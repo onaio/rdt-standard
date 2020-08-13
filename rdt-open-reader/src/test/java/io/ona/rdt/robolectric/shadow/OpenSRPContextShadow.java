@@ -24,8 +24,6 @@ import org.smartregister.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 
 /**
  * Created by Vincent Karuri on 24/07/2020
@@ -44,7 +42,7 @@ public class OpenSRPContextShadow extends Shadow {
     @Implementation
     public CommonRepository commonrepository(String tablename) {
         if (commonRepository == null) {
-            commonRepository = mock(CommonRepository.class);
+            commonRepository = Mockito.mock(CommonRepository.class);
         }
         return commonRepository;
     }
@@ -52,16 +50,16 @@ public class OpenSRPContextShadow extends Shadow {
     @Implementation
     public UserService userService() {
         if (userService == null) {
-            userService = mock(UserService.class);
+            userService = Mockito.mock(UserService.class);
             doReturn("password").when(userService).getGroupId(any());
         }
         return userService;
     }
 
-   @Implementation
+    @Implementation
     public UniqueIdRepository getUniqueIdRepository() {
         if (uniqueIdRepository == null) {
-            uniqueIdRepository = mock(UniqueIdRepository.class);
+            uniqueIdRepository = Mockito.mock(UniqueIdRepository.class);
             UniqueId uniqueId = new UniqueId();
             uniqueId.setOpenmrsId("openmrsID1");
             doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
@@ -72,7 +70,7 @@ public class OpenSRPContextShadow extends Shadow {
     @Implementation
     public EventClientRepository getEventClientRepository() {
         if (eventClientRepository == null) {
-            eventClientRepository = mock(EventClientRepository.class);
+            eventClientRepository = Mockito.mock(EventClientRepository.class);
         }
         return eventClientRepository;
     }
@@ -88,19 +86,18 @@ public class OpenSRPContextShadow extends Shadow {
         return allSettings;
     }
 
-
     @Implementation
     public ImageRepository imageRepository() {
         if (imageRepository == null) {
-            imageRepository = spy(new ImageRepository());
+            imageRepository = Mockito.spy(new ImageRepository());
             imageRepository.updateMasterRepository(getMasterRepository());
         }
         return imageRepository;
     }
 
     private Repository getMasterRepository() {
-        Repository masterRepository = mock(Repository.class);
-        SQLiteDatabase db = mock(SQLiteDatabase.class);
+        Repository masterRepository = Mockito.mock(Repository.class);
+        SQLiteDatabase db = Mockito.mock(SQLiteDatabase.class);
         doReturn(db).when(masterRepository).getWritableDatabase();
         return masterRepository;
     }

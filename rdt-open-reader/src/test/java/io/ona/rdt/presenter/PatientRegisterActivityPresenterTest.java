@@ -24,10 +24,10 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterActivityInteractor;
+import io.ona.rdt.robolectric.util.FormSaverTest;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.robolectric.util.FormSaverTest.expectedPatient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -72,7 +72,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
     @Test
     public void testSaveFormShouldSaveForm() throws JSONException {
-        doReturn(expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
+        doReturn(FormSaverTest.expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
         mockStatic(RDTJsonFormUtils.class);
 
         presenter.saveForm(TestUtils.PATIENT_REGISTRATION_JSON_FORM, activity);
@@ -82,9 +82,9 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
         Patient rdtPatient = patientArgumentCaptor.getValue();
         assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
-        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
-        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
+        assertEquals(rdtPatient.getPatientName(), FormSaverTest.expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getPatientSex(), FormSaverTest.expectedPatient.getPatientSex());
+        assertEquals(rdtPatient.getBaseEntityId(), FormSaverTest.expectedPatient.getBaseEntityId());
 
         PowerMockito.verifyStatic(RDTJsonFormUtils.class);
         RDTJsonFormUtils.appendEntityId(any(JSONObject.class));
@@ -92,15 +92,15 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
 
     @Test
     public void testLaunchFormShouldLaunchFormWithCorrectParameters() throws JSONException {
-        presenter.launchForm((Activity) activity, RDT_TEST_FORM, expectedPatient);
+        presenter.launchForm((Activity) activity, RDT_TEST_FORM, FormSaverTest.expectedPatient);
 
         verify(interactor).launchForm(eq((Activity) activity), eq(RDT_TEST_FORM), patientArgumentCaptor.capture());
 
         Patient rdtPatient = patientArgumentCaptor.getValue();
         assertNotNull(rdtPatient);
-        assertEquals(rdtPatient.getPatientName(), expectedPatient.getPatientName());
-        assertEquals(rdtPatient.getPatientSex(), expectedPatient.getPatientSex());
-        assertEquals(rdtPatient.getBaseEntityId(), expectedPatient.getBaseEntityId());
+        assertEquals(rdtPatient.getPatientName(), FormSaverTest.expectedPatient.getPatientName());
+        assertEquals(rdtPatient.getPatientSex(), FormSaverTest.expectedPatient.getPatientSex());
+        assertEquals(rdtPatient.getBaseEntityId(), FormSaverTest.expectedPatient.getBaseEntityId());
     }
 
     private void mockStaticMethods() {

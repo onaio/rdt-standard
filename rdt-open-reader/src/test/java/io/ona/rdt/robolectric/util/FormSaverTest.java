@@ -10,7 +10,6 @@ import org.smartregister.clientandeventmodel.Obs;
 
 import java.util.Calendar;
 
-import io.ona.rdt.robolectric.util.BaseFormSaverTest;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormSaver;
 
@@ -54,9 +53,10 @@ public class FormSaverTest extends BaseFormSaverTest {
 
     @Test
     public void testGetBindTypeShouldGetCorrectBindType() throws Exception {
-        Assert.assertEquals(RDT_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_REGISTRATION));
-        Assert.assertEquals(RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", RDT_TEST));
-        Assert.assertEquals(PCR_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PCR_RESULT));
+        String getBindType = "getBindType";
+        Assert.assertEquals(RDT_PATIENTS, Whitebox.invokeMethod(getFormSaver(), getBindType, PATIENT_REGISTRATION));
+        Assert.assertEquals(RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), getBindType, RDT_TEST));
+        Assert.assertEquals(PCR_RESULTS, Whitebox.invokeMethod(getFormSaver(), getBindType, PCR_RESULT));
     }
 
     @Override

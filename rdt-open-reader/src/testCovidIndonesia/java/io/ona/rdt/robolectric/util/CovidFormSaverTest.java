@@ -37,12 +37,13 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
 
     @Test
     public void testGetBindTypeShouldGetCorrectBindType() throws Exception {
-        Assert.assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_PATIENT_REGISTRATION));
-        Assert.assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", COVID_RDT_TEST));
-        Assert.assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), "getBindType", PATIENT_DIAGNOSTICS));
-        Assert.assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_COLLECTION));
-        Assert.assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SAMPLE_DELIVERY_DETAILS));
-        Assert.assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(getFormSaver(), "getBindType", SUPPORT_INVESTIGATION));
+        String getBindType = "getBindType";
+        Assert.assertEquals(COVID_PATIENTS, Whitebox.invokeMethod(getFormSaver(), getBindType, COVID_PATIENT_REGISTRATION));
+        Assert.assertEquals(COVID_RDT_TESTS, Whitebox.invokeMethod(getFormSaver(), getBindType, COVID_RDT_TEST));
+        Assert.assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), getBindType, PATIENT_DIAGNOSTICS));
+        Assert.assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_COLLECTION));
+        Assert.assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_DELIVERY_DETAILS));
+        Assert.assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(getFormSaver(), getBindType, SUPPORT_INVESTIGATION));
     }
 
     @Override

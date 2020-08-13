@@ -2,12 +2,11 @@ package io.ona.rdt.robolectric.shadow;
 
 import android.content.Context;
 
+import org.mockito.Mockito;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
 import org.smartregister.sync.ClientProcessorForJava;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by Vincent Karuri on 12/08/2020
@@ -21,7 +20,7 @@ public class ClientProcessorForJavaShadow extends Shadow {
     @Implementation
     public static ClientProcessorForJava getInstance(Context context) {
         if (clientProcessorForJava == null) {
-            clientProcessorForJava = mock(ClientProcessorForJava.class);
+            clientProcessorForJava = Mockito.mock(ClientProcessorForJava.class);
         }
         return clientProcessorForJava;
     }
