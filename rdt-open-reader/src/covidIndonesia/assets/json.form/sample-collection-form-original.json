@@ -409,19 +409,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Referral Health Facility?",
+        "label": "Type of health facility",
         "options": [
           {
             "key": "hospital",
             "text": "Hospital"
           },
           {
-            "key": "clinic",
-            "text": "Clinic"
+            "key": "primary_health_care_center",
+            "text": "Primary health care center"
           },
           {
-            "key": "health_facility",
-            "text": "Health Facility"
+            "key": "community_health_facility",
+            "text": "Community health facility"
           },
           {
             "key": "other",
@@ -465,12 +465,12 @@
         }
       },
       {
-        "key": "name_of_primary_care_facility",
+        "key": "name_of_health_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Name of Primary Care Facility?",
+        "label": "Name of Health Facility?",
         "options": [
           {
             "key": "jenis_fasyankes",
@@ -495,9 +495,9 @@
         }
       },
       {
-        "key": "other_primary_care_facility_type_lbl",
+        "key": "other_health_facility_type_name_lbl",
         "type": "label",
-        "text": "Other primary care facility",
+        "text": "Other health facility",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -508,7 +508,7 @@
         }
       },
       {
-        "key": "other_primary_care_facility_type",
+        "key": "other_health_facility_type_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

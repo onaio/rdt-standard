@@ -416,12 +416,12 @@
             "text": "{{sample-collection-form-original.step3.health_facility_type.options.hospital.text}}"
           },
           {
-            "key": "clinic",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.clinic.text}}"
+            "key": "primary_health_care_center",
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.primary_health_care_center.text}}"
           },
           {
-            "key": "health_facility",
-            "text": "{{sample-collection-form-original.step3.health_facility_type.options.health_facility.text}}"
+            "key": "community_health_facility",
+            "text": "{{sample-collection-form-original.step3.health_facility_type.options.community_health_facility.text}}"
           },
           {
             "key": "other",
@@ -465,39 +465,39 @@
         }
       },
       {
-        "key": "name_of_primary_care_facility",
+        "key": "name_of_health_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step3.name_of_primary_care_facility.label}}",
+        "label": "{{sample-collection-form-original.step3.name_of_health_facility.label}}",
         "options": [
           {
             "key": "jenis_fasyankes",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.jenis_fasyankes.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.jenis_fasyankes.text}}"
           },
           {
             "key": "dinas_kesehatan",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.dinas_kesehatan.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.dinas_kesehatan.text}}"
           },
           {
             "key": "alamat_fasyankes",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.alamat_fasyankes.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.alamat_fasyankes.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step3.name_of_primary_care_facility.options.other.text}}"
+            "text": "{{sample-collection-form-original.step3.name_of_health_facility.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step3.name_of_primary_care_facility.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.name_of_health_facility.v_required.err}}"
         }
       },
       {
-        "key": "other_primary_care_facility_type_lbl",
+        "key": "other_health_facility_type_name_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step3.other_primary_care_facility_type_lbl.text}}",
+        "text": "{{sample-collection-form-original.step3.other_health_facility_type_name_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -508,7 +508,7 @@
         }
       },
       {
-        "key": "other_primary_care_facility_type",
+        "key": "other_health_facility_type_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -522,7 +522,7 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step3.other_primary_care_facility_type.v_required.err}}"
+          "err": "{{sample-collection-form-original.step3.other_health_facility_type_name.v_required.err}}"
         }
       },
       {
