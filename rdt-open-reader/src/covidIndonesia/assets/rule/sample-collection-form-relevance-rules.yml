@@ -83,29 +83,29 @@ condition: "step3_vtm_brand.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_primary_care_facility_type_lbl
-description: Other primary care facility label
+name: step3_other_health_facility_type_name_lbl
+description: Other health facility name label
 priority: 1
-condition: "step3_name_of_primary_care_facility != '' && step3_name_of_primary_care_facility == 'other'"
+condition: "step3_name_of_health_facility != '' && step3_name_of_health_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_primary_care_facility_type
-description: Other primary care facility
+name: step3_other_health_facility_type_name
+description: Other health facility name
 priority: 1
-condition: "step3_name_of_primary_care_facility != '' && step3_name_of_primary_care_facility == 'other'"
+condition: "step3_name_of_health_facility != '' && step3_name_of_health_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
 name: step3_other_health_facility_type_lbl
-description: Other facility type label
+description: Other health facility type label
 priority: 1
 condition: "step3_health_facility_type != '' && step3_health_facility_type == 'other'"
 actions:
   - "isRelevant = true"
 ---
 name: step3_other_health_facility_type
-description: Other facility type
+description: Other health facility type
 priority: 1
 condition: "step3_health_facility_type != '' && step3_health_facility_type == 'other'"
 actions:
