@@ -306,7 +306,8 @@ public class RDTJsonFormUtils {
     }
 
     public boolean isRDTIdField(JSONObject field) throws JSONException {
-        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj().optString(RDT_ID_KEY).equals(field.getString(KEY));
+        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj()
+                .optString(RDT_ID_KEY).equals(field.getString(KEY));
     }
 
     public synchronized void getNextUniqueIds(final FormLaunchArgs args, final OnUniqueIdsFetchedCallback callBack, int numOfIDs) {

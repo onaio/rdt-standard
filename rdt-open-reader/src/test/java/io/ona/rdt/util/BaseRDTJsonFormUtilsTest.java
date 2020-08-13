@@ -11,7 +11,8 @@ import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.robolectric.Robolectric;
+import org.robolectric.shadows.ShadowActivity;
 import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.repository.UniqueIdRepository;
@@ -22,9 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
-import io.ona.rdt.PowerMockTest;
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.robolectric.RobolectricTest;
 
 import static io.ona.rdt.TestUtils.getTestFilePath;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
@@ -41,8 +43,7 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  * Created by Vincent Karuri on 16/07/2020
  */
 
-@PrepareForTest({AssetHandler.class, ImageUtil.class, RDTApplication.class, org.smartregister.Context.class, DrishtiApplication.class})
-public abstract class BaseRDTJsonFormUtilsTest extends PowerMockTest {
+public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
 
     protected final String UNIQUE_ID = "unique_id";
 
@@ -72,10 +73,12 @@ public abstract class BaseRDTJsonFormUtilsTest extends PowerMockTest {
 
     @Test
     public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {
-        mockStaticMethods();
-
+        PatientRegisterActivity patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
+                .create()
+                .resume()
+                .get();
         Patient patient = new Patient("patient", "female", "entity_id");
-        JSONObject formJsonObj = getFormUtils().launchForm(mock(Activity.class), getFormToPrepopulate(), patient, getIDs());
+        JSONObject formJsonObj = getFormUtils().launchForm(patientRegisterActivity, getFormToPrepopulate(), patient, getIDs());
 
         int numOfPopulatedFields = 0;
         JSONArray fields = getMultiStepFormFields(formJsonObj);
@@ -84,6 +87,7 @@ public abstract class BaseRDTJsonFormUtilsTest extends PowerMockTest {
             numOfPopulatedFields = assertFieldsArePopulated(field, patient, numOfPopulatedFields);
         }
         assertAllFieldsArePopulated(numOfPopulatedFields);
+        patientRegisterActivity.finish();
     }
 
     protected void mockStaticMethods() {

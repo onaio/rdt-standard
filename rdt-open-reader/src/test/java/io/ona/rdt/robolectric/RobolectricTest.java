@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.sync.ClientProcessorForJava;
 
@@ -20,6 +21,7 @@ import io.ona.rdt.robolectric.shadow.ClientProcessorForJavaShadow;
 import io.ona.rdt.robolectric.shadow.FirebaseCrashlyticsShadow;
 import io.ona.rdt.robolectric.shadow.FormDataRepositoryShadow;
 import io.ona.rdt.robolectric.shadow.GpsDialogShadow;
+import io.ona.rdt.robolectric.shadow.ImageUtilShadow;
 import io.ona.rdt.robolectric.shadow.JsonFormFragmentPresenterShadow;
 import io.ona.rdt.robolectric.shadow.JsonFormFragmentShadow;
 import io.ona.rdt.robolectric.shadow.MatShadow;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.mock;
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,
         SQLiteDatabaseShadow.class, GpsDialogShadow.class, MatShadow.class,
-        ClientProcessorForJavaShadow.class})
+        ClientProcessorForJavaShadow.class, ImageUtilShadow.class})
 public abstract class RobolectricTest {
 
     @After
@@ -44,7 +46,9 @@ public abstract class RobolectricTest {
         Context context = RDTApplication.getInstance().getContext();
         Mockito.reset(context.getUniqueIdRepository());
         Mockito.reset(context.getEventClientRepository());
-        Mockito.reset(context.getEventClientRepository());
         Mockito.reset(ClientProcessorForJava.getInstance(mock(android.content.Context.class)));
+        OpenSRPContextShadow.setAllSettings(null);
+        OpenSRPContextShadow.setUniqueIdRepository(null);
+        ReflectionHelpers.setField(context, "uniqueIdRepository", null);
     }
 }

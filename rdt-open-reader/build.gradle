@@ -38,6 +38,10 @@ android {
         }
     }
 
+    sourceSets {
+        main.assets.srcDirs += ['src/test/assets/']
+    }
+
     lintOptions {
         lintConfig file("lint.xml")
         abortOnError false

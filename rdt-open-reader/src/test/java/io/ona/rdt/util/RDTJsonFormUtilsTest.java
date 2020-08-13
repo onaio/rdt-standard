@@ -8,9 +8,11 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.RuntimeEnvironment;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 
 import java.io.OutputStream;
@@ -19,10 +21,12 @@ import java.util.List;
 import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.robolectric.shadow.ImageUtilShadow;
 
 import static io.ona.rdt.TestUtils.cleanUpFiles;
 import static io.ona.rdt.TestUtils.getTestFilePath;
@@ -796,23 +800,9 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testGetUniqueIDsShouldGetIDs() throws Exception {
-        mockStaticMethods();
-
-        UniqueId uniqueId = new UniqueId();
-        uniqueId.setOpenmrsId("openmrsID1");
-        doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
-
         List<UniqueId> uniqueIds = Whitebox.invokeMethod(getFormUtils(), "getUniqueIDs", 2);
         assertEquals("openmrsID1", uniqueIds.get(0).getOpenmrsId());
         assertEquals("openmrsID1", uniqueIds.get(1).getOpenmrsId());
-
-        uniqueId = new UniqueId();
-        uniqueId.setOpenmrsId("openmrsID2");
-        doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
-
-        uniqueIds = Whitebox.invokeMethod(getFormUtils(), "getUniqueIDs", 2);
-        assertEquals("openmrsID2", uniqueIds.get(0).getOpenmrsId());
-        assertEquals("openmrsID2", uniqueIds.get(1).getOpenmrsId());
     }
 
     @Test
@@ -825,23 +815,22 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testGetFormJsonObjectShouldGetFormJsonObject() throws Exception {
-        mockStaticMethods();
-        JSONObject jsonObject = getFormUtils().getFormJsonObject("form_name", mock(Context.class));
+        JSONObject jsonObject = getFormUtils().getFormJsonObject("form_name.json",
+                RuntimeEnvironment.application);
         assertEquals(new JSONObject(getMockForm()).toString(), jsonObject.toString());
     }
 
     @Test
     public void testSaveImageToGalleryShouldSaveImageToGallery() throws Exception {
-        mockStaticMethods();
+        assertEquals(0, ImageUtilShadow.getMockCounter().getCount());
         Context context = mock(Context.class);
         Whitebox.invokeMethod(getFormUtils(), "saveImageToGallery", context, mock(Bitmap.class));
-        verifyStatic(ImageUtil.class, times(1));
-        ImageUtil.saveImage(eq(context), any(), eq(0L), eq(false), any(OnImageSavedCallBack.class));
+        assertEquals(1, ImageUtilShadow.getMockCounter().getCount());
+        ImageUtilShadow.getMockCounter().setCount(0);
     }
 
     @Test
     public void testWriteImageToDiskShouldSuccessfullyWriteImageToDisk() throws Exception {
-        mockStaticMethods();
         Bitmap image = mock(Bitmap.class);
         Pair<Boolean, String> result = Whitebox.invokeMethod(getFormUtils(), "writeImageToDisk", getTestFilePath(), image, mock(Context.class));
         verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), any(OutputStream.class));
@@ -850,8 +839,6 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testSaveImgDetailsShouldSaveCorrectImgDetails() throws Exception {
-        mockStaticMethods();
-
         ProfileImage profileImage = spy(new ProfileImage("image_id", "anm_id", "entity_id", "content_type", "file_path", "sync_status", "file_category"));
         ParcelableImageMetadata parcelableImageMetadata = new ParcelableImageMetadata();
         parcelableImageMetadata.withProviderId("anm_id")
@@ -863,13 +850,11 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         verify(profileImage).setFilepath(eq("file_path"));
         verify(profileImage).setFilecategory(eq(MULTI_VERSION));
         verify(profileImage).setSyncStatus(eq(ImageRepository.TYPE_Unsynced));
-        verify(imageRepository).add(eq(profileImage));
+        verify(RDTApplication.getInstance().getContext().imageRepository()).add(eq(profileImage));
     }
 
     @Test
     public void testSaveImageShouldSaveImage() throws Exception {
-        mockStaticMethods();
-
         ParcelableImageMetadata parcelableImageMetadata = spy(new ParcelableImageMetadata());
         parcelableImageMetadata.withProviderId("anm_id")
                 .withBaseEntityId("entity_id");
@@ -893,7 +878,6 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testSaveImage() throws Exception {
-        mockStaticMethods();
         ParcelableImageMetadata parcelableImageMetadata = mock(ParcelableImageMetadata.class);
 
         CompositeImage compositeImage = mock(CompositeImage.class);
@@ -913,11 +897,11 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testGetFormTagShouldPopulateTagWithCorrectMetadata() {
-        mockStaticMethods();
-        doReturn("provider").when(allSettings).fetchRegisteredANM();
-        doReturn("location-id").when(allSettings).fetchDefaultLocalityId(anyString());
-        doReturn("team-id").when(allSettings).fetchDefaultTeamId(anyString());
-        doReturn("team").when(allSettings).fetchDefaultTeam(anyString());
+        AllSettings settings = RDTApplication.getInstance().getContext().allSettings();
+        settings.registerANM("provider", "");
+        settings.getPreferences().saveDefaultLocalityId("provider", "location-id");
+        settings.getPreferences().saveDefaultTeam("provider", "team");
+        settings.getPreferences().saveDefaultTeamId("provider", "team-id");
         FormTag formTag = getFormUtils().getFormTag();
         assertEquals("provider", formTag.providerId);
         assertEquals("location-id", formTag.locationId);
@@ -937,7 +921,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Override
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(4, numOfPopulatedFields);
+        assertEquals(8, numOfPopulatedFields);
     }
 
     @Override
