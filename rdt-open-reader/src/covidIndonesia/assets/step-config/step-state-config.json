@@ -1,4 +1,5 @@
 {
+  "rdt_id_key": "rdt_id",
   "product_expired_page": "step2",
   "manual_expiration_date_entry_page": "step6",
   "disabled_back_press_pages" : [

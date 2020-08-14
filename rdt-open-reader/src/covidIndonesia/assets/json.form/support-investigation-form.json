@@ -56,7 +56,6 @@
         "text": "{{support-investigation-form-original.step1.lbl_add_xray_results.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
-        "text_size": "13sp",
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff"
@@ -64,7 +63,6 @@
       {
         "key": "lbl_skip_xray_results",
         "type": "label",
-        "text_size": "13sp",
         "text": "{{support-investigation-form-original.step1.lbl_skip_xray_results.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",
@@ -107,7 +105,6 @@
         "text": "{{support-investigation-form-original.step3.lbl_add_wbc_results.text}}",
         "text_color": "#000000",
         "top_margin": "15dp",
-        "text_size": "13sp",
         "has_bg": true,
         "has_drawable_end": true,
         "bg_color": "#ffffff"
@@ -115,7 +112,6 @@
       {
         "key": "lbl_skip_wbc_results",
         "type": "label",
-        "text_size": "13sp",
         "text": "{{support-investigation-form-original.step3.lbl_skip_wbc_results.text}}",
         "top_margin": "30dp",
         "text_color": "#000000",

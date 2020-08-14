@@ -1,7 +1,9 @@
 package io.ona.rdt.job;
 
+import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import io.ona.rdt.application.RDTApplication;
 
 import org.smartregister.AllConstants;
 import org.smartregister.job.BaseJob;
@@ -17,8 +19,9 @@ public class ImageUploadSyncServiceJob extends BaseJob {
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
-        Intent intent = new Intent(getApplicationContext(), ImageUploadSyncService.class);
-        getApplicationContext().startService(intent);
+        Context applicationContext = RDTApplication.getInstance().getApplicationContext();
+        Intent intent = new Intent(applicationContext, ImageUploadSyncService.class);
+        applicationContext.startService(intent);
         return params != null && params.getExtras().getBoolean(AllConstants.INTENT_KEY.TO_RESCHEDULE, false) ? Result.RESCHEDULE : Result.SUCCESS;
     }
 }

@@ -5,6 +5,9 @@ import android.view.View;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.json.JSONObject;
+import org.mockito.Mockito;
+
 import io.ona.rdt.TestUtils;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 
@@ -42,7 +45,9 @@ public class PatientRegisterFragmentStub extends JsonFormFragment implements RDT
 
     @Override
     public JsonApi getJsonApi() {
-        return mock(JsonApi.class);
+        JsonApi jsonApi = mock(JsonApi.class);
+        Mockito.doReturn(new JSONObject()).when(jsonApi).getmJSONObject();
+        return jsonApi;
     }
 
     @Override

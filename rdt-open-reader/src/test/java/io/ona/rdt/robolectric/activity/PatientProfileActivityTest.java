@@ -20,7 +20,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.activity.PatientProfileActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
-import io.ona.rdt.robolectric.RobolectricTest;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
@@ -33,7 +32,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
-public class PatientProfileActivityTest extends RobolectricTest {
+public class PatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Mock
     private PatientProfileActivityPresenter presenter;
@@ -80,5 +79,10 @@ public class PatientProfileActivityTest extends RobolectricTest {
                 ReflectionHelpers.ClassParameter.from(Intent.class, intent));
 
         verify(presenter).saveForm(eq(jsonObject.toString()), isNull());
+    }
+
+    @Override
+    public Activity getActivity() {
+        return patientProfileActivity;
     }
 }

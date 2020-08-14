@@ -16,9 +16,8 @@ import io.ona.rdt.R;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
-import io.ona.rdt.robolectric.RobolectricTest;
+import io.ona.rdt.robolectric.util.BaseFormSaverTest;
 
-import static io.ona.rdt.util.BaseFormSaverTest.expectedPatient;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -30,7 +29,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 27/07/2020
  */
-public class PatientProfileFragmentTest extends RobolectricTest {
+public class PatientProfileFragmentTest extends FragmentRobolectricTest {
 
     @Mock
     private PatientProfileFragmentPresenter patientProfileFragmentPresenter;
@@ -38,33 +37,40 @@ public class PatientProfileFragmentTest extends RobolectricTest {
     @Captor
     private ArgumentCaptor<Patient> patientArgumentCaptor;
 
+    private FragmentScenario<PatientProfileFragment> fragmentScenario;
+    private PatientProfileFragment patientProfileFragment;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(PATIENT, BaseFormSaverTest.expectedPatient);
+        fragmentScenario =
+                FragmentScenario.launchInContainer(PatientProfileFragment.class,
+                        bundle, R.style.AppTheme, null);
+        fragmentScenario.onFragment(fragment -> {
+            patientProfileFragment = fragment;
+        });
     }
 
     @Test
     public void testOnViewClickedShouldPerformAppropriateAction() {
+        View view = mock(View.class);
+        doReturn(R.id.btn_profile_record_rdt_test).when(view).getId();
+        ReflectionHelpers.setField(patientProfileFragment, "patientProfileFragmentPresenter", patientProfileFragmentPresenter);
+        ReflectionHelpers.setField(patientProfileFragment, "currPatient", BaseFormSaverTest.expectedPatient);
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(PATIENT, expectedPatient);
-        FragmentScenario<PatientProfileFragment> fragmentScenario =
-                FragmentScenario.launchInContainer(PatientProfileFragment.class,
-                        bundle, R.style.AppTheme, null);
+        patientProfileFragment.onClick(view);
+        verify(patientProfileFragmentPresenter).launchForm(eq(patientProfileFragment.getActivity()), patientArgumentCaptor.capture());
+        Patient actualPatient = patientArgumentCaptor.getValue();
+        assertNotNull(actualPatient);
+        assertEquals(BaseFormSaverTest.expectedPatient.getPatientName(), actualPatient.getPatientName());
+        assertEquals(BaseFormSaverTest.expectedPatient.getPatientSex(), actualPatient.getPatientSex());
+        assertEquals(BaseFormSaverTest.expectedPatient.getBaseEntityId(), actualPatient.getBaseEntityId());
+    }
 
-        fragmentScenario.onFragment(fragment -> {
-            View view = mock(View.class);
-            doReturn(R.id.btn_profile_record_rdt_test).when(view).getId();
-            ReflectionHelpers.setField(fragment, "patientProfileFragmentPresenter", patientProfileFragmentPresenter);
-            ReflectionHelpers.setField(fragment, "currPatient", expectedPatient);
-
-            fragment.onClick(view);
-            verify( patientProfileFragmentPresenter).launchForm(eq(fragment.getActivity()), patientArgumentCaptor.capture());
-            Patient actualPatient = patientArgumentCaptor.getValue();
-            assertNotNull(actualPatient);
-            assertEquals(expectedPatient.getPatientName(), actualPatient.getPatientName());
-            assertEquals(expectedPatient.getPatientSex(), actualPatient.getPatientSex());
-            assertEquals(expectedPatient.getBaseEntityId(), actualPatient.getBaseEntityId());
-        });
+    @Override
+    public FragmentScenario getFragmentScenario() {
+        return fragmentScenario;
     }
 }
