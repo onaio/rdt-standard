@@ -1,0 +1,8 @@
+<resources>
+    <string name="login_app_name">Aplikasi Pengujian dan Pengawasan COVID-19</string>
+    <string name="covid_patient_profile_symptoms_history">Gejala dan Riwayat</string>
+    <string name="covid_patient_profile_rdt">RDT</string>
+    <string name="covid_patient_profile_sample_collection">Pengumpulan sampel</string>
+    <string name="covid_patient_profile_supporting_investigations">Pemeriksaan penunjang</string>
+    <string name="covid_patient_profile_sample_shipments">Pengiriman sampel</string>
+</resources>
