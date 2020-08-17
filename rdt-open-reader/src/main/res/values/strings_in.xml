@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">RDT Open Reader</string>
+
+    <string name="clients_register_title">Klien</string>
+    <string name="hamburger_menu">Menu hamburger</string>
+    <string name="launching_expiration_date_widget">Meluncurkan tanggal masa berlaku widget</string>
+    <string name="phone_state_permissions_required">Izin keadaan ponsel diperlukan untuk mengirimkan formulir ini</string>
+    <string name="rdt_permissions_required">Pengambilan gambar RDT membutuhkan izin ke kamera dan penyimpanan</string>
+    <string name="location_permissions">Izin lokasi diperlukan untuk melanjutkan</string>
+    <string name="time_expired">Waktu telah habis.\nBaca hasil RDT.</string>
+    <string name="login_app_name">RDT Open Reader</string>
+    <string name="login_enter_username">Masukkan nama pengguna</string>
+    <string name="login_enter_password">Masukkan kata kunci</string>
+    <string name="login_attributions">Pengembangan dari <![CDATA [<b><font color=#467690>Ona</font></b>]]> yang  <![CDATA [<br/>]]> dipersembahkan oleh <![CDATA [<b><font color=#467690>OpenSRP</font></b>]]></string>
+    <string name="confirm_close_msg">Anda yakin ingin keluar dari formulir? Semua data yang dimasukkan pada formulir ini akan hilang.</string>
+    <string name="confirm_close_title">Mohon konfirmasi</string>
+    <string name="unique_id_fetch_error_msg">Unique IDs tidak cukup. Mohon nyalakan koneksi internet Anda dan lakukan sinkronisasi manual untuk mengambil perintah.</string>
+    <string name="txt_record_btn">Temukan Aku</string>
+    <string name="txt_location_generation_instructions">Kami membutuhkan lokasi Anda sebelum melanjutkan ke tes.
+Silakan klik tombol <i>Temukan Aku</i> di bagian bawah layar dan kami akan secara otomatis menentukan lokasi Anda.</string>
+    <string name="drawer_menu_item_sync">Sinkronkan</string>
+    <string name="drawer_menu_item_logout">Keluar</string>
+    <string name="drawer_menu_item_image_sync">Sinkronisasi gambar</string>
+    <string name="search_hint">Cari</string>
+    <string name="please_wait_title">Mohon tunggu</string>
+    <string name="saving_image">Menyimpan gambar yang diambil</string>
+    <string name="finding_location">Menemukan lokasi Anda</string>
+    <string name="rdt_id_prefix">ID RDT</string>
+    <string name="open_guideline_rdt">Membuka Petunjuk RDT</string>
+    <string name="carestart_rdt">Carestart RDT</string>
+    <string name="pf_negative_result">Pf negatif</string>
+    <string name="pv_negative_result">Pv negatif</string>
+    <string name="pf_positive_result">Pf positif</string>
+    <string name="pv_positive_result">Pv positif</string>
+    <string name="invalid_result">Tes tidak valid</string>
+    <string name="positive">\u0020positif,\u0020</string>
+    <string name="fetching_test_results">Mengambil hasil tes</string>
+    <string name="microscopy">Mikroskopi</string>
+    <string name="blood_spot">Spot Darah/Blood Spot</string>
+    <string name="form_successfully_saved">Disimpan!</string>
+    <string name="malariae_prefix">P. malariae - </string>
+    <string name="ovale_prefix">P. ovale - </string>
+    <string name="vivax_prefix">P. vivax - </string>
+    <string name="falciparum_prefix">P. falciparum - </string>
+    <string name="gameto_prefix">Pf. gameto - </string>
+</resources>
+
