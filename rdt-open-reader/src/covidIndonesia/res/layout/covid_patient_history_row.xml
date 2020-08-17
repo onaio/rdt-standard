@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/history_key"
+        android:id="@+id/tv_history_key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Key"
@@ -18,7 +18,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/history_value"
+        android:id="@+id/tv_history_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Value"
