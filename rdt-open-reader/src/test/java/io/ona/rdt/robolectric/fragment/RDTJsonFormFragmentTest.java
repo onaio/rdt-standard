@@ -55,6 +55,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
                         null, R.style.AppTheme, null);
         fragmentScenario.onFragment(fragment -> {
             jsonFormFragment = fragment;
+            fragment.setmJsonApi(mock(JsonApi.class));
             Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, mock(RDTJsonFormFragmentPresenter.class));
         });
     }

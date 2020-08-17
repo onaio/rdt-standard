@@ -81,9 +81,13 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
-        rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(v -> saveForm());
+        rootView.findViewById(com.vijay.jsonwizard.R.id.previous_button).setOnClickListener(v -> {
+            getJsonApi().setPreviousPressed(true);
+            saveForm();
+        });
 
         rootView.findViewById(com.vijay.jsonwizard.R.id.next_button).setOnClickListener(v -> {
+            getJsonApi().setPreviousPressed(false);
             Object isSubmit = v.getTag(R.id.submit);
             String eventType = getJsonApi().getmJSONObject().optString(ENCOUNTER_TYPE);
             if (formHasSpecialNavigationRules(eventType)) {
@@ -202,7 +206,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     public static void setCurrentStep(int currStep) {
         currentStep = currStep;
     }
-
 
     /**
      *

@@ -90,8 +90,9 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
             String stepName = fragmentManager.getBackStackEntryAt(backStackSize - 1).getName();
             int stepNum = Integer.valueOf(stepName.substring(4));
             RDTJsonFormFragment.setCurrentStep(stepNum);
-            getSupportFragmentManager().popBackStack();
+            fragmentManager.popBackStack();
         }
+        setPreviousPressed(true);
     }
 
     public String getRdtType() {

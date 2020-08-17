@@ -2,6 +2,7 @@ package io.ona.rdt.presenter;
 
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -77,7 +78,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     }
 
     private String getNextStep() {
-        return mStepDetails.optString("next");
+        return mStepDetails.optString(JsonFormConstants.NEXT);
     }
 
     public void moveToNextStep(String stepName) {
