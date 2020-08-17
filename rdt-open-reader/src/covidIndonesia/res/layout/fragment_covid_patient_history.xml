@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/patient_symptoms_history_section"
+                layout="@layout/patient_history_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="@{@string/covid_patient_profile_symptoms_history}" />
+
+            <include
+                android:id="@+id/patient_rdt_history_section"
+                layout="@layout/patient_history_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="@{@string/covid_patient_profile_rdt}" />
+
+            <include
+                android:id="@+id/patient_samples_history_section"
+                layout="@layout/patient_history_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="@{@string/covid_patient_profile_sample_collection}" />
+
+            <include
+                android:id="@+id/patient_supporting_investigations_history_section"
+                layout="@layout/patient_history_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="@{@string/covid_patient_profile_supporting_investigations}" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
