@@ -12,12 +12,20 @@ import io.ona.rdt.R;
  */
 public class CovidPatientHistoryViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView tvHistoryKey;
-    public TextView tvHistoryValue;
+    private TextView tvHistoryKey;
+    private TextView tvHistoryValue;
 
     public CovidPatientHistoryViewHolder(@NonNull View itemView) {
         super(itemView);
         tvHistoryKey = itemView.findViewById(R.id.tv_history_key);
-        tvHistoryKey = itemView.findViewById(R.id.tv_history_value);
+        tvHistoryValue = itemView.findViewById(R.id.tv_history_value);
+    }
+
+    public TextView getTvHistoryKey() {
+        return tvHistoryKey;
+    }
+
+    public TextView getTvHistoryValue() {
+        return tvHistoryValue;
     }
 }
