@@ -42,6 +42,8 @@ android {
         main.assets.srcDirs += ['src/test/assets/']
     }
 
+    dataBinding.enabled = true
+
     lintOptions {
         lintConfig file("lint.xml")
         abortOnError false
