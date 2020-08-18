@@ -17,7 +17,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.adapter.CovidPatientHistoryAdapter;
 import io.ona.rdt.domain.PatientHistoryEntry;
 
-
 public class CovidPatientHistoryFragment extends Fragment {
 
     @Override
@@ -66,6 +65,7 @@ public class CovidPatientHistoryFragment extends Fragment {
                 patientHistoryEntryList.setAdapter(new CovidPatientHistoryAdapter(patientHistoryEntries));
             }
         }
+
         new FetchPatientHistoryTask().execute();
     }
 
