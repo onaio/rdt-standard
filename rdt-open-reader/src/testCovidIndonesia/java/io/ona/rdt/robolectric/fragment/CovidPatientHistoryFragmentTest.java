@@ -31,25 +31,28 @@ public class CovidPatientHistoryFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testOnCreateViewShouldCorrectlyPopulatePatientHistorySections() {
+        final int firstItem = 1;
+        final int secondItem = 2;
+        final int thirdItem = 3;
         // rdt history section
-        assertListValuesAreCorrect(1, R.id.patient_rdt_history_section);
-        assertListValuesAreCorrect(2, R.id.patient_rdt_history_section);
-        assertListValuesAreCorrect(3, R.id.patient_rdt_history_section);
+        assertListValuesAreCorrect(firstItem, R.id.patient_rdt_history_section);
+        assertListValuesAreCorrect(secondItem, R.id.patient_rdt_history_section);
+        assertListValuesAreCorrect(thirdItem, R.id.patient_rdt_history_section);
 
         // symptoms history section
-        assertListValuesAreCorrect(1, R.id.patient_symptoms_history_section);
-        assertListValuesAreCorrect(2, R.id.patient_symptoms_history_section);
-        assertListValuesAreCorrect(3, R.id.patient_symptoms_history_section);
+        assertListValuesAreCorrect(firstItem, R.id.patient_symptoms_history_section);
+        assertListValuesAreCorrect(secondItem, R.id.patient_symptoms_history_section);
+        assertListValuesAreCorrect(thirdItem, R.id.patient_symptoms_history_section);
 
         // supporting investigations history section
-        assertListValuesAreCorrect(1, R.id.patient_supporting_investigations_history_section);
-        assertListValuesAreCorrect(2, R.id.patient_supporting_investigations_history_section);
-        assertListValuesAreCorrect(3, R.id.patient_supporting_investigations_history_section);
+        assertListValuesAreCorrect(firstItem, R.id.patient_supporting_investigations_history_section);
+        assertListValuesAreCorrect(secondItem, R.id.patient_supporting_investigations_history_section);
+        assertListValuesAreCorrect(thirdItem, R.id.patient_supporting_investigations_history_section);
 
         // samples history section
-        assertListValuesAreCorrect(1, R.id.patient_samples_history_section);
-        assertListValuesAreCorrect(2, R.id.patient_samples_history_section);
-        assertListValuesAreCorrect(3, R.id.patient_samples_history_section);
+        assertListValuesAreCorrect(firstItem, R.id.patient_samples_history_section);
+        assertListValuesAreCorrect(secondItem, R.id.patient_samples_history_section);
+        assertListValuesAreCorrect(thirdItem, R.id.patient_samples_history_section);
     }
 
     private void assertListValuesAreCorrect(int position, int layoutId) {

@@ -857,8 +857,8 @@
             "text": "{{patient-diagnostics-form-original.step3.travel_location.options.solo.text}}"
           },
           {
-            "key": "denpasa",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.denpasa.text}}"
+            "key": "denpasar",
+            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.denpasar.text}}"
           },
           {
             "key": "other",
