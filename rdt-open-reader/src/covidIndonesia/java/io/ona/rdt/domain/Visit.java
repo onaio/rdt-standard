@@ -8,6 +8,11 @@ public class Visit {
     private String visitName;
     private String dateOfVisit;
 
+    public Visit(String visitName, String dateOfVisit) {
+        this.visitName = visitName;
+        this.dateOfVisit = dateOfVisit;
+    }
+
     public String getVisitName() {
         return visitName;
     }
