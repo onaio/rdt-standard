@@ -55,7 +55,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
-import static io.ona.rdt.util.Constants.FormFields.EVENT_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.LBL_PATIENT_GENDER_AND_ID;
 import static io.ona.rdt.util.Constants.FormFields.LBL_PATIENT_NAME;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
@@ -360,7 +359,7 @@ public class RDTJsonFormUtils {
     public String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = JsonFormUtils.getString(jsonForm, Constants.FormFields.ENTITY_ID);
 
-        if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, EVENT_TYPE))) { return entityId; }
+        if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, Constants.FormFields.ENCOUNTER_TYPE))) { return entityId; }
 
         entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);

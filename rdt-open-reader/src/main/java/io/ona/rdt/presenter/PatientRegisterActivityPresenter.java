@@ -29,7 +29,7 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
         interactor = getInteractor();
-        formUtils = new RDTJsonFormUtils();
+        formUtils = getFormUtils();
     }
 
     @Override
@@ -82,16 +82,27 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
 
     protected PatientRegisterActivityInteractor getInteractor() {
         if (interactor == null) {
-            interactor = createInteractor();
+            interactor = initializeInteractor();
         }
         return interactor;
     }
 
-    protected PatientRegisterActivityInteractor createInteractor() {
+    protected PatientRegisterActivityInteractor initializeInteractor() {
         return new PatientRegisterActivityInteractor();
     }
 
     protected PatientRegisterActivity getActivity() {
         return (PatientRegisterActivity) activity;
+    }
+
+    public RDTJsonFormUtils getFormUtils() {
+        if (formUtils == null) {
+            formUtils = initializeFormUtils();
+        }
+        return formUtils;
+    }
+
+    protected RDTJsonFormUtils initializeFormUtils() {
+        return new RDTJsonFormUtils();
     }
 }

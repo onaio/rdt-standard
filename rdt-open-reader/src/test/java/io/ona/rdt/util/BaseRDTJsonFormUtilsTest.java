@@ -1,5 +1,7 @@
 package io.ona.rdt.util;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +57,7 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
     @Test
     public void testAppendEntityIdShouldAppendCorrectNonEmptyId() throws JSONException {
         JSONObject jsonForm = new JSONObject();
-        jsonForm.put(Constants.FormFields.EVENT_TYPE, getPatientRegistrationEvent());
+        jsonForm.put(JsonFormConstants.ENCOUNTER_TYPE, getPatientRegistrationEvent());
         String entityId = getFormUtils().appendEntityId(jsonForm);
         assertFalse(StringUtils.isBlank(entityId));
         assertEquals(entityId, jsonForm.get(Constants.FormFields.ENTITY_ID));
