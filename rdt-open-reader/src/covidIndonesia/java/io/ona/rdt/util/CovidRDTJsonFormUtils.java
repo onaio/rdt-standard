@@ -94,4 +94,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         }
     }
+
+    protected static Set<String> getFormsThatRequireEntityId() {
+        return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
+    }
 }

@@ -20,6 +20,7 @@ import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.ByteArrayOutputStream;
@@ -31,11 +32,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import androidx.core.util.Pair;
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -52,6 +55,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
 import static com.vijay.jsonwizard.utils.Utils.closeCloseable;
 import static io.ona.rdt.util.Constants.Config.MULTI_VERSION;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
+import static io.ona.rdt.util.Constants.FormFields.EVENT_TYPE;
 import static io.ona.rdt.util.Constants.FormFields.LBL_PATIENT_GENDER_AND_ID;
 import static io.ona.rdt.util.Constants.FormFields.LBL_PATIENT_NAME;
 import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
@@ -64,7 +68,6 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
-import static org.smartregister.util.JsonFormUtils.getString;
 import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
@@ -72,7 +75,7 @@ import static org.smartregister.util.Utils.isEmptyCollection;
  */
 public class RDTJsonFormUtils {
 
-    private static final String TAG = RDTJsonFormUtils.class.getName();
+    private static Set<String> formsToAddEntityIdToIfBlank = getFormsToAddEntityIdToIfBlank();
 
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
 
@@ -124,7 +127,7 @@ public class RDTJsonFormUtils {
                 compositeImage.getParcelableImageMetadata().setCroppedImageMD5Hash(getFileMD5Hash(filePath));
                 compositeImage.withCroppedImageFilePath(filePath);
             } else {
-                Timber.e(TAG, "Sorry, could not create image folder!");
+                Timber.e("Sorry, could not create image folder!");
             }
         }
     }
@@ -179,13 +182,13 @@ public class RDTJsonFormUtils {
             }
             result = new Pair<>(true, absoluteFilePath);
         } catch(FileNotFoundException e){
-            Timber.e(TAG, e);
+            Timber.e(e);
         } finally {
             if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
-                    Timber.e(TAG, e);
+                    Timber.e(e);
                 }
             }
         }
@@ -226,7 +229,7 @@ public class RDTJsonFormUtils {
             intent.putExtra(PERFORM_FORM_TRANSLATION, true);
             context.startActivityForResult(intent, requestCode);
         } catch (Exception e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
     }
 
@@ -256,7 +259,7 @@ public class RDTJsonFormUtils {
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
         return formJsonObject;
     }
@@ -342,10 +345,28 @@ public class RDTJsonFormUtils {
     }
 
     public static String appendEntityId(JSONObject jsonForm) throws JSONException {
-        String entityId = getString(jsonForm, Constants.FormFields.ENTITY_ID);
+        String entityId = JsonFormUtils.getString(jsonForm, Constants.FormFields.ENTITY_ID);
+
+        if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, EVENT_TYPE))) { return entityId; }
+
         entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);
         return entityId;
+    }
+
+    private static Set<String> getFormsToAddEntityIdToIfBlank() {
+        if (formsToAddEntityIdToIfBlank == null) {
+            formsToAddEntityIdToIfBlank = getFormsThatRequireEntityId();
+        }
+        return formsToAddEntityIdToIfBlank;
+    }
+
+    protected static Set<String> getFormsThatRequireEntityId() {
+       return new HashSet<>(Arrays.asList(Constants.Encounter.PATIENT_REGISTRATION));
+    }
+
+    private static boolean shouldAppendIDToForm(String eventType) {
+        return getFormsToAddEntityIdToIfBlank().contains(eventType);
     }
 
     public static FormTag getFormTag() {

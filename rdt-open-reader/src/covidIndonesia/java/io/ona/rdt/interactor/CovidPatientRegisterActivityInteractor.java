@@ -44,6 +44,8 @@ public class CovidPatientRegisterActivityInteractor extends PatientRegisterActiv
 
     @Override
     protected Patient createPatient(String baseEntityId, JSONArray formFields) {
+        if (baseEntityId == null) { return null; }
+
         String firstName = FormUtils.getFieldJSONObject(formFields, PATIENT_FIRST_NAME).optString(VALUE);
         String lastName = FormUtils.getFieldJSONObject(formFields, PATIENT_LAST_NAME).optString(VALUE);
         String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);

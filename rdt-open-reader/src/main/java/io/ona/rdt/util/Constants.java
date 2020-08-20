@@ -30,6 +30,7 @@ public interface Constants {
     }
 
     interface FormFields {
+        String EVENT_TYPE = "eventType";
         String PATIENT = "patient";
         String DOB = "dob";
         String PATIENT_NAME = "patient_name";
