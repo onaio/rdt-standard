@@ -76,6 +76,7 @@ import static org.smartregister.util.Utils.isEmptyCollection;
 public class RDTJsonFormUtils {
 
     private static Set<String> formsToAddEntityIdToIfBlank = getFormsToAddEntityIdToIfBlank();
+    private Set<String> formsThatShouldBePrepopulated = getFormsThatShouldBePrepopulated();
 
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
 
@@ -264,8 +265,20 @@ public class RDTJsonFormUtils {
         return formJsonObject;
     }
 
-    protected boolean formShouldBePrePopulated(String formName) {
-        return RDT_TEST_FORM.equals(formName);
+
+    private Set<String> getFormsThatShouldBePrepopulated() {
+        if (formsThatShouldBePrepopulated ==  null) {
+            formsThatShouldBePrepopulated =  initializeFormsThatShouldBePrepopulated();
+        }
+        return formsThatShouldBePrepopulated;
+    }
+
+    protected Set<String> initializeFormsThatShouldBePrepopulated() {
+        return new HashSet<>(Arrays.asList(RDT_TEST_FORM));
+    }
+
+    private boolean formShouldBePrePopulated(String formName) {
+        return getFormsThatShouldBePrepopulated().contains(formName);
     }
 
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
@@ -356,12 +369,12 @@ public class RDTJsonFormUtils {
 
     private static Set<String> getFormsToAddEntityIdToIfBlank() {
         if (formsToAddEntityIdToIfBlank == null) {
-            formsToAddEntityIdToIfBlank = getFormsThatRequireEntityId();
+            formsToAddEntityIdToIfBlank = initializeFormsThatRequireEntityId();
         }
         return formsToAddEntityIdToIfBlank;
     }
 
-    protected static Set<String> getFormsThatRequireEntityId() {
+    protected static Set<String> initializeFormsThatRequireEntityId() {
        return new HashSet<>(Arrays.asList(Constants.Encounter.PATIENT_REGISTRATION));
     }
 

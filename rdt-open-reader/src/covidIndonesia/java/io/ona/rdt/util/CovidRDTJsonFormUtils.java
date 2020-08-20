@@ -37,9 +37,6 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  */
 public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
-    private Set<String> formsThatShouldBePrepopulated = new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM,
-            COVID_RDT_TEST_FORM, PATIENT_DIAGNOSTICS_FORM));
-
     public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
         Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
         intent.putExtra(PATIENT, patient);
@@ -75,8 +72,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     @Override
-    protected boolean formShouldBePrePopulated(String formName) {
-        return formsThatShouldBePrepopulated.contains(formName);
+    protected Set<String> initializeFormsThatShouldBePrepopulated() {
+        return new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, COVID_RDT_TEST_FORM,
+                PATIENT_DIAGNOSTICS_FORM));
     }
 
     @Override
@@ -95,7 +93,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
     }
 
-    protected static Set<String> getFormsThatRequireEntityId() {
+    protected static Set<String> initializeFormsThatRequireEntityId() {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
     }
 }
