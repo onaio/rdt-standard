@@ -24,10 +24,12 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
 
     private PatientRegisterActivityContract.View activity;
     protected PatientRegisterActivityInteractor interactor;
+    private RDTJsonFormUtils formUtils;
 
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
         interactor = getInteractor();
+        formUtils = new RDTJsonFormUtils();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     public void saveForm(String jsonForm, OnFormSavedCallback callback) {
         try {
             JSONObject jsonFormObj = new JSONObject(jsonForm);
-            new RDTJsonFormUtils().appendEntityId(jsonFormObj);
+            formUtils.appendEntityId(jsonFormObj);
             interactor.saveForm(jsonFormObj, callback);
             Patient patient = interactor.getPatientForRDT(jsonFormObj);
             if (patient != null) {

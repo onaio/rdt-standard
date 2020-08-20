@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -73,7 +74,8 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
     @Test
     public void testSaveFormShouldSaveForm() throws JSONException {
         doReturn(FormSaverTest.expectedPatient).when(interactor).getPatientForRDT(any(JSONObject.class));
-        mockStatic(RDTJsonFormUtils.class);
+        RDTJsonFormUtils rdtJsonFormUtils = Mockito.mock(RDTJsonFormUtils.class);
+        Whitebox.setInternalState(presenter, "formUtils", rdtJsonFormUtils);
 
         presenter.saveForm(TestUtils.PATIENT_REGISTRATION_JSON_FORM, activity);
         verify(interactor).saveForm(any(JSONObject.class), eq(activity));
@@ -86,8 +88,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
         assertEquals(rdtPatient.getPatientSex(), FormSaverTest.expectedPatient.getPatientSex());
         assertEquals(rdtPatient.getBaseEntityId(), FormSaverTest.expectedPatient.getBaseEntityId());
 
-        PowerMockito.verifyStatic(RDTJsonFormUtils.class);
-        new RDTJsonFormUtils().appendEntityId(any(JSONObject.class));
+        verify(rdtJsonFormUtils).appendEntityId(any(JSONObject.class));
     }
 
     @Test
