@@ -38,7 +38,9 @@ public class CovidPatientRegisterActivityInteractor extends PatientRegisterActiv
 
     @Override
     protected Patient createPatient(String baseEntityId, JSONArray formFields) {
-        if (baseEntityId == null) { return null; }
+        if (baseEntityId == null) {
+            return null;
+        }
 
         String firstName = getStrField(formFields, CovidConstants.FormFields.PATIENT_FIRST_NAME);
         String lastName = getStrField(formFields, CovidConstants.FormFields.PATIENT_LAST_NAME);

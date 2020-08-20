@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -18,8 +19,6 @@ import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.robolectric.RobolectricTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
@@ -59,8 +58,8 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
         JSONObject jsonForm = new JSONObject();
         jsonForm.put(JsonFormConstants.ENCOUNTER_TYPE, getPatientRegistrationEvent());
         String entityId = getFormUtils().appendEntityId(jsonForm);
-        assertFalse(StringUtils.isBlank(entityId));
-        assertEquals(entityId, jsonForm.get(Constants.FormFields.ENTITY_ID));
+        Assert.assertFalse(StringUtils.isBlank(entityId));
+        Assert.assertEquals(entityId, jsonForm.get(Constants.FormFields.ENTITY_ID));
     }
 
     private List<String> getIDs() {

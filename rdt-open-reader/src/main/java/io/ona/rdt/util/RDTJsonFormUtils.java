@@ -181,7 +181,7 @@ public class RDTJsonFormUtils {
                 saveImageToGallery(context, image);
             }
             result = new Pair<>(true, absoluteFilePath);
-        } catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             Timber.e(e);
         } finally {
             if (outputStream != null) {
@@ -264,10 +264,9 @@ public class RDTJsonFormUtils {
         return formJsonObject;
     }
 
-
     private Set<String> getFormsThatShouldBePrepopulated() {
-        if (formsThatShouldBePrepopulated ==  null) {
-            formsThatShouldBePrepopulated =  initializeFormsThatShouldBePrepopulated();
+        if (formsThatShouldBePrepopulated == null) {
+            formsThatShouldBePrepopulated = initializeFormsThatShouldBePrepopulated();
         }
         return formsThatShouldBePrepopulated;
     }
@@ -327,7 +326,7 @@ public class RDTJsonFormUtils {
     public synchronized void getNextUniqueIds(final FormLaunchArgs args, final OnUniqueIdsFetchedCallback callBack, int numOfIDs) {
         class FetchUniqueIdTask extends AsyncTask<Void, Void, List<UniqueId>> {
             @Override
-            protected  List<UniqueId> doInBackground(Void... voids) {
+            protected List<UniqueId> doInBackground(Void... voids) {
                 return getUniqueIDs(numOfIDs);
             }
 
@@ -359,7 +358,9 @@ public class RDTJsonFormUtils {
     public String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = JsonFormUtils.getString(jsonForm, Constants.FormFields.ENTITY_ID);
 
-        if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, Constants.FormFields.ENCOUNTER_TYPE))) { return entityId; }
+        if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, Constants.FormFields.ENCOUNTER_TYPE))) {
+            return entityId;
+        }
 
         entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);
@@ -374,7 +375,7 @@ public class RDTJsonFormUtils {
     }
 
     protected Set<String> initializeFormsThatRequireEntityId() {
-       return new HashSet<>(Arrays.asList(Constants.Encounter.PATIENT_REGISTRATION));
+        return new HashSet<>(Arrays.asList(Constants.Encounter.PATIENT_REGISTRATION));
     }
 
     private boolean shouldAppendIDToForm(String eventType) {
@@ -386,7 +387,7 @@ public class RDTJsonFormUtils {
         FormTag formTag = new FormTag();
         formTag.providerId = settings.fetchRegisteredANM();
         formTag.locationId = settings.fetchDefaultLocalityId(formTag.providerId);
-        formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);;
+        formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);
         formTag.team = settings.fetchDefaultTeam(formTag.providerId);
         return formTag;
     }
