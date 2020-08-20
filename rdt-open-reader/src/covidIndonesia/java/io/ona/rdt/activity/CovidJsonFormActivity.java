@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidJsonFormFragment;
+import io.ona.rdt.util.CovidRDTJsonFormUtils;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
@@ -43,6 +45,11 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSucc
         if (isLocationPermissionGranted()) {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, this);
         }
+    }
+
+    @Override
+    protected RDTJsonFormUtils initializeFormUtils() {
+        return new CovidRDTJsonFormUtils();
     }
 
     public void requestPermissions() {

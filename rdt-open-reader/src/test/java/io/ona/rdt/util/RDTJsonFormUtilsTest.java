@@ -3,6 +3,7 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -819,13 +820,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         assertEquals("openmrsID1", uniqueIds.get(1).getOpenmrsId());
     }
 
-    @Test
-    public void testAppendEntityIdShouldAppendCorrectNonEmptyId() throws JSONException {
-        String entityId = getFormUtils().appendEntityId(RDT_TEST_JSON_FORM_OBJ);
-        assertNotNull(entityId);
-        assertFalse(entityId.isEmpty());
-        assertEquals(RDT_TEST_JSON_FORM_OBJ.get(Constants.FormFields.ENTITY_ID), entityId);
-    }
+
 
     @Test
     public void testGetFormJsonObjectShouldGetFormJsonObject() throws Exception {
@@ -961,5 +956,10 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     @Override
     protected RDTJsonFormUtils getFormUtils() {
         return new RDTJsonFormUtils();
+    }
+
+    @Override
+    protected String getPatientRegistrationEvent() {
+        return Constants.Encounter.PATIENT_REGISTRATION;
     }
 }

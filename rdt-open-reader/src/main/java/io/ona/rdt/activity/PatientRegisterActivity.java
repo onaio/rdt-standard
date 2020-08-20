@@ -50,11 +50,22 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     protected void onCreate(Bundle savedInstanceState) {
         updateLocale(this);
         super.onCreate(savedInstanceState);
-        formUtils = new RDTJsonFormUtils();
+        formUtils = getFormUtils();
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         setupDrawerContent(navigationView);
         requestPermissions();
+    }
+
+    private RDTJsonFormUtils getFormUtils() {
+        if (formUtils == null) {
+            formUtils = initializeFormUtils();
+        }
+        return formUtils;
+    }
+
+    protected RDTJsonFormUtils initializeFormUtils() {
+        return new RDTJsonFormUtils();
     }
 
     public void requestPermissions() {
