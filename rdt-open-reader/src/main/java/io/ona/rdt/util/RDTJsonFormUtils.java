@@ -75,7 +75,7 @@ import static org.smartregister.util.Utils.isEmptyCollection;
  */
 public class RDTJsonFormUtils {
 
-    private static Set<String> formsToAddEntityIdToIfBlank = getFormsToAddEntityIdToIfBlank();
+    private Set<String> formsToAddEntityIdToIfBlank = getFormsToAddEntityIdToIfBlank();
     private Set<String> formsThatShouldBePrepopulated = getFormsThatShouldBePrepopulated();
 
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
@@ -357,7 +357,7 @@ public class RDTJsonFormUtils {
         return uniqueIds;
     }
 
-    public static String appendEntityId(JSONObject jsonForm) throws JSONException {
+    public String appendEntityId(JSONObject jsonForm) throws JSONException {
         String entityId = JsonFormUtils.getString(jsonForm, Constants.FormFields.ENTITY_ID);
 
         if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, EVENT_TYPE))) { return entityId; }
@@ -367,18 +367,18 @@ public class RDTJsonFormUtils {
         return entityId;
     }
 
-    private static Set<String> getFormsToAddEntityIdToIfBlank() {
+    private Set<String> getFormsToAddEntityIdToIfBlank() {
         if (formsToAddEntityIdToIfBlank == null) {
             formsToAddEntityIdToIfBlank = initializeFormsThatRequireEntityId();
         }
         return formsToAddEntityIdToIfBlank;
     }
 
-    protected static Set<String> initializeFormsThatRequireEntityId() {
+    protected Set<String> initializeFormsThatRequireEntityId() {
        return new HashSet<>(Arrays.asList(Constants.Encounter.PATIENT_REGISTRATION));
     }
 
-    private static boolean shouldAppendIDToForm(String eventType) {
+    private boolean shouldAppendIDToForm(String eventType) {
         return getFormsToAddEntityIdToIfBlank().contains(eventType);
     }
 

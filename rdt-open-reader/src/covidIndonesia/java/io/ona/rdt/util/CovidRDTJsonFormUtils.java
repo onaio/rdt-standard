@@ -93,7 +93,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
     }
 
-    protected static Set<String> initializeFormsThatRequireEntityId() {
+    @Override
+    protected Set<String> initializeFormsThatRequireEntityId() {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
     }
 }

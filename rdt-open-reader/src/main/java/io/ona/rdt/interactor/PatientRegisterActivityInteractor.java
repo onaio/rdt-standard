@@ -47,6 +47,7 @@ public class PatientRegisterActivityInteractor extends FormLauncherAndSaver {
     }
 
     protected Patient createPatient(String baseEntityId, JSONArray formFields) {
+        if (baseEntityId == null) { return null; }
         String name = FormUtils.getFieldJSONObject(formFields, PATIENT_NAME).optString(VALUE);
         String sex = FormUtils.getFieldJSONObject(formFields, SEX).optString(VALUE);
         String patientId = FormUtils.getFieldJSONObject(formFields, PATIENT_ID).optString(VALUE);

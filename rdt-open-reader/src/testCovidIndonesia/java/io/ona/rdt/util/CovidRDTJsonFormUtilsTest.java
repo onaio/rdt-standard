@@ -761,4 +761,9 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     protected String getMockForm() {
         return SAMPLE_COLLECTION_JSON_FORM;
     }
+
+    @Override
+    protected String getPatientRegistrationEvent() {
+        return CovidConstants.Encounter.COVID_PATIENT_REGISTRATION;
+    }
 }

@@ -54,7 +54,7 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     public void saveForm(String jsonForm, OnFormSavedCallback callback) {
         try {
             JSONObject jsonFormObj = new JSONObject(jsonForm);
-            RDTJsonFormUtils.appendEntityId(jsonFormObj);
+            new RDTJsonFormUtils().appendEntityId(jsonFormObj);
             interactor.saveForm(jsonFormObj, callback);
             Patient patient = interactor.getPatientForRDT(jsonFormObj);
             if (patient != null) {

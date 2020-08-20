@@ -1,5 +1,6 @@
 package io.ona.rdt.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +16,8 @@ import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.robolectric.RobolectricTest;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
@@ -49,6 +52,15 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
         patientRegisterActivity.finish();
     }
 
+    @Test
+    public void testAppendEntityIdShouldAppendCorrectNonEmptyId() throws JSONException {
+        JSONObject jsonForm = new JSONObject();
+        jsonForm.put(Constants.FormFields.EVENT_TYPE, getPatientRegistrationEvent());
+        String entityId = getFormUtils().appendEntityId(jsonForm);
+        assertFalse(StringUtils.isBlank(entityId));
+        assertEquals(entityId, jsonForm.get(Constants.FormFields.ENTITY_ID));
+    }
+
     private List<String> getIDs() {
         List<String> rdtIds = new ArrayList<>();
         rdtIds.add(UNIQUE_ID);
@@ -64,4 +76,6 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
     protected abstract String getFormToPrepopulate();
 
     protected abstract String getMockForm();
+
+    protected abstract String getPatientRegistrationEvent();
 }

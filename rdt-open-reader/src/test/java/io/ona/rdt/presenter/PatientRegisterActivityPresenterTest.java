@@ -87,7 +87,7 @@ public class PatientRegisterActivityPresenterTest extends PowerMockTest {
         assertEquals(rdtPatient.getBaseEntityId(), FormSaverTest.expectedPatient.getBaseEntityId());
 
         PowerMockito.verifyStatic(RDTJsonFormUtils.class);
-        RDTJsonFormUtils.appendEntityId(any(JSONObject.class));
+        new RDTJsonFormUtils().appendEntityId(any(JSONObject.class));
     }
 
     @Test
