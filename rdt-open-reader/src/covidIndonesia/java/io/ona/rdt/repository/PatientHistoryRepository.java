@@ -12,6 +12,8 @@ import io.ona.rdt.application.RDTApplication;
  */
 public class PatientHistoryRepository {
 
+    private final String DATE_START_INDEX = "1";
+    private final String DATE_END_INDEX = "10";
     private final EventClientRepository eventClientRepository = RDTApplication.getInstance()
             .getContext().getEventClientRepository();
 
@@ -20,7 +22,7 @@ public class PatientHistoryRepository {
             String.format(
                     "SELECT %s, SUBSTR(%s, %s, %s) visit_date FROM event WHERE %s=? GROUP BY 2",
                     EventClientRepository.event_column.json.toString(),
-                    EventClientRepository.event_column.dateCreated.toString(), "1", "10",
+                    EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
                     EventClientRepository.event_column.baseEntityId.toString()
             ),
             new String[]{baseEntityId}
@@ -33,7 +35,7 @@ public class PatientHistoryRepository {
                     "SELECT %s, SUBSTR(%s, %s, %s) AS visit_date FROM event " +
                             "WHERE %s=? AND %s=? AND visit_date=?",
                     EventClientRepository.event_column.json.toString(),
-                    EventClientRepository.event_column.dateCreated.toString(), "1", "10",
+                    EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
                     EventClientRepository.event_column.baseEntityId.toString(),
                     EventClientRepository.event_column.eventType.toString()
             ),
