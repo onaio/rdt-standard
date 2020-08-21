@@ -54,12 +54,12 @@ public class CovidPatientVisitFragment extends Fragment {
     // todo: replace with db call
     private List<Visit> getVisits() {
         List<Visit> visits = new ArrayList<>();
-        visits.add(new Visit("First Visit", "date1"));
-        visits.add(new Visit("Second Visit", "date2"));
-        visits.add(new Visit("Third Visit", "date3"));
-        visits.add(new Visit("Fourth Visit", "date4"));
-        visits.add(new Visit("Fifth Visit", "date5"));
-        visits.add(new Visit("Sixth Visit", "date6"));
+        visits.add(new Visit("visit1", "date1"));
+        visits.add(new Visit("visit2", "date2"));
+        visits.add(new Visit("visit3", "date3"));
+        visits.add(new Visit("visit4", "date4"));
+        visits.add(new Visit("visit5", "date5"));
+        visits.add(new Visit("visit6", "date6"));
         return visits;
     }
 }
