@@ -12,25 +12,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import androidx.annotation.Nullable;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
+import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
+import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_DETAIL;
+import static org.smartregister.AllConstants.OPTIONS;
+import static org.smartregister.util.JsonFormUtils.FIELDS;
+import static org.smartregister.util.JsonFormUtils.KEY;
+import static org.smartregister.util.JsonFormUtils.VALUE;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
@@ -77,6 +86,17 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         // Disable bottom navigation for the 20min countdown timer
         if (is20minTimerPage(currStep)) {
             isNextButtonEnabled = false;
+        }
+
+        if ("step8".equals(currStep)) {
+            try {
+                JSONObject currentObjectState = new JSONObject(getCurrentJsonState());
+                if (CovidConstants.Encounter.SAMPLE_COLLECTION.equals(currentObjectState.getString(ENCOUNTER_TYPE))) {
+                    isNextButtonEnabled = isPatientInfoConfirmed();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
@@ -228,5 +248,40 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     public RDTJsonFormActivity getRdtActivity() {
         return (RDTJsonFormActivity) getActivity();
+    }
+
+    @Override
+    public void writeValue(String stepName, String prentKey, String childObjectKey, String childKey, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) {
+        super.writeValue(stepName, prentKey, childObjectKey, childKey, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+        if ("step8".equals(stepName) && PATIENT_DETAIL.equals(prentKey) && OPTIONS.equals(childObjectKey)) {
+            setNextButtonState(rootLayout.findViewById(com.vijay.jsonwizard.R.id.next_button), isPatientInfoConfirmed());
+        }
+    }
+
+    private boolean isPatientInfoConfirmed() {
+        boolean result = true;
+        try {
+            JSONObject currentObjectState = new JSONObject(getCurrentJsonState());
+            JSONArray fields = currentObjectState.getJSONObject("step8").getJSONArray(FIELDS);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject obj = fields.getJSONObject(i);
+                if (PATIENT_DETAIL.equals(obj.getString(KEY))) {
+                    JSONArray options = obj.getJSONArray(OPTIONS);
+                    for (int j = 0; j < options.length(); j++) {
+                        JSONObject childObj = options.getJSONObject(j);
+                        if (!childObj.optBoolean(VALUE, false)) {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        catch (JSONException ex) {
+            ex.printStackTrace();
+            result = false;
+        }
+
+        return result;
     }
 }

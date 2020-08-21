@@ -797,7 +797,7 @@
     ]
   },
   "step8": {
-    "title": "Store specimen for courier",
+    "title": "Patient Information",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
@@ -805,7 +805,7 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "lbl_store_specimen_for_courier",
+        "key": "lbl_patient_confirmation",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -813,7 +813,28 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Store the respiratory sample appropriately until they have been picked up by the courier"
+        "text": "Please confirm the information"
+      },
+      {
+        "key": "patient_detail",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "unique_id",
+            "text": "Unique Id: {unique_id}"
+          },
+          {
+            "key": "patient_name",
+            "text": "Patient Name: {patient_name}"
+          },
+          {
+            "key": "patient_dob",
+            "text": "Patient Dob: {patient_dob}"
+          }
+        ]
       }
     ]
   },

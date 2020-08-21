@@ -19,6 +19,8 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.OPTIONS_FIELD_NAME;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
@@ -29,6 +31,7 @@ import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
+import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_DETAIL;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
@@ -69,6 +72,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
             field.put(VALUE, uniqueID);
         }
+
+        // pre-populate the patient detail unique id
+        if (PATIENT_DETAIL.equals(field.getString(KEY))) {
+            JSONArray options = field.getJSONArray(OPTIONS_FIELD_NAME);
+            if (options.length() > 0) {
+                JSONObject uniqueIdObject = options.getJSONObject(0);
+                String value = uniqueIdObject.getString(TEXT);
+                uniqueIdObject.put(TEXT, value.replace("{unique_id}", uniqueID));
+            }
+        }
     }
 
     @Override
@@ -90,6 +103,20 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
+        }
+
+        // pre-populate the patient detail name and dob
+        if (PATIENT_DETAIL.equals(field.getString(KEY))) {
+            JSONArray options = field.getJSONArray(OPTIONS_FIELD_NAME);
+            if (options.length() > 2) {
+                JSONObject nameObject = options.getJSONObject(1);
+                String nameValue = nameObject.getString(TEXT);
+                nameObject.put(TEXT, nameValue.replace("{patient_name}", String.valueOf(patient.getPatientName())));
+
+                JSONObject dobObject = options.getJSONObject(2);
+                String dobValue = dobObject.getString(TEXT);
+                dobObject.put(TEXT, dobValue.replace("{patient_dob}", String.valueOf(patient.getDob())));
+            }
         }
     }
 

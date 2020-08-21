@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
@@ -20,8 +23,6 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import io.ona.rdt.R;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.util.Constants;
@@ -62,6 +63,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
 
         final Patient patient = new Patient(patientName, sex, baseEntityId, patientId,
                 Integer.parseInt(patientAge));
+        patient.setDob(Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.DOB, false));
         viewHolder.tvPatientNameAndAge.setText(nameAndAge);
         viewHolder.tvPatientSex.setText(sex);
         viewHolder.rowItem.setTag(R.id.patient_tag, patient);
