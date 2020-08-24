@@ -1,5 +1,7 @@
 package io.ona.rdt.interactor;
 
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,20 +58,28 @@ public class CovidPatientHistoryFragmentInteractor {
         if (formWidgetKeyToTextMap == null) {
             formWidgetKeyToTextMap = new HashMap<>();
             for (String formName : FORMS_TO_EXTRACT_TEXT_FROM) {
-                JSONObject formJsonObj = new CovidRDTJsonFormUtils()
-                        .getFormJsonObject(formName, RDTApplication.getInstance());
+                JSONObject formJsonObj = getTranslatedForm(formName);
                 JSONArray fields = JsonFormUtils.fields(formJsonObj);
                 for (int i = 0; i < fields.length(); i++) {
                     JSONObject field = fields.getJSONObject(i);
                     String widgetKey = getWidgetKey(field.optString(KEY));
                     String widgetText = getWidgetText(field);
                     if (StringUtils.isNotBlank(widgetText)) {
-                        formWidgetKeyToTextMap.put(widgetKey, widgetKey);
+                        formWidgetKeyToTextMap.put(widgetKey, widgetText);
                     }
                 }
             }
         }
         return formWidgetKeyToTextMap;
+    }
+
+    private static JSONObject getTranslatedForm(String formName) throws JSONException {
+        String placeholderInjectedForm = new CovidRDTJsonFormUtils()
+                .getFormJsonObject(formName, RDTApplication.getInstance()).toString();
+        String translatedForm = NativeFormLangUtils
+                .getTranslatedString(placeholderInjectedForm, RDTApplication.getInstance());
+
+        return new JSONObject(translatedForm);
     }
 
     private static String getWidgetKey(String key) {
