@@ -75,8 +75,8 @@ public class CovidPatientHistoryAdapterTest {
 
         adapter.onBindViewHolder(holder, 0);
 
-        Mockito.verify(keyTextView, Mockito.times(1)).setText("patient_name");
-        Mockito.verify(valTextView, Mockito.times(1)).setText("Jane");
+        Mockito.verify(keyTextView, Mockito.times(1)).setText(PATIENT_NAME_KEY);
+        Mockito.verify(valTextView, Mockito.times(1)).setText(PATIENT_NAME_VAL);
     }
 
     @Test
