@@ -8,6 +8,7 @@ import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.CovidPatientHistoryFragmentInteractor;
 import io.ona.rdt.interactor.CovidPatientProfileFragmentInteractor;
+import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import timber.log.Timber;
 
 /**
@@ -34,7 +35,7 @@ public class CovidPatientProfileFragmentPresenter implements CovidPatientProfile
 
     public void createFormWidgetKeyToTextMap() {
         try {
-            CovidPatientHistoryFragmentInteractor.getFormWidgetKeyToTextMap();
+            FormKeyTextExtractionUtil.getFormWidgetKeyToTextMap();
         } catch (JSONException e) {
             Timber.e(e);
         }
