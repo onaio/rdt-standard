@@ -48,7 +48,8 @@ public class CovidPatientHistoryFragmentInteractor {
             for (Obs obs : eventClient.getEvent().getObs()) {
                 String text = formWidgetKeyToTextMap.get(obs.getFormSubmissionField());
                 if (StringUtils.isNotBlank(text)) {
-                    PatientHistoryEntry patientHistoryEntry = new PatientHistoryEntry(text, getValues(obs));
+                    PatientHistoryEntry patientHistoryEntry = new PatientHistoryEntry(text,
+                            getValues(obs, formWidgetKeyToTextMap));
                     patientHistoryEntries.add(patientHistoryEntry);
                 }
             }
@@ -56,8 +57,24 @@ public class CovidPatientHistoryFragmentInteractor {
         return patientHistoryEntries;
     }
 
-    private String getValues(Obs obs) {
-       return StringUtils.join(obs.getValues(), ",");
+    private String getValues(Obs obs, Map<String, String> formWidgetKeyToTextMap) {
+        List<String> values = new ArrayList<>();
+        for (Object value : obs.getValues()) {
+            values.add(getValue(value.toString(), formWidgetKeyToTextMap));
+        }
+        return StringUtils.join(values, ",");
+    }
+
+    /**
+     *
+     * Takes care of the special case in native radio button that saves widget key for the selected value
+     *
+     * @param value
+     * @param formWidgetKeyToTextMap
+     * @return
+     */
+    private String getValue(String value, Map<String, String> formWidgetKeyToTextMap) {
+        return formWidgetKeyToTextMap.containsKey(value) ? formWidgetKeyToTextMap.get(value) : value;
     }
 
     private String formatDate(DateTime eventDate) {
