@@ -49,7 +49,8 @@ public class CovidPatientHistoryFragmentInteractor {
         List<EventClient> eventClients = patientHistoryRepository.getEventsByUniqueDate(baseEntityId);
         List<Visit> visits = new ArrayList<>();
         for (int i = 0; i < visits.size(); i++) {
-            visits.add(new Visit(String.format("Visit %d", i + 1), visits.get(i).getDateOfVisit()));
+            visits.add(new Visit(String.format("Visit %d", i + 1),
+                    eventClients.get(i).getEvent().getEventDate().toString()));
         }
         return visits;
     }
