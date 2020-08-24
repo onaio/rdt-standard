@@ -1,5 +1,7 @@
 package io.ona.rdt.activity;
 
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.MenuItem;
 
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -17,6 +19,23 @@ import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
  * Created by Vincent Karuri on 16/06/2020
  */
 public class CovidPatientRegisterActivity extends PatientRegisterActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        createFormWidgetKeyToTextMap();
+    }
+
+    private void createFormWidgetKeyToTextMap() {
+        class CreateFormWidgetKeyToTextMapTask extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                getCovidPatientRegisterActivityPresenter().createFormWidgetKeyToTextMap();
+                return null;
+            }
+        }
+    }
 
     @Override
     public BaseRegisterFragment getRegisterFragment() {
@@ -48,5 +67,9 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
 
     protected PatientRegisterActivityPresenter createPatientRegisterActivityPresenter() {
         return new CovidPatientRegisterActivityPresenter(this);
+    }
+
+    private CovidPatientRegisterActivityPresenter getCovidPatientRegisterActivityPresenter() {
+        return (CovidPatientRegisterActivityPresenter) getPresenter();
     }
 }
