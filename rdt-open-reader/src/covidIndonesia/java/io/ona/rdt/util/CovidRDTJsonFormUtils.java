@@ -79,7 +79,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             if (options.length() > 0) {
                 JSONObject uniqueIdObject = options.getJSONObject(0);
                 String value = uniqueIdObject.getString(TEXT);
-                uniqueIdObject.put(TEXT, value.replace("{unique_id}", uniqueID));
+                uniqueIdObject.put(TEXT, value + uniqueID);
             }
         }
     }
@@ -111,11 +111,11 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             if (options.length() > 2) {
                 JSONObject nameObject = options.getJSONObject(1);
                 String nameValue = nameObject.getString(TEXT);
-                nameObject.put(TEXT, nameValue.replace("{patient_name}", String.valueOf(patient.getPatientName())));
+                nameObject.put(TEXT, nameValue + patient.getPatientName());
 
                 JSONObject dobObject = options.getJSONObject(2);
                 String dobValue = dobObject.getString(TEXT);
-                dobObject.put(TEXT, dobValue.replace("{patient_dob}", String.valueOf(patient.getDob())));
+                dobObject.put(TEXT, dobValue + patient.getDob());
             }
         }
     }

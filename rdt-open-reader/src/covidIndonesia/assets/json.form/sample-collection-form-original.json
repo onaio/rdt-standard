@@ -824,15 +824,15 @@
         "options": [
           {
             "key": "unique_id",
-            "text": "Unique Id: {unique_id}"
+            "text": "Unique Id: "
           },
           {
             "key": "patient_name",
-            "text": "Patient Name: {patient_name}"
+            "text": "Patient Name: "
           },
           {
             "key": "patient_dob",
-            "text": "Patient Dob: {patient_dob}"
+            "text": "Patient Dob: "
           }
         ]
       }
