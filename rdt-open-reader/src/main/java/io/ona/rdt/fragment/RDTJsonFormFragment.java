@@ -268,10 +268,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
                     }
                 }
             }
-        }
-        catch (JSONException ex) {
+        } catch (JSONException ex) {
             ex.printStackTrace();
-            result = false;
         }
 
         return result;

@@ -30,7 +30,6 @@ import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
-import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_DETAIL;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
@@ -73,7 +72,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
 
         // pre-populate the patient detail unique id
-        if (PATIENT_DETAIL.equals(field.getString(KEY))) {
+        if (CovidConstants.FormFields.PATIENT_DETAIL.equals(field.getString(KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject uniqueIdObject = options.getJSONObject(0);
@@ -105,7 +104,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
 
         // pre-populate the patient detail name and dob
-        if (PATIENT_DETAIL.equals(field.getString(KEY))) {
+        if (CovidConstants.FormFields.PATIENT_DETAIL.equals(field.getString(KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 2) {
                 JSONObject nameObject = options.getJSONObject(1);

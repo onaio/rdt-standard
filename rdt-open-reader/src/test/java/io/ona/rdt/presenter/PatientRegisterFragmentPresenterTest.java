@@ -27,10 +27,10 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
-import static io.ona.rdt.util.Constants.DBConstants.DOB;
 import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
@@ -116,7 +116,7 @@ public class PatientRegisterFragmentPresenterTest {
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
         assertEquals(new String[]{RDT_PATIENTS + "." + "relationalid", RDT_PATIENTS + "." + FIRST_NAME,
-                RDT_PATIENTS + "." + LAST_NAME, RDT_PATIENTS + "." + AGE, RDT_PATIENTS + "." + SEX, RDT_PATIENTS + "." +  PATIENT_ID, RDT_PATIENTS + "." + DOB},
+                RDT_PATIENTS + "." + LAST_NAME, RDT_PATIENTS + "." + AGE, RDT_PATIENTS + "." + SEX, RDT_PATIENTS + "." +  PATIENT_ID, RDT_PATIENTS + "." + Constants.DBConstants.DOB},
                 Whitebox.invokeMethod(presenter, "mainColumns", RDT_PATIENTS));
     }
 
