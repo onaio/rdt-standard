@@ -2,6 +2,7 @@ package io.ona.rdt.repository;
 
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.Utils;
 
 import java.util.List;
 
@@ -29,17 +30,20 @@ public class PatientHistoryRepository {
         );
     }
 
-    public List<EventClient> getEventsByEventType(String baseEntityId, String eventType, String date) {
-        return eventClientRepository.fetchEventClientsCore(
+    public EventClient getEvent(String baseEntityId, String eventType, String date) {
+        List<EventClient> eventClients = eventClientRepository.fetchEventClientsCore(
             String.format(
-                    "SELECT %s, SUBSTR(%s, %s, %s) AS visit_date FROM event " +
-                            "WHERE %s=? AND %s=? AND visit_date=?",
+                    "SELECT %s, %s, SUBSTR(%s, %s, %s) AS visit_date FROM event " +
+                            "WHERE %s=? AND %s=? AND visit_date=? ORDER BY %s LIMIT 1",
                     EventClientRepository.event_column.json.toString(),
+                    EventClientRepository.event_column.dateCreated.toString(),
                     EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
                     EventClientRepository.event_column.baseEntityId.toString(),
-                    EventClientRepository.event_column.eventType.toString()
+                    EventClientRepository.event_column.eventType.toString(),
+                    EventClientRepository.event_column.dateCreated.toString()
             ),
             new String[]{baseEntityId, eventType, date}
         );
+        return Utils.isEmptyCollection(eventClients) ? null : eventClients.get(0);
     }
 }
