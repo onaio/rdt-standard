@@ -22,6 +22,8 @@ import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
+import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -35,16 +37,13 @@ import timber.log.Timber;
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
-import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_DETAIL;
-import static org.smartregister.AllConstants.OPTIONS;
-import static org.smartregister.util.JsonFormUtils.FIELDS;
-import static org.smartregister.util.JsonFormUtils.KEY;
-import static org.smartregister.util.JsonFormUtils.VALUE;
 
 /**
  * Created by Vincent Karuri on 12/06/2019
  */
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
+
+    private static final String STEP_8 = "step8";
 
     protected static int currentStep = 1; // step of the fragment coming into view
     protected static int prevStep; // step of the fragment coming out of view
@@ -88,16 +87,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
             isNextButtonEnabled = false;
         }
 
-        if ("step8".equals(currStep)) {
-            try {
-                JSONObject currentObjectState = new JSONObject(getCurrentJsonState());
-                if (CovidConstants.Encounter.SAMPLE_COLLECTION.equals(currentObjectState.getString(ENCOUNTER_TYPE))) {
-                    isNextButtonEnabled = isPatientInfoConfirmed();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        isNextButtonEnabled = isPatientInfoConfirmed(currStep);
 
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
@@ -253,25 +243,27 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     @Override
     public void writeValue(String stepName, String prentKey, String childObjectKey, String childKey, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) {
         super.writeValue(stepName, prentKey, childObjectKey, childKey, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
-        if ("step8".equals(stepName) && PATIENT_DETAIL.equals(prentKey) && OPTIONS.equals(childObjectKey)) {
-            setNextButtonState(rootLayout.findViewById(com.vijay.jsonwizard.R.id.next_button), isPatientInfoConfirmed());
+        if (STEP_8.equals(stepName) && CovidConstants.FormFields.PATIENT_DETAIL.equals(prentKey) && AllConstants.OPTIONS.equals(childObjectKey)) {
+            setNextButtonState(rootLayout.findViewById(com.vijay.jsonwizard.R.id.next_button), isPatientInfoConfirmed(stepName));
         }
     }
 
-    private boolean isPatientInfoConfirmed() {
+    private boolean isPatientInfoConfirmed(String currentStep) {
         boolean result = true;
         try {
-            JSONObject currentObjectState = new JSONObject(getCurrentJsonState());
-            JSONArray fields = currentObjectState.getJSONObject("step8").getJSONArray(FIELDS);
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject obj = fields.getJSONObject(i);
-                if (PATIENT_DETAIL.equals(obj.getString(KEY))) {
-                    JSONArray options = obj.getJSONArray(OPTIONS);
-                    for (int j = 0; j < options.length(); j++) {
-                        JSONObject childObj = options.getJSONObject(j);
-                        if (!childObj.optBoolean(VALUE, false)) {
-                            result = false;
-                            break;
+            if (STEP_8.equals(currentStep)) {
+                JSONObject currentObjectState = new JSONObject(getCurrentJsonState());
+                JSONArray fields = currentObjectState.getJSONObject(STEP_8).getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject obj = fields.getJSONObject(i);
+                    if (CovidConstants.FormFields.PATIENT_DETAIL.equals(obj.getString(JsonFormUtils.KEY))) {
+                        JSONArray options = obj.getJSONArray(AllConstants.OPTIONS);
+                        for (int j = 0; j < options.length(); j++) {
+                            JSONObject childObj = options.getJSONObject(j);
+                            if (!childObj.optBoolean(JsonFormUtils.VALUE, false)) {
+                                result = false;
+                                break;
+                            }
                         }
                     }
                 }

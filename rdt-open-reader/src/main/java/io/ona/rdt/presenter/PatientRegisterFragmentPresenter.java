@@ -8,10 +8,10 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt.util.Constants;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
-import static io.ona.rdt.util.Constants.DBConstants.DOB;
 import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
@@ -21,6 +21,8 @@ import static io.ona.rdt.util.Constants.DBConstants.SEX;
  * Created by Vincent Karuri on 11/06/2019
  */
 public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
+
+    private static final String DOT = ".";
 
     protected PatientRegisterFragmentInteractor interactor;
     private PatientRegisterFragmentContract.View patientRegisterFragment;
@@ -70,7 +72,7 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + FIRST_NAME, tableName + "." + LAST_NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID, tableName + "." + DOB};
+        String[] columns = new String[]{tableName + DOT + "relationalid", tableName + DOT + FIRST_NAME, tableName + DOT + LAST_NAME, tableName + DOT + AGE, tableName + DOT + SEX, tableName + DOT +  PATIENT_ID, tableName + DOT + Constants.DBConstants.DOB};
         return columns;
     }
 

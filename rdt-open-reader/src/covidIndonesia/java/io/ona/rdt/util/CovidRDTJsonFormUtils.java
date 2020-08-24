@@ -3,6 +3,8 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,9 +21,6 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.OPTIONS_FIELD_NAME;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
@@ -70,16 +69,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
         // pre-populate respiratory sample id field
         if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
-            field.put(VALUE, uniqueID);
+            field.put(JsonFormConstants.VALUE, uniqueID);
         }
 
         // pre-populate the patient detail unique id
         if (PATIENT_DETAIL.equals(field.getString(KEY))) {
-            JSONArray options = field.getJSONArray(OPTIONS_FIELD_NAME);
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject uniqueIdObject = options.getJSONObject(0);
-                String value = uniqueIdObject.getString(TEXT);
-                uniqueIdObject.put(TEXT, value + uniqueID);
+                String value = uniqueIdObject.getString(JsonFormConstants.TEXT);
+                uniqueIdObject.put(JsonFormConstants.TEXT, value + uniqueID);
             }
         }
     }
@@ -107,15 +106,15 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // pre-populate the patient detail name and dob
         if (PATIENT_DETAIL.equals(field.getString(KEY))) {
-            JSONArray options = field.getJSONArray(OPTIONS_FIELD_NAME);
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 2) {
                 JSONObject nameObject = options.getJSONObject(1);
-                String nameValue = nameObject.getString(TEXT);
-                nameObject.put(TEXT, nameValue + patient.getPatientName());
+                String nameValue = nameObject.getString(JsonFormConstants.TEXT);
+                nameObject.put(JsonFormConstants.TEXT, nameValue + patient.getPatientName());
 
                 JSONObject dobObject = options.getJSONObject(2);
-                String dobValue = dobObject.getString(TEXT);
-                dobObject.put(TEXT, dobValue + patient.getDob());
+                String dobValue = dobObject.getString(JsonFormConstants.TEXT);
+                dobObject.put(JsonFormConstants.TEXT, dobValue + patient.getDob());
             }
         }
     }
