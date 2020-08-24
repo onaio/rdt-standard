@@ -23,18 +23,6 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createFormWidgetKeyToTextMap();
-    }
-
-    private void createFormWidgetKeyToTextMap() {
-        class CreateFormWidgetKeyToTextMapTask extends AsyncTask<Void, Void, Void> {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                getCovidPatientRegisterActivityPresenter().createFormWidgetKeyToTextMap();
-                return null;
-            }
-        }
     }
 
     @Override
@@ -67,9 +55,5 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
 
     protected PatientRegisterActivityPresenter createPatientRegisterActivityPresenter() {
         return new CovidPatientRegisterActivityPresenter(this);
-    }
-
-    private CovidPatientRegisterActivityPresenter getCovidPatientRegisterActivityPresenter() {
-        return (CovidPatientRegisterActivityPresenter) getPresenter();
     }
 }

@@ -6,6 +6,7 @@ import org.json.JSONException;
 
 import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.interactor.CovidPatientHistoryFragmentInteractor;
 import io.ona.rdt.interactor.CovidPatientProfileFragmentInteractor;
 import timber.log.Timber;
 
@@ -26,6 +27,14 @@ public class CovidPatientProfileFragmentPresenter implements CovidPatientProfile
     public void launchForm(Activity activity, String formName, Patient patient)  {
         try {
             interactor.launchForm(activity, formName, patient);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
+    public void createFormWidgetKeyToTextMap() {
+        try {
+            CovidPatientHistoryFragmentInteractor.getFormWidgetKeyToTextMap();
         } catch (JSONException e) {
             Timber.e(e);
         }

@@ -1,5 +1,6 @@
 package io.ona.rdt.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.patientProfileFragmentPresenter = new CovidPatientProfileFragmentPresenter(this);
+        createFormWidgetKeyToTextMap();
     }
 
     @Override
@@ -41,6 +43,21 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
         addListeners(rootLayout);
         populatePatientDetails(rootLayout);
         return rootLayout;
+    }
+
+    private void createFormWidgetKeyToTextMap() {
+        class CreateFormWidgetKeyToTextMapTask extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                getPresenter().createFormWidgetKeyToTextMap();
+                return null;
+            }
+        }
+        new CreateFormWidgetKeyToTextMapTask().execute();
+    }
+
+    private CovidPatientProfileFragmentPresenter getPresenter() {
+        return patientProfileFragmentPresenter;
     }
 
     private void populatePatientDetails(final View rootLayout) {

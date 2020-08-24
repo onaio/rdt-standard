@@ -36,12 +36,4 @@ public class CovidPatientRegisterActivityPresenter extends PatientRegisterActivi
     protected RDTJsonFormUtils initializeFormUtils() {
         return new CovidRDTJsonFormUtils();
     }
-
-    public void createFormWidgetKeyToTextMap() {
-        try {
-            CovidPatientHistoryFragmentInteractor.getFormWidgetKeyToTextMap();
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-    }
 }

@@ -38,11 +38,9 @@ public class CovidPatientHistoryFragmentInteractor {
             PATIENT_DIAGNOSTICS_FORM, SAMPLE_COLLECTION_FORM, SUPPORT_INVESTIGATION_FORM, COVID_RDT_TEST_FORM));
     private static Map<String, String> formWidgetKeyToTextMap;
     private PatientHistoryRepository patientHistoryRepository;
-    private static RDTJsonFormUtils formUtils;
 
     public CovidPatientHistoryFragmentInteractor() {
         patientHistoryRepository = new PatientHistoryRepository();
-        formUtils = new CovidRDTJsonFormUtils();
     }
 
     public List<Visit> getVisits(String baseEntityId) {
@@ -58,7 +56,8 @@ public class CovidPatientHistoryFragmentInteractor {
         if (formWidgetKeyToTextMap == null) {
             formWidgetKeyToTextMap = new HashMap<>();
             for (String formName : FORMS_TO_EXTRACT_TEXT_FROM) {
-                JSONObject formJsonObj = formUtils.getFormJsonObject(formName, RDTApplication.getInstance());
+                JSONObject formJsonObj = new CovidRDTJsonFormUtils()
+                        .getFormJsonObject(formName, RDTApplication.getInstance());
                 JSONArray fields = JsonFormUtils.fields(formJsonObj);
                 for (int i = 0; i < fields.length(); i++) {
                     JSONObject field = fields.getJSONObject(i);
