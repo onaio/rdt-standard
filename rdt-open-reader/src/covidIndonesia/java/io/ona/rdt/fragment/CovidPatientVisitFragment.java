@@ -60,6 +60,10 @@ public class CovidPatientVisitFragment extends Fragment {
         visits.add(new Visit("visit4", "date4"));
         visits.add(new Visit("visit5", "date5"));
         visits.add(new Visit("visit6", "date6"));
+        visits.add(new Visit("visit7", "date7"));
+        visits.add(new Visit("visit8", "date8"));
+        visits.add(new Visit("visit9", "date9"));
+        visits.add(new Visit("visit10", "date10"));
         return visits;
     }
 }

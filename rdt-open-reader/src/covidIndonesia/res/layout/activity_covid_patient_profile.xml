@@ -71,7 +71,6 @@
         android:id="@+id/covid_patient_profile_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/covid_patient_profile_details"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/covid_patient_profile_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
