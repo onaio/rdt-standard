@@ -2,15 +2,11 @@ package io.ona.rdt.interactor;
 
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
-import io.ona.rdt.util.CovidConstants;
-import io.ona.rdt.widget.GoogleCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
-import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.RDTCountdownTimerFactory;
 import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
 import io.ona.rdt.widget.RDTGpsFactory;
 import io.ona.rdt.widget.RDTLabelFactory;
-import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
 import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE;
@@ -40,8 +36,5 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
         map.put(RDT_CAPTURE, new UWMalariaRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
         map.put(GPS, new RDTGpsFactory());
-        map.put(CovidConstants.Widget.UW_COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
-        map.put(CovidConstants.Widget.GOOGLE_COVID_BARCODE_READER, new GoogleCovidRDTBarcodeFactory());
-        map.put(CovidConstants.Widget.ONE_SCAN_COVID_BARCODE_READER, new OneScanCovidRDTBarcodeFactory());
     }
 }
