@@ -33,22 +33,14 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.patientProfileFragmentPresenter = new CovidPatientProfileFragmentPresenter(this);
+        currPatient = getArguments().getParcelable(PATIENT);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootLayout = inflater.inflate(R.layout.fragment_covid_patient_profile, container, false);
         addListeners(rootLayout);
-        populatePatientDetails(rootLayout);
         return rootLayout;
-    }
-
-    private void populatePatientDetails(final View rootLayout) {
-        currPatient = getArguments().getParcelable(PATIENT);
-        TextView tvPatientName = rootLayout.findViewById(R.id.covid_profile_patient_name);
-        TextView tvPatientSexAndId = rootLayout.findViewById(R.id.covid_profile_sex_and_id);
-        tvPatientName.setText(currPatient.getPatientName());
-        tvPatientSexAndId.setText(getPatientSexAndId(currPatient));
     }
 
     private void addListeners(final View rootLayout) {
@@ -57,20 +49,11 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
         rootLayout.findViewById(R.id.tv_covid_sample_collection).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_covid_support_investigation).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_covid_symptoms_and_history).setOnClickListener(this);
-        rootLayout.findViewById(R.id.covid_previous_step_text).setOnClickListener(this);
-        rootLayout.findViewById(R.id.btn_covid_back_to_patient_register).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_covid_back_to_patient_register:
-            case R.id.covid_previous_step_text:
-                getActivity().onBackPressed();
-                break;
-            default:
-                patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
-        }
+        patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
     }
 
 
