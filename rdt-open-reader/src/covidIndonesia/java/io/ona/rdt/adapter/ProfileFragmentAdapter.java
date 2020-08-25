@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.fragment.CovidPatientVisitFragment;
 
@@ -12,8 +13,11 @@ import io.ona.rdt.fragment.CovidPatientVisitFragment;
  */
 public class ProfileFragmentAdapter extends FragmentStateAdapter {
 
+    private FragmentActivity fragmentActivity;
+
     public ProfileFragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+        this.fragmentActivity = fragmentActivity;
     }
 
     @NonNull
@@ -22,7 +26,7 @@ public class ProfileFragmentAdapter extends FragmentStateAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new CovidPatientProfileFragment();
+                fragment = getCovidPatientProfileActivity().createPatientProfileFragment();
                 break;
             case 1:
                 fragment = new CovidPatientVisitFragment();
@@ -34,5 +38,9 @@ public class ProfileFragmentAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return 2;
+    }
+
+    private CovidPatientProfileActivity getCovidPatientProfileActivity() {
+        return (CovidPatientProfileActivity) fragmentActivity;
     }
 }
