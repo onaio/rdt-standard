@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import io.ona.rdt.R;
@@ -28,6 +31,13 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         super.onCreate(savedInstanceState);
         populatePatientDetails();
         addListeners();
+        setUpTabs();
+    }
+
+    private void setUpTabs() {
+        TabLayout tabLayout = findViewById(R.id.profile_tab_layout);
+        ViewPager2 viewPager = findViewById(R.id.covid_patient_profile_fragment_container);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText("")).attach();
     }
 
     private void addListeners() {

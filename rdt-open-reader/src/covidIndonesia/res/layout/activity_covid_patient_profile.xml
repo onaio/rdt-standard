@@ -66,11 +66,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/profile_tab_layout"
+        app:layout_constraintTop_toBottomOf="@id/covid_patient_profile_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/activated_toggle_btn_color"/>
+
     <androidx.viewpager2.widget.ViewPager2
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/covid_patient_profile_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/covid_patient_profile_details" />
+        app:layout_constraintTop_toBottomOf="@id/profile_tab_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
