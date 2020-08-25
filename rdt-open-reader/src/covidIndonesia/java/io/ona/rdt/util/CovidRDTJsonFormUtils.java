@@ -72,7 +72,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
 
         // pre-populate the patient detail unique id
-        if (CovidConstants.FormFields.PATIENT_DETAIL.equals(field.getString(KEY))) {
+        if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject uniqueIdObject = options.getJSONObject(0);
@@ -103,15 +103,21 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         }
 
-        // pre-populate the patient detail name and dob
-        if (CovidConstants.FormFields.PATIENT_DETAIL.equals(field.getString(KEY))) {
+        // pre-populate the patient detail name
+        if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-            if (options.length() > 2) {
-                JSONObject nameObject = options.getJSONObject(1);
+            if (options.length() > 0) {
+                JSONObject nameObject = options.getJSONObject(0);
                 String nameValue = nameObject.getString(JsonFormConstants.TEXT);
                 nameObject.put(JsonFormConstants.TEXT, nameValue + patient.getPatientName());
+            }
+        }
 
-                JSONObject dobObject = options.getJSONObject(2);
+        // pre-populate the patient detail dob
+        if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            if (options.length() > 0) {
+                JSONObject dobObject = options.getJSONObject(0);
                 String dobValue = dobObject.getString(JsonFormConstants.TEXT);
                 dobObject.put(JsonFormConstants.TEXT, dobValue + patient.getDob());
             }

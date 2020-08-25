@@ -26,9 +26,10 @@ public class Patient implements Parcelable {
         setPatientId(patientId);
     }
 
-    public Patient(String patientName, String patientSex, String baseEntityId, String patientId, int age) {
+    public Patient(String patientName, String patientSex, String baseEntityId, String patientId, int age, String dob) {
         this(patientName, patientSex, baseEntityId, patientId);
         setAge(age);
+        setDob(dob);
     }
 
     protected Patient(Parcel in) {

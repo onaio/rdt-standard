@@ -19,11 +19,7 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
-import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -31,7 +27,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
-import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
@@ -86,8 +81,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         if (is20minTimerPage(currStep)) {
             isNextButtonEnabled = false;
         }
-
-        isNextButtonEnabled = isPatientInfoConfirmed(currStep);
 
         setNextButtonState(rootView.findViewById(com.vijay.jsonwizard.R.id.next_button), isNextButtonEnabled);
 
@@ -240,38 +233,4 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         return (RDTJsonFormActivity) getActivity();
     }
 
-    @Override
-    public void writeValue(String stepName, String prentKey, String childObjectKey, String childKey, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) {
-        super.writeValue(stepName, prentKey, childObjectKey, childKey, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
-        if (STEP_8.equals(stepName) && CovidConstants.FormFields.PATIENT_DETAIL.equals(prentKey) && AllConstants.OPTIONS.equals(childObjectKey)) {
-            setNextButtonState(rootLayout.findViewById(com.vijay.jsonwizard.R.id.next_button), isPatientInfoConfirmed(stepName));
-        }
-    }
-
-    private boolean isPatientInfoConfirmed(String currentStep) {
-        boolean result = true;
-        try {
-            if (STEP_8.equals(currentStep)) {
-                JSONObject currentObjectState = new JSONObject(getCurrentJsonState());
-                JSONArray fields = currentObjectState.getJSONObject(STEP_8).getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < fields.length(); i++) {
-                    JSONObject obj = fields.getJSONObject(i);
-                    if (CovidConstants.FormFields.PATIENT_DETAIL.equals(obj.getString(JsonFormUtils.KEY))) {
-                        JSONArray options = obj.getJSONArray(AllConstants.OPTIONS);
-                        for (int j = 0; j < options.length(); j++) {
-                            JSONObject childObj = options.getJSONObject(j);
-                            if (!childObj.optBoolean(JsonFormUtils.VALUE, false)) {
-                                result = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
-
-        return result;
-    }
 }

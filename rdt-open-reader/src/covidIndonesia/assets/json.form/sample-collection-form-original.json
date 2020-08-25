@@ -816,20 +816,50 @@
         "text": "Please confirm the information"
       },
       {
-        "key": "patient_detail",
+        "key": "patient_info_unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
         "options": [
           {
             "key": "unique_id",
             "text": "Unique Id: "
-          },
+          }
+        ]
+      },
+      {
+        "key": "patient_info_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "options": [
           {
             "key": "patient_name",
             "text": "Patient Name: "
-          },
+          }
+        ]
+      },
+      {
+        "key": "patient_info_dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "options": [
           {
             "key": "patient_dob",
             "text": "Patient Dob: "
