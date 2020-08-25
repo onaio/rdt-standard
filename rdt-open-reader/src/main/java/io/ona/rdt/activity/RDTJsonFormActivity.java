@@ -33,10 +33,21 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     protected void onCreate(Bundle savedInstanceState) {
         updateLocale(this);
         super.onCreate(savedInstanceState);
-        formUtils = new RDTJsonFormUtils();
+        formUtils = getFormUtils();
         presenter = new RDTJsonFormActivityPresenter(this);
         modifyActionBarAppearance();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    private RDTJsonFormUtils getFormUtils() {
+        if (formUtils == null) {
+            formUtils = initializeFormUtils();
+        }
+        return formUtils;
+    }
+
+    protected RDTJsonFormUtils initializeFormUtils() {
+        return new RDTJsonFormUtils();
     }
 
     private void modifyActionBarAppearance() {

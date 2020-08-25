@@ -40,7 +40,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(convertDate(individualVals[2], "YYYY-MM-dd"));
+                moveToNextStep(convertDate(individualVals[1], "YYYY-MM-dd"));
             } catch (JSONException e) {
                 Timber.e(e);
             } catch (ParseException e) {
@@ -60,10 +60,10 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     protected void populateRelevantFields(String[] individualVals) throws JSONException {
         JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         String stepName = widgetArgs.getStepName();
-        jsonApi.writeValue(stepName, GTIN, individualVals[0],  "", "", "", false);
-        jsonApi.writeValue(stepName, LOT_NO, individualVals[1],  "", "", "", false);
-        jsonApi.writeValue(stepName, EXP_DATE, individualVals[2],  "", "", "", false);
-        jsonApi.writeValue(stepName, UNIQUE_ID, individualVals[3],  "", "", "", false);
+        jsonApi.writeValue(stepName, UNIQUE_ID, individualVals[0],  "", "", "", false);
+        jsonApi.writeValue(stepName, EXP_DATE, individualVals[1],  "", "", "", false);
+        jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
+        jsonApi.writeValue(stepName, GTIN, individualVals[3],  "", "", "", false);
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[4],  "", "", "", false);
     }
 }

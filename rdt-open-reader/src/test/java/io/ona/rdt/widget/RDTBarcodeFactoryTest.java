@@ -119,6 +119,12 @@ public class RDTBarcodeFactoryTest {
     }
 
     @Test
+    public void testIsRDTExpiredShouldReturnTrueForNullDate() throws Exception {
+        boolean result = Whitebox.invokeMethod(barcodeFactory, "isRDTExpired", (Date) null);
+        assertFalse(result);
+    }
+
+    @Test
     public void testMoveToNextStepShouldMoveToNextStepOrSubmitForValidRDT() throws Exception {
         mockStaticMethods();
         setWidgetArgs();

@@ -1,8 +1,12 @@
 package io.ona.rdt.util;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -49,6 +53,15 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
         patientRegisterActivity.finish();
     }
 
+    @Test
+    public void testAppendEntityIdShouldAppendCorrectNonEmptyId() throws JSONException {
+        JSONObject jsonForm = new JSONObject();
+        jsonForm.put(JsonFormConstants.ENCOUNTER_TYPE, getPatientRegistrationEvent());
+        String entityId = getFormUtils().appendEntityId(jsonForm);
+        Assert.assertFalse(StringUtils.isBlank(entityId));
+        Assert.assertEquals(entityId, jsonForm.get(Constants.FormFields.ENTITY_ID));
+    }
+
     private List<String> getIDs() {
         List<String> rdtIds = new ArrayList<>();
         rdtIds.add(UNIQUE_ID);
@@ -64,4 +77,6 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
     protected abstract String getFormToPrepopulate();
 
     protected abstract String getMockForm();
+
+    protected abstract String getPatientRegistrationEvent();
 }

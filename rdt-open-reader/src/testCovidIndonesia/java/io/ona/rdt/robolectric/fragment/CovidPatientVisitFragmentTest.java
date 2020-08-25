@@ -31,17 +31,17 @@ public class CovidPatientVisitFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testOnCreateViewShouldCorrectlyPopulatePatientVisits() {
-        int visit1 = 1;
-        int visit2 = 2;
-        int visit3 = 3;
-        int visit4 = 4;
+        final int visitOne = 1;
+        final int visitTwo = 2;
+        final int visitThree = 3;
+        final int visitFour = 4;
 
         RecyclerView visitList = covidPatientVisitFragment.getView()
                 .findViewById(R.id.covid_patient_visit_list);
-        assertListValuesAreCorrect(visitList, visit1);
-        assertListValuesAreCorrect(visitList, visit2);
-        assertListValuesAreCorrect(visitList, visit3);
-        assertListValuesAreCorrect(visitList, visit4);
+        assertListValuesAreCorrect(visitList, visitOne);
+        assertListValuesAreCorrect(visitList, visitTwo);
+        assertListValuesAreCorrect(visitList, visitThree);
+        assertListValuesAreCorrect(visitList, visitFour);
     }
 
     private void assertListValuesAreCorrect(RecyclerView visitList, int position) {

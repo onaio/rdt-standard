@@ -20,6 +20,7 @@ import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.ByteArrayOutputStream;
@@ -31,11 +32,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import androidx.core.util.Pair;
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -64,7 +67,6 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
-import static org.smartregister.util.JsonFormUtils.getString;
 import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
@@ -72,7 +74,8 @@ import static org.smartregister.util.Utils.isEmptyCollection;
  */
 public class RDTJsonFormUtils {
 
-    private static final String TAG = RDTJsonFormUtils.class.getName();
+    private Set<String> formsToAddEntityIdToIfBlank = getFormsToAddEntityIdToIfBlank();
+    private Set<String> formsThatShouldBePrepopulated = getFormsThatShouldBePrepopulated();
 
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
 
@@ -124,7 +127,7 @@ public class RDTJsonFormUtils {
                 compositeImage.getParcelableImageMetadata().setCroppedImageMD5Hash(getFileMD5Hash(filePath));
                 compositeImage.withCroppedImageFilePath(filePath);
             } else {
-                Timber.e(TAG, "Sorry, could not create image folder!");
+                Timber.e("Sorry, could not create image folder!");
             }
         }
     }
@@ -178,14 +181,14 @@ public class RDTJsonFormUtils {
                 saveImageToGallery(context, image);
             }
             result = new Pair<>(true, absoluteFilePath);
-        } catch(FileNotFoundException e){
-            Timber.e(TAG, e);
+        } catch (FileNotFoundException e) {
+            Timber.e(e);
         } finally {
             if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
-                    Timber.e(TAG, e);
+                    Timber.e(e);
                 }
             }
         }
@@ -226,7 +229,7 @@ public class RDTJsonFormUtils {
             intent.putExtra(PERFORM_FORM_TRANSLATION, true);
             context.startActivityForResult(intent, requestCode);
         } catch (Exception e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
     }
 
@@ -256,13 +259,24 @@ public class RDTJsonFormUtils {
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
         return formJsonObject;
     }
 
-    protected boolean formShouldBePrePopulated(String formName) {
-        return RDT_TEST_FORM.equals(formName);
+    private Set<String> getFormsThatShouldBePrepopulated() {
+        if (formsThatShouldBePrepopulated == null) {
+            formsThatShouldBePrepopulated = initializeFormsThatShouldBePrepopulated();
+        }
+        return formsThatShouldBePrepopulated;
+    }
+
+    protected Set<String> initializeFormsThatShouldBePrepopulated() {
+        return new HashSet<>(Arrays.asList(RDT_TEST_FORM));
+    }
+
+    private boolean formShouldBePrePopulated(String formName) {
+        return getFormsThatShouldBePrepopulated().contains(formName);
     }
 
     public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
@@ -312,7 +326,7 @@ public class RDTJsonFormUtils {
     public synchronized void getNextUniqueIds(final FormLaunchArgs args, final OnUniqueIdsFetchedCallback callBack, int numOfIDs) {
         class FetchUniqueIdTask extends AsyncTask<Void, Void, List<UniqueId>> {
             @Override
-            protected  List<UniqueId> doInBackground(Void... voids) {
+            protected List<UniqueId> doInBackground(Void... voids) {
                 return getUniqueIDs(numOfIDs);
             }
 
@@ -341,11 +355,31 @@ public class RDTJsonFormUtils {
         return uniqueIds;
     }
 
-    public static String appendEntityId(JSONObject jsonForm) throws JSONException {
-        String entityId = getString(jsonForm, Constants.FormFields.ENTITY_ID);
+    public String appendEntityId(JSONObject jsonForm) throws JSONException {
+        String entityId = JsonFormUtils.getString(jsonForm, Constants.FormFields.ENTITY_ID);
+
+        if (!shouldAppendIDToForm(JsonFormUtils.getString(jsonForm, Constants.FormFields.ENCOUNTER_TYPE))) {
+            return entityId;
+        }
+
         entityId = StringUtils.isBlank(entityId) ? UUID.randomUUID().toString() : entityId;
         jsonForm.put(Constants.FormFields.ENTITY_ID, entityId);
         return entityId;
+    }
+
+    private Set<String> getFormsToAddEntityIdToIfBlank() {
+        if (formsToAddEntityIdToIfBlank == null) {
+            formsToAddEntityIdToIfBlank = initializeFormsThatRequireEntityId();
+        }
+        return formsToAddEntityIdToIfBlank;
+    }
+
+    protected Set<String> initializeFormsThatRequireEntityId() {
+        return new HashSet<>(Arrays.asList(Constants.Encounter.PATIENT_REGISTRATION));
+    }
+
+    private boolean shouldAppendIDToForm(String eventType) {
+        return getFormsToAddEntityIdToIfBlank().contains(eventType);
     }
 
     public static FormTag getFormTag() {
@@ -353,7 +387,7 @@ public class RDTJsonFormUtils {
         FormTag formTag = new FormTag();
         formTag.providerId = settings.fetchRegisteredANM();
         formTag.locationId = settings.fetchDefaultLocalityId(formTag.providerId);
-        formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);;
+        formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);
         formTag.team = settings.fetchDefaultTeam(formTag.providerId);
         return formTag;
     }

@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 
 /**
@@ -13,12 +12,9 @@ import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
  */
 public class CovidFormLauncher extends FormLauncher {
 
-    private Set<String> formsThatRequireUniqueIDs = new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM,
-            COVID_RDT_TEST_FORM));
-
     @Override
-    protected boolean formRequiresUniqueId(String formName) {
-        return formsThatRequireUniqueIDs.contains(formName);
+    protected Set<String> initializeFormsThatRequireUniqueIDs() {
+        return new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, COVID_RDT_TEST_FORM));
     }
 
     @Override

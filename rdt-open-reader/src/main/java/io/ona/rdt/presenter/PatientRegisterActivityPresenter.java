@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
@@ -23,14 +22,14 @@ import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
  */
 public class PatientRegisterActivityPresenter implements PatientRegisterActivityContract.Presenter {
 
-    private final String TAG = PatientRegisterActivityPresenter.class.getName();
-
     private PatientRegisterActivityContract.View activity;
     protected PatientRegisterActivityInteractor interactor;
+    private RDTJsonFormUtils formUtils;
 
     public PatientRegisterActivityPresenter(PatientRegisterActivityContract.View activity) {
         this.activity = activity;
         interactor = getInteractor();
+        formUtils = getFormUtils();
     }
 
     @Override
@@ -57,14 +56,14 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
     public void saveForm(String jsonForm, OnFormSavedCallback callback) {
         try {
             JSONObject jsonFormObj = new JSONObject(jsonForm);
-            RDTJsonFormUtils.appendEntityId(jsonFormObj);
+            formUtils.appendEntityId(jsonFormObj);
             interactor.saveForm(jsonFormObj, callback);
             Patient patient = interactor.getPatientForRDT(jsonFormObj);
             if (patient != null) {
                 launchPostRegistrationView(patient);
             }
         } catch (JSONException e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
     }
 
@@ -77,22 +76,33 @@ public class PatientRegisterActivityPresenter implements PatientRegisterActivity
         try {
             interactor.launchForm(activity, formName, patient);
         } catch (JSONException e) {
-            Timber.e(TAG, e);
+            Timber.e(e);
         }
     }
 
     protected PatientRegisterActivityInteractor getInteractor() {
         if (interactor == null) {
-            interactor = createInteractor();
+            interactor = initializeInteractor();
         }
         return interactor;
     }
 
-    protected PatientRegisterActivityInteractor createInteractor() {
+    protected PatientRegisterActivityInteractor initializeInteractor() {
         return new PatientRegisterActivityInteractor();
     }
 
     protected PatientRegisterActivity getActivity() {
         return (PatientRegisterActivity) activity;
+    }
+
+    public RDTJsonFormUtils getFormUtils() {
+        if (formUtils == null) {
+            formUtils = initializeFormUtils();
+        }
+        return formUtils;
+    }
+
+    protected RDTJsonFormUtils initializeFormUtils() {
+        return new RDTJsonFormUtils();
     }
 }

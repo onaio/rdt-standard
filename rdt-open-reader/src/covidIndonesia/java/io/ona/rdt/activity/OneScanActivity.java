@@ -84,8 +84,8 @@ public class OneScanActivity extends AppCompatActivity {
     private void setResultAndFinish(OneScanHelper.ScanResponse response) {
         Intent resultIntent = new Intent();
         Barcode barcode = new Barcode();
-        barcode.displayValue = StringUtils.join(new String[]{response.productId, response.lot,
-                response.expirationDate, response.serialNumber, String.valueOf(response.sensorTriggered),
+        barcode.displayValue = StringUtils.join(new String[]{response.serialNumber, response.expirationDate,
+                response.lot, response.productId, String.valueOf(response.sensorTriggered),
                 response.status}, ',');
         resultIntent.putExtra(BARCODE_KEY, barcode);
         setResult(RESULT_OK, resultIntent);
