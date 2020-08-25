@@ -31,7 +31,7 @@ public class CovidPatientVisitFragment extends Fragment {
         patientVisitList.setHasFixedSize(true);
         patientVisitList.setLayoutManager(new LinearLayoutManager(getContext()));
         patientVisitList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        fetchAndPopulateVisits(patientVisitList,""); // todo: replace with appropriate params
+        fetchAndPopulateVisits(patientVisitList, ""); // todo: replace with appropriate params
     }
 
     private void fetchAndPopulateVisits(RecyclerView patientVisitList, String baseEntityId) {

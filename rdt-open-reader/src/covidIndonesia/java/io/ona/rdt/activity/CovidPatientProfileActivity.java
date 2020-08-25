@@ -16,9 +16,8 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
-
-import static io.ona.rdt.util.Constants.FormFields.PATIENT;
-import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
+import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.RDTJsonFormUtils;
 
 /**
  * Created by Vincent Karuri on 15/06/2020
@@ -57,11 +56,11 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     }
 
     private void populatePatientDetails() {
-        Patient currPatient = getIntent().getParcelableExtra(PATIENT);
+        Patient currPatient = getIntent().getParcelableExtra(Constants.FormFields.PATIENT);
         TextView tvPatientName = findViewById(R.id.covid_profile_patient_name);
         TextView tvPatientSexAndId = findViewById(R.id.covid_profile_sex_and_id);
         tvPatientName.setText(currPatient.getPatientName());
-        tvPatientSexAndId.setText(getPatientSexAndId(currPatient));
+        tvPatientSexAndId.setText(RDTJsonFormUtils.getPatientSexAndId(currPatient));
     }
 
     @Override
