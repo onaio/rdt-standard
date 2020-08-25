@@ -1,7 +1,9 @@
 package io.ona.rdt.activity;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 import io.ona.rdt.R;
+import io.ona.rdt.adapter.ProfileFragmentAdapter;
 import io.ona.rdt.contract.CovidPatientProfileActivityContract;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
@@ -13,8 +15,9 @@ import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 public class CovidPatientProfileActivity extends PatientProfileActivity implements CovidPatientProfileActivityContract.View {
 
     @Override
-    protected int getFragmentId() {
-        return R.id.covid_patient_profile_fragment_container;
+    protected void attachPatientProfileFragment() {
+        ((ViewPager2) findViewById(R.id.covid_patient_profile_fragment_container))
+                .setAdapter(new ProfileFragmentAdapter(this));
     }
 
     @Override

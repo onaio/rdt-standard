@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context="io.ona.rdt.activity.CovidPatientProfileActivity">
 
-    <LinearLayout
+    <androidx.viewpager2.widget.ViewPager2
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/covid_patient_profile_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
