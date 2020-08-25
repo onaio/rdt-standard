@@ -81,6 +81,6 @@ public class CovidPatientHistoryAdapterTest {
 
     @Test
     public void getItemCountShouldReturnOne() {
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(1, adapter.getItemCount());
     }
 }
