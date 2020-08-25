@@ -5,4 +5,6 @@
     <string name="covid_patient_profile_sample_collection">Sample collection</string>
     <string name="covid_patient_profile_supporting_investigations">Supporting investigations</string>
     <string name="covid_patient_profile_sample_shipments">Sample shipments</string>
+    <string name="covid_patient_forms_tab_name">Patient Forms</string>
+    <string name="covid_patient_history_tab_name">Patient History</string>
 </resources>

@@ -37,7 +37,18 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     private void setUpTabs() {
         TabLayout tabLayout = findViewById(R.id.profile_tab_layout);
         ViewPager2 viewPager = findViewById(R.id.covid_patient_profile_fragment_container);
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText("")).attach();
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            String tabText = "";
+            switch (position) {
+                case 0:
+                    tabText = getResources().getString(R.string.covid_patient_forms_tab_name);
+                    break;
+                case 1:
+                    tabText = getResources().getString(R.string.covid_patient_history_tab_name);
+                    break;
+            }
+            tab.setText(tabText);
+        }).attach();
     }
 
     private void addListeners() {
