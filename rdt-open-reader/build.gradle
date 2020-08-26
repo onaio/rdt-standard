@@ -3,6 +3,8 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 repositories {
     maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
@@ -114,7 +116,7 @@ android {
             applicationId "io.ona.rdt.covid.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.3.0"
+            versionName "v1.4.0"
             versionNameSuffix "-COVID-ID"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
         }
@@ -122,7 +124,11 @@ android {
 }
 
 dependencies {
+    implementation "androidx.core:core-ktx:1.0.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "com.google.android.material:material:1.1.0-beta01"
     implementation 'org.apache.commons:commons-lang3:3.9'
 
     implementation 'com.google.firebase:firebase-analytics:17.4.2'
