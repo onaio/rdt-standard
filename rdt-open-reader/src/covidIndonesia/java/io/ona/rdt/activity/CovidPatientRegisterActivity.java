@@ -75,7 +75,6 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     private String[] languages;
     private int currentLanguageIndex = 0;
 
-
     private void languageSwitcherDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.drawer_menu_item_change_language));
