@@ -2,6 +2,7 @@ package io.ona.rdt.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,9 +116,11 @@ public class PatientRegisterFragmentPresenterTest {
 
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
-        assertEquals(new String[]{RDT_PATIENTS + "." + "relationalid", RDT_PATIENTS + "." + FIRST_NAME,
-                RDT_PATIENTS + "." + LAST_NAME, RDT_PATIENTS + "." + AGE, RDT_PATIENTS + "." + SEX, RDT_PATIENTS + "." +  PATIENT_ID, RDT_PATIENTS + "." + Constants.DBConstants.DOB},
-                Whitebox.invokeMethod(presenter, "mainColumns", RDT_PATIENTS));
+        String[] columns = new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID, Constants.DBConstants.DOB};
+        for (int i = 0; i < columns.length; i++) {
+            columns[i] = TextUtils.join(".", new String[]{RDT_PATIENTS, columns[i]});
+        }
+        assertEquals(columns, Whitebox.invokeMethod(presenter, "mainColumns", RDT_PATIENTS));
     }
 
     private void mockStaticMethods() throws JSONException {

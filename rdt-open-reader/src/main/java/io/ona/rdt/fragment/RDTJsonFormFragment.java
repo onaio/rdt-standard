@@ -38,8 +38,6 @@ import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
  */
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
-    private static final String STEP_8 = "step8";
-
     protected static int currentStep = 1; // step of the fragment coming into view
     protected static int prevStep; // step of the fragment coming out of view
     private boolean moveBackOneStep = false;
