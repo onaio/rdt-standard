@@ -34,7 +34,7 @@ public class PatientHistoryRepository {
         List<EventClient> eventClients = eventClientRepository.fetchEventClientsCore(
             String.format(
                     "SELECT %s, %s, SUBSTR(%s, %s, %s) AS visit_date FROM event " +
-                            "WHERE %s=? AND %s=? AND visit_date=? ORDER BY %s LIMIT 1",
+                            "WHERE %s=? AND %s=? AND visit_date=? ORDER BY %s DESC LIMIT 1",
                     EventClientRepository.event_column.json.toString(),
                     EventClientRepository.event_column.dateCreated.toString(),
                     EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
