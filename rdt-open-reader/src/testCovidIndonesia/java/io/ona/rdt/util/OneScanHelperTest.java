@@ -24,6 +24,9 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class OneScanHelperTest {
 
+    private static final int mRequestCode = 1234;
+    private static final String CALLBACK_KEY = "mCallbacks";
+
     @Mock
     private Activity mActivity;
 
@@ -38,7 +41,6 @@ public class OneScanHelperTest {
 
     private OneScanHelper.VersionRequest request;
     private List<ResolveInfo> list;
-    private int mRequestCode = 1234;
     private OneScanHelper oneScanHelper;
 
     @Before
@@ -53,12 +55,12 @@ public class OneScanHelperTest {
 
         oneScanHelper = new OneScanHelper(mActivity);
 
-        ReflectionHelpers.setField(oneScanHelper, "mCallbacks", mCallbacks);
+        ReflectionHelpers.setField(oneScanHelper, CALLBACK_KEY, mCallbacks);
     }
 
     @After
     public void tearDown() {
-        ReflectionHelpers.setField(oneScanHelper, "mCallbacks", null);
+        ReflectionHelpers.setField(oneScanHelper, CALLBACK_KEY, null);
         list = null;
         request = null;
         oneScanHelper = null;
