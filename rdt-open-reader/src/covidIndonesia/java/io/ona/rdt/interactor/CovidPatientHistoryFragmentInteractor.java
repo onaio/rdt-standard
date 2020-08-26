@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.util.Utils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -59,7 +60,11 @@ public class CovidPatientHistoryFragmentInteractor {
 
     private String getValues(Obs obs, Map<String, String> formWidgetKeyToTextMap) {
         List<String> values = new ArrayList<>();
-        for (Object value : obs.getValues()) {
+        // for checkboxes, get keys from key-value map
+        Map<String, Object> keyValPairs = obs.getKeyValPairs();
+        List<Object> obsValues = Utils.isEmptyMap(keyValPairs) ? obs.getValues()
+                : new ArrayList<>(keyValPairs.keySet());
+        for (Object value : obsValues) {
             values.add(getValue(value.toString(), formWidgetKeyToTextMap));
         }
         return StringUtils.join(values, ",");
@@ -67,7 +72,7 @@ public class CovidPatientHistoryFragmentInteractor {
 
     /**
      *
-     * Takes care of the special case in native radio button that saves widget key for the selected value
+     * Takes care of the special case in native radio button and checkbox where the key should be used
      *
      * @param value
      * @param formWidgetKeyToTextMap
