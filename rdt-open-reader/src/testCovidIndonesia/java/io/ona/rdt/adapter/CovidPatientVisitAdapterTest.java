@@ -24,11 +24,11 @@ import io.ona.rdt.R;
 import io.ona.rdt.domain.Visit;
 import io.ona.rdt.viewholder.CovidPatientVisitViewHolder;
 
-@PrepareForTest(LayoutInflater.class)
 @RunWith(PowerMockRunner.class)
+@PrepareForTest(LayoutInflater.class)
 public class CovidPatientVisitAdapterTest {
 
-    private static final String VISIT_NAME = "name_of_visit";
+    private static final String VISIT_NAME = "first_visit";
     private static final String VISIT_DATE = "26-08-2020";
 
     private CovidPatientVisitAdapter adapter;
