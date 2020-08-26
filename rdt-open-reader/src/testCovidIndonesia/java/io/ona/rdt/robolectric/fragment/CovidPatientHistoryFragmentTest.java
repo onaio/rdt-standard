@@ -56,10 +56,10 @@ public class CovidPatientHistoryFragmentTest extends FragmentRobolectricTest {
     }
 
     private void assertListValuesAreCorrect(int position, int layoutId) {
-        RecyclerView recyclerView = covidPatientHistoryFragment.getView()
+        RecyclerView historyEntries = covidPatientHistoryFragment.getView()
                 .findViewById(layoutId)
                 .findViewById(R.id.patient_history_entries);
-        CovidPatientHistoryViewHolder viewHolder = (CovidPatientHistoryViewHolder) recyclerView
+        CovidPatientHistoryViewHolder viewHolder = (CovidPatientHistoryViewHolder) historyEntries
                 .findViewHolderForAdapterPosition(position - 1);
         Assert.assertEquals(String.format("value%d", position), viewHolder.getTvHistoryValue().getText());
         Assert.assertEquals(String.format("key%d", position), viewHolder.getTvHistoryKey().getText());
