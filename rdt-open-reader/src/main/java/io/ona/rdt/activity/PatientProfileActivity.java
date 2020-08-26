@@ -6,10 +6,11 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+
+import org.smartregister.view.activity.MultiLanguageActivity;
+
 import io.ona.rdt.R;
-import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
@@ -17,15 +18,13 @@ import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
-import static io.ona.rdt.util.Utils.updateLocale;
 
-public class PatientProfileActivity extends FragmentActivity implements PatientProfileActivityContract.View {
+public class PatientProfileActivity extends MultiLanguageActivity implements PatientProfileActivityContract.View {
 
     protected PatientProfileActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
         super.onCreate(savedInstanceState);
         presenter = getPresenter();
         setContentView(getContentViewId());

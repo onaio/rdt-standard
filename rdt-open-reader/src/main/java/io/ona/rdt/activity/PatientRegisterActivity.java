@@ -9,6 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
@@ -20,12 +27,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
@@ -39,7 +40,6 @@ import timber.log.Timber;
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_RDT_PERMISSIONS;
-import static io.ona.rdt.util.Utils.updateLocale;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
@@ -48,7 +48,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
         super.onCreate(savedInstanceState);
         formUtils = getFormUtils();
         drawerLayout = findViewById(R.id.drawer_layout);

@@ -15,7 +15,6 @@ import io.ona.rdt.presenter.LoginPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
 
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
-import static io.ona.rdt.util.Utils.updateLocale;
 
 /**
  * Created by Vincent Karuri on 16/07/2019
@@ -24,7 +23,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
         updateFTSDetails();
         super.onCreate(savedInstanceState);
         addAttributionText();
@@ -43,7 +41,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void addAttributionText() {
-        updateLocale(this);
         TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
         String attributionsTxt = getResources().getString(R.string.login_attributions);
         tvLoginAttributions.setText(Html.fromHtml(attributionsTxt));

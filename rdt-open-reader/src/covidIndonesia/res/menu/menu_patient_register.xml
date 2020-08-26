@@ -26,4 +26,8 @@
             android:title="@string/covid_patient_profile_sample_shipments"
             android:icon="@drawable/ic_shipping"/>
     </group>
+
+    <item
+        android:id="@+id/menu_item_switch_language"
+        android:title="@string/drawer_menu_item_change_language" />
 </menu>

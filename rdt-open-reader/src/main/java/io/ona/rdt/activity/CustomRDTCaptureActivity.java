@@ -20,7 +20,6 @@ import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static io.ona.rdt.util.Utils.hideProgressDialogFromFG;
 import static io.ona.rdt.util.Utils.showProgressDialogInFG;
-import static io.ona.rdt.util.Utils.updateLocale;
 import static io.ona.rdt.widget.UWRDTCaptureFactory.CAPTURE_TIMEOUT;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
@@ -37,7 +36,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);
