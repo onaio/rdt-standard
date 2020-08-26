@@ -1,6 +1,5 @@
 package io.ona.rdt.adapter;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
