@@ -8,6 +8,7 @@ import io.ona.rdt.application.RDTApplication;
 
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
+import static io.ona.rdt.util.Utils.updateLocale;
 
 /**
  * Created by Vincent Karuri on 21/06/2019
@@ -18,6 +19,7 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        updateLocale(this);
         super.onCreate(savedInstanceState);
     }
 

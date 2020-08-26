@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import androidx.annotation.StringRes;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
+
+import androidx.annotation.StringRes;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
@@ -16,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -100,7 +103,15 @@ public class Utils {
     }
 
     public static void updateLocale(android.content.Context context) {
-        Locale locale = new Locale(BuildConfig.LOCALE);
+
+        AllSharedPreferences sharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(context)) {
+            @Override
+            public String fetchLanguagePreference() {
+                return getPreferences().getString("locale", BuildConfig.LOCALE).trim();
+            }
+        };
+
+        Locale locale = new Locale(sharedPreferences.fetchLanguagePreference());
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);

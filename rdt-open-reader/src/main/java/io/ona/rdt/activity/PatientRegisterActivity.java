@@ -40,6 +40,7 @@ import timber.log.Timber;
 import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_RDT_PERMISSIONS;
+import static io.ona.rdt.util.Utils.updateLocale;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
@@ -48,6 +49,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         formUtils = getFormUtils();
         drawerLayout = findViewById(R.id.drawer_layout);

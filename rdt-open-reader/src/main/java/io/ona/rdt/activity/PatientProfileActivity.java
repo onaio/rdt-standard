@@ -18,6 +18,7 @@ import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
+import static io.ona.rdt.util.Utils.updateLocale;
 
 public class PatientProfileActivity extends MultiLanguageActivity implements PatientProfileActivityContract.View {
 
@@ -25,6 +26,7 @@ public class PatientProfileActivity extends MultiLanguageActivity implements Pat
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         presenter = getPresenter();
         setContentView(getContentViewId());
