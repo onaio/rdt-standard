@@ -33,11 +33,15 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
     }
 
     protected void attachPatientProfileFragment() {
+        replaceFragment(createPatientProfileFragment(), false);
+    }
+
+    public Fragment createPatientProfileFragment() {
         Fragment patientProfileFragment = getPatientProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(PATIENT, getIntent().getParcelableExtra(PATIENT));
         patientProfileFragment.setArguments(bundle);
-        replaceFragment(patientProfileFragment, false);
+        return patientProfileFragment;
     }
 
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {

@@ -1,11 +1,9 @@
 package io.ona.rdt.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,7 +18,6 @@ import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SUPPORT_INVESTIGATION_FORM;
-import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
 
 /**
  * Created by Vincent Karuri on 12/06/2020
@@ -34,38 +31,14 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.patientProfileFragmentPresenter = new CovidPatientProfileFragmentPresenter(this);
-        createFormWidgetKeyToTextMap();
+        currPatient = getArguments().getParcelable(PATIENT);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootLayout = inflater.inflate(R.layout.fragment_covid_patient_profile, container, false);
         addListeners(rootLayout);
-        populatePatientDetails(rootLayout);
         return rootLayout;
-    }
-
-    private void createFormWidgetKeyToTextMap() {
-        class CreateFormWidgetKeyToTextMapTask extends AsyncTask<Void, Void, Void> {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                getPresenter().createFormWidgetKeyToTextMap();
-                return null;
-            }
-        }
-        new CreateFormWidgetKeyToTextMapTask().execute();
-    }
-
-    private CovidPatientProfileFragmentPresenter getPresenter() {
-        return patientProfileFragmentPresenter;
-    }
-
-    private void populatePatientDetails(final View rootLayout) {
-        currPatient = getArguments().getParcelable(PATIENT);
-        TextView tvPatientName = rootLayout.findViewById(R.id.covid_profile_patient_name);
-        TextView tvPatientSexAndId = rootLayout.findViewById(R.id.covid_profile_sex_and_id);
-        tvPatientName.setText(currPatient.getPatientName());
-        tvPatientSexAndId.setText(getPatientSexAndId(currPatient));
     }
 
     private void addListeners(final View rootLayout) {
@@ -74,20 +47,11 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
         rootLayout.findViewById(R.id.tv_covid_sample_collection).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_covid_support_investigation).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_covid_symptoms_and_history).setOnClickListener(this);
-        rootLayout.findViewById(R.id.covid_previous_step_text).setOnClickListener(this);
-        rootLayout.findViewById(R.id.btn_covid_back_to_patient_register).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_covid_back_to_patient_register:
-            case R.id.covid_previous_step_text:
-                getActivity().onBackPressed();
-                break;
-            default:
-                patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
-        }
+        patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
     }
 
 

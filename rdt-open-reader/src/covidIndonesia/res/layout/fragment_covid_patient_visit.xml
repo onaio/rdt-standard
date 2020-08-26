@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.ona.rdt.view.NestedScrollableHost xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,5 +7,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/covid_patient_visit_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</FrameLayout>
+        android:layout_height="match_parent" />
+</io.ona.rdt.view.NestedScrollableHost>
