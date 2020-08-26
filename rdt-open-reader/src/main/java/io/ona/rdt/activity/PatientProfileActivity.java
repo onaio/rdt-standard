@@ -14,6 +14,7 @@ import io.ona.rdt.R;
 import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
+import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
@@ -26,7 +27,7 @@ public class PatientProfileActivity extends MultiLanguageActivity implements Pat
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
+        updateLocale(this, Utils.getSharedPreference(this));
         super.onCreate(savedInstanceState);
         presenter = getPresenter();
         setContentView(getContentViewId());

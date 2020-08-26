@@ -102,16 +102,9 @@ public class Utils {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
-    public static void updateLocale(android.content.Context context) {
+    public static void updateLocale(android.content.Context context, AllSharedPreferences allSharedPreferences) {
 
-        AllSharedPreferences sharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(context)) {
-            @Override
-            public String fetchLanguagePreference() {
-                return getPreferences().getString("locale", BuildConfig.LOCALE).trim();
-            }
-        };
-
-        Locale locale = new Locale(sharedPreferences.fetchLanguagePreference());
+        Locale locale = new Locale(allSharedPreferences.fetchLanguagePreference());
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
@@ -168,5 +161,14 @@ public class Utils {
 
     public static boolean isEmptyCursor(Cursor cursor) {
         return cursor == null || cursor.getCount() == 0;
+    }
+
+    public static AllSharedPreferences getSharedPreference(Context context) {
+        return new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(context)) {
+            @Override
+            public String fetchLanguagePreference() {
+                return getPreferences().getString("locale", BuildConfig.LOCALE).trim();
+            }
+        };
     }
 }

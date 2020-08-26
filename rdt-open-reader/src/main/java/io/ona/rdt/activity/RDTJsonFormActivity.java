@@ -19,6 +19,7 @@ import io.ona.rdt.contract.RDTJsonFormActivityContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormActivityPresenter;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static io.ona.rdt.util.Constants.RDTType.ONA_RDT;
@@ -32,7 +33,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
+        updateLocale(this, Utils.getSharedPreference(this));
         super.onCreate(savedInstanceState);
         formUtils = getFormUtils();
         presenter = new RDTJsonFormActivityPresenter(this);

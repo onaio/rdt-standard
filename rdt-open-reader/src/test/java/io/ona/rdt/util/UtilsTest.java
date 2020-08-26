@@ -3,6 +3,7 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -91,13 +92,19 @@ public class UtilsTest extends PowerMockTest {
 
     @Test
     public void testUpdateLocale() throws Exception {
+
+        AllSharedPreferences sharedPreferences = PowerMockito.mock(AllSharedPreferences.class);
         Context context = mock(Context.class);
         Resources resources = mock(Resources.class);
         Configuration configuration = mock(Configuration.class);
+        DisplayMetrics displayMetrics = mock(DisplayMetrics.class);
+        doReturn(BuildConfig.LOCALE).when(sharedPreferences).fetchLanguagePreference();
         doReturn(resources).when(context).getResources();
         doReturn(configuration).when(resources).getConfiguration();
-        Whitebox.invokeMethod(utils, "updateLocale", context);
+        doReturn(displayMetrics).when(resources).getDisplayMetrics();
+        Whitebox.invokeMethod(utils, "updateLocale", context, sharedPreferences);
         verify(configuration).setLocale(any(Locale.class));
+        verify(resources).updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
     @Test

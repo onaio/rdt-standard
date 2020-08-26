@@ -13,6 +13,7 @@ import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.presenter.LoginPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
+import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Utils.updateLocale;
@@ -24,7 +25,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
+        updateLocale(this, Utils.getSharedPreference(this));
         updateFTSDetails();
         super.onCreate(savedInstanceState);
         addAttributionText();
