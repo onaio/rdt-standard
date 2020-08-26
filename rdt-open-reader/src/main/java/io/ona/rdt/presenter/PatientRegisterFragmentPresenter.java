@@ -23,8 +23,6 @@ import static io.ona.rdt.util.Constants.DBConstants.SEX;
  */
 public class PatientRegisterFragmentPresenter implements PatientRegisterFragmentContract.Presenter {
 
-    private static final String DOT = ".";
-
     protected PatientRegisterFragmentInteractor interactor;
     private PatientRegisterFragmentContract.View patientRegisterFragment;
     private SmartRegisterQueryBuilder smartRegisterQueryBuilder;
