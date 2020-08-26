@@ -29,5 +29,6 @@
 
     <item
         android:id="@+id/menu_item_switch_language"
-        android:title="@string/drawer_menu_item_change_language" />
+        android:title="@string/drawer_menu_item_change_language"
+        android:icon="@drawable/ic_language"/>
 </menu>
