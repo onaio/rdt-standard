@@ -6,18 +6,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.CovidPatientVisitAdapter;
+import io.ona.rdt.contract.CovidPatientVisitFragmentContract;
+import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.Visit;
+import io.ona.rdt.presenter.CovidPatientVisitFragmentPresenter;
+import io.ona.rdt.util.Constants;
 
-public class CovidPatientVisitFragment extends Fragment {
+public class CovidPatientVisitFragment extends Fragment implements CovidPatientVisitFragmentContract.View {
+
+    private Patient currPatient;
+    private CovidPatientVisitFragmentPresenter presenter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        currPatient = getActivity().getIntent().getParcelableExtra(Constants.FormFields.PATIENT);
+        presenter = new CovidPatientVisitFragmentPresenter(this);
+    }
+
+    public static CovidPatientVisitFragment getInstance (Bundle args) {
+        CovidPatientVisitFragment covidPatientVisitFragment = new CovidPatientVisitFragment();
+        covidPatientVisitFragment.setArguments(args);
+        return covidPatientVisitFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,15 +51,15 @@ public class CovidPatientVisitFragment extends Fragment {
         patientVisitList.setHasFixedSize(true);
         patientVisitList.setLayoutManager(new LinearLayoutManager(getContext()));
         patientVisitList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        fetchAndPopulateVisits(patientVisitList, ""); // todo: replace with appropriate params
+        fetchAndPopulateVisits(patientVisitList);
     }
 
-    private void fetchAndPopulateVisits(RecyclerView patientVisitList, String baseEntityId) {
+    private void fetchAndPopulateVisits(RecyclerView patientVisitList) {
         class FetchPatientVisitsTask extends AsyncTask<Void, Void, List<Visit>> {
 
             @Override
             protected List<Visit> doInBackground(Void... voids) {
-                return getVisits();
+                return presenter.getPatientVisits(currPatient.getBaseEntityId());
             }
 
             @Override
@@ -49,21 +69,5 @@ public class CovidPatientVisitFragment extends Fragment {
         }
 
         new FetchPatientVisitsTask().execute();
-    }
-
-    // todo: replace with db call
-    private List<Visit> getVisits() {
-        List<Visit> visits = new ArrayList<>();
-        visits.add(new Visit("visit1", "date1"));
-        visits.add(new Visit("visit2", "date2"));
-        visits.add(new Visit("visit3", "date3"));
-        visits.add(new Visit("visit4", "date4"));
-        visits.add(new Visit("visit5", "date5"));
-        visits.add(new Visit("visit6", "date6"));
-        visits.add(new Visit("visit7", "date7"));
-        visits.add(new Visit("visit8", "date8"));
-        visits.add(new Visit("visit9", "date9"));
-        visits.add(new Visit("visit10", "date10"));
-        return visits;
     }
 }

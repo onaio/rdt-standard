@@ -20,10 +20,6 @@ public class CovidPatientHistoryFragmentPresenter {
         interactor = new CovidPatientHistoryFragmentInteractor();
     }
 
-    public List<Visit> getVisits(String baseEntityId) {
-        return interactor.getVisits(baseEntityId);
-    }
-
     public List<PatientHistoryEntry> getPatientHistoryEntries(String baseEntityId, String eventType, String date) {
         List<PatientHistoryEntry> patientHistoryEntries = null;
         try {
