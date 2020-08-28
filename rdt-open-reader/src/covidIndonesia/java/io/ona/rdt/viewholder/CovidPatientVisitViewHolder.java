@@ -22,6 +22,7 @@ public class CovidPatientVisitViewHolder extends RecyclerView.ViewHolder {
         tvDateOfVisit = itemView.findViewById(R.id.date_of_visit);
         patientVisitRow = itemView;
         patientVisitRow.setOnClickListener(onClickListener);
+        patientVisitRow.findViewById(R.id.btn_go_to_visit_history).setOnClickListener(onClickListener);
     }
 
     public TextView getTvVisitName() {

@@ -39,6 +39,8 @@ public class CovidPatientVisitAdapter extends RecyclerView.Adapter<CovidPatientV
         holder.getTvVisitName().setText(visit.getVisitName());
         holder.getTvDateOfVisit().setText(visit.getDateOfVisit());
         holder.getPatientVisitRow().setTag(R.id.patient_visit_date, visit.getDateOfVisit());
+        holder.getPatientVisitRow().findViewById(R.id.btn_go_to_visit_history)
+                .setTag(R.id.patient_visit_date, visit.getDateOfVisit());
     }
 
     @Override

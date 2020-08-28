@@ -7,6 +7,7 @@ import org.smartregister.util.Utils;
 import java.util.List;
 
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.util.CovidConstants;
 
 /**
  * Created by Vincent Karuri on 21/08/2020
@@ -21,12 +22,13 @@ public class PatientHistoryRepository {
     public List<EventClient> getEventsByUniqueDate(String baseEntityId) {
         return eventClientRepository.fetchEventClientsCore(
             String.format(
-                    "SELECT %s, SUBSTR(%s, %s, %s) visit_date FROM event WHERE %s=? GROUP BY 2",
+                    "SELECT %s, SUBSTR(%s, %s, %s) visit_date FROM event WHERE %s=? AND %s!=? GROUP BY 2",
                     EventClientRepository.event_column.json.toString(),
                     EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
-                    EventClientRepository.event_column.baseEntityId.toString()
+                    EventClientRepository.event_column.baseEntityId.toString(),
+                    EventClientRepository.event_column.eventType.toString()
             ),
-            new String[]{baseEntityId}
+            new String[]{baseEntityId, CovidConstants.Encounter.COVID_PATIENT_REGISTRATION}
         );
     }
 
