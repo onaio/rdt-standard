@@ -86,13 +86,14 @@ public class CovidPatientVisitFragment extends Fragment implements CovidPatientV
     public void onClick(View v) {
         switch (v.getId()) {
             default:
-                launchPatientHistory();
+                launchPatientHistory(v.getTag(R.id.patient_visit_date).toString());
         }
     }
 
-    private void launchPatientHistory() {
+    private void launchPatientHistory(String visitDate) {
         Intent intent = new Intent(getActivity(), CovidPatientHistoryActivity.class);
         intent.putExtra(Constants.FormFields.PATIENT, currPatient);
+        intent.putExtra(Constants.FormFields.PATIENT_VISIT_DATE, visitDate);
         getActivity().startActivity(intent);
     }
 }

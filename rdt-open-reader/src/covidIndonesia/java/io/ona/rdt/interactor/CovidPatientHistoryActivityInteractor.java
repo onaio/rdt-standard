@@ -17,11 +17,11 @@ import io.ona.rdt.util.FormKeyTextExtractionUtil;
 /**
  * Created by Vincent Karuri on 24/08/2020
  */
-public class CovidPatientHistoryFragmentInteractor {
+public class CovidPatientHistoryActivityInteractor {
 
     private PatientHistoryRepository patientHistoryRepository;
 
-    public CovidPatientHistoryFragmentInteractor() {
+    public CovidPatientHistoryActivityInteractor() {
         patientHistoryRepository = new PatientHistoryRepository();
     }
 

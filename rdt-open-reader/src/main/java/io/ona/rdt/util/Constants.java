@@ -49,6 +49,7 @@ public interface Constants {
         String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
         String RDT_CAPTURE_MIDDLE_LINE_RESULT = "rdt_capture_middle_line_result";
         String RDT_CAPTURE_BOTTOM_LINE_RESULT = "rdt_capture_bottom_line_result";
+        String PATIENT_VISIT_DATE = "patient_visit_date";
     }
 
     interface RequestCodes {

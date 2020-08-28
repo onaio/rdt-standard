@@ -6,7 +6,6 @@ import org.json.JSONException;
 
 import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
-import io.ona.rdt.interactor.CovidPatientHistoryFragmentInteractor;
 import io.ona.rdt.interactor.CovidPatientProfileFragmentInteractor;
 import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import timber.log.Timber;
