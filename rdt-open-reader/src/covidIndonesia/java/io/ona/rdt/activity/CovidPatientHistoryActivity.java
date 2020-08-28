@@ -3,6 +3,7 @@ package io.ona.rdt.activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -68,17 +69,25 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
     }
 
     private void fetchAndPopulateHistory(int layoutId, String eventType) {
-        RecyclerView patientHistoryEntryList = getPatientHistoryEntryList(findViewById(layoutId));
+        View patientHistorySection = findViewById(layoutId);
+        RecyclerView patientHistoryEntryList = getPatientHistoryEntryList(patientHistorySection);
         patientHistoryEntryList.setHasFixedSize(true);
         patientHistoryEntryList.setLayoutManager(new LinearLayoutManager(this));
-        fetchHistory(patientHistoryEntryList, eventType, getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE));
+        fetchHistory(patientHistoryEntryList, eventType,
+                getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE),
+                patientHistorySection.findViewById(R.id.tv_no_entries_found));
     }
 
     private RecyclerView getPatientHistoryEntryList(View view) {
         return view.findViewById(R.id.patient_history_entries);
     }
 
-    private void fetchHistory(RecyclerView patientHistoryEntryList, String eventType, String date) {
+    private void showNoEntriesText() {
+
+    }
+
+    private void fetchHistory(RecyclerView patientHistoryEntryList, String eventType, String date,
+                              TextView tvNoDataAvailable) {
         class FetchPatientHistoryTask extends AsyncTask<Void, Void, List<PatientHistoryEntry>> {
 
             @Override
@@ -89,6 +98,9 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
             @Override
             protected void onPostExecute(List<PatientHistoryEntry> patientHistoryEntries) {
                 patientHistoryEntryList.setAdapter(new CovidPatientHistoryAdapter(patientHistoryEntries));
+                if (patientHistoryEntries.isEmpty()) {
+                    tvNoDataAvailable.setVisibility(View.VISIBLE);
+                }
             }
         }
 
