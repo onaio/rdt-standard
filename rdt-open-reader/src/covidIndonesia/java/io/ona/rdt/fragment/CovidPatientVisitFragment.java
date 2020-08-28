@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vijay.jsonwizard.utils.Utils;
+
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -58,12 +60,18 @@ public class CovidPatientVisitFragment extends Fragment implements CovidPatientV
         class FetchPatientVisitsTask extends AsyncTask<Void, Void, List<Visit>> {
 
             @Override
+            protected void onPreExecute() {
+                Utils.showProgressDialog(R.string.please_wait_title, R.string.please_wait_message, getActivity());
+            }
+
+            @Override
             protected List<Visit> doInBackground(Void... voids) {
                 return presenter.getPatientVisits(currPatient.getBaseEntityId());
             }
 
             @Override
             protected void onPostExecute(List<Visit> visits) {
+                Utils.hideProgressDialog();
                 patientVisitList.setAdapter(new CovidPatientVisitAdapter(visits));
             }
         }

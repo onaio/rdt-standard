@@ -14,7 +14,7 @@
         tools:text="First Visit"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="22sp"
+        android:textSize="19sp"
         android:textColor="#101010"/>
 
     <TextView
@@ -24,7 +24,7 @@
         tools:text="Date"
         app:layout_constraintTop_toBottomOf="@+id/visit_name"
         app:layout_constraintStart_toStartOf="@+id/visit_name"
-        android:textSize="20sp" />
+        android:textSize="17sp" />
 
     <ImageButton
         android:id="@+id/btn_go_to_visit"
