@@ -15,10 +15,11 @@ public class CovidPatientVisitViewHolder extends RecyclerView.ViewHolder {
     private TextView tvVisitName;
     private TextView tvDateOfVisit;
 
-    public CovidPatientVisitViewHolder(@NonNull View itemView) {
+    public CovidPatientVisitViewHolder(@NonNull View itemView, View.OnClickListener onClickListener) {
         super(itemView);
         tvVisitName = itemView.findViewById(R.id.visit_name);
         tvDateOfVisit = itemView.findViewById(R.id.date_of_visit);
+        itemView.findViewById(R.id.btn_go_to_visit_history).setOnClickListener(onClickListener);
     }
 
     public TextView getTvVisitName() {

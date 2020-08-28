@@ -7,7 +7,6 @@ import org.junit.Test;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.recyclerview.widget.RecyclerView;
 import io.ona.rdt.R;
-import io.ona.rdt.fragment.CovidPatientHistoryFragment;
 import io.ona.rdt.viewholder.CovidPatientHistoryViewHolder;
 
 /**
