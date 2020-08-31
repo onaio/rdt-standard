@@ -23,21 +23,35 @@ import java.util.List;
 import androidx.core.content.ContextCompat;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_READING;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_READING;
+import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_TOP_LINE_READING;
+import static io.ona.rdt.util.Constants.RDTType.RDT_TYPE;
+import static io.ona.rdt.util.Constants.Test.CASSETTE_BOUNDARY;
+import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_ID;
+import static io.ona.rdt.util.Constants.Test.CROPPED_IMG_MD5_HASH;
+import static io.ona.rdt.util.Constants.Test.FLASH_ON;
+import static io.ona.rdt.util.Constants.Test.FULL_IMG_MD5_HASH;
+import static io.ona.rdt.util.Constants.Test.IS_MANUAL_CAPTURE;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
+import static io.ona.rdt.util.Constants.Test.RDT_CAPTURE_DURATION;
+import static io.ona.rdt.util.Constants.Test.TIME_IMG_SAVED;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 /**
  * Created by Vincent Karuri on 17/06/2020
  */
-public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
+public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = UWRDTCaptureFactory.class.getName();
     public static final String RDT_NAME = "rdt_name";
@@ -117,5 +131,21 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
         }
     }
 
-    protected abstract void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException;
+    protected void populateRelevantFields(ParcelableImageMetadata parcelableImageMetadata) throws JSONException {
+        LineReadings lineReadings = parcelableImageMetadata.getLineReadings();
+        JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_TOP_LINE_READING, String.valueOf(lineReadings.isTopLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_MIDDLE_LINE_READING, String.valueOf(lineReadings.isMiddleLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_BOTTOM_LINE_READING, String.valueOf(lineReadings.isBottomLine()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE_DURATION, String.valueOf(parcelableImageMetadata.getCaptureDuration()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_TYPE, ((RDTJsonFormActivity) widgetArgs.getContext()).getRdtType(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), CROPPED_IMG_ID, parcelableImageMetadata.getCroppedImageId(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), TIME_IMG_SAVED, String.valueOf(parcelableImageMetadata.getImageTimeStamp()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), RDT_CAPTURE, parcelableImageMetadata.getFullImageId(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), FLASH_ON, String.valueOf(parcelableImageMetadata.isFlashOn()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), CASSETTE_BOUNDARY, parcelableImageMetadata.getCassetteBoundary(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), IS_MANUAL_CAPTURE, String.valueOf(parcelableImageMetadata.isManualCapture()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), CROPPED_IMG_MD5_HASH, String.valueOf(parcelableImageMetadata.getCroppedImageMD5Hash()), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), FULL_IMG_MD5_HASH, String.valueOf(parcelableImageMetadata.getFullImageMD5Hash()), "", "", "", false);
+    }
 }

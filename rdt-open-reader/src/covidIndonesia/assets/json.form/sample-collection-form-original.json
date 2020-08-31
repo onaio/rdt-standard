@@ -410,7 +410,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Type of health facility",
+        "label": "Type of health facility?",
         "options": [
           {
             "key": "hospital",

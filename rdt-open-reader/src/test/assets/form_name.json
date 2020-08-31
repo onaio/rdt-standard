@@ -377,21 +377,21 @@
         "type": "rdt_capture"
       },
       {
-        "key": "rdt_capture_top_line_result",
+        "key": "rdt_capture_top_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
       },
       {
-        "key": "rdt_capture_middle_line_result",
+        "key": "rdt_capture_middle_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
       },
       {
-        "key": "rdt_capture_bottom_line_result",
+        "key": "rdt_capture_bottom_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

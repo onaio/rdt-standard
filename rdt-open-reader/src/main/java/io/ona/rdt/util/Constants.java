@@ -46,9 +46,9 @@ public interface Constants {
         String LBL_PATIENT_NAME = "lbl_patient_name";
         String LBL_PATIENT_GENDER_AND_ID = "lbl_patient_gender_and_id";
         String RDT_ID = "rdt_id";
-        String RDT_CAPTURE_TOP_LINE_RESULT = "rdt_capture_top_line_result";
-        String RDT_CAPTURE_MIDDLE_LINE_RESULT = "rdt_capture_middle_line_result";
-        String RDT_CAPTURE_BOTTOM_LINE_RESULT = "rdt_capture_bottom_line_result";
+        String RDT_CAPTURE_TOP_LINE_READING = "rdt_capture_top_line_reading";
+        String RDT_CAPTURE_MIDDLE_LINE_READING = "rdt_capture_middle_line_reading";
+        String RDT_CAPTURE_BOTTOM_LINE_READING = "rdt_capture_bottom_line_reading";
         String PATIENT_VISIT_DATE = "patient_visit_date";
     }
 
