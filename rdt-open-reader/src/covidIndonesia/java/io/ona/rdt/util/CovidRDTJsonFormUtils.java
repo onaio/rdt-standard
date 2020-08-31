@@ -54,14 +54,14 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                     prePopulateRDTFormFields(field, uniqueID);
                     break;
                 case SAMPLE_COLLECTION:
-                    prePopulateSampleCollectionFormFields(field, uniqueID);
+                    prePopulateSampleCollectionFormFields(field, uniqueID, patient);
                     break;
             }
             prePopulateRDTPatientFields(patient, field);
         }
     }
 
-    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID) throws JSONException {
+    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
         // pre-populate respiratory sample id labels
         if (LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             field.put("text", "Sample ID: " + uniqueID);
@@ -74,6 +74,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         // pre-populate the patient detail unique id
         if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(KEY))) {
             fillPatientData(field, uniqueID);
+        }
+
+        // pre-populate the patient detail name
+        if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
+            fillPatientData(field, patient.getPatientName());
+        }
+
+        // pre-populate the patient detail dob
+        if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
+            fillPatientData(field, patient.getDob());
         }
     }
 
@@ -96,16 +106,6 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
-        }
-
-        // pre-populate the patient detail name
-        if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
-            fillPatientData(field, patient.getPatientName());
-        }
-
-        // pre-populate the patient detail dob
-        if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
-            fillPatientData(field, patient.getDob());
         }
     }
 
