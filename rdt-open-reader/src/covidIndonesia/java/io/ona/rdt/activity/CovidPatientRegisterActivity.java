@@ -87,7 +87,9 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
         String[] localesVal = getResources().getStringArray(R.array.locales_value);
 
         for (int i = 0; i < localesVal.length; i++) {
-            if (activeLanguage.equals(localesVal[i])) selectedLanguageIndex = i;
+            if (activeLanguage.equals(localesVal[i])) {
+                selectedLanguageIndex = i;
+            }
         }
     }
 
