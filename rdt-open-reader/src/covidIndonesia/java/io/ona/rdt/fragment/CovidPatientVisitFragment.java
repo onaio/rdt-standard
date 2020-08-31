@@ -74,8 +74,8 @@ public class CovidPatientVisitFragment extends Fragment implements CovidPatientV
 
             @Override
             protected void onPostExecute(List<Visit> visits) {
-                Utils.hideProgressDialog();
                 patientVisitList.setAdapter(new CovidPatientVisitAdapter(visits, CovidPatientVisitFragment.this));
+                Utils.hideProgressDialog();
             }
         }
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.utils.Utils;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -91,6 +93,11 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
         class FetchPatientHistoryTask extends AsyncTask<Void, Void, List<PatientHistoryEntry>> {
 
             @Override
+            protected void onPreExecute() {
+                Utils.showProgressDialog(R.string.please_wait_title, R.string.please_wait_message, CovidPatientHistoryActivity.this);
+            }
+
+            @Override
             protected List<PatientHistoryEntry> doInBackground(Void... voids) {
                 return presenter.getPatientHistoryEntries(currPatient.getBaseEntityId(), eventType, date);
             }
@@ -101,6 +108,7 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
                 if (patientHistoryEntries.isEmpty()) {
                     tvNoDataAvailable.setVisibility(View.VISIBLE);
                 }
+                Utils.hideProgressDialog();
             }
         }
 
