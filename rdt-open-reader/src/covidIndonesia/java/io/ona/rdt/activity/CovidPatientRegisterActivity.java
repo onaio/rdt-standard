@@ -9,10 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 import org.smartregister.util.LangUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
@@ -27,7 +23,7 @@ import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
  */
 public class CovidPatientRegisterActivity extends PatientRegisterActivity {
 
-    private static final String LOCALE_IN = "in";
+    private int selectedLanguageIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +67,12 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
         return new CovidPatientRegisterActivityPresenter(this);
     }
 
-    private Map<String, Locale> locales = new HashMap<>();
-    private String[] languages;
-    private int currentLanguageIndex = 0;
-
     private void languageSwitcherDialog() {
+        String[] localesVal = getResources().getStringArray(R.array.locales_value);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.drawer_menu_item_change_language));
-        builder.setSingleChoiceItems(languages, currentLanguageIndex, (dialog, position) -> {
-            String selectedLanguage = languages[position];
-            saveLanguage(selectedLanguage);
+        builder.setSingleChoiceItems(R.array.locales_key, selectedLanguageIndex, (dialog, position) -> {
+            LangUtils.saveLanguage(getApplication(), localesVal[position]);
             reloadClass();
         });
 
@@ -88,32 +80,15 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
         dialog.show();
     }
 
-    private void saveLanguage(String selectedLanguage) {
-        Locale selectedLanguageLocale = locales.get(selectedLanguage);
-        if (selectedLanguageLocale != null) {
-            LangUtils.saveLanguage(getApplication(), selectedLanguageLocale.getLanguage());
-        }
-    }
-
     private void registerLanguageSwitcher() {
-        addLanguages();
 
-        languages = new String[locales.size()];
-        Locale current = getResources().getConfiguration().locale;
-        int x = 0;
-        for (Map.Entry<String, Locale> language : locales.entrySet()) {
-            languages[x] = language.getKey(); //Update the languages strings array with the languages to be displayed on the alert dialog
+        String activeLanguage = getResources().getConfiguration().locale.getLanguage();
 
-            if (current.getLanguage().equals(language.getValue().getLanguage())) {
-                currentLanguageIndex = x;
-            }
-            x++;
+        String[] localesVal = getResources().getStringArray(R.array.locales_value);
+
+        for (int i = 0; i < localesVal.length; i++) {
+            if (activeLanguage.equals(localesVal[i])) selectedLanguageIndex = i;
         }
-    }
-
-    private void addLanguages() {
-        locales.put(getString(R.string.lang_english), Locale.ENGLISH);
-        locales.put(getString(R.string.lang_indonesia), new Locale(LOCALE_IN));
     }
 
     private void reloadClass() {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import edu.washington.cs.ubicomplab.rdt_reader.activities.ExpirationDateActivity;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE;
 import static io.ona.rdt.util.Constants.Result.EXPIRATION_DATE_RESULT;
@@ -20,7 +19,7 @@ public class RDTExpirationDateActivity extends ExpirationDateActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        updateLocale(this, Utils.getSharedPreference(this));
+        updateLocale(this);
         super.onCreate(savedInstanceState);
     }
 

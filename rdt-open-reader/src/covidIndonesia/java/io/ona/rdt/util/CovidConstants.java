@@ -88,4 +88,8 @@ public interface CovidConstants extends Constants {
     interface RequestCodes {
         int LOCATION_PERMISSIONS = 8732;
     }
+
+    interface Language {
+        String INDONESIA = "id";
+    }
 }

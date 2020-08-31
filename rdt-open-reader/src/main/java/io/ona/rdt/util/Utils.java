@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.util.TypedValue;
 
 import androidx.annotation.StringRes;
@@ -18,7 +17,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -102,9 +100,11 @@ public class Utils {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
-    public static void updateLocale(android.content.Context context, AllSharedPreferences allSharedPreferences) {
+    public static void updateLocale(Context context) {
 
-        Locale locale = new Locale(allSharedPreferences.fetchLanguagePreference());
+        String lang = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference("locale");
+
+        Locale locale = new Locale(lang.length() > 0 ? lang : BuildConfig.LOCALE);
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
@@ -161,14 +161,5 @@ public class Utils {
 
     public static boolean isEmptyCursor(Cursor cursor) {
         return cursor == null || cursor.getCount() == 0;
-    }
-
-    public static AllSharedPreferences getSharedPreference(Context context) {
-        return new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(context)) {
-            @Override
-            public String fetchLanguagePreference() {
-                return getPreferences().getString("locale", BuildConfig.LOCALE).trim();
-            }
-        };
     }
 }

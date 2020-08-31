@@ -15,7 +15,6 @@ import io.ona.rdt.contract.CustomRDTCaptureContract;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.presenter.CustomRDTCapturePresenter;
-import io.ona.rdt.util.Utils;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
@@ -38,7 +37,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this, Utils.getSharedPreference(this));
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         presenter = new CustomRDTCapturePresenter(this);

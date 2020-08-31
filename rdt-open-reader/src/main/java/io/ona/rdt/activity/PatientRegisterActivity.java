@@ -49,7 +49,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this, Utils.getSharedPreference(this));
+        updateLocale(this);
         super.onCreate(savedInstanceState);
         formUtils = getFormUtils();
         drawerLayout = findViewById(R.id.drawer_layout);
