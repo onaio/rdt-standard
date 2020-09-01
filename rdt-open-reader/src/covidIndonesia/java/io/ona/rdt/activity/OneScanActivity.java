@@ -88,7 +88,7 @@ public class OneScanActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setMessage("This RDT has been flagged for high heat exposure and reliability has been compromised. Please use another RDT.")
                     .setCancelable(false)
-                    .setPositiveButton( "OK", (paramDialogInterface, paramInt) -> onBackPressed())
+                    .setPositiveButton("OK", (paramDialogInterface, paramInt) -> onBackPressed())
                     .show();
         } else {
             Intent resultIntent = new Intent();
