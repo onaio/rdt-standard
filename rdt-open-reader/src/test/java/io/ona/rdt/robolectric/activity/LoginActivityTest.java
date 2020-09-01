@@ -17,6 +17,7 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.Locale;
 
@@ -30,6 +31,7 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.CovidConstants;
 
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
@@ -164,6 +166,10 @@ public class LoginActivityTest extends ActivityRobolectricTest {
         expectedCommonFtsObject.updateSearchFields(RDT_PATIENTS, sortAndSearchFields);
         expectedCommonFtsObject.updateSortFields(RDT_PATIENTS, sortAndSearchFields);
         doReturn(expectedCommonFtsObject).when(presenter).createCommonFtsObject();
+
+        AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
+        doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(CovidConstants.Locale.LOCALE);
+        doReturn(allSharedPreferences).when(context).allSharedPreferences();
     }
 
     @Override

@@ -92,17 +92,16 @@ public class UtilsTest extends PowerMockTest {
 
     @Test
     public void testUpdateLocale() throws Exception {
+        mockStaticClasses();
 
-        AllSharedPreferences sharedPreferences = PowerMockito.mock(AllSharedPreferences.class);
         Context context = mock(Context.class);
         Resources resources = mock(Resources.class);
         Configuration configuration = mock(Configuration.class);
         DisplayMetrics displayMetrics = mock(DisplayMetrics.class);
-        doReturn(BuildConfig.LOCALE).when(sharedPreferences).fetchLanguagePreference();
         doReturn(resources).when(context).getResources();
         doReturn(configuration).when(resources).getConfiguration();
         doReturn(displayMetrics).when(resources).getDisplayMetrics();
-        Whitebox.invokeMethod(utils, "updateLocale", context, sharedPreferences);
+        Whitebox.invokeMethod(utils, "updateLocale", context);
         verify(configuration).setLocale(any(Locale.class));
         verify(resources).updateConfiguration(configuration, resources.getDisplayMetrics());
     }
@@ -196,6 +195,7 @@ public class UtilsTest extends PowerMockTest {
 
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
         doReturn("false").when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
+        doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(CovidConstants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
     }
 }

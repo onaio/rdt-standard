@@ -89,7 +89,7 @@ public interface CovidConstants extends Constants {
         int LOCATION_PERMISSIONS = 8732;
     }
 
-    interface Language {
-        String INDONESIA = "id";
+    interface Locale {
+        String LOCALE = "locale";
     }
 }
