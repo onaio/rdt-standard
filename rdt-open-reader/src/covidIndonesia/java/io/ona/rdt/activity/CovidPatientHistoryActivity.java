@@ -7,12 +7,9 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.utils.Utils;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

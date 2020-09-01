@@ -53,7 +53,7 @@ public class CovidPatientHistoryActivityInteractor {
         for (Object value : obsValues) {
             values.add(getValue(value.toString(), formWidgetKeyToTextMap));
         }
-        return StringUtils.join(values, ",");
+        return StringUtils.join(values, ", ");
     }
 
     public JSONArray getJSONArr(String str) {

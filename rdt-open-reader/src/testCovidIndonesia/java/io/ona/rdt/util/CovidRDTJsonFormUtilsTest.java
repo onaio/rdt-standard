@@ -247,7 +247,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "      {\n" +
             "        \"key\": \"other_vtm_brand_lbl\",\n" +
             "        \"type\": \"label\",\n" +
-            "        \"text\": \"Specify VTM brand\",\n" +
+            "        \"text\": \"Specify VTM brand?\",\n" +
             "        \"text_color\": \"#000000\",\n" +
             "        \"relevance\": {\n" +
             "          \"rules-engine\": {\n" +
@@ -443,7 +443,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "      {\n" +
             "        \"key\": \"doctor_phone_number_lbl\",\n" +
             "        \"type\": \"label\",\n" +
-            "        \"text\": \"Doctor's phone number\",\n" +
+            "        \"text\": \"Doctor's phone number?\",\n" +
             "        \"text_color\": \"#000000\"\n" +
             "      },\n" +
             "      {\n" +
@@ -476,7 +476,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "      {\n" +
             "        \"key\": \"gsi_sample_number_lbl\",\n" +
             "        \"type\": \"label\",\n" +
-            "        \"text\": \"GSI sample ID\",\n" +
+            "        \"text\": \"GSI sample ID?\",\n" +
             "        \"text_color\": \"#000000\"\n" +
             "      },\n" +
             "      {\n" +
@@ -490,7 +490,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "      {\n" +
             "        \"key\": \"hospital_sample_number_lbl\",\n" +
             "        \"type\": \"label\",\n" +
-            "        \"text\": \"Hospital sample ID\",\n" +
+            "        \"text\": \"Hospital sample ID?\",\n" +
             "        \"text_color\": \"#000000\"\n" +
             "      },\n" +
             "      {\n" +

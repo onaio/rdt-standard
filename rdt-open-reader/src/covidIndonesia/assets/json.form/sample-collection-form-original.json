@@ -343,7 +343,7 @@
       {
         "key": "other_vtm_brand_lbl",
         "type": "label",
-        "text": "Specify VTM brand",
+        "text": "Specify VTM brand?",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -393,7 +393,7 @@
       {
         "key": "sample_lot_number_lbl",
         "type": "label",
-        "text": "Sample lot number",
+        "text": "Sample lot number?",
         "text_color": "#000000"
       },
       {
@@ -546,7 +546,7 @@
       {
         "key": "doctor_phone_number_lbl",
         "type": "label",
-        "text": "Doctor's phone number",
+        "text": "Doctor's phone number?",
         "text_color": "#000000"
       },
       {
@@ -587,7 +587,7 @@
       {
         "key": "gsi_sample_number_lbl",
         "type": "label",
-        "text": "GSI sample ID",
+        "text": "GSI sample ID?",
         "text_color": "#000000"
       },
       {
@@ -601,7 +601,7 @@
       {
         "key": "hospital_sample_number_lbl",
         "type": "label",
-        "text": "Hospital sample ID",
+        "text": "Hospital sample ID?",
         "text_color": "#000000"
       },
       {

@@ -337,7 +337,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "RDT ID?",
+        "text": "Unique ID?",
         "type": "hidden"
       }
     ]
@@ -399,7 +399,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "RDT ID?",
+        "text": "Unique ID?",
         "type": "hidden"
       },
       {
@@ -580,7 +580,7 @@
       },
       {
         "key": "antibody_type",
-        "label": "Antibody:",
+        "label": "Antibody?",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
