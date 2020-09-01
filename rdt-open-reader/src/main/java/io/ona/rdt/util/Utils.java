@@ -102,7 +102,7 @@ public class Utils {
 
     public static void updateLocale(Context context) {
 
-        String savedLocale = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(CovidConstants.Locale.LOCALE);
+        String savedLocale = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Locale.LOCALE);
 
         if (StringUtils.isNotBlank(savedLocale)) {
             Locale locale = new Locale(savedLocale.length() > 0 ? savedLocale : BuildConfig.LOCALE);

@@ -195,7 +195,7 @@ public class UtilsTest extends PowerMockTest {
 
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
         doReturn("false").when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
-        doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(CovidConstants.Locale.LOCALE);
+        doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(Constants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
     }
 }
