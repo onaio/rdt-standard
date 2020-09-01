@@ -75,6 +75,7 @@ public interface CovidConstants extends Constants {
         String PASSPORT_NO = "passport_no";
         String LAT = "lat";
         String LNG = "lng";
+        String UNIQUE_ID = "unique_id";
     }
 
     interface RDTType {

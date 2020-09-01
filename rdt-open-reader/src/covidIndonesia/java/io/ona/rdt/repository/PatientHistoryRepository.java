@@ -24,7 +24,7 @@ public class PatientHistoryRepository {
             String.format(
                     "SELECT %s, SUBSTR(%s, %s, %s) visit_date FROM event WHERE %s=? AND %s!=? GROUP BY 2",
                     EventClientRepository.event_column.json.toString(),
-                    EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
+                    EventClientRepository.event_column.eventDate.toString(), DATE_START_INDEX, DATE_END_INDEX,
                     EventClientRepository.event_column.baseEntityId.toString(),
                     EventClientRepository.event_column.eventType.toString()
             ),
@@ -38,11 +38,11 @@ public class PatientHistoryRepository {
                     "SELECT %s, %s, SUBSTR(%s, %s, %s) AS visit_date FROM event " +
                             "WHERE %s=? AND %s=? AND visit_date=? ORDER BY %s DESC LIMIT 1",
                     EventClientRepository.event_column.json.toString(),
-                    EventClientRepository.event_column.dateCreated.toString(),
-                    EventClientRepository.event_column.dateCreated.toString(), DATE_START_INDEX, DATE_END_INDEX,
+                    EventClientRepository.event_column.eventDate.toString(),
+                    EventClientRepository.event_column.eventDate.toString(), DATE_START_INDEX, DATE_END_INDEX,
                     EventClientRepository.event_column.baseEntityId.toString(),
                     EventClientRepository.event_column.eventType.toString(),
-                    EventClientRepository.event_column.dateCreated.toString()
+                    EventClientRepository.event_column.eventDate.toString()
             ),
             new String[]{baseEntityId, eventType, date}
         );

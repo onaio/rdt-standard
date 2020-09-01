@@ -31,12 +31,4 @@ public class CovidPatientProfileFragmentPresenter implements CovidPatientProfile
             Timber.e(e);
         }
     }
-
-    public void createFormWidgetKeyToTextMap() {
-        try {
-            FormKeyTextExtractionUtil.getFormWidgetKeyToTextMap();
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-    }
 }

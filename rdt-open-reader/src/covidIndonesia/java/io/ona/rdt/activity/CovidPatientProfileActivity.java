@@ -1,11 +1,15 @@
 package io.ona.rdt.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.jetbrains.annotations.Async;
+import org.json.JSONException;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -17,7 +21,9 @@ import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import timber.log.Timber;
 
 /**
  * Created by Vincent Karuri on 15/06/2020
@@ -31,6 +37,24 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         populatePatientDetails();
         addListeners();
         setUpTabs();
+        initializeFormWidgetKeyToTextMap();
+    }
+
+    private void initializeFormWidgetKeyToTextMap() {
+
+        class FormWidgetKeyToTextMapInitTask extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    FormKeyTextExtractionUtil.getFormWidgetKeyToTextMap();
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+                return null;
+            }
+        }
+
+        new FormWidgetKeyToTextMapInitTask().execute();
     }
 
     private void setUpTabs() {
@@ -92,5 +116,11 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
                 onBackPressed();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        FormKeyTextExtractionUtil.destroyFormWidgetKeyToTextMap();
+        super.onDestroy();
     }
 }

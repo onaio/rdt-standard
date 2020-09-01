@@ -331,14 +331,6 @@
           "value": true,
           "err": "Please specify the expiration date"
         }
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Unique ID?",
-        "type": "hidden"
       }
     ]
   },
@@ -395,11 +387,19 @@
         }
       },
       {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Manual unique ID?",
+        "type": "hidden"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Unique ID?",
+        "label": "Barcode unique ID?",
         "type": "hidden"
       },
       {
@@ -408,7 +408,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "Lot number?"
+        "label": "Lot number?"
       },
       {
         "key": "exp_date",
@@ -416,7 +416,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "Expiration date?"
+        "label": "Expiration date?"
       },
       {
         "key": "gtin",
@@ -424,7 +424,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "GTIN?"
+        "label": "GTIN?"
       },
       {
         "key": "temp_sensor",
@@ -432,7 +432,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "Sensor triggered?"
+        "label": "Sensor triggered?"
       }
     ]
   },

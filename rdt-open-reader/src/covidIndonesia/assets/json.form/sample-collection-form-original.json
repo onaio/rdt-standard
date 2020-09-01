@@ -722,10 +722,19 @@
         }
       },
       {
+        "key": "covid_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "Manual unique ID?"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "label": "Barcode unique ID?",
         "type": "hidden"
       },
       {
@@ -733,21 +742,32 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Lot number?"
       },
       {
         "key": "exp_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Expiration date?"
       },
       {
         "key": "gtin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "GTIN?"
+      },
+      {
+        "key": "temp_sensor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "Sensor triggered?"
       },
       {
         "key": "temp_sensor",
@@ -786,13 +806,6 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold"
-      },
-      {
-        "key": "covid_sample_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },

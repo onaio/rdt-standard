@@ -331,14 +331,6 @@
           "value": true,
           "err": "{{rdt-capture-form-original.step6.manual_expiration_date.v_required.err}}"
         }
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "{{rdt-capture-form-original.step6.rdt_id.text}}",
-        "type": "hidden"
       }
     ]
   },
@@ -395,11 +387,19 @@
         }
       },
       {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "{{rdt-capture-form-original.step8.rdt_id.label}}",
+        "type": "hidden"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "{{rdt-capture-form-original.step8.unique_id.text}}",
+        "label": "{{rdt-capture-form-original.step8.unique_id.label}}",
         "type": "hidden"
       },
       {
@@ -408,7 +408,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "{{rdt-capture-form-original.step8.lot_no.text}}"
+        "label": "{{rdt-capture-form-original.step8.lot_no.label}}"
       },
       {
         "key": "exp_date",
@@ -416,7 +416,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "{{rdt-capture-form-original.step8.exp_date.text}}"
+        "label": "{{rdt-capture-form-original.step8.exp_date.label}}"
       },
       {
         "key": "gtin",
@@ -424,7 +424,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "{{rdt-capture-form-original.step8.gtin.text}}"
+        "label": "{{rdt-capture-form-original.step8.gtin.label}}"
       },
       {
         "key": "temp_sensor",
@@ -432,7 +432,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "{{rdt-capture-form-original.step8.temp_sensor.text}}"
+        "label": "{{rdt-capture-form-original.step8.temp_sensor.label}}"
       }
     ]
   },
