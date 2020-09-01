@@ -685,8 +685,8 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "      }\n" +
             "    ]\n" +
             "  },\n" +
-            "  \"step8\": {\n" +
-            "    \"title\": \"Store specimen for courier\",\n" +
+            "\"step8\": {\n" +
+            "    \"title\": \"Patient Information\",\n" +
             "    \"display_back_button\": \"true\",\n" +
             "    \"next\": \"step9\",\n" +
             "    \"bottom_navigation\": \"true\",\n" +
@@ -694,7 +694,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "    \"next_label\": \"CONTINUE\",\n" +
             "    \"fields\": [\n" +
             "      {\n" +
-            "        \"key\": \"lbl_store_specimen_for_courier\",\n" +
+            "        \"key\": \"lbl_patient_confirmation\",\n" +
             "        \"type\": \"label\",\n" +
             "        \"text_color\": \"#000000\",\n" +
             "        \"text_size\": \"10sp\",\n" +
@@ -702,10 +702,61 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
             "        \"label_text_style\": \"bold\",\n" +
-            "        \"text\": \"Store the respiratory sample appropriately until they have been picked up by the courier\"\n" +
+            "        \"text\": \"Please confirm the information\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"patient_info_unique_id\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"check_box\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"true\",\n" +
+            "          \"err\": \"This field is required\"\n" +
+            "        },\n" +
+            "        \"options\": [\n" +
+            "          {\n" +
+            "            \"key\": \"unique_id\",\n" +
+            "            \"text\": \"Unique Id: \"\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"patient_info_name\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"check_box\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"true\",\n" +
+            "          \"err\": \"This field is required\"\n" +
+            "        },\n" +
+            "        \"options\": [\n" +
+            "          {\n" +
+            "            \"key\": \"patient_name\",\n" +
+            "            \"text\": \"Patient Name: \"\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"key\": \"patient_info_dob\",\n" +
+            "        \"openmrs_entity_parent\": \"\",\n" +
+            "        \"openmrs_entity\": \"\",\n" +
+            "        \"openmrs_entity_id\": \"\",\n" +
+            "        \"type\": \"check_box\",\n" +
+            "        \"v_required\": {\n" +
+            "          \"value\": \"true\",\n" +
+            "          \"err\": \"This field is required\"\n" +
+            "        },\n" +
+            "        \"options\": [\n" +
+            "          {\n" +
+            "            \"key\": \"patient_dob\",\n" +
+            "            \"text\": \"Patient Dob: \"\n" +
+            "          }\n" +
+            "        ]\n" +
             "      }\n" +
             "    ]\n" +
-            "  },\n" +
+            "  }," +
             "  \"step9\": {\n" +
             "    \"title\": \"Test complete\",\n" +
             "    \"display_back_button\": \"true\",\n" +
