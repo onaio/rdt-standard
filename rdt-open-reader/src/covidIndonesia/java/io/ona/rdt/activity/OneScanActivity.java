@@ -1,16 +1,18 @@
 package io.ona.rdt.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.apache.commons.lang3.StringUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -82,14 +84,23 @@ public class OneScanActivity extends AppCompatActivity {
     }
 
     private void setResultAndFinish(OneScanHelper.ScanResponse response) {
-        Intent resultIntent = new Intent();
-        Barcode barcode = new Barcode();
-        barcode.displayValue = StringUtils.join(new String[]{response.serialNumber, response.expirationDate,
-                response.lot, response.productId, String.valueOf(response.sensorTriggered),
-                response.status}, ',');
-        resultIntent.putExtra(BARCODE_KEY, barcode);
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        if (response.sensorTriggered) {
+            new AlertDialog.Builder(this)
+                    .setMessage("This RDT has been flagged for high heat exposure and reliability has been compromised. Please use another RDT.")
+                    .setCancelable(false)
+                    .setPositiveButton( "OK" , (paramDialogInterface, paramInt) -> onBackPressed())
+                    .show() ;
+        }
+        else {
+            Intent resultIntent = new Intent();
+            Barcode barcode = new Barcode();
+            barcode.displayValue = StringUtils.join(new String[]{response.serialNumber, response.expirationDate,
+                    response.lot, response.productId, String.valueOf(response.sensorTriggered),
+                    response.status}, ',');
+            resultIntent.putExtra(BARCODE_KEY, barcode);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        }
     }
 
     @Override
