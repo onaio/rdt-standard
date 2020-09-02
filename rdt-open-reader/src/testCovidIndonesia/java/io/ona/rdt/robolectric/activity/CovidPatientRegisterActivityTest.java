@@ -19,9 +19,6 @@ import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private CovidPatientRegisterActivity covidPatientRegisterActivity;
@@ -55,8 +52,8 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Test
     public void testLanguageSwitcherDialogShowLocaleOptions() throws Exception {
         Whitebox.invokeMethod(covidPatientRegisterActivity, "languageSwitcherDialog");
-        assertNotNull(ShadowAlertDialog.getLatestDialog());
-        assertTrue(ShadowAlertDialog.getLatestDialog() instanceof AlertDialog);
+        Assert.assertNotNull(ShadowAlertDialog.getLatestDialog());
+        Assert.assertTrue(ShadowAlertDialog.getLatestDialog() instanceof AlertDialog);
     }
 
     @Test
