@@ -40,7 +40,7 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
                 .create()
                 .resume()
                 .get();
-        Patient patient = new Patient("patient", "female", "entity_id");
+        Patient patient = new Patient("patient", "female", "entity_id", "12345", 20, "01-09-2020");
         JSONObject formJsonObj = getFormUtils().launchForm(patientRegisterActivity, getFormToPrepopulate(), patient, getIDs());
 
         int numOfPopulatedFields = 0;

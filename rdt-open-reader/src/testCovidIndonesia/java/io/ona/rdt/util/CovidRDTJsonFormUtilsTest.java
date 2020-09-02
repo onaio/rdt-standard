@@ -1,5 +1,8 @@
 package io.ona.rdt.util;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -781,7 +784,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "}";
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(2, numOfPopulatedFields);
+        assertEquals(5, numOfPopulatedFields);
     }
 
     @Override
@@ -795,6 +798,31 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             assertEquals(field.getString(VALUE), UNIQUE_ID);
             numOfPopulatedFields++;
         }
+        else if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(JsonFormConstants.KEY))) {
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            if (options.length() > 0) {
+                JSONObject childObject = options.getJSONObject(0);
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "{{sample-collection-form-original.step8.patient_info_unique_id.options.unique_id.text}}unique_id");
+                numOfPopulatedFields++;
+            }
+        }
+        else if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(JsonFormConstants.KEY))) {
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            if (options.length() > 0) {
+                JSONObject childObject = options.getJSONObject(0);
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "{{sample-collection-form-original.step8.patient_info_name.options.patient_name.text}}patient");
+                numOfPopulatedFields++;
+            }
+        }
+        else if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(JsonFormConstants.KEY))) {
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            if (options.length() > 0) {
+                JSONObject childObject = options.getJSONObject(0);
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "{{sample-collection-form-original.step8.patient_info_dob.options.patient_dob.text}}01-09-2020");
+                numOfPopulatedFields++;
+            }
+        }
+
         return numOfPopulatedFields;
     }
 
