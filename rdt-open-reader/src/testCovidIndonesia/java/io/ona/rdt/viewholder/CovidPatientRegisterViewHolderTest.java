@@ -27,8 +27,8 @@ public class CovidPatientRegisterViewHolderTest {
 
         covidPatientRegisterViewHolder = Mockito.spy(
                 new CovidPatientRegisterViewHolder(
-                        Mockito.mock(Context.class) ,
-                        Mockito.mock(View.OnClickListener.class) ,
+                        Mockito.mock(Context.class),
+                        Mockito.mock(View.OnClickListener.class),
                         Mockito.mock(View.OnClickListener.class)
                 )
         );
