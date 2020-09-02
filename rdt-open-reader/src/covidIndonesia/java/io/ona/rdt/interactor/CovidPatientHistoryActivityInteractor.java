@@ -85,7 +85,6 @@ public class CovidPatientHistoryActivityInteractor {
     }
 
     /**
-     *
      * Takes care of the special case in native radio button and checkbox where the key should be used
      *
      * @param value

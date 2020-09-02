@@ -9,9 +9,8 @@ import java.util.List;
 
 import io.ona.rdt.domain.Visit;
 import io.ona.rdt.repository.PatientHistoryRepository;
+import io.ona.rdt.util.Utils;
 import timber.log.Timber;
-
-import static io.ona.rdt.util.Utils.convertDate;
 
 /**
  * Created by Vincent Karuri on 28/08/2020
@@ -37,7 +36,7 @@ public class CovidPatientVisitFragmentInteractor {
     private String formatDate(DateTime eventDate) {
         String date = null;
         try {
-            date = convertDate(eventDate.toString(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd");
+            date = Utils.convertDate(eventDate.toString(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd");
         } catch (ParseException e) {
             Timber.e(e);
         }

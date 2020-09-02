@@ -24,8 +24,6 @@ import io.ona.rdt.presenter.CovidPatientHistoryActivityPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 
-import static io.ona.rdt.util.Utils.updateLocale;
-
 public class CovidPatientHistoryActivity extends AppCompatActivity implements CovidPatientHistoryActivityContract.View {
 
     private Map<Integer, String> patientHistorySectionsMap = new HashMap<>();
@@ -35,11 +33,11 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
+        io.ona.rdt.util.Utils.updateLocale(this);
 
         super.onCreate(savedInstanceState);
 
-        DataBindingUtil.setContentView(this,R.layout.activity_covid_patient_history);
+        DataBindingUtil.setContentView(this, R.layout.activity_covid_patient_history);
 
         currPatient = getIntent().getParcelableExtra(Constants.FormFields.PATIENT);
         presenter = new CovidPatientHistoryActivityPresenter(this);

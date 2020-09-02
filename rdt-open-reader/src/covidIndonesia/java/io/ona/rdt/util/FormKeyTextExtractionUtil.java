@@ -1,11 +1,13 @@
 package io.ona.rdt.util;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.util.JsonFormUtils;
 
 import java.util.Arrays;
@@ -16,25 +18,14 @@ import java.util.Set;
 
 import io.ona.rdt.application.RDTApplication;
 
-import static com.vijay.jsonwizard.constants.JsonFormConstants.CHECK_BOX;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.LABEL;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.NATIVE_RADIO_BUTTON;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.TYPE;
-import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.SUPPORT_INVESTIGATION_FORM;
-import static org.smartregister.AllConstants.OPTIONS;
-
 /**
  * Created by Vincent Karuri on 24/08/2020
  */
 public class FormKeyTextExtractionUtil {
 
     private static final Set<String> FORMS_TO_EXTRACT_TEXT_FROM = new HashSet<>(Arrays.asList(
-            PATIENT_DIAGNOSTICS_FORM, SAMPLE_COLLECTION_FORM, SUPPORT_INVESTIGATION_FORM, COVID_RDT_TEST_FORM));
+            CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM, CovidConstants.Form.SAMPLE_COLLECTION_FORM,
+            CovidConstants.Form.SUPPORT_INVESTIGATION_FORM, CovidConstants.Form.COVID_RDT_TEST_FORM));
     private static Map<String, String> formWidgetKeyToTextMap;
 
     public static Map<String, String> getFormWidgetKeyToTextMap() throws JSONException {
@@ -45,19 +36,21 @@ public class FormKeyTextExtractionUtil {
                 JSONArray fields = JsonFormUtils.fields(formJsonObj);
                 for (int i = 0; i < fields.length(); i++) {
                     JSONObject field = fields.getJSONObject(i);
-                    String fieldType = field.getString(TYPE);
+                    String fieldType = field.getString(JsonFormConstants.TYPE);
                     // add main widget text
-                    String widgetKey = getWidgetKey(field.optString(KEY));
+                    String widgetKey = getWidgetKey(field.optString(JsonFormConstants.KEY));
                     String widgetText = getWidgetText(field);
                     if (StringUtils.isNotBlank(widgetText)) {
                         formWidgetKeyToTextMap.put(widgetKey, widgetText);
                     }
                     // add options text
-                    if (CHECK_BOX.equals(fieldType) || NATIVE_RADIO_BUTTON.equals(fieldType)) {
-                        JSONArray options = field.getJSONArray(OPTIONS);
+                    if (JsonFormConstants.CHECK_BOX.equals(fieldType)
+                            || JsonFormConstants.NATIVE_RADIO_BUTTON.equals(fieldType)) {
+                        JSONArray options = field.getJSONArray(AllConstants.OPTIONS);
                         for (int j = 0; j < options.length(); j++) {
                             JSONObject option = options.getJSONObject(j);
-                            formWidgetKeyToTextMap.put(option.getString(KEY), option.getString(TEXT));
+                            formWidgetKeyToTextMap.put(option.getString(JsonFormConstants.KEY),
+                                    option.getString(JsonFormConstants.TEXT));
                         }
                     }
                 }
@@ -84,7 +77,7 @@ public class FormKeyTextExtractionUtil {
     }
 
     private static String getWidgetText(JSONObject field) {
-        return StringUtils.isBlank(field.optString(TEXT)) ? field.optString(LABEL)
-                : field.optString(TEXT);
+        return StringUtils.isBlank(field.optString(JsonFormConstants.TEXT))
+                ? field.optString(JsonFormConstants.LABEL) : field.optString(JsonFormConstants.TEXT);
     }
 }

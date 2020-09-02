@@ -38,7 +38,8 @@ public class CovidPatientHistoryActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         Intent intent = new Intent();
-        intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", ENTITY_ID, "patient_id", 10));
+        final int ten = 10;
+        intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", ENTITY_ID, "patient_id", ten));
         intent.putExtra(Constants.FormFields.PATIENT_VISIT_DATE, DATE);
         covidPatientHistoryActivity = Robolectric.buildActivity(CovidPatientHistoryActivity.class, intent)
                 .create().resume().get();
@@ -98,8 +99,13 @@ public class CovidPatientHistoryActivityTest extends ActivityRobolectricTest {
     private void assertListValuesAreCorrect(int position, int layoutId) {
         RecyclerView historyEntries = covidPatientHistoryActivity.findViewById(layoutId)
                 .findViewById(R.id.patient_history_entries);
-        historyEntries.measure(0,0);
-        historyEntries.layout(0,0,100,1000);
+
+        final int zero = 0;
+        final int hundred = 100;
+        final int thousand = 1000;
+        historyEntries.measure(zero, zero);
+        historyEntries.layout(zero, zero, hundred, thousand);
+
         CovidPatientHistoryViewHolder viewHolder = (CovidPatientHistoryViewHolder) historyEntries
                 .findViewHolderForAdapterPosition(position - 1);
         Assert.assertEquals(String.format("value%d", position), viewHolder.getTvHistoryValue().getText());

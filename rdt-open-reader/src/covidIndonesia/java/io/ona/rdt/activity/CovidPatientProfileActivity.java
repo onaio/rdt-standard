@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.jetbrains.annotations.Async;
 import org.json.JSONException;
 
 import androidx.fragment.app.Fragment;
@@ -25,8 +24,6 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
-
-import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 
 /**
  * Created by Vincent Karuri on 15/06/2020
@@ -132,5 +129,4 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         patientVisitFragment.setArguments(getPatientBundle());
         return patientVisitFragment;
     }
-
 }

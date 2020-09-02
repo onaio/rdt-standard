@@ -5,6 +5,11 @@ package io.ona.rdt.contract;
  */
 public interface CovidPatientHistoryActivityContract {
 
-    interface View {}
-    interface Presenter {}
+    interface View {
+
+    }
+
+    interface Presenter {
+
+    }
 }

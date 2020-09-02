@@ -36,8 +36,9 @@ public class CovidPatientVisitFragmentTest extends FragmentRobolectricTest {
 
     @Before
     public void setUp() {
+        final int ten = 10;
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.FormFields.PATIENT, new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", 10));
+        bundle.putParcelable(Constants.FormFields.PATIENT, new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", ten));
         fragmentScenario = FragmentScenario.launchInContainer(CovidPatientVisitFragment.class, bundle,
                 R.style.AppTheme, null);
         fragmentScenario.onFragment(
@@ -68,8 +69,12 @@ public class CovidPatientVisitFragmentTest extends FragmentRobolectricTest {
         final int visitThree = 3;
 
         RecyclerView visitList = rootLayout.findViewById(R.id.covid_patient_visit_list);
-        visitList.measure(0,0);
-        visitList.layout(0,0,100,1000);
+        final int zero = 0;
+        final int hundred = 100;
+        final int thousand = 1000;
+        visitList.measure(zero, zero);
+        visitList.layout(zero, zero, hundred, thousand);
+
         assertListValuesAreCorrect(visitList, visitOne);
         assertListValuesAreCorrect(visitList, visitTwo);
         assertListValuesAreCorrect(visitList, visitThree);
