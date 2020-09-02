@@ -73,17 +73,17 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // pre-populate the patient detail unique id
         if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(KEY))) {
-            fillPatientData(field, uniqueID);
+            fillPatientData(field, "Unique Id: ", uniqueID);
         }
 
         // pre-populate the patient detail name
         if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
-            fillPatientData(field, patient.getPatientName());
+            fillPatientData(field, "Patient Name: ", patient.getPatientName());
         }
 
         // pre-populate the patient detail dob
         if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
-            fillPatientData(field, patient.getDob());
+            fillPatientData(field, "Patient Dob: ", patient.getDob());
         }
     }
 
@@ -114,12 +114,11 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
     }
 
-    private void fillPatientData(JSONObject field, String value) throws JSONException {
+    private void fillPatientData(JSONObject field, String prefix, String value) throws JSONException {
         JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         if (options.length() > 0) {
             JSONObject dobObject = options.getJSONObject(0);
-            String previousValue = dobObject.getString(JsonFormConstants.TEXT);
-            dobObject.put(JsonFormConstants.TEXT, previousValue + value);
+            dobObject.put(JsonFormConstants.TEXT, prefix + value);
         }
     }
 }

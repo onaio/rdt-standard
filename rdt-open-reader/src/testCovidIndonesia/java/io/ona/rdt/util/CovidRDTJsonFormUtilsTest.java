@@ -802,7 +802,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
-                assertEquals(childObject.getString(JsonFormConstants.TEXT), "{{sample-collection-form-original.step8.patient_info_unique_id.options.unique_id.text}}unique_id");
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "Unique Id: unique_id");
                 numOfPopulatedFields++;
             }
         }
@@ -810,7 +810,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
-                assertEquals(childObject.getString(JsonFormConstants.TEXT), "{{sample-collection-form-original.step8.patient_info_name.options.patient_name.text}}patient");
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "Patient Name: patient");
                 numOfPopulatedFields++;
             }
         }
@@ -818,7 +818,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
-                assertEquals(childObject.getString(JsonFormConstants.TEXT), "{{sample-collection-form-original.step8.patient_info_dob.options.patient_dob.text}}01-09-2020");
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "Patient Dob: 01-09-2020");
                 numOfPopulatedFields++;
             }
         }
