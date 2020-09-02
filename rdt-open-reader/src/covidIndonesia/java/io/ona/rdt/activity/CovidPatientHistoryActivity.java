@@ -81,10 +81,6 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
         return view.findViewById(R.id.patient_history_entries);
     }
 
-    private void showNoEntriesText() {
-
-    }
-
     private void fetchHistory(RecyclerView patientHistoryEntryList, String eventType, String date,
                               TextView tvNoDataAvailable) {
         class FetchPatientHistoryTask extends AsyncTask<Void, Void, List<PatientHistoryEntry>> {
