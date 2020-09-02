@@ -18,12 +18,15 @@ import io.ona.rdt.adapter.ProfileFragmentAdapter;
 import io.ona.rdt.contract.CovidPatientProfileActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
+import io.ona.rdt.fragment.CovidPatientVisitFragment;
 import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
+
+import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 
 /**
  * Created by Vincent Karuri on 15/06/2020
@@ -123,4 +126,11 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         FormKeyTextExtractionUtil.destroyFormWidgetKeyToTextMap();
         super.onDestroy();
     }
+
+    public Fragment createPatientVisitFragment() {
+        Fragment patientVisitFragment = new CovidPatientVisitFragment();
+        patientVisitFragment.setArguments(getPatientBundle());
+        return patientVisitFragment;
+    }
+
 }

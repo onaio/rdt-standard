@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.utils.Utils;
 
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientHistoryActivity;
 import io.ona.rdt.adapter.CovidPatientVisitAdapter;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.CovidPatientVisitFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.Visit;
@@ -34,7 +36,7 @@ public class CovidPatientVisitFragment extends Fragment implements CovidPatientV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currPatient = getActivity().getIntent().getParcelableExtra(Constants.FormFields.PATIENT);
+        currPatient = getArguments().getParcelable(Constants.FormFields.PATIENT);
         presenter = new CovidPatientVisitFragmentPresenter(this);
     }
 
