@@ -8,6 +8,7 @@ import org.smartregister.repository.EventClientRepository;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.repository.PatientHistoryRepository;
+import io.ona.rdt.util.CovidConstants;
 
 /**
  * Created by Vincent Karuri on 21/08/2020
@@ -30,7 +31,7 @@ public class PatientHistoryRepositoryTest extends RobolectricTest {
     @Test
     public void testGetEventsByEventTypeShouldExecuteCorrectQueryOnECRepository() {
         patientHistoryRepository.getEvent(BASE_ENTITY_ID, EVENT_TYPE, DATE);
-        String query = "SELECT json, SUBSTR(dateCreated, 1, 10) AS visit_date FROM event WHERE baseEntityId=? AND eventType=? AND visit_date=?";
+        String query = "SELECT json, eventDate, SUBSTR(eventDate, 1, 10) AS visit_date FROM event WHERE baseEntityId=? AND eventType=? AND visit_date=? ORDER BY eventDate DESC LIMIT 1";
         String[] params = new String[]{BASE_ENTITY_ID, EVENT_TYPE, DATE};
         Mockito.verify(eventClientRepository).fetchEventClientsCore(ArgumentMatchers.eq(query), ArgumentMatchers.eq(params));
     }
@@ -38,8 +39,8 @@ public class PatientHistoryRepositoryTest extends RobolectricTest {
     @Test
     public void testGetEventsByUniqueDateShouldExecuteCorrectQueryOnECRepository() {
         patientHistoryRepository.getEventsByUniqueDate(BASE_ENTITY_ID);
-        String query = "SELECT json, SUBSTR(dateCreated, 1, 10) visit_date FROM event WHERE baseEntityId=? GROUP BY 2";
-        String[] params = new String[]{BASE_ENTITY_ID};
+        String query = "SELECT json, SUBSTR(eventDate, 1, 10) visit_date FROM event WHERE baseEntityId=? AND eventType!=? GROUP BY 2";
+        String[] params = new String[]{BASE_ENTITY_ID, CovidConstants.Encounter.COVID_PATIENT_REGISTRATION};
         Mockito.verify(eventClientRepository).fetchEventClientsCore(ArgumentMatchers.eq(query), ArgumentMatchers.eq(params));
     }
 }
