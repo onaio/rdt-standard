@@ -3,6 +3,8 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +21,6 @@ import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
@@ -53,21 +54,36 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                     prePopulateRDTFormFields(field, uniqueID);
                     break;
                 case SAMPLE_COLLECTION:
-                    prePopulateSampleCollectionFormFields(field, uniqueID);
+                    prePopulateSampleCollectionFormFields(field, uniqueID, patient);
                     break;
             }
             prePopulateRDTPatientFields(patient, field);
         }
     }
 
-    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID) throws JSONException {
+    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
         // pre-populate respiratory sample id labels
         if (LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             field.put("text", "Sample ID: " + uniqueID);
         }
         // pre-populate respiratory sample id field
         if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
-            field.put(VALUE, uniqueID);
+            field.put(JsonFormConstants.VALUE, uniqueID);
+        }
+
+        // pre-populate the patient detail unique id
+        if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(KEY))) {
+            fillPatientData(field, "Unique Id: ", uniqueID);
+        }
+
+        // pre-populate the patient detail name
+        if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
+            fillPatientData(field, "Patient Name: ", patient.getPatientName());
+        }
+
+        // pre-populate the patient detail dob
+        if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
+            fillPatientData(field, "Patient Dob: ", patient.getDob());
         }
     }
 
@@ -96,5 +112,13 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     @Override
     protected Set<String> initializeFormsThatRequireEntityId() {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
+    }
+
+    private void fillPatientData(JSONObject field, String prefix, String value) throws JSONException {
+        JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        if (options.length() > 0) {
+            JSONObject dobObject = options.getJSONObject(0);
+            dobObject.put(JsonFormConstants.TEXT, prefix + value);
+        }
     }
 }

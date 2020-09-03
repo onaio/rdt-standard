@@ -805,7 +805,7 @@
     "next_label": "{{sample-collection-form-original.step8.next_label}}",
     "fields": [
       {
-        "key": "lbl_store_specimen_for_courier",
+        "key": "lbl_patient_confirmation",
         "type": "label",
         "text_color": "#000000",
         "text_size": "10sp",
@@ -813,7 +813,65 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "{{sample-collection-form-original.step8.lbl_store_specimen_for_courier.text}}"
+        "text": "{{sample-collection-form-original.step8.lbl_patient_confirmation.text}}"
+      },
+      {
+        "key": "patient_info_unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "v_required": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step8.patient_info_unique_id.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "unique_id",
+            "text": ""
+          }
+        ]
+      },
+      {
+        "key": "patient_info_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "v_required": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step8.patient_info_name.v_required.err}}"
+        },
+        "options": [
+          {
+            "key": "patient_name",
+            "text": ""
+          }
+        ]
+      },
+      {
+        "key": "patient_info_dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "v_required": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step8.patient_info_dob.v_required.err}}"
+        },
+        "options": [
+          {
+            "key": "patient_dob",
+            "text": ""
+          }
+        ]
       }
     ]
   },

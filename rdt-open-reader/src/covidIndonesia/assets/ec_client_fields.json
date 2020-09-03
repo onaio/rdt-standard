@@ -33,6 +33,13 @@
           }
         },
         {
+          "column_name": "patient_dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.birthdate"
+          }
+        },
+        {
           "column_name": "age",
           "type": "Event",
           "json_mapping": {
