@@ -60,15 +60,16 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
 
-        Whitebox.invokeMethod(covidPatientRegisterActivity, "registerLanguageSwitcher");
-        int selectedLanguageIndexBeforeChanged = Whitebox.getInternalState(covidPatientRegisterActivity, "selectedLanguageIndex");
-        Assert.assertEquals(1, selectedLanguageIndexBeforeChanged);
-
+        verifySavedLanguageIndex(1);
         LangUtils.saveLanguage(covidPatientRegisterActivity, "en");
+        verifySavedLanguageIndex(0);
 
+    }
+
+    private void verifySavedLanguageIndex(int expected) throws Exception {
         Whitebox.invokeMethod(covidPatientRegisterActivity, "registerLanguageSwitcher");
         int selectedLanguageIndex = Whitebox.getInternalState(covidPatientRegisterActivity, "selectedLanguageIndex");
-        Assert.assertEquals(0, selectedLanguageIndex);
+        Assert.assertEquals(expected, selectedLanguageIndex);
     }
 
     @Override
