@@ -2,6 +2,7 @@ package io.ona.rdt.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.StepStateConfig;
 
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
@@ -35,7 +37,6 @@ import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
 import static io.ona.rdt.util.Constants.DBConstants.SEX;
 import static io.ona.rdt.util.Constants.Step.RDT_ID_KEY;
-import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -115,9 +116,11 @@ public class PatientRegisterFragmentPresenterTest {
 
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
-        assertEquals(new String[]{RDT_PATIENTS + "." + "relationalid", RDT_PATIENTS + "." + FIRST_NAME,
-                RDT_PATIENTS + "." + LAST_NAME, RDT_PATIENTS + "." + AGE, RDT_PATIENTS + "." + SEX, RDT_PATIENTS + "." +  PATIENT_ID},
-                Whitebox.invokeMethod(presenter, "mainColumns", RDT_PATIENTS));
+        String[] columns = new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID, Constants.DBConstants.DOB};
+        for (int i = 0; i < columns.length; i++) {
+            columns[i] = TextUtils.join(".", new String[]{RDT_PATIENTS, columns[i]});
+        }
+        assertEquals(columns, Whitebox.invokeMethod(presenter, "mainColumns", RDT_PATIENTS));
     }
 
     private void mockStaticMethods() throws JSONException {

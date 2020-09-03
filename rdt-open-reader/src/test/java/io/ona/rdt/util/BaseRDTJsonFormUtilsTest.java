@@ -28,6 +28,7 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
 
     protected final String UNIQUE_ID = "unique_id";
+    protected final int AGE = 20;
 
     @Before
     public void setUp() throws JSONException {
@@ -40,7 +41,7 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
                 .create()
                 .resume()
                 .get();
-        Patient patient = new Patient("patient", "female", "entity_id");
+        Patient patient = new Patient("patient", "female", "entity_id", "12345", AGE, "01-09-2020");
         JSONObject formJsonObj = getFormUtils().launchForm(patientRegisterActivity, getFormToPrepopulate(), patient, getIDs());
 
         int numOfPopulatedFields = 0;

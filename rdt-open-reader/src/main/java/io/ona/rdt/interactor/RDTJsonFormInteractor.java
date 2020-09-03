@@ -2,8 +2,6 @@ package io.ona.rdt.interactor;
 
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
-import org.json.JSONObject;
-
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
 import io.ona.rdt.widget.RDTCountdownTimerFactory;
 import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
