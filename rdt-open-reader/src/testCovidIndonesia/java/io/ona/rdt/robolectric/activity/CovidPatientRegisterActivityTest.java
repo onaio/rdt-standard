@@ -1,19 +1,24 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.smartregister.util.LangUtils;
 
+import java.util.List;
+
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
@@ -58,12 +63,28 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
+    public void testLanguageSwitcherDialogShowSetCorrectLocale() throws Exception {
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "languageSwitcherDialog");
+        AlertDialog languageSwitcher = (AlertDialog) ShadowAlertDialog.getLatestDialog();
 
+        ListView listView = languageSwitcher.getListView();
+        // for Bahasa
+        verifyLocaleIsSaved(listView, 1, "in");
+        // for English
+        verifyLocaleIsSaved(listView, 0, "en");
+    }
+
+    private void verifyLocaleIsSaved(ListView listView, int position, String locale) {
+        listView.performItemClick(null, position, listView.getItemIdAtPosition(position));
+        Assert.assertEquals(locale, LangUtils.getLanguage(RDTApplication.getInstance()));
+        Assert.assertEquals(locale, RDTApplication.getInstance().getResources().getConfiguration().locale.getLanguage());
+    }
+
+    @Test
+    public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
         verifySavedLanguageIndex(1);
         LangUtils.saveLanguage(covidPatientRegisterActivity, "en");
         verifySavedLanguageIndex(0);
-
     }
 
     private void verifySavedLanguageIndex(int expected) throws Exception {
