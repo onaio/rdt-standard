@@ -104,13 +104,11 @@ public class Utils {
 
         String savedLocale = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Locale.LOCALE);
 
-        if (StringUtils.isNotBlank(savedLocale)) {
-            Locale locale = new Locale(savedLocale.length() > 0 ? savedLocale : BuildConfig.LOCALE);
-            Resources resources = context.getResources();
-            Configuration configuration = resources.getConfiguration();
-            configuration.setLocale(locale);
-            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-        }
+        Locale locale = new Locale(StringUtils.isNotBlank(savedLocale) ? savedLocale : BuildConfig.LOCALE);
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
     public static void showProgressDialogInFG(Activity activity, @StringRes int title, @StringRes int message) {

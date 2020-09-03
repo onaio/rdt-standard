@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
+import org.smartregister.util.LangUtils;
 
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
@@ -60,8 +61,14 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
 
         Whitebox.invokeMethod(covidPatientRegisterActivity, "registerLanguageSwitcher");
+        int selectedLanguageIndexBeforeChanged = Whitebox.getInternalState(covidPatientRegisterActivity, "selectedLanguageIndex");
+        Assert.assertEquals(1, selectedLanguageIndexBeforeChanged);
+
+        LangUtils.saveLanguage(covidPatientRegisterActivity, "en");
+
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "registerLanguageSwitcher");
         int selectedLanguageIndex = Whitebox.getInternalState(covidPatientRegisterActivity, "selectedLanguageIndex");
-        Assert.assertEquals(1, selectedLanguageIndex);
+        Assert.assertEquals(0, selectedLanguageIndex);
     }
 
     @Override
