@@ -77,6 +77,7 @@ public interface Constants {
         String AGE = "age";
         String SEX = "sex";
         String PATIENT_ID = "patient_id";
+        String DOB = "patient_dob";
     }
 
     interface Form {

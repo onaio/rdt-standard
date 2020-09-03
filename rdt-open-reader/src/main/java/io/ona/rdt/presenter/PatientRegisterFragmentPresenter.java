@@ -1,6 +1,7 @@
 package io.ona.rdt.presenter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import org.json.JSONException;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -8,6 +9,7 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
+import io.ona.rdt.util.Constants;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.DBConstants.AGE;
@@ -69,7 +71,10 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[]{tableName + "." + "relationalid", tableName + "." + FIRST_NAME, tableName + "." + LAST_NAME, tableName + "." + AGE, tableName + "." + SEX, tableName + "." +  PATIENT_ID};
+        String[] columns = new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID, Constants.DBConstants.DOB};
+        for (int i = 0; i < columns.length; i++) {
+            columns[i] = TextUtils.join(".", new String[]{tableName, columns[i]});
+        }
         return columns;
     }
 
