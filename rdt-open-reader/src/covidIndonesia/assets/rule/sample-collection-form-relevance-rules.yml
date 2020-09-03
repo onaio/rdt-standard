@@ -131,3 +131,10 @@ priority: 1
 condition: "step3_sample_type.contains('serum')"
 actions:
   - "isRelevant = true"
+---
+name: step8_patient_info_unique_id
+description: Patient Unique Id
+priority: 1
+condition: "step6_qr_code_reader == '0'"
+actions:
+  - "isRelevant = true"
