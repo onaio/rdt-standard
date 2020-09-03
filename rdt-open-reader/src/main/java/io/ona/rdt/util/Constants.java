@@ -133,4 +133,8 @@ public interface Constants {
         String PCR_RESULTS = "pcr_results";
         String MICROSCOPY_RESULTS = "microscopy_results";
     }
+
+    interface Locale {
+        String LOCALE = "locale";
+    }
 }
