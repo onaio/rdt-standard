@@ -3,20 +3,17 @@ package io.ona.rdt.robolectric.activity;
 import android.app.Activity;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AlertDialog;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.smartregister.util.LangUtils;
 
-import java.util.List;
-
+import androidx.appcompat.app.AlertDialog;
+import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
@@ -28,6 +25,8 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private CovidPatientRegisterActivity covidPatientRegisterActivity;
+    private final String languageSwitcherDialogMethod = "languageSwitcherDialog";
+    private final String[] locales = RDTApplication.getInstance().getResources().getStringArray(R.array.locales_value);
 
     @Before
     public void setUp() {
@@ -57,21 +56,18 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLanguageSwitcherDialogShowLocaleOptions() throws Exception {
-        Whitebox.invokeMethod(covidPatientRegisterActivity, "languageSwitcherDialog");
+        Whitebox.invokeMethod(covidPatientRegisterActivity, languageSwitcherDialogMethod);
         Assert.assertNotNull(ShadowAlertDialog.getLatestDialog());
         Assert.assertTrue(ShadowAlertDialog.getLatestDialog() instanceof AlertDialog);
     }
 
     @Test
-    public void testLanguageSwitcherDialogShowSetCorrectLocale() throws Exception {
-        Whitebox.invokeMethod(covidPatientRegisterActivity, "languageSwitcherDialog");
+    public void testLanguageSwitcherDialogShouldSetCorrectLocale() throws Exception {
+        Whitebox.invokeMethod(covidPatientRegisterActivity, languageSwitcherDialogMethod);
         AlertDialog languageSwitcher = (AlertDialog) ShadowAlertDialog.getLatestDialog();
-
         ListView listView = languageSwitcher.getListView();
-        // for Bahasa
-        verifyLocaleIsSaved(listView, 1, "in");
-        // for English
-        verifyLocaleIsSaved(listView, 0, "en");
+        verifyLocaleIsSaved(listView, 1, locales[1]); // for Bahasa
+        verifyLocaleIsSaved(listView, 0, locales[0]); // for English
     }
 
     private void verifyLocaleIsSaved(ListView listView, int position, String locale) {
@@ -83,7 +79,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
         verifySavedLanguageIndex(1);
-        LangUtils.saveLanguage(covidPatientRegisterActivity, "en");
+        LangUtils.saveLanguage(covidPatientRegisterActivity, locales[0]);
         verifySavedLanguageIndex(0);
     }
 
