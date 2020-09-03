@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import androidx.annotation.StringRes;
 import android.util.TypedValue;
+
+import androidx.annotation.StringRes;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
@@ -99,8 +100,11 @@ public class Utils {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
-    public static void updateLocale(android.content.Context context) {
-        Locale locale = new Locale(BuildConfig.LOCALE);
+    public static void updateLocale(Context context) {
+
+        String savedLocale = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Locale.LOCALE);
+
+        Locale locale = new Locale(StringUtils.isNotBlank(savedLocale) ? savedLocale : BuildConfig.LOCALE);
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);

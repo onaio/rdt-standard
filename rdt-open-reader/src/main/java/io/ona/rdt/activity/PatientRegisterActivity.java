@@ -9,6 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
@@ -20,12 +27,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;

@@ -22,6 +22,7 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="drawer_menu_item_sync">Sync</string>
     <string name="drawer_menu_item_logout">Logout</string>
     <string name="drawer_menu_item_image_sync">Image sync</string>
+    <string name="drawer_menu_item_change_language">Change Language</string>
     <string name="search_hint">Search</string>
     <string name="please_wait_title">Please wait</string>
     <string name="saving_image">Saving captured image</string>
@@ -44,5 +45,7 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="vivax_prefix">P. vivax - </string>
     <string name="falciparum_prefix">P. falciparum - </string>
     <string name="gameto_prefix">Pf. gameto - </string>
+    <string name="lang_english">English</string>
+    <string name="lang_indonesia">Indonesia</string>
 </resources>
 
