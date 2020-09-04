@@ -28,7 +28,7 @@ import timber.log.Timber;
 public class CovidPatientHistoryActivityInteractor {
 
     private PatientHistoryRepository patientHistoryRepository;
-    private final Set<String> UNIQUE_FORM_IDS = new HashSet<>(Arrays.asList(Constants.FormFields.RDT_ID,
+    private final Set<String> UNIQUE_MANUAL_FORM_IDS = new HashSet<>(Arrays.asList(Constants.FormFields.RDT_ID,
             CovidConstants.FormFields.COVID_SAMPLE_ID));
 
     public CovidPatientHistoryActivityInteractor() {
@@ -58,8 +58,14 @@ public class CovidPatientHistoryActivityInteractor {
 
     private boolean shouldAddObs(Obs obs, Event event) {
         // do not process unique manual id if unique barcode id exists
-        return !isUniqueFormIDField(obs.getFormSubmissionField())
-                ||  event.findObs("", true, CovidConstants.FormFields.UNIQUE_ID) == null;
+        boolean shouldIncludeManualIDField = isUniqueManualFormIDField(obs.getFormSubmissionField())
+                &&  event.findObs("", true, CovidConstants.FormFields.UNIQUE_ID) == null;
+
+        // do not process repeating group field, process it's corresponding _count field instead
+        boolean isNotRepeatingGroupField = !isUniqueManualFormIDField(obs.getFormSubmissionField())
+                && event.findObs("", true, obs.getFormSubmissionField() + "_count") == null;
+
+        return shouldIncludeManualIDField || isNotRepeatingGroupField;
     }
 
     private String getValues(Obs obs, Map<String, String> formWidgetKeyToTextMap) {
@@ -100,7 +106,7 @@ public class CovidPatientHistoryActivityInteractor {
         return formWidgetKeyToTextMap.containsKey(value) ? formWidgetKeyToTextMap.get(value) : value;
     }
 
-    private boolean isUniqueFormIDField(String key) {
-        return UNIQUE_FORM_IDS.contains(key);
+    private boolean isUniqueManualFormIDField(String key) {
+        return UNIQUE_MANUAL_FORM_IDS.contains(key);
     }
 }

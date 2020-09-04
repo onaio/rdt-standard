@@ -2,6 +2,7 @@ package io.ona.rdt.util;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.NativeFormLangUtils;
+import com.vijay.jsonwizard.widgets.RepeatingGroupFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -42,6 +43,11 @@ public class FormKeyTextExtractionUtil {
                     String widgetText = getWidgetText(field);
                     if (StringUtils.isNotBlank(widgetText)) {
                         formWidgetKeyToTextMap.put(widgetKey, widgetText);
+                    }
+                    // for repeating group, use text hint to populate its _count field
+                    if (JsonFormConstants.REPEATING_GROUP.equals(fieldType)) {
+                        formWidgetKeyToTextMap.put(widgetKey + "_count",
+                                field.getString(RepeatingGroupFactory.REFERENCE_EDIT_TEXT_HINT));
                     }
                     // add options text
                     if (JsonFormConstants.CHECK_BOX.equals(fieldType)
