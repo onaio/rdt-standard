@@ -939,7 +939,7 @@
       {
         "key": "covid_patients_in_compound",
         "type": "repeating_group",
-        "reference_edit_text_hint":"# of covid patients",
+        "reference_edit_text_hint": "# of covid patients in compound",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1047,7 +1047,7 @@
       {
         "key": "has_close_contact_with_covid_patient",
         "type": "repeating_group",
-        "reference_edit_text_hint":"# of covid patients",
+        "reference_edit_text_hint": "# of covid patients who are close contacts",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1154,7 +1154,7 @@
       {
         "key": "has_close_contact_with_someone_outside_household",
         "type": "repeating_group",
-        "reference_edit_text_hint":"# of covid patients",
+        "reference_edit_text_hint": "# of close contacts outside household",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
