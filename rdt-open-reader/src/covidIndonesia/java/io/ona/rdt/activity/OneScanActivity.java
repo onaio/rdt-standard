@@ -22,6 +22,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 
 public class OneScanActivity extends AppCompatActivity {
 
+    private static final long BARCODE_DETAILS_DISPLAY_TIMEOUT = 4500;
     private OneScanHelper oneScanHelper;
 
     @Override
@@ -72,7 +73,8 @@ public class OneScanActivity extends AppCompatActivity {
                         response.lot,
                         response.expirationDate,
                         response.sensorTriggered ? "yes" : "no"));
-                        setResultAndFinishDelayed(response, 1500);
+
+                setResultAndFinishDelayed(response, BARCODE_DETAILS_DISPLAY_TIMEOUT);
             }
         });
     }
