@@ -86,10 +86,7 @@ public class CovidPatientVisitFragment extends Fragment implements CovidPatientV
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                launchPatientHistory(v.getTag(R.id.patient_visit_date).toString());
-        }
+        launchPatientHistory(v.getTag(R.id.patient_visit_date).toString());
     }
 
     private void launchPatientHistory(String visitDate) {
