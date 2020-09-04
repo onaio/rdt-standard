@@ -21,6 +21,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 
 public class OneScanActivity extends AppCompatActivity {
 
+    private final int finishDelayed = 4500;
     private OneScanHelper oneScanHelper;
 
     @Override
@@ -71,7 +72,7 @@ public class OneScanActivity extends AppCompatActivity {
                         response.lot,
                         response.expirationDate,
                         response.sensorTriggered ? "yes" : "no"));
-                        setResultAndFinishDelayed(response, 4500);
+                        setResultAndFinishDelayed(response, finishDelayed);
             }
         });
     }
