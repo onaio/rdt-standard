@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.apache.commons.lang3.StringUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -70,7 +71,7 @@ public class OneScanActivity extends AppCompatActivity {
                         response.lot,
                         response.expirationDate,
                         response.sensorTriggered ? "yes" : "no"));
-                        setResultAndFinishDelayed(response, 1500);
+                        setResultAndFinishDelayed(response, 4500);
             }
         });
     }
