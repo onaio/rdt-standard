@@ -38,7 +38,8 @@ public class CovidPatientVisitFragmentTest extends FragmentRobolectricTest {
     public void setUp() {
         final int ten = 10;
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.FormFields.PATIENT, new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", ten));
+        bundle.putParcelable(Constants.FormFields.PATIENT, new Patient("name", "sex",
+                Constants.FormFields.ENTITY_ID, "patient_id", ten, "dob"));
         fragmentScenario = FragmentScenario.launchInContainer(CovidPatientVisitFragment.class, bundle,
                 R.style.AppTheme, null);
         fragmentScenario.onFragment(

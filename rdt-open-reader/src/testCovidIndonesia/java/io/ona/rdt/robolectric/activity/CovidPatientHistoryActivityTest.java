@@ -39,7 +39,8 @@ public class CovidPatientHistoryActivityTest extends ActivityRobolectricTest {
     public void setUp() {
         Intent intent = new Intent();
         final int ten = 10;
-        intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", ENTITY_ID, "patient_id", ten));
+        intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", ENTITY_ID,
+                "patient_id", ten, "dob"));
         intent.putExtra(Constants.FormFields.PATIENT_VISIT_DATE, DATE);
         covidPatientHistoryActivity = Robolectric.buildActivity(CovidPatientHistoryActivity.class, intent)
                 .create().resume().get();
