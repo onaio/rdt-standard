@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Supporting investigations",
+    "title": "Other clinical data",
     "display_back_button": "true",
     "fields": [
       {
@@ -73,7 +73,7 @@
     ]
   },
   "step2": {
-    "title": "Supporting investigations",
+    "title": "Other clinical data",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -96,7 +96,7 @@
     ]
   },
   "step3": {
-    "title": "Supporting investigations",
+    "title": "Other clinical data",
     "display_back_button": "true",
     "fields": [
       {
@@ -122,7 +122,7 @@
     ]
   },
   "step4": {
-    "title": "Supporting investigations",
+    "title": "Other clinical data",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
@@ -171,7 +171,7 @@
     ]
   },
   "step5": {
-    "title": "Supporting investigations",
+    "title": "Other clinical data",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",

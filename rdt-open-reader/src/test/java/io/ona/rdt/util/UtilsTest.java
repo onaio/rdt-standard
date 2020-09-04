@@ -3,6 +3,7 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -91,13 +92,18 @@ public class UtilsTest extends PowerMockTest {
 
     @Test
     public void testUpdateLocale() throws Exception {
+        mockStaticClasses();
+
         Context context = mock(Context.class);
         Resources resources = mock(Resources.class);
         Configuration configuration = mock(Configuration.class);
+        DisplayMetrics displayMetrics = mock(DisplayMetrics.class);
         doReturn(resources).when(context).getResources();
         doReturn(configuration).when(resources).getConfiguration();
+        doReturn(displayMetrics).when(resources).getDisplayMetrics();
         Whitebox.invokeMethod(utils, "updateLocale", context);
         verify(configuration).setLocale(any(Locale.class));
+        verify(resources).updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
     @Test
@@ -189,6 +195,7 @@ public class UtilsTest extends PowerMockTest {
 
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
         doReturn("false").when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
+        doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(Constants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
     }
 }

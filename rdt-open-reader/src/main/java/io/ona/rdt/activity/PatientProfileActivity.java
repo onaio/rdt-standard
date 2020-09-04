@@ -8,8 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+
 import io.ona.rdt.R;
-import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.fragment.PatientProfileFragment;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
