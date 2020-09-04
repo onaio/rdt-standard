@@ -72,7 +72,8 @@ public class OneScanActivity extends AppCompatActivity {
                         response.lot,
                         response.expirationDate,
                         response.sensorTriggered ? "yes" : "no"));
-                        setResultAndFinishDelayed(response, finishDelayed);
+
+                setResultAndFinishDelayed(response, finishDelayed);
             }
         });
     }
