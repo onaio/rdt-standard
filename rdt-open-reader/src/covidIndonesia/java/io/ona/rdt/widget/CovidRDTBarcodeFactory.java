@@ -62,7 +62,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     protected abstract String[] splitCSV(String barcodeCSV);
 
-    protected void sensorTriggered() {}     // empty method
+    protected void sensorTriggered(){}
 
     protected void populateRelevantFields(String[] individualVals) throws JSONException {
         JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
