@@ -9,6 +9,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import io.ona.rdt.activity.OneScanActivity;
+import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import timber.log.Timber;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -38,5 +39,10 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
     @Override
     protected String[] splitCSV(String barcodeCSV) {
         return barcodeCSV.split(",");
+    }
+
+    @Override
+    protected void sensorTriggered() {
+        ((RDTJsonFormFragmentPresenter) widgetArgs.getFormFragment().getPresenter()).moveToNextStep("step2");
     }
 }
