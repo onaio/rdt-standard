@@ -10,7 +10,6 @@ import org.json.JSONException;
 import java.text.ParseException;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -34,21 +33,15 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
-                if (data.getBooleanExtra(CovidConstants.IntentKeys.BARCODE_SENSOR_TRIGGER, false)) {
-                    sensorTriggered();
-                } else {
-                    String barcodeVals = getBarcodeValsAsCSV(data);
-                    jsonApi.writeValue(widgetArgs.getStepName(),
-                            widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
-                            barcodeVals, "", "", "", false);
+                String barcodeVals = getBarcodeValsAsCSV(data);
+                jsonApi.writeValue(widgetArgs.getStepName(),
+                        widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
+                        barcodeVals, "", "", "", false);
 
-                    String[] individualVals = splitCSV(barcodeVals);
-                    populateRelevantFields(individualVals);
-                    moveToNextStep(convertDate(individualVals[1], "YYYY-MM-dd"));
-                }
-            } catch (JSONException e) {
-                Timber.e(e);
-            } catch (ParseException e) {
+                String[] individualVals = splitCSV(barcodeVals);
+                populateRelevantFields(individualVals);
+                moveToNextStep(convertDate(individualVals[1], "YYYY-MM-dd"));
+            } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
@@ -61,10 +54,6 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     protected abstract String getBarcodeValsAsCSV(Intent data);
 
     protected abstract String[] splitCSV(String barcodeCSV);
-
-    protected void sensorTriggered() {
-        // empty method
-    }
 
     protected void populateRelevantFields(String[] individualVals) throws JSONException {
         JsonApi jsonApi = (JsonApi) widgetArgs.getContext();

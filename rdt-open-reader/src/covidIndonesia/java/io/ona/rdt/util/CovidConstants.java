@@ -91,8 +91,4 @@ public interface CovidConstants extends Constants {
     interface RequestCodes {
         int LOCATION_PERMISSIONS = 8732;
     }
-
-    interface IntentKeys {
-        String BARCODE_SENSOR_TRIGGER = "barcode sensor_trigger";
-    }
 }

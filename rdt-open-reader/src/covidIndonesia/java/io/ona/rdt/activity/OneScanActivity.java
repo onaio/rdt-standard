@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
@@ -92,7 +91,6 @@ public class OneScanActivity extends AppCompatActivity {
                 response.lot, response.productId, String.valueOf(response.sensorTriggered),
                 response.status}, ',');
         resultIntent.putExtra(BARCODE_KEY, barcode);
-        resultIntent.putExtra(CovidConstants.IntentKeys.BARCODE_SENSOR_TRIGGER, response.sensorTriggered);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

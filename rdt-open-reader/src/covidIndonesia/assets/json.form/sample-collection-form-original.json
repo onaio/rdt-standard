@@ -970,5 +970,24 @@
         }
       }
     ]
+  },
+  "step11": {
+    "title": "Sample collection",
+    "display_back_button": "true",
+    "next": "step1",
+    "bottom_navigation": "true",
+    "next_label": "OK",
+    "fields": [
+      {
+        "key": "lbl_high_heat_exposure",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "This RDT has been flagged for high heat exposure and reliability has been compromised. Please use another RDT."
+      }
+    ]
   }
 }

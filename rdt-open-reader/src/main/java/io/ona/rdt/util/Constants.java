@@ -119,6 +119,7 @@ public interface Constants {
         String SCAN_CARESTART_PAGE = "scan_carestart_page";
         String TWENTY_MIN_COUNTDOWN_TIMER_PAGE = "twenty_min_countdown_timer_page";
         String TAKE_IMAGE_OF_RDT_PAGE = "take_image_of_rdt_page";
+        String SENSOR_TRIGGERED_PAGE = "sensor_triggered_page";
     }
 
     interface Encounter {
