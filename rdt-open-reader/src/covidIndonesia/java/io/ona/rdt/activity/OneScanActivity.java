@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
@@ -30,7 +31,7 @@ public class OneScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_scan);
         setSupportActionBar(findViewById(R.id.toolbar));
         oneScanHelper = new OneScanHelper(this);
-        doScan("camera");
+        doScan(CovidConstants.ScannerType.SCANNER);
         getOneScanVersion();
     }
 
