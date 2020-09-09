@@ -49,10 +49,6 @@ public interface CovidConstants extends Constants {
         String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
-        String COVID_XRAY_PAGE = "covid_xray_page";
-        String COVID_OPT_IN_WBC_PAGE = "covid_opt_in_wbc_page";
-        String COVID_WBC_PAGE = "covid_wbc_page";
-        String COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE = "covid_support_investigation_complete_page";
         String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
         String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
     }
