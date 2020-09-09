@@ -1,6 +1,7 @@
 package io.ona.rdt.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -89,7 +90,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
         return date != null && new Date().after(date);
     }
 
-    protected void moveToNextStep(Date expDate) {
+    protected void moveToNextStep(Intent data, Date expDate) {
         JsonFormFragment formFragment = widgetArgs.getFormFragment();
         if (!isRDTExpired(expDate)) {
             moveToNextStep();

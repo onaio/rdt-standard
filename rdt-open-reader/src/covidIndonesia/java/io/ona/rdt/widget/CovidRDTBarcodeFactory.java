@@ -40,7 +40,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(convertDate(individualVals[1], "YYYY-MM-dd"));
+                moveToNextStep(data, convertDate(individualVals[1], "YYYY-MM-dd"));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }

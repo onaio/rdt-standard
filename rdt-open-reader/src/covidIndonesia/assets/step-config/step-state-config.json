@@ -18,6 +18,5 @@
   "covid_wbc_page": "step4",
   "covid_support_investigation_complete_page": "step5",
   "covid_scan_sample_for_delivery_page": "step3",
-  "covid_enter_delivery_details_page": "step4",
-  "sensor_triggered_page": "step11"
+  "covid_enter_delivery_details_page": "step4"
 }
