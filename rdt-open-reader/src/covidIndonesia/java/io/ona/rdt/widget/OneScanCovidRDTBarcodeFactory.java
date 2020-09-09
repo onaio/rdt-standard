@@ -17,12 +17,12 @@ import java.util.Date;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.OneScanActivity;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.util.Constants;
 import timber.log.Timber;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
-import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 
 /**
  * Created by Vincent Karuri on 09/07/2020
@@ -51,10 +51,11 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
 
     @Override
     protected void moveToNextStep(Intent data, Date expDate) {
+        final int sensorTriggerIndex = 4;
         Barcode barcode = data.getParcelableExtra(BARCODE_KEY);
-        if (Boolean.parseBoolean(barcode.displayValue.split(",")[4])) {
+        if (Boolean.parseBoolean(barcode.displayValue.split(",")[sensorTriggerIndex])) {
             JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE, "step1");
+            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(Constants.Step.PRODUCT_EXPIRED_PAGE, "step1");
             try {
                 jsonApi.writeValue(expiredPageAddr, "lbl_sample_expired", "",  "", "", "", false);
                 jsonApi.writeValue(expiredPageAddr, "lbl_collect_new_sample", widgetArgs.getContext().getString(R.string.rdt_high_heat_exposure),  "", "", "", false);
