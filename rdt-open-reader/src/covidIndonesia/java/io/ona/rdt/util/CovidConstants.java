@@ -17,16 +17,18 @@ public interface CovidConstants extends Constants {
         String PATIENT_DIAGNOSTIC_RESULTS = "patient_diagnostic_results";
         String SAMPLE_COLLECTIONS = "sample_collections";
         String SAMPLE_DELIVERY_RECORDS = "sample_delivery_records";
-        String SUPPORT_INVESTIGATIONS = "support_investigations";
+        String COVID_XRAY_RECORDS = "covid_xray_records";
+        String COVID_WBC_RECORDS = "covid_wbc_records";
     }
 
     interface Encounter {
         String PATIENT_DIAGNOSTICS = "patient_diagnostics";
         String SAMPLE_COLLECTION = "sample_collection";
         String SAMPLE_DELIVERY_DETAILS = "sample_delivery_details";
-        String SUPPORT_INVESTIGATION = "support_investigation";
         String COVID_RDT_TEST = "covid_rdt_test";
         String COVID_PATIENT_REGISTRATION = "covid_patient_registration";
+        String COVID_XRAY = "covid_xray";
+        String COVID_WBC = "covid_wbc";
     }
 
     interface Form {

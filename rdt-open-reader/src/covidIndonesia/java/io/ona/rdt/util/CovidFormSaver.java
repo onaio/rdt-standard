@@ -1,7 +1,6 @@
 package io.ona.rdt.util;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Obs;
@@ -10,18 +9,18 @@ import io.ona.rdt.application.RDTApplication;
 
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
+import static io.ona.rdt.util.CovidConstants.Encounter.COVID_WBC;
+import static io.ona.rdt.util.CovidConstants.Encounter.COVID_XRAY;
 import static io.ona.rdt.util.CovidConstants.Encounter.PATIENT_DIAGNOSTICS;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
-import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
-import static io.ona.rdt.util.CovidConstants.Encounter.SUPPORT_INVESTIGATION;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_RDT_TESTS;
+import static io.ona.rdt.util.CovidConstants.Table.COVID_WBC_RECORDS;
+import static io.ona.rdt.util.CovidConstants.Table.COVID_XRAY_RECORDS;
 import static io.ona.rdt.util.CovidConstants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_COLLECTIONS;
-import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_DELIVERY_RECORDS;
-import static io.ona.rdt.util.CovidConstants.Table.SUPPORT_INVESTIGATIONS;
 
 /**
  * Created by Vincent Karuri on 13/07/2020
@@ -66,12 +65,11 @@ public class CovidFormSaver extends FormSaver {
             case SAMPLE_COLLECTION:
                 bindType = SAMPLE_COLLECTIONS;
                 break;
-            case SAMPLE_DELIVERY_DETAILS:
-                bindType = SAMPLE_DELIVERY_RECORDS;
+            case COVID_WBC:
+                bindType = COVID_WBC_RECORDS;
                 break;
-            case SUPPORT_INVESTIGATION:
-                bindType = SUPPORT_INVESTIGATIONS;
-                break;
+            case COVID_XRAY:
+                bindType = COVID_XRAY_RECORDS;
         }
         return bindType;
     }
