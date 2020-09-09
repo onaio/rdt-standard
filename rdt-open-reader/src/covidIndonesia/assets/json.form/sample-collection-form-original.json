@@ -821,6 +821,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label": "Unique Id",
         "v_required": {
           "value": "true",
           "err": "This field is required"
@@ -845,6 +846,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label": "Patient Name",
         "v_required": {
           "value": "true",
           "err": "This field is required"
@@ -862,6 +864,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label": "Patient Dob",
         "v_required": {
           "value": "true",
           "err": "This field is required"
