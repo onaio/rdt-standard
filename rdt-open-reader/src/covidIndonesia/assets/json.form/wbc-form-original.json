@@ -1,6 +1,6 @@
 {
-  "count": "5",
-  "encounter_type": "support_investigation",
+  "count": "1",
+  "encounter_type": "covid_wbc",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,87 +47,12 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Other clinical data",
-    "display_back_button": "true",
-    "fields": [
-      {
-        "key": "lbl_add_xray_results",
-        "type": "label",
-        "text": "Add X-Ray results",
-        "text_color": "#000000",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "has_drawable_end": true,
-        "bg_color": "#ffffff"
-      },
-      {
-        "key": "lbl_skip_xray_results",
-        "type": "label",
-        "text": "Skip X-Ray results",
-        "top_margin": "30dp",
-        "text_color": "#000000",
-        "has_bg": true,
-        "has_drawable_end": true,
-        "bg_color": "#ffffff"
-      }
-    ]
-  },
-  "step2": {
-    "title": "Other clinical data",
+    "title": "White blood cell count",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step3",
-    "next_label": "CONTINUE",
-    "fields": [
-      {
-        "key": "lung_xray_result_lbl",
-        "type": "label",
-        "text": "Lung X-Ray",
-        "text_color": "#000000"
-      },
-      {
-        "key": "lung_xray_result",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text"
-      }
-    ]
-  },
-  "step3": {
-    "title": "Other clinical data",
-    "display_back_button": "true",
-    "fields": [
-      {
-        "key": "lbl_add_wbc_results",
-        "type": "label",
-        "text": "Add white blood cell count results",
-        "text_color": "#000000",
-        "top_margin": "15dp",
-        "has_bg": true,
-        "has_drawable_end": true,
-        "bg_color": "#ffffff"
-      },
-      {
-        "key": "lbl_skip_wbc_results",
-        "type": "label",
-        "text": "Skip white blood cell count results",
-        "top_margin": "30dp",
-        "text_color": "#000000",
-        "has_bg": true,
-        "has_drawable_end": true,
-        "bg_color": "#ffffff"
-      }
-    ]
-  },
-  "step4": {
-    "title": "Other clinical data",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next" : "step5",
-    "next_label": "CONTINUE",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
     "fields": [
       {
         "key": "leukocytes_lbl",
@@ -167,22 +92,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text"
-      }
-    ]
-  },
-  "step5": {
-    "title": "Other clinical data",
-    "display_back_button": "true",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
-    "fields": [
-      {
-        "key": "supporting_investigations_complete_lbl",
-        "type": "label",
-        "text": "Supporting investigation(s) completed",
-        "text_color": "#000000"
       }
     ]
   }
