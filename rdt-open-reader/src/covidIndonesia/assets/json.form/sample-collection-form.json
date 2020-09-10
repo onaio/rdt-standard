@@ -47,13 +47,13 @@
     },
     "encounter_location": ""
   },
-  "step1": {
-    "title": "{{sample-collection-form-original.step1.title}}",
+  "step3": {
+    "title": "{{sample-collection-form-original.step3.title}}",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step4",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_label": "{{sample-collection-form-original.step1.next_label}}",
+    "next_label": "{{sample-collection-form-original.step3.next_label}}",
     "fields": [
       {
         "key": "lbl_collect_respiratory_sample",
@@ -98,13 +98,13 @@
       }
     ]
   },
-  "step3": {
-    "title": "{{sample-collection-form-original.step3.title}}",
+  "step1": {
+    "title": "{{sample-collection-form-original.step1.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step4",
-    "next_label": "{{sample-collection-form-original.step3.next_label}}",
+    "next": "step3",
+    "next_label": "{{sample-collection-form-original.step1.next_label}}",
     "fields": [
       {
         "key": "sampler_name_lbl",

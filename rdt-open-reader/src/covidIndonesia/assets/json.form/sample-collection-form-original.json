@@ -47,10 +47,10 @@
     },
     "encounter_location": ""
   },
-  "step1": {
+  "step3": {
     "title": "Sample collection",
     "display_back_button": "true",
-    "next": "step3",
+    "next": "step4",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -64,7 +64,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Collect sample using appropriate methods"
+        "text": "Obtain specimen using approved methods."
       }
     ]
   },
@@ -98,12 +98,12 @@
       }
     ]
   },
-  "step3": {
+  "step1": {
     "title": "Sample collection",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next": "step4",
+    "next": "step3",
     "next_label": "CONTINUE",
     "fields": [
       {
