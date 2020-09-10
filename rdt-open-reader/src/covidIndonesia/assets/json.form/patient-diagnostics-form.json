@@ -946,13 +946,13 @@
         "openmrs_entity_id": "",
         "value": [
           {
-            "key": "name_label",
+            "key": "covid_patient_in_compound_name_label",
             "type": "label",
-            "text": "Contact\u0027s name",
+            "text": "Contact's name",
             "text_color": "#000000"
           },
           {
-            "key": "name",
+            "key": "covid_patient_in_compound_name_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -963,13 +963,13 @@
             }
           },
           {
-            "key": "phone_number_lbl",
+            "key": "covid_patient_in_compound_name_phone_number_lbl",
             "type": "label",
-            "text": "Contact\u0027s phone number",
+            "text": "Contact's phone number",
             "text_color": "#000000"
           },
           {
-            "key": "phone_number",
+            "key": "covid_patient_in_compound_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -992,13 +992,13 @@
             }
           },
           {
-            "key": "relationship_lbl",
+            "key": "covid_patient_in_compound_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "relationship",
+            "key": "covid_patient_in_compound_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1009,7 +1009,7 @@
             }
           },
           {
-            "key": "date_of_first_contact",
+            "key": "covid_patient_in_compound_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1023,7 +1023,7 @@
             "max_date": "today"
           },
           {
-            "key": "date_of_last_contact",
+            "key": "covid_patient_in_compound_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1054,13 +1054,13 @@
         "openmrs_entity_id": "",
         "value": [
           {
-            "key": "name_label",
+            "key": "close_contact_covid_patient_name_label",
             "type": "label",
-            "text": "Contact\u0027s name",
+            "text": "Contact's name",
             "text_color": "#000000"
           },
           {
-            "key": "name",
+            "key": "close_contact_covid_patient_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1071,13 +1071,13 @@
             }
           },
           {
-            "key": "phone_number_lbl",
+            "key": "close_contact_covid_patient_phone_number_lbl",
             "type": "label",
-            "text": "Contact\u0027s phone number",
+            "text": "Contact's phone number",
             "text_color": "#000000"
           },
           {
-            "key": "phone_number",
+            "key": "close_contact_covid_patient_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1100,13 +1100,13 @@
             }
           },
           {
-            "key": "relationship_lbl",
+            "key": "close_contact_covid_patient_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "relationship",
+            "key": "close_contact_covid_patient_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1117,7 +1117,7 @@
             }
           },
           {
-            "key": "date_of_first_contact",
+            "key": "close_contact_covid_patient_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1131,7 +1131,7 @@
             "max_date": "today"
           },
           {
-            "key": "date_of_last_contact",
+            "key": "close_contact_covid_patient_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1162,13 +1162,13 @@
         "openmrs_entity_id": "",
         "value": [
           {
-            "key": "name_label",
+            "key": "close_contact_outside_household_name_label",
             "type": "label",
-            "text": "Contact\u0027s name",
+            "text": "Contact's name",
             "text_color": "#000000"
           },
           {
-            "key": "name",
+            "key": "close_contact_outside_household_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1179,13 +1179,13 @@
             }
           },
           {
-            "key": "phone_number_lbl",
+            "key": "close_contact_outside_household_phone_number_lbl",
             "type": "label",
-            "text": "Contact\u0027s phone number",
+            "text": "Contact's phone number",
             "text_color": "#000000"
           },
           {
-            "key": "phone_number",
+            "key": "close_contact_outside_household_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1208,13 +1208,13 @@
             }
           },
           {
-            "key": "relationship_lbl",
+            "key": "close_contact_outside_household_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "relationship",
+            "key": "close_contact_outside_household_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1225,7 +1225,7 @@
             }
           },
           {
-            "key": "date_of_first_contact",
+            "key": "close_contact_outside_household_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1239,7 +1239,7 @@
             "max_date": "today"
           },
           {
-            "key": "date_of_last_contact",
+            "key": "close_contact_outside_household_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1253,13 +1253,13 @@
             "max_date": "today"
           },
           {
-            "key": "location_lbl",
+            "key": "close_contact_outside_household_location_lbl",
             "type": "label",
             "text": "Location of contact",
             "text_color": "#000000"
           },
           {
-            "key": "location",
+            "key": "close_contact_outside_household_location",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
