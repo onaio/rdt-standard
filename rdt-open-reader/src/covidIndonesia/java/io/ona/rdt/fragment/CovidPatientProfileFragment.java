@@ -79,9 +79,15 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
     }
 
     private void launchOtherClinicalDataFragment() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(PATIENT, currPatient);
+
+        CovidOtherClinicalDataFragment covidOtherClinicalDataFragment = new CovidOtherClinicalDataFragment();
+        covidOtherClinicalDataFragment.setArguments(bundle);
+
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.patient_profile_fragment_container, new CovidOtherClinicalDataFragment());
+        fragmentTransaction.replace(R.id.patient_profile_fragment_container, covidOtherClinicalDataFragment);
         fragmentTransaction.commit();
     }
 }
