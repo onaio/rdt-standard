@@ -36,7 +36,8 @@ public interface CovidConstants extends Constants {
         String PATIENT_DIAGNOSTICS_FORM = JSON_FORM_FOLDER + "patient-diagnostics-form.json";
         String SAMPLE_COLLECTION_FORM = JSON_FORM_FOLDER + "sample-collection-form.json";
         String SAMPLE_DELIVERY_DETAILS_FORM = JSON_FORM_FOLDER + "sample-delivery-details-form.json";
-        String SUPPORT_INVESTIGATION_FORM = JSON_FORM_FOLDER + "support-investigation-form.json";
+        String XRAY_FORM = JSON_FORM_FOLDER + "xray-form.json";
+        String WBC_FORM = JSON_FORM_FOLDER + "wbc-form.json";
         String COVID_PATIENT_REGISTRATION_FORM = JSON_FORM_FOLDER + "patient-registration-form.json";
         String COVID_RDT_TEST_FORM = JSON_FORM_FOLDER + "rdt-capture-form.json";
     }
