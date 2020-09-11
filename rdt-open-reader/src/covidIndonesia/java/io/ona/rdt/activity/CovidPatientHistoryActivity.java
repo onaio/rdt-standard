@@ -51,8 +51,6 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
                     CovidConstants.Encounter.COVID_RDT_TEST);
             patientHistorySectionsMap.put(R.id.patient_samples_history_section,
                     CovidConstants.Encounter.SAMPLE_COLLECTION);
-            patientHistorySectionsMap.put(R.id.patient_supporting_investigations_history_section,
-                    CovidConstants.Encounter.SUPPORT_INVESTIGATION);
             patientHistorySectionsMap.put(R.id.patient_symptoms_history_section,
                     CovidConstants.Encounter.PATIENT_DIAGNOSTICS);
         }
