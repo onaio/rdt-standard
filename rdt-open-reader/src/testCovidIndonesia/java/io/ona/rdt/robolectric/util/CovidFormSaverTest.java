@@ -45,8 +45,8 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
         Assert.assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), getBindType, PATIENT_DIAGNOSTICS));
         Assert.assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_COLLECTION));
         Assert.assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_DELIVERY_DETAILS));
-        Assert.assertEquals(COVID_WBC, Whitebox.invokeMethod(getFormSaver(), getBindType, COVID_WBC_RECORDS));
-        Assert.assertEquals(COVID_XRAY, Whitebox.invokeMethod(getFormSaver(), getBindType, COVID_XRAY_RECORDS));
+        Assert.assertEquals(COVID_WBC_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, COVID_WBC));
+        Assert.assertEquals(COVID_XRAY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, COVID_XRAY));
     }
 
     @Override

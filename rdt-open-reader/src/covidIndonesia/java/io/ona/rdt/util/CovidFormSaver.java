@@ -13,6 +13,7 @@ import static io.ona.rdt.util.CovidConstants.Encounter.COVID_WBC;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_XRAY;
 import static io.ona.rdt.util.CovidConstants.Encounter.PATIENT_DIAGNOSTICS;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
+import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
@@ -21,6 +22,7 @@ import static io.ona.rdt.util.CovidConstants.Table.COVID_WBC_RECORDS;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_XRAY_RECORDS;
 import static io.ona.rdt.util.CovidConstants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_COLLECTIONS;
+import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_DELIVERY_RECORDS;
 
 /**
  * Created by Vincent Karuri on 13/07/2020
@@ -64,6 +66,9 @@ public class CovidFormSaver extends FormSaver {
                 break;
             case SAMPLE_COLLECTION:
                 bindType = SAMPLE_COLLECTIONS;
+                break;
+            case SAMPLE_DELIVERY_DETAILS:
+                bindType = SAMPLE_DELIVERY_RECORDS;
                 break;
             case COVID_WBC:
                 bindType = COVID_WBC_RECORDS;
