@@ -291,13 +291,13 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "        }\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"sample_lot_number_lbl\",\n" +
+            "        \"key\": \"manufacturing_lot_number_lbl\",\n" +
             "        \"type\": \"label\",\n" +
             "        \"text\": \"VTM lot number\",\n" +
             "        \"text_color\": \"#000000\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"sample_lot_number\",\n" +
+            "        \"key\": \"manufacturing_lot_number\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +

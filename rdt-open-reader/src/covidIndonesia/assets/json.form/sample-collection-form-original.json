@@ -391,13 +391,13 @@
         }
       },
       {
-        "key": "sample_lot_number_lbl",
+        "key": "manufacturing_lot_number_lbl",
         "type": "label",
-        "text": "Sample lot number?",
+        "text": "Manufacturing lot number?",
         "text_color": "#000000"
       },
       {
-        "key": "sample_lot_number",
+        "key": "manufacturing_lot_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
