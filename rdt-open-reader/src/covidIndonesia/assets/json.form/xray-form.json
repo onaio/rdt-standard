@@ -66,6 +66,20 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text"
+      },
+      {
+        "key": "date_xray_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{xray-form-original.step1.date_xray_conducted.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{xray-form-original.step1.date_xray_conducted.duration.label}}"
+        },
+        "min_date": "today-100y",
+        "max_date": "today"
       }
     ]
   },

@@ -65,7 +65,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        }
       },
       {
         "key": "lymphocytes_lbl",
@@ -78,7 +82,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        }
       },
       {
         "key": "platelets_lbl",
@@ -91,7 +99,25 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        }
+      },
+      {
+        "key": "date_wbc_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date conducted",
+        "expanded": false,
+        "duration": {
+          "label": "Date conducted"
+        },
+        "min_date": "today-100y",
+        "max_date": "today"
       }
     ]
   }
