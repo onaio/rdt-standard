@@ -7,6 +7,7 @@
     <string name="covid_patient_profile_sample_shipments">Sample shipments</string>
     <string name="covid_patient_forms_tab_name">Patient Forms</string>
     <string name="covid_patient_history_tab_name">Patient History</string>
+    <string name="no_data_available">No data available</string>
     <string-array name="locales_key">
         <item>English</item>
         <item>Indonesia</item>

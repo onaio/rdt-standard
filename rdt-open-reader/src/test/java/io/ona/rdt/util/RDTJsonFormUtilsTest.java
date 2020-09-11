@@ -442,21 +442,21 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "        \"type\": \"rdt_capture\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"rdt_capture_top_line_result\",\n" +
+            "        \"key\": \"rdt_capture_top_line_reading\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +
             "        \"type\": \"hidden\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"rdt_capture_middle_line_result\",\n" +
+            "        \"key\": \"rdt_capture_middle_line_reading\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +
             "        \"type\": \"hidden\"\n" +
             "      },\n" +
             "      {\n" +
-            "        \"key\": \"rdt_capture_bottom_line_result\",\n" +
+            "        \"key\": \"rdt_capture_bottom_line_reading\",\n" +
             "        \"openmrs_entity_parent\": \"\",\n" +
             "        \"openmrs_entity\": \"\",\n" +
             "        \"openmrs_entity_id\": \"\",\n" +

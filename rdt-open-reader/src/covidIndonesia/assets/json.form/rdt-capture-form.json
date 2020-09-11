@@ -222,9 +222,9 @@
     "next_label": "{{rdt-capture-form-original.step6.next_label}}",
     "fields": [
       {
-        "key": "lbl_rdt_manufacturer",
+        "key": "rdt_manufacturer_lbl",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step6.lbl_rdt_manufacturer.text}}",
+        "text": "{{rdt-capture-form-original.step6.rdt_manufacturer_lbl.text}}",
         "text_color": "#000000",
         "has_bg": true,
         "top_margin": "15dp",
@@ -300,9 +300,9 @@
         }
       },
       {
-        "key": "lbl_rdt_batch_id",
+        "key": "rdt_batch_id_lbl",
         "type": "label",
-        "text": "{{rdt-capture-form-original.step6.lbl_rdt_batch_id.text}}",
+        "text": "{{rdt-capture-form-original.step6.rdt_batch_id_lbl.text}}",
         "text_color": "#000000",
         "has_bg": true,
         "top_margin": "15dp",
@@ -325,18 +325,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "text": "{{rdt-capture-form-original.step6.manual_expiration_date.text}}",
         "hint": "{{rdt-capture-form-original.step6.manual_expiration_date.hint}}",
         "v_required": {
           "value": true,
           "err": "{{rdt-capture-form-original.step6.manual_expiration_date.v_required.err}}"
         }
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },
@@ -393,10 +387,19 @@
         }
       },
       {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "{{rdt-capture-form-original.step8.rdt_id.label}}",
+        "type": "hidden"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "label": "{{rdt-capture-form-original.step8.unique_id.label}}",
         "type": "hidden"
       },
       {
@@ -404,28 +407,32 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{rdt-capture-form-original.step8.lot_no.label}}"
       },
       {
         "key": "exp_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{rdt-capture-form-original.step8.exp_date.label}}"
       },
       {
         "key": "gtin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{rdt-capture-form-original.step8.gtin.label}}"
       },
       {
         "key": "temp_sensor",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{rdt-capture-form-original.step8.temp_sensor.label}}"
       }
     ]
   },
@@ -462,25 +469,28 @@
         "type": "rdt_capture"
       },
       {
-        "key": "rdt_capture_control_result",
+        "key": "rdt_capture_top_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "{{rdt-capture-form-original.step10.rdt_capture_top_line_reading.text}}"
       },
       {
-        "key": "rdt_capture_pv_result",
+        "key": "rdt_capture_middle_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "{{rdt-capture-form-original.step10.rdt_capture_middle_line_reading.text}}"
       },
       {
-        "key": "rdt_capture_pf_result",
+        "key": "rdt_capture_bottom_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "{{rdt-capture-form-original.step10.rdt_capture_bottom_line_reading.text}}"
       },
       {
         "key": "rdt_capture_duration",
@@ -494,7 +504,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "{{rdt-capture-form-original.step10.rdt_type.text}}"
       },
       {
         "key": "flash_on",

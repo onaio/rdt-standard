@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,7 +18,6 @@ import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SUPPORT_INVESTIGATION_FORM;
-import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
 
 /**
  * Created by Vincent Karuri on 12/06/2020
