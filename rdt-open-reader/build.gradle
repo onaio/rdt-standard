@@ -15,12 +15,12 @@ jacoco {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "io.ona.rdt"
         minSdkVersion 22
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 4
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
