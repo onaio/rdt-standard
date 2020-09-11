@@ -222,7 +222,7 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "lbl_rdt_manufacturer",
+        "key": "rdt_manufacturer_lbl",
         "type": "label",
         "text": "Enter manufacturer name",
         "text_color": "#000000",
@@ -300,7 +300,7 @@
         }
       },
       {
-        "key": "lbl_rdt_batch_id",
+        "key": "rdt_batch_id_lbl",
         "type": "label",
         "text": "Enter RDT batch ID",
         "text_color": "#000000",
@@ -325,18 +325,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "text": "Expiration date?",
         "hint": "RDT expiration date",
         "v_required": {
           "value": true,
           "err": "Please specify the expiration date"
         }
-      },
-      {
-        "key": "rdt_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },
@@ -393,10 +387,19 @@
         }
       },
       {
+        "key": "rdt_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Manual unique ID?",
+        "type": "hidden"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "label": "Barcode unique ID?",
         "type": "hidden"
       },
       {
@@ -404,28 +407,32 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Lot number?"
       },
       {
         "key": "exp_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Expiration date?"
       },
       {
         "key": "gtin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "GTIN?"
       },
       {
         "key": "temp_sensor",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Sensor triggered?"
       }
     ]
   },
@@ -462,25 +469,28 @@
         "type": "rdt_capture"
       },
       {
-        "key": "rdt_capture_control_result",
+        "key": "rdt_capture_top_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "Control reading?"
       },
       {
-        "key": "rdt_capture_pv_result",
+        "key": "rdt_capture_middle_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "Middle line reading?"
       },
       {
-        "key": "rdt_capture_pf_result",
+        "key": "rdt_capture_bottom_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "Bottom line reading?"
       },
       {
         "key": "rdt_capture_duration",
@@ -494,7 +504,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "text": "RDT Type?"
       },
       {
         "key": "flash_on",
@@ -569,7 +580,7 @@
       },
       {
         "key": "antibody_type",
-        "label": "Antibody:",
+        "label": "Antibody?",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

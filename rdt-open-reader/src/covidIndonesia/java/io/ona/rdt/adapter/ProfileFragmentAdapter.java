@@ -28,7 +28,7 @@ public class ProfileFragmentAdapter extends FragmentStateAdapter {
                 fragment = getCovidPatientProfileActivity().createPatientProfileFragment();
                 break;
             case 1:
-                fragment = new CovidPatientVisitFragment();
+                fragment = getCovidPatientProfileActivity().createPatientVisitFragment();
                 break;
         }
         return fragment;

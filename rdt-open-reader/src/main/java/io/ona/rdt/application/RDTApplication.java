@@ -49,13 +49,13 @@ public class RDTApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
-       initializeCrashlyticsAndLogging();
+        initializeCrashlyticsAndLogging();
 
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
 
-        // Initialize Modules
+        // initialize modules
         CoreLibrary.init(context, new RDTSyncConfiguration(), System.currentTimeMillis());
 
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
@@ -64,6 +64,7 @@ public class RDTApplication extends DrishtiApplication {
 
         JobManager.create(this).addJobCreator(new RDTJobCreator());
 
+        // set image sync
         AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
         if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
             sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
