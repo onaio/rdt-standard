@@ -11,9 +11,7 @@ import io.ona.rdt.contract.CovidOtherClinicalDataFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidOtherClinicalDataFragmentPresenter;
 import io.ona.rdt.util.Constants;
-
-import static io.ona.rdt.util.CovidConstants.Form.WBC_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.XRAY_FORM;
+import io.ona.rdt.util.CovidConstants;
 
 public class CovidOtherClinicalDataFragment extends Fragment implements CovidOtherClinicalDataFragmentContract.View,
         View.OnClickListener {
@@ -60,12 +58,14 @@ public class CovidOtherClinicalDataFragment extends Fragment implements CovidOth
         String formName = null;
         switch (view.getId()) {
             case R.id.tv_covid_wbc:
-                formName = WBC_FORM;
+                formName = CovidConstants.Form.WBC_FORM;
                 break;
             case R.id.tv_covid_xray:
-                formName = XRAY_FORM;
+                formName = CovidConstants.Form.XRAY_FORM;
                 break;
         }
         return formName;
     }
 }
+
+
