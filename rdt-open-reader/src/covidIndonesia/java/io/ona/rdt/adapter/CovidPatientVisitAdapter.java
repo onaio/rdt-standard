@@ -18,9 +18,11 @@ import io.ona.rdt.viewholder.CovidPatientVisitViewHolder;
 public class CovidPatientVisitAdapter extends RecyclerView.Adapter<CovidPatientVisitViewHolder> {
 
     private List<Visit> patientVisits;
+    private View.OnClickListener onClickListener;
 
-    public CovidPatientVisitAdapter(List<Visit> patientVisits) {
+    public CovidPatientVisitAdapter(List<Visit> patientVisits, View.OnClickListener onClickListener) {
         this.patientVisits = patientVisits;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -28,7 +30,7 @@ public class CovidPatientVisitAdapter extends RecyclerView.Adapter<CovidPatientV
     public CovidPatientVisitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rootLayout = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.covid_patient_visit_row, parent, false);
-        return new CovidPatientVisitViewHolder(rootLayout);
+        return new CovidPatientVisitViewHolder(rootLayout, onClickListener);
     }
 
     @Override
@@ -36,6 +38,9 @@ public class CovidPatientVisitAdapter extends RecyclerView.Adapter<CovidPatientV
         Visit visit = patientVisits.get(position);
         holder.getTvVisitName().setText(visit.getVisitName());
         holder.getTvDateOfVisit().setText(visit.getDateOfVisit());
+        holder.getPatientVisitRow().setTag(R.id.patient_visit_date, visit.getDateOfVisit());
+        holder.getPatientVisitRow().findViewById(R.id.btn_go_to_visit_history)
+                .setTag(R.id.patient_visit_date, visit.getDateOfVisit());
     }
 
     @Override

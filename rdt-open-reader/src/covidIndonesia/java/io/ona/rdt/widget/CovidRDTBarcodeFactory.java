@@ -10,6 +10,8 @@ import org.json.JSONException;
 import java.text.ParseException;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -22,7 +24,6 @@ import static io.ona.rdt.util.Utils.convertDate;
  */
 public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
-    private final String UNIQUE_ID = "unique_id";
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";
     private final String GTIN = "gtin";
@@ -60,7 +61,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     protected void populateRelevantFields(String[] individualVals) throws JSONException {
         JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         String stepName = widgetArgs.getStepName();
-        jsonApi.writeValue(stepName, UNIQUE_ID, individualVals[0],  "", "", "", false);
+
+        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[0],  "", "", "", false);
         jsonApi.writeValue(stepName, EXP_DATE, individualVals[1],  "", "", "", false);
         jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[3],  "", "", "", false);

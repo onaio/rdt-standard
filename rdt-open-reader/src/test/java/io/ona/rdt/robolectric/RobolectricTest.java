@@ -4,6 +4,8 @@ package io.ona.rdt.robolectric;
  * Created by Vincent Karuri on 20/07/2020
  */
 
+import android.os.Build;
+
 import org.junit.After;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -31,7 +33,8 @@ import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 
 @RunWith(AndroidJUnit4.class)
-@Config(shadows = {ClientCoreUtilsShadow.class, FirebaseCrashlyticsShadow.class,
+@Config(sdk = Build.VERSION_CODES.O_MR1,
+        shadows = {ClientCoreUtilsShadow.class, FirebaseCrashlyticsShadow.class,
         FormDataRepositoryShadow.class, UtilsShadow.class, CameraBridgeViewBaseShadow.class,
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,

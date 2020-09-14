@@ -3,4 +3,5 @@
     <item name="base_entity_id" type="id" />
     <item name="patient_tag" type="id" />
     <item name="rdt_test_details" type="id" />
+    <item name="patient_visit_date" type="id" />
 </resources>

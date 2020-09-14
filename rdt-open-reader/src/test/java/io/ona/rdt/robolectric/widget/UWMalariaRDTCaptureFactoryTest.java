@@ -25,7 +25,6 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.util.Constants;
-import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -34,7 +33,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE_CODE;
-import static io.ona.rdt.util.Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -53,7 +51,7 @@ import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_PARENT;
 
 public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest {
 
-    private UWMalariaRDTCaptureFactory rdtCaptureFactory;
+    private UWRDTCaptureFactory rdtCaptureFactory;
     private WidgetArgs widgetArgs;
     private String rdtType = "rdt_type";
 
@@ -62,7 +60,7 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
     public void setUp() throws JSONException {
         super.setUp();
         MockitoAnnotations.initMocks(this);
-        rdtCaptureFactory = new UWMalariaRDTCaptureFactory();
+        rdtCaptureFactory = new UWRDTCaptureFactory();
     }
 
     @Test
@@ -83,9 +81,9 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
 
         Whitebox.invokeMethod(rdtCaptureFactory, "populateRelevantFields", parcelableImageMetadata);
 
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_TOP_LINE_RESULT), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_RESULT), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_RESULT), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_TOP_LINE_READING), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_READING), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
+        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_READING), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
         verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.RDT_CAPTURE_DURATION), eq(String.valueOf(parcelableImageMetadata.getCaptureDuration())), eq(""), eq(""), eq(""), eq(false));
         verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.RDTType.RDT_TYPE), eq(rdtType), eq(""), eq(""), eq(""), eq(false));
         verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CROPPED_IMG_ID), eq(parcelableImageMetadata.getCroppedImageId()), eq(""), eq(""), eq(""), eq(false));
