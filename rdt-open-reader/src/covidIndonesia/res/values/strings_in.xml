@@ -1,0 +1,19 @@
+<resources>
+    <string name="login_app_name">RDT Open Reader</string>
+    <string name="covid_patient_profile_symptoms_history">Gejala dan Riwayat</string>
+    <string name="covid_patient_profile_rdt">RDT</string>
+    <string name="covid_patient_profile_sample_collection">Pengambilan sampel</string>
+    <string name="covid_patient_profile_supporting_investigations">Data klinis lainnya</string>
+    <string name="covid_patient_profile_sample_shipments">Pengiriman sampel</string>
+    <string name="covid_patient_forms_tab_name">Form Pasien</string>
+    <string name="covid_patient_history_tab_name">Riwayat Pasien</string>
+    <string name="no_data_available">Data tidak tersedia</string>
+    <string-array name="locales_key">
+        <item>Inggris</item>
+        <item>Indonesia</item>
+    </string-array>
+    <string-array name="locales_value">
+        <item>en</item>
+        <item>in</item>
+    </string-array>
+</resources>
