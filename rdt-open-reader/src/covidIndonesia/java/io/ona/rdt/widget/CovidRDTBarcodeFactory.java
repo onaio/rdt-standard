@@ -41,7 +41,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(Boolean.parseBoolean(individualVals[4]), convertDate(individualVals[1], "YYYY-MM-dd"));
+                final int sensorTriggerIndex = 4;
+                moveToNextStep(Boolean.parseBoolean(individualVals[sensorTriggerIndex]), convertDate(individualVals[1], "YYYY-MM-dd"));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }

@@ -42,5 +42,4 @@ Silakan klik pada tombol <i>Cari lokasi saya</i> di bawah layar dan kami akan se
     <string name="form_successfully_saved">Diselamatkan!</string>
     <string name="yes">Iya</string>
     <string name="no">Tidak</string>
-    <string name="rdt_high_heat_exposure">RDT ini telah ditandai karena paparan panas tinggi dan keandalannya telah dikompromikan. Harap gunakan RDT lain.</string>
 </resources>
