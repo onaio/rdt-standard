@@ -722,10 +722,19 @@
         }
       },
       {
+        "key": "covid_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "{{sample-collection-form-original.step6.covid_sample_id.label}}"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "label": "{{sample-collection-form-original.step6.unique_id.label}}",
         "type": "hidden"
       },
       {
@@ -733,21 +742,32 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{sample-collection-form-original.step6.lot_no.label}}"
       },
       {
         "key": "exp_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{sample-collection-form-original.step6.exp_date.label}}"
       },
       {
         "key": "gtin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "{{sample-collection-form-original.step6.gtin.label}}"
+      },
+      {
+        "key": "temp_sensor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "{{sample-collection-form-original.step6.temp_sensor.label}}"
       },
       {
         "key": "temp_sensor",
@@ -786,13 +806,6 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold"
-      },
-      {
-        "key": "covid_sample_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },

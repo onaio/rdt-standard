@@ -343,7 +343,7 @@
       {
         "key": "other_vtm_brand_lbl",
         "type": "label",
-        "text": "Specify VTM brand",
+        "text": "Specify VTM brand?",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -393,7 +393,7 @@
       {
         "key": "manufacturing_lot_number_lbl",
         "type": "label",
-        "text": "Manufacturing lot number",
+        "text": "Manufacturing lot number?",
         "text_color": "#000000"
       },
       {
@@ -410,7 +410,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Type of health facility",
+        "label": "Type of health facility?",
         "options": [
           {
             "key": "hospital",
@@ -546,7 +546,7 @@
       {
         "key": "doctor_phone_number_lbl",
         "type": "label",
-        "text": "Doctor's phone number",
+        "text": "Doctor's phone number?",
         "text_color": "#000000"
       },
       {
@@ -587,7 +587,7 @@
       {
         "key": "gsi_sample_number_lbl",
         "type": "label",
-        "text": "GSI sample ID",
+        "text": "GSI sample ID?",
         "text_color": "#000000"
       },
       {
@@ -601,7 +601,7 @@
       {
         "key": "hospital_sample_number_lbl",
         "type": "label",
-        "text": "Hospital sample ID",
+        "text": "Hospital sample ID?",
         "text_color": "#000000"
       },
       {
@@ -722,10 +722,19 @@
         }
       },
       {
+        "key": "covid_sample_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "Manual unique ID?"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "label": "Barcode unique ID?",
         "type": "hidden"
       },
       {
@@ -733,21 +742,32 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Lot number?"
       },
       {
         "key": "exp_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "Expiration date?"
       },
       {
         "key": "gtin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "hidden"
+        "type": "hidden",
+        "label": "GTIN?"
+      },
+      {
+        "key": "temp_sensor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "Sensor triggered?"
       },
       {
         "key": "temp_sensor",
@@ -786,13 +806,6 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold"
-      },
-      {
-        "key": "covid_sample_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   },

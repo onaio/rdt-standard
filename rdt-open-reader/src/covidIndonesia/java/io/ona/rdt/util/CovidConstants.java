@@ -6,7 +6,6 @@ package io.ona.rdt.util;
 public interface CovidConstants extends Constants {
 
     interface Widget {
-        String UW_COVID_RDT_CAPTURE = "uw_covid_rdt_capture";
         String GOOGLE_COVID_BARCODE_READER = "google_covid_barcode_reader";
         String ONE_SCAN_COVID_BARCODE_READER = "one_scan_covid_barcode_reader";
     }
@@ -70,14 +69,13 @@ public interface CovidConstants extends Constants {
         String COVID_SAMPLE_ID = "covid_sample_id";
         String PATIENT_FIRST_NAME = "patient_first_name";
         String PATIENT_LAST_NAME = "patient_last_name";
-        String NATIONAL_ID_NUMBER = "national_id_number";
-        String PATIENT_AGE = "patient_age";
         String PATIENT_SEX = "patient_sex";
         String LAST_KNOWN_LOCATION = "last_known_location";
         String DRIVERS_LICENSE_NUMBER = "drivers_license_number";
         String PASSPORT_NO = "passport_no";
         String LAT = "lat";
         String LNG = "lng";
+        String UNIQUE_ID = "unique_id";
         String PATIENT_INFO_UNIQUE_ID = "patient_info_unique_id";
         String PATIENT_INFO_NAME = "patient_info_name";
         String PATIENT_INFO_DOB = "patient_info_dob";

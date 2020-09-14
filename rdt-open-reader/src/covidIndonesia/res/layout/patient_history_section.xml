@@ -15,15 +15,29 @@
 
         <TextView
             android:id="@+id/patient_history_section_title"
-            style="@style/CustomFontTextViewStyle.ListView.Bold"
+            android:textStyle="italic"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="@{sectionTitle}"
-            android:textSize="22sp"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Patient history section" />
+
+        <TextView
+            android:id="@+id/tv_no_entries_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/patient_history_section_title"
+            android:text="@string/no_data_available"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/patient_history_entries"
@@ -34,6 +48,13 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:padding="15dp"
             android:nestedScrollingEnabled="false" />
+
+        <View android:id="@+id/symptoms_result_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/patient_history_entries"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
