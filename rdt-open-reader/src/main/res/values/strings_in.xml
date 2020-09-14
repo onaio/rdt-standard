@@ -4,7 +4,7 @@
     <string name="clients_register_title">Klien</string>
     <string name="hamburger_menu">Menu hamburger</string>
     <string name="launching_expiration_date_widget">Meluncurkan tanggal masa berlaku widget</string>
-    <string name="phone_state_permissions_required">Izin keadaan ponsel diperlukan untuk mengirimkan formulir ini</string>
+    <string name="phone_state_permissions_required">Izin ke status ponsel diperlukan untuk mengirimkan formulir ini</string>
     <string name="rdt_permissions_required">Pengambilan gambar RDT membutuhkan izin ke kamera dan penyimpanan</string>
     <string name="location_permissions">Izin lokasi diperlukan untuk melanjutkan</string>
     <string name="time_expired">Waktu telah habis.\nBaca hasil RDT.</string>
@@ -21,13 +21,14 @@ Silakan klik tombol <i>Temukan Aku</i> di bagian bawah layar dan kami akan secar
     <string name="drawer_menu_item_sync">Sinkronkan</string>
     <string name="drawer_menu_item_logout">Keluar</string>
     <string name="drawer_menu_item_image_sync">Sinkronisasi gambar</string>
+    <string name="drawer_menu_item_change_language">Ubah Bahasa</string>
     <string name="search_hint">Cari</string>
     <string name="please_wait_title">Mohon tunggu</string>
     <string name="saving_image">Menyimpan gambar yang diambil</string>
     <string name="finding_location">Menemukan lokasi Anda</string>
     <string name="rdt_id_prefix">ID RDT</string>
     <string name="open_guideline_rdt">Membuka Petunjuk RDT</string>
-    <string name="carestart_rdt">Carestart RDT</string>
+    <string name="carestart_rdt">CareStart RDT</string>
     <string name="pf_negative_result">Pf negatif</string>
     <string name="pv_negative_result">Pv negatif</string>
     <string name="pf_positive_result">Pf positif</string>
@@ -43,5 +44,7 @@ Silakan klik tombol <i>Temukan Aku</i> di bagian bawah layar dan kami akan secar
     <string name="vivax_prefix">P. vivax - </string>
     <string name="falciparum_prefix">P. falciparum - </string>
     <string name="gameto_prefix">Pf. gameto - </string>
+    <string name="lang_english">Bahasa Inggris</string>
+    <string name="lang_indonesia">Indonesia</string>
 </resources>
 
