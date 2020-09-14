@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.fragment.app.Fragment;
 import io.ona.rdt.R;
 import io.ona.rdt.contract.CovidOtherClinicalDataFragmentContract;
@@ -18,6 +21,12 @@ public class CovidOtherClinicalDataFragment extends Fragment implements CovidOth
 
     private CovidOtherClinicalDataFragmentPresenter presenter;
     private Patient currPatient;
+
+    private final Map<Integer, String> viewIdToFormName = new HashMap<Integer, String>() {{
+            put(R.id.tv_covid_wbc, CovidConstants.Form.WBC_FORM);
+            put(R.id.tv_covid_xray, CovidConstants.Form.XRAY_FORM);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,25 +55,12 @@ public class CovidOtherClinicalDataFragment extends Fragment implements CovidOth
 
     @Override
     public void onClick(View v) {
-        presenter.launchForm(getActivity(), getFormName(v), currPatient);
+        presenter.launchForm(getActivity(), viewIdToFormName.get(v.getId()), currPatient);
     }
 
     private void addListeners(final View rootLayout) {
         rootLayout.findViewById(R.id.tv_covid_xray).setOnClickListener(this);
         rootLayout.findViewById(R.id.tv_covid_wbc).setOnClickListener(this);
-    }
-
-    private String getFormName(View view) {
-        String formName = null;
-        switch (view.getId()) {
-            case R.id.tv_covid_wbc:
-                formName = CovidConstants.Form.WBC_FORM;
-                break;
-            case R.id.tv_covid_xray:
-                formName = CovidConstants.Form.XRAY_FORM;
-                break;
-        }
-        return formName;
     }
 }
 
