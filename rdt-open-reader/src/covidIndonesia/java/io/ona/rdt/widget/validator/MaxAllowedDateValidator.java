@@ -17,13 +17,13 @@ import timber.log.Timber;
 /**
  * Created by Vincent Karuri on 14/09/2020
  */
-public class MinAllowedDateValidator extends METValidator {
+public class MaxAllowedDateValidator extends METValidator {
 
-    private String minAllowedDateStr;
+    private String maxAllowedDateStr;
 
-    public MinAllowedDateValidator(@NonNull String errorMessage, String minAllowedDateStr) {
+    public MaxAllowedDateValidator(@NonNull String errorMessage, String maxAllowedDateStr) {
         super(errorMessage);
-        this.minAllowedDateStr = minAllowedDateStr;
+        this.maxAllowedDateStr = maxAllowedDateStr;
     }
 
     @Override
@@ -35,9 +35,9 @@ public class MinAllowedDateValidator extends METValidator {
         }
 
         try {
-            Date minAllowedDate = FormUtils.getDate(minAllowedDateStr).getTime();
+            Date maxAllowedDate = FormUtils.getDate(maxAllowedDateStr).getTime();
             Date selectedDate = Utils.convertDate(charSequence.toString(), DatePickerFactory.DATE_FORMAT.toPattern());
-            isValid = DateTimeComparator.getDateOnlyInstance().compare(selectedDate, minAllowedDate) < 0;
+            isValid = DateTimeComparator.getDateOnlyInstance().compare(selectedDate, maxAllowedDate) < 1;
         } catch (ParseException e) {
             Timber.e(e);
         }

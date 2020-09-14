@@ -40,19 +40,19 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
 
     @Test
     public void testMinDateValidationShouldRejectInvalidDates() throws Exception {
-        // expired before today
+        // yesterday was the last valid day
         MaterialEditText datePickerEditText = getDatePickerEditText("today-1d");
         datePickerEditText.setText(getTodaysDate());
         ValidationStatus validationStatus = EditTextFactory.validate(Mockito.mock(JsonFormFragment.class), datePickerEditText);
         Assert.assertFalse(validationStatus.isValid());
 
-        // expired today
+        // today is the last valid day
         datePickerEditText = getDatePickerEditText("today");
         datePickerEditText.setText(getTodaysDate());
         validationStatus = EditTextFactory.validate(Mockito.mock(JsonFormFragment.class), datePickerEditText);
-        Assert.assertFalse(validationStatus.isValid());
+        Assert.assertTrue(validationStatus.isValid());
 
-        // not expired
+        // tomorrow is the last valid day
         datePickerEditText = getDatePickerEditText("today+1d");
         datePickerEditText.setText(getTodaysDate());
         validationStatus = EditTextFactory.validate(Mockito.mock(JsonFormFragment.class), datePickerEditText);
