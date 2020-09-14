@@ -5,6 +5,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTimeComparator;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class MinAllowedDateValidator extends METValidator {
         try {
             Date minAllowedDate = FormUtils.getDate(minAllowedDateStr).getTime();
             Date selectedDate = Utils.convertDate(charSequence.toString(), DatePickerFactory.DATE_FORMAT.toPattern());
-            isValid = selectedDate.before(minAllowedDate);
+            isValid = DateTimeComparator.getDateOnlyInstance().compare(selectedDate, minAllowedDate) < 0;
         } catch (ParseException e) {
             Timber.e(e);
         }

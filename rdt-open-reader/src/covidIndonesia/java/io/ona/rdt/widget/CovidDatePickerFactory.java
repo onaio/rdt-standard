@@ -11,6 +11,7 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.ona.rdt.R;
 import io.ona.rdt.widget.validator.MinAllowedDateValidator;
 import timber.log.Timber;
 
@@ -19,7 +20,7 @@ import timber.log.Timber;
  */
 public class CovidDatePickerFactory extends DatePickerFactory {
 
-    private String V_MIN_ALLOWED_DATE = "v_min_allowed_date";
+    public static String V_MIN_ALLOWED_DATE = "v_min_allowed_date";
 
     @Override
     protected void attachLayout(String stepName, final Context context, JsonFormFragment formFragment,
@@ -30,6 +31,7 @@ public class CovidDatePickerFactory extends DatePickerFactory {
         try {
             JSONObject minAllowDateObj = jsonObject.getJSONObject(V_MIN_ALLOWED_DATE);
             if (minAllowDateObj != null) {
+                editText.setId(R.id.edit_text);
                 editText.addValidator(new MinAllowedDateValidator(minAllowDateObj.getString(JsonFormConstants.ERR),
                         minAllowDateObj.getString(JsonFormConstants.VALUE)));
             }
