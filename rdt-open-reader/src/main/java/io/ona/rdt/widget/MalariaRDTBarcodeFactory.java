@@ -47,7 +47,7 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
                     expDate = convertDate(barcodeValues[1].trim(), OPEN_RDT_DATE_FORMAT);
                     populateRelevantFields(barcodeValues, jsonApi, expDate);
                 }
-                moveToNextStep(data, expDate);
+                moveToNextStep(expDate);
             } catch (JSONException e) {
                 Timber.e(e);
             } catch (ParseException e) {

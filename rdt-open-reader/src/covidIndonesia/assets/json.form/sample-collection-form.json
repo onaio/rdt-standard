@@ -835,7 +835,7 @@
         "options": [
           {
             "key": "unique_id",
-            "text": ""
+            "text": "{{sample-collection-form-original.step8.patient_info_unique_id.options.unique_id.text}}"
           }
         ]
       },
@@ -852,7 +852,7 @@
         "options": [
           {
             "key": "patient_name",
-            "text": ""
+            "text": "{{sample-collection-form-original.step8.patient_info_name.options.patient_name.text}}"
           }
         ]
       },
@@ -869,7 +869,7 @@
         "options": [
           {
             "key": "patient_dob",
-            "text": ""
+            "text": "{{sample-collection-form-original.step8.patient_info_dob.options.patient_dob.text}}"
           }
         ]
       }

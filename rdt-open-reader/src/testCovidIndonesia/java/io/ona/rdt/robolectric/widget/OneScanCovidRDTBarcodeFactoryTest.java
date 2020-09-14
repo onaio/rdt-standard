@@ -1,10 +1,6 @@
 package io.ona.rdt.robolectric.widget;
 
-import android.content.Intent;
-
-import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 
 import org.json.JSONException;
@@ -36,12 +32,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
     @Test
     public void testMoveToNextStepShouldGotoTwoSensorTriggered() throws Exception {
-        Barcode barcode = new Barcode();
-        barcode.displayValue = ",,,,true";
-        Intent data = new Intent();
-        data.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
-
-        Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "moveToNextStep", data, Mockito.mock(Date.class));
+        Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "moveToNextStep", true, Mockito.mock(Date.class));
     }
 
     private void setWidgetArgs() {

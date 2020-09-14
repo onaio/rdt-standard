@@ -7,17 +7,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.interfaces.JsonApi;
 
-import org.json.JSONException;
-
-import java.util.Date;
-
-import io.ona.rdt.R;
 import io.ona.rdt.activity.OneScanActivity;
-import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.util.Constants;
 import timber.log.Timber;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -47,25 +38,5 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
     @Override
     protected String[] splitCSV(String barcodeCSV) {
         return barcodeCSV.split(",");
-    }
-
-    @Override
-    protected void moveToNextStep(Intent data, Date expDate) {
-        final int sensorTriggerIndex = 4;
-        Barcode barcode = data.getParcelableExtra(BARCODE_KEY);
-        if (Boolean.parseBoolean(barcode.displayValue.split(",")[sensorTriggerIndex])) {
-            JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(Constants.Step.PRODUCT_EXPIRED_PAGE, "step1");
-            try {
-                jsonApi.writeValue(expiredPageAddr, "lbl_sample_expired", "",  "", "", "", false);
-                jsonApi.writeValue(expiredPageAddr, "lbl_collect_new_sample", widgetArgs.getContext().getString(R.string.rdt_high_heat_exposure),  "", "", "", false);
-            } catch (JSONException ex) {
-                Timber.e(ex);
-            }
-            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-            widgetArgs.getFormFragment().transactThis(nextFragment);
-        } else {
-            super.moveToNextStep(data, expDate);
-        }
     }
 }

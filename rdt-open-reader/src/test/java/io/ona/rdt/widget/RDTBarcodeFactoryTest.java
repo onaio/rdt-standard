@@ -128,7 +128,7 @@ public class RDTBarcodeFactoryTest {
     public void testMoveToNextStepShouldMoveToNextStepOrSubmitForValidRDT() throws Exception {
         mockStaticMethods();
         setWidgetArgs();
-        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", new Intent(), getFutureDate());
+        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getFutureDate());
         verify(widgetArgs.getFormFragment()).next();
     }
 
@@ -138,7 +138,7 @@ public class RDTBarcodeFactoryTest {
         setWidgetArgs();
         whenNew(Bundle.class).withNoArguments().thenReturn(mock(Bundle.class));
 
-        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", new Intent(), getPastDate());
+        Whitebox.invokeMethod(barcodeFactory, "moveToNextStep", getPastDate());
         verify(widgetArgs.getFormFragment()).transactThis(any(RDTJsonFormFragment.class));
     }
 

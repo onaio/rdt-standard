@@ -84,7 +84,7 @@
         "bg_color": "#ffffff",
         "center_label": "true",
         "top_margin": "15dp",
-        "text": "Sample is expired!"
+        "text": "This RDT is unusable either because it's expired or has been exposed to unsafe heat levels. Please use another RDT."
       },
       {
         "key": "lbl_collect_new_sample",

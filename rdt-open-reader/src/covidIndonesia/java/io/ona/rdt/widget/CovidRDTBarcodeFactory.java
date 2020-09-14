@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import timber.log.Timber;
@@ -40,7 +41,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(data, convertDate(individualVals[1], "YYYY-MM-dd"));
+                moveToNextStep(Boolean.parseBoolean(individualVals[4]), convertDate(individualVals[1], "YYYY-MM-dd"));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }
@@ -63,5 +64,13 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[3],  "", "", "", false);
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[4],  "", "", "", false);
+    }
+
+    protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
+        if (isSensorTrigger) {
+            navigateToUnusableProduct();
+        } else {
+            moveToNextStep(expDate);
+        }
     }
 }
