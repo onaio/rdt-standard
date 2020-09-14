@@ -72,8 +72,6 @@ public class CovidPatientHistoryActivityTest extends ActivityRobolectricTest {
         Mockito.verify(presenter).getPatientHistoryEntries(ArgumentMatchers.eq(ENTITY_ID),
                 ArgumentMatchers.eq(CovidConstants.Encounter.SAMPLE_COLLECTION), ArgumentMatchers.eq(DATE));
         Mockito.verify(presenter).getPatientHistoryEntries(ArgumentMatchers.eq(ENTITY_ID),
-                ArgumentMatchers.eq(CovidConstants.Encounter.SUPPORT_INVESTIGATION), ArgumentMatchers.eq(DATE));
-        Mockito.verify(presenter).getPatientHistoryEntries(ArgumentMatchers.eq(ENTITY_ID),
                 ArgumentMatchers.eq(CovidConstants.Encounter.PATIENT_DIAGNOSTICS), ArgumentMatchers.eq(DATE));
 
         // rdt history section
@@ -85,11 +83,6 @@ public class CovidPatientHistoryActivityTest extends ActivityRobolectricTest {
         assertListValuesAreCorrect(firstItem, R.id.patient_symptoms_history_section);
         assertListValuesAreCorrect(secondItem, R.id.patient_symptoms_history_section);
         assertListValuesAreCorrect(thirdItem, R.id.patient_symptoms_history_section);
-
-        // supporting investigations history section
-        assertListValuesAreCorrect(firstItem, R.id.patient_supporting_investigations_history_section);
-        assertListValuesAreCorrect(secondItem, R.id.patient_supporting_investigations_history_section);
-        assertListValuesAreCorrect(thirdItem, R.id.patient_supporting_investigations_history_section);
 
         // samples history section
         assertListValuesAreCorrect(firstItem, R.id.patient_samples_history_section);

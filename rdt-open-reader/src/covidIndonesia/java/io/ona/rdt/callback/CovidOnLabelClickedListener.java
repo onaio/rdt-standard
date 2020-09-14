@@ -10,12 +10,8 @@ import static io.ona.rdt.util.CovidConstants.RDTType.COVID_WONDFO;
 import static io.ona.rdt.util.CovidConstants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
 import static io.ona.rdt.util.CovidConstants.Step.COVID_ENTER_DELIVERY_DETAILS_PAGE;
 import static io.ona.rdt.util.CovidConstants.Step.COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE;
-import static io.ona.rdt.util.CovidConstants.Step.COVID_OPT_IN_WBC_PAGE;
 import static io.ona.rdt.util.CovidConstants.Step.COVID_SCAN_BARCODE_PAGE;
 import static io.ona.rdt.util.CovidConstants.Step.COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE;
-import static io.ona.rdt.util.CovidConstants.Step.COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE;
-import static io.ona.rdt.util.CovidConstants.Step.COVID_WBC_PAGE;
-import static io.ona.rdt.util.CovidConstants.Step.COVID_XRAY_PAGE;
 
 /**
  * Created by Vincent Karuri on 13/07/2020
@@ -43,18 +39,6 @@ public class CovidOnLabelClickedListener extends OnLabelClickedListener {
                 break;
             case CovidConstants.FormFields.LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL:
                 nextStep = stepStateConfig.getStepStateObj().optString(COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE);
-                break;
-            case CovidConstants.FormFields.LBL_ADD_XRAY_RESULTS:
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_XRAY_PAGE);
-                break;
-            case CovidConstants.FormFields.LBL_SKIP_XRAY_RESULTS:
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_OPT_IN_WBC_PAGE);
-                break;
-            case CovidConstants.FormFields.LBL_ADD_WBC_RESULTS:
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_WBC_PAGE);
-                break;
-            case CovidConstants.FormFields.LBL_SKIP_WBC_RESULTS:
-                nextStep = stepStateConfig.getStepStateObj().optString(COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE);
                 break;
             case CovidConstants.FormFields.LBL_SCAN_SAMPLE_BARCODE:
                 nextStep = stepStateConfig.getStepStateObj().optString(COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE);

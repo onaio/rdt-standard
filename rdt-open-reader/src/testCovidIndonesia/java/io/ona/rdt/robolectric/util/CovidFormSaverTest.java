@@ -8,6 +8,7 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidFormSaver;
 import io.ona.rdt.util.FormSaver;
 
@@ -16,7 +17,6 @@ import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.PATIENT_DIAGNOSTICS;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
-import static io.ona.rdt.util.CovidConstants.Encounter.SUPPORT_INVESTIGATION;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
 import static io.ona.rdt.util.CovidConstants.FormFields.LAT;
@@ -26,7 +26,6 @@ import static io.ona.rdt.util.CovidConstants.Table.COVID_RDT_TESTS;
 import static io.ona.rdt.util.CovidConstants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_COLLECTIONS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_DELIVERY_RECORDS;
-import static io.ona.rdt.util.CovidConstants.Table.SUPPORT_INVESTIGATIONS;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 
@@ -43,7 +42,8 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
         Assert.assertEquals(PATIENT_DIAGNOSTIC_RESULTS, Whitebox.invokeMethod(getFormSaver(), getBindType, PATIENT_DIAGNOSTICS));
         Assert.assertEquals(SAMPLE_COLLECTIONS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_COLLECTION));
         Assert.assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_DELIVERY_DETAILS));
-        Assert.assertEquals(SUPPORT_INVESTIGATIONS, Whitebox.invokeMethod(getFormSaver(), getBindType, SUPPORT_INVESTIGATION));
+        Assert.assertEquals(CovidConstants.Table.COVID_WBC_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, CovidConstants.Encounter.COVID_WBC));
+        Assert.assertEquals(CovidConstants.Table.COVID_XRAY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, CovidConstants.Encounter.COVID_XRAY));
     }
 
     @Override
