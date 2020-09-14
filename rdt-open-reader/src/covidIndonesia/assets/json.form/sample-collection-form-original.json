@@ -378,6 +378,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "hint": "VTM expiration date",
+        "min_date": "today-100y",
+        "v_min_allowed_date": {
+          "value": "today-1d",
+          "err": "Expired VTM! Please use another."
+        },
         "v_required": {
           "value": true,
           "err": "This field is required"
