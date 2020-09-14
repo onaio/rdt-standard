@@ -378,6 +378,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "hint": "{{sample-collection-form-original.step3.vtm_expiration_date.hint}}",
+        "min_date": "today-100y",
+        "v_min_allowed_date": {
+          "value": "today-1d",
+          "err": "Expired VTM! Please use another."
+        },
         "v_required": {
           "value": true,
           "err": "{{sample-collection-form-original.step3.vtm_expiration_date.v_required.err}}"
@@ -848,7 +853,7 @@
         "options": [
           {
             "key": "unique_id",
-            "text": ""
+            "text": "{{sample-collection-form-original.step8.patient_info_unique_id.options.unique_id.text}}"
           }
         ]
       },
@@ -865,7 +870,7 @@
         "options": [
           {
             "key": "patient_name",
-            "text": ""
+            "text": "{{sample-collection-form-original.step8.patient_info_name.options.patient_name.text}}"
           }
         ]
       },
@@ -882,7 +887,7 @@
         "options": [
           {
             "key": "patient_dob",
-            "text": ""
+            "text": "{{sample-collection-form-original.step8.patient_info_dob.options.patient_dob.text}}"
           }
         ]
       }
