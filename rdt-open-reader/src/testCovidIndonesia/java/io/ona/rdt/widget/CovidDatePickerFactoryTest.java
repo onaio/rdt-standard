@@ -1,13 +1,13 @@
 package io.ona.rdt.widget;
 
 import android.view.View;
-import android.widget.EditText;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.utils.ValidationStatus;
+import com.vijay.jsonwizard.widgets.DatePickerFactory;
 import com.vijay.jsonwizard.widgets.EditTextFactory;
 
 import org.json.JSONException;
@@ -18,7 +18,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.smartregister.util.JsonFormUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
     }
 
     private String getTodaysDate() {
-        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        return DatePickerFactory.DATE_FORMAT.format(new Date());
     }
 
     private JSONObject getWidget(String minAllowedDate) throws JSONException {
