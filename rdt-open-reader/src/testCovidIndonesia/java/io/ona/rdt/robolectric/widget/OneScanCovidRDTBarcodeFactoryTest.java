@@ -6,6 +6,7 @@ import com.vijay.jsonwizard.domain.WidgetArgs;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 
@@ -31,8 +32,9 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     }
 
     @Test
-    public void testMoveToNextStepShouldGotoTwoSensorTriggered() throws Exception {
+    public void testMoveToNextStepShouldNavigateToUnusableProductPageIfSensorIsTriggered() throws Exception {
         Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "moveToNextStep", true, Mockito.mock(Date.class));
+        Mockito.verify(widgetArgs.getFormFragment()).transactThis(ArgumentMatchers.any(RDTJsonFormFragment.class));
     }
 
     private void setWidgetArgs() {

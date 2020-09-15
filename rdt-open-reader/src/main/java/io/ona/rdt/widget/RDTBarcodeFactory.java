@@ -93,11 +93,11 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
         if (!isRDTExpired(expDate)) {
             moveToNextStep();
         } else {
-            navigateToUnusableProduct();
+            navigateToUnusableProductPage();
         }
     }
 
-    protected void navigateToUnusableProduct() {
+    protected void navigateToUnusableProductPage() {
         JsonFormFragment formFragment = widgetArgs.getFormFragment();
         String expiredPageAddr = stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE, "step1");
         JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
