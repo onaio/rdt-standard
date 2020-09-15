@@ -84,7 +84,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "        \"has_bg\": true,\n" +
             "        \"bg_color\": \"#ffffff\",\n" +
             "        \"label_text_style\": \"bold\",\n" +
-            "        \"text\": \"Collect sample using appropriate methods\"\n" +
+            "        \"text\": \"Obtain specimen using approved methods.\"\n" +
             "      }\n" +
             "    ]\n" +
             "  },\n" +

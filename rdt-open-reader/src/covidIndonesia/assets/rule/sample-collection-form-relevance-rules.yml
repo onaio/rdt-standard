@@ -1,134 +1,134 @@
 ---
-name: step3_swab_type
+name: step1_swab_type
 description: Swab type
 priority: 1
-condition: "step3_sample_type.contains('swab')"
+condition: "step1_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_serum_type
+name: step1_serum_type
 description: Serum type
 priority: 1
-condition: "step3_sample_type.contains('serum')"
+condition: "step1_sample_type.contains('serum')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_sputum_collection_tube_brand_lbl
+name: step1_sputum_collection_tube_brand_lbl
 description: Collection tube brand label
 priority: 1
-condition: "step3_sample_type.contains('sputum')"
+condition: "step1_sample_type.contains('sputum')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_sputum_collection_tube_brand
+name: step1_sputum_collection_tube_brand
 description: Collection tube brand
 priority: 1
-condition: "step3_sample_type.contains('sputum')"
+condition: "step1_sample_type.contains('sputum')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_saliva_collection_kit_brand_lbl
+name: step1_saliva_collection_kit_brand_lbl
 description: Collection tube brand label
 priority: 1
-condition: "step3_sample_type.contains('saliva')"
+condition: "step1_sample_type.contains('saliva')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_saliva_collection_kit_brand
+name: step1_saliva_collection_kit_brand
 description: Collection tube brand
 priority: 1
-condition: "step3_sample_type.contains('saliva')"
+condition: "step1_sample_type.contains('saliva')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_sample_type_lbl
+name: step1_other_sample_type_lbl
 description: Other sample type label
 priority: 1
-condition: "step3_sample_type.contains('other')"
+condition: "step1_sample_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_sample_type
+name: step1_other_sample_type
 description: Other sample type
 priority: 1
-condition: "step3_sample_type.contains('other')"
+condition: "step1_sample_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_vtm_brand
+name: step1_vtm_brand
 description: VTM brand
 priority: 1
-condition: "step3_sample_type.contains('swab')"
+condition: "step1_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_vtm_expiration_date
+name: step1_vtm_expiration_date
 description: VTM expiration date
 priority: 1
-condition: "step3_sample_type.contains('swab')"
+condition: "step1_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_vtm_brand_lbl
+name: step1_other_vtm_brand_lbl
 description: Other VTM brand label
 priority: 1
-condition: "step3_vtm_brand.contains('other')"
+condition: "step1_vtm_brand.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_vtm_brand
+name: step1_other_vtm_brand
 description: Other VTM brand
 priority: 1
-condition: "step3_vtm_brand.contains('other')"
+condition: "step1_vtm_brand.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_health_facility_type_name_lbl
+name: step1_other_health_facility_type_name_lbl
 description: Other health facility name label
 priority: 1
-condition: "step3_name_of_health_facility != '' && step3_name_of_health_facility == 'other'"
+condition: "step1_name_of_health_facility != '' && step1_name_of_health_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_health_facility_type_name
+name: step1_other_health_facility_type_name
 description: Other health facility name
 priority: 1
-condition: "step3_name_of_health_facility != '' && step3_name_of_health_facility == 'other'"
+condition: "step1_name_of_health_facility != '' && step1_name_of_health_facility == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_health_facility_type_lbl
+name: step1_other_health_facility_type_lbl
 description: Other health facility type label
 priority: 1
-condition: "step3_health_facility_type != '' && step3_health_facility_type == 'other'"
+condition: "step1_health_facility_type != '' && step1_health_facility_type == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_health_facility_type
+name: step1_other_health_facility_type
 description: Other health facility type
 priority: 1
-condition: "step3_health_facility_type != '' && step3_health_facility_type == 'other'"
+condition: "step1_health_facility_type != '' && step1_health_facility_type == 'other'"
 actions:
   - "isRelevant = true"
 ---
 name: step10_sputum_color
 description: Sputum color
 priority: 1
-condition: "step3_sample_type.contains('sputum')"
+condition: "step1_sample_type.contains('sputum')"
 actions:
   - "isRelevant = true"
 ---
 name: step10_quantity_of_serum_lbl
 description: Quantity of serum label
 priority: 1
-condition: "step3_sample_type.contains('serum')"
+condition: "step1_sample_type.contains('serum')"
 actions:
   - "isRelevant = true"
 ---
 name: step10_quantity_of_serum
 description: Quantity of serum
 priority: 1
-condition: "step3_sample_type.contains('serum')"
+condition: "step1_sample_type.contains('serum')"
 actions:
   - "isRelevant = true"
 ---
