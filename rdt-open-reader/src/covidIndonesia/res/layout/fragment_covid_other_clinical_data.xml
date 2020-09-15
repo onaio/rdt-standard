@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="io.ona.rdt.fragment.CovidOtherClinicalDataFragment">
+
+    <TextView
+        android:id="@+id/tv_covid_xray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:text="@string/covid_xray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/xray_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_xray"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/tv_covid_wbc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:text="@string/covid_wbc"
+        app:layout_constraintTop_toBottomOf="@id/xray_result_divider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableEnd="@drawable/ic_next_arrow"
+        android:paddingEnd="30dp" />
+
+    <View android:id="@+id/wbc_result_divider" style="@style/Divider.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_covid_wbc"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp" />
+
+</LinearLayout>

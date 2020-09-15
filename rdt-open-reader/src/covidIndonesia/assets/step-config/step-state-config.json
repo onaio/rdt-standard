@@ -13,10 +13,6 @@
   "covid_test_complete_page": "step20",
   "covid_one_scan_widget_specimen_page": "step6",
   "covid_affix_respiratory_sample_id_page": "step7",
-  "covid_xray_page": "step2",
-  "covid_opt_in_wbc_page": "step3",
-  "covid_wbc_page": "step4",
-  "covid_support_investigation_complete_page": "step5",
   "covid_scan_sample_for_delivery_page": "step3",
   "covid_enter_delivery_details_page": "step4"
 }
