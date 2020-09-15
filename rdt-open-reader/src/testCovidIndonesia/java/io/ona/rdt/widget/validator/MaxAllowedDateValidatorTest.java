@@ -34,3 +34,4 @@ public class MaxAllowedDateValidatorTest {
         return DatePickerFactory.DATE_FORMAT.format(new DateTime(date).minusDays(dayOffset).toDate());
     }
 }
+
