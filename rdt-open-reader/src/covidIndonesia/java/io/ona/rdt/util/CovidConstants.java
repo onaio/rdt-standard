@@ -16,16 +16,18 @@ public interface CovidConstants extends Constants {
         String PATIENT_DIAGNOSTIC_RESULTS = "patient_diagnostic_results";
         String SAMPLE_COLLECTIONS = "sample_collections";
         String SAMPLE_DELIVERY_RECORDS = "sample_delivery_records";
-        String SUPPORT_INVESTIGATIONS = "support_investigations";
+        String COVID_XRAY_RECORDS = "covid_xray_records";
+        String COVID_WBC_RECORDS = "covid_wbc_records";
     }
 
     interface Encounter {
         String PATIENT_DIAGNOSTICS = "patient_diagnostics";
         String SAMPLE_COLLECTION = "sample_collection";
         String SAMPLE_DELIVERY_DETAILS = "sample_delivery_details";
-        String SUPPORT_INVESTIGATION = "support_investigation";
         String COVID_RDT_TEST = "covid_rdt_test";
         String COVID_PATIENT_REGISTRATION = "covid_patient_registration";
+        String COVID_XRAY = "covid_xray";
+        String COVID_WBC = "covid_wbc";
     }
 
     interface Form {
@@ -33,7 +35,8 @@ public interface CovidConstants extends Constants {
         String PATIENT_DIAGNOSTICS_FORM = JSON_FORM_FOLDER + "patient-diagnostics-form.json";
         String SAMPLE_COLLECTION_FORM = JSON_FORM_FOLDER + "sample-collection-form.json";
         String SAMPLE_DELIVERY_DETAILS_FORM = JSON_FORM_FOLDER + "sample-delivery-details-form.json";
-        String SUPPORT_INVESTIGATION_FORM = JSON_FORM_FOLDER + "support-investigation-form.json";
+        String XRAY_FORM = JSON_FORM_FOLDER + "xray-form.json";
+        String WBC_FORM = JSON_FORM_FOLDER + "wbc-form.json";
         String COVID_PATIENT_REGISTRATION_FORM = JSON_FORM_FOLDER + "patient-registration-form.json";
         String COVID_RDT_TEST_FORM = JSON_FORM_FOLDER + "rdt-capture-form.json";
     }
@@ -46,10 +49,6 @@ public interface CovidConstants extends Constants {
         String COVID_TEST_COMPLETE_PAGE = "covid_test_complete_page";
         String COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE = "covid_affix_respiratory_sample_id_page";
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
-        String COVID_XRAY_PAGE = "covid_xray_page";
-        String COVID_OPT_IN_WBC_PAGE = "covid_opt_in_wbc_page";
-        String COVID_WBC_PAGE = "covid_wbc_page";
-        String COVID_SUPPORT_INVESTIGATION_COMPLETE_PAGE = "covid_support_investigation_complete_page";
         String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
         String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
     }
