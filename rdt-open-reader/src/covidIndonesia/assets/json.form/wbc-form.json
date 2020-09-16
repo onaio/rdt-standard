@@ -1,0 +1,125 @@
+{
+  "count": "1",
+  "encounter_type": "covid_wbc",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "{{wbc-form-original.step1.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "{{wbc-form-original.step1.submit_label}}",
+    "fields": [
+      {
+        "key": "leukocytes_lbl",
+        "type": "label",
+        "text": "{{wbc-form-original.step1.leukocytes_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "leukocyte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{wbc-form-original.step1.leukocyte.v_numeric.err}}"
+        }
+      },
+      {
+        "key": "lymphocytes_lbl",
+        "type": "label",
+        "text": "{{wbc-form-original.step1.lymphocytes_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "lymphocytes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{wbc-form-original.step1.lymphocytes.v_numeric.err}}"
+        }
+      },
+      {
+        "key": "platelets_lbl",
+        "type": "label",
+        "text": "{{wbc-form-original.step1.platelets_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "platelets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{wbc-form-original.step1.platelets.v_numeric.err}}"
+        }
+      },
+      {
+        "key": "date_wbc_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{wbc-form-original.step1.date_wbc_conducted.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{wbc-form-original.step1.date_wbc_conducted.duration.label}}"
+        },
+        "min_date": "today-100y",
+        "max_date": "today"
+      }
+    ]
+  },
+  "properties_file_name": "wbc-form"
+}

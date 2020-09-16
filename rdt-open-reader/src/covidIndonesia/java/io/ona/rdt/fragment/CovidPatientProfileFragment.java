@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import io.ona.rdt.R;
 import io.ona.rdt.contract.CovidPatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
@@ -18,8 +18,6 @@ import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.SUPPORT_INVESTIGATION_FORM;
-import static io.ona.rdt.util.RDTJsonFormUtils.getPatientSexAndId;
 
 /**
  * Created by Vincent Karuri on 12/06/2020
@@ -53,7 +51,11 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
+        if (v.getId() == R.id.tv_covid_support_investigation) {
+            launchOtherClinicalDataFragment();
+        } else {
+            patientProfileFragmentPresenter.launchForm(getActivity(), getFormName(v), currPatient);
+        }
     }
 
 
@@ -69,13 +71,23 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
             case R.id.tv_covid_sample_collection:
                 formName = SAMPLE_COLLECTION_FORM;
                 break;
-            case R.id.tv_covid_support_investigation:
-                formName = SUPPORT_INVESTIGATION_FORM;
-                break;
             case R.id.tv_covid_symptoms_and_history:
                 formName = PATIENT_DIAGNOSTICS_FORM;
                 break;
         }
         return formName;
+    }
+
+    private void launchOtherClinicalDataFragment() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(PATIENT, currPatient);
+
+        CovidOtherClinicalDataFragment covidOtherClinicalDataFragment = new CovidOtherClinicalDataFragment();
+        covidOtherClinicalDataFragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.patient_profile_fragment_container, covidOtherClinicalDataFragment);
+        fragmentTransaction.commit();
     }
 }

@@ -14,7 +14,7 @@ cache:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-28 ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS=28.0.3
+    - ANDROID_TARGET=android-29 ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS=28.0.3
   global:
     # wait up to 10 minutes for adb to connect to emulator
     - MALLOC_ARENA_MAX=2
@@ -27,7 +27,7 @@ android:
     # The BuildTools version used by your project
     - build-tools-${ANDROID_BUILD_TOOLS}
     # The SDK version used to compile your projects
-    - android-28
+    - android-29
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests

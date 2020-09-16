@@ -8,8 +8,10 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -22,7 +24,8 @@ import static io.ona.rdt.util.Utils.convertDate;
  */
 public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
-    private final String UNIQUE_ID = "unique_id";
+    private static final int SENSOR_TRIGGER_INDEX = 4;
+
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";
     private final String GTIN = "gtin";
@@ -40,10 +43,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(convertDate(individualVals[1], "YYYY-MM-dd"));
-            } catch (JSONException e) {
-                Timber.e(e);
-            } catch (ParseException e) {
+                moveToNextStep(parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]), convertDate(individualVals[1], "YYYY-MM-dd"));
+            } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
@@ -60,10 +61,28 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     protected void populateRelevantFields(String[] individualVals) throws JSONException {
         JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         String stepName = widgetArgs.getStepName();
-        jsonApi.writeValue(stepName, UNIQUE_ID, individualVals[0],  "", "", "", false);
+
+        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[0],  "", "", "", false);
         jsonApi.writeValue(stepName, EXP_DATE, individualVals[1],  "", "", "", false);
         jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[3],  "", "", "", false);
-        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[4],  "", "", "", false);
+        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
+    }
+
+    protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
+        if (isSensorTrigger) {
+            navigateToUnusableProductPage();
+        } else {
+            moveToNextStep(expDate);
+        }
+    }
+
+    private boolean parseSafeBoolean(String input) {
+        try {
+            return Boolean.parseBoolean(input);
+        } catch (Exception ex) {
+            Timber.e(ex);
+            return false;
+        }
     }
 }

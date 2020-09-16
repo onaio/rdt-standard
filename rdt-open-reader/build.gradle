@@ -15,12 +15,12 @@ jacoco {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "io.ona.rdt"
         minSdkVersion 22
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 4
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -135,7 +135,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.14.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.14.3.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -147,7 +147,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.15.4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.15.5.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -237,7 +237,8 @@ project.afterEvaluate {
                                         '**/*$ViewInjector*.*',
                                         '**/*$ViewBinder*.*',
                                         '**/BuildConfig.*',
-                                        '**/Manifest*.*'
+                                        '**/Manifest*.*',
+                                        '**/META-INF/**/*'
                                 ]
                         )
 

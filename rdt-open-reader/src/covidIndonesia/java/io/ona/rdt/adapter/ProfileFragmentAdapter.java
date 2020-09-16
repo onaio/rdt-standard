@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
-import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.fragment.CovidPatientVisitFragment;
 
 /**
@@ -29,7 +28,7 @@ public class ProfileFragmentAdapter extends FragmentStateAdapter {
                 fragment = getCovidPatientProfileActivity().createPatientProfileFragment();
                 break;
             case 1:
-                fragment = new CovidPatientVisitFragment();
+                fragment = getCovidPatientProfileActivity().createPatientVisitFragment();
                 break;
         }
         return fragment;

@@ -205,7 +205,7 @@
         },
         "v_min_length": {
           "value": "16",
-          "err": "Phone number cannot be less than 16 digits"
+          "err": "The ID number cannot be less than 16 digits."
         }
       },
       {
