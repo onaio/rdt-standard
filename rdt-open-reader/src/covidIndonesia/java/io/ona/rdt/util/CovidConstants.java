@@ -78,6 +78,7 @@ public interface CovidConstants extends Constants {
         String PATIENT_INFO_UNIQUE_ID = "patient_info_unique_id";
         String PATIENT_INFO_NAME = "patient_info_name";
         String PATIENT_INFO_DOB = "patient_info_dob";
+        String SAMPLER_NAME = "sampler_name";
     }
 
     interface RDTType {

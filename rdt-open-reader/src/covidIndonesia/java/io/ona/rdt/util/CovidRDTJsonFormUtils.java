@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
@@ -84,6 +86,12 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         // pre-populate the patient detail dob
         if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
             fillPatientData(field, "Patient Dob: ", patient.getDob());
+        }
+
+        // pre-populate the sampler name
+        if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(KEY))) {
+            final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
+            field.put(JsonFormConstants.VALUE, allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM()));
         }
     }
 
