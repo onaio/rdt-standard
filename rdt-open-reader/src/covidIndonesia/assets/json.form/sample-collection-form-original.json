@@ -826,13 +826,6 @@
           "value": "true",
           "err": "This field is required"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sample-collection-form-relevance-rules.yml"
-            }
-          }
-        },
         "options": [
           {
             "key": "unique_id",

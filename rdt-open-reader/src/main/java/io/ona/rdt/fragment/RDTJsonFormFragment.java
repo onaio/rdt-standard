@@ -15,10 +15,14 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt.R;
@@ -27,6 +31,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
+import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
@@ -45,6 +50,27 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        rootLayout = super.onCreateView(inflater, container, savedInstanceState);
+        try {
+            String stepName = getArguments().getString(JsonFormConstants.STEPNAME);
+            JSONObject jsonObject = getJsonApi().getmJSONObject();
+            String eventType = jsonObject.getString(ENCOUNTER_TYPE);
+            if ("step8".equals(stepName) && CovidConstants.Encounter.SAMPLE_COLLECTION.equals(eventType)) {
+                String uniqueId = getUniqueId(jsonObject);
+                if (uniqueId != null) {
+                    JSONArray fields = getStep(stepName).getJSONArray(JsonFormConstants.FIELDS);
+                    for (int i = 0; i < fields.length(); i++) {
+                        JSONObject field = fields.getJSONObject(i);
+                        if ("patient_info_unique_id".equals(field.getString(JsonFormConstants.KEY))) {
+                            JSONObject option = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(0);
+                            option.put(JsonFormConstants.TEXT, uniqueId);
+                        }
+                    }
+                }
+            }
+
+        } catch (JSONException ex) {
+            Timber.e(ex);
+        }
        return rootLayout;
     }
 
@@ -231,4 +257,23 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         return (RDTJsonFormActivity) getActivity();
     }
 
+    private String getUniqueId(JSONObject jsonForm) {
+        String uniqueId = null;
+        try {
+            JSONArray fields = jsonForm.getJSONObject("step6").getJSONArray(JsonFormConstants.FIELDS);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject field = fields.getJSONObject(i);
+                if ("unique_id".equals(field.getString(JsonFormConstants.KEY))) {
+                    final String value = field.getString(JsonFormConstants.VALUE);
+                    if (StringUtils.isNotBlank(value)) {
+                        uniqueId = value;
+                    }
+                }
+            }
+        } catch (JSONException ex) {
+            Timber.e(ex);
+        }
+
+        return uniqueId;
+    }
 }
