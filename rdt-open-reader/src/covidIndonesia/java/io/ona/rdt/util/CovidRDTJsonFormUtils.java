@@ -27,11 +27,9 @@ import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
-import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
 import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
-import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
@@ -60,7 +58,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 case SAMPLE_COLLECTION:
                     prePopulateSampleCollectionFormFields(field, uniqueID, patient);
                     break;
-                case SAMPLE_DELIVERY_DETAILS:
+                case CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS:
                     prePopulateSampleShipmentDetailsFormFields(field);
                     break;
             }
@@ -102,7 +100,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     @Override
     protected Set<String> initializeFormsThatShouldBePrepopulated() {
         return new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, COVID_RDT_TEST_FORM,
-                PATIENT_DIAGNOSTICS_FORM, SAMPLE_DELIVERY_DETAILS_FORM));
+                PATIENT_DIAGNOSTICS_FORM, CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM));
     }
 
     @Override
