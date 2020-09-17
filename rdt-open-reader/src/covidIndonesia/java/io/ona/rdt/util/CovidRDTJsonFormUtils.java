@@ -27,9 +27,11 @@ import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_COLLECTION;
+import static io.ona.rdt.util.CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS;
 import static io.ona.rdt.util.CovidConstants.Form.COVID_RDT_TEST_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
+import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
@@ -58,12 +60,15 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 case SAMPLE_COLLECTION:
                     prePopulateSampleCollectionFormFields(field, uniqueID, patient);
                     break;
+                case SAMPLE_DELIVERY_DETAILS:
+                    prePopulateSampleShipmentDetailsFormFields(field);
+                    break;
             }
             prePopulateRDTPatientFields(patient, field);
         }
     }
 
-    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
+    private void prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
         // pre-populate respiratory sample id labels
         if (LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             field.put("text", "Sample ID: " + uniqueID);
@@ -97,7 +102,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     @Override
     protected Set<String> initializeFormsThatShouldBePrepopulated() {
         return new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, COVID_RDT_TEST_FORM,
-                PATIENT_DIAGNOSTICS_FORM));
+                PATIENT_DIAGNOSTICS_FORM, SAMPLE_DELIVERY_DETAILS_FORM));
     }
 
     @Override
@@ -126,6 +131,14 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         if (options.length() > 0) {
             JSONObject dobObject = options.getJSONObject(0);
             dobObject.put(JsonFormConstants.TEXT, prefix + value);
+        }
+    }
+
+    private void prePopulateSampleShipmentDetailsFormFields(JSONObject field) throws JSONException {
+
+        // pre-populate the sender name
+        if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(KEY))) {
+            field.put(JsonFormConstants.VALUE, getNameOfSampler());
         }
     }
 
