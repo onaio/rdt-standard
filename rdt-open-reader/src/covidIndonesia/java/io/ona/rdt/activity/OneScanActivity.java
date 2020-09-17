@@ -12,6 +12,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import org.apache.commons.lang3.StringUtils;
 
+import androidx.databinding.DataBindingUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -22,17 +23,16 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 
 public class OneScanActivity extends AppCompatActivity {
 
-    private static final long BARCODE_DETAILS_DISPLAY_TIMEOUT = 4500;
+    private static final long BARCODE_DETAILS_DISPLAY_TIMEOUT = 45000000;
     private OneScanHelper oneScanHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_one_scan);
-        setSupportActionBar(findViewById(R.id.toolbar));
+        DataBindingUtil.setContentView(this, R.layout.activity_one_scan);
         oneScanHelper = new OneScanHelper(this);
         doScan(CovidConstants.ScannerType.SCANNER);
-        getOneScanVersion();
+//        getOneScanVersion();
     }
 
     private void getOneScanVersion() {
@@ -49,7 +49,7 @@ public class OneScanActivity extends AppCompatActivity {
     }
 
     private void doScan(String reader) {
-        TextView resultView = findViewById(R.id.textViewResult);
+//        TextView resultView = findViewById(R.id.textViewResult);
         OneScanHelper.ScanRequest request = new OneScanHelper.ScanRequest();
         request.reader = reader;
         request.title = "Scan barcode";
@@ -62,17 +62,17 @@ public class OneScanActivity extends AppCompatActivity {
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
                 OneScanHelper.ScanResponse response = new OneScanHelper.ScanResponse(bundle);
-                resultView.setText(String.format("\tStatus: %s\n\n\tBarcode Text: %s" +
-                                "\n\n\tProduct ID: %s\n\n\tSerial No: %s\n\n\tAdditional ID: %s\n\n" +
-                                "\tLot: %s\n\n\tExpiration Date: %s\n\n\tSensor triggered: %s",
-                        response.status,
-                        response.barcodeText,
-                        response.productId,
-                        response.serialNumber,
-                        response.additionalIdentifier,
-                        response.lot,
-                        response.expirationDate,
-                        response.sensorTriggered ? "yes" : "no"));
+//                resultView.setText(String.format("\tStatus: %s\n\n\tBarcode Text: %s" +
+//                                "\n\n\tProduct ID: %s\n\n\tSerial No: %s\n\n\tAdditional ID: %s\n\n" +
+//                                "\tLot: %s\n\n\tExpiration Date: %s\n\n\tSensor triggered: %s",
+//                        response.status,
+//                        response.barcodeText,
+//                        response.productId,
+//                        response.serialNumber,
+//                        response.additionalIdentifier,
+//                        response.lot,
+//                        response.expirationDate,
+//                        response.sensorTriggered ? "yes" : "no"));
 
                 setResultAndFinishDelayed(response, BARCODE_DETAILS_DISPLAY_TIMEOUT);
             }
