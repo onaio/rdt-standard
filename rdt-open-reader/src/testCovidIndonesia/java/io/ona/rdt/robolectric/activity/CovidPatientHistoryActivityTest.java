@@ -31,7 +31,6 @@ import io.ona.rdt.viewholder.CovidPatientHistoryViewHolder;
 public class CovidPatientHistoryActivityTest extends ActivityRobolectricTest {
 
     private CovidPatientHistoryActivity covidPatientHistoryActivity;
-    private ActivityController<CovidPatientHistoryActivity> activityController;
     private final String ENTITY_ID = "entity_id";
     private final String DATE = "date";
 
