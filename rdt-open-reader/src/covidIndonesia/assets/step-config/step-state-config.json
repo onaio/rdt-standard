@@ -6,6 +6,7 @@
     "step8",
     "step10"
   ],
+  "covid_sample_collection_form_patient_info_confirmation_page": "step8",
   "covid_scan_barcode_page": "step8",
   "covid_conduct_rdt_page": "step5",
   "covid_respiratory_specimen_collection_opt_in_page": "step13",

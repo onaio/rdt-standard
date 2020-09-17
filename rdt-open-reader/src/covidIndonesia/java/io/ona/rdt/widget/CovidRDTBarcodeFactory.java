@@ -4,14 +4,18 @@ import android.content.Intent;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.CovidRDTJsonFormUtils;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -67,6 +71,13 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[3],  "", "", "", false);
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
+
+        // write unique id to confirmation page
+        String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
+        JSONObject uniqueIdCheckBox = RDTJsonFormUtils.getField(patientInfoConfirmationPage,
+                        CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
+                        widgetArgs.getContext());
+        CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {

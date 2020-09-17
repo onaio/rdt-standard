@@ -66,8 +66,8 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonObject.put(VALUE, idAndExpDate);
 
         // write barcode values to relevant widgets
-        JSONArray rdtIdLblAddresses = stepStateConfig.getStepStateObj().optJSONArray(RDT_ID_LBL_ADDRESSES);
-        String expirationDateAddress = stepStateConfig.getStepStateObj().optString(EXPIRATION_DATE_READER_ADDRESS, "");
+        JSONArray rdtIdLblAddresses = stepStateConfig.optJSONArray(RDT_ID_LBL_ADDRESSES);
+        String expirationDateAddress = stepStateConfig.optString(EXPIRATION_DATE_READER_ADDRESS, "");
         String[] stepAndId;
 
         // populate rdt id to all relevant txt labels
@@ -80,7 +80,7 @@ public class MalariaRDTBarcodeFactory extends RDTBarcodeFactory {
         }
 
         // write rdt id to hidden rdt id field
-        jsonApi.writeValue(widgetArgs.getStepName(), stepStateConfig.getStepStateObj().optString(RDT_ID_KEY), barcodeValues[2].trim(), "", "", "", false);
+        jsonApi.writeValue(widgetArgs.getStepName(), stepStateConfig.optString(RDT_ID_KEY), barcodeValues[2].trim(), "", "", "", false);
 
         // populate exp. date to expiration date widget value
         stepAndId = expirationDateAddress.isEmpty() ? new String[0] : expirationDateAddress.split(":");
