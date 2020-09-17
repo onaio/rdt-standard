@@ -43,4 +43,9 @@ public class RDTApplicationTest extends RobolectricTest {
         application.getContext().allSharedPreferences().updateANMUserName("user");
         assertEquals("password", application.getPassword());
     }
+
+    @Test
+    public void testGetRdtTestsRepositoryShouldReturnNonNullRepository() {
+        assertNotNull(application.getRdtTestsRepository());
+    }
 }
