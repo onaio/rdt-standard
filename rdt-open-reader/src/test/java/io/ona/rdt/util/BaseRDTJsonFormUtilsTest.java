@@ -42,14 +42,18 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
                 .resume()
                 .get();
         Patient patient = new Patient("patient", "female", "entity_id", "12345", AGE, "01-09-2020");
-        JSONObject formJsonObj = getFormUtils().launchForm(patientRegisterActivity, getFormToPrepopulate(), patient, getIDs());
 
         int numOfPopulatedFields = 0;
-        JSONArray fields = getMultiStepFormFields(formJsonObj);
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-            numOfPopulatedFields = assertFieldsArePopulated(field, patient, numOfPopulatedFields);
+
+        for (String formToPopulate: getFormsToPrepopulate()) {
+            JSONObject sampleCollectionFormJsonObj = getJsonForm(patientRegisterActivity, formToPopulate, patient);
+            JSONArray fields = getMultiStepFormFields(sampleCollectionFormJsonObj);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject field = fields.getJSONObject(i);
+                numOfPopulatedFields = assertFieldsArePopulated(field, patient, numOfPopulatedFields);
+            }
         }
+
         assertAllFieldsArePopulated(numOfPopulatedFields);
         patientRegisterActivity.finish();
     }
@@ -69,13 +73,17 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
         return rdtIds;
     }
 
+    private JSONObject getJsonForm(PatientRegisterActivity patientRegisterActivity, String formName, Patient patient) throws JSONException {
+        return getFormUtils().launchForm(patientRegisterActivity, formName, patient, getIDs());
+    }
+
     protected abstract void assertAllFieldsArePopulated(int numOfPopulatedFields);
 
     protected abstract int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException;
 
     protected abstract RDTJsonFormUtils getFormUtils();
 
-    protected abstract String getFormToPrepopulate();
+    protected abstract List<String> getFormsToPrepopulate();
 
     protected abstract String getMockForm();
 

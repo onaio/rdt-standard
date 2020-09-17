@@ -3,7 +3,8 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import org.apache.commons.lang3.StringUtils;
+import androidx.core.util.Pair;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -21,11 +22,9 @@ import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
 
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 
-import androidx.core.util.Pair;
-import edu.washington.cs.ubicomplab.rdt_reader.callback.OnImageSavedCallBack;
-import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.callback.OnUniqueIdsFetchedCallback;
@@ -42,19 +41,14 @@ import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -922,8 +916,8 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     }
 
     @Override
-    protected String getFormToPrepopulate() {
-        return RDT_TEST_FORM;
+    protected List<String> getFormsToPrepopulate() {
+        return Arrays.asList(RDT_TEST_FORM);
     }
 
     @Override

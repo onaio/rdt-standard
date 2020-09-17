@@ -93,7 +93,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // pre-populate the sampler name
         if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(KEY))) {
-            field.put(JsonFormConstants.VALUE, getNameOfSampler());
+            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
         }
     }
 
@@ -136,11 +136,11 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // pre-populate the sender name
         if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(KEY))) {
-            field.put(JsonFormConstants.VALUE, getNameOfSampler());
+            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
         }
     }
 
-    private String getNameOfSampler() {
+    private String getLoggedInUserPreferredName() {
         final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
         return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
     }
