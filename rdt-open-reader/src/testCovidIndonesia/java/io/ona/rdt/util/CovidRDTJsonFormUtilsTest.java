@@ -5,7 +5,9 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.repository.AllSharedPreferences;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
@@ -18,6 +20,8 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
  * Created by Vincent Karuri on 15/07/2020
  */
 public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
+
+    private static final String ANM_PREFERRED_NAME = "indtester1";
 
     public static final String SAMPLE_COLLECTION_JSON_FORM = "{\n" +
             "  \"count\": \"9\",\n" +
@@ -783,6 +787,14 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "  }\n" +
             "}";
 
+    @Override
+    public void setUp() throws JSONException {
+        super.setUp();
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        allSharedPreferences.updateANMUserName("anm_id");
+        allSharedPreferences.updateANMPreferredName(allSharedPreferences.fetchRegisteredANM(), ANM_PREFERRED_NAME);
+    }
+
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
         assertEquals(6, numOfPopulatedFields);
     }
@@ -823,7 +835,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             }
         }
         else if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
-            assertEquals(field.getString(VALUE), "");
+            assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
             numOfPopulatedFields++;
         }
 

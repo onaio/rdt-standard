@@ -90,8 +90,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // pre-populate the sampler name
         if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(KEY))) {
-            final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
-            field.put(JsonFormConstants.VALUE, allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM()));
+            field.put(JsonFormConstants.VALUE, getNameOfSampler());
         }
     }
 
@@ -128,5 +127,10 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             JSONObject dobObject = options.getJSONObject(0);
             dobObject.put(JsonFormConstants.TEXT, prefix + value);
         }
+    }
+
+    private String getNameOfSampler() {
+        final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
+        return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
     }
 }
