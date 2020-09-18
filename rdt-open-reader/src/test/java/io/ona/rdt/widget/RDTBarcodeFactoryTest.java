@@ -272,7 +272,7 @@ public class RDTBarcodeFactoryTest {
                 "  ]")).when(jsonObject).optJSONArray(eq(RDT_ID_LBL_ADDRESSES));
         doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
 
-        Whitebox.setInternalState(barcodeFactory, "stepStateConfig", stepStateConfig);
+        Whitebox.setInternalState(barcodeFactory, "stepStateConfig", stepStateConfig.getStepStateObj());
     }
 
     private void mockStaticClasses() {
