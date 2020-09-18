@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
@@ -56,12 +58,15 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 case SAMPLE_COLLECTION:
                     prePopulateSampleCollectionFormFields(field, uniqueID, patient);
                     break;
+                case CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS:
+                    prePopulateSampleShipmentDetailsFormFields(field);
+                    break;
             }
             prePopulateRDTPatientFields(patient, field);
         }
     }
 
-    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
+    private void prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
         // pre-populate respiratory sample id labels
         if (LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             field.put("text", "Sample ID: " + uniqueID);
@@ -85,12 +90,17 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
             fillPatientData(field, patient.getDob());
         }
+
+        // pre-populate the sampler name
+        if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(KEY))) {
+            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
+        }
     }
 
     @Override
     protected Set<String> initializeFormsThatShouldBePrepopulated() {
         return new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, COVID_RDT_TEST_FORM,
-                PATIENT_DIAGNOSTICS_FORM));
+                PATIENT_DIAGNOSTICS_FORM, CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM));
     }
 
     @Override
@@ -123,5 +133,18 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             JSONObject dobObject = options.getJSONObject(0);
             dobObject.put(JsonFormConstants.TEXT, value);
         }
+    }
+
+    private void prePopulateSampleShipmentDetailsFormFields(JSONObject field) throws JSONException {
+
+        // pre-populate the sender name
+        if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(KEY))) {
+            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
+        }
+    }
+
+    private String getLoggedInUserPreferredName() {
+        final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
+        return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
     }
 }
