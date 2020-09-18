@@ -326,7 +326,7 @@
           "err": "{{patient-registration-form-original.step1.patient_email_address.v_required.err}}"
         },
         "v_regex": {
-          "value": "\\S+@\\S+\\.\\S+",
+          "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
           "err": "{{patient-registration-form-original.step1.patient_email_address.v_regex.err}}"
         }
       },
