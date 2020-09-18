@@ -817,7 +817,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
-                assertEquals(childObject.getString(JsonFormConstants.TEXT), "Unique Id: unique_id");
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "unique_id");
                 numOfPopulatedFields++;
             }
         }
@@ -825,7 +825,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
-                assertEquals(childObject.getString(JsonFormConstants.TEXT), "Patient Name: patient");
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "patient");
                 numOfPopulatedFields++;
             }
         }
@@ -833,7 +833,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
-                assertEquals(childObject.getString(JsonFormConstants.TEXT), "Patient Dob: 01-09-2020");
+                assertEquals(childObject.getString(JsonFormConstants.TEXT), "01-09-2020");
                 numOfPopulatedFields++;
             }
         }
