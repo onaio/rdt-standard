@@ -46,8 +46,8 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
         int numOfPopulatedFields = 0;
 
         for (String formToPopulate: getFormsToPrepopulate()) {
-            JSONObject sampleCollectionFormJsonObj = getJsonForm(patientRegisterActivity, formToPopulate, patient);
-            JSONArray fields = getMultiStepFormFields(sampleCollectionFormJsonObj);
+            JSONObject formToPopulateJsonObj = getJsonForm(patientRegisterActivity, formToPopulate, patient);
+            JSONArray fields = getMultiStepFormFields(formToPopulateJsonObj);
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject field = fields.getJSONObject(i);
                 numOfPopulatedFields = assertFieldsArePopulated(field, patient, numOfPopulatedFields);
