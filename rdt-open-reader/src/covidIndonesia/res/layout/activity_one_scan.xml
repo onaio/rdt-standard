@@ -72,7 +72,7 @@
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/product_status_section"
-            app:layout_constraintBottom_toTopOf="@id/next_button"
+            app:layout_constraintBottom_toTopOf="@id/barcode_results_next_button"
             android:layout_marginBottom="15dp" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
