@@ -141,7 +141,7 @@
         </ScrollView>
 
         <Button
-            android:id="@+id/next_button"
+            android:id="@+id/barcode_results_next_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

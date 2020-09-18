@@ -18,6 +18,7 @@
     <string name="covid_barcode_is_sensor_triggered">Heat sensor triggered</string>
     <string name="sensor_activated">Status: Sensor Activated</string>
     <string name="sensor_status_ok">Status: OK</string>
+    <string name="no_barcode_captured_err">Please capture a barcode to continue!</string>
     <string-array name="locales_key">
         <item>English</item>
         <item>Indonesia</item>

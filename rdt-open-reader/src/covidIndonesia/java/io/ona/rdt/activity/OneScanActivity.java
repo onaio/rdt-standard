@@ -3,16 +3,13 @@ package io.ona.rdt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.apache.commons.lang3.StringUtils;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
@@ -21,11 +18,12 @@ import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
+import static com.vijay.jsonwizard.utils.Utils.showToast;
 
 public class OneScanActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final long BARCODE_DETAILS_DISPLAY_TIMEOUT = 45000000;
     private OneScanHelper oneScanHelper;
+    private OneScanHelper.ScanResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +31,15 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         DataBindingUtil.setContentView(this, R.layout.activity_one_scan);
         oneScanHelper = new OneScanHelper(this);
         doScan(CovidConstants.ScannerType.SCANNER);
-//        getOneScanVersion();
         addListeners();
     }
 
     private void addListeners() {
         findViewById(R.id.btn_exit_barcode_results_view).setOnClickListener(this);
-    }
-
-    private void getOneScanVersion() {
-        TextView versionView = findViewById(R.id.textView);
-        OneScanHelper.VersionRequest request = new OneScanHelper.VersionRequest();
-        oneScanHelper.send(request, (resultCode, bundle) -> {
-            if (resultCode == Activity.RESULT_OK) {
-                OneScanHelper.VersionResponse response = new OneScanHelper.VersionResponse(bundle);
-                versionView.setText(String.format("OneScan Version\n%s", response.version));
-            } else {
-                versionView.setText("OneScan Version\nError: OneScan not installed");
-            }
-        });
+        findViewById(R.id.barcode_results_next_button).setOnClickListener(this);
     }
 
     private void doScan(String reader) {
-//        TextView resultView = findViewById(R.id.textViewResult);
         OneScanHelper.ScanRequest request = new OneScanHelper.ScanRequest();
         request.reader = reader;
         request.title = "Scan barcode";
@@ -67,7 +51,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
-                OneScanHelper.ScanResponse response = new OneScanHelper.ScanResponse(bundle);
+                response = new OneScanHelper.ScanResponse(bundle);
 //                resultView.setText(String.format("\tStatus: %s\n\n\tBarcode Text: %s" +
 //                                "\n\n\tProduct ID: %s\n\n\tSerial No: %s\n\n\tAdditional ID: %s\n\n" +
 //                                "\tLot: %s\n\n\tExpiration Date: %s\n\n\tSensor triggered: %s",
@@ -79,16 +63,8 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 //                        response.lot,
 //                        response.expirationDate,
 //                        response.sensorTriggered ? "yes" : "no"));
-
-                setResultAndFinishDelayed(response, BARCODE_DETAILS_DISPLAY_TIMEOUT);
             }
         });
-    }
-
-
-    private void setResultAndFinishDelayed(OneScanHelper.ScanResponse response, long milliseconds) {
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> setResultAndFinish(response), milliseconds);
     }
 
     private void setResultAndFinish(OneScanHelper.ScanResponse response) {
@@ -116,6 +92,10 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btn_exit_barcode_results_view:
                 onBackPressed();
+                break;
+            case R.id.barcode_results_next_button:
+                setResultAndFinish(response);
+                break;
         }
     }
 }
