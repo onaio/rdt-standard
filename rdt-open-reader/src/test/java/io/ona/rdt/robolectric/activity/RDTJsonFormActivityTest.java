@@ -1,18 +1,12 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
-import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.Locale;
@@ -26,7 +20,6 @@ import io.ona.rdt.presenter.RDTJsonFormActivityPresenter;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.StepStateConfig;
 
-import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -39,20 +32,14 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
-public class RDTJsonFormActivityTest extends ActivityRobolectricTest {
+public class RDTJsonFormActivityTest extends JsonFormActivityTest {
 
-    private ActivityController<RDTJsonFormActivity> controller;
     private RDTJsonFormActivity rdtJsonFormActivity;
-
-    private Intent intent;
-    private JSONObject mJSONObject;
 
     @Before
     public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
-        mockMethods();
-        controller = Robolectric.buildActivity(RDTJsonFormActivity.class, intent);
-        rdtJsonFormActivity = controller.create()
+        super.setUp();
+        rdtJsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class, intent).create()
                 .resume()
                 .get();
     }
@@ -104,14 +91,6 @@ public class RDTJsonFormActivityTest extends ActivityRobolectricTest {
                 .addToBackStack("step2").commit();
         rdtJsonFormActivity.onBackPress();
         assertEquals(2, RDTJsonFormFragment.getCurrentStep());
-    }
-
-    private void mockMethods() throws JSONException {
-        mJSONObject = new JSONObject();
-        mJSONObject.put(STEP1, new JSONObject());
-        mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
-        intent = new Intent();
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
     }
 
     @Override

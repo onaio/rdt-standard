@@ -1,111 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:paddingBottom="20dp">
+    android:scrollbars="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tv_covid_symptoms_and_history"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textSize="19sp"
-        android:padding="15dp"
-        android:text="@string/covid_patient_profile_symptoms_history"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:drawableEnd="@drawable/ic_next_arrow"
-        android:paddingEnd="30dp" />
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingBottom="20dp">
 
-    <View android:id="@+id/symptoms_result_divider" style="@style/Divider.Horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp" />
+        <TextView
+            android:id="@+id/tv_covid_symptoms_and_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:padding="15dp"
+            android:text="@string/covid_patient_profile_symptoms_history"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:drawableEnd="@drawable/ic_next_arrow"
+            android:paddingEnd="30dp" />
 
-    <TextView
-        android:id="@+id/tv_covid_rdt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textSize="19sp"
-        android:padding="15dp"
-        android:text="@string/covid_patient_profile_rdt"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:drawableEnd="@drawable/ic_next_arrow"
-        android:paddingEnd="30dp" />
+        <View android:id="@+id/symptoms_result_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
 
-    <View android:id="@+id/covid_rdt_result_divider" style="@style/Divider.Horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp" />
+        <TextView
+            android:id="@+id/tv_covid_rdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:padding="15dp"
+            android:text="@string/covid_patient_profile_rdt"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_symptoms_and_history"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:drawableEnd="@drawable/ic_next_arrow"
+            android:paddingEnd="30dp" />
+
+        <View android:id="@+id/covid_rdt_result_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
 
 
-    <TextView
-        android:id="@+id/tv_covid_sample_collection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textSize="19sp"
-        android:padding="15dp"
-        android:text="@string/covid_patient_profile_sample_collection"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:drawableEnd="@drawable/ic_next_arrow"
-        android:paddingEnd="30dp" />
+        <TextView
+            android:id="@+id/tv_covid_sample_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:padding="15dp"
+            android:text="@string/covid_patient_profile_sample_collection"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_rdt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:drawableEnd="@drawable/ic_next_arrow"
+            android:paddingEnd="30dp" />
 
-    <View android:id="@+id/covid_sample_collection_divider" style="@style/Divider.Horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp" />
+        <View android:id="@+id/covid_sample_collection_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
 
-    <TextView
-        android:id="@+id/tv_covid_support_investigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="15dp"
-        android:text="@string/covid_patient_profile_supporting_investigations"
-        android:textColor="@color/black"
-        android:textSize="19sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
-        android:drawableEnd="@drawable/ic_next_arrow"
-        android:paddingEnd="30dp" />
+        <TextView
+            android:id="@+id/tv_covid_support_investigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="15dp"
+            android:text="@string/covid_patient_profile_supporting_investigations"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_sample_collection"
+            android:drawableEnd="@drawable/ic_next_arrow"
+            android:paddingEnd="30dp" />
 
-    <View android:id="@+id/covid_support_investigation_divider" style="@style/Divider.Horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp" />
+        <View android:id="@+id/covid_support_investigation_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
 
-    <TextView
-        android:id="@+id/tv_covid_delivery_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textSize="19sp"
-        android:padding="15dp"
-        android:text="@string/covid_patient_profile_sample_shipments"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:drawableEnd="@drawable/ic_next_arrow"
-        android:paddingEnd="30dp" />
+        <TextView
+            android:id="@+id/tv_covid_delivery_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:padding="15dp"
+            android:text="@string/covid_patient_profile_sample_shipments"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_support_investigation"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:drawableEnd="@drawable/ic_next_arrow"
+            android:paddingEnd="30dp" />
 
-    <View android:id="@+id/covid_delivery_details_result_divider" style="@style/Divider.Horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_covid_delivery_details"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp" />
+        <View android:id="@+id/covid_delivery_details_result_divider" style="@style/Divider.Horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_covid_delivery_details"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

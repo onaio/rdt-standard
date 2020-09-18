@@ -327,6 +327,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "hint": "{{sample-collection-form-original.step1.vtm_expiration_date.hint}}",
+        "min_date": "today-100y",
+        "v_min_allowed_date": {
+          "value": "today-1d",
+          "err": "Expired VTM! Please use another."
+        },
         "v_required": {
           "value": true,
           "err": "{{sample-collection-form-original.step1.vtm_expiration_date.v_required.err}}"
