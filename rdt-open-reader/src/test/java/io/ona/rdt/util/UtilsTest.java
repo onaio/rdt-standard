@@ -10,6 +10,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -39,9 +40,7 @@ import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Utils.convertDate;
 import static io.ona.rdt.widget.MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -141,13 +140,13 @@ public class UtilsTest extends PowerMockTest {
     @Test
     public void testIsImageSyncEnabled() throws Exception {
         mockStaticClasses();
-        assertFalse(Whitebox.invokeMethod(utils, "isImageSyncEnabled"));
+        Assert.assertFalse(Whitebox.invokeMethod(utils, "isImageSyncEnabled"));
     }
 
     @Test
     public void testIsExpiredShouldReturnCorrectStatus() {
-        assertFalse(Utils.isExpired(getDateWithOffset(1)));
-        assertTrue(Utils.isExpired(getDateWithOffset(-1)));
+        Assert.assertFalse(Utils.isExpired(getDateWithOffset(1)));
+        Assert.assertTrue(Utils.isExpired(getDateWithOffset(-1)));
     }
 
     @Test
@@ -165,7 +164,7 @@ public class UtilsTest extends PowerMockTest {
         Set<String> actualStrings = new HashSet<>(Utils.convertJsonArrToListOfStrings(jsonArray));
         assertEquals(expectedStrings.size(), actualStrings.size());
         for (String str : actualStrings) {
-            assertTrue(expectedStrings.contains(str));
+            Assert.assertTrue(expectedStrings.contains(str));
         }
     }
 
@@ -176,14 +175,22 @@ public class UtilsTest extends PowerMockTest {
         doReturn(1).when(cursor).getCount();
         doReturn(cursor).when(db).rawQuery(eq("SELECT name FROM sqlite_master WHERE type=? AND name=?"),
                 any(String[].class));
-        assertTrue(Utils.tableExists(db, "table"));
+        Assert.assertTrue(Utils.tableExists(db, "table"));
         doReturn(0).when(cursor).getCount();
-        assertFalse(Utils.tableExists(db, "table"));
+        Assert.assertFalse(Utils.tableExists(db, "table"));
     }
 
     @Test
     public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
         assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
+    }
+
+    @Test
+    public void testParseSafeBooleanShouldCorrectlyParseBooleanValue() {
+        Assert.assertFalse(Utils.parseSafeBoolean(""));
+        Assert.assertFalse(Utils.parseSafeBoolean(null));
+        Assert.assertFalse(Utils.parseSafeBoolean("false"));
+        Assert.assertTrue(Utils.parseSafeBoolean("true"));
     }
 
     private void mockStaticClasses() {
