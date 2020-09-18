@@ -43,13 +43,11 @@ public class PatientRegisterActivityInteractor extends FormLauncherAndSaver {
             return null;
         }
         String name = getStrField(formFields, Constants.FormFields.PATIENT_NAME);
-        String sex = getStrField(formFields, Constants.DBConstants.SEX);
         String patientId = getStrField(formFields, Constants.DBConstants.PATIENT_ID);
-        String patientAge = getStrField(formFields, Constants.DBConstants.AGE);
-        patientAge = StringUtils.isBlank(patientAge) ? "0" : patientAge;
-        String dob = getStrField(formFields, Constants.DBConstants.DOB);
+        String sex = getStrField(formFields, Constants.DBConstants.SEX);
 
-        Patient patient = new Patient(name, sex, baseEntityId, patientId, Integer.parseInt(patientAge), dob);
+        Patient patient = new Patient(name, sex, baseEntityId, patientId);
+        populateCommonPatientFields(patient, formFields);
 
         return isValidPatient(patient) ? patient : null;
     }
@@ -64,5 +62,15 @@ public class PatientRegisterActivityInteractor extends FormLauncherAndSaver {
     protected String getStrField(JSONArray formFields, String fieldName) {
         JSONObject field = FormUtils.getFieldJSONObject(formFields, fieldName);
         return field == null ? null : field.optString(JsonFormUtils.VALUE);
+    }
+
+    protected void populateCommonPatientFields(Patient patient, JSONArray formFields) {
+
+        String patientAge = getStrField(formFields, Constants.DBConstants.AGE);
+        patientAge = StringUtils.isBlank(patientAge) ? "0" : patientAge;
+        String dob = getStrField(formFields, Constants.DBConstants.DOB);
+
+        patient.setAge(Integer.parseInt(patientAge));
+        patient.setDob(dob);
     }
 }

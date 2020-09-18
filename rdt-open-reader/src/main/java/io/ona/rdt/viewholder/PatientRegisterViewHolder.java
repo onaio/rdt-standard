@@ -51,8 +51,8 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) client;
-        String patientFirstName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.FIRST_NAME, true);
-        String patientLastName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.LAST_NAME, true);
+        String patientFirstName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.FIRST_NAME, false);
+        String patientLastName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.LAST_NAME, false);
         String patientName = (patientFirstName + " " + patientLastName).trim();
         String patientAge = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.AGE, true);
         patientAge = StringUtils.isBlank(patientAge) ? "0" : patientAge;

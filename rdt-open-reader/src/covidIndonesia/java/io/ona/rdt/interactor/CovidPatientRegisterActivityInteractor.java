@@ -45,16 +45,14 @@ public class CovidPatientRegisterActivityInteractor extends PatientRegisterActiv
         String firstName = getStrField(formFields, CovidConstants.FormFields.PATIENT_FIRST_NAME);
         String lastName = getStrField(formFields, CovidConstants.FormFields.PATIENT_LAST_NAME);
         String sex = getStrField(formFields, Constants.DBConstants.SEX);
-        String patientAge = getStrField(formFields, Constants.DBConstants.AGE);
-        patientAge = StringUtils.isBlank(patientAge) ? "0" : patientAge;
-        String dob = getStrField(formFields, Constants.DBConstants.DOB);
 
         String patientId = getStrField(formFields, CovidConstants.FormFields.DRIVERS_LICENSE_NUMBER);
         patientId = patientId == null ? getStrField(formFields, CovidConstants.FormFields.PASSPORT_NO)
                 : patientId;
 
         Patient patient = new Patient(StringUtils.join(new String[]{firstName, lastName}, ' '),
-                sex, baseEntityId, patientId, Integer.parseInt(patientAge), dob);
+                sex, baseEntityId, patientId);
+        populateCommonPatientFields(patient, formFields);
 
         return isValidPatient(patient) ? patient : null;
     }
