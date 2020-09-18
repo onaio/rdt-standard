@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -107,6 +108,10 @@ public class TestUtils {
         calendar.setTime(new Date());
         calendar.add(Calendar.YEAR, offset);
         return calendar.getTime();
+    }
+
+    public static String getFormattedDateWithOffset(int offset, String format) {
+        return new SimpleDateFormat(format).format(getDateWithOffset(offset));
     }
 
     public static void setStaticFinalField(Field field, Object newValue) throws Exception {

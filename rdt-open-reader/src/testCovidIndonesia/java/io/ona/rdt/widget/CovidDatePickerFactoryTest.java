@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.ona.rdt.R;
+import io.ona.rdt.TestUtils;
 import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
 
 /**
@@ -67,7 +68,7 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
     }
 
     private String getTodaysDate() {
-        return DatePickerFactory.DATE_FORMAT.format(new Date());
+        return TestUtils.getFormattedDateWithOffset(0, DatePickerFactory.DATE_FORMAT.toPattern());
     }
 
     private JSONObject getWidget(String minAllowedDate) throws JSONException {

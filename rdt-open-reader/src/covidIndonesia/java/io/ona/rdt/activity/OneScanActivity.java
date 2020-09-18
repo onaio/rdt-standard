@@ -57,15 +57,19 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
-                response = new OneScanHelper.ScanResponse(bundle);
-                try {
-                    displayStatusMessageAndSymbol(response.sensorTriggered, response.expirationDate);
-                    populateBarcodeDetails();
-                } catch (ParseException e) {
-                    Timber.e(e);
-                }
+               performPostScanActions(bundle);
             }
         });
+    }
+
+    private void performPostScanActions(Bundle bundle) {
+        response = new OneScanHelper.ScanResponse(bundle);
+        try {
+            displayStatusMessageAndSymbol(response.sensorTriggered, response.expirationDate);
+            populateBarcodeDetails();
+        } catch (ParseException e) {
+            Timber.e(e);
+        }
     }
 
     private void populateBarcodeDetails() {
