@@ -90,13 +90,17 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
     }
 
     protected void moveToNextStep(Date expDate) {
-        JsonFormFragment formFragment = widgetArgs.getFormFragment();
         if (!isRDTExpired(expDate)) {
             moveToNextStep();
         } else {
-            String expiredPageAddr = stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE, "step1");
-            JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
-            formFragment.transactThis(nextFragment);
+            navigateToUnusableProductPage();
         }
+    }
+
+    protected void navigateToUnusableProductPage() {
+        JsonFormFragment formFragment = widgetArgs.getFormFragment();
+        String expiredPageAddr = stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE, "step1");
+        JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
+        formFragment.transactThis(nextFragment);
     }
 }

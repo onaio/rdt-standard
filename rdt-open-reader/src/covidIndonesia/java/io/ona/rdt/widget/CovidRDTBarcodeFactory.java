@@ -8,9 +8,9 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import timber.log.Timber;
 
@@ -23,6 +23,8 @@ import static io.ona.rdt.util.Utils.convertDate;
  * Created by Vincent Karuri on 09/07/2020
  */
 public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
+
+    private static final int SENSOR_TRIGGER_INDEX = 4;
 
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";
@@ -41,10 +43,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(convertDate(individualVals[1], "YYYY-MM-dd"));
-            } catch (JSONException e) {
-                Timber.e(e);
-            } catch (ParseException e) {
+                moveToNextStep(parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]), convertDate(individualVals[1], "YYYY-MM-dd"));
+            } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
@@ -66,6 +66,23 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonApi.writeValue(stepName, EXP_DATE, individualVals[1],  "", "", "", false);
         jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[3],  "", "", "", false);
-        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[4],  "", "", "", false);
+        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
+    }
+
+    protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
+        if (isSensorTrigger) {
+            navigateToUnusableProductPage();
+        } else {
+            moveToNextStep(expDate);
+        }
+    }
+
+    private boolean parseSafeBoolean(String input) {
+        try {
+            return Boolean.parseBoolean(input);
+        } catch (Exception ex) {
+            Timber.e(ex);
+            return false;
+        }
     }
 }
