@@ -1,7 +1,6 @@
 package io.ona.rdt.activity;
 
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -95,7 +94,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
 
     private void reloadClass() {
         Intent intent = getIntent();
-        finish();
         startActivity(intent);
+        finish();
     }
 }

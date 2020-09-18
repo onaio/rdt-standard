@@ -1,7 +1,6 @@
 package io.ona.rdt.application;
 
 import android.app.Activity;
-import android.preference.PreferenceManager;
 
 import com.evernote.android.job.JobManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -69,11 +68,6 @@ public class RDTApplication extends DrishtiApplication {
         if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
             sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
         }
-
-        // set locale for MLS
-        com.vijay.jsonwizard.utils.AllSharedPreferences allSharedPreferences
-                = new com.vijay.jsonwizard.utils.AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this));
-        allSharedPreferences.saveLanguagePreference(BuildConfig.LOCALE);
     }
 
     private void initializeCrashlyticsAndLogging() {
