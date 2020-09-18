@@ -839,16 +839,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label": "{{sample-collection-form-original.step8.patient_info_unique_id.label}}",
         "v_required": {
           "value": "true",
           "err": "{{sample-collection-form-original.step8.patient_info_unique_id.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sample-collection-form-relevance-rules.yml"
-            }
-          }
         },
         "options": [
           {
@@ -863,6 +857,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label": "{{sample-collection-form-original.step8.patient_info_name.label}}",
         "v_required": {
           "value": "true",
           "err": "{{sample-collection-form-original.step8.patient_info_name.v_required.err}}"
@@ -880,6 +875,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label": "{{sample-collection-form-original.step8.patient_info_dob.label}}",
         "v_required": {
           "value": "true",
           "err": "{{sample-collection-form-original.step8.patient_info_dob.v_required.err}}"

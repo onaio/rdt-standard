@@ -31,7 +31,7 @@ import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
 public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActivityResultListener {
 
     protected WidgetArgs widgetArgs;
-    protected StepStateConfig stepStateConfig;
+    protected JSONObject stepStateConfig;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) {
@@ -49,7 +49,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
                 .withFormFragment(formFragment)
                 .withStepName(stepName);
 
-        stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
+        stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj();
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
@@ -99,7 +99,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
 
     protected void navigateToUnusableProductPage() {
         JsonFormFragment formFragment = widgetArgs.getFormFragment();
-        String expiredPageAddr = stepStateConfig.getStepStateObj().optString(PRODUCT_EXPIRED_PAGE, "step1");
+        String expiredPageAddr = stepStateConfig.optString(PRODUCT_EXPIRED_PAGE, "step1");
         JsonFormFragment nextFragment = RDTJsonFormFragment.getFormFragment(expiredPageAddr);
         formFragment.transactThis(nextFragment);
     }

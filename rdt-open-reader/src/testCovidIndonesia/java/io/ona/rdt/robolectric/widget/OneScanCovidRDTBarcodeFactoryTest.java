@@ -28,7 +28,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         super.setUp();
         oneScanCovidRDTBarcodeFactory = new OneScanCovidRDTBarcodeFactory();
         setWidgetArgs();
-        Whitebox.setInternalState(oneScanCovidRDTBarcodeFactory, "stepStateConfig", RDTApplication.getInstance().getStepStateConfiguration());
+        Whitebox.setInternalState(oneScanCovidRDTBarcodeFactory, "stepStateConfig", RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj());
     }
 
     @Test

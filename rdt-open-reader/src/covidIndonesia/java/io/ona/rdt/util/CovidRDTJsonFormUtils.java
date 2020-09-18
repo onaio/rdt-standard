@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
@@ -56,12 +58,15 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 case SAMPLE_COLLECTION:
                     prePopulateSampleCollectionFormFields(field, uniqueID, patient);
                     break;
+                case CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS:
+                    prePopulateSampleShipmentDetailsFormFields(field);
+                    break;
             }
             prePopulateRDTPatientFields(patient, field);
         }
     }
 
-    private void  prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
+    private void prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
         // pre-populate respiratory sample id labels
         if (LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             field.put("text", "Sample ID: " + uniqueID);
@@ -73,24 +78,29 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // pre-populate the patient detail unique id
         if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(KEY))) {
-            fillPatientData(field, "Unique Id: ", uniqueID);
+            fillPatientData(field, uniqueID);
         }
 
         // pre-populate the patient detail name
         if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
-            fillPatientData(field, "Patient Name: ", patient.getPatientName());
+            fillPatientData(field, patient.getPatientName());
         }
 
         // pre-populate the patient detail dob
         if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
-            fillPatientData(field, "Patient Dob: ", patient.getDob());
+            fillPatientData(field, patient.getDob());
+        }
+
+        // pre-populate the sampler name
+        if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(KEY))) {
+            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
         }
     }
 
     @Override
     protected Set<String> initializeFormsThatShouldBePrepopulated() {
         return new HashSet<>(Arrays.asList(SAMPLE_COLLECTION_FORM, COVID_RDT_TEST_FORM,
-                PATIENT_DIAGNOSTICS_FORM));
+                PATIENT_DIAGNOSTICS_FORM, CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM));
     }
 
     @Override
@@ -114,11 +124,27 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
     }
 
-    private void fillPatientData(JSONObject field, String prefix, String value) throws JSONException {
+    public static void fillPatientData(JSONObject field, String value) throws JSONException {
+        if (field == null) {
+            return;
+        }
         JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         if (options.length() > 0) {
             JSONObject dobObject = options.getJSONObject(0);
-            dobObject.put(JsonFormConstants.TEXT, prefix + value);
+            dobObject.put(JsonFormConstants.TEXT, value);
         }
+    }
+
+    private void prePopulateSampleShipmentDetailsFormFields(JSONObject field) throws JSONException {
+
+        // pre-populate the sender name
+        if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(KEY))) {
+            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
+        }
+    }
+
+    private String getLoggedInUserPreferredName() {
+        final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
+        return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
     }
 }
