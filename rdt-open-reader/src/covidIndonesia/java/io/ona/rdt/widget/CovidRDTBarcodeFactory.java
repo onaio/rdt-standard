@@ -12,13 +12,13 @@ import java.util.Date;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static io.ona.rdt.util.Utils.convertDate;
-import static io.ona.rdt.util.Utils.parseSafeBoolean;
 
 /**
  * Created by Vincent Karuri on 09/07/2020
@@ -46,7 +46,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
+                moveToNextStep(Utils.parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
                         convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);

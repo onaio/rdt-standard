@@ -74,7 +74,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         setBarcodeResult(R.id.barcode_additional_id, response.additionalIdentifier);
         setBarcodeResult(R.id.barcode_lot_no, response.lot);
         setBarcodeResult(R.id.barcode_expiration_date, response.expirationDate);
-        setBarcodeResult(R.id.barcode_is_sensor_triggered, response.sensorTriggered ? "yes" : "no");
+        setBarcodeResult(R.id.barcode_is_sensor_triggered, response.sensorTriggered ? "Yes" : "No");
     }
 
     private void setBarcodeResult(int viewId, String result) {
@@ -96,8 +96,8 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private boolean isProductUsable(boolean isSensorTriggered, String expirationDate) throws ParseException {
-       return !RDTBarcodeFactory.isRDTExpired(Utils.convertDate(expirationDate, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT))
-               && !isSensorTriggered;
+        return !RDTBarcodeFactory.isRDTExpired(Utils.convertDate(expirationDate, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT))
+                && !isSensorTriggered;
     }
 
     private void setUnusableProductStatus() {
