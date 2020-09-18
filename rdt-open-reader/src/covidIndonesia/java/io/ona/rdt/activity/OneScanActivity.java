@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import io.ona.rdt.util.OneScanHelper;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
 
-public class OneScanActivity extends AppCompatActivity {
+public class OneScanActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final long BARCODE_DETAILS_DISPLAY_TIMEOUT = 45000000;
     private OneScanHelper oneScanHelper;
@@ -33,6 +34,11 @@ public class OneScanActivity extends AppCompatActivity {
         oneScanHelper = new OneScanHelper(this);
         doScan(CovidConstants.ScannerType.SCANNER);
 //        getOneScanVersion();
+        addListeners();
+    }
+
+    private void addListeners() {
+        findViewById(R.id.btn_exit_barcode_results_view).setOnClickListener(this);
     }
 
     private void getOneScanVersion() {
@@ -102,6 +108,14 @@ public class OneScanActivity extends AppCompatActivity {
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
             onBackPressed();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_exit_barcode_results_view:
+                onBackPressed();
         }
     }
 }
