@@ -29,6 +29,7 @@ import java.util.Locale;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
@@ -161,5 +162,14 @@ public class Utils {
 
     public static boolean isEmptyCursor(Cursor cursor) {
         return cursor == null || cursor.getCount() == 0;
+    }
+
+    public static boolean parseSafeBoolean(String input) {
+        try {
+            return Boolean.parseBoolean(input);
+        } catch (Exception ex) {
+            Timber.e(ex);
+            return false;
+        }
     }
 }

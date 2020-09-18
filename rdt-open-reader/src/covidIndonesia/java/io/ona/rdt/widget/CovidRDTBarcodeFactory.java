@@ -18,6 +18,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static io.ona.rdt.util.Utils.convertDate;
+import static io.ona.rdt.util.Utils.parseSafeBoolean;
 
 /**
  * Created by Vincent Karuri on 09/07/2020
@@ -31,6 +32,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     private final String GTIN = "gtin";
     private final String TEMP_SENSOR = "temp_sensor";
 
+    public static final String RDT_BARCODE_EXPIRATION_DATE_FORMAT = "YYYY-MM-dd";
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
@@ -43,7 +46,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]), convertDate(individualVals[1], "YYYY-MM-dd"));
+                moveToNextStep(parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
+                        convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }
@@ -74,15 +78,6 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
             navigateToUnusableProductPage();
         } else {
             moveToNextStep(expDate);
-        }
-    }
-
-    private boolean parseSafeBoolean(String input) {
-        try {
-            return Boolean.parseBoolean(input);
-        } catch (Exception ex) {
-            Timber.e(ex);
-            return false;
         }
     }
 }

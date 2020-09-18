@@ -9,6 +9,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.ParseException;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import io.ona.rdt.BuildConfig;
@@ -16,9 +18,12 @@ import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
+import io.ona.rdt.util.Utils;
+import io.ona.rdt.widget.CovidRDTBarcodeFactory;
+import io.ona.rdt.widget.RDTBarcodeFactory;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
-import static com.vijay.jsonwizard.utils.Utils.showToast;
 
 public class OneScanActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +57,8 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
                 response = new OneScanHelper.ScanResponse(bundle);
+                try {
+                    displayStatusMessageAndSymbol(response.sensorTriggered, response.expirationDate);
 //                resultView.setText(String.format("\tStatus: %s\n\n\tBarcode Text: %s" +
 //                                "\n\n\tProduct ID: %s\n\n\tSerial No: %s\n\n\tAdditional ID: %s\n\n" +
 //                                "\tLot: %s\n\n\tExpiration Date: %s\n\n\tSensor triggered: %s",
@@ -63,8 +70,39 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 //                        response.lot,
 //                        response.expirationDate,
 //                        response.sensorTriggered ? "yes" : "no"));
+                } catch (ParseException e) {
+                    Timber.e(e);
+                }
             }
         });
+    }
+
+    private void displayStatusMessageAndSymbol(boolean isSensorTriggered, String expirationDate) throws ParseException {
+        if (!isSensorTriggered && StringUtils.isBlank(expirationDate)
+                || isProductUsable(isSensorTriggered, expirationDate)) {
+            setValidProductStatus();
+        } else {
+            setUnusableProductStatus();
+        }
+    }
+
+    private boolean isProductUsable(boolean isSensorTriggered, String expirationDate) throws ParseException {
+       return !RDTBarcodeFactory.isRDTExpired(Utils.convertDate(expirationDate, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT))
+               && !isSensorTriggered;
+    }
+
+    private void setUnusableProductStatus() {
+        findViewById(R.id.product_valid_status).setVisibility(View.GONE);
+        findViewById(R.id.valid_product_icon).setVisibility(View.GONE);
+        findViewById(R.id.product_invalid_status).setVisibility(View.VISIBLE);
+        findViewById(R.id.invalid_product_icon).setVisibility(View.VISIBLE);
+    }
+
+    private void setValidProductStatus() {
+        findViewById(R.id.product_invalid_status).setVisibility(View.GONE);
+        findViewById(R.id.invalid_product_icon).setVisibility(View.GONE);
+        findViewById(R.id.product_valid_status).setVisibility(View.VISIBLE);
+        findViewById(R.id.valid_product_icon).setVisibility(View.VISIBLE);
     }
 
     private void setResultAndFinish(OneScanHelper.ScanResponse response) {

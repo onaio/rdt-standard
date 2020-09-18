@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_valid_product" />
+                android:src="@drawable/ic_valid_product"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/product_valid_status"
@@ -61,7 +62,8 @@
                 android:layout_margin="20dp"
                 android:text="@string/sensor_status_ok"
                 android:textColor="#46B646"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
