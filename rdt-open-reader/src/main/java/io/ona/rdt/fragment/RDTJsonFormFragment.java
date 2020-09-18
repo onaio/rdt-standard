@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -21,6 +19,7 @@ import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
 import org.json.JSONObject;
 
+import androidx.annotation.Nullable;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -230,5 +229,4 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     public RDTJsonFormActivity getRdtActivity() {
         return (RDTJsonFormActivity) getActivity();
     }
-
 }

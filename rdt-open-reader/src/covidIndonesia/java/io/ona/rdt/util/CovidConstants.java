@@ -42,6 +42,7 @@ public interface CovidConstants extends Constants {
     }
 
     interface Step {
+        String COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE = "covid_sample_collection_form_patient_info_confirmation_page";
         String COVID_SCAN_BARCODE_PAGE = "covid_scan_barcode_page";
         String COVID_CONDUCT_RDT_PAGE = "covid_conduct_rdt_page";
         String COVID_RESPIRATORY_SPECIMEN_COLLECTION_OPT_IN_PAGE = "covid_respiratory_specimen_collection_opt_in_page";

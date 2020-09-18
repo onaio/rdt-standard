@@ -3,8 +3,13 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.interfaces.JsonApi;
+
 import androidx.core.util.Pair;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -20,6 +25,7 @@ import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.ImageRepository;
+import org.smartregister.util.JsonFormUtils;
 
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -45,12 +51,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.smartregister.util.JsonFormUtils.KEY;
-import static org.smartregister.util.JsonFormUtils.VALUE;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
@@ -851,7 +854,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     public void testSaveStaticImagesToDiskShouldReturnIfMissingInformation() throws Exception {
         OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
         CompositeImage compositeImage = mock(CompositeImage.class);
-        doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
+        Mockito.doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
         getFormUtils().saveStaticImagesToDisk(mock(Context.class), compositeImage, onImageSavedCallback);
         verify(onImageSavedCallback).onImageSaved(isNull());
     }
@@ -910,6 +913,24 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         assertEquals("team", formTag.team);
     }
 
+    @Test
+    public void testGetFieldShouldGetAStepFieldIfItExists() throws JSONException {
+        JSONObject mJsonObject = new JSONObject();
+        JSONObject step = new JSONObject();
+        JSONArray stepFields = new JSONArray();
+        step.put(JsonFormConstants.FIELDS, stepFields);
+
+        JsonFormActivity jsonFormActivity = Mockito.mock(JsonFormActivity.class);
+        Mockito.doReturn(mJsonObject).when(jsonFormActivity).getmJSONObject();
+        Mockito.doReturn(step).when(jsonFormActivity).getStep(eq(JsonFormUtils.STEP1));
+        Assert.assertNull(getFormUtils().getField(JsonFormUtils.STEP1, JsonFormUtils.KEY, jsonFormActivity));
+
+        JSONObject stepField = new JSONObject();
+        stepField.put(JsonFormUtils.KEY, JsonFormUtils.KEY);
+        stepFields.put(stepField);
+        Assert.assertEquals(stepField, getFormUtils().getField(JsonFormUtils.STEP1, JsonFormUtils.KEY, jsonFormActivity));
+    }
+
     @Override
     protected String getMockForm() {
         return RDT_TEST_JSON_FORM;
@@ -927,21 +948,21 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Override
     protected int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException {
-        if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(KEY))) {
+        if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(JsonFormUtils.KEY))) {
             // test patient fields are populated
             assertEquals(field.getString("text"), patient.getPatientName());
             numOfPopulatedFields++;;
-        } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(KEY))) {
+        } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(JsonFormUtils.KEY))) {
             // test patient fields are populated
             assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
             numOfPopulatedFields++;
-        } else if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
+        } else if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(JsonFormUtils.KEY))) {
             // test rdt id labels are populated
             assertEquals(field.getString("text"), "RDT ID: " + UNIQUE_ID);
             numOfPopulatedFields++;
         } else if (getFormUtils().isRDTIdField(field)) {
             // test rdt id is populated
-            assertEquals(field.getString(VALUE), UNIQUE_ID);
+            assertEquals(field.getString(JsonFormUtils.VALUE), UNIQUE_ID);
             numOfPopulatedFields++;
         }
         return numOfPopulatedFields;

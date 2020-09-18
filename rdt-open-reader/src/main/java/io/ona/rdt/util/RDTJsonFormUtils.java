@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -390,5 +392,10 @@ public class RDTJsonFormUtils {
         formTag.teamId = settings.fetchDefaultTeamId(formTag.providerId);
         formTag.team = settings.fetchDefaultTeam(formTag.providerId);
         return formTag;
+    }
+
+    public static JSONObject getField(String step, String key, Context context) {
+        FormUtils formUtils = new FormUtils();
+        return formUtils.getFieldJSONObject(formUtils.getFormFields(step, context), key);
     }
 }

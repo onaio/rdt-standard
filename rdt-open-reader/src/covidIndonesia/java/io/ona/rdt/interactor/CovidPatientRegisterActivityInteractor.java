@@ -52,6 +52,7 @@ public class CovidPatientRegisterActivityInteractor extends PatientRegisterActiv
 
         Patient patient = new Patient(StringUtils.join(new String[]{firstName, lastName}, ' '),
                 sex, baseEntityId, patientId);
+        populateCommonPatientFields(patient, formFields);
 
         return isValidPatient(patient) ? patient : null;
     }
