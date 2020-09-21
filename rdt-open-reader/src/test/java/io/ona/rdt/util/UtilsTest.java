@@ -58,6 +58,7 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 public class UtilsTest extends PowerMockTest {
 
     private Utils utils;
+    private final String FALSE = "false";
 
     @Mock
     private RDTApplication rdtApplication;
@@ -170,27 +171,20 @@ public class UtilsTest extends PowerMockTest {
 
     @Test
     public void testTableExistsShouldReturnTrueForExistingTableFalseOtherwise() {
+        final String TABLE = "table";
         SQLiteDatabase db = mock(SQLiteDatabase.class);
         Cursor cursor = mock(Cursor.class);
         doReturn(1).when(cursor).getCount();
         doReturn(cursor).when(db).rawQuery(eq("SELECT name FROM sqlite_master WHERE type=? AND name=?"),
                 any(String[].class));
-        Assert.assertTrue(Utils.tableExists(db, "table"));
+        Assert.assertTrue(Utils.tableExists(db, TABLE));
         doReturn(0).when(cursor).getCount();
-        Assert.assertFalse(Utils.tableExists(db, "table"));
+        Assert.assertFalse(Utils.tableExists(db, TABLE));
     }
 
     @Test
     public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
         assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
-    }
-
-    @Test
-    public void testParseSafeBooleanShouldCorrectlyParseBooleanValue() {
-        Assert.assertFalse(Utils.parseSafeBoolean(""));
-        Assert.assertFalse(Utils.parseSafeBoolean(null));
-        Assert.assertFalse(Utils.parseSafeBoolean("false"));
-        Assert.assertTrue(Utils.parseSafeBoolean("true"));
     }
 
     private void mockStaticClasses() {
@@ -201,7 +195,7 @@ public class UtilsTest extends PowerMockTest {
         PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
 
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
-        doReturn("false").when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
+        doReturn(FALSE).when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
         doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(Constants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
     }

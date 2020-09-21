@@ -14,7 +14,6 @@ import java.util.Date;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
-import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -48,7 +47,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(Utils.parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
+                moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
                         convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);

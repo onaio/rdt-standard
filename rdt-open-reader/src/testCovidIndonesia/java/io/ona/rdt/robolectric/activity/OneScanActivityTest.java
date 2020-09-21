@@ -38,17 +38,21 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         final String additionalIdentifier =  "identifier";
         final String expirationDate = TestUtils.getFormattedDateWithOffset(-1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT);
         final String sensorNotTriggered = "No";
+        final String sensorTriggeredStr = "sensorTriggered";
+        final String expDateStr = "expirationDate";
+        final String serialNumberStr = "serialNumber";
+        final String performPostScanActionsMethod = "performPostScanActions";
 
         Bundle bundle = new Bundle();
         bundle.putString("status", "ok");
         bundle.putString("barcodeText", barcodeText);
-        bundle.putBoolean("sensorTriggered", sensorTriggered);
+        bundle.putBoolean(sensorTriggeredStr, sensorTriggered);
         bundle.putString("productId", productId);
         bundle.putString("lot", lot);
-        bundle.putString("expirationDate", TestUtils.getFormattedDateWithOffset(1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT));
-        bundle.putString("serialNumber", serialNumber);
+        bundle.putString(expDateStr, TestUtils.getFormattedDateWithOffset(1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT));
+        bundle.putString(serialNumberStr, serialNumber);
         bundle.putString("additionalIdentifier", additionalIdentifier);
-        ReflectionHelpers.callInstanceMethod(oneScanActivity, "performPostScanActions",
+        ReflectionHelpers.callInstanceMethod(oneScanActivity, performPostScanActionsMethod,
                 ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
 
         // for usable product, show valid product status
@@ -58,8 +62,8 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         Assert.assertEquals(View.VISIBLE, oneScanActivity.findViewById(R.id.valid_product_icon).getVisibility());
 
         // sensor triggered, show unusable product status
-        bundle.putBoolean("sensorTriggered", true);
-        ReflectionHelpers.callInstanceMethod(oneScanActivity, "performPostScanActions",
+        bundle.putBoolean(sensorTriggeredStr, true);
+        ReflectionHelpers.callInstanceMethod(oneScanActivity, performPostScanActionsMethod,
                 ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
         Assert.assertEquals(View.VISIBLE, oneScanActivity.findViewById(R.id.product_invalid_status).getVisibility());
         Assert.assertEquals(View.VISIBLE, oneScanActivity.findViewById(R.id.invalid_product_icon).getVisibility());
@@ -67,9 +71,9 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         Assert.assertEquals(View.GONE, oneScanActivity.findViewById(R.id.valid_product_icon).getVisibility());
 
         // product expired, show unusable product status
-        bundle.putBoolean("sensorTriggered", false);
-        bundle.putString("expirationDate", expirationDate);
-        ReflectionHelpers.callInstanceMethod(oneScanActivity, "performPostScanActions",
+        bundle.putBoolean(sensorTriggeredStr, false);
+        bundle.putString(expDateStr, expirationDate);
+        ReflectionHelpers.callInstanceMethod(oneScanActivity, performPostScanActionsMethod,
                 ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
         Assert.assertEquals(View.VISIBLE, oneScanActivity.findViewById(R.id.product_invalid_status).getVisibility());
         Assert.assertEquals(View.VISIBLE, oneScanActivity.findViewById(R.id.invalid_product_icon).getVisibility());
@@ -86,7 +90,7 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
 
         // verify details for missing information
         bundle = new Bundle();
-        bundle.putString("serialNumber", serialNumber);
+        bundle.putString(serialNumberStr, serialNumber);
         ReflectionHelpers.callInstanceMethod(oneScanActivity, "performPostScanActions",
                 ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
         verifyBarcodeResult(R.id.barcode_serial_no, serialNumber);
@@ -112,3 +116,4 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         return oneScanActivity;
     }
 }
+

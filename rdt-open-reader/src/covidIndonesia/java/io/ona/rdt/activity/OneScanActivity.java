@@ -57,7 +57,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
-               performPostScanActions(bundle);
+                performPostScanActions(bundle);
             }
         });
     }
