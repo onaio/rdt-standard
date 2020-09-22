@@ -85,7 +85,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
         }
     }
 
-    private boolean isRDTExpired(Date date) {
+    public static boolean isRDTExpired(Date date) {
         return date != null && new Date().after(date);
     }
 
