@@ -41,4 +41,8 @@ public class MinAllowedDateValidator extends METValidator {
 
         return  isValid;
     }
+
+    public String getMinAllowedDateStr() {
+        return minAllowedDateStr;
+    }
 }

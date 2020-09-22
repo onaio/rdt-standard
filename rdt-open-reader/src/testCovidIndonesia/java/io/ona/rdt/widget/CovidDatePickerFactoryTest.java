@@ -3,12 +3,10 @@ package io.ona.rdt.widget;
 import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.rengwuxian.materialedittext.validation.METValidator;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
-import com.vijay.jsonwizard.utils.ValidationStatus;
-import com.vijay.jsonwizard.widgets.DatePickerFactory;
-import com.vijay.jsonwizard.widgets.EditTextFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,8 +19,8 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.List;
 
 import io.ona.rdt.R;
-import io.ona.rdt.TestUtils;
 import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
+import io.ona.rdt.widget.validator.MinAllowedDateValidator;
 
 /**
  * Created by Vincent Karuri on 14/09/2020
@@ -35,6 +33,20 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
     public void setUp() throws JSONException {
         super.setUp();
         covidDatePickerFactory = new CovidDatePickerFactory();
+    }
+
+    @Test
+    public void testMinAllowedDateValidatorIsAdded() throws Exception {
+        String expectedMinAllowedDateStr = "today+1d";
+        String actualMinAllowedDateStr = null;
+        MaterialEditText datePickerEditText = getDatePickerEditText(expectedMinAllowedDateStr);
+        for (METValidator validator : datePickerEditText.getValidators()) {
+            if (validator instanceof MinAllowedDateValidator) {
+                actualMinAllowedDateStr = ((MinAllowedDateValidator) validator).getMinAllowedDateStr();
+            }
+        }
+        Assert.assertNotNull(actualMinAllowedDateStr);
+        Assert.assertEquals(actualMinAllowedDateStr, expectedMinAllowedDateStr);
     }
 
     private MaterialEditText getDatePickerEditText(String minAllowedDate) throws Exception {
