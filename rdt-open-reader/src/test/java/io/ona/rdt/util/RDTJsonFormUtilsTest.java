@@ -929,6 +929,9 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         stepField.put(JsonFormUtils.KEY, JsonFormUtils.KEY);
         stepFields.put(stepField);
         Assert.assertEquals(stepField, getFormUtils().getField(JsonFormUtils.STEP1, JsonFormUtils.KEY, jsonFormActivity));
+
+        // return null for non-existent step
+        Assert.assertNull(getFormUtils().getField("non-existent-step", JsonFormUtils.KEY, jsonFormActivity));
     }
 
     @Override
