@@ -33,11 +33,19 @@
                 app:sectionTitle="@{@string/covid_patient_profile_sample_collection}" />
 
             <include
-                android:id="@+id/patient_supporting_investigations_history_section"
+                android:id="@+id/patient_x_ray_history_section"
                 layout="@layout/patient_history_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:sectionTitle="@{@string/covid_patient_profile_supporting_investigations}" />
+                app:sectionTitle="@{@string/covid_xray}" />
+
+            <include
+                android:id="@+id/patient_white_blood_cell_count_history_section"
+                layout="@layout/patient_history_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="@{@string/covid_wbc}" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
