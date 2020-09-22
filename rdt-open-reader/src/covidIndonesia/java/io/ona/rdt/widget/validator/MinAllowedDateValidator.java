@@ -15,15 +15,20 @@ import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 /**
+ *
+ * Enforces the constraint that a date <= the specified maximum allowed date should be flagged as invalid
+ *
+ * Note that the allowed dates inclusive of the specified maximum allowed date itself
+ *
  * Created by Vincent Karuri on 14/09/2020
  */
-public class MaxAllowedDateValidator extends METValidator {
+public class MinAllowedDateValidator extends METValidator {
 
-    private String maxAllowedDateStr;
+    private String minAllowedDateStr;
 
-    public MaxAllowedDateValidator(@NonNull String errorMessage, String maxAllowedDateStr) {
+    public MinAllowedDateValidator(@NonNull String errorMessage, String minAllowedDateStr) {
         super(errorMessage);
-        this.maxAllowedDateStr = maxAllowedDateStr;
+        this.minAllowedDateStr = minAllowedDateStr;
     }
 
     @Override
@@ -35,9 +40,9 @@ public class MaxAllowedDateValidator extends METValidator {
         }
 
         try {
-            Date maxAllowedDate = FormUtils.getDate(maxAllowedDateStr).getTime();
+            Date minAllowedDate = FormUtils.getDate(minAllowedDateStr).getTime();
             Date selectedDate = Utils.convertDate(charSequence.toString(), DatePickerFactory.DATE_FORMAT.toPattern());
-            isValid = DateTimeComparator.getDateOnlyInstance().compare(selectedDate, maxAllowedDate) < 1;
+            isValid = DateTimeComparator.getDateOnlyInstance().compare(minAllowedDate, selectedDate) < 1;
         } catch (ParseException e) {
             Timber.e(e);
         }
