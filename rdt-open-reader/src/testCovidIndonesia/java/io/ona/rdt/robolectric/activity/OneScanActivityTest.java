@@ -91,7 +91,7 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         // verify details for missing information
         bundle = new Bundle();
         bundle.putString(serialNumberStr, serialNumber);
-        ReflectionHelpers.callInstanceMethod(oneScanActivity, "performPostScanActions",
+        ReflectionHelpers.callInstanceMethod(oneScanActivity, performPostScanActionsMethod,
                 ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
         verifyBarcodeResult(R.id.barcode_serial_no, serialNumber);
         verifyBarcodeResult(R.id.barcode_is_sensor_triggered, sensorNotTriggered);

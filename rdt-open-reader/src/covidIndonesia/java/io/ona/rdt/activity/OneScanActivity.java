@@ -78,7 +78,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         setBarcodeResult(R.id.barcode_additional_id, response.additionalIdentifier);
         setBarcodeResult(R.id.barcode_lot_no, response.lot);
         setBarcodeResult(R.id.barcode_expiration_date, response.expirationDate);
-        setBarcodeResult(R.id.barcode_is_sensor_triggered, response.sensorTriggered ? "Yes" : "No");
+        setBarcodeResult(R.id.barcode_is_sensor_triggered, response.sensorTriggered ? getString(R.string.yes) : getString(R.string.no));
     }
 
     private void setBarcodeResult(int viewId, String result) {

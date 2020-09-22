@@ -14,14 +14,6 @@ import androidx.annotation.NonNull;
 import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
-/**
- *
- * Enforces the constraint that a date <= the specified maximum allowed date should be flagged as invalid
- *
- * Note that the allowed dates inclusive of the specified maximum allowed date itself
- *
- * Created by Vincent Karuri on 14/09/2020
- */
 public class MinAllowedDateValidator extends METValidator {
 
     private String minAllowedDateStr;
