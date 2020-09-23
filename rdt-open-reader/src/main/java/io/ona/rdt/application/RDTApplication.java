@@ -97,15 +97,6 @@ public class RDTApplication extends DrishtiApplication {
         return repository;
     }
 
-    @Override
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().allSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
-    }
-
     public Context getContext() {
         return context;
     }
