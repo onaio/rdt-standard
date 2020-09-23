@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.vijay.jsonwizard.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.CovidPatientHistoryAdapter;
 import io.ona.rdt.contract.CovidPatientHistoryActivityContract;
@@ -53,6 +54,10 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
                     CovidConstants.Encounter.SAMPLE_COLLECTION);
             patientHistorySectionsMap.put(R.id.patient_symptoms_history_section,
                     CovidConstants.Encounter.PATIENT_DIAGNOSTICS);
+            patientHistorySectionsMap.put(R.id.patient_x_ray_history_section,
+                    CovidConstants.Encounter.COVID_XRAY);
+            patientHistorySectionsMap.put(R.id.patient_white_blood_cell_count_history_section,
+                    CovidConstants.Encounter.COVID_WBC);
         }
         return patientHistorySectionsMap;
     }
