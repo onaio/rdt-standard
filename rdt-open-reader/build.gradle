@@ -112,12 +112,14 @@ android {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
             versionNameSuffix "-MALARIA-ID"
+            buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.LoginActivity"'
         }
 
         malariaKenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"en\""
             versionNameSuffix "-MALARIA-KE"
+            buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.LoginActivity"'
         }
 
         covidIndonesia {
@@ -127,6 +129,7 @@ android {
             versionName "v1.5.0"
             versionNameSuffix "-COVID-ID"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
         }
     }
 }
