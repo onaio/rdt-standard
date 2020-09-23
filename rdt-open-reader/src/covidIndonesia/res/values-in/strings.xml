@@ -4,5 +4,5 @@
     <string name="covid_patient_profile_rdt">RDT</string>
     <string name="covid_patient_profile_sample_collection">Koleksi sampel</string>
     <string name="covid_patient_profile_supporting_investigations">Data klinis lainnya</string>
-    <string name="covid_patient_profile_sample_shipments">Pengiriman sampel</string>
+    <string name="covid_patient_profile_sample_shipments">Persiapan pengiriman</string>
 </resources>
