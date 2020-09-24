@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.codec.binary.Hex;
@@ -395,6 +396,9 @@ public class RDTJsonFormUtils {
     }
 
     public static JSONObject getField(String step, String key, Context context) {
+        if (((JsonApi) context).getStep(step) == null) {
+            return null;
+        }
         FormUtils formUtils = new FormUtils();
         return formUtils.getFieldJSONObject(formUtils.getFormFields(step, context), key);
     }

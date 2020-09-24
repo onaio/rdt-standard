@@ -6,8 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
-import androidx.annotation.StringRes;
-
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import net.sqlcipher.Cursor;
@@ -26,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.StringRes;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;

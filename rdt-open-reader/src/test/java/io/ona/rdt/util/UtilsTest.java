@@ -10,6 +10,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -39,9 +40,7 @@ import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 import static io.ona.rdt.util.Utils.convertDate;
 import static io.ona.rdt.widget.MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -59,6 +58,7 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 public class UtilsTest extends PowerMockTest {
 
     private Utils utils;
+    private final String FALSE = "false";
 
     @Mock
     private RDTApplication rdtApplication;
@@ -141,13 +141,13 @@ public class UtilsTest extends PowerMockTest {
     @Test
     public void testIsImageSyncEnabled() throws Exception {
         mockStaticClasses();
-        assertFalse(Whitebox.invokeMethod(utils, "isImageSyncEnabled"));
+        Assert.assertFalse(Whitebox.invokeMethod(utils, "isImageSyncEnabled"));
     }
 
     @Test
     public void testIsExpiredShouldReturnCorrectStatus() {
-        assertFalse(Utils.isExpired(getDateWithOffset(1)));
-        assertTrue(Utils.isExpired(getDateWithOffset(-1)));
+        Assert.assertFalse(Utils.isExpired(getDateWithOffset(1)));
+        Assert.assertTrue(Utils.isExpired(getDateWithOffset(-1)));
     }
 
     @Test
@@ -165,20 +165,21 @@ public class UtilsTest extends PowerMockTest {
         Set<String> actualStrings = new HashSet<>(Utils.convertJsonArrToListOfStrings(jsonArray));
         assertEquals(expectedStrings.size(), actualStrings.size());
         for (String str : actualStrings) {
-            assertTrue(expectedStrings.contains(str));
+            Assert.assertTrue(expectedStrings.contains(str));
         }
     }
 
     @Test
     public void testTableExistsShouldReturnTrueForExistingTableFalseOtherwise() {
+        final String TABLE = "table";
         SQLiteDatabase db = mock(SQLiteDatabase.class);
         Cursor cursor = mock(Cursor.class);
         doReturn(1).when(cursor).getCount();
         doReturn(cursor).when(db).rawQuery(eq("SELECT name FROM sqlite_master WHERE type=? AND name=?"),
                 any(String[].class));
-        assertTrue(Utils.tableExists(db, "table"));
+        Assert.assertTrue(Utils.tableExists(db, TABLE));
         doReturn(0).when(cursor).getCount();
-        assertFalse(Utils.tableExists(db, "table"));
+        Assert.assertFalse(Utils.tableExists(db, TABLE));
     }
 
     @Test
@@ -194,7 +195,7 @@ public class UtilsTest extends PowerMockTest {
         PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
 
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
-        doReturn("false").when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
+        doReturn(FALSE).when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
         doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(Constants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
     }

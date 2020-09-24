@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.ona.rdt.R;
-import io.ona.rdt.widget.validator.MaxAllowedDateValidator;
+import io.ona.rdt.widget.validator.MinAllowedDateValidator;
 import timber.log.Timber;
 
 /**
@@ -32,7 +32,7 @@ public class CovidDatePickerFactory extends DatePickerFactory {
             JSONObject maxAllowDateObj = jsonObject.getJSONObject(V_MIN_ALLOWED_DATE);
             if (maxAllowDateObj != null) {
                 editText.setId(R.id.edit_text);
-                editText.addValidator(new MaxAllowedDateValidator(maxAllowDateObj.getString(JsonFormConstants.ERR),
+                editText.addValidator(new MinAllowedDateValidator(maxAllowDateObj.getString(JsonFormConstants.ERR),
                         maxAllowDateObj.getString(JsonFormConstants.VALUE)));
             }
         } catch (JSONException e) {

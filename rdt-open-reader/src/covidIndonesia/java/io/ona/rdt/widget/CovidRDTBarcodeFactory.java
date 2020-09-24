@@ -4,7 +4,6 @@ import android.content.Intent;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
-import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +14,6 @@ import java.util.Date;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
-import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -35,6 +33,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     private final String GTIN = "gtin";
     private final String TEMP_SENSOR = "temp_sensor";
 
+    public static final String RDT_BARCODE_EXPIRATION_DATE_FORMAT = "YYYY-MM-dd";
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
@@ -47,7 +47,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 String[] individualVals = splitCSV(barcodeVals);
                 populateRelevantFields(individualVals);
-                moveToNextStep(parseSafeBoolean(individualVals[SENSOR_TRIGGER_INDEX]), convertDate(individualVals[1], "YYYY-MM-dd"));
+                moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
+                        convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
             } catch (JSONException | ParseException e) {
                 Timber.e(e);
             }
@@ -74,7 +75,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
         // write unique id to confirmation page
         String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
-        JSONObject uniqueIdCheckBox = RDTJsonFormUtils.getField(patientInfoConfirmationPage,
+        JSONObject uniqueIdCheckBox = CovidRDTJsonFormUtils.getField(patientInfoConfirmationPage,
                         CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
                         widgetArgs.getContext());
         CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
@@ -85,15 +86,6 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
             navigateToUnusableProductPage();
         } else {
             moveToNextStep(expDate);
-        }
-    }
-
-    private boolean parseSafeBoolean(String input) {
-        try {
-            return Boolean.parseBoolean(input);
-        } catch (Exception ex) {
-            Timber.e(ex);
-            return false;
         }
     }
 }

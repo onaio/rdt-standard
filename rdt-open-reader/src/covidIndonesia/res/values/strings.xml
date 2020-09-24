@@ -4,12 +4,21 @@
     <string name="covid_patient_profile_rdt">RDT</string>
     <string name="covid_patient_profile_sample_collection">Sample collection</string>
     <string name="covid_patient_profile_supporting_investigations">Other clinical data</string>
-    <string name="covid_patient_profile_sample_shipments">Sample shipments</string>
+    <string name="covid_patient_profile_sample_shipments">Shipping preparation</string>
     <string name="covid_patient_forms_tab_name">Patient Forms</string>
     <string name="covid_patient_history_tab_name">Patient History</string>
     <string name="covid_xray">X-Ray</string>
     <string name="covid_wbc">White Blood Cell count</string>
     <string name="no_data_available">No data available</string>
+    <string name="covid_barcode_product_id">Product ID</string>
+    <string name="covid_barcode_serial_no">Serial Number</string>
+    <string name="covid_barcode_additional_id">Additional ID</string>
+    <string name="covid_barcode_lot_no">Lot</string>
+    <string name="covid_barcode_expiration_date">Expiration Date</string>
+    <string name="covid_barcode_is_sensor_triggered">Heat sensor triggered</string>
+    <string name="sensor_activated">Status: Sensor Activated</string>
+    <string name="sensor_status_ok">Status: OK</string>
+    <string name="no_barcode_captured_err">Please capture a barcode to continue!</string>
     <string-array name="locales_key">
         <item>English</item>
         <item>Indonesia</item>

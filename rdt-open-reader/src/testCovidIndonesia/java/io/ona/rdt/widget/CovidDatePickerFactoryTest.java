@@ -3,12 +3,10 @@ package io.ona.rdt.widget;
 import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.rengwuxian.materialedittext.validation.METValidator;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
-import com.vijay.jsonwizard.utils.ValidationStatus;
-import com.vijay.jsonwizard.widgets.DatePickerFactory;
-import com.vijay.jsonwizard.widgets.EditTextFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,11 +16,11 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.smartregister.util.JsonFormUtils;
 
-import java.util.Date;
 import java.util.List;
 
 import io.ona.rdt.R;
 import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
+import io.ona.rdt.widget.validator.MinAllowedDateValidator;
 
 /**
  * Created by Vincent Karuri on 14/09/2020
@@ -38,24 +36,17 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
     }
 
     @Test
-    public void testMinDateValidationShouldRejectInvalidDates() throws Exception {
-        // yesterday was the last valid day
-        MaterialEditText datePickerEditText = getDatePickerEditText("today-1d");
-        datePickerEditText.setText(getTodaysDate());
-        ValidationStatus validationStatus = EditTextFactory.validate(Mockito.mock(JsonFormFragment.class), datePickerEditText);
-        Assert.assertFalse(validationStatus.isValid());
-
-        // today is the last valid day
-        datePickerEditText = getDatePickerEditText("today");
-        datePickerEditText.setText(getTodaysDate());
-        validationStatus = EditTextFactory.validate(Mockito.mock(JsonFormFragment.class), datePickerEditText);
-        Assert.assertTrue(validationStatus.isValid());
-
-        // tomorrow is the last valid day
-        datePickerEditText = getDatePickerEditText("today+1d");
-        datePickerEditText.setText(getTodaysDate());
-        validationStatus = EditTextFactory.validate(Mockito.mock(JsonFormFragment.class), datePickerEditText);
-        Assert.assertTrue(validationStatus.isValid());
+    public void testMinAllowedDateValidatorIsAdded() throws Exception {
+        String expectedMinAllowedDateStr = "today+1d";
+        String actualMinAllowedDateStr = null;
+        MaterialEditText datePickerEditText = getDatePickerEditText(expectedMinAllowedDateStr);
+        for (METValidator validator : datePickerEditText.getValidators()) {
+            if (validator instanceof MinAllowedDateValidator) {
+                actualMinAllowedDateStr = ((MinAllowedDateValidator) validator).getMinAllowedDateStr();
+            }
+        }
+        Assert.assertNotNull(actualMinAllowedDateStr);
+        Assert.assertEquals(actualMinAllowedDateStr, expectedMinAllowedDateStr);
     }
 
     private MaterialEditText getDatePickerEditText(String minAllowedDate) throws Exception {
@@ -64,10 +55,6 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
         View rootLayout = views.get(0);
 
         return rootLayout.findViewById(R.id.edit_text);
-    }
-
-    private String getTodaysDate() {
-        return DatePickerFactory.DATE_FORMAT.format(new Date());
     }
 
     private JSONObject getWidget(String minAllowedDate) throws JSONException {
