@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt.BuildConfig;
-import io.ona.rdt.activity.CovidLoginActivity;
 import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.application.RDTApplication;
 import timber.log.Timber;

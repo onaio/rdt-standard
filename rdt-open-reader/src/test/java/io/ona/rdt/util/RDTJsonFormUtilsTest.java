@@ -902,7 +902,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     @Test
     public void testGetFormTagShouldPopulateTagWithCorrectMetadata() {
         AllSettings settings = RDTApplication.getInstance().getContext().allSettings();
-        settings.registerANM("provider", "");
+        settings.registerANM("provider");
         settings.getPreferences().saveDefaultLocalityId("provider", "location-id");
         settings.getPreferences().saveDefaultTeam("provider", "team");
         settings.getPreferences().saveDefaultTeamId("provider", "team-id");
