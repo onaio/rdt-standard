@@ -165,7 +165,6 @@ dependencies {
         exclude group: 'com.google.android.gms', module: 'play-services-basement'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
         exclude group: 'com.google.android.gms', module: 'play-services-vision'
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
@@ -178,7 +177,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
