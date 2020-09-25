@@ -43,8 +43,10 @@ android {
         if (project.rootProject.file("local.properties").exists()) {
             Properties properties = new Properties()
             properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
-            buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
+            def clientId = properties["oauth.client.id"]
+            def clientSecret = properties["oauth.client.secret"]
+            buildConfigField "String", "OAUTH_CLIENT_ID", clientId ? "$clientId" : ""
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", clientSecret ? "$clientSecret" : ""
         }
     }
 
