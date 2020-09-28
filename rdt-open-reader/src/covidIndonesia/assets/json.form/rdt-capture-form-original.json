@@ -258,6 +258,14 @@
             "text": "IgG/IgM Single Line Combo"
           },
           {
+            "key": "IgG",
+            "text": "IgG"
+          },
+          {
+            "key": "IgM",
+            "text": "IgM"
+          },
+          {
             "key": "other",
             "text": "Other"
           }
