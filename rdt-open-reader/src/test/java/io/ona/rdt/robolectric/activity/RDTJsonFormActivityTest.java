@@ -3,7 +3,6 @@ package io.ona.rdt.robolectric.activity;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
-import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
@@ -37,7 +36,7 @@ public class RDTJsonFormActivityTest extends JsonFormActivityTest {
     private RDTJsonFormActivity rdtJsonFormActivity;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         rdtJsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class, intent).create()
                 .resume()

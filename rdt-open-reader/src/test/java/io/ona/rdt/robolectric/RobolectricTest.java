@@ -7,12 +7,17 @@ package io.ona.rdt.robolectric;
 import android.os.Build;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.util.CredentialsHelper;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import io.ona.rdt.application.RDTApplication;
@@ -41,6 +46,14 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
         SQLiteDatabaseShadow.class, GpsDialogShadow.class, MatShadow.class,
         ClientProcessorForJavaShadow.class, ImageUtilShadow.class})
 public abstract class RobolectricTest {
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        CredentialsHelper credentialsHelper = Mockito.mock(CredentialsHelper.class);
+        Mockito.doReturn("password".getBytes()).when(credentialsHelper).getCredentials(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
+        ReflectionHelpers.setField(DrishtiApplication.getInstance(), "credentialsHelper", credentialsHelper);
+    }
 
     @After
     public void tearDown() {

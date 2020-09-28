@@ -12,11 +12,6 @@ import org.smartregister.repository.EventClientRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-
 /**
  * Created by Vincent Karuri on 04/08/2020
  */

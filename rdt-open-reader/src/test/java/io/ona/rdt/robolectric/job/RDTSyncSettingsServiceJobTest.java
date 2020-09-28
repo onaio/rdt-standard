@@ -8,8 +8,6 @@ import com.evernote.android.job.Job;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.robolectric.Shadows;
 import org.robolectric.util.ReflectionHelpers;
 
