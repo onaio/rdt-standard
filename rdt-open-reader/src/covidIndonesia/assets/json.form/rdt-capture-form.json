@@ -158,22 +158,17 @@
         }
       },
       {
-        "key": "health_facility_name_lbl",
-        "type": "label",
-        "text": "{{rdt-capture-form-original.step4.health_facility_name_lbl.text}}",
-        "top_margin": "15dp",
-        "text_color": "#000000"
-      },
-      {
         "key": "health_facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "spinner",
+        "hint": "{{rdt-capture-form-original.step4.health_facility_name.hint}}",
         "v_required": {
           "value": "false",
           "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
-        }
+        },
+        "values": []
       }
     ]
   },

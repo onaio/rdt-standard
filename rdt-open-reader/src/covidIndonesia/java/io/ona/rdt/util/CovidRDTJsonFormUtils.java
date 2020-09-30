@@ -8,12 +8,14 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import io.ona.rdt.activity.CovidJsonFormActivity;
@@ -117,6 +119,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         }
+        else if (CovidConstants.FormFields.FACILITY_NAME.equals(key) || CovidConstants.FormFields.HEALTH_FACILITY_NAME.equals(key) || CovidConstants.FormFields.OTHER_HEALTH_FACILITY_TYPE_NAME.equals(key)) {
+            field.put(JsonFormUtils.VALUES, getLocations());
+        }
     }
 
     @Override
@@ -146,5 +151,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     private String getLoggedInUserPreferredName() {
         final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
         return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
+    }
+
+    private JSONArray getLocations() {
+        JSONArray jsonArray = new JSONArray();
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
+        List<String> locations = LocationHelper.getInstance().getOpenMrsLocationHierarchy(defaultLocationUuid, false);
+        for (String location : locations) {
+            jsonArray.put(location);
+        }
+        return jsonArray;
     }
 }

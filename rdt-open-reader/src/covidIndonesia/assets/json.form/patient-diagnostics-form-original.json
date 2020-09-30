@@ -89,21 +89,17 @@
         }
       },
       {
-        "key": "facility_name_label",
-        "type": "label",
-        "text": "Name of facility",
-        "text_color": "#000000"
-      },
-      {
         "key": "facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "spinner",
+        "hint": "Name of facility",
         "v_required": {
           "value": "false",
           "err": ""
-        }
+        },
+        "values": []
       },
       {
         "key": "patient_age",

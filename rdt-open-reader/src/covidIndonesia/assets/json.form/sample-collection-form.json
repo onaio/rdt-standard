@@ -450,24 +450,12 @@
         }
       },
       {
-        "key": "other_health_facility_type_name_lbl",
-        "type": "label",
-        "text": "{{sample-collection-form-original.step1.other_health_facility_type_name_lbl.text}}",
-        "text_color": "#000000",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sample-collection-form-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "other_health_facility_type_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "spinner",
+        "hint": "{{sample-collection-form-original.step1.other_health_facility_type_name.hint}}",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -478,7 +466,8 @@
         "v_required": {
           "value": "false",
           "err": "{{sample-collection-form-original.step1.other_health_facility_type_name.v_required.err}}"
-        }
+        },
+        "values": []
       },
       {
         "key": "doctor_name_label",
