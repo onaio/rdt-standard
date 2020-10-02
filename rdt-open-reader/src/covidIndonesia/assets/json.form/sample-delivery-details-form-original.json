@@ -316,7 +316,7 @@
           "err": "This field is required"
         },
         "v_regex": {
-          "value": "\\S+@\\S+\\.\\S+",
+          "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
           "err": "Please enter a valid email address"
         }
       }
