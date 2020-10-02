@@ -258,6 +258,14 @@
             "text": "{{rdt-capture-form-original.step6.rdt_type.options.single_line.text}}"
           },
           {
+            "key": "IgG",
+            "text": "{{rdt-capture-form-original.step6.rdt_type.options.IgG.text}}"
+          },
+          {
+            "key": "IgM",
+            "text": "{{rdt-capture-form-original.step6.rdt_type.options.IgM.text}}"
+          },
+          {
             "key": "other",
             "text": "{{rdt-capture-form-original.step6.rdt_type.options.other.text}}"
           }
