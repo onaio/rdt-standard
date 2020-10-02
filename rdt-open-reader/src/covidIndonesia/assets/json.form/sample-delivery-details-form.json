@@ -316,7 +316,7 @@
           "err": "{{sample-delivery-details-form-original.step4.sender_email.v_required.err}}"
         },
         "v_regex": {
-          "value": "\\S+@\\S+\\.\\S+",
+          "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
           "err": "{{sample-delivery-details-form-original.step4.sender_email.v_regex.err}}"
         }
       }
