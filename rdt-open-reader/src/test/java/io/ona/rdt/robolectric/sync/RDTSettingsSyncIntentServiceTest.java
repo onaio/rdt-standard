@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.job.LocationStructureServiceJob;
 
 import io.ona.rdt.job.ImageUploadSyncServiceJob;
 import io.ona.rdt.robolectric.shadow.BaseJobShadow;
@@ -29,10 +30,11 @@ public class RDTSettingsSyncIntentServiceTest extends IntentServiceRobolectricTe
 
     @Test
     public void testOnHandleIntentShouldCallSuperAndInitiateImageUpload() {
-        Assert.assertNull(BaseJobShadow.getJobTag());
+        Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
         ReflectionHelpers.callInstanceMethod(syncIntentService, "onHandleIntent",
                 ReflectionHelpers.ClassParameter.from(Intent.class, new Intent()));
         Assert.assertEquals(1, SyncIntentServiceShadow.getMockCounter().getCount());
-        Assert.assertEquals(ImageUploadSyncServiceJob.TAG, BaseJobShadow.getJobTag());
+        Assert.assertEquals(LocationStructureServiceJob.TAG, BaseJobShadow.getJobTags().get(0));
+        Assert.assertEquals(ImageUploadSyncServiceJob.TAG, BaseJobShadow.getJobTags().get(1));
     }
 }

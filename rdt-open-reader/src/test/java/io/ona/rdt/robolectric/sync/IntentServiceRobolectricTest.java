@@ -12,6 +12,6 @@ public abstract class IntentServiceRobolectricTest extends RobolectricTest {
 
     @After
     public void tearDown() {
-        BaseJobShadow.setJobTag(null);
+        BaseJobShadow.getJobTags().clear();
     }
 }
