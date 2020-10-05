@@ -10,15 +10,25 @@ import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.repository.DrishtiRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.LocationRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
+import org.smartregister.repository.StructureRepository;
+import org.smartregister.repository.TaskRepository;
 
 import java.util.List;
 
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.EventClientRepositoryShadow;
+import io.ona.rdt.robolectric.shadow.LocationRepositoryShadow;
 import io.ona.rdt.robolectric.shadow.ParasiteProfileRepositoryShadow;
+import io.ona.rdt.robolectric.shadow.PlanDefinitionRepositoryShadow;
+import io.ona.rdt.robolectric.shadow.PlanDefinitionSearchRepositoryShadow;
 import io.ona.rdt.robolectric.shadow.RDTTestsRepositoryShadow;
 import io.ona.rdt.robolectric.shadow.SettingsRepositoryShadow;
+import io.ona.rdt.robolectric.shadow.StructureRepositoryShadow;
+import io.ona.rdt.robolectric.shadow.TaskRepositoryShadow;
 import io.ona.rdt.robolectric.shadow.UniqueIdRepositoryShadow;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +41,9 @@ import static org.mockito.Mockito.doReturn;
 
 @Config(shadows = {EventClientRepositoryShadow.class, UniqueIdRepositoryShadow.class,
         SettingsRepositoryShadow.class, RDTTestsRepositoryShadow.class,
-        ParasiteProfileRepositoryShadow.class})
+        ParasiteProfileRepositoryShadow.class, PlanDefinitionSearchRepositoryShadow.class,
+        PlanDefinitionRepositoryShadow.class, StructureRepositoryShadow.class, TaskRepositoryShadow.class,
+        LocationRepositoryShadow.class})
 public class RDTRepositoryTest extends RobolectricTest {
 
     private RDTRepository rdtRepository;
@@ -70,6 +82,12 @@ public class RDTRepositoryTest extends RobolectricTest {
         assertEquals(db, RDTTestsRepositoryShadow.getArgs().get(0));
         // set up parasite profile repository
         assertEquals(db, ParasiteProfileRepositoryShadow.getArgs().get(0));
+
+        assertEquals(db, LocationRepositoryShadow.getArgs().get(0));
+        assertEquals(db, TaskRepositoryShadow.getArgs().get(0));
+        assertEquals(db, StructureRepositoryShadow.getArgs().get(0));
+        assertEquals(db, PlanDefinitionRepositoryShadow.getArgs().get(0));
+        assertEquals(db, PlanDefinitionSearchRepositoryShadow.getArgs().get(0));
     }
 
     @Test

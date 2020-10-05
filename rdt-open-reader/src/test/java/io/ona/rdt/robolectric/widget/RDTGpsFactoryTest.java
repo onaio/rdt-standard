@@ -8,7 +8,6 @@ import android.widget.ScrollView;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,7 +50,7 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
     private final String STEP1 = "step1";
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         mockMethods();
         gpsFactory = new RDTGpsFactory();

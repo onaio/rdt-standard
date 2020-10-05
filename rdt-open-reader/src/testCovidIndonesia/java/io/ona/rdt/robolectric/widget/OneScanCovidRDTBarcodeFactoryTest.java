@@ -3,7 +3,6 @@ package io.ona.rdt.robolectric.widget;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 
-import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -24,7 +23,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     private JsonFormActivity jsonFormActivity;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         oneScanCovidRDTBarcodeFactory = new OneScanCovidRDTBarcodeFactory();
         setWidgetArgs();

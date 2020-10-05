@@ -17,11 +17,9 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.repository.EventClientRepository;
 
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.contract.PatientProfileFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.interactor.PatientProfileFragmentInteractor;
-import io.ona.rdt.presenter.PatientProfileFragmentPresenter;
 
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;
 import static org.junit.Assert.assertEquals;

@@ -8,8 +8,6 @@ import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
 
-import java.util.Stack;
-
 /**
  * Created by Vincent Karuri on 24/07/2020
  */

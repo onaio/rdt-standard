@@ -5,26 +5,25 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
-import org.smartregister.domain.db.Column;
-import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.LocationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ona.rdt.repository.ParasiteProfileRepository;
+
 /**
  * Created by Vincent Karuri on 04/08/2020
  */
-@Implements(EventClientRepository.class)
-public class EventClientRepositoryShadow extends Shadow {
+
+@Implements(LocationRepository.class)
+public class LocationRepositoryShadow extends Shadow {
 
     private static List<Object> args = new ArrayList<>();
 
     @Implementation
-    public static void createTable(SQLiteDatabase db, BaseRepository.BaseTable table, Column[] columns) {
+    public static void createTable(SQLiteDatabase db) {
         args.add(db);
-        args.add(table);
-        args.add(columns);
     }
 
     public static List<Object> getArgs() {

@@ -3,6 +3,7 @@ package io.ona.rdt.robolectric.job;
 import org.junit.Assert;
 import org.junit.Test;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.LocationStructureServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
 import io.ona.rdt.job.ImageUploadSyncServiceJob;
@@ -23,6 +24,7 @@ public class RDTJobCreatorTest extends RobolectricTest {
         Assert.assertTrue(jobCreator.create(ImageUploadSyncServiceJob.TAG) instanceof ImageUploadServiceJob);
         Assert.assertTrue(jobCreator.create(PullUniqueIdsServiceJob.TAG) instanceof PullUniqueIdsServiceJob);
         Assert.assertTrue(jobCreator.create(RDTSyncSettingsServiceJob.TAG) instanceof RDTSyncSettingsServiceJob);
+        Assert.assertTrue(jobCreator.create(LocationStructureServiceJob.TAG) instanceof LocationStructureServiceJob);
         Assert.assertNull(jobCreator.create(""));
     }
 }

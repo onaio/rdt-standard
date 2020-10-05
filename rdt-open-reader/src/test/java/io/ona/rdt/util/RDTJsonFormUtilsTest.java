@@ -5,9 +5,6 @@ import android.graphics.Bitmap;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.interfaces.JsonApi;
-
-import androidx.core.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +28,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.core.util.Pair;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
 import io.ona.rdt.callback.OnUniqueIdsFetchedCallback;
@@ -799,7 +797,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     private ArgumentCaptor<List<UniqueId>> uniqueIdsArgumentCaptor;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         RDT_TEST_JSON_FORM_OBJ = new JSONObject(RDT_TEST_JSON_FORM);
     }
@@ -902,7 +900,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     @Test
     public void testGetFormTagShouldPopulateTagWithCorrectMetadata() {
         AllSettings settings = RDTApplication.getInstance().getContext().allSettings();
-        settings.registerANM("provider", "");
+        settings.registerANM("provider");
         settings.getPreferences().saveDefaultLocalityId("provider", "location-id");
         settings.getPreferences().saveDefaultTeam("provider", "team");
         settings.getPreferences().saveDefaultTeamId("provider", "team-id");

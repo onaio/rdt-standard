@@ -7,7 +7,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.mockito.MockitoAnnotations;
 
 /**
  * Created by Vincent Karuri on 16/09/2020
@@ -18,8 +17,8 @@ public abstract class JsonFormActivityTest extends ActivityRobolectricTest {
     private JSONObject mJSONObject;
 
     @Before
-    public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() throws Exception {
+        super.setUp();
         mockMethods();
     }
 

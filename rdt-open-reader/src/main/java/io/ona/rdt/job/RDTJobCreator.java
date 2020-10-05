@@ -8,6 +8,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.LocationStructureServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 
 import io.ona.rdt.sync.RDTSyncIntentService;
@@ -31,6 +32,8 @@ public class RDTJobCreator implements JobCreator {
                 return new PullUniqueIdsServiceJob();
             case RDTSyncSettingsServiceJob.TAG:
                 return new RDTSyncSettingsServiceJob();
+            case LocationStructureServiceJob.TAG:
+                return new LocationStructureServiceJob();
             default:
                 Log.w(TAG, tag + " is not declared in RDTJobCreator Job Creator");
                 return null;

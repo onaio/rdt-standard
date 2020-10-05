@@ -1,9 +1,5 @@
 package io.ona.rdt.robolectric.shadow;
 
-import android.annotation.TargetApi;
-import android.os.AsyncTask;
-import android.os.Build;
-
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
