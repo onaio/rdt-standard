@@ -47,5 +47,7 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="gameto_prefix">Pf. gameto - </string>
     <string name="lang_english">English</string>
     <string name="lang_indonesia">Indonesia</string>
+    <string name="show_password_text">Show Password</string>
+    <string name="login_text">Log In</string>
 </resources>
 

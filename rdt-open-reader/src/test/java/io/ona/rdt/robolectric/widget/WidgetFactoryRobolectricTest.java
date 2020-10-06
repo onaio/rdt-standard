@@ -9,12 +9,10 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.robolectric.RobolectricTest;
-import io.ona.rdt.widget.RDTGpsFactory;
 
 /**
  * Created by Vincent Karuri on 11/08/2020
@@ -24,8 +22,8 @@ public abstract class WidgetFactoryRobolectricTest extends RobolectricTest {
     protected RDTJsonFormActivity jsonFormActivity;
 
     @Before
-    public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() throws Exception {
+        super.setUp();
         jsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class,
                 getJsonFormActivityIntent())
                 .create()

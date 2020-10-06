@@ -6,8 +6,13 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.LocationRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
+import org.smartregister.repository.StructureRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.repository.UniqueIdRepository;
 
 import timber.log.Timber;
@@ -34,6 +39,11 @@ public class RDTRepository extends Repository {
         SettingsRepository.onUpgrade(database);
         RDTTestsRepository.createIndexes(database);
         ParasiteProfileRepository.createIndexes(database);
+        LocationRepository.createTable(database);
+        TaskRepository.createTable(database);
+        StructureRepository.createTable(database);
+        PlanDefinitionRepository.createTable(database);
+        PlanDefinitionSearchRepository.createTable(database);
     }
 
     @Override

@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
@@ -57,9 +56,8 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
 
     @Before
     @Override
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
-        MockitoAnnotations.initMocks(this);
         rdtCaptureFactory = new UWRDTCaptureFactory();
     }
 

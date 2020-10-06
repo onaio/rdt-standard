@@ -7,7 +7,6 @@ import org.mockito.MockitoAnnotations;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.robolectric.RobolectricTest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -36,12 +35,6 @@ public class RDTApplicationTest extends RobolectricTest {
     @Test
     public void testGetRepositoryShouldReturnNonNullRepository() {
         assertNotNull(application.getRepository());
-    }
-
-    @Test
-    public void testGetPasswordShouldGetCorrectPassword() {
-        application.getContext().allSharedPreferences().updateANMUserName("user");
-        assertEquals("password", application.getPassword());
     }
 
     @Test

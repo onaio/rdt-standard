@@ -30,7 +30,7 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
     private CovidDatePickerFactory covidDatePickerFactory;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         covidDatePickerFactory = new CovidDatePickerFactory();
     }

@@ -97,7 +97,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:331993165051:android:95daf17b088839deb8545e",
         "android_client_info": {
-          "package_name": "io.ona.rdt.covid.id"
+          "package_name": "io.ona.diagnostics.rdt.configurable"
         }
       },
       "oauth_client": [

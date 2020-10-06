@@ -3,11 +3,9 @@ package io.ona.rdt.robolectric.activity;
 import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +22,7 @@ public class CovidJsonFormActivityTest extends JsonFormActivityTest {
     private CovidJsonFormActivity jsonFormActivity;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         jsonFormActivity = Robolectric.buildActivity(CovidJsonFormActivity.class, intent).create().resume().get();
         jsonFormActivity = Mockito.spy(jsonFormActivity);

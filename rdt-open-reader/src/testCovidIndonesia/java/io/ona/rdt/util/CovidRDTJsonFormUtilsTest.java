@@ -791,7 +791,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "}";
 
     @Override
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         allSharedPreferences.updateANMUserName("anm_id");

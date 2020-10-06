@@ -23,7 +23,6 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 
 /**
  * Created by Vincent Karuri on 24/07/2020
@@ -51,7 +50,10 @@ public class OpenSRPContextShadow extends Shadow {
     public UserService userService() {
         if (userService == null) {
             userService = Mockito.mock(UserService.class);
-            doReturn("password").when(userService).getGroupId(any());
+            AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+            Mockito.doReturn("user").when(allSharedPreferences).fetchRegisteredANM();
+            Mockito.doReturn(allSharedPreferences).when(userService).getAllSharedPreferences();
+            Mockito.doReturn("password".getBytes()).when(userService).getGroupId(any());
         }
         return userService;
     }
@@ -62,7 +64,7 @@ public class OpenSRPContextShadow extends Shadow {
             uniqueIdRepository = Mockito.mock(UniqueIdRepository.class);
             UniqueId uniqueId = new UniqueId();
             uniqueId.setOpenmrsId("openmrsID1");
-            doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
+            Mockito.doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
         }
         return uniqueIdRepository;
     }
@@ -98,7 +100,7 @@ public class OpenSRPContextShadow extends Shadow {
     private Repository getMasterRepository() {
         Repository masterRepository = Mockito.mock(Repository.class);
         SQLiteDatabase db = Mockito.mock(SQLiteDatabase.class);
-        doReturn(db).when(masterRepository).getWritableDatabase();
+        Mockito.doReturn(db).when(masterRepository).getWritableDatabase();
         return masterRepository;
     }
 
