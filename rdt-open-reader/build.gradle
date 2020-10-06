@@ -22,7 +22,7 @@ android {
         applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 5
+        versionCode 6
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
@@ -38,6 +38,16 @@ android {
             annotationProcessorOptions {
                 includeCompileClasspath true
             }
+        }
+
+        if (project.rootProject.file("local.properties").exists()) {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
+        } else {
+            buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
         }
     }
 
@@ -105,21 +115,24 @@ android {
             resValue "string", 'opensrp_base_url', '"https://rdt-id.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
             versionNameSuffix "-MALARIA-ID"
+            buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.LoginActivity"'
         }
 
         malariaKenya {
             resValue "string", 'opensrp_base_url', '"https://rdt-ke.smartregister.org/opensrp/"'
             buildConfigField "String", "LOCALE", "\"en\""
             versionNameSuffix "-MALARIA-KE"
+            buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.LoginActivity"'
         }
 
         covidIndonesia {
-            applicationId "io.ona.rdt.covid.id"
+            applicationId "io.ona.diagnostics.rdt.configurable"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.5.0"
-            versionNameSuffix "-COVID-ID"
+            versionName "v1.6.0"
+            versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
         }
     }
 }
@@ -148,15 +161,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.15.5.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:2.2.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
         exclude group: 'com.google.android.gms', module: 'play-services-basement'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
-        exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
         exclude group: 'com.google.android.gms', module: 'play-services-vision'
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
@@ -169,7 +180,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])

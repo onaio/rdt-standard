@@ -7,9 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 
 import java.util.ArrayList;
@@ -29,11 +27,6 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
 
     protected final String UNIQUE_ID = "unique_id";
     protected final int AGE = 20;
-
-    @Before
-    public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testPrePopulateFormFieldsShouldPopulateCorrectValues() throws JSONException {

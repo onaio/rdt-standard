@@ -26,6 +26,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -105,6 +106,11 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     protected Fragment[] getOtherFragments() {
         return new Fragment[0];
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        // TODO: implement this
     }
 
     @Override

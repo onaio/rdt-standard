@@ -6,7 +6,6 @@ import android.view.View;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
 
 import androidx.fragment.app.testing.FragmentScenario;
@@ -16,7 +15,6 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
-import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 
 import static io.ona.rdt.util.Constants.Form.PATIENT_REGISTRATION_FORM;
 import static io.ona.rdt.util.Constants.Form.RDT_TEST_FORM;

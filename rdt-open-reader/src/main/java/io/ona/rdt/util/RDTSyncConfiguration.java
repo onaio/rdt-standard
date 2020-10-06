@@ -3,12 +3,15 @@ package io.ona.rdt.util;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt.BuildConfig;
+import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.application.RDTApplication;
+import timber.log.Timber;
 
 /**
  * Created by Vincent Karuri on 14/06/2019
@@ -77,5 +80,26 @@ public class RDTSyncConfiguration extends SyncConfiguration {
     @Override
     public String getTopAllowedLocationLevel() {
         return "";
+    }
+
+    @Override
+    public String getOauthClientId() {
+        return BuildConfig.OAUTH_CLIENT_ID;
+    }
+
+    @Override
+    public String getOauthClientSecret() {
+        return BuildConfig.OAUTH_CLIENT_SECRET;
+    }
+
+    @Override
+    public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
+        Class loginActivityClass = LoginActivity.class;
+        try {
+            loginActivityClass = Class.forName(BuildConfig.LOGIN_ACTIVITY);
+        } catch (ClassNotFoundException e) {
+            Timber.e(e);
+        }
+        return loginActivityClass;
     }
 }

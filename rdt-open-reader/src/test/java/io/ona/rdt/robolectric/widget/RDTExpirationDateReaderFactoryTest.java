@@ -65,7 +65,7 @@ public class RDTExpirationDateReaderFactoryTest extends WidgetFactoryRobolectric
     private StepStateConfig stepStateConfig;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws Exception {
         super.setUp();
         jsonFormActivity = Mockito.spy(jsonFormActivity);
         readerFactory = new RDTExpirationDateReaderFactory();

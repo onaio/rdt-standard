@@ -27,7 +27,6 @@ import static io.ona.rdt.util.Constants.RDTType.RDT_TYPE;
 import static io.ona.rdt.util.Constants.Table.MICROSCOPY_RESULTS;
 import static io.ona.rdt.util.Constants.Table.PCR_RESULTS;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -39,6 +38,16 @@ import static org.mockito.Mockito.when;
 
 @Implements(SQLiteOpenHelper.class)
 public class SQLiteOpenHelperShadow extends Shadow {
+
+    @Implementation
+    public synchronized SQLiteDatabase getWritableDatabase(byte[] password) {
+        return getDb();
+    }
+
+    @Implementation
+    public synchronized SQLiteDatabase getReadableDatabase(byte[] password) {
+        return getDb();
+    }
 
     @Implementation
     public synchronized SQLiteDatabase getReadableDatabase(String password) {

@@ -19,7 +19,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.interactor.PatientProfileActivityInteractor;
-import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;

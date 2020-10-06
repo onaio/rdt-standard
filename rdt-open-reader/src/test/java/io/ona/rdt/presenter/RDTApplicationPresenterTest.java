@@ -16,7 +16,6 @@ import static io.ona.rdt.util.Constants.PhoneProperties.APP_VERSION;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MANUFACTURER;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_MODEL;
 import static io.ona.rdt.util.Constants.PhoneProperties.PHONE_OS_VERSION;
-import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
 
 /**

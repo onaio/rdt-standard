@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.clientandeventmodel.Event;
@@ -72,8 +71,8 @@ public abstract class BaseFormSaverTest extends RobolectricTest {
     protected static JSONObject formJsonObj;
 
     @Before
-    public void setUp() throws JSONException {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() throws Exception {
+        super.setUp();
         mockStaticMethods();
         formJsonObj = new JSONObject(TestUtils.getPatientRegistrationJsonForm(getPatientRegistrationEventType()));
         formFields = getFormFields(formJsonObj);

@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ReflectionHelpers;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 import androidx.core.view.GravityCompat;
@@ -58,6 +59,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
                 .resume()
                 .get();
         ReflectionHelpers.setField(patientRegisterActivity, "drawerLayout", drawerLayout);
+        patientRegisterActivity.startFormActivity("", "", new HashMap<>());
     }
 
     @Test
