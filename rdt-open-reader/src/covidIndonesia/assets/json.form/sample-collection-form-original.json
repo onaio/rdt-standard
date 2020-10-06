@@ -466,8 +466,7 @@
         "v_required": {
           "value": "false",
           "err": ""
-        },
-        "values": []
+        }
       },
       {
         "key": "doctor_name_label",

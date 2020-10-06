@@ -98,8 +98,7 @@
         "v_required": {
           "value": "false",
           "err": ""
-        },
-        "values": []
+        }
       },
       {
         "key": "patient_age",

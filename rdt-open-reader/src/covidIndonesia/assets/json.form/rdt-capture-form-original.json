@@ -167,8 +167,7 @@
         "v_required": {
           "value": "false",
           "err": ""
-        },
-        "values": []
+        }
       }
     ]
   },

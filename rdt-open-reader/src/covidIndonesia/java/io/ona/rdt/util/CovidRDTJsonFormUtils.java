@@ -42,6 +42,12 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  */
 public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
+    private final Set<String> facilitySet;
+
+    public CovidRDTJsonFormUtils() {
+        facilitySet = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME, CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.OTHER_HEALTH_FACILITY_TYPE_NAME));
+    }
+
     public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
         Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
         intent.putExtra(PATIENT, patient);
@@ -119,8 +125,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         }
-        else if (CovidConstants.FormFields.FACILITY_NAME.equals(key) || CovidConstants.FormFields.HEALTH_FACILITY_NAME.equals(key) || CovidConstants.FormFields.OTHER_HEALTH_FACILITY_TYPE_NAME.equals(key)) {
-            field.put(JsonFormUtils.VALUES, getLocations());
+        else if (facilitySet.contains(key)) {
+            field.put(JsonFormConstants.OPTIONS_FIELD_NAME, getLocations());
         }
     }
 
@@ -153,13 +159,18 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
     }
 
-    private JSONArray getLocations() {
+    private JSONArray getLocations() throws JSONException {
         JSONArray jsonArray = new JSONArray();
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
         List<String> locations = LocationHelper.getInstance().getOpenMrsLocationHierarchy(defaultLocationUuid, false);
         for (String location : locations) {
-            jsonArray.put(location);
+            JSONObject option = new JSONObject();
+            option.put(JsonFormConstants.KEY, location);
+            option.put(JsonFormConstants.TEXT, location);
+            option.put(JsonFormConstants.OPENMRS_ENTITY, "");
+            option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
+            jsonArray.put(option);
         }
         return jsonArray;
     }
