@@ -161,9 +161,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     private JSONArray getLocations() throws JSONException {
         JSONArray jsonArray = new JSONArray();
-        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
-        String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
-        List<String> locations = LocationHelper.getInstance().getOpenMrsLocationHierarchy(defaultLocationUuid, false);
+        List<String> locations = LocationHelper.getInstance().locationNamesFromHierarchy(LocationHelper.getInstance().getDefaultLocation());
         for (String location : locations) {
             JSONObject option = new JSONObject();
             option.put(JsonFormConstants.KEY, location);
