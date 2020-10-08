@@ -52,7 +52,7 @@ android {
     }
 
     sourceSets {
-        main.assets.srcDirs += ['src/test/assets/']
+        main.assets.srcDirs += ['src/test/assets/', 'src/testCovidIndonesia/assets/']
     }
 
     dataBinding.enabled = true
@@ -161,7 +161,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:2.2.4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:2.3.0kdskajdsalk8923-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
