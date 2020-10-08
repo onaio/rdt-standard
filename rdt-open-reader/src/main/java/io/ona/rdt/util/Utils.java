@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -16,16 +17,22 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.smartregister.domain.jsonmapping.Location;
+import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncAllLocationsServiceJob;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
@@ -166,5 +173,29 @@ public class Utils {
 
     public static boolean isEmptyCursor(Cursor cursor) {
         return cursor == null || cursor.getCount() == 0;
+    }
+
+    @Nullable
+    public static String getParentLocationId() {
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
+        LinkedHashMap<String, TreeNode<String, Location>> locationMap = LocationHelper.getInstance().map();
+        return getParentLocationId(defaultLocationUuid, locationMap);
+    }
+
+    @Nullable
+    public static String getParentLocationId(String childLocationId, LinkedHashMap<String, TreeNode<String, Location>> map) {
+        Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
+        if (entry != null) {
+            if (entry.getKey().equals(childLocationId)) {
+                return entry.getValue().getParent();
+            }
+            else {
+                return getParentLocationId(childLocationId, entry.getValue().getChildren());
+            }
+        }
+        else {
+            return null;
+        }
     }
 }

@@ -8,14 +8,19 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.domain.jsonmapping.Location;
+import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import io.ona.rdt.activity.CovidJsonFormActivity;
@@ -161,7 +166,10 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     private JSONArray getLocations() throws JSONException {
         JSONArray jsonArray = new JSONArray();
-        List<String> locations = LocationHelper.getInstance().locationNamesFromHierarchy(LocationHelper.getInstance().getDefaultLocation());
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
+        LinkedHashMap<String, TreeNode<String, Location>> locationMap = LocationHelper.getInstance().map();
+        List<String> locations = filterLocations(defaultLocationUuid, locationMap);
         for (String location : locations) {
             JSONObject option = new JSONObject();
             option.put(JsonFormConstants.KEY, location);
@@ -171,5 +179,24 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             jsonArray.put(option);
         }
         return jsonArray;
+    }
+
+    private List<String> filterLocations(String locationId, LinkedHashMap<String, TreeNode<String, Location>> map) {
+        Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
+        if (entry != null) {
+            if (entry.getKey().equals(locationId)) {
+                List<String> locations = new ArrayList<>();
+                for (Map.Entry<String, TreeNode<String, Location>> childEntry : map.entrySet()) {
+                    locations.add(childEntry.getValue().getLabel());
+                }
+                return locations;
+            }
+            else {
+                return filterLocations(locationId, entry.getValue().getChildren());
+            }
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 }
