@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.job.SyncAllLocationsServiceJob;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -28,7 +29,6 @@ import java.util.Locale;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.job.RDTSyncAllLocationsServiceJob;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
@@ -58,14 +58,14 @@ public class Utils {
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                 getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
 
-        RDTSyncAllLocationsServiceJob.scheduleJob(RDTSyncAllLocationsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
+        SyncAllLocationsServiceJob.scheduleJob(SyncAllLocationsServiceJob.TAG, BuildConfig.SYNC_INTERVAL_MINUTES,
                 getFlexValue(BuildConfig.SYNC_INTERVAL_MINUTES));
     }
 
     public static void scheduleJobsImmediately() {
         RDTSyncSettingsServiceJob.scheduleJobImmediately(RDTSyncSettingsServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        RDTSyncAllLocationsServiceJob.scheduleJobImmediately(RDTSyncAllLocationsServiceJob.TAG);
+        SyncAllLocationsServiceJob.scheduleJobImmediately(SyncAllLocationsServiceJob.TAG);
     }
 
     public static boolean isImageSyncEnabled() {

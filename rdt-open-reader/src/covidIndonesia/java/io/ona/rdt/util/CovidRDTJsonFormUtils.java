@@ -12,6 +12,7 @@ import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
@@ -170,6 +171,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = LocationHelper.getInstance().map();
         List<String> locations = filterLocations(defaultLocationUuid, locationMap);
+        LocationRepository locationRepository = new LocationRepository();
 
         JSONArray jsonArray = new JSONArray();
         for (String location : locations) {

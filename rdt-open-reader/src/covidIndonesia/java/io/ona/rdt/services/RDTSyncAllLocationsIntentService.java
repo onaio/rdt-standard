@@ -8,6 +8,9 @@ import org.smartregister.sync.intent.SyncAllLocationsIntentService;
 
 import timber.log.Timber;
 
+/**
+ * Created by Vincent Karuri on 10/09/2020
+ */
 public class RDTSyncAllLocationsIntentService extends SyncAllLocationsIntentService {
 
     @Override
