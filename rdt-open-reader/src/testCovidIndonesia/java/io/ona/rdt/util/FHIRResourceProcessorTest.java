@@ -29,18 +29,29 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
         Bundle deviceDefinitionBundle = FHIRParser.parser(Format.JSON).parse(stream);
 
         // extract instructions
-        String expression = "$this.entry.resource.where(identifier.where(value='d3fdac0e-061e-b068-2bed-5a95e803636f')).capability.where(type.where(text='instructions')).description.text";
-        Assert.assertEquals("Collect blood sample", PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression));
-
-        // extract device IDs
-        createDeviceIDToDeviceNameMap(deviceDefinitionBundle, extractDeviceIds(deviceDefinitionBundle));
-
+        Assert.assertEquals("Collect blood sample", extractDeviceInstructions(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
+        // extractDeviceName
         Assert.assertEquals("Wondfo SARS-CoV-2 Antibody Test", extractDeviceName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
-
         // extract manufacturer name
-        expression = "$this.entry.resource.where(identifier.where(value='d3fdac0e-061e-b068-2bed-5a95e803636f')))";
+        Assert.assertEquals("Guangzhou Wondfo Biotech", extractManufacturerName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
+
+        // extract device IDs - device name map
+        Map<String, String> deviceIDToDeviceName = createDeviceIDToDeviceNameMap(deviceDefinitionBundle, extractDeviceIds(deviceDefinitionBundle));
+        Assert.assertEquals("Wondfo SARS-CoV-2 Antibody Test", deviceIDToDeviceName.get("d3fdac0e-061e-b068-2bed-5a95e803636f"));
+        Assert.assertEquals("Alltest 2019-nCoV IgG/IgM", deviceIDToDeviceName.get("cf4443a1-f582-74ea-be89-ae53b5fd7bfe"));
+        Assert.assertEquals("Green Spring COVID-19 IgG / IgM Rapid Test Kit", deviceIDToDeviceName.get("bcd01a98-36b2-e316-cea1-537745ae3439"));
+        Assert.assertEquals("Realy Tech 2019-nCOV IgG/IgM", deviceIDToDeviceName.get("22a46031-0b56-a237-044a-76904b9b193e"));
+    }
+
+    private String extractDeviceInstructions(Bundle deviceDefinitionBundle, String deviceId) {
+        String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).capability.where(type.where(text='instructions')).description.text", deviceId);
+        return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
+    }
+
+    private String extractManufacturerName(Bundle deviceDefinitionBundle, String deviceId) {
+        String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')))", deviceId);
         DeviceDefinition deviceDefinition =  (DeviceDefinition) PathEvaluatorLibrary.getInstance().extractResourceFromBundle(deviceDefinitionBundle, expression);
-        Assert.assertEquals("Guangzhou Wondfo Biotech", deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue());
+        return deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
     }
 
     private Map<String, String> createDeviceIDToDeviceNameMap(Bundle bundle, List<String> deviceIDs) {
