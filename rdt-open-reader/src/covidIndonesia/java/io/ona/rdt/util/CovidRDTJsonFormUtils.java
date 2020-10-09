@@ -165,11 +165,13 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     private JSONArray getLocations() throws JSONException {
-        JSONArray jsonArray = new JSONArray();
+
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = LocationHelper.getInstance().map();
         List<String> locations = filterLocations(defaultLocationUuid, locationMap);
+
+        JSONArray jsonArray = new JSONArray();
         for (String location : locations) {
             JSONObject option = new JSONObject();
             option.put(JsonFormConstants.KEY, location);
@@ -183,20 +185,15 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     private List<String> filterLocations(String locationId, LinkedHashMap<String, TreeNode<String, Location>> map) {
         Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
-        if (entry != null) {
-            if (entry.getKey().equals(locationId)) {
-                List<String> locations = new ArrayList<>();
-                for (Map.Entry<String, TreeNode<String, Location>> childEntry : map.entrySet()) {
-                    locations.add(childEntry.getValue().getLabel());
-                }
-                return locations;
+        if (entry.getKey().equals(locationId)) {
+            List<String> locations = new ArrayList<>();
+            for (Map.Entry<String, TreeNode<String, Location>> childEntry : map.entrySet()) {
+                locations.add(childEntry.getValue().getLabel());
             }
-            else {
-                return filterLocations(locationId, entry.getValue().getChildren());
-            }
+            return locations;
         }
         else {
-            return new ArrayList<>();
+            return filterLocations(locationId, entry.getValue().getChildren());
         }
     }
 }

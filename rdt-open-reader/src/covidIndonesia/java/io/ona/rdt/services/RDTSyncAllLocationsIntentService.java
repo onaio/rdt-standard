@@ -2,10 +2,10 @@ package io.ona.rdt.services;
 
 import android.content.Intent;
 
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.sync.helper.LocationServiceHelper;
 import org.smartregister.sync.intent.SyncAllLocationsIntentService;
 
-import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 public class RDTSyncAllLocationsIntentService extends SyncAllLocationsIntentService {
@@ -15,7 +15,9 @@ public class RDTSyncAllLocationsIntentService extends SyncAllLocationsIntentServ
         LocationServiceHelper locationServiceHelper = LocationServiceHelper.getInstance();
 
         try {
-            locationServiceHelper.fetchAllLocations(Utils.getParentLocationId());
+            LocationHelper locationHelper = LocationHelper.getInstance();
+            locationHelper.setParentAndChildLocationIds(locationHelper.getDefaultLocation());
+            locationServiceHelper.fetchAllLocations(locationHelper.getParentLocationId());
         } catch (Exception e) {
             Timber.e(e);
         }
