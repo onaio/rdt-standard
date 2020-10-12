@@ -130,8 +130,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
-        }
-        else if (facilitySet.contains(key)) {
+        } else if (facilitySet.contains(key)) {
             field.put(JsonFormConstants.OPTIONS_FIELD_NAME, getLocations());
         }
     }
@@ -153,7 +152,6 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     private void prePopulateSampleShipmentDetailsFormFields(JSONObject field) throws JSONException {
-
         // pre-populate the sender name
         if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(KEY))) {
             field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());

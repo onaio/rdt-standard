@@ -51,6 +51,7 @@
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name=".sync.RDTSettingsSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.LocationIntentService" />
+        <service android:name=".services.RDTSyncAllLocationsIntentService" />
     </application>
 
 </manifest>
