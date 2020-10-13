@@ -169,7 +169,7 @@ public class RDTJsonFormUtils {
         return fileLevels[fileLevels.length - 1].split("\\.")[0];
     }
 
-    private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
+    public static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
 
         OutputStream outputStream = null;
         String absoluteFilePath = null;
@@ -184,7 +184,7 @@ public class RDTJsonFormUtils {
                 saveImageToGallery(context, image);
             }
             result = new Pair<>(true, absoluteFilePath);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             Timber.e(e);
         } finally {
             if (outputStream != null) {

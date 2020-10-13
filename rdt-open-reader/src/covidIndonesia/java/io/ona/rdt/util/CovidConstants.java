@@ -5,6 +5,10 @@ package io.ona.rdt.util;
  */
 public interface CovidConstants extends Constants {
 
+    interface FHIRResource {
+        String REF_IMG = "REF_IMG";
+    }
+
     interface Widget {
         String GOOGLE_COVID_BARCODE_READER = "google_covid_barcode_reader";
         String ONE_SCAN_COVID_BARCODE_READER = "one_scan_covid_barcode_reader";

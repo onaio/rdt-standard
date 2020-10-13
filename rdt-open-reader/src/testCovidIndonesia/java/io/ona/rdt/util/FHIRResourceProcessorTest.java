@@ -1,5 +1,7 @@
 package io.ona.rdt.util;
 
+import android.graphics.Bitmap;
+
 import com.ibm.fhir.model.format.Format;
 import com.ibm.fhir.model.parser.FHIRParser;
 import com.ibm.fhir.model.resource.Bundle;
@@ -7,12 +9,17 @@ import com.ibm.fhir.model.resource.DeviceDefinition;
 import com.ibm.fhir.model.type.CodeableConcept;
 import com.ibm.fhir.model.type.Element;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.pathevaluator.PathEvaluatorLibrary;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +44,9 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
         // extract manufacturer name
         Assert.assertEquals("Guangzhou Wondfo Biotech", extractManufacturerName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
         // extract device assets
-        Assert.assertEquals("", extractDeviceConfigurations(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
+//        Assert.assertEquals("", extractDeviceReferenceImage(deviceDefinitionBundle, "cf4443a1-f582-74ea-be89-ae53b5fd7bfe"));
+        // extract device config
+        Assert.assertEquals("", extractDeviceConfig(deviceDefinitionBundle, "cf4443a1-f582-74ea-be89-ae53b5fd7bfe"));
 
         // extract device IDs - device name map
         Map<String, String> deviceIDToDeviceName = createDeviceIDToDeviceNameMap(deviceDefinitionBundle, extractDeviceIds(deviceDefinitionBundle));
@@ -76,7 +85,7 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
         return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
     }
 
-    private Map<String, String> extractDeviceConfigurations(Bundle deviceDefinitionBundle, String deviceId) {
+    private Map<String, String> extractDeviceAssets(Bundle deviceDefinitionBundle, String deviceId) {
         Map<String, String> conceptKeyToValueMap = new HashMap<>();
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).property.where(type.where(text='RDTScan Configuration')).valueCode", deviceId);
         List<Element> configurationElements = PathEvaluatorLibrary.getInstance().extractElementsFromBundle(deviceDefinitionBundle, expression);
@@ -87,5 +96,38 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
             conceptKeyToValueMap.put(key, value);
         }
         return conceptKeyToValueMap;
+    }
+
+    private Bitmap extractDeviceReferenceImage(Bundle deviceDefinitionBundle, String deviceId) throws Exception {
+        String encodedRefImage = extractDeviceAssets(deviceDefinitionBundle, deviceId).get(CovidConstants.FHIRResource.REF_IMG);
+        byte[] decodedString = Base64.getMimeDecoder().decode(encodedRefImage);
+
+        FileOutputStream osf = new FileOutputStream(new File("/tmp/ref_img.jpeg"));
+        osf.write(decodedString);
+        osf.flush();
+
+//        Bitmap bitmap = RDTJsonFormUtils.convertByteArrayToBitmap(decodedString);
+//        RDTJsonFormUtils.writeImageToDisk("/tmp/", bitmap, RuntimeEnvironment.application);
+//        RDTJsonFormUtils.writeImageToDisk("/tmp/", BitmapFactory.decodeFile("/tmp/ref_img.jpeg"), RuntimeEnvironment.application);
+        return null;
+    }
+
+    private JSONObject extractDeviceConfig(Bundle deviceDefinitionBundle, String deviceId) throws JSONException {
+        JSONObject deviceConfig = new JSONObject();
+        Map<String, String> deviceAssets = extractDeviceAssets(deviceDefinitionBundle, deviceId);
+        deviceConfig.put("REF_IMG", deviceAssets.get("REF_IMG"));
+        deviceConfig.put("MIDDLE_LINE_NAME", deviceAssets.get("MIDDLE_LINE_NAME"));
+        deviceConfig.put("VIEW_FINDER_SCALE", deviceAssets.get("VIEW_FINDER_SCALE"));
+        deviceConfig.put("RESULT_WINDOW_BOTTOM_RIGHT", deviceAssets.get("RESULT_WINDOW_BOTTOM_RIGHT"));
+        deviceConfig.put("RESULT_WINDOW_TOP_LEFT", deviceAssets.get("RESULT_WINDOW_TOP_LEFT"));
+        deviceConfig.put("MIDDLE_LINE_POSITION", deviceAssets.get("MIDDLE_LINE_POSITION"));
+        deviceConfig.put("LINE_INTENSITY", deviceAssets.get("LINE_INTENSITY"));
+        deviceConfig.put("BOTTOM_LINE_POSITION", deviceAssets.get("BOTTOM_LINE_POSITION"));
+        deviceConfig.put("BOTTOM_LINE_NAME", deviceAssets.get("BOTTOM_LINE_NAME"));
+        deviceConfig.put("TOP_LINE_POSITION", deviceAssets.get("TOP_LINE_POSITION"));
+        deviceConfig.put("TOP_LINE_NAME", deviceAssets.get("TOP_LINE_NAME"));
+        deviceConfig.put("RESULT_WINDOW_TOP_LEFT", deviceAssets.get("RESULT_WINDOW_TOP_LEFT"));
+        deviceConfig.put("RESULT_WINDOW_TOP_LEFT", deviceAssets.get("RESULT_WINDOW_TOP_LEFT"));
+        return deviceConfig;
     }
 }
