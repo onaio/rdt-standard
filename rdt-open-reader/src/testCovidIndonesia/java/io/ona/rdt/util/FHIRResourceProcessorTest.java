@@ -4,6 +4,8 @@ import com.ibm.fhir.model.format.Format;
 import com.ibm.fhir.model.parser.FHIRParser;
 import com.ibm.fhir.model.resource.Bundle;
 import com.ibm.fhir.model.resource.DeviceDefinition;
+import com.ibm.fhir.model.type.CodeableConcept;
+import com.ibm.fhir.model.type.Element;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,6 +36,8 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
         Assert.assertEquals("Wondfo SARS-CoV-2 Antibody Test", extractDeviceName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
         // extract manufacturer name
         Assert.assertEquals("Guangzhou Wondfo Biotech", extractManufacturerName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
+        // extract device assets
+        Assert.assertEquals("", extractDeviceConfigurations(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
 
         // extract device IDs - device name map
         Map<String, String> deviceIDToDeviceName = createDeviceIDToDeviceNameMap(deviceDefinitionBundle, extractDeviceIds(deviceDefinitionBundle));
@@ -70,5 +74,18 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
     private String extractDeviceName(Bundle deviceDefinitionBundle, String deviceId) {
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).deviceName.name", deviceId);
         return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
+    }
+
+    private Map<String, String> extractDeviceConfigurations(Bundle deviceDefinitionBundle, String deviceId) {
+        Map<String, String> conceptKeyToValueMap = new HashMap<>();
+        String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).property.where(type.where(text='RDTScan Configuration')).valueCode", deviceId);
+        List<Element> configurationElements = PathEvaluatorLibrary.getInstance().extractElementsFromBundle(deviceDefinitionBundle, expression);
+        for (Element configurableElement : configurationElements) {
+            CodeableConcept codeableConcept = (CodeableConcept) configurableElement;
+            String key = codeableConcept.getCoding().get(0).getCode().getValue();
+            String value = codeableConcept.getText().getValue();
+            conceptKeyToValueMap.put(key, value);
+        }
+        return conceptKeyToValueMap;
     }
 }
