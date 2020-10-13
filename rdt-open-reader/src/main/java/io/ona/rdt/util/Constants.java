@@ -68,8 +68,10 @@ public interface Constants {
         String COUNTRY = "Country";
         String PROVINCE = "Province";
         String DISTRICT = "District";
+        String DIVISION = "Division";
         String HEALTH_CENTER = "Rural Health Centre";
         String VILLAGE = "Village";
+        String LOCATION = "Location";
     }
 
     interface DBConstants {
