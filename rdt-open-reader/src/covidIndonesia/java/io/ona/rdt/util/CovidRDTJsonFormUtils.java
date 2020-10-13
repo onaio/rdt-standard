@@ -3,16 +3,16 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.jsonmapping.Location;
+import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.LocationRepository;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
@@ -166,10 +166,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     private JSONArray getLocations() throws JSONException {
 
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
-        String defaultLocationUuid = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
-        LinkedHashMap<String, TreeNode<String, Location>> locationMap = LocationHelper.getInstance().map();
-        List<String> locations = filterLocations(defaultLocationUuid, locationMap);
-        LocationRepository locationRepository = new LocationRepository();
+        LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
+        LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
+        List<String> locations = filterLocations(locationMap);
 
         JSONArray jsonArray = new JSONArray();
         for (String location : locations) {
@@ -183,17 +182,13 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return jsonArray;
     }
 
-    private List<String> filterLocations(String locationId, LinkedHashMap<String, TreeNode<String, Location>> map) {
+    private List<String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
+        List<String> locations = new ArrayList<>();
         Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
-        if (entry.getKey().equals(locationId)) {
-            List<String> locations = new ArrayList<>();
-            for (Map.Entry<String, TreeNode<String, Location>> childEntry : map.entrySet()) {
-                locations.add(childEntry.getValue().getLabel());
-            }
-            return locations;
+        for (Map.Entry<String, TreeNode<String, Location>> childEntry : entry.getValue().getChildren().entrySet()) {
+            TreeNode<String, Location> childNode = childEntry.getValue();
+            locations.add(childNode.getLabel());
         }
-        else {
-            return filterLocations(locationId, entry.getValue().getChildren());
-        }
+        return locations;
     }
 }
