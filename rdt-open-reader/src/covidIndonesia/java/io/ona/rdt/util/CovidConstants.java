@@ -83,7 +83,7 @@ public interface CovidConstants extends Constants {
         String SENDER_NAME = "sender_name";
         String FACILITY_NAME = "facility_name";
         String HEALTH_FACILITY_NAME = "health_facility_name";
-        String OTHER_HEALTH_FACILITY_TYPE_NAME = "other_health_facility_type_name";
+        String NAME_OF_HEALTH_FACILITY = "name_of_health_facility";
     }
 
     interface RDTType {

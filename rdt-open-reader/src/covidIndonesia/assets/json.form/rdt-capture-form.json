@@ -167,8 +167,7 @@
         "v_required": {
           "value": "false",
           "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
-        },
-        "values": []
+        }
       }
     ]
   },

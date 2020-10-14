@@ -98,8 +98,7 @@
         "v_required": {
           "value": "false",
           "err": "{{patient-diagnostics-form-original.step1.facility_name.v_required.err}}"
-        },
-        "values": []
+        }
       },
       {
         "key": "patient_age",

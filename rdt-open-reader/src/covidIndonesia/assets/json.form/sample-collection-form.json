@@ -424,50 +424,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{sample-collection-form-original.step1.name_of_health_facility.label}}",
-        "options": [
-          {
-            "key": "jenis_fasyankes",
-            "text": "{{sample-collection-form-original.step1.name_of_health_facility.options.jenis_fasyankes.text}}"
-          },
-          {
-            "key": "dinas_kesehatan",
-            "text": "{{sample-collection-form-original.step1.name_of_health_facility.options.dinas_kesehatan.text}}"
-          },
-          {
-            "key": "alamat_fasyankes",
-            "text": "{{sample-collection-form-original.step1.name_of_health_facility.options.alamat_fasyankes.text}}"
-          },
-          {
-            "key": "other",
-            "text": "{{sample-collection-form-original.step1.name_of_health_facility.options.other.text}}"
-          }
-        ],
+        "type": "spinner",
+        "hint": "{{sample-collection-form-original.step1.name_of_health_facility.hint}}",
         "v_required": {
           "value": "true",
           "err": "{{sample-collection-form-original.step1.name_of_health_facility.v_required.err}}"
         }
-      },
-      {
-        "key": "other_health_facility_type_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "{{sample-collection-form-original.step1.other_health_facility_type_name.hint}}",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sample-collection-form-relevance-rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{sample-collection-form-original.step1.other_health_facility_type_name.v_required.err}}"
-        },
-        "values": []
       },
       {
         "key": "doctor_name_label",

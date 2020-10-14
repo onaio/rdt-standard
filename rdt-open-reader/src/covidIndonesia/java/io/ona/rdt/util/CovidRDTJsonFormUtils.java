@@ -51,7 +51,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     private final Set<String> facilitySet;
 
     public CovidRDTJsonFormUtils() {
-        facilitySet = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME, CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.OTHER_HEALTH_FACILITY_TYPE_NAME));
+        facilitySet = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME, CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
     }
 
     public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
