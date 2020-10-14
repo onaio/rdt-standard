@@ -19,6 +19,7 @@ public interface CovidConstants extends Constants {
         String TOP_LINE_NAME = "TOP_LINE_NAME";
         String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
         String INSTRUCTIONS = "instructions";
+        String HAS_EMBEDDED_REF_IMG = "has_embedded_ref_img";
     }
 
     interface Widget {

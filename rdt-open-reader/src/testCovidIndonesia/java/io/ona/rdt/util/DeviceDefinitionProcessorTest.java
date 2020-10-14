@@ -1,6 +1,7 @@
 package io.ona.rdt.util;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.ibm.fhir.model.format.Format;
 import com.ibm.fhir.model.parser.FHIRParser;
@@ -18,8 +19,12 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.pathevaluator.PathEvaluatorLibrary;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +36,7 @@ import timber.log.Timber;
 /**
  * Created by Vincent Karuri on 08/10/2020
  */
-public class FHIRResourceProcessorTest extends RobolectricTest {
+public class DeviceDefinitionProcessorTest extends RobolectricTest {
 
     @Test
     public void testFHIRQueriesOnDeviceDefinitionResource() throws Exception {
@@ -45,8 +50,6 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
         Assert.assertEquals("Wondfo SARS-CoV-2 Antibody Test", extractDeviceName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
         // extract manufacturer name
         Assert.assertEquals("Guangzhou Wondfo Biotech", extractManufacturerName(deviceDefinitionBundle, "d3fdac0e-061e-b068-2bed-5a95e803636f"));
-        // extract device assets
-//        Assert.assertEquals("", extractDeviceReferenceImage(deviceDefinitionBundle, "cf4443a1-f582-74ea-be89-ae53b5fd7bfe"));
         // extract device config
         Assert.assertEquals("", extractDeviceConfig(deviceDefinitionBundle, "cf4443a1-f582-74ea-be89-ae53b5fd7bfe"));
 
@@ -102,23 +105,10 @@ public class FHIRResourceProcessorTest extends RobolectricTest {
         return conceptKeyToValueMap;
     }
 
-    private Bitmap extractDeviceReferenceImage(Bundle deviceDefinitionBundle, String deviceId) throws Exception {
-        String encodedRefImage = extractDeviceAssets(deviceDefinitionBundle, deviceId).get(CovidConstants.FHIRResource.REF_IMG);
-        byte[] decodedString = Base64.getMimeDecoder().decode(encodedRefImage);
-
-        FileOutputStream osf = new FileOutputStream(new File("/tmp/ref_img.jpeg"));
-        osf.write(decodedString);
-        osf.flush();
-
-//        Bitmap bitmap = RDTJsonFormUtils.convertByteArrayToBitmap(decodedString);
-//        RDTJsonFormUtils.writeImageToDisk("/tmp/", bitmap, RuntimeEnvironment.application);
-//        RDTJsonFormUtils.writeImageToDisk("/tmp/", BitmapFactory.decodeFile("/tmp/ref_img.jpeg"), RuntimeEnvironment.application);
-        return null;
-    }
-
     private JSONObject extractDeviceConfig(Bundle deviceDefinitionBundle, String deviceId) throws JSONException {
         JSONObject deviceConfig = new JSONObject();
         Map<String, String> deviceAssets = extractDeviceAssets(deviceDefinitionBundle, deviceId);
+        deviceConfig.put(CovidConstants.FHIRResource.HAS_EMBEDDED_REF_IMG, true);
         deviceConfig.put(CovidConstants.FHIRResource.REF_IMG,
                 deviceAssets.get(CovidConstants.FHIRResource.REF_IMG));
         deviceConfig.put(CovidConstants.FHIRResource.MIDDLE_LINE_NAME,
