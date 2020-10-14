@@ -3,8 +3,8 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.smartregister.gradle.jarjar'
 
 repositories {
@@ -161,7 +161,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:2.2.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:2.2.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
