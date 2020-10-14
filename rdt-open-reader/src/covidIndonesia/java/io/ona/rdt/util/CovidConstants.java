@@ -98,8 +98,4 @@ public interface CovidConstants extends Constants {
     interface ScannerType {
         String SCANNER  = "scanner";
     }
-
-    interface Preference {
-        String LOCATION_TREE = "location_tree";
-    }
 }

@@ -12,7 +12,7 @@ import org.smartregister.sync.intent.SyncIntentService;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.ImageUploadSyncServiceJob;
-import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Utils.isImageSyncEnabled;
@@ -29,7 +29,7 @@ public class RDTSyncIntentService extends SyncIntentService {
         LocationTree locationTree = LocationServiceHelper.getInstance().getLocationHierarchy(Utils.getParentLocationId());
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         String locationTreeJson = new Gson().toJson(locationTree);
-        allSharedPreferences.savePreference(CovidConstants.Preference.LOCATION_TREE, locationTreeJson);
+        allSharedPreferences.savePreference(Constants.Preference.LOCATION_TREE, locationTreeJson);
         if (isImageSyncEnabled()) {
             ImageUploadSyncServiceJob.scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
         }

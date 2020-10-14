@@ -140,4 +140,8 @@ public interface Constants {
     interface Locale {
         String LOCALE = "locale";
     }
+
+    interface Preference {
+        String LOCATION_TREE = "location_tree";
+    }
 }
