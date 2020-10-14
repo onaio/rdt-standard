@@ -7,6 +7,18 @@ public interface CovidConstants extends Constants {
 
     interface FHIRResource {
         String REF_IMG = "REF_IMG";
+        String MIDDLE_LINE_NAME = "MIDDLE_LINE_NAME";
+        String VIEW_FINDER_SCALE = "VIEW_FINDER_SCALE";
+        String RESULT_WINDOW_BOTTOM_RIGHT = "RESULT_WINDOW_BOTTOM_RIGHT";
+        String RESULT_WINDOW_TOP_LEFT = "RESULT_WINDOW_TOP_LEFT";
+        String MIDDLE_LINE_POSITION = "MIDDLE_LINE_POSITION";
+        String LINE_INTENSITY = "LINE_INTENSITY";
+        String BOTTOM_LINE_POSITION = "BOTTOM_LINE_POSITION";
+        String BOTTOM_LINE_NAME = "BOTTOM_LINE_NAME";
+        String TOP_LINE_POSITION = "TOP_LINE_POSITION";
+        String TOP_LINE_NAME = "TOP_LINE_NAME";
+        String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
+        String INSTRUCTIONS = "instructions";
     }
 
     interface Widget {
