@@ -17,8 +17,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.ImageUploadSyncServiceJob;
 import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.LocationServiceHelperShadow;
-import io.ona.rdt.robolectric.shadow.RDTRepositoryShadow;
-import io.ona.rdt.robolectric.shadow.SQLiteDatabaseShadow;
 import io.ona.rdt.robolectric.shadow.SyncIntentServiceShadow;
 import io.ona.rdt.sync.RDTSyncIntentService;
 import io.ona.rdt.util.Constants;
@@ -27,7 +25,7 @@ import io.ona.rdt.util.Constants;
  * Created by Vincent Karuri on 12/08/2020
  */
 
-@Config(shadows = { BaseJobShadow.class, SyncIntentServiceShadow.class, RDTRepositoryShadow.class, SQLiteDatabaseShadow.class, LocationServiceHelperShadow.class})
+@Config(shadows = { BaseJobShadow.class, SyncIntentServiceShadow.class, LocationServiceHelperShadow.class})
 public class RDTSettingsSyncIntentServiceTest extends IntentServiceRobolectricTest {
 
     private RDTSyncIntentService syncIntentService;
