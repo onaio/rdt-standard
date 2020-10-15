@@ -163,12 +163,7 @@ public class Utils {
         return cursor == null || cursor.getCount() == 0;
     }
 
-    public static JSONArray convertStringToJsonArr(String str) {
-        try {
-            return new JSONArray(str);
-        } catch (JSONException e) {
-            Timber.e(e);
-            return null;
-        }
+    public static JSONArray convertStringToJsonArr(String str) throws JSONException {
+        return StringUtils.isBlank(str) ? null : new JSONArray(str);
     }
 }
