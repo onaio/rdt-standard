@@ -2,7 +2,6 @@ package io.ona.rdt.robolectric.shadow;
 
 import android.content.Context;
 
-import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.robolectric.annotation.Implementation;
@@ -19,11 +18,6 @@ public class SQLiteDatabaseShadow extends Shadow {
     @Implementation
     public static synchronized void loadLibs (Context context) {
 
-    }
-
-    @Implementation
-    protected Cursor rawQueryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, String sql, String[] selectionArgs, String editTable) {
-        return null;
     }
 }
 
