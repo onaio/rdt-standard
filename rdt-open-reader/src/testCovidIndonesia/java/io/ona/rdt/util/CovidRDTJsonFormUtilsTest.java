@@ -802,7 +802,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(7, numOfPopulatedFields);
+        assertEquals(8, numOfPopulatedFields);
     }
 
     @Override
@@ -846,6 +846,14 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         }
         else if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
             assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
+            numOfPopulatedFields++;
+        }
+        else if (CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY.equals(field.getString(JsonFormConstants.KEY))) {
+            JSONArray jsonArray = new JSONArray(field.getString(JsonFormConstants.OPTIONS_FIELD_NAME));
+            assertEquals(3, jsonArray.length());
+            for (int i = 1; i <= jsonArray.length(); i++) {
+                assertEquals("Indonesia Location " + i, jsonArray.getJSONObject(i - 1).getString(JsonFormConstants.TEXT));
+            }
             numOfPopulatedFields++;
         }
 
