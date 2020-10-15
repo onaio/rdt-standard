@@ -19,7 +19,8 @@ public interface CovidConstants extends Constants {
         String TOP_LINE_NAME = "TOP_LINE_NAME";
         String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
         String INSTRUCTIONS = "instructions";
-        String HAS_EMBEDDED_REF_IMG = "has_embedded_ref_img";
+        String FHIR_RESOURCE_FOLDER = "fhir.resource/";
+        String DEVICE_RESOURCE_FILE = CovidConstants.FHIRResource.FHIR_RESOURCE_FOLDER +  "DeviceDefinition.json";
     }
 
     interface Widget {
