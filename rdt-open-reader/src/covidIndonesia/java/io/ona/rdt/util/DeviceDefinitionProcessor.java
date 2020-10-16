@@ -36,10 +36,14 @@ public class DeviceDefinitionProcessor {
             PathEvaluatorLibrary.init(null, null, null, null);
         }
         // we need this to refresh the resource in case it changes in between two accesses
-        InputStream stream = context.getAssets().open(CovidConstants.FHIRResource.DEVICE_RESOURCE_FILE);
-        deviceDefinitionBundle = FHIRParser.parser(Format.JSON).parse(stream);
+        deviceDefinitionBundle = getDeviceDefinitionBundle(context);
 
         return deviceDefinitionProcessor;
+    }
+
+    private static Bundle getDeviceDefinitionBundle(Context context) throws IOException, FHIRParserException  {
+        InputStream stream = context.getAssets().open(CovidConstants.FHIRResource.DEVICE_RESOURCE_FILE);
+        return FHIRParser.parser(Format.JSON).parse(stream);
     }
 
     public String extractDeviceInstructions(String deviceId) {
