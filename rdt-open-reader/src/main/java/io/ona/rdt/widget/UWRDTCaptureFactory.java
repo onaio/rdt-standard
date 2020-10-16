@@ -29,10 +29,9 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
-import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
+import timber.log.Timber;
 
-import static com.vijay.jsonwizard.utils.Utils.convertStreamToString;
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG;
@@ -70,15 +69,13 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
     }
 
     @Override
-    protected void launchRDTCaptureActivity() throws Exception {
+    protected void launchRDTCaptureActivity() {
         Context context = widgetArgs.getContext();
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(JsonFormUtils.ENTITY_ID, baseEntityId);
             intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
             intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
-            intent.putExtra(RDT_JSON_CONFIG, DeviceDefinitionProcessor.getInstance(context)
-                    .extractDeviceConfig("d3fdac0e-061e-b068-2bed-5a95e803636f").toString());
             new LaunchRDTCameraTask().execute(intent);
         }
     }
@@ -134,8 +131,14 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected Void doInBackground(Intent... intents) {
-            Activity activity = (Activity) context;
-            activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+            try {
+                Activity activity = (Activity) context;
+                intents[0].putExtra(RDT_JSON_CONFIG, DeviceDefinitionProcessor.getInstance(context)
+                        .extractDeviceConfig("d3fdac0e-061e-b068-2bed-5a95e803636f").toString());
+                activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
             return null;
         }
     }
