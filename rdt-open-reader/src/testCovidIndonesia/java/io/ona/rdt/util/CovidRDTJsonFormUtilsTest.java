@@ -8,7 +8,9 @@ import org.json.JSONObject;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
@@ -791,6 +793,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "}";
 
     private static final String MOCK_LOCATION_TREE_JSON = "{\"locationsHierarchy\":{\"map\":{\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"children\":{\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"id\":\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Location 1\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Location 1\",\"parentLocation\":{\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\"},\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"id\":\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Location 2\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Location 2\",\"parentLocation\":{\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\"},\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"id\":\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Location 3\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Location 3\",\"parentLocation\":{\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\"}},\"id\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Division 1\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Division 1\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"}}},\"parentChildren\":{\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\":[\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\"]}}}";
+    private final Set<String> facilitySet = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME, CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
 
     @Override
     public void setUp() throws Exception {
@@ -802,7 +805,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(8, numOfPopulatedFields);
+        assertEquals(10, numOfPopulatedFields);
     }
 
     @Override
@@ -848,7 +851,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
             numOfPopulatedFields++;
         }
-        else if (CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY.equals(field.getString(JsonFormConstants.KEY))) {
+        else if (facilitySet.contains(field.getString(JsonFormConstants.KEY))) {
             JSONArray jsonArray = new JSONArray(field.getString(JsonFormConstants.OPTIONS_FIELD_NAME));
             assertEquals(3, jsonArray.length());
             for (int i = 1; i <= jsonArray.length(); i++) {
@@ -867,7 +870,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Override
     protected List<String> getFormsToPrepopulate() {
-        return Arrays.asList(SAMPLE_COLLECTION_FORM, CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM);
+        return Arrays.asList(SAMPLE_COLLECTION_FORM, CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM, CovidConstants.Form.COVID_RDT_TEST_FORM, CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM);
     }
 
     @Override
