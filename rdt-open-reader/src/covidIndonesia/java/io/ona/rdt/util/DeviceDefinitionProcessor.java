@@ -58,9 +58,9 @@ public class DeviceDefinitionProcessor {
         return deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
     }
 
-    public Map<String, String> createDeviceIDToDeviceNameMap(List<String> deviceIDs) {
+    public Map<String, String> createDeviceIDToDeviceNameMap() {
         Map<String, String> deviceIDToDeviceName = new HashMap<>();
-        for (String deviceID : deviceIDs) {
+        for (String deviceID : extractDeviceIds()) {
             deviceIDToDeviceName.put(deviceID, extractDeviceName(deviceID));
         }
         return deviceIDToDeviceName;

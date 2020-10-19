@@ -222,54 +222,12 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "rdt_manufacturer_lbl",
-        "type": "label",
-        "text": "Enter manufacturer name",
-        "text_color": "#000000",
-        "has_bg": true,
-        "top_margin": "15dp",
-        "bg_color": "#ffffff"
-      },
-      {
-        "key": "rdt_manufacturer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": ""
-        }
-      },
-      {
         "key": "rdt_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
+        "type": "spinner",
         "label": "RDT type?",
-        "options": [
-          {
-            "key": "double_line",
-            "text": "IgG/IgM Double Line"
-          },
-          {
-            "key": "single_line",
-            "text": "IgG/IgM Single Line Combo"
-          },
-          {
-            "key": "IgG",
-            "text": "IgG"
-          },
-          {
-            "key": "IgM",
-            "text": "IgM"
-          },
-          {
-            "key": "other",
-            "text": "Other"
-          }
-        ],
         "v_required": {
           "value": "true",
           "err": "This field is required"

@@ -222,54 +222,12 @@
     "next_label": "{{rdt-capture-form-original.step6.next_label}}",
     "fields": [
       {
-        "key": "rdt_manufacturer_lbl",
-        "type": "label",
-        "text": "{{rdt-capture-form-original.step6.rdt_manufacturer_lbl.text}}",
-        "text_color": "#000000",
-        "has_bg": true,
-        "top_margin": "15dp",
-        "bg_color": "#ffffff"
-      },
-      {
-        "key": "rdt_manufacturer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{rdt-capture-form-original.step6.rdt_manufacturer.v_required.err}}"
-        }
-      },
-      {
         "key": "rdt_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
+        "type": "spinner",
         "label": "{{rdt-capture-form-original.step6.rdt_type.label}}",
-        "options": [
-          {
-            "key": "double_line",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.double_line.text}}"
-          },
-          {
-            "key": "single_line",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.single_line.text}}"
-          },
-          {
-            "key": "IgG",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.IgG.text}}"
-          },
-          {
-            "key": "IgM",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.IgM.text}}"
-          },
-          {
-            "key": "other",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.other.text}}"
-          }
-        ],
         "v_required": {
           "value": "true",
           "err": "{{rdt-capture-form-original.step6.rdt_type.v_required.err}}"

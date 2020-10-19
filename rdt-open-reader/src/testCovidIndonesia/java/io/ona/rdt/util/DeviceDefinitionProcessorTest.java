@@ -63,7 +63,7 @@ public class DeviceDefinitionProcessorTest extends RobolectricTest {
 
         // extract device IDs - device name map
         Map<String, String> deviceIDToDeviceName =
-                deviceDefinitionProcessor.createDeviceIDToDeviceNameMap(deviceDefinitionProcessor.extractDeviceIds());
+                deviceDefinitionProcessor.createDeviceIDToDeviceNameMap();
         Assert.assertEquals("Wondfo SARS-CoV-2 Antibody Test", deviceIDToDeviceName.get("d3fdac0e-061e-b068-2bed-5a95e803636f"));
         Assert.assertEquals("Alltest 2019-nCoV IgG/IgM", deviceIDToDeviceName.get("cf4443a1-f582-74ea-be89-ae53b5fd7bfe"));
         Assert.assertEquals("Green Spring COVID-19 IgG / IgM Rapid Test Kit", deviceIDToDeviceName.get("bcd01a98-36b2-e316-cea1-537745ae3439"));
