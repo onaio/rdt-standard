@@ -177,7 +177,7 @@ public class Utils {
             option.put(JsonFormConstants.TEXT, entry.getValue());
             option.put(JsonFormConstants.OPENMRS_ENTITY, openmrsEntity);
             option.put(JsonFormConstants.OPENMRS_ENTITY_ID, openmrsEntityId);
-            jsonArray.put(option);
+            jsonArray.put(jsonArray.length(), option);
         }
         return jsonArray;
     }
