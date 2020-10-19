@@ -50,8 +50,6 @@ public interface Constants {
         String RDT_CAPTURE_MIDDLE_LINE_READING = "rdt_capture_middle_line_reading";
         String RDT_CAPTURE_BOTTOM_LINE_READING = "rdt_capture_bottom_line_reading";
         String PATIENT_VISIT_DATE = "patient_visit_date";
-        String OTHER_KEY = "other";
-        String OTHER_VALUE = "Other";
     }
 
     interface RequestCodes {

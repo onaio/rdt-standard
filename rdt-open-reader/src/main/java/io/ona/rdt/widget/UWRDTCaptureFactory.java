@@ -29,7 +29,10 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
+import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.StepStateConfig;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
@@ -50,6 +53,8 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private String baseEntityId;
 
+    private JSONObject stepStateConfig;
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(JsonFormUtils.ENTITY_ID);
@@ -58,6 +63,8 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
                 .withJsonObject(jsonObject)
                 .withContext(context)
                 .withStepName(stepName);
+
+        stepStateConfig = StepStateConfig.getInstance(context).getStepStateObj();
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         return views;
@@ -133,8 +140,10 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
         protected Void doInBackground(Intent... intents) {
             try {
                 Activity activity = (Activity) context;
+                JSONObject rdtTypeField = RDTJsonFormUtils.getField(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
+                        Constants.RDTType.RDT_TYPE, context);
                 intents[0].putExtra(RDT_JSON_CONFIG, DeviceDefinitionProcessor.getInstance(context)
-                        .extractDeviceConfig("d3fdac0e-061e-b068-2bed-5a95e803636f").toString());
+                        .extractDeviceConfig(rdtTypeField.getString(JsonFormConstants.VALUE)).toString());
                 activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
             } catch (Exception e) {
                 Timber.e(e);

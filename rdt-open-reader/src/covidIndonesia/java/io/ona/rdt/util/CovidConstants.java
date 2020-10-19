@@ -70,6 +70,7 @@ public interface CovidConstants extends Constants {
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
         String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
         String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
+        String COVID_SELECT_RDT_TYPE_PAGE = "covid_select_rdt_type_page";
     }
 
     interface FormFields {
@@ -78,10 +79,6 @@ public interface CovidConstants extends Constants {
         String LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE = "lbl_scan_respiratory_specimen_barcode";
         String LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL = "lbl_affix_respiratory_specimen_label";
         String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
-        String LBL_ADD_XRAY_RESULTS = "lbl_add_xray_results";
-        String LBL_SKIP_XRAY_RESULTS = "lbl_skip_xray_results";
-        String LBL_ADD_WBC_RESULTS = "lbl_add_wbc_results";
-        String LBL_SKIP_WBC_RESULTS = "lbl_skip_wbc_results";
         String LBL_SCAN_SAMPLE_BARCODE = "lbl_scan_sample_barcode";
         String LBL_ENTER_SAMPLE_DETAILS_MANUALLY = "lbl_enter_sample_details_manually";
         String COVID_SAMPLE_ID = "covid_sample_id";
@@ -99,6 +96,8 @@ public interface CovidConstants extends Constants {
         String PATIENT_INFO_DOB = "patient_info_dob";
         String SAMPLER_NAME = "sampler_name";
         String SENDER_NAME = "sender_name";
+        String OTHER_KEY = "other";
+        String OTHER_VALUE = "Other";
     }
 
     interface RDTType {
