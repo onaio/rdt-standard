@@ -48,11 +48,8 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  */
 public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
-    private final Set<String> facilitySet;
-
-    public CovidRDTJsonFormUtils() {
-        facilitySet = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME, CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
-    }
+    public static final Set<String> FACILITY_SET = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME,
+            CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
 
     public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
         Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
@@ -130,7 +127,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
-        } else if (facilitySet.contains(key)) {
+        } else if (FACILITY_SET.contains(key)) {
             field.put(JsonFormConstants.OPTIONS_FIELD_NAME, getLocations());
         }
     }
