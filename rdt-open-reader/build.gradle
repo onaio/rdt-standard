@@ -149,7 +149,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.14.5.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.14.6.0jkjfdksapd329df4hds78-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -182,6 +182,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'
+    implementation 'com.ibm.fhir:fhir-model:4.2.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
 
     testImplementation "org.robolectric:shadows-multidex:4.3.1"

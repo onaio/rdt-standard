@@ -49,5 +49,6 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="lang_indonesia">Indonesia</string>
     <string name="show_password_text">Show Password</string>
     <string name="login_text">Log In</string>
+    <string name="launching_form">Launching form...</string>
 </resources>
 
