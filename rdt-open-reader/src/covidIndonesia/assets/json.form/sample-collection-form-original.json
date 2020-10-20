@@ -424,60 +424,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Name of Health Facility?",
-        "options": [
-          {
-            "key": "jenis_fasyankes",
-            "text": "Jenis Fasyankes"
-          },
-          {
-            "key": "dinas_kesehatan",
-            "text": "Dinas Kesehatan"
-          },
-          {
-            "key": "alamat_fasyankes",
-            "text": "Alamat Fasyankes"
-          },
-          {
-            "key": "other",
-            "text": "Other"
-          }
-        ],
+        "type": "spinner",
+        "hint": "Name of Health Facility?",
         "v_required": {
           "value": "true",
           "err": "This field is required"
-        }
-      },
-      {
-        "key": "other_health_facility_type_name_lbl",
-        "type": "label",
-        "text": "Other health facility",
-        "text_color": "#000000",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sample-collection-form-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "other_health_facility_type_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sample-collection-form-relevance-rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": "false",
-          "err": ""
         }
       },
       {

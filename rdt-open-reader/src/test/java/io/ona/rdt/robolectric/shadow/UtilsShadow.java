@@ -33,4 +33,9 @@ public class UtilsShadow extends Shadow {
     public static synchronized MockCounter getMockCounter() {
         return mockCounter;
     }
+
+    @Implementation
+    public static String getParentLocationId() {
+        return "";
+    }
 }
