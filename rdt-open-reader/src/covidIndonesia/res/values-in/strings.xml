@@ -5,4 +5,18 @@
     <string name="covid_patient_profile_sample_collection">Koleksi sampel</string>
     <string name="covid_patient_profile_supporting_investigations">Data klinis lainnya</string>
     <string name="covid_patient_profile_sample_shipments">Pengiriman sampel</string>
+    <string name="covid_patient_forms_tab_name">Formulir Pasien</string>
+    <string name="covid_patient_history_tab_name">Riwayat Pasien</string>
+    <string name="covid_xray">Sinar-X</string>
+    <string name="covid_wbc">Jumlah Sel Darah Putih</string>
+    <string name="no_data_available">Tidak ada data yang tersedia</string>
+    <string name="covid_barcode_product_id">ID Produk</string>
+    <string name="covid_barcode_serial_no">Nomor seri</string>
+    <string name="covid_barcode_additional_id">ID tambahan</string>
+    <string name="covid_barcode_lot_no">Lot</string>
+    <string name="covid_barcode_expiration_date">Tanggal habis tempo</string>
+    <string name="covid_barcode_is_sensor_triggered">Sensor panas dipicu</string>
+    <string name="sensor_activated">Status: Sensor Diaktifkan</string>
+    <string name="sensor_status_ok">Status: Oke</string>
+    <string name="no_barcode_captured_err">Harap tangkap kode batang untuk melanjutkan!</string>
 </resources>

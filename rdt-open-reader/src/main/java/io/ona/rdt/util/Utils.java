@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
 
 import androidx.annotation.StringRes;
@@ -17,8 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.job.SyncAllLocationsServiceJob;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.DateFormat;
@@ -103,8 +102,8 @@ public class Utils {
     }
 
     public static void updateLocale(Context context) {
-
-        String savedLocale = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Locale.LOCALE);
+        com.vijay.jsonwizard.utils.AllSharedPreferences allSharedPreferences = new com.vijay.jsonwizard.utils.AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(context));
+        String savedLocale = allSharedPreferences.fetchLanguagePreference();
 
         Locale locale = new Locale(StringUtils.isNotBlank(savedLocale) ? savedLocale : BuildConfig.LOCALE);
         Resources resources = context.getResources();
