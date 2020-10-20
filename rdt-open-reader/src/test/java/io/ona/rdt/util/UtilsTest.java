@@ -198,5 +198,9 @@ public class UtilsTest extends PowerMockTest {
         doReturn(FALSE).when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
         doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(Constants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
+
+        com.vijay.jsonwizard.utils.AllSharedPreferences mAllSharedPreferences = mock(com.vijay.jsonwizard.utils.AllSharedPreferences.class);
+        doReturn(BuildConfig.LOCALE).when(mAllSharedPreferences).fetchLanguagePreference();
+        PowerMockito.when(rdtApplication.getSharedPreferences()).thenReturn(mAllSharedPreferences);
     }
 }

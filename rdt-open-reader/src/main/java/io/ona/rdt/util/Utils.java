@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.util.TypedValue;
 
 import androidx.annotation.StringRes;
@@ -102,8 +101,8 @@ public class Utils {
     }
 
     public static void updateLocale(Context context) {
-        com.vijay.jsonwizard.utils.AllSharedPreferences allSharedPreferences = new com.vijay.jsonwizard.utils.AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(context));
-        String savedLocale = allSharedPreferences.fetchLanguagePreference();
+
+        String savedLocale = RDTApplication.getInstance().getSharedPreferences().fetchLanguagePreference();
 
         Locale locale = new Locale(StringUtils.isNotBlank(savedLocale) ? savedLocale : BuildConfig.LOCALE);
         Resources resources = context.getResources();
