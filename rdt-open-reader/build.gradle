@@ -182,7 +182,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'
-    implementation 'com.ibm.fhir:fhir-model:4.2.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
 
     testImplementation "org.robolectric:shadows-multidex:4.3.1"
@@ -204,6 +203,12 @@ dependencies {
     debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
     testImplementation 'androidx.test.ext:junit:1.1.1'
 }
+
+jarJar {
+    // Dependencies and related JarJar rules
+    remove = ['fhir-model-4.2.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
+}
+
 
 project.afterEvaluate {
     // Grab all build types and product flavors
