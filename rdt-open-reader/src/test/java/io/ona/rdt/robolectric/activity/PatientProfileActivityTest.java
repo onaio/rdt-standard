@@ -12,16 +12,15 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.PatientProfileActivity;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
-import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
@@ -61,8 +60,7 @@ public class PatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
-        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
-        Utils.updateLocale(patientProfileActivity);
+        LangUtils.saveLanguage(patientProfileActivity, BuildConfig.LOCALE);
         assertNotNull(ReflectionHelpers.getField(patientProfileActivity, "presenter"));
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), patientProfileActivity
                 .getResources().getConfiguration().locale.getLanguage());

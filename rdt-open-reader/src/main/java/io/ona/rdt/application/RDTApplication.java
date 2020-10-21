@@ -1,7 +1,6 @@
 package io.ona.rdt.application;
 
 import android.app.Activity;
-import android.preference.PreferenceManager;
 
 import com.evernote.android.job.JobManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -148,12 +147,5 @@ public class RDTApplication extends DrishtiApplication {
             parasiteProfileRepository = new ParasiteProfileRepository();
         }
         return parasiteProfileRepository;
-    }
-
-    public com.vijay.jsonwizard.utils.AllSharedPreferences getSharedPreferences() {
-        if (sharedPreferences == null) {
-            sharedPreferences = new com.vijay.jsonwizard.utils.AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this));
-        }
-        return sharedPreferences;
     }
 }

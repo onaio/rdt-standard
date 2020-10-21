@@ -18,6 +18,7 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -31,7 +32,6 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.util.Constants;
-import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
@@ -117,8 +117,7 @@ public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLocaleShouldMatchTheBuildConfigLocale() {
-        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
-        Utils.updateLocale(loginActivity);
+        LangUtils.saveLanguage(loginActivity, BuildConfig.LOCALE);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), loginActivity.getResources().getConfiguration().locale.getLanguage());
     }
 

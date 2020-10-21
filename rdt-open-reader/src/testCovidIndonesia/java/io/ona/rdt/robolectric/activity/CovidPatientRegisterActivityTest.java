@@ -1,8 +1,6 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,9 +12,11 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
+import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
+import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -25,6 +25,7 @@ import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 
 public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
@@ -76,17 +77,14 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private void verifyLocaleIsSaved(ListView listView, int position, String locale) {
         listView.performItemClick(null, position, listView.getItemIdAtPosition(position));
-        Assert.assertEquals(locale, new Locale(RDTApplication.getInstance().getSharedPreferences().fetchLanguagePreference()).getLanguage());
-        Assert.assertEquals(locale, covidPatientRegisterActivity.getResources().getConfiguration().locale.getLanguage());
+        Assert.assertEquals(locale, new Locale(LangUtils.getLanguage(covidPatientRegisterActivity)).getLanguage());
     }
 
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
         verifySavedLanguageIndex(0);
-        Resources resources = covidPatientRegisterActivity.getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(new Locale(locales[1]));
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        LangUtils.saveLanguage(covidPatientRegisterActivity, BuildConfig.LOCALE);
+        Utils.updateLocale(covidPatientRegisterActivity);
         verifySavedLanguageIndex(1);
     }
 

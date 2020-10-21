@@ -14,6 +14,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -23,7 +24,6 @@ import edu.washington.cs.ubicomplab.rdt_reader.views.ImageQualityView;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.presenter.CustomRDTCapturePresenter;
@@ -69,8 +69,7 @@ public class CustomRDTCaptureActivityTest extends ActivityRobolectricTest {
     public void testOnCreateShouldCorrectlyInitializeActivity() {
         Utils.showProgressDialog(R.string.please_wait_title, R.string.please_wait_message, customRDTCaptureActivity);
         controller.create();
-        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
-        io.ona.rdt.util.Utils.updateLocale(customRDTCaptureActivity);
+        LangUtils.saveLanguage(customRDTCaptureActivity, BuildConfig.LOCALE);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), customRDTCaptureActivity
                 .getResources().getConfiguration().locale.getLanguage());
         assertNotNull(ReflectionHelpers.getField(customRDTCaptureActivity, "presenter"));

@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.util.LangUtils;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -30,7 +31,6 @@ import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.util.RDTJsonFormUtils;
-import io.ona.rdt.util.Utils;
 
 import static android.app.Activity.RESULT_OK;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
@@ -76,8 +76,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
-        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
-        Utils.updateLocale(patientRegisterActivity);
+        LangUtils.saveLanguage(patientRegisterActivity, BuildConfig.LOCALE);
         assertNotNull(ReflectionHelpers.getField(patientRegisterActivity, "formUtils"));
         assertNotNull(ReflectionHelpers.getField(patientRegisterActivity, "presenter"));
         assertNotNull(ReflectionHelpers.getField(patientRegisterActivity, "mBaseFragment"));
