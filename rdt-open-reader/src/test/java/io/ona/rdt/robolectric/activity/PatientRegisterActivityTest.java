@@ -3,7 +3,12 @@ package io.ona.rdt.robolectric.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.view.MenuItem;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -11,14 +16,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.HashMap;
 import java.util.Locale;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.LoginActivity;
@@ -26,6 +29,7 @@ import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
+import io.ona.rdt.robolectric.shadow.AllSharedPreferencesShadow;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.util.RDTJsonFormUtils;
@@ -44,6 +48,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
+@Config(sdk = Build.VERSION_CODES.O_MR1, shadows = {AllSharedPreferencesShadow.class})
 public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private PatientRegisterActivity patientRegisterActivity;
