@@ -23,6 +23,7 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
+import io.ona.rdt.R;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.domain.LineReadings;
@@ -33,10 +34,10 @@ import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.StepStateConfig;
+import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 import static edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG;
 
 /**
@@ -82,7 +83,6 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(JsonFormUtils.ENTITY_ID, baseEntityId);
             intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
-            intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
             new LaunchRDTCameraTask().execute(intent);
         }
     }
@@ -133,7 +133,7 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected void onPreExecute() {
-            showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, context);
+            Utils.showProgressDialogInFG((Activity) context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
         }
 
         @Override
@@ -142,9 +142,19 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
                 Activity activity = (Activity) context;
                 JSONObject rdtTypeField = RDTJsonFormUtils.getField(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
                         Constants.RDTType.RDT_TYPE, context);
-                intents[0].putExtra(RDT_JSON_CONFIG, DeviceDefinitionProcessor.getInstance(context)
-                        .extractDeviceConfig(rdtTypeField.getString(JsonFormConstants.VALUE)).toString());
-                activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+                String rdtType = rdtTypeField.getString(JsonFormConstants.VALUE);
+                JSONObject deviceConfig = DeviceDefinitionProcessor.getInstance(context).extractDeviceConfig(rdtType);
+                if (deviceConfig.length() != 0) {
+                    intents[0].putExtra(RDT_JSON_CONFIG, deviceConfig.toString());
+                    intents[0].putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
+                    activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+                } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtType)) {
+                    activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+                } else {
+                    Utils.hideProgressDialogFromFG((Activity) context);
+                    onActivityResult(-1, Activity.RESULT_CANCELED, null);
+                    Utils.showToastInFG((Activity) context, context.getString(R.string.rdt_not_supported));
+                }
             } catch (Exception e) {
                 Timber.e(e);
             }

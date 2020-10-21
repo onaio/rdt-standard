@@ -114,21 +114,15 @@ public class Utils {
     }
 
     public static void showProgressDialogInFG(Activity activity, @StringRes int title, @StringRes int message) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                showProgressDialog(message, title, activity);
-            }
-        });
+        activity.runOnUiThread(() -> showProgressDialog(message, title, activity));
     }
 
     public static void hideProgressDialogFromFG(Activity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                hideProgressDialog();
-            }
-        });
+        activity.runOnUiThread(() -> hideProgressDialog());
+    }
+
+    public static void showToastInFG(Activity activity, String message) {
+        activity.runOnUiThread(() -> com.vijay.jsonwizard.utils.Utils.showToast(activity, message));
     }
 
     public static boolean isExpired(Date expirationDate) {
