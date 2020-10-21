@@ -10,6 +10,7 @@ import com.ibm.fhir.model.resource.DeviceDefinition;
 import com.ibm.fhir.model.type.CodeableConcept;
 import com.ibm.fhir.model.type.Element;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.pathevaluator.PathEvaluatorLibrary;
@@ -94,28 +95,11 @@ public class DeviceDefinitionProcessor {
     public JSONObject extractDeviceConfig(String deviceId) throws JSONException {
         JSONObject deviceConfig = new JSONObject();
         Map<String, String> deviceAssets = extractDeviceAssets(deviceId);
-        deviceConfig.put(CovidConstants.FHIRResource.REF_IMG,
-                deviceAssets.get(CovidConstants.FHIRResource.REF_IMG));
-        deviceConfig.put(CovidConstants.FHIRResource.MIDDLE_LINE_NAME,
-                deviceAssets.get(CovidConstants.FHIRResource.MIDDLE_LINE_NAME));
-        deviceConfig.put(CovidConstants.FHIRResource.VIEW_FINDER_SCALE,
-                deviceAssets.get(CovidConstants.FHIRResource.VIEW_FINDER_SCALE));
-        deviceConfig.put(CovidConstants.FHIRResource.RESULT_WINDOW_BOTTOM_RIGHT,
-                Utils.convertStringToJsonArr(deviceAssets.get(CovidConstants.FHIRResource.RESULT_WINDOW_BOTTOM_RIGHT)));
-        deviceConfig.put(CovidConstants.FHIRResource.RESULT_WINDOW_TOP_LEFT,
-                Utils.convertStringToJsonArr(deviceAssets.get(CovidConstants.FHIRResource.RESULT_WINDOW_TOP_LEFT)));
-        deviceConfig.put(CovidConstants.FHIRResource.MIDDLE_LINE_POSITION,
-                Utils.convertStringToJsonArr(deviceAssets.get(CovidConstants.FHIRResource.MIDDLE_LINE_POSITION)));
-        deviceConfig.put(CovidConstants.FHIRResource.LINE_INTENSITY,
-                deviceAssets.get(CovidConstants.FHIRResource.LINE_INTENSITY));
-        deviceConfig.put(CovidConstants.FHIRResource.BOTTOM_LINE_POSITION,
-                Utils.convertStringToJsonArr(deviceAssets.get(CovidConstants.FHIRResource.BOTTOM_LINE_POSITION)));
-        deviceConfig.put(CovidConstants.FHIRResource.BOTTOM_LINE_NAME,
-                deviceAssets.get(CovidConstants.FHIRResource.BOTTOM_LINE_NAME));
-        deviceConfig.put(CovidConstants.FHIRResource.TOP_LINE_POSITION,
-                Utils.convertStringToJsonArr(deviceAssets.get(CovidConstants.FHIRResource.TOP_LINE_POSITION)));
-        deviceConfig.put(CovidConstants.FHIRResource.TOP_LINE_NAME,
-                deviceAssets.get(CovidConstants.FHIRResource.TOP_LINE_NAME));
+        for (Map.Entry<String, String> keyValPair : deviceAssets.entrySet()) {
+            String val = keyValPair.getValue();
+            JSONArray valAsJsonArr = Utils.convertToJsonArr(val);
+            deviceConfig.put(keyValPair.getKey(),  valAsJsonArr == null ? val : valAsJsonArr);
+        }
         return deviceConfig;
     }
 }

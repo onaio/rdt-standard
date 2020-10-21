@@ -29,6 +29,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -168,7 +169,7 @@ public class RDTJsonFormUtils {
         return fileLevels[fileLevels.length - 1].split("\\.")[0];
     }
 
-    public static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
+    private static Pair<Boolean, String> writeImageToDisk(String imgFolderPath, Bitmap image, Context context) {
 
         OutputStream outputStream = null;
         String absoluteFilePath = null;
@@ -183,7 +184,7 @@ public class RDTJsonFormUtils {
                 saveImageToGallery(context, image);
             }
             result = new Pair<>(true, absoluteFilePath);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             Timber.e(e);
         } finally {
             if (outputStream != null) {

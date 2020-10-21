@@ -32,6 +32,7 @@ import androidx.annotation.StringRes;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
@@ -159,8 +160,13 @@ public class Utils {
         return cursor == null || cursor.getCount() == 0;
     }
 
-    public static JSONArray convertStringToJsonArr(String str) throws JSONException {
-        return StringUtils.isBlank(str) ? null : new JSONArray(str);
+    public static JSONArray convertToJsonArr(String str) {
+        try {
+            return new JSONArray(str);
+        } catch (JSONException e) {
+            Timber.e("This is not valid JSON!");
+            return null;
+        }
     }
 
     public static JSONArray createOptionsBlock(Map<String, String> keyValPairs, String openmrsEntity, String openmrsEntityId) throws JSONException {
