@@ -2,14 +2,12 @@ package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.util.ReflectionHelpers;
 
@@ -18,7 +16,7 @@ import java.util.Locale;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.robolectric.shadow.AllSharedPreferencesShadow;
+import io.ona.rdt.util.Utils;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -32,7 +30,6 @@ import static org.robolectric.Shadows.shadowOf;
 /**
  * Created by Vincent Karuri on 23/07/2020
  */
-@Config(sdk = Build.VERSION_CODES.O_MR1, shadows = {AllSharedPreferencesShadow.class})
 public class RDTExpirationActivityTest extends ActivityRobolectricTest {
 
     private ActivityController<RDTExpirationDateActivity> controller;
@@ -50,6 +47,8 @@ public class RDTExpirationActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
+        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
+        Utils.updateLocale(rdtExpirationDateActivity);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), rdtExpirationDateActivity
                 .getResources().getConfiguration().locale.getLanguage());
     }

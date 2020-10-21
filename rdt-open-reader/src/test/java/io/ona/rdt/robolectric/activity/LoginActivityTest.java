@@ -2,7 +2,6 @@ package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.text.Html;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -30,10 +28,10 @@ import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.presenter.LoginPresenter;
 import io.ona.rdt.presenter.RDTApplicationPresenter;
-import io.ona.rdt.robolectric.shadow.AllSharedPreferencesShadow;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.Constants.Table.RDT_PATIENTS;
 import static org.junit.Assert.assertEquals;
@@ -48,7 +46,6 @@ import static org.robolectric.Shadows.shadowOf;
 /**
  * Created by Vincent Karuri on 16/07/2020
  */
-@Config(sdk = Build.VERSION_CODES.O_MR1, shadows = {AllSharedPreferencesShadow.class})
 public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Mock
@@ -120,6 +117,8 @@ public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLocaleShouldMatchTheBuildConfigLocale() {
+        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
+        Utils.updateLocale(loginActivity);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), loginActivity.getResources().getConfiguration().locale.getLanguage());
     }
 

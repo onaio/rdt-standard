@@ -2,12 +2,10 @@ package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.Locale;
@@ -18,9 +16,9 @@ import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormActivityPresenter;
-import io.ona.rdt.robolectric.shadow.AllSharedPreferencesShadow;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.StepStateConfig;
+import io.ona.rdt.util.Utils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
 import static org.junit.Assert.assertEquals;
@@ -34,7 +32,6 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Vincent Karuri on 22/07/2020
  */
-@Config(sdk = Build.VERSION_CODES.O_MR1, shadows = {AllSharedPreferencesShadow.class})
 public class RDTJsonFormActivityTest extends JsonFormActivityTest {
 
     private RDTJsonFormActivity rdtJsonFormActivity;
@@ -49,6 +46,8 @@ public class RDTJsonFormActivityTest extends JsonFormActivityTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
+        RDTApplication.getInstance().getSharedPreferences().saveLanguagePreference(BuildConfig.LOCALE);
+        Utils.updateLocale(rdtJsonFormActivity);
         assertNotNull(ReflectionHelpers.getField(rdtJsonFormActivity, "formUtils"));
         assertNotNull(ReflectionHelpers.getField(rdtJsonFormActivity, "presenter"));
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), rdtJsonFormActivity
