@@ -1,7 +1,11 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,9 +14,9 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.smartregister.util.LangUtils;
 
-import androidx.appcompat.app.AlertDialog;
+import java.util.Locale;
+
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -72,15 +76,18 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private void verifyLocaleIsSaved(ListView listView, int position, String locale) {
         listView.performItemClick(null, position, listView.getItemIdAtPosition(position));
-        Assert.assertEquals(locale, LangUtils.getLanguage(RDTApplication.getInstance()));
-        Assert.assertEquals(locale, RDTApplication.getInstance().getResources().getConfiguration().locale.getLanguage());
+        Assert.assertEquals(locale, new Locale(RDTApplication.getInstance().getSharedPreferences().fetchLanguagePreference()).getLanguage());
+        Assert.assertEquals(locale, covidPatientRegisterActivity.getResources().getConfiguration().locale.getLanguage());
     }
 
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
-        verifySavedLanguageIndex(1);
-        LangUtils.saveLanguage(covidPatientRegisterActivity, locales[0]);
         verifySavedLanguageIndex(0);
+        Resources resources = covidPatientRegisterActivity.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(new Locale(locales[1]));
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        verifySavedLanguageIndex(1);
     }
 
     private void verifySavedLanguageIndex(int expected) throws Exception {

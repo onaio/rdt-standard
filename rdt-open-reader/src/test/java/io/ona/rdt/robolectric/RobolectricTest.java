@@ -22,7 +22,6 @@ import org.smartregister.util.CredentialsHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.robolectric.shadow.AllSharedPreferencesShadow;
 import io.ona.rdt.robolectric.shadow.BaseLoaderCallbackShadow;
 import io.ona.rdt.robolectric.shadow.CameraBridgeViewBaseShadow;
 import io.ona.rdt.robolectric.shadow.ClientCoreUtilsShadow;
@@ -46,7 +45,7 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,
         SQLiteDatabaseShadow.class, GpsDialogShadow.class, MatShadow.class,
-        ClientProcessorForJavaShadow.class, ImageUtilShadow.class, AllSharedPreferencesShadow.class})
+        ClientProcessorForJavaShadow.class, ImageUtilShadow.class})
 public abstract class RobolectricTest {
 
     @Before

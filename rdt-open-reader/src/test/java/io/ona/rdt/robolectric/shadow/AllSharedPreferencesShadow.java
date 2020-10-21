@@ -12,7 +12,7 @@ import io.ona.rdt.BuildConfig;
 public class AllSharedPreferencesShadow extends Shadow {
 
     @Implementation
-    public String fetchLanguagePreference(){
+    public String fetchLanguagePreference() {
         return BuildConfig.LOCALE;
     }
 }

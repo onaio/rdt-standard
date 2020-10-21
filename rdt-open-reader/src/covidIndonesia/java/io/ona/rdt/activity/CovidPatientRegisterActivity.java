@@ -2,7 +2,6 @@ package io.ona.rdt.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AlertDialog;
@@ -12,11 +11,13 @@ import com.vijay.jsonwizard.utils.AllSharedPreferences;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 
@@ -76,6 +77,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
         builder.setTitle(getResources().getString(R.string.drawer_menu_item_change_language));
         builder.setSingleChoiceItems(R.array.locales_key, selectedLanguageIndex, (dialog, position) -> {
             allSharedPreferences.saveLanguagePreference(localesVal[position]);
+            Utils.updateLocale(CovidPatientRegisterActivity.this);
             reloadClass();
         });
 
@@ -84,7 +86,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     }
 
     private void registerLanguageSwitcher() {
-        allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(CovidPatientRegisterActivity.this));
+        allSharedPreferences = RDTApplication.getInstance().getSharedPreferences();
         String activeLanguage = getResources().getConfiguration().locale.getLanguage();
 
         String[] localesVal = getResources().getStringArray(R.array.locales_value);
