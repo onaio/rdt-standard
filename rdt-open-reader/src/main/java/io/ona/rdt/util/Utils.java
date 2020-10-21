@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,15 +42,14 @@ import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
  */
 public class Utils {
     public static final ArrayList<String> ALLOWED_LEVELS;
-    public static final String DEFAULT_LOCATION_LEVEL = Constants.Tags.HEALTH_CENTER;
+    public static final String DEFAULT_LOCATION_LEVEL = Constants.Tags.LOCATION;
 
     static {
         ALLOWED_LEVELS = new ArrayList<>();
         ALLOWED_LEVELS.add(DEFAULT_LOCATION_LEVEL);
         ALLOWED_LEVELS.add(Constants.Tags.COUNTRY);
-        ALLOWED_LEVELS.add(Constants.Tags.PROVINCE);
         ALLOWED_LEVELS.add(Constants.Tags.DISTRICT);
-        ALLOWED_LEVELS.add(Constants.Tags.VILLAGE);
+        ALLOWED_LEVELS.add(Constants.Tags.DIVISION);
     }
 
     public static void scheduleJobsPeriodically() {
@@ -174,5 +174,13 @@ public class Utils {
             jsonArray.put(jsonArray.length(), option);
         }
         return jsonArray;
+    }
+
+    public static String getParentLocationId() {
+        org.smartregister.Context context = RDTApplication.getInstance().getContext();
+        AllSharedPreferences sharedPreferences = context.allSharedPreferences();
+        return context.getLocationRepository().getLocationById(sharedPreferences
+                .fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
+                .getProperties().getParentId();
     }
 }

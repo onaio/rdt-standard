@@ -5,18 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.domain.jsonmapping.Location;
+import org.smartregister.domain.jsonmapping.util.LocationTree;
+import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,6 +51,9 @@ import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
  * Created by Vincent Karuri on 13/07/2020
  */
 public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
+
+    public static final Set<String> FACILITY_SET = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME,
+            CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
 
     public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
         Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
@@ -139,6 +149,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
+        } else if (FACILITY_SET.contains(key)) {
+            field.put(JsonFormConstants.OPTIONS_FIELD_NAME, getLocations());
         }
     }
 
@@ -168,5 +180,34 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     private String getLoggedInUserPreferredName() {
         final AllSharedPreferences allSharedPreference = RDTApplication.getInstance().getContext().allSharedPreferences();
         return allSharedPreference.getANMPreferredName(allSharedPreference.fetchRegisteredANM());
+    }
+
+    private JSONArray getLocations() throws JSONException {
+
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
+        LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
+        List<String> locations = filterLocations(locationMap);
+
+        JSONArray jsonArray = new JSONArray();
+        for (String location : locations) {
+            JSONObject option = new JSONObject();
+            option.put(JsonFormConstants.KEY, location);
+            option.put(JsonFormConstants.TEXT, location);
+            option.put(JsonFormConstants.OPENMRS_ENTITY, "");
+            option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
+            jsonArray.put(option);
+        }
+        return jsonArray;
+    }
+
+    private List<String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
+        List<String> locations = new ArrayList<>();
+        Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
+        for (Map.Entry<String, TreeNode<String, Location>> childEntry : entry.getValue().getChildren().entrySet()) {
+            TreeNode<String, Location> childNode = childEntry.getValue();
+            locations.add(childNode.getLabel());
+        }
+        return locations;
     }
 }
