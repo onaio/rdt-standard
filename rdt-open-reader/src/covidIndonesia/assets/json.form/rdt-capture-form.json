@@ -329,6 +329,7 @@
         "openmrs_entity_id": "",
         "text": "{{rdt-capture-form-original.step6.manual_expiration_date.text}}",
         "hint": "{{rdt-capture-form-original.step6.manual_expiration_date.hint}}",
+        "min_date": "today+1d",
         "v_required": {
           "value": true,
           "err": "{{rdt-capture-form-original.step6.manual_expiration_date.v_required.err}}"
