@@ -26,7 +26,7 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
-import io.ona.rdt.robolectric.shadow.DeviceDefinitionProcessorShadow;
+import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;

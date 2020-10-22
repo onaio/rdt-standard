@@ -5,13 +5,19 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.JsonFormUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static org.junit.Assert.assertEquals;
@@ -798,6 +804,16 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         allSharedPreferences.updateANMUserName("anm_id");
         allSharedPreferences.updateANMPreferredName(allSharedPreferences.fetchRegisteredANM(), ANM_PREFERRED_NAME);
         allSharedPreferences.savePreference(CovidConstants.Preference.LOCATION_TREE, MOCK_LOCATION_TREE_JSON);
+    }
+
+    @Config(shadows = {DeviceDefinitionProcessorShadow.class})
+    @Test
+    public void testPrePopulateRDTFormFieldsShouldPopulateAvailableRDTs() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormUtils.KEY, Constants.RDTType.RDT_TYPE);
+        getFormUtils().prePopulateRDTFormFields(RuntimeEnvironment.application, jsonObject, "");
+        Assert.assertEquals(Utils.createOptionsBlock(CovidRDTJsonFormUtils.appendOtherOption(DeviceDefinitionProcessorShadow.getDeviceIdToNameMap()), "", "").toString(),
+                jsonObject.get(JsonFormConstants.OPTIONS_FIELD_NAME).toString());
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {

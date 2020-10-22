@@ -88,14 +88,17 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         if (Constants.RDTType.RDT_TYPE.equals(field.getString(JsonFormUtils.KEY))) {
             try {
                 DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
-                Map<String, String> availableRDTsMap = deviceDefinitionProcessor.getDeviceIDToDeviceNameMap();
-                availableRDTsMap.put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
-                JSONArray availableRDTsArr = Utils.createOptionsBlock(availableRDTsMap, "", "");
+                JSONArray availableRDTsArr = Utils.createOptionsBlock(appendOtherOption(deviceDefinitionProcessor.getDeviceIDToDeviceNameMap()), "", "");
                 field.put(JsonFormConstants.OPTIONS_FIELD_NAME, availableRDTsArr);
             } catch (IOException | FHIRParserException e) {
                 Timber.e(e);
             }
         }
+    }
+
+    public static Map<String, String> appendOtherOption(Map<String, String> optionsMap) {
+        optionsMap.put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
+        return optionsMap;
     }
 
     private void prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
