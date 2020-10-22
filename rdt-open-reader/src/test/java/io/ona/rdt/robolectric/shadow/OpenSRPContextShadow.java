@@ -112,7 +112,7 @@ public class OpenSRPContextShadow extends Shadow {
             LocationProperty locationProperty = new LocationProperty();
             locationProperty.setParentId(PARENT_LOCATION_ID);
             location.setProperties(locationProperty);
-            Mockito.doReturn(location).when(locationRepository).getLocationById(anyString());
+            Mockito.doReturn(location).when(locationRepository).getLocationById(any());
         }
         return locationRepository;
     }

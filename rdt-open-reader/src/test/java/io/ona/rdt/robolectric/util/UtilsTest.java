@@ -1,13 +1,9 @@
 package io.ona.rdt.robolectric.util;
 
-import android.app.Activity;
-
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
