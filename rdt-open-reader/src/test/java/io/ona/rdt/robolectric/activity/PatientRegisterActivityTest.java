@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.util.LangUtils;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -76,7 +75,6 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
-        LangUtils.saveLanguage(patientRegisterActivity, BuildConfig.LOCALE);
         assertNotNull(ReflectionHelpers.getField(patientRegisterActivity, "formUtils"));
         assertNotNull(ReflectionHelpers.getField(patientRegisterActivity, "presenter"));
         assertNotNull(ReflectionHelpers.getField(patientRegisterActivity, "mBaseFragment"));

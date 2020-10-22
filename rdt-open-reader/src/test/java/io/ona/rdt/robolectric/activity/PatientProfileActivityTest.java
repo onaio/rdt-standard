@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -60,7 +59,6 @@ public class PatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
-        LangUtils.saveLanguage(patientProfileActivity, BuildConfig.LOCALE);
         assertNotNull(ReflectionHelpers.getField(patientProfileActivity, "presenter"));
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), patientProfileActivity
                 .getResources().getConfiguration().locale.getLanguage());

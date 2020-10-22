@@ -14,7 +14,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -69,7 +68,6 @@ public class CustomRDTCaptureActivityTest extends ActivityRobolectricTest {
     public void testOnCreateShouldCorrectlyInitializeActivity() {
         Utils.showProgressDialog(R.string.please_wait_title, R.string.please_wait_message, customRDTCaptureActivity);
         controller.create();
-        LangUtils.saveLanguage(customRDTCaptureActivity, BuildConfig.LOCALE);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), customRDTCaptureActivity
                 .getResources().getConfiguration().locale.getLanguage());
         assertNotNull(ReflectionHelpers.getField(customRDTCaptureActivity, "presenter"));

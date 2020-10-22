@@ -10,7 +10,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -47,7 +46,6 @@ public class RDTExpirationActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
-        LangUtils.saveLanguage(rdtExpirationDateActivity, BuildConfig.LOCALE);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), rdtExpirationDateActivity
                 .getResources().getConfiguration().locale.getLanguage());
     }

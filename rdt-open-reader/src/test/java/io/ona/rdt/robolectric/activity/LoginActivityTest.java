@@ -18,7 +18,6 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -117,7 +116,6 @@ public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLocaleShouldMatchTheBuildConfigLocale() {
-        LangUtils.saveLanguage(loginActivity, BuildConfig.LOCALE);
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), loginActivity.getResources().getConfiguration().locale.getLanguage());
     }
 

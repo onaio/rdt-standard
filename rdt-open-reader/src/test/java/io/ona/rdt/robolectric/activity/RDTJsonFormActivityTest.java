@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
@@ -46,7 +45,6 @@ public class RDTJsonFormActivityTest extends JsonFormActivityTest {
 
     @Test
     public void testOnCreateShouldCorrectlyInitializeActivity() {
-        LangUtils.saveLanguage(rdtJsonFormActivity, BuildConfig.LOCALE);
         assertNotNull(ReflectionHelpers.getField(rdtJsonFormActivity, "formUtils"));
         assertNotNull(ReflectionHelpers.getField(rdtJsonFormActivity, "presenter"));
         assertEquals(new Locale(BuildConfig.LOCALE).getLanguage(), rdtJsonFormActivity

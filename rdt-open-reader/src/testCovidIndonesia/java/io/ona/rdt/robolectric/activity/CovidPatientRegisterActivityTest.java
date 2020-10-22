@@ -16,7 +16,6 @@ import org.smartregister.util.LangUtils;
 
 import java.util.Locale;
 
-import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -82,10 +81,10 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
-        verifySavedLanguageIndex(0);
-        LangUtils.saveLanguage(covidPatientRegisterActivity, BuildConfig.LOCALE);
-        Utils.updateLocale(covidPatientRegisterActivity);
         verifySavedLanguageIndex(1);
+        LangUtils.saveLanguage(covidPatientRegisterActivity, "en");
+        Utils.updateLocale(covidPatientRegisterActivity);
+        verifySavedLanguageIndex(0);
     }
 
     private void verifySavedLanguageIndex(int expected) throws Exception {
