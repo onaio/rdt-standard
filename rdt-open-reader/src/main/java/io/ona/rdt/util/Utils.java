@@ -1,9 +1,10 @@
 package io.ona.rdt.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.TypedValue;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -114,16 +115,22 @@ public class Utils {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
-    public static void showProgressDialogInFG(Activity activity, @StringRes int title, @StringRes int message) {
-        activity.runOnUiThread(() -> showProgressDialog(message, title, activity));
+    public static void showProgressDialogInFG(Context context, @StringRes int title, @StringRes int message) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            showProgressDialog(message, title, context);
+        });
     }
 
-    public static void hideProgressDialogFromFG(Activity activity) {
-        activity.runOnUiThread(() -> hideProgressDialog());
+    public static void hideProgressDialogFromFG() {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            hideProgressDialog();
+        });
     }
 
-    public static void showToastInFG(Activity activity, String message) {
-        activity.runOnUiThread(() -> com.vijay.jsonwizard.utils.Utils.showToast(activity, message));
+    public static void showToastInFG(Context context, String message) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            com.vijay.jsonwizard.utils.Utils.showToast(context, message);
+        });
     }
 
     public static boolean isExpired(Date expirationDate) {
@@ -162,7 +169,7 @@ public class Utils {
 
     public static JSONArray convertToJsonArr(String str) {
         try {
-            return new JSONArray(str);
+            return StringUtils.isBlank(str) ? null : new JSONArray(str);
         } catch (JSONException e) {
             Timber.e("This is not valid JSON!");
             return null;

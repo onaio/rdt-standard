@@ -151,7 +151,7 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
                 } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtType)) {
                     activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
                 } else {
-                    Utils.hideProgressDialogFromFG((Activity) context);
+                    Utils.hideProgressDialogFromFG();
                     onActivityResult(-1, Activity.RESULT_CANCELED, null);
                     Utils.showToastInFG((Activity) context, context.getString(R.string.rdt_not_supported));
                 }
