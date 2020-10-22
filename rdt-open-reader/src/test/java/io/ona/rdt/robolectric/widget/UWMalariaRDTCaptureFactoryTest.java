@@ -23,6 +23,8 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
+import io.ona.rdt.robolectric.shadow.DeviceDefinitionProcessorShadow;
+import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
@@ -127,7 +129,7 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
         verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
     }
 
-    @Config(shadows = {ContextCompatShadow.class})
+    @Config(shadows = {ContextCompatShadow.class, DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
     @Test
     public void testGetViewsFromJsonShouldCorrectlyPopulateFields() throws Exception {
         String entityId = "entity_id";
