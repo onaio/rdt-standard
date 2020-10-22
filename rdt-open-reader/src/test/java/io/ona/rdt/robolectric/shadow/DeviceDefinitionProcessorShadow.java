@@ -23,17 +23,21 @@ import io.ona.rdt.util.DeviceDefinitionProcessor;
 @Implements(DeviceDefinitionProcessor.class)
 public class DeviceDefinitionProcessorShadow {
 
+    private static JSONObject jsonObject;
+
     @Implementation
     public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
         try {
             DeviceDefinitionProcessor deviceDefinitionProcessor = Mockito.mock(DeviceDefinitionProcessor.class);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
             Mockito.doReturn(jsonObject).when(deviceDefinitionProcessor).extractDeviceConfig(ArgumentMatchers.anyString());
             return deviceDefinitionProcessor;
         } catch (JSONException e) {
             // do nothing
         }
         return null;
+    }
+
+    public static void setJSONObject(JSONObject jsonObject) {
+        DeviceDefinitionProcessorShadow.jsonObject = jsonObject;
     }
 }

@@ -4,18 +4,21 @@ import android.content.Intent;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowToast;
 
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -26,6 +29,7 @@ import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.robolectric.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -41,7 +45,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_PARENT;
@@ -81,23 +84,23 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
 
         Whitebox.invokeMethod(rdtCaptureFactory, "populateRelevantFields", parcelableImageMetadata);
 
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_TOP_LINE_READING), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_READING), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_READING), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.RDT_CAPTURE_DURATION), eq(String.valueOf(parcelableImageMetadata.getCaptureDuration())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.RDTType.RDT_TYPE), eq(rdtType), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CROPPED_IMG_ID), eq(parcelableImageMetadata.getCroppedImageId()), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.TIME_IMG_SAVED), eq(String.valueOf(parcelableImageMetadata.getImageTimeStamp())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(JsonFormConstants.RDT_CAPTURE), eq(parcelableImageMetadata.getFullImageId()), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.FLASH_ON), eq(String.valueOf(parcelableImageMetadata.isFlashOn())), eq(""), eq(""), eq(""), eq(false));
-        verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CASSETTE_BOUNDARY), eq(parcelableImageMetadata.getCassetteBoundary()), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_TOP_LINE_READING), eq(String.valueOf(lineReadings.isTopLine())), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_MIDDLE_LINE_READING), eq(String.valueOf(lineReadings.isMiddleLine())), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.FormFields.RDT_CAPTURE_BOTTOM_LINE_READING), eq(String.valueOf(lineReadings.isBottomLine())), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.RDT_CAPTURE_DURATION), eq(String.valueOf(parcelableImageMetadata.getCaptureDuration())), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.RDTType.RDT_TYPE), eq(rdtType), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CROPPED_IMG_ID), eq(parcelableImageMetadata.getCroppedImageId()), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.TIME_IMG_SAVED), eq(String.valueOf(parcelableImageMetadata.getImageTimeStamp())), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(JsonFormConstants.RDT_CAPTURE), eq(parcelableImageMetadata.getFullImageId()), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.FLASH_ON), eq(String.valueOf(parcelableImageMetadata.isFlashOn())), eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonFormActivity).writeValue(eq(widgetArgs.getStepName()), eq(Constants.Test.CASSETTE_BOUNDARY), eq(parcelableImageMetadata.getCassetteBoundary()), eq(""), eq(""), eq(""), eq(false));
     }
 
     @Test
     public void testSetUpRDTCaptureActivity() {
         setWidgetArgs();
         rdtCaptureFactory.setUpRDTCaptureActivity();
-        verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
+        Mockito.verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
     }
 
     @Test
@@ -118,15 +121,15 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
         doReturn(parcelableImageMetadata).when(data).getParcelableExtra(PARCELABLE_IMAGE_METADATA);
 
         rdtCaptureFactory.onActivityResult(RDT_CAPTURE_CODE , RESULT_OK, data);
-        verify(jsonFormActivity, atLeastOnce()).writeValue(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(), eq(false));
-        verify(widgetArgs.getFormFragment()).next();
+        Mockito.verify(jsonFormActivity, atLeastOnce()).writeValue(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(), eq(false));
+        Mockito.verify(widgetArgs.getFormFragment()).next();
     }
 
     @Test
     public void testOnActivityResultShouldMoveBackOneStepOnCancel() {
         setWidgetArgs();
         rdtCaptureFactory.onActivityResult(BARCODE_REQUEST_CODE, RESULT_CANCELED, mock(Intent.class));
-        verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
+        Mockito.verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
     }
 
     @Config(shadows = {ContextCompatShadow.class, DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
@@ -140,9 +143,13 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
         jsonObject.put(OPENMRS_ENTITY, "openmrs_entity");
         jsonObject.put(OPENMRS_ENTITY_PARENT, "openmrs_entity_parent");
         jsonObject.put(KEY, "key");
+        jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
-        JsonFormFragment formFragment = mock(JsonFormFragment.class);
+        DeviceDefinitionProcessorShadow.setJSONObject(jsonObject);
+        RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
+
+        RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
                 jsonObject, mock(CommonListener.class));
 
@@ -154,13 +161,37 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
         Assert.assertEquals(jsonFormActivity, actualWidgetArgs.getContext());
         Assert.assertEquals("step1", actualWidgetArgs.getStepName());
 
-        // verify rdt capture is launched
+        // verify rdt capture is launched for rdt with fhir config
         Intent expectedIntent = new Intent(jsonFormActivity, CustomRDTCaptureActivity.class);
         Intent actualIntent = Shadows.shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
         Assert.assertEquals(entityId, actualIntent.getStringExtra(ENTITY_ID));
         Assert.assertEquals(Constants.RDTType.ONA_RDT, actualIntent.getStringExtra(UWRDTCaptureFactory.RDT_NAME));
         Assert.assertEquals(UWRDTCaptureFactory.CAPTURE_TIMEOUT_MS, actualIntent.getLongExtra(UWRDTCaptureFactory.CAPTURE_TIMEOUT, -1));
+
+        // verify rdt capture is launched for other rdt selection
+        DeviceDefinitionProcessorShadow.setJSONObject(new JSONObject());
+        jsonObject.put(JsonFormConstants.VALUE, CovidConstants.FormFields.OTHER_KEY);
+        RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
+        rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
+                jsonObject, mock(CommonListener.class));
+        expectedIntent = new Intent(jsonFormActivity, CustomRDTCaptureActivity.class);
+        actualIntent = Shadows.shadowOf(RDTApplication.getInstance()).getNextStartedActivity();
+        Assert.assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+        Assert.assertEquals(entityId, actualIntent.getStringExtra(ENTITY_ID));
+        Assert.assertEquals(Constants.RDTType.ONA_RDT, actualIntent.getStringExtra(UWRDTCaptureFactory.RDT_NAME));
+        Assert.assertEquals(-1, actualIntent.getLongExtra(UWRDTCaptureFactory.CAPTURE_TIMEOUT, -1));
+
+        // verify that rdt capture is not launched for rdt with no config and other is not selected
+        DeviceDefinitionProcessorShadow.setJSONObject(new JSONObject());
+        jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
+        RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
+        rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
+                jsonObject, mock(CommonListener.class));
+        Assert.assertNull(Shadows.shadowOf(RDTApplication.getInstance()).getNextStartedActivity());
+        Mockito.verify(formFragment).setMoveBackOneStep(ArgumentMatchers.eq(true));
+        Assert.assertFalse(Utils.getProgressDialog().isShowing());
+        Assert.assertNotNull(ShadowToast.getLatestToast());
     }
 
     private void setWidgetArgs() {

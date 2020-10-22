@@ -20,18 +20,18 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 @Implements(RDTJsonFormUtils.class)
 public class RDTJsonFormUtilsShadow {
 
+    private static JSONObject jsonObject;
+
     @Implementation
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
     }
 
     @Implementation
     public static JSONObject getField(String step, String key, Context context) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
-        } catch (JSONException e) {
-            // do nothing
-        }
         return jsonObject;
+    }
+
+    public static void setJsonObject(JSONObject jsonObject) {
+        RDTJsonFormUtilsShadow.jsonObject = jsonObject;
     }
 }
