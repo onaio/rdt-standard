@@ -10,7 +10,6 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
@@ -73,7 +72,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.drawer_menu_item_change_language));
         builder.setSingleChoiceItems(R.array.locales_key, selectedLanguageIndex, (dialog, position) -> {
-            LangUtils.saveLanguage(RDTApplication.getInstance(), localesVal[position]);
+            LangUtils.saveLanguage(getApplication(), localesVal[position]);
             reloadClass();
         });
 
