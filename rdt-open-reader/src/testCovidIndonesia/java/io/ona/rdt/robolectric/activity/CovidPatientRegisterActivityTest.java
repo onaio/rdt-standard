@@ -82,7 +82,8 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
         verifySavedLanguageIndex(1);
-        LangUtils.saveLanguage(covidPatientRegisterActivity, "en");
+        String[] localesVal = covidPatientRegisterActivity.getResources().getStringArray(R.array.locales_value);
+        LangUtils.saveLanguage(covidPatientRegisterActivity, localesVal[0]);
         Utils.updateLocale(covidPatientRegisterActivity);
         verifySavedLanguageIndex(0);
     }
