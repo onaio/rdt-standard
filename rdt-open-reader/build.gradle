@@ -39,16 +39,6 @@ android {
                 includeCompileClasspath true
             }
         }
-
-        if (project.rootProject.file("local.properties").exists()) {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
-            buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
-        } else {
-            buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
-            buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
-        }
     }
 
     sourceSets {
@@ -133,6 +123,21 @@ android {
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
+        }
+    }
+
+    buildTypes.all { buildType ->
+        def isDebugAPK = buildType.debuggable
+        if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                def oauthClientId = isDebugAPK ? properties["staging.oauth.client.id"] : properties["production.oauth.client.id"];
+                def oauthClientSecret = isDebugAPK ? properties["staging.oauth.client.secret"] : properties["production.oauth.client.secret"];
+                buildConfigField "String", "OAUTH_CLIENT_ID", oauthClientId
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", oauthClientSecret
+        } else {
+                buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
         }
     }
 }
