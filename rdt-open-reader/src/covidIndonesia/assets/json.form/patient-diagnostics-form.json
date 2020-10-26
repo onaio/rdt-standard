@@ -89,17 +89,12 @@
         }
       },
       {
-        "key": "facility_name_label",
-        "type": "label",
-        "text": "{{patient-diagnostics-form-original.step1.facility_name_label.text}}",
-        "text_color": "#000000"
-      },
-      {
         "key": "facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "spinner",
+        "hint": "{{patient-diagnostics-form-original.step1.facility_name.hint}}",
         "v_required": {
           "value": "false",
           "err": "{{patient-diagnostics-form-original.step1.facility_name.v_required.err}}"

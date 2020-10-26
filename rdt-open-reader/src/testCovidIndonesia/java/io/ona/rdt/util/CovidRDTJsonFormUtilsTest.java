@@ -13,7 +13,6 @@ import java.util.List;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 
-import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static org.junit.Assert.assertEquals;
 import static org.smartregister.util.JsonFormUtils.KEY;
@@ -790,16 +789,19 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             "  }\n" +
             "}";
 
+    private static final String MOCK_LOCATION_TREE_JSON = "{\"locationsHierarchy\":{\"map\":{\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"children\":{\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"id\":\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Location 1\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Location 1\",\"parentLocation\":{\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\"},\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"id\":\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Location 2\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Location 2\",\"parentLocation\":{\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\"},\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\":{\"id\":\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Location 3\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Location 3\",\"parentLocation\":{\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\"}},\"id\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"label\":\"Indonesia Division 1\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"name\":\"Indonesia Division 1\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"}}},\"parentChildren\":{\"1c7ba751-35e8-4b46-9e53-3cb8fd193697\":[\"2c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"3c7ba751-35e8-4b46-9e53-3cb8fd193697\",\"4c7ba751-35e8-4b46-9e53-3cb8fd193697\"]}}}";
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         allSharedPreferences.updateANMUserName("anm_id");
         allSharedPreferences.updateANMPreferredName(allSharedPreferences.fetchRegisteredANM(), ANM_PREFERRED_NAME);
+        allSharedPreferences.savePreference(CovidConstants.Preference.LOCATION_TREE, MOCK_LOCATION_TREE_JSON);
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(7, numOfPopulatedFields);
+        assertEquals(10, numOfPopulatedFields);
     }
 
     @Override
@@ -812,37 +814,39 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             // pre-populate respiratory sample id field
             assertEquals(field.getString(VALUE), UNIQUE_ID);
             numOfPopulatedFields++;
-        }
-        else if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(JsonFormConstants.KEY))) {
+        } else if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(JsonFormConstants.KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
                 assertEquals(childObject.getString(JsonFormConstants.TEXT), "unique_id");
                 numOfPopulatedFields++;
             }
-        }
-        else if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(JsonFormConstants.KEY))) {
+        } else if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(JsonFormConstants.KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
                 assertEquals(childObject.getString(JsonFormConstants.TEXT), "patient");
                 numOfPopulatedFields++;
             }
-        }
-        else if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(JsonFormConstants.KEY))) {
+        } else if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(JsonFormConstants.KEY))) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             if (options.length() > 0) {
                 JSONObject childObject = options.getJSONObject(0);
                 assertEquals(childObject.getString(JsonFormConstants.TEXT), "01-09-2020");
                 numOfPopulatedFields++;
             }
-        }
-        else if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
+        } else if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
             assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
             numOfPopulatedFields++;
-        }
-        else if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
+        } else if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
             assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
+            numOfPopulatedFields++;
+        } else if (CovidRDTJsonFormUtils.FACILITY_SET.contains(field.getString(JsonFormConstants.KEY))) {
+            JSONArray jsonArray = new JSONArray(field.getString(JsonFormConstants.OPTIONS_FIELD_NAME));
+            assertEquals(3, jsonArray.length());
+            for (int i = 1; i <= jsonArray.length(); i++) {
+                assertEquals("Indonesia Location " + i, jsonArray.getJSONObject(i - 1).getString(JsonFormConstants.TEXT));
+            }
             numOfPopulatedFields++;
         }
 
@@ -856,7 +860,10 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Override
     protected List<String> getFormsToPrepopulate() {
-        return Arrays.asList(SAMPLE_COLLECTION_FORM, CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM);
+        return Arrays.asList(CovidConstants.Form.SAMPLE_COLLECTION_FORM,
+                CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM,
+                CovidConstants.Form.COVID_RDT_TEST_FORM,
+                CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM);
     }
 
     @Override
