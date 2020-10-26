@@ -329,6 +329,10 @@
         "openmrs_entity_id": "",
         "text": "Expiration date?",
         "hint": "RDT expiration date",
+        "v_min_allowed_date": {
+          "value": "today+1d",
+          "err": "Expired RDT! Please use another."
+        },
         "v_required": {
           "value": true,
           "err": "Please specify the expiration date"
