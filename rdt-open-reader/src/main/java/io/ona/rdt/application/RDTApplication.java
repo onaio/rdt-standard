@@ -20,7 +20,7 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.ParasiteProfileRepository;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.repository.RDTTestsRepository;
-import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTSyncConfiguration;
 import io.ona.rdt.util.ReleaseTree;
 import io.ona.rdt.util.StepStateConfig;
@@ -72,8 +72,8 @@ public class RDTApplication extends DrishtiApplication {
         }
 
         // set locale initially
-        if (sharedPreferences.getPreference(CovidConstants.Locale.LOCALE).isEmpty()) {
-            sharedPreferences.savePreference(CovidConstants.Locale.LOCALE, BuildConfig.LOCALE);
+        if (sharedPreferences.getPreference(Constants.Locale.LOCALE).isEmpty()) {
+            sharedPreferences.savePreference(Constants.Locale.LOCALE, BuildConfig.LOCALE);
         }
     }
 
