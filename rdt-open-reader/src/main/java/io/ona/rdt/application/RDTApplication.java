@@ -20,6 +20,7 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.ParasiteProfileRepository;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.repository.RDTTestsRepository;
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.RDTSyncConfiguration;
 import io.ona.rdt.util.ReleaseTree;
 import io.ona.rdt.util.StepStateConfig;
@@ -68,6 +69,11 @@ public class RDTApplication extends DrishtiApplication {
         AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
         if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
             sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+        }
+
+        // set locale initially
+        if (sharedPreferences.getPreference(CovidConstants.Locale.LOCALE).isEmpty()) {
+            sharedPreferences.savePreference(CovidConstants.Locale.LOCALE, BuildConfig.LOCALE);
         }
     }
 
