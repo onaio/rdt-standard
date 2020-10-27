@@ -14,8 +14,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.smartregister.util.LangUtils;
 
-import java.util.Locale;
-
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -76,7 +74,8 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private void verifyLocaleIsSaved(ListView listView, int position, String locale) {
         listView.performItemClick(null, position, listView.getItemIdAtPosition(position));
-        Assert.assertEquals(locale, new Locale(LangUtils.getLanguage(covidPatientRegisterActivity)).getLanguage());
+        Assert.assertEquals(locale, LangUtils.getLanguage(RDTApplication.getInstance()));
+        Assert.assertEquals(locale, RDTApplication.getInstance().getResources().getConfiguration().locale.getLanguage());
     }
 
     @Test

@@ -22,7 +22,6 @@ import io.ona.rdt.presenter.RDTApplicationPresenter;
 import io.ona.rdt.repository.ParasiteProfileRepository;
 import io.ona.rdt.repository.RDTRepository;
 import io.ona.rdt.repository.RDTTestsRepository;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTSyncConfiguration;
 import io.ona.rdt.util.ReleaseTree;
 import io.ona.rdt.util.StepStateConfig;
@@ -75,7 +74,7 @@ public class RDTApplication extends DrishtiApplication {
 
         // set locale initially
         if (StringUtils.isEmpty(sharedPreferences.getPreference(AllConstants.LANGUAGE_PREFERENCE_KEY))) {
-            sharedPreferences.savePreference(Constants.Locale.LOCALE, BuildConfig.LOCALE);
+            sharedPreferences.savePreference(AllConstants.LANGUAGE_PREFERENCE_KEY, BuildConfig.LOCALE);
         }
     }
 
