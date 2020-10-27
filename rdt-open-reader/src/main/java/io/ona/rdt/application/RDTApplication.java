@@ -5,6 +5,8 @@ import android.app.Activity;
 import com.evernote.android.job.JobManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.location.helper.LocationHelper;
@@ -72,7 +74,7 @@ public class RDTApplication extends DrishtiApplication {
         }
 
         // set locale initially
-        if (sharedPreferences.getPreference(Constants.Locale.LOCALE).isEmpty()) {
+        if (StringUtils.isEmpty(sharedPreferences.getPreference(AllConstants.LANGUAGE_PREFERENCE_KEY))) {
             sharedPreferences.savePreference(Constants.Locale.LOCALE, BuildConfig.LOCALE);
         }
     }
