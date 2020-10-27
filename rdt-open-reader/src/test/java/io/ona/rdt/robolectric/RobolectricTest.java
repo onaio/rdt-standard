@@ -6,6 +6,8 @@ package io.ona.rdt.robolectric;
 
 import android.os.Build;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -19,7 +21,6 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.CredentialsHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.robolectric.shadow.BaseLoaderCallbackShadow;
 import io.ona.rdt.robolectric.shadow.CameraBridgeViewBaseShadow;

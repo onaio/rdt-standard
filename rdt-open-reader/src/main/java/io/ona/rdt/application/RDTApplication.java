@@ -5,6 +5,8 @@ import android.app.Activity;
 import com.evernote.android.job.JobManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.location.helper.LocationHelper;
@@ -39,6 +41,7 @@ public class RDTApplication extends DrishtiApplication {
     private Activity currentActivity;
     private RDTTestsRepository rdtTestsRepository;
     private ParasiteProfileRepository parasiteProfileRepository;
+    private com.vijay.jsonwizard.utils.AllSharedPreferences sharedPreferences;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -67,6 +70,11 @@ public class RDTApplication extends DrishtiApplication {
         AllSharedPreferences sharedPreferences = getContext().allSharedPreferences();
         if (sharedPreferences.getPreference(IS_IMG_SYNC_ENABLED).isEmpty()) {
             sharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(true));
+        }
+
+        // set locale initially
+        if (StringUtils.isEmpty(sharedPreferences.getPreference(AllConstants.LANGUAGE_PREFERENCE_KEY))) {
+            sharedPreferences.savePreference(AllConstants.LANGUAGE_PREFERENCE_KEY, BuildConfig.LOCALE);
         }
     }
 

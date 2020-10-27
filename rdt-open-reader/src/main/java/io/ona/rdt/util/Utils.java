@@ -17,9 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.job.SyncAllLocationsServiceJob;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -104,7 +103,7 @@ public class Utils {
 
     public static void updateLocale(Context context) {
 
-        String savedLocale = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Locale.LOCALE);
+        String savedLocale = LangUtils.getLanguage(context);
 
         Locale locale = new Locale(StringUtils.isNotBlank(savedLocale) ? savedLocale : BuildConfig.LOCALE);
         Resources resources = context.getResources();

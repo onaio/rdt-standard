@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -21,6 +22,7 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.job.BaseJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -54,7 +56,7 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
  * Created by Vincent Karuri on 31/07/2019
  */
 
-@PrepareForTest({RDTApplication.class, PullUniqueIdsServiceJob.class, RDTSyncServiceJob.class, BaseJob.class})
+@PrepareForTest({RDTApplication.class, PullUniqueIdsServiceJob.class, RDTSyncServiceJob.class, BaseJob.class, LangUtils.class})
 public class UtilsTest extends PowerMockTest {
 
     private Utils utils;
@@ -187,7 +189,7 @@ public class UtilsTest extends PowerMockTest {
         assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
     }
 
-    private void mockStaticClasses() {
+    private void mockStaticClasses() throws Exception {
         mockStatic(BaseJob.class);
 
         mockStatic(RDTApplication.class);
@@ -198,5 +200,8 @@ public class UtilsTest extends PowerMockTest {
         doReturn(FALSE).when(allSharedPreferences).getPreference(IS_IMG_SYNC_ENABLED);
         doReturn(BuildConfig.LOCALE).when(allSharedPreferences).getPreference(Constants.Locale.LOCALE);
         doReturn(allSharedPreferences).when(drishtiContext).allSharedPreferences();
+
+        mockStatic(LangUtils.class);
+        PowerMockito.doNothing().when(LangUtils.class, "saveLanguage", ArgumentMatchers.any(Context.class), ArgumentMatchers.anyString());
     }
 }

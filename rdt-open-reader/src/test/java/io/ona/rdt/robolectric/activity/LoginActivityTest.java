@@ -45,7 +45,6 @@ import static org.robolectric.Shadows.shadowOf;
 /**
  * Created by Vincent Karuri on 16/07/2020
  */
-
 public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Mock
