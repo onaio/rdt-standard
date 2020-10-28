@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.view.MenuItem;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
+
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +20,6 @@ import org.robolectric.util.ReflectionHelpers;
 import java.util.HashMap;
 import java.util.Locale;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.LoginActivity;

@@ -3,6 +3,8 @@ package io.ona.rdt.robolectric.activity;
 import android.app.Activity;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +14,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.smartregister.util.LangUtils;
 
-import androidx.appcompat.app.AlertDialog;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -21,6 +22,7 @@ import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 
 public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
@@ -79,7 +81,9 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Test
     public void testRegisterLanguageSwitcherShouldVerifyLocaleIndex() throws Exception {
         verifySavedLanguageIndex(1);
-        LangUtils.saveLanguage(covidPatientRegisterActivity, locales[0]);
+        String[] localesVal = covidPatientRegisterActivity.getResources().getStringArray(R.array.locales_value);
+        LangUtils.saveLanguage(covidPatientRegisterActivity, localesVal[0]);
+        Utils.updateLocale(covidPatientRegisterActivity);
         verifySavedLanguageIndex(0);
     }
 
