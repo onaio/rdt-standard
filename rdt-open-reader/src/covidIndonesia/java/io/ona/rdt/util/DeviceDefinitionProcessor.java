@@ -48,6 +48,11 @@ public class DeviceDefinitionProcessor {
         return FHIRParser.parser(Format.JSON).parse(stream);
     }
 
+    public String getDeviceId(String productCode) {
+        String expression = String.format("$this.entry.resource.where(udiDeviceIdentifier.where(deviceIdentifier='%s')).identifier.value", productCode);
+        return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
+    }
+
     public String extractDeviceInstructions(String deviceId) {
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).capability.where(type.where(text='%s')).description.text",
                 deviceId, CovidConstants.FHIRResource.INSTRUCTIONS);
