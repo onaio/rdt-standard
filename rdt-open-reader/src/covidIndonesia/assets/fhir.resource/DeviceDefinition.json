@@ -226,7 +226,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "W195",
+            "deviceIdentifier": "9991976400004",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
@@ -471,7 +471,7 @@
             "jurisdiction": "urn:global"
           },
           {
-            "deviceIdentifier": "INCP-402",
+            "deviceIdentifier": "6970277514699",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
@@ -708,6 +708,13 @@
             ]
           }
         ],
+        "udiDeviceIdentifier": [
+          {
+            "deviceIdentifier": "9992128110000",
+            "issuer": "urn:manufacturer",
+            "jurisdiction": "urn:global"
+          }
+        ],
         "resourceType": "DeviceDefinition"
       }
     },
@@ -942,7 +949,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "GF101A1",
+            "deviceIdentifier": "9992030340007",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
@@ -1164,7 +1171,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "09COV12B",
+            "deviceIdentifier": "9992128780005",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
