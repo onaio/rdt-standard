@@ -226,7 +226,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "9991976400004",
+            "deviceIdentifier": "99919764000000",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
@@ -710,7 +710,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "9992128110000",
+            "deviceIdentifier": "99921281100002",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
@@ -949,7 +949,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "9992030340007",
+            "deviceIdentifier": "99920303400007",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
@@ -1171,7 +1171,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "9992128780005",
+            "deviceIdentifier": "99921287800005",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
