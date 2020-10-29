@@ -221,7 +221,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "label": "{{rdt-capture-form-original.step6.rdt_type.label}}",
+        "hint": "{{rdt-capture-form-original.step6.rdt_type.hint}}",
         "v_required": {
           "value": "true",
           "err": "{{rdt-capture-form-original.step6.rdt_type.v_required.err}}"
