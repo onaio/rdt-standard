@@ -1,11 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.smartregister.gradle.jarjar'
+
+if (project.file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
+}
 
 repositories {
     maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
@@ -38,16 +41,6 @@ android {
             annotationProcessorOptions {
                 includeCompileClasspath true
             }
-        }
-
-        if (project.rootProject.file("local.properties").exists()) {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
-            buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
-        } else {
-            buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
-            buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
         }
     }
 
@@ -126,13 +119,28 @@ android {
         }
 
         covidIndonesia {
-            applicationId "io.ona.diagnostics.rdt.configurable"
+            applicationId "io.ona.diagnostics.rdt.configurable.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
             versionName "v1.6.0"
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
+        }
+    }
+
+    buildTypes.all { buildType ->
+        def isDebugAPK = buildType.debuggable
+        if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                def oauthClientId = isDebugAPK ? properties["staging.oauth.client.id"] : properties["production.oauth.client.id"];
+                def oauthClientSecret = isDebugAPK ? properties["staging.oauth.client.secret"] : properties["production.oauth.client.secret"];
+                buildConfigField "String", "OAUTH_CLIENT_ID", oauthClientId
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", oauthClientSecret
+        } else {
+                buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
         }
     }
 }
@@ -161,7 +169,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:2.2.4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:2.2.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'

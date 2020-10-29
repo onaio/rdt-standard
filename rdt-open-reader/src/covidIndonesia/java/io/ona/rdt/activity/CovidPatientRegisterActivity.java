@@ -81,6 +81,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     }
 
     private void registerLanguageSwitcher() {
+
         String activeLanguage = getResources().getConfiguration().locale.getLanguage();
 
         String[] localesVal = getResources().getStringArray(R.array.locales_value);

@@ -158,18 +158,12 @@
         }
       },
       {
-        "key": "health_facility_name_lbl",
-        "type": "label",
-        "text": "{{rdt-capture-form-original.step4.health_facility_name_lbl.text}}",
-        "top_margin": "15dp",
-        "text_color": "#000000"
-      },
-      {
         "key": "health_facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "spinner",
+        "hint": "{{rdt-capture-form-original.step4.health_facility_name.hint}}",
         "v_required": {
           "value": "false",
           "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
@@ -335,6 +329,10 @@
         "openmrs_entity_id": "",
         "text": "{{rdt-capture-form-original.step6.manual_expiration_date.text}}",
         "hint": "{{rdt-capture-form-original.step6.manual_expiration_date.hint}}",
+        "v_min_allowed_date": {
+          "value": "today+1d",
+          "err": "Expired RDT! Please use another."
+        },
         "v_required": {
           "value": true,
           "err": "{{rdt-capture-form-original.step6.manual_expiration_date.v_required.err}}"
