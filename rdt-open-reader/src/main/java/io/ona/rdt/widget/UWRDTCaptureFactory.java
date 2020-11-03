@@ -29,6 +29,7 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.Utils;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
@@ -123,7 +124,7 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected void onPreExecute() {
-            showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, context);
+            Utils.showProgressDialogInFG((Activity) context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
         }
 
         @Override
