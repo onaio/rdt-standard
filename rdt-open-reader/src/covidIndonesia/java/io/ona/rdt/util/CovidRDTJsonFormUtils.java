@@ -28,6 +28,7 @@ import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
@@ -164,6 +165,10 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
+        if (locationTree == null) {
+            Timber.e("Location tree is null!");
+            return new JSONArray();
+        }
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
         List<String> locations = filterLocations(locationMap);
 
