@@ -1,6 +1,8 @@
 package io.ona.rdt.widget;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -55,7 +57,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
 
         RelativeLayout rootLayout = views == null ? null : (RelativeLayout) views.get(0);
 
-        clickThenHideScanButton(rootLayout);
+        new Handler(Looper.getMainLooper()).post(() -> clickThenHideScanButton(rootLayout));
 
         ((JsonApi) context).getFormDataViews().clear(); // we do not need the edit text and it causes weird validation issues
 
