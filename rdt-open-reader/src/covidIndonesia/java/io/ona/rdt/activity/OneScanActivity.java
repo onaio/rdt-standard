@@ -42,6 +42,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     private boolean enableBatchScan;
     private final Handler handler = new Handler();
     private final JSONArray dataArray = new JSONArray();
+    private ViewDataBinding viewBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         DataBindingUtil.setContentView(this, R.layout.activity_one_scan);
         parentView = findViewById(R.id.item_list);
         enableBatchScan = getIntent().getBooleanExtra(Constants.Config.ENABLE_BATCH_SCAN, false);
+        viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
+        parentView.addView(viewBinding.getRoot());
         oneScanHelper = new OneScanHelper(this);
         doScan(CovidConstants.ScannerType.SCANNER);
         addListeners();
@@ -104,16 +107,19 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
             scanObject.put("lot", response.lot);
             scanObject.put("expirationDate", response.expirationDate);
             dataArray.put(scanObject);
+            viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
         }
 
-        ViewDataBinding viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
         setBarcodeResult(viewBinding, R.id.barcode_product_id, response.productId);
         setBarcodeResult(viewBinding, R.id.barcode_serial_no, response.serialNumber);
         setBarcodeResult(viewBinding, R.id.barcode_additional_id, response.additionalIdentifier);
         setBarcodeResult(viewBinding, R.id.barcode_lot_no, response.lot);
         setBarcodeResult(viewBinding, R.id.barcode_expiration_date, response.expirationDate);
         setBarcodeResult(viewBinding, R.id.barcode_is_sensor_triggered, response.sensorTriggered ? getString(R.string.yes) : getString(R.string.no));
-        parentView.addView(viewBinding.getRoot());
+
+        if (enableBatchScan) {
+            parentView.addView(viewBinding.getRoot());
+        }
     }
 
     private void setBarcodeResult(ViewDataBinding viewDataBinding, int viewId, String result) {
