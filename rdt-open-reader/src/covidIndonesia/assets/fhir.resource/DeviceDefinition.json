@@ -466,12 +466,7 @@
         ],
         "udiDeviceIdentifier": [
           {
-            "deviceIdentifier": "6970277514699",
-            "issuer": "urn:gtin",
-            "jurisdiction": "urn:global"
-          },
-          {
-            "deviceIdentifier": "6970277514699",
+            "deviceIdentifier": "06970277514699",
             "issuer": "urn:manufacturer",
             "jurisdiction": "urn:global"
           }
