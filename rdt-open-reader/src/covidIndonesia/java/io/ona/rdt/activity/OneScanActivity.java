@@ -165,8 +165,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             Barcode barcode = new Barcode();
             barcode.displayValue = StringUtils.join(new String[]{response.serialNumber, response.expirationDate,
                     response.lot, response.productId, String.valueOf(response.sensorTriggered),

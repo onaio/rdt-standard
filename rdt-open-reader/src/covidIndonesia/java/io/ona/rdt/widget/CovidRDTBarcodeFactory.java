@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.UniqueId;
+import org.smartregister.util.Utils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static io.ona.rdt.util.Utils.convertDate;
-import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by Vincent Karuri on 09/07/2020
@@ -34,6 +34,7 @@ import static org.smartregister.util.Utils.isEmptyCollection;
 public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     private static final int SENSOR_TRIGGER_INDEX = 4;
+    private static final String BATCH_ID = "batch_id";
 
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";
@@ -50,8 +51,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
             try {
                 if (data.getBooleanExtra(Constants.Config.ENABLE_BATCH_SCAN, false)) {
                     populateBarcodeData(data);
-                }
-                else {
+                } else {
                     String barcodeVals = getBarcodeValsAsCSV(data);
                     jsonApi.writeValue(widgetArgs.getStepName(),
                             widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
@@ -90,15 +90,15 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 }
             }
 
-            String uniqueId = isEmptyCollection(ids) ? "" : ids.get(0);
+            String uniqueId = Utils.isEmptyCollection(ids) ? "" : ids.get(0);
 
             try {
-                jsonObject.put("batch_id", uniqueId);
+                jsonObject.put(BATCH_ID, uniqueId);
                 JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
                 String stepName = widgetArgs.getStepName();
 
                 jsonApi.writeValue(stepName, CovidConstants.FormFields.QR_CODE_READER, jsonObject.toString(),  "", "", "", false);
-                jsonApi.writeValue("step5", "batch_id", uniqueId,  "", "", "", false);
+                jsonApi.writeValue("step5", BATCH_ID, uniqueId,  "", "", "", false);
 
                 moveToNextStep();
             } catch (JSONException e) {
