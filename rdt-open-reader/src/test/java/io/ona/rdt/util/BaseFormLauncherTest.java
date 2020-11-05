@@ -112,7 +112,7 @@ public abstract class BaseFormLauncherTest extends PowerMockTest {
         Whitebox.setInternalState(formLauncher, "formUtils", formUtils);
         formLauncher.onUniqueIdsFetched(args, getUniqueIDs());
 
-        verify(formUtils).launchForm(eq(activity), eq("form_name"), eq(patient), eq(getUniqueIDStrings()));
+        verify(formUtils).launchForm(eq(activity), eq("form_name"), eq(patient), eq(uniqueId.getOpenmrsId()));
 
         // For insufficient unique IDs
         formLauncher.onUniqueIdsFetched(args, new ArrayList<>());
@@ -142,12 +142,6 @@ public abstract class BaseFormLauncherTest extends PowerMockTest {
     private List<UniqueId> getUniqueIDs() {
         List<UniqueId> rdtIds = new ArrayList<>();
         rdtIds.add(uniqueId);
-        return rdtIds;
-    }
-
-    private List<String> getUniqueIDStrings() {
-        List<String> rdtIds = new ArrayList<>();
-        rdtIds.add(uniqueId.getOpenmrsId());
         return rdtIds;
     }
 

@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt.activity.PatientRegisterActivity;
@@ -60,14 +59,8 @@ public abstract class BaseRDTJsonFormUtilsTest extends RobolectricTest {
         Assert.assertEquals(entityId, jsonForm.get(Constants.FormFields.ENTITY_ID));
     }
 
-    private List<String> getIDs() {
-        List<String> rdtIds = new ArrayList<>();
-        rdtIds.add(UNIQUE_ID);
-        return rdtIds;
-    }
-
     private JSONObject getJsonForm(PatientRegisterActivity patientRegisterActivity, String formName, Patient patient) throws JSONException {
-        return getFormUtils().launchForm(patientRegisterActivity, formName, patient, getIDs());
+        return getFormUtils().launchForm(patientRegisterActivity, formName, patient, UNIQUE_ID);
     }
 
     protected abstract void assertAllFieldsArePopulated(int numOfPopulatedFields);
