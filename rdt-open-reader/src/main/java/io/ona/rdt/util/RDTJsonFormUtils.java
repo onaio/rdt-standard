@@ -251,12 +251,11 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public JSONObject launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
+    public JSONObject launchForm(Activity activity, String formName, Patient patient, String uniqueId) {
         JSONObject formJsonObject = null;
         try {
             formJsonObject = getFormJsonObject(formName, activity);
             if (formShouldBePrePopulated(formName)) {
-                String uniqueId = isEmptyCollection(uniqueIDs) ? "" : uniqueIDs.get(0);
                 prePopulateFormFields(formJsonObject, patient, uniqueId);
             }
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());

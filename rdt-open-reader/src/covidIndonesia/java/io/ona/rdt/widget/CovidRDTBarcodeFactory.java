@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.UniqueId;
-import org.smartregister.util.Utils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -81,16 +81,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         JSONObject jsonObject = new JSONObject(data.getStringExtra("data"));
 
         formUtils.getNextUniqueIds(null, (args, uniqueIds) -> {
-            List<String> ids = new ArrayList<>();
-            for (UniqueId uniqueId : uniqueIds) {
-                String currUniqueId = uniqueId.getOpenmrsId();
-                if (StringUtils.isNotBlank(currUniqueId)) {
-                    currUniqueId = currUniqueId.replace("-", "");
-                    ids.add(currUniqueId);
-                }
-            }
 
-            String uniqueId = Utils.isEmptyCollection(ids) ? "" : ids.get(0);
+            String uniqueId = Utils.getUniqueId(uniqueIds);
 
             try {
                 jsonObject.put(BATCH_ID, uniqueId);
@@ -98,11 +90,11 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 String stepName = widgetArgs.getStepName();
 
                 jsonApi.writeValue(stepName, CovidConstants.FormFields.QR_CODE_READER, jsonObject.toString(),  "", "", "", false);
-                jsonApi.writeValue("step5", BATCH_ID, uniqueId,  "", "", "", false);
+                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID, uniqueId,  "", "", "", false);
 
                 moveToNextStep();
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }, 1);
     }

@@ -289,11 +289,11 @@
     ]
   },
   "step5": {
-    "title": "Sample shipment details",
+    "title": "{{sample-delivery-details-form-original.step5.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "submit_label": "{{sample-delivery-details-form-original.step5.submit_label}}",
     "fields": [
       {
         "key": "lbl_batch_id",
@@ -304,7 +304,7 @@
         "bg_color": "#ffffff",
         "center_label": "true",
         "top_margin": "15dp",
-        "text": "Batch Id"
+        "text": "{{sample-delivery-details-form-original.step5.lbl_batch_id.text}}"
       },
       {
         "key": "batch_id",
@@ -314,7 +314,7 @@
         "bg_color": "#ffffff",
         "center_label": "true",
         "top_margin": "15dp",
-        "text": ""
+        "text": "{{sample-delivery-details-form-original.step5.batch_id.text}}"
       }
     ]
   },

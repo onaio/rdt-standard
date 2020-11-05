@@ -169,7 +169,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 dataObject.put("scans", dataArray);
                 resultIntent.putExtra("data", dataObject.toString());
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         } else {
             Barcode barcode = new Barcode();
@@ -189,7 +189,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
-            if (!enableBatchScan || dataArray.length() <= 0) {
+            if (!enableBatchScan || com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
                 onBackPressed();
             }
         }
