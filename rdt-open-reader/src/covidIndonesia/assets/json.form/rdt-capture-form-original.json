@@ -128,36 +128,6 @@
     "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "health_facility_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Referral Health Facility?",
-        "options": [
-          {
-            "key": "hospital",
-            "text": "Hospital"
-          },
-          {
-            "key": "clinic",
-            "text": "Clinic"
-          },
-          {
-            "key": "health_facility",
-            "text": "Health Facility"
-          },
-          {
-            "key": "other",
-            "text": "Other"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
-      },
-      {
         "key": "health_facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -167,6 +137,37 @@
         "v_required": {
           "value": "false",
           "err": ""
+        }
+      },
+      {
+        "key": "other_location_lbl",
+        "type": "label",
+        "text": "Specify location",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
         }
       }
     ]
