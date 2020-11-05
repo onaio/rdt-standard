@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -109,6 +110,48 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         View barcodeResultRow = oneScanActivity.findViewById(viewId);
         String actualResult = ((TextView) barcodeResultRow.findViewById(R.id.tv_barcode_result_value)).getText().toString();
         Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testBarcodeResultScreenPopulationShouldVerifyCorrectJSONArray() {
+        final String barcodeText = "text";
+        final boolean sensorTriggered = false;
+        final String productId = "product_id";
+        final String lot = "lot_no";
+        final String serialNumber = "serial_no";
+        final String additionalIdentifier =  "identifier";
+        final String expirationDate = TestUtils.getFormattedDateWithOffset(-1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT);
+        final String sensorNotTriggered = "No";
+        final String sensorTriggeredStr = "sensorTriggered";
+        final String expDateStr = "expirationDate";
+        final String serialNumberStr = "serialNumber";
+        final String performPostScanActionsMethod = "performPostScanActions";
+        final String enableBatchScanField = "enableBatchScan";
+        final String dataArrayField = "dataArray";
+
+        Bundle bundle = new Bundle();
+        bundle.putString("status", "ok");
+        bundle.putString("barcodeText", barcodeText);
+        bundle.putBoolean(sensorTriggeredStr, sensorTriggered);
+        bundle.putString("productId", productId);
+        bundle.putString("lot", lot);
+        bundle.putString(expDateStr, expirationDate);
+        bundle.putString(serialNumberStr, serialNumber);
+        bundle.putString("additionalIdentifier", additionalIdentifier);
+        bundle.putString(sensorTriggeredStr, sensorNotTriggered);
+
+        // enable batch scan
+        ReflectionHelpers.setField(oneScanActivity, enableBatchScanField, true);
+
+        ReflectionHelpers.callInstanceMethod(oneScanActivity, performPostScanActionsMethod,
+                ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
+        ReflectionHelpers.callInstanceMethod(oneScanActivity, performPostScanActionsMethod,
+                ReflectionHelpers.ClassParameter.from(Bundle.class, bundle));
+
+        JSONArray dataArray = ReflectionHelpers.getField(oneScanActivity, dataArrayField);
+
+        Assert.assertEquals(2, dataArray.length());
+
     }
 
     @Override
