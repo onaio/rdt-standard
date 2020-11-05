@@ -139,20 +139,13 @@
         }
       },
       {
-        "key": "passport_no_label",
+        "key": "government_id_no_label",
         "type": "label",
-        "text": "Passport number?",
-        "text_color": "#000000",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient-registration-form-relevance-rules.yml"
-            }
-          }
-        }
+        "text": "Government ID number?",
+        "text_color": "#000000"
       },
       {
-        "key": "passport_no",
+        "key": "government_id_no",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -160,56 +153,6 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient-registration-form-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "drivers_license_number_lbl",
-        "type": "label",
-        "text": "Driver's license number?",
-        "text_color": "#000000",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient-registration-form-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "drivers_license_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient-registration-form-relevance-rules.yml"
-            }
-          }
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Value must be numeric"
-        },
-        "v_max_length": {
-          "value": "16",
-          "err": "Phone number cannot be more than 16 digits"
-        },
-        "v_min_length": {
-          "value": "16",
-          "err": "The ID number cannot be less than 16 digits."
         }
       },
       {
