@@ -127,6 +127,10 @@
           {
             "key": "passport",
             "text": "Passport"
+          },
+          {
+            "key": "national_identity_card",
+            "text": "National Identity Card"
           }
         ],
         "v_required": {

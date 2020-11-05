@@ -127,6 +127,10 @@
           {
             "key": "passport",
             "text": "{{patient-registration-form-original.step1.national_id_type.options.passport.text}}"
+          },
+          {
+            "key": "national_identity_card",
+            "text": "{{patient-registration-form-original.step1.national_id_type.options.national_identity_card.text}}"
           }
         ],
         "v_required": {
