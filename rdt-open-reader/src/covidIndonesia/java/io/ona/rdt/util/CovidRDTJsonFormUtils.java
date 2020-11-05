@@ -169,14 +169,19 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         JSONArray jsonArray = new JSONArray();
         for (String location : locations) {
-            JSONObject option = new JSONObject();
-            option.put(JsonFormConstants.KEY, location);
-            option.put(JsonFormConstants.TEXT, location);
-            option.put(JsonFormConstants.OPENMRS_ENTITY, "");
-            option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-            jsonArray.put(option);
+            jsonArray.put(createOption(location, location));
         }
+        jsonArray.put(createOption("other", "Other"));
         return jsonArray;
+    }
+
+    private JSONObject createOption(String key, String value) throws JSONException {
+        JSONObject option = new JSONObject();
+        option.put(JsonFormConstants.KEY, key);
+        option.put(JsonFormConstants.TEXT, value);
+        option.put(JsonFormConstants.OPENMRS_ENTITY, "");
+        option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
+        return option;
     }
 
     private List<String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
