@@ -108,6 +108,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
             scanObject.put("expirationDate", response.expirationDate);
             dataArray.put(scanObject);
             viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
+            parentView.addView(viewBinding.getRoot());
         }
 
         setBarcodeResult(viewBinding, R.id.barcode_product_id, response.productId);
@@ -116,10 +117,6 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         setBarcodeResult(viewBinding, R.id.barcode_lot_no, response.lot);
         setBarcodeResult(viewBinding, R.id.barcode_expiration_date, response.expirationDate);
         setBarcodeResult(viewBinding, R.id.barcode_is_sensor_triggered, response.sensorTriggered ? getString(R.string.yes) : getString(R.string.no));
-
-        if (enableBatchScan) {
-            parentView.addView(viewBinding.getRoot());
-        }
     }
 
     private void setBarcodeResult(ViewDataBinding viewDataBinding, int viewId, String result) {
