@@ -808,7 +808,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     protected int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException {
         if (CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             // pre-populate respiratory sample id labels
-            assertEquals(field.getString("text"), "Sample ID: " + UNIQUE_ID);
+            assertEquals("Sample ID: " + UNIQUE_ID, field.getString("text"));
             numOfPopulatedFields++;
         } else if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
             // pre-populate respiratory sample id field
@@ -843,10 +843,11 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             numOfPopulatedFields++;
         } else if (CovidRDTJsonFormUtils.FACILITY_SET.contains(field.getString(JsonFormConstants.KEY))) {
             JSONArray jsonArray = new JSONArray(field.getString(JsonFormConstants.OPTIONS_FIELD_NAME));
-            assertEquals(3, jsonArray.length());
-            for (int i = 1; i <= jsonArray.length(); i++) {
+            assertEquals(4, jsonArray.length());
+            for (int i = 1; i < jsonArray.length(); i++) {
                 assertEquals("Indonesia Location " + i, jsonArray.getJSONObject(i - 1).getString(JsonFormConstants.TEXT));
             }
+            assertEquals("Other", jsonArray.getJSONObject(jsonArray.length() -1).getString(JsonFormConstants.TEXT));
             numOfPopulatedFields++;
         }
 
