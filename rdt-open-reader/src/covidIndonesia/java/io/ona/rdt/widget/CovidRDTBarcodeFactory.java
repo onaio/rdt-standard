@@ -82,8 +82,10 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
         // write fhir resource device id to rdt type field
         String deviceId = DeviceDefinitionProcessor.getInstance(context).getDeviceId(individualVals[GTIN_INDEX]);
-        jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
-                Constants.RDTType.RDT_TYPE, deviceId,  "", "", "", false);
+        if (deviceId != null) {
+            jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
+                    Constants.RDTType.RDT_TYPE, deviceId, "", "", "", false);
+        }
 
         // write unique id to confirmation page
         String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
