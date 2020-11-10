@@ -1,12 +1,12 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.barcode.Barcode;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -20,17 +20,12 @@ import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.util.ReflectionHelpers;
 
-import java.io.Serializable;
-import java.sql.Ref;
-
 import io.ona.rdt.R;
 import io.ona.rdt.TestUtils;
 import io.ona.rdt.activity.OneScanActivity;
 import io.ona.rdt.util.OneScanHelper;
 import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 
-import static android.app.Activity.RESULT_OK;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
 
 /**
  * Created by Vincent Karuri on 18/09/2020
@@ -190,7 +185,7 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
                 ReflectionHelpers.ClassParameter.from(OneScanHelper.ScanResponse.class, scanResponse));
 
         String resultData = shadowOneScanActivity.getResultIntent().getStringExtra("data");
-        Assert.assertEquals(RESULT_OK, shadowOneScanActivity.getResultCode());
+        Assert.assertEquals(Activity.RESULT_OK, shadowOneScanActivity.getResultCode());
         Assert.assertNotNull(resultData);
         JSONObject resultObj = new JSONObject(resultData);
         Assert.assertTrue(resultObj.has("scans"));
@@ -199,12 +194,12 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         ReflectionHelpers.callInstanceMethod(oneScanActivity, setResultAndFinishMethod,
                 ReflectionHelpers.ClassParameter.from(OneScanHelper.ScanResponse.class, scanResponse));
 
-        Barcode resultBarcode = shadowOneScanActivity.getResultIntent().getParcelableExtra(BARCODE_KEY);
+        Barcode resultBarcode = shadowOneScanActivity.getResultIntent().getParcelableExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY);
         final String displayValues = StringUtils.join(new String[]{scanResponse.serialNumber, scanResponse.expirationDate,
                 scanResponse.lot, scanResponse.productId, String.valueOf(scanResponse.sensorTriggered),
                 scanResponse.status}, ',');
 
-        Assert.assertEquals(RESULT_OK, shadowOneScanActivity.getResultCode());
+        Assert.assertEquals(Activity.RESULT_OK, shadowOneScanActivity.getResultCode());
         Assert.assertNotNull(resultBarcode);
         Assert.assertEquals(displayValues, resultBarcode.displayValue);
 

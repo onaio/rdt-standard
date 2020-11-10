@@ -1,8 +1,10 @@
 package io.ona.rdt.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
@@ -24,11 +26,6 @@ import io.ona.rdt.util.FormLaunchArgs;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-
 public class CovidRDTBarcodeFactoryTest {
 
     private CovidRDTBarcodeFactory covidRdtBarcodeFactory;
@@ -44,7 +41,7 @@ public class CovidRDTBarcodeFactoryTest {
         Mockito.when(covidRdtBarcodeFactory.getBarcodeValsAsCSV(Mockito.any(Intent.class)))
                 .thenReturn("val-0,2020-08-08,val-2,val-3,true");
         Mockito.when(covidRdtBarcodeFactory.splitCSV(Mockito.anyString()))
-                .thenReturn(new String[]{"val-0","2020-08-08","val-2","val-3","true"});
+                .thenReturn(new String[]{"val-0", "2020-08-08", "val-2", "val-3", "true"});
 
         mockInternalState();
     }
@@ -54,40 +51,40 @@ public class CovidRDTBarcodeFactoryTest {
         Intent intent = Mockito.mock(Intent.class);
         Mockito.when(intent.getBooleanExtra("enable_batch_scan", false)).thenReturn(true);
         Mockito.when(intent.getStringExtra("data")).thenReturn("{}");
-        covidRdtBarcodeFactory.onActivityResult(49374, RESULT_OK, intent);
+        covidRdtBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
         verifyPopulateBarcodeDataShouldPopulateCorrectData();
 
         Mockito.when(intent.getBooleanExtra("enable_batch_scan", false)).thenReturn(false);
-        covidRdtBarcodeFactory.onActivityResult(49374, RESULT_OK, intent);
+        covidRdtBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
         Mockito.verify(jsonApiTestContext).writeValue("test-step", "", "val-0,2020-08-08,val-2,val-3,true", "", "", "", false);
         verifyPopulateRelevantFieldsShouldPopulateCorrectData();
         Mockito.verify(covidRdtBarcodeFactory).navigateToUnusableProductPage();
 
-        covidRdtBarcodeFactory.onActivityResult(49374, RESULT_CANCELED, intent);
+        covidRdtBarcodeFactory.onActivityResult(49374, Activity.RESULT_CANCELED, intent);
         Mockito.verify(formFragment).setMoveBackOneStep(true);
     }
 
     public void verifyPopulateBarcodeDataShouldPopulateCorrectData() throws Exception {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("batch_id", Utils.getUniqueId(idList));
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-step"), eq("qr_code_reader"), eq(jsonObject.toString()) ,eq(""), eq(""), eq(""), eq(false));
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-page"), eq("batch_id"), eq(Utils.getUniqueId(idList)),eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonApiTestContext).writeValue("test-step", "qr_code_reader", jsonObject.toString(), "", "", "", false);
+        Mockito.verify(jsonApiTestContext).writeValue("test-page", "batch_id", Utils.getUniqueId(idList), "", "", "", false);
         Mockito.verify(covidRdtBarcodeFactory).moveToNextStep();
     }
 
     public void verifyPopulateRelevantFieldsShouldPopulateCorrectData() throws JSONException {
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-step"), eq("unique_id"), eq("val-0") ,eq(""), eq(""), eq(""), eq(false));
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-step"), eq("exp_date"), eq("2020-08-08") ,eq(""), eq(""), eq(""), eq(false));
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-step"), eq("lot_no"), eq("val-2") ,eq(""), eq(""), eq(""), eq(false));
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-step"), eq("gtin"), eq("val-3") ,eq(""), eq(""), eq(""), eq(false));
-        Mockito.verify(jsonApiTestContext).writeValue(eq("test-step"), eq("temp_sensor"), eq("true") ,eq(""), eq(""), eq(""), eq(false));
+        Mockito.verify(jsonApiTestContext).writeValue("test-step", "unique_id", "val-0", "", "", "", false);
+        Mockito.verify(jsonApiTestContext).writeValue("test-step", "exp_date", "2020-08-08", "", "", "", false);
+        Mockito.verify(jsonApiTestContext).writeValue("test-step", "lot_no", "val-2", "", "", "", false);
+        Mockito.verify(jsonApiTestContext).writeValue("test-step", "gtin", "val-3", "", "", "", false);
+        Mockito.verify(jsonApiTestContext).writeValue("test-step", "temp_sensor", "true", "", "", "", false);
     }
 
     private void mockInternalState() throws JSONException {
         UniqueId uniqueId = new UniqueId("test-id", "test-openmrsid", "test-status", "test-user", new Date());
         idList = new ArrayList<>();
         idList.add(uniqueId);
-        RDTJsonFormUtils formUtils = new RDTJsonFormUtils(){
+        RDTJsonFormUtils formUtils = new RDTJsonFormUtils() {
             @Override
             public synchronized void getNextUniqueIds(FormLaunchArgs args, OnUniqueIdsFetchedCallback callBack, int numOfIDs) {
                 callBack.onUniqueIdsFetched(args, idList);
@@ -109,6 +106,7 @@ public class CovidRDTBarcodeFactoryTest {
         covidRdtBarcodeFactory.stepStateConfig = stepStateConfig;
     }
 
-    private static abstract class JsonApiTestContext extends Context implements JsonApi{}
+    private static abstract class JsonApiTestContext extends Context implements JsonApi {
+    }
 
 }
