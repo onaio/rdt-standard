@@ -26,7 +26,6 @@ import io.ona.rdt.activity.OneScanActivity;
 import io.ona.rdt.util.OneScanHelper;
 import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 
-
 /**
  * Created by Vincent Karuri on 18/09/2020
  */

@@ -60,7 +60,7 @@ public class CovidRDTBarcodeFactoryTest {
         verifyPopulateRelevantFieldsShouldPopulateCorrectData();
         Mockito.verify(covidRdtBarcodeFactory).navigateToUnusableProductPage();
 
-        covidRdtBarcodeFactory.onActivityResult(49374, Activity.RESULT_CANCELED, intent);
+        covidRdtBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_CANCELED, intent);
         Mockito.verify(formFragment).setMoveBackOneStep(true);
     }
 
