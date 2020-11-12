@@ -25,7 +25,6 @@ import io.ona.rdt.widget.RDTBarcodeFactory;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY;
-import static io.ona.rdt.util.Utils.updateLocale;
 
 public class OneScanActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,7 +33,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateLocale(this);
+        Utils.updateLocale(this);
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_one_scan);
         oneScanHelper = new OneScanHelper(this);
