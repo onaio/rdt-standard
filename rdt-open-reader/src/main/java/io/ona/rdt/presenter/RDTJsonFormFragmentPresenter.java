@@ -62,7 +62,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         }
     }
 
-    private boolean moveToNextStep() {
+    protected boolean moveToNextStep() {
         if (hasNextStep()) {
             JsonFormFragment next = RDTJsonFormFragment.getFormFragment(getNextStep());
             this.getView().hideKeyBoard();
