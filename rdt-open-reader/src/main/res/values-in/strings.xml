@@ -42,4 +42,6 @@ Silakan klik pada tombol <i>Cari lokasi saya</i> di bawah layar dan kami akan se
     <string name="form_successfully_saved">Diselamatkan!</string>
     <string name="yes">Iya</string>
     <string name="no">Tidak</string>
+    <string name="json_form_error_msg">Found %d error(s) in the form. Please correct them to submit.</string>
+    <string name="json_form_on_next_error_msg">Please correct the error(s) in the form to proceed.</string>
 </resources>
