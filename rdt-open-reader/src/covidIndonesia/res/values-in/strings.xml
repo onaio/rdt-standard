@@ -19,6 +19,7 @@
     <string name="sensor_activated">Status: Sensor diaktifkan</string>
     <string name="sensor_status_ok">Status: OK</string>
     <string name="no_barcode_captured_err">Mohon ambil gambar barcode untuk melanjutkan</string>
+    <string name="sample_id_prompt">ID Sampel:\u0020</string>
     <string-array name="locales_key">
         <item>Inggris</item>
         <item>Indonesia</item>
