@@ -60,9 +60,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String baseEntityId = commonPersonObjectClient.getCaseId();
         String patientId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.PATIENT_ID, true);
         String nameAndAge = createNameAndAgeLabel(patientName, patientId, patientAge);
-        String translatedSex = sex.equalsIgnoreCase("Male") ?
-                context.getString(R.string.male) : sex.equalsIgnoreCase("Female") ?
-                context.getString(R.string.female) : sex;
+        String translatedSex = "Male".equalsIgnoreCase(sex) ? context.getString(R.string.male) : context.getString(R.string.female);
 
         final Patient patient = new Patient(patientName, sex, baseEntityId, patientId, Integer.parseInt(patientAge), Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.DOB, false));
 
@@ -77,7 +75,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
 
     private String createNameAndAgeLabel(String patientName, String patientId, String age) {
         long formattedAge = StringUtils.isBlank(age) ? 10 : Math.round(Double.valueOf(age));
-        String patientIdentifier =  StringUtils.isBlank(patientName) ? patientId : patientName;
+        String patientIdentifier = StringUtils.isBlank(patientName) ? patientId : patientName;
         return patientIdentifier + ", " + formattedAge;
     }
 
