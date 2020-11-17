@@ -1,7 +1,5 @@
 package io.ona.rdt.presenter;
 
-import android.widget.LinearLayout;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
@@ -49,24 +47,12 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         this.rdtJsonFormFragmentInteractor = new RDTJsonFormFragmentInteractor();
     }
 
-    @Override
-    public boolean onNextClick(LinearLayout mainView) {
-        checkAndStopCountdownAlarm();
-        this.validateAndWriteValues();
-        boolean validateOnSubmit = this.validateOnSubmit();
-        if (validateOnSubmit || this.isFormValid()) {
-            return this.moveToNextStep();
-        } else {
-            this.getView().showSnackBar(this.getView().getContext().getResources().getString(com.vijay.jsonwizard.R.string.json_form_on_next_error_msg));
-            return false;
-        }
-    }
-
     protected boolean moveToNextStep() {
-        if (hasNextStep()) {
-            JsonFormFragment next = RDTJsonFormFragment.getFormFragment(getNextStep());
-            this.getView().hideKeyBoard();
-            this.getView().transactThis(next);
+        final String nextStep = getFormFragment().getJsonApi().nextStep();
+        if (!"".equals(nextStep)) {
+            JsonFormFragment next = RDTJsonFormFragment.getFormFragment(nextStep);
+            getView().hideKeyBoard();
+            getView().transactThis(next);
             return true;
         }
         return false;
@@ -114,7 +100,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             } else {
                 rdtFormFragment.navigateToNextStep();
             }
-        }  else {
+        } else {
             handleCommonTestFormClicks(isSubmit, currentStep);
         }
     }
@@ -130,8 +116,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             if (isCurrentStep(PRODUCT_EXPIRED_PAGE, currentStep)) {
                 saveFormAndMoveToNextStep();
             } else if (isCurrentStep(MANUAL_EXPIRATION_DATE_ENTRY_PAGE, currentStep)) {
-                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(PRODUCT_EXPIRED_PAGE));;
-            }  else {
+                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(PRODUCT_EXPIRED_PAGE));
+                ;
+            } else {
                 submitOrMoveToNextStep(isSubmit);
             }
         } catch (JSONException e) {
@@ -154,7 +141,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         JsonFormFragment formFragment = (JsonFormFragment) rdtFormFragment;
         String dateStr = getDateStr(formFragment, stepStateConfig);
 
-        if (StringUtils.isBlank((dateStr))) { return; }
+        if (StringUtils.isBlank((dateStr))) {
+            return;
+        }
 
         Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
         conditionallyMoveToNextStep(formFragment, expiredPageStep, isExpired(date));
@@ -172,7 +161,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     private StepStateConfig getStepStateConfig() {
         if (this.stepStateConfig == null) {
-            this.stepStateConfig =  RDTApplication.getInstance().getStepStateConfiguration();
+            this.stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
         }
         return this.stepStateConfig;
     }
