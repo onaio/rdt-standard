@@ -27,6 +27,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 import io.ona.rdt.widget.RDTBarcodeFactory;
@@ -43,6 +44,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     private final Handler handler = new Handler();
     private final JSONArray dataArray = new JSONArray();
     private ViewDataBinding viewBinding;
+    private RDTJsonFormUtils formUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
         parentView.addView(viewBinding.getRoot());
         oneScanHelper = new OneScanHelper(this);
+        formUtils = new RDTJsonFormUtils();
         doScan(CovidConstants.ScannerType.SCANNER);
         addListeners();
     }
@@ -74,6 +77,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
+                formUtils.showToast(this, getString(R.string.captured));
                 performPostScanActions(bundle);
                 if (enableBatchScan) {
                     handler.postDelayed(new Runnable() {
@@ -107,8 +111,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
             scanObject.put("lot", response.lot);
             scanObject.put("expirationDate", response.expirationDate);
             dataArray.put(scanObject);
-            viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
-            parentView.addView(viewBinding.getRoot());
+            return;
         }
 
         setBarcodeResult(viewBinding, R.id.barcode_product_id, response.productId);
@@ -186,8 +189,12 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
-            if (!enableBatchScan || com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
+            if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
                 onBackPressed();
+                return;
+            }
+            if(enableBatchScan){
+                setResultAndFinish(response);
             }
         }
     }
