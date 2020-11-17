@@ -193,7 +193,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 onBackPressed();
                 return;
             }
-            if(enableBatchScan){
+            if (enableBatchScan) {
                 setResultAndFinish(response);
             }
         }
