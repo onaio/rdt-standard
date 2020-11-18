@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.annotation.Config;
+import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
@@ -23,7 +24,6 @@ import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.util.Constants;
-import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -42,7 +42,6 @@ import static org.mockito.Mockito.mock;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_PARENT;
-import static org.smartregister.util.JsonFormUtils.STEP1;
 
 /**
  * Created by Vincent Karuri on 18/11/2020
@@ -148,7 +147,7 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
         jsonObject.put(OPENMRS_ENTITY, "openmrs_entity");
         jsonObject.put(OPENMRS_ENTITY_PARENT, "openmrs_entity_parent");
         jsonObject.put(KEY, "key");
-        jsonObject.put(STEP1, new JSONObject());
+        jsonObject.put(JsonFormUtils.STEP1, new JSONObject());
         jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
