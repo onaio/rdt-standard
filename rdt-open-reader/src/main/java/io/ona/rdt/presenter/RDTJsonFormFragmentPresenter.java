@@ -111,7 +111,6 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
                 saveFormAndMoveToNextStep();
             } else if (isCurrentStep(MANUAL_EXPIRATION_DATE_ENTRY_PAGE, currentStep)) {
                 navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(PRODUCT_EXPIRED_PAGE));
-                ;
             } else {
                 submitOrMoveToNextStep(isSubmit);
             }
