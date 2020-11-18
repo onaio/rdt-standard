@@ -50,6 +50,8 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     protected JSONObject stepStateConfig;
 
+    protected abstract void launchCamera(Intent intent, Context context);
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(JsonFormUtils.ENTITY_ID);
@@ -136,6 +138,4 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
             return null;
         }
     }
-
-    protected abstract void launchCamera(Intent intent, Context context);
 }

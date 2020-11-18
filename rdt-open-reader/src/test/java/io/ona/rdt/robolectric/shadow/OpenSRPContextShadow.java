@@ -26,7 +26,6 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 
 /**
  * Created by Vincent Karuri on 24/07/2020

@@ -859,11 +859,12 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             numOfPopulatedFields++;
         } else if (CovidRDTJsonFormUtils.FACILITY_SET.contains(field.getString(JsonFormConstants.KEY))) {
             JSONArray jsonArray = new JSONArray(field.getString(JsonFormConstants.OPTIONS_FIELD_NAME));
-            assertEquals(4, jsonArray.length());
+            final int four = 4;
+            assertEquals(four, jsonArray.length());
             for (int i = 1; i < jsonArray.length(); i++) {
                 assertEquals("Indonesia Location " + i, jsonArray.getJSONObject(i - 1).getString(JsonFormConstants.TEXT));
             }
-            assertEquals("Other", jsonArray.getJSONObject(jsonArray.length() -1).getString(JsonFormConstants.TEXT));
+            assertEquals("Other", jsonArray.getJSONObject(jsonArray.length() - 1).getString(JsonFormConstants.TEXT));
             numOfPopulatedFields++;
         }
 

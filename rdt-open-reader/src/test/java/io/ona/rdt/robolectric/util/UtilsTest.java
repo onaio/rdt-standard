@@ -65,7 +65,8 @@ public class UtilsTest extends RobolectricTest {
         keyValPairs.put("option3", "val3");
 
         JSONArray jsonArray = Utils.createOptionsBlock(keyValPairs, "entity", "entity_id");
-        Assert.assertEquals(3, jsonArray.length());
+        final int three = 3;
+        Assert.assertEquals(three, jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             String key = jsonArray.getJSONObject(i).getString(JsonFormUtils.KEY);
             String value = jsonArray.getJSONObject(i).getString(JsonFormConstants.TEXT);

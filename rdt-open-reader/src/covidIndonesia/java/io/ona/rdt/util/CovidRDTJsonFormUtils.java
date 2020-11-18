@@ -36,7 +36,6 @@ import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.KEY;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT_AGE;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
@@ -46,11 +45,7 @@ import static io.ona.rdt.util.CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM;
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
-import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_INFO_DOB;
-import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_INFO_NAME;
-import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
-import static io.ona.rdt.util.CovidConstants.FormFields.SAMPLER_NAME;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
@@ -111,25 +106,25 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         switch (field.getString(KEY)) {
             case LBL_RESPIRATORY_SAMPLE_ID:
                 // pre-populate respiratory sample id labels
-                field.put(TEXT, context.getString(R.string.sample_id_prompt) + uniqueID);
+                field.put(JsonFormConstants.TEXT, context.getString(R.string.sample_id_prompt) + uniqueID);
                 break;
             case COVID_SAMPLE_ID:
                 // pre-populate respiratory sample id field
                 field.put(JsonFormConstants.VALUE, uniqueID);
                 break;
-            case PATIENT_INFO_UNIQUE_ID:
+            case CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID:
                 // pre-populate the patient detail unique id
                 fillPatientData(field, uniqueID);
                 break;
-            case PATIENT_INFO_NAME:
+            case CovidConstants.FormFields.PATIENT_INFO_NAME:
                 // pre-populate the patient detail name
                 fillPatientData(field, patient.getPatientName());
                 break;
-            case PATIENT_INFO_DOB:
+            case CovidConstants.FormFields.PATIENT_INFO_DOB:
                 // pre-populate the patient detail dob
                 fillPatientData(field, patient.getDob());
                 break;
-            case SAMPLER_NAME:
+            case CovidConstants.FormFields.SAMPLER_NAME:
                 // pre-populate the sampler name
                 field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
                 break;

@@ -30,7 +30,8 @@ public class DeviceDefinitionProcessor {
     private static DeviceDefinitionProcessor deviceDefinitionProcessor;
     private static Bundle deviceDefinitionBundle;
 
-    private DeviceDefinitionProcessor() {}
+    private DeviceDefinitionProcessor() {
+    }
 
     public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
         if (deviceDefinitionProcessor == null) {
@@ -43,7 +44,7 @@ public class DeviceDefinitionProcessor {
         return deviceDefinitionProcessor;
     }
 
-    private static Bundle getDeviceDefinitionBundle(Context context) throws IOException, FHIRParserException  {
+    private static Bundle getDeviceDefinitionBundle(Context context) throws IOException, FHIRParserException {
         InputStream stream = context.getAssets().open(CovidConstants.FHIRResource.DEVICE_RESOURCE_FILE);
         return FHIRParser.parser(Format.JSON).parse(stream);
     }
@@ -61,7 +62,7 @@ public class DeviceDefinitionProcessor {
 
     public String extractManufacturerName(String deviceId) {
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')))", deviceId);
-        DeviceDefinition deviceDefinition =  (DeviceDefinition) PathEvaluatorLibrary.getInstance().extractResourceFromBundle(deviceDefinitionBundle, expression);
+        DeviceDefinition deviceDefinition = (DeviceDefinition) PathEvaluatorLibrary.getInstance().extractResourceFromBundle(deviceDefinitionBundle, expression);
         return deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
     }
 
@@ -103,7 +104,7 @@ public class DeviceDefinitionProcessor {
         for (Map.Entry<String, String> keyValPair : deviceAssets.entrySet()) {
             String val = keyValPair.getValue();
             JSONArray valAsJsonArr = Utils.convertToJsonArr(val);
-            deviceConfig.put(keyValPair.getKey(),  valAsJsonArr == null ? val : valAsJsonArr);
+            deviceConfig.put(keyValPair.getKey(), valAsJsonArr == null ? val : valAsJsonArr);
         }
         return deviceConfig;
     }

@@ -16,8 +16,6 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
-import static edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG;
-
 /**
  * Created by Vincent Karuri on 18/11/2020
  */
@@ -31,7 +29,7 @@ public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
             String rdtType = rdtTypeField.getString(JsonFormConstants.VALUE);
             JSONObject deviceConfig = DeviceDefinitionProcessor.getInstance(context).extractDeviceConfig(rdtType);
             if (deviceConfig.length() != 0) {
-                intent.putExtra(RDT_JSON_CONFIG, deviceConfig.toString());
+                intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, deviceConfig.toString());
                 intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
                 activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
             } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtType)) {

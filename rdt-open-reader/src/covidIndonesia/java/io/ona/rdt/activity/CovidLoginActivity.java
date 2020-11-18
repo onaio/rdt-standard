@@ -17,7 +17,6 @@ import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
 import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.LABEL;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.RDT_CAPTURE;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
 import static io.ona.rdt.util.CovidConstants.Widget.GOOGLE_COVID_BARCODE_READER;
 import static io.ona.rdt.util.CovidConstants.Widget.ONE_SCAN_COVID_BARCODE_READER;
@@ -40,7 +39,7 @@ public class CovidLoginActivity extends LoginActivity {
         widgetFactoryMap.put(LABEL, new CovidRDTLabelFactory());
         widgetFactoryMap.put(JsonFormConstants.DATE_PICKER, new CovidDatePickerFactory());
         widgetFactoryMap.put(JsonFormConstants.REPEATING_GROUP, new CovidRepeatingGroupFactory());
-        widgetFactoryMap.put(RDT_CAPTURE, new UWCovidRDTCaptureFactory());
+        widgetFactoryMap.put(JsonFormConstants.RDT_CAPTURE, new UWCovidRDTCaptureFactory());
     }
 
     @Override
