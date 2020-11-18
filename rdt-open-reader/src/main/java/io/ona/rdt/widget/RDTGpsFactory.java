@@ -50,18 +50,21 @@ public class RDTGpsFactory extends GpsFactory {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         View rootLayout = views.get(0);
 
-        hideTextFields(rootLayout);
 
-        stretchWidgetToFullScreen(formFragment, context);
+        formFragment.getJsonApi().getAppExecutors(). mainThread().execute(() -> {
+            hideTextFields(rootLayout);
 
-        new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
+            stretchWidgetToFullScreen(formFragment, context);
 
-        rootLayout.findViewById(R.id.record_button).setOnClickListener(v -> {
-            if (isLocationServiceDisabled(context)) {
-                showLocationServicesDialog(context);
-            } else {
-                requestPermissionsForLocation(context);
-            }
+            new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
+
+            rootLayout.findViewById(R.id.record_button).setOnClickListener(v -> {
+                if (isLocationServiceDisabled(context)) {
+                    showLocationServicesDialog(context);
+                } else {
+                    requestPermissionsForLocation(context);
+                }
+            });
         });
 
         return views;
