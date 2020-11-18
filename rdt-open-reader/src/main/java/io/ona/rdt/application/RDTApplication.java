@@ -36,7 +36,6 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class RDTApplication extends DrishtiApplication {
 
-    private String password;
     private RDTApplicationPresenter presenter;
     private Activity currentActivity;
     private RDTTestsRepository rdtTestsRepository;

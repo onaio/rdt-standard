@@ -25,6 +25,7 @@ import java.util.List;
 import androidx.core.content.ContextCompat;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -68,6 +69,10 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     @Override
     protected void launchRDTCaptureActivity() {
+        if (RDTApplication.getInstance().getCurrentActivity() instanceof CustomRDTCaptureActivity) {
+            // avoids relaunching rdt capture if already visible
+            return;
+        }
         Context context = widgetArgs.getContext();
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);

@@ -15,7 +15,7 @@ import static io.ona.rdt.util.Utils.updateLocale;
  */
 public class RDTExpirationDateActivity extends ExpirationDateActivity {
 
-    final RDTApplication rdtApplication = RDTApplication.getInstance();
+    private final RDTApplication rdtApplication = RDTApplication.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
