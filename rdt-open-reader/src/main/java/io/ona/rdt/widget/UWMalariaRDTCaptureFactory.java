@@ -13,6 +13,7 @@ public class UWMalariaRDTCaptureFactory extends UWRDTCaptureFactory {
 
     protected void launchCamera(Intent intent, Context context) {
         Activity activity = (Activity) context;
+        intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
         activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
     }
 }
