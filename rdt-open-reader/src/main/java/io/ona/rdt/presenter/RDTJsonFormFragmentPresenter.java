@@ -47,15 +47,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         this.rdtJsonFormFragmentInteractor = new RDTJsonFormFragmentInteractor();
     }
 
-    protected boolean moveToNextStep() {
-        final String nextStep = getFormFragment().getJsonApi().nextStep();
-        if (!"".equals(nextStep)) {
-            JsonFormFragment next = RDTJsonFormFragment.getFormFragment(nextStep);
-            getView().hideKeyBoard();
-            getView().transactThis(next);
-            return true;
-        }
-        return false;
+    @Override
+    protected JsonFormFragment getNextJsonFormFragment(String nextStep) {
+        return RDTJsonFormFragment.getFormFragment(nextStep);
     }
 
     @Override
