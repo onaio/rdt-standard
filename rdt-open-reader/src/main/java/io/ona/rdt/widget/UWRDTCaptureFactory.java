@@ -23,27 +23,21 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
-import io.ona.rdt.R;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
-import io.ona.rdt.util.CovidConstants;
-import io.ona.rdt.util.DeviceDefinitionProcessor;
-import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.StepStateConfig;
 import io.ona.rdt.util.Utils;
-import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG;
 
 /**
  * Created by Vincent Karuri on 17/06/2020
  */
-public class UWRDTCaptureFactory extends RDTCaptureFactory {
+public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = UWRDTCaptureFactory.class.getName();
     public static final String RDT_NAME = "rdt_name";
@@ -54,7 +48,7 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private String baseEntityId;
 
-    private JSONObject stepStateConfig;
+    protected JSONObject stepStateConfig;
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
@@ -138,27 +132,10 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected Void doInBackground(Intent... intents) {
-            try {
-                Activity activity = (Activity) context;
-                JSONObject rdtTypeField = RDTJsonFormUtils.getField(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
-                        Constants.RDTType.RDT_TYPE, context);
-                String rdtType = rdtTypeField.getString(JsonFormConstants.VALUE);
-                JSONObject deviceConfig = DeviceDefinitionProcessor.getInstance(context).extractDeviceConfig(rdtType);
-                if (deviceConfig.length() != 0) {
-                    intents[0].putExtra(RDT_JSON_CONFIG, deviceConfig.toString());
-                    intents[0].putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
-                    activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
-                } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtType)) {
-                    activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
-                } else {
-                    Utils.hideProgressDialogFromFG();
-                    onActivityResult(-1, Activity.RESULT_CANCELED, null);
-                    Utils.showToastInFG((Activity) context, context.getString(R.string.rdt_not_supported));
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
+            launchCamera(intents[0], context);
             return null;
         }
     }
+
+    protected abstract void launchCamera(Intent intent, Context context);
 }

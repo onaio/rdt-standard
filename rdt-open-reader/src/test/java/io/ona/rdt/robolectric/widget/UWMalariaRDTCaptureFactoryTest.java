@@ -30,6 +30,7 @@ import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -63,7 +64,7 @@ public class UWMalariaRDTCaptureFactoryTest extends WidgetFactoryRobolectricTest
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        rdtCaptureFactory = new UWRDTCaptureFactory();
+        rdtCaptureFactory = new UWMalariaRDTCaptureFactory();
     }
 
     @Test
