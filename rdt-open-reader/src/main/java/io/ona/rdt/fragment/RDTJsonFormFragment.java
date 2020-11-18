@@ -207,21 +207,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         currentStep = currStep;
     }
 
-    /**
-     *
-     * Replace current fragment in container with the next {@link JsonFormFragment}
-     * Also uses the step name as the name of the fragment to be replaced and added to the backstack
-     *
-     * @param next
-     */
-    @Override
-    public void transactThis(JsonFormFragment next) {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(com.vijay.jsonwizard.R.anim.enter_from_right, com.vijay.jsonwizard.R.anim.exit_to_left, com.vijay.jsonwizard.R.anim.enter_from_left,
-                        com.vijay.jsonwizard.R.anim.exit_to_right).replace(com.vijay.jsonwizard.R.id.container, next).addToBackStack("step" + prevStep)
-                .commitAllowingStateLoss(); // use https://stackoverflow.com/a/10261449/9782187
-    }
-
     public View getRootLayout() {
         return rootLayout;
     }
