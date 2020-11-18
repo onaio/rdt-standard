@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
@@ -37,13 +38,13 @@ import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
  */
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
-    protected static int currentStep = 1; // step of the fragment coming into view
-    protected static int prevStep; // step of the fragment coming out of view
     private boolean moveBackOneStep = false;
     private View rootLayout;
+    private static String currentStep;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        rootLayout = super.onCreateView(inflater, container, savedInstanceState);
+       currentStep = getArguments().getString(JsonFormConstants.STEPNAME);
        return rootLayout;
     }
 
@@ -57,9 +58,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     }
 
     public static JsonFormFragment getFormFragment(String stepName) {
-        String stepNum = stepName.substring(4);
-        prevStep = currentStep;
-        currentStep = Integer.parseInt(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", stepName);
@@ -71,7 +69,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     protected void initializeBottomNavigation(final JSONObject step, View rootView) {
         super.initializeBottomNavigation(step, rootView);
 
-        String currStep = "step" + currentStep;
+        String currStep = getCurrentStep();
         boolean isNextButtonEnabled = true;
 
         // Disable bottom navigation for the 20min countdown timer
@@ -97,6 +95,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
             }
         });
     }
+
+
 
     protected boolean formHasSpecialNavigationRules(String formName) {
         return RDT_TEST.equals(formName);
@@ -199,12 +199,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         return (RDTJsonFormFragmentContract.Presenter) presenter;
     }
 
-    public static int getCurrentStep() {
+    public static String getCurrentStep() {
         return currentStep;
-    }
-
-    public static void setCurrentStep(int currStep) {
-        currentStep = currStep;
     }
 
     public View getRootLayout() {

@@ -38,9 +38,6 @@ public class CovidJsonFormFragment extends RDTJsonFormFragment {
     }
 
     public static JsonFormFragment getFormFragment(String stepName) {
-        String stepNum = stepName.substring(4);
-        prevStep = currentStep;
-        currentStep = Integer.parseInt(stepNum);
         CovidJsonFormFragment jsonFormFragment = new CovidJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", stepName);

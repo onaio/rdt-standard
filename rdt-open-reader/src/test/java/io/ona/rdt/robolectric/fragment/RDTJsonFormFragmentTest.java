@@ -67,7 +67,6 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testGetFormFragmentShouldSetStepAndReturnValidJsonFormFragment() {
-        jsonFormFragment.setCurrentStep(2);
         RDTJsonFormFragment formFragment = (RDTJsonFormFragment) jsonFormFragment.getFormFragment(STEP_3);
         assertNotNull(formFragment);
         assertEquals(STEP_3, formFragment.getArguments().getString("stepName"));
