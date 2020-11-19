@@ -330,7 +330,7 @@
         "min_date": "today-100y",
         "v_min_allowed_date": {
           "value": "today+1d",
-          "err": "Expired VTM! Please use another."
+          "err": "{{sample-collection-form-original.step1.vtm_expiration_date.v_min_allowed_date.err}}"
         },
         "v_required": {
           "value": true,
@@ -470,11 +470,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_min_length.err}}"
         }
       },
       {
