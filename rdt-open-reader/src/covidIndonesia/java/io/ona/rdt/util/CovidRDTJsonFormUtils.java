@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;

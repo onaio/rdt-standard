@@ -17,6 +17,7 @@ import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.tag.FormTag;
@@ -930,6 +931,17 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
         // return null for non-existent step
         Assert.assertNull(getFormUtils().getField("non-existent-step", JsonFormUtils.KEY, jsonFormActivity));
+    }
+
+    @Test
+    public void testPrePopulateRDTPatientFieldsShouldNotPrepopulateForNullPatient() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormConstants.KEY, Constants.FormFields.LBL_PATIENT_NAME);
+        ReflectionHelpers.callInstanceMethod(getFormUtils(), "prePopulateRDTPatientFields",
+                ReflectionHelpers.ClassParameter.from(Patient.class, null),
+                ReflectionHelpers.ClassParameter.from(JSONObject.class, jsonObject));
+        Assert.assertNull(jsonObject.optString(JsonFormConstants.VALUE, null));
+        Assert.assertNull(jsonObject.optString(JsonFormConstants.TEXT, null));
     }
 
     @Override

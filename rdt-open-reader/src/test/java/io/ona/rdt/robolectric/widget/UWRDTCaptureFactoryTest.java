@@ -22,7 +22,6 @@ import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
-import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
@@ -124,7 +123,7 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
         Mockito.verify((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(eq(true));
     }
 
-    @Config(shadows = {ContextCompatShadow.class, DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
+    @Config(shadows = { ContextCompatShadow.class, RDTJsonFormUtilsShadow.class })
     @Test
     public void testGetViewsFromJsonShouldCorrectlyPopulateFields() throws Exception {
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
@@ -140,7 +139,7 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
         verifyCorrectActionsForRDTCapture(entityId);
     }
 
-    private void mockMethods() throws Exception {
+    protected void mockMethods() throws Exception {
         jsonObject = new JSONObject();
         jsonObject.put(ENTITY_ID, entityId);
         jsonObject.put(OPENMRS_ENTITY_ID, "openmrs_entity_id");
@@ -151,7 +150,6 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
         jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
-        DeviceDefinitionProcessorShadow.setJSONObject(jsonObject);
         RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
 
         formFragment = mock(RDTJsonFormFragment.class);

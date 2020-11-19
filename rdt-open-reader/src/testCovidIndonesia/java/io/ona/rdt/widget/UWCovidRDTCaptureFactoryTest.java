@@ -11,11 +11,13 @@ import org.junit.Assert;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
 import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.robolectric.shadow.ContextCompatShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.robolectric.widget.UWRDTCaptureFactoryTest;
 import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
@@ -24,6 +26,8 @@ import io.ona.rdt.util.CovidConstants;
 /**
  * Created by Vincent Karuri on 18/11/2020
  */
+
+@Config(shadows = { DeviceDefinitionProcessorShadow.class })
 public class UWCovidRDTCaptureFactoryTest extends UWRDTCaptureFactoryTest {
 
     @Override
@@ -59,6 +63,12 @@ public class UWCovidRDTCaptureFactoryTest extends UWRDTCaptureFactoryTest {
         Mockito.verify(formFragment).setMoveBackOneStep(ArgumentMatchers.eq(true));
         Assert.assertFalse(Utils.getProgressDialog().isShowing());
         Assert.assertNotNull(ShadowToast.getLatestToast());
+    }
+
+    @Override
+    protected void mockMethods() throws Exception {
+        super.mockMethods();
+        DeviceDefinitionProcessorShadow.setJSONObject(jsonObject);
     }
 
     @Override
