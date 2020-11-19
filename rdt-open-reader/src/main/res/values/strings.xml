@@ -12,7 +12,7 @@
     <string name="login_app_name">RDT Open Reader</string>
     <string name="login_enter_username">Enter username</string>
     <string name="login_enter_password">Enter password</string>
-    <string name="login_attributions">An <![CDATA[<b><font color=#467690>Ona</font></b>]]> deployment <![CDATA[<br/>]]>powered by <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]></string>
+    <string name="login_attributions">An <![CDATA[<b><font color=#467690>Ona</font></b>]]> deployment <![CDATA[<br/>]]>powered by <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]> <![CDATA[<br/>]]> translated by <![CDATA[<b><font color=#467690>Summit Institute of Development (SID)</font></b>]]></string>
     <string name="confirm_close_msg">Are you sure you want to exit the form? All data entered on this form will be lost.</string>
     <string name="confirm_close_title">Please confirm</string>
     <string name="unique_id_fetch_error_msg">"Insufficient unique IDs. Please turn on your network connection and perform manual sync to fetch more."</string>
@@ -49,5 +49,7 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="lang_indonesia">Indonesia</string>
     <string name="show_password_text">Show Password</string>
     <string name="login_text">Log In</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
 

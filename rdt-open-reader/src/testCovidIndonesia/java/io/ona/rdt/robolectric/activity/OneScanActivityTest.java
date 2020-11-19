@@ -47,7 +47,7 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         final String serialNumber = "serial_no";
         final String additionalIdentifier = "identifier";
         final String expirationDate = TestUtils.getFormattedDateWithOffset(-1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT);
-        final String sensorNotTriggered = "No";
+        final String sensorNotTriggered = "Tidak";
         final String sensorTriggeredStr = "sensorTriggered";
         final String expDateStr = "expirationDate";
         final String serialNumberStr = "serialNumber";
