@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implements;
@@ -30,23 +32,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import io.ona.rdt.TestUtils;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.util.Utils;
-
-import static io.ona.rdt.TestUtils.getDateWithOffset;
-import static io.ona.rdt.util.Utils.convertDate;
-import static io.ona.rdt.widget.MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
 
 /**
  * Created by Vincent Karuri on 29/07/2020
@@ -55,49 +48,55 @@ import static org.mockito.Mockito.verify;
 @Config(shadows = { UtilsTest.NoOpUtilsShadow.class, BaseJobShadow.class })
 public class UtilsTest extends RobolectricTest {
 
-    // overrides UtilsShadow for this test
-    @Implements(Utils.class)
-    public static class NoOpUtilsShadow extends Shadow { }
+    @After
+    public void tearDown() {
+        BaseJobShadow.getJobTags().clear();
+    }
 
     @Test
     public void testConvertDateShouldReturnNullDateForNullDateStr() throws Exception {
         String dateStr = null;
-        Date result = convertDate(dateStr, OPEN_RDT_DATE_FORMAT);
-        assertNull(result);
+        Date result = new Utils().convertDate(dateStr, MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT);
+        Assert.assertNull(result);
     }
 
     @Test
     public void testConvertDateShouldReturnCorrectDateForValidDateFormat() throws Exception {
-        Date date = convertDate("201217", "ddMMyy");
+        Date date = new Utils().convertDate("201217", "ddMMyy");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
-        assertEquals(calendar.get(Calendar.DATE), 20);
-        assertEquals(calendar.get(Calendar.MONTH), 11); // month is 0-indexed
-        assertEquals(calendar.get(Calendar.YEAR), 2017);
+        final int day = 20;
+        final int mth = 11;
+        final int yr = 2017;
+
+        Assert.assertEquals(calendar.get(Calendar.DATE), day);
+        Assert.assertEquals(calendar.get(Calendar.MONTH), mth); // month is 0-indexed
+        Assert.assertEquals(calendar.get(Calendar.YEAR), yr);
     }
 
     @Test
     public void testUpdateLocale()  {
         Context context = RuntimeEnvironment.application;
         LangUtils.saveLanguage(context, "en");
-        Utils.updateLocale(context);
+        new Utils().updateLocale(context);
         Assert.assertEquals("en", context.getResources().getConfiguration().locale.getLanguage());
         LangUtils.saveLanguage(RuntimeEnvironment.application, "id");
-        Utils.updateLocale(context);
+        new Utils().updateLocale(context);
         Assert.assertEquals("in", context.getResources().getConfiguration().locale.getLanguage());
     }
 
     @Test
     public void testGetFlexValue() {
-        long flexValue = Utils.getFlexValue(3l);
-        assertEquals(1, flexValue);
+        final long flexVal = 3l;
+        long flexValue = new Utils().getFlexValue(flexVal);
+        Assert.assertEquals(1, flexValue);
     }
 
     @Test
     public void testScheduleJobsImmediately() {
         Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
-        Utils.scheduleJobsImmediately();
+        new Utils().scheduleJobsImmediately();
         Assert.assertEquals(RDTSyncSettingsServiceJob.TAG, BaseJobShadow.getJobTags().get(0));
         Assert.assertEquals(PullUniqueIdsServiceJob.TAG, BaseJobShadow.getJobTags().get(1));
     }
@@ -105,7 +104,7 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testScheduleJobsPeriodically() {
         Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
-        Utils.scheduleJobsPeriodically();
+        new Utils().scheduleJobsPeriodically();
         Assert.assertEquals(RDTSyncSettingsServiceJob.TAG, BaseJobShadow.getJobTags().get(0));
         Assert.assertEquals(PullUniqueIdsServiceJob.TAG, BaseJobShadow.getJobTags().get(1));
     }
@@ -117,8 +116,8 @@ public class UtilsTest extends RobolectricTest {
 
     @Test
     public void testIsExpiredShouldReturnCorrectStatus() {
-        Assert.assertFalse(Utils.isExpired(getDateWithOffset(1)));
-        Assert.assertTrue(Utils.isExpired(getDateWithOffset(-1)));
+        Assert.assertFalse(Utils.isExpired(TestUtils.getDateWithOffset(1)));
+        Assert.assertTrue(Utils.isExpired(TestUtils.getDateWithOffset(-1)));
     }
 
     @Test
@@ -134,7 +133,7 @@ public class UtilsTest extends RobolectricTest {
         expectedStrings.add("str3");
 
         Set<String> actualStrings = new HashSet<>(Utils.convertJsonArrToListOfStrings(jsonArray));
-        assertEquals(expectedStrings.size(), actualStrings.size());
+        Assert.assertEquals(expectedStrings.size(), actualStrings.size());
         for (String str : actualStrings) {
             Assert.assertTrue(expectedStrings.contains(str));
         }
@@ -143,38 +142,38 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testTableExistsShouldReturnTrueForExistingTableFalseOtherwise() {
         final String TABLE = "table";
-        SQLiteDatabase db = mock(SQLiteDatabase.class);
-        Cursor cursor = mock(Cursor.class);
-        doReturn(1).when(cursor).getCount();
-        doReturn(cursor).when(db).rawQuery(eq("SELECT name FROM sqlite_master WHERE type=? AND name=?"),
-                any(String[].class));
+        SQLiteDatabase db = Mockito.mock(SQLiteDatabase.class);
+        Cursor cursor = Mockito.mock(Cursor.class);
+        Mockito.doReturn(1).when(cursor).getCount();
+        Mockito.doReturn(cursor).when(db).rawQuery(ArgumentMatchers.eq("SELECT name FROM sqlite_master WHERE type=? AND name=?"),
+                ArgumentMatchers.any(String[].class));
         Assert.assertTrue(Utils.tableExists(db, TABLE));
-        doReturn(0).when(cursor).getCount();
+        Mockito.doReturn(0).when(cursor).getCount();
         Assert.assertFalse(Utils.tableExists(db, TABLE));
     }
 
     @Test
     public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
-        assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
+        Assert.assertEquals("1990-09-12", new Utils().convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
     }
 
     @Test
     public void testRecordExceptionInCrashlyticsShouldRecordException() {
-        Throwable throwable = mock(Throwable.class);
-        Utils.recordExceptionInCrashlytics(throwable);
-        verify(FirebaseCrashlytics.getInstance()).recordException(eq(throwable));
+        Throwable throwable = Mockito.mock(Throwable.class);
+        new Utils().recordExceptionInCrashlytics(throwable);
+        Mockito.verify(FirebaseCrashlytics.getInstance()).recordException(ArgumentMatchers.eq(throwable));
     }
 
     @Test
     public void testLogEventToCrashlyticsShouldLogEvent() {
         String message = "message";
-        Utils.logEventToCrashlytics(message);
-        verify(FirebaseCrashlytics.getInstance()).log(eq(message));
+        new Utils().logEventToCrashlytics(message);
+        Mockito.verify(FirebaseCrashlytics.getInstance()).log(ArgumentMatchers.eq(message));
     }
 
     @Test
     public void testShowToastInFGShouldShowToast() {
-        Utils.showToastInFG(RuntimeEnvironment.application, "message");
+        new Utils().showToastInFG(RuntimeEnvironment.application, "message");
         Assert.assertNotNull(ShadowToast.getLatestToast());
     }
 
@@ -184,7 +183,7 @@ public class UtilsTest extends RobolectricTest {
         Assert.assertNull(Utils.convertToJsonArr(null));
 
         String jsonArray = "[{}]";
-        Assert.assertEquals(jsonArray, Utils.convertToJsonArr(jsonArray).toString());
+        Assert.assertEquals(jsonArray, new Utils().convertToJsonArr(jsonArray).toString());
     }
 
     @Test
@@ -194,7 +193,7 @@ public class UtilsTest extends RobolectricTest {
         keyValPairs.put("option2", "val2");
         keyValPairs.put("option3", "val3");
 
-        JSONArray jsonArray = Utils.createOptionsBlock(keyValPairs, "entity", "entity_id");
+        JSONArray jsonArray = new Utils().createOptionsBlock(keyValPairs, "entity", "entity_id");
         final int three = 3;
         Assert.assertEquals(three, jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -207,11 +206,10 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testGetParentLocationIdShouldGetCorrectParentLocationId() {
         RDTApplication.getInstance().getContext().allSharedPreferences().saveDefaultLocalityId("", "");
-        Assert.assertEquals(OpenSRPContextShadow.PARENT_LOCATION_ID, Utils.getParentLocationId());
+        Assert.assertEquals(OpenSRPContextShadow.PARENT_LOCATION_ID, new Utils().getParentLocationId());
     }
 
-    @After
-    public void tearDown() {
-        BaseJobShadow.getJobTags().clear();
-    }
+    // overrides UtilsShadow for this test
+    @Implements(Utils.class)
+    public static class NoOpUtilsShadow extends Shadow { }
 }
