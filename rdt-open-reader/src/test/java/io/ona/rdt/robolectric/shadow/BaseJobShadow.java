@@ -22,6 +22,11 @@ public class BaseJobShadow extends Shadow {
         jobTags.add(jobTag);
     }
 
+    @Implementation
+    public static void scheduleJob(String jobTag, Long start, Long flex) {
+        jobTags.add(jobTag);
+    }
+
     public static List<String> getJobTags() {
         return jobTags;
     }
