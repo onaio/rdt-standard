@@ -26,7 +26,7 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
         InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(editText.getWindowToken(), HIDE_NOT_ALWAYS);
         Intent intent = new Intent(activity, OneScanActivity.class);
-        intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, widgetArgs.getJsonObject().optBoolean(Constants.Config.ENABLE_BATCH_SCAN, false));
+        intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, widgetArgs.getJsonObject().optBoolean(Constants.Config.ENABLE_BATCH_SCAN));
         activity.startActivityForResult(intent, BARCODE_REQUEST_CODE);
     }
 

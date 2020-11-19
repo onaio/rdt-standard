@@ -122,7 +122,7 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testBarcodeResultScreenPopulationShouldVerifyCorrectJSONArray() {
+    public void testBarcodeResultScreenPopulationShouldVerifyCorrectJSONArray() throws JSONException {
         final String barcodeText = "text";
         final boolean sensorTriggered = false;
         final String productId = "product_id";
@@ -161,25 +161,61 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
 
         Assert.assertEquals(2, dataArray.length());
 
+        for (int i = 0; i < dataArray.length(); i++) {
+            JSONObject scanObject = dataArray.getJSONObject(i);
+            Assert.assertEquals(productId, scanObject.getString("productId"));
+            Assert.assertEquals(serialNumber, scanObject.getString("serialNumber"));
+            Assert.assertEquals(additionalIdentifier, scanObject.getString("additionalIdentifier"));
+            Assert.assertEquals(lot, scanObject.getString("lot"));
+            Assert.assertEquals(expirationDate, scanObject.getString("expirationDate"));
+        }
+
     }
 
     @Test
     public void testActivityResultShouldVerifyCorrectResultData() throws JSONException {
         final String setResultAndFinishMethod = "setResultAndFinish";
         final String enableBatchScanField = "enableBatchScan";
-        Bundle bundle = new Bundle();
-        bundle.putString("status", "ok");
-        bundle.putString("barcodeText", "test");
-        bundle.putBoolean("sensorTriggered", false);
-        bundle.putString("productId", "test-product");
-        bundle.putString("lot", "test-lot");
-        bundle.putString("expirationDate", TestUtils.getFormattedDateWithOffset(1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT));
-        bundle.putString("serialNumber", "test-serial");
-        bundle.putString("additionalIdentifier", "test-additional-identifier");
-        final OneScanHelper.ScanResponse scanResponse = new OneScanHelper.ScanResponse(bundle);
+        final String dataArrayField = "dataArray";
 
+        final String valStatus = "ok";
+        final String valBarcodeTest = "test";
+        final boolean valSensorTriggered = false;
+        final String valProductId = "test-product";
+        final String valLot = "test-lot";
+        final String valExpirationDate = TestUtils.getFormattedDateWithOffset(1, CovidRDTBarcodeFactory.RDT_BARCODE_EXPIRATION_DATE_FORMAT);
+        final String valSerialNumber = "test-serial";
+        final String valAdditionalIdentifier = "test-additional-identifier";
+        final String keyProductId = "productId";
+        final String keySerialNumber = "serialNumber";
+        final String keyAdditionalIdentifier = "additionalIdentifier";
+        final String keyLot = "lot";
+        final String keyExperienceDate = "experienceDate";
+
+        final Bundle bundle = new Bundle();
+        bundle.putString("status", valStatus);
+        bundle.putString("barcodeText", valBarcodeTest);
+        bundle.putBoolean("sensorTriggered", valSensorTriggered);
+        bundle.putString(keyProductId, valProductId);
+        bundle.putString(keyLot, valLot);
+        bundle.putString(keyExperienceDate, valExpirationDate);
+        bundle.putString(keySerialNumber, valSerialNumber);
+        bundle.putString(keyAdditionalIdentifier, valAdditionalIdentifier);
+        final OneScanHelper.ScanResponse scanResponse = new OneScanHelper.ScanResponse(bundle);
+        final JSONObject scanObject = new JSONObject();
+        scanObject.put(keyProductId, valProductId)
+                .put(keyLot, valLot)
+                .put(keyProductId, valProductId)
+                .put(keyExperienceDate, valExpirationDate)
+                .put(keySerialNumber, valSerialNumber)
+                .put(keyAdditionalIdentifier, valAdditionalIdentifier);
+        final JSONArray dataArray = new JSONArray();
+        dataArray.put(scanObject);
+
+        // when batch scan is enabled
         ShadowActivity shadowOneScanActivity = Shadows.shadowOf(oneScanActivity);
         ReflectionHelpers.setField(oneScanActivity, enableBatchScanField, true);
+        ReflectionHelpers.setField(oneScanActivity, dataArrayField, dataArray);
         ReflectionHelpers.callInstanceMethod(oneScanActivity, setResultAndFinishMethod,
                 ReflectionHelpers.ClassParameter.from(OneScanHelper.ScanResponse.class, scanResponse));
 
@@ -188,7 +224,10 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         Assert.assertNotNull(resultData);
         JSONObject resultObj = new JSONObject(resultData);
         Assert.assertTrue(resultObj.has("scans"));
+        JSONArray resultScansArray = resultObj.getJSONArray("scans");
+        Assert.assertEquals(dataArray.toString(), resultScansArray.toString());
 
+        // when batch scan is disabled
         ReflectionHelpers.setField(oneScanActivity, enableBatchScanField, false);
         ReflectionHelpers.callInstanceMethod(oneScanActivity, setResultAndFinishMethod,
                 ReflectionHelpers.ClassParameter.from(OneScanHelper.ScanResponse.class, scanResponse));

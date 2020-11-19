@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -44,7 +45,6 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     private final Handler handler = new Handler();
     private final JSONArray dataArray = new JSONArray();
     private ViewDataBinding viewBinding;
-    private RDTJsonFormUtils formUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
         parentView.addView(viewBinding.getRoot());
         oneScanHelper = new OneScanHelper(this);
-        formUtils = new RDTJsonFormUtils();
         doScan(CovidConstants.ScannerType.SCANNER);
         addListeners();
     }
@@ -77,7 +76,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
-                formUtils.showToast(this, getString(R.string.captured));
+                Toast.makeText(this, getString(R.string.captured), Toast.LENGTH_SHORT).show();
                 performPostScanActions(bundle);
                 if (enableBatchScan) {
                     handler.postDelayed(new Runnable() {
@@ -191,9 +190,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         if (resultCode == Activity.RESULT_CANCELED) {
             if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
                 onBackPressed();
-                return;
-            }
-            if (enableBatchScan) {
+            } else if (enableBatchScan) {
                 setResultAndFinish(response);
             }
         }
