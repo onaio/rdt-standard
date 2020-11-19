@@ -16,8 +16,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.annotation.Implements;
-import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowToast;
 import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -41,11 +39,13 @@ import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
 
+import static org.mockito.Mockito.verify;
+
 /**
  * Created by Vincent Karuri on 29/07/2020
  */
 
-@Config(shadows = { UtilsTest.NoOpUtilsShadow.class, BaseJobShadow.class })
+@Config(shadows = { BaseJobShadow.class })
 public class UtilsTest extends RobolectricTest {
 
     @After
@@ -56,13 +56,13 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testConvertDateShouldReturnNullDateForNullDateStr() throws Exception {
         String dateStr = null;
-        Date result = new Utils().convertDate(dateStr, MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT);
+        Date result = Utils.convertDate(dateStr, MalariaRDTBarcodeFactory.OPEN_RDT_DATE_FORMAT);
         Assert.assertNull(result);
     }
 
     @Test
     public void testConvertDateShouldReturnCorrectDateForValidDateFormat() throws Exception {
-        Date date = new Utils().convertDate("201217", "ddMMyy");
+        Date date = Utils.convertDate("201217", "ddMMyy");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
@@ -79,24 +79,24 @@ public class UtilsTest extends RobolectricTest {
     public void testUpdateLocale()  {
         Context context = RuntimeEnvironment.application;
         LangUtils.saveLanguage(context, "en");
-        new Utils().updateLocale(context);
+        Utils.updateLocale(context);
         Assert.assertEquals("en", context.getResources().getConfiguration().locale.getLanguage());
         LangUtils.saveLanguage(RuntimeEnvironment.application, "id");
-        new Utils().updateLocale(context);
+        Utils.updateLocale(context);
         Assert.assertEquals("in", context.getResources().getConfiguration().locale.getLanguage());
     }
 
     @Test
     public void testGetFlexValue() {
         final long flexVal = 3l;
-        long flexValue = new Utils().getFlexValue(flexVal);
+        long flexValue = Utils.getFlexValue(flexVal);
         Assert.assertEquals(1, flexValue);
     }
 
     @Test
     public void testScheduleJobsImmediately() {
         Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
-        new Utils().scheduleJobsImmediately();
+        Utils.scheduleJobsImmediately();
         Assert.assertEquals(RDTSyncSettingsServiceJob.TAG, BaseJobShadow.getJobTags().get(0));
         Assert.assertEquals(PullUniqueIdsServiceJob.TAG, BaseJobShadow.getJobTags().get(1));
     }
@@ -104,7 +104,7 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testScheduleJobsPeriodically() {
         Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
-        new Utils().scheduleJobsPeriodically();
+        Utils.scheduleJobsPeriodically();
         Assert.assertEquals(RDTSyncSettingsServiceJob.TAG, BaseJobShadow.getJobTags().get(0));
         Assert.assertEquals(PullUniqueIdsServiceJob.TAG, BaseJobShadow.getJobTags().get(1));
     }
@@ -154,26 +154,26 @@ public class UtilsTest extends RobolectricTest {
 
     @Test
     public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
-        Assert.assertEquals("1990-09-12", new Utils().convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
+        Assert.assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
     }
 
     @Test
     public void testRecordExceptionInCrashlyticsShouldRecordException() {
         Throwable throwable = Mockito.mock(Throwable.class);
-        new Utils().recordExceptionInCrashlytics(throwable);
-        Mockito.verify(FirebaseCrashlytics.getInstance()).recordException(ArgumentMatchers.eq(throwable));
+        Utils.recordExceptionInCrashlytics(throwable);
+        verify(FirebaseCrashlytics.getInstance()).recordException(ArgumentMatchers.eq(throwable));
     }
 
     @Test
     public void testLogEventToCrashlyticsShouldLogEvent() {
         String message = "message";
-        new Utils().logEventToCrashlytics(message);
-        Mockito.verify(FirebaseCrashlytics.getInstance()).log(ArgumentMatchers.eq(message));
+        Utils.logEventToCrashlytics(message);
+        verify(FirebaseCrashlytics.getInstance()).log(ArgumentMatchers.eq(message));
     }
 
     @Test
     public void testShowToastInFGShouldShowToast() {
-        new Utils().showToastInFG(RuntimeEnvironment.application, "message");
+        Utils.showToastInFG(RuntimeEnvironment.application, "message");
         Assert.assertNotNull(ShadowToast.getLatestToast());
     }
 
@@ -183,7 +183,7 @@ public class UtilsTest extends RobolectricTest {
         Assert.assertNull(Utils.convertToJsonArr(null));
 
         String jsonArray = "[{}]";
-        Assert.assertEquals(jsonArray, new Utils().convertToJsonArr(jsonArray).toString());
+        Assert.assertEquals(jsonArray, Utils.convertToJsonArr(jsonArray).toString());
     }
 
     @Test
@@ -193,7 +193,7 @@ public class UtilsTest extends RobolectricTest {
         keyValPairs.put("option2", "val2");
         keyValPairs.put("option3", "val3");
 
-        JSONArray jsonArray = new Utils().createOptionsBlock(keyValPairs, "entity", "entity_id");
+        JSONArray jsonArray = Utils.createOptionsBlock(keyValPairs, "entity", "entity_id");
         final int three = 3;
         Assert.assertEquals(three, jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -206,10 +206,6 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testGetParentLocationIdShouldGetCorrectParentLocationId() {
         RDTApplication.getInstance().getContext().allSharedPreferences().saveDefaultLocalityId("", "");
-        Assert.assertEquals(OpenSRPContextShadow.PARENT_LOCATION_ID, new Utils().getParentLocationId());
+        Assert.assertEquals(OpenSRPContextShadow.PARENT_LOCATION_ID, Utils.getParentLocationId());
     }
-
-    // overrides UtilsShadow for this test
-    @Implements(Utils.class)
-    public static class NoOpUtilsShadow extends Shadow { }
 }
