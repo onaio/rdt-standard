@@ -15,6 +15,7 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.Arrays;
 import java.util.List;
 
+import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
@@ -824,7 +825,8 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     protected int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException {
         if (CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             // pre-populate respiratory sample id labels
-            assertEquals("Sample ID: " + UNIQUE_ID, field.getString("text"));
+            Utils.updateLocale(RuntimeEnvironment.application);
+            assertEquals(RuntimeEnvironment.application.getString(R.string.sample_id_prompt) + UNIQUE_ID, field.getString("text"));
             numOfPopulatedFields++;
         } else if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
             // pre-populate respiratory sample id field
