@@ -36,7 +36,6 @@ public class DeviceDefinitionProcessor {
     public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
         if (deviceDefinitionProcessor == null) {
             deviceDefinitionProcessor = new DeviceDefinitionProcessor();
-            PathEvaluatorLibrary.init(null, null, null, null);
         }
         // we need this to refresh the resource in case it changes in between two accesses
         deviceDefinitionBundle = getDeviceDefinitionBundle(context);
