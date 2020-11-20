@@ -20,7 +20,7 @@ public interface CovidConstants extends Constants {
         String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
         String INSTRUCTIONS = "instructions";
         String FHIR_RESOURCE_FOLDER = "fhir.resource/";
-        String DEVICE_RESOURCE_FILE = CovidConstants.FHIRResource.FHIR_RESOURCE_FOLDER +  "DeviceDefinition.json";
+        String DEVICE_RESOURCE_FILE = CovidConstants.FHIRResource.FHIR_RESOURCE_FOLDER + "DeviceDefinitionsBundle.json";
     }
 
     interface Widget {

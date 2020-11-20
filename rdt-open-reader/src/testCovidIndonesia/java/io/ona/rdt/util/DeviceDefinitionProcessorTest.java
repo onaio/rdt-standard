@@ -33,7 +33,7 @@ public class DeviceDefinitionProcessorTest extends RobolectricTest {
     @Test
     public void testFHIRQueriesOnDeviceDefinitionResource() throws Exception {
         PathEvaluatorLibrary.init(null, null, null, null);
-        InputStream stream = RuntimeEnvironment.application.getAssets().open("DeviceDefinition.json");
+        InputStream stream = RuntimeEnvironment.application.getAssets().open("DeviceDefinitionsBundle.json");
         Bundle deviceDefinitionBundle = FHIRParser.parser(Format.JSON).parse(stream);
         ReflectionHelpers.setField(deviceDefinitionProcessor, "deviceDefinitionBundle", deviceDefinitionBundle);
 

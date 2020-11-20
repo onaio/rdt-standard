@@ -33,6 +33,9 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     private static final int SENSOR_TRIGGER_INDEX = 4;
     private static final int GTIN_INDEX = 3;
+    private static final int EXP_DATE_INDEX = 1;
+    private static final int LOT_NO_INDEX = 2;
+    private static final int UNIQUE_ID_INDEX = 0;
 
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";
@@ -74,9 +77,9 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         JsonApi jsonApi = (JsonApi) context;
         String stepName = widgetArgs.getStepName();
 
-        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[0],  "", "", "", false);
-        jsonApi.writeValue(stepName, EXP_DATE, individualVals[1],  "", "", "", false);
-        jsonApi.writeValue(stepName, LOT_NO, individualVals[2],  "", "", "", false);
+        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[UNIQUE_ID_INDEX],  "", "", "", false);
+        jsonApi.writeValue(stepName, EXP_DATE, individualVals[EXP_DATE_INDEX],  "", "", "", false);
+        jsonApi.writeValue(stepName, LOT_NO, individualVals[LOT_NO_INDEX],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX],  "", "", "", false);
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
 
