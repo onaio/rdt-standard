@@ -94,12 +94,6 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
     }
 
     @Test
-    public void testHasNextStep() throws JSONException {
-        addMockStepDetails();
-        assertTrue(presenter.hasNextStep());
-    }
-
-    @Test
     public void testMoveToNextStepForNonBlankStep() throws JSONException {
         // should move to next step for non-blank step
         addViewAndMockStaticClasses();

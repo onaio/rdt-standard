@@ -1,6 +1,5 @@
 package io.ona.rdt.presenter;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -50,15 +49,6 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     @Override
     protected JsonFormFragment getNextJsonFormFragment(String nextStep) {
         return RDTJsonFormFragment.getFormFragment(nextStep);
-    }
-
-    @Override
-    public boolean hasNextStep() {
-        return !getNextStep().isEmpty();
-    }
-
-    private String getNextStep() {
-        return mStepDetails.optString(JsonFormConstants.NEXT);
     }
 
     public boolean moveToNextStep(String stepName) {
