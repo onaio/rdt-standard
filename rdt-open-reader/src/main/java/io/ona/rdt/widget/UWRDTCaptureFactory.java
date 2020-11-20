@@ -134,7 +134,7 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected void onPreExecute() {
-            Utils.showProgressDialogInFG((Activity) context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
+            Utils.showProgressDialogInFG(context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
         }
 
         @Override

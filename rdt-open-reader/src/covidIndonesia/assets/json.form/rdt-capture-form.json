@@ -431,7 +431,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "rdt_capture"
+        "type": "covid_rdt_capture"
       },
       {
         "key": "rdt_capture_top_line_reading",
