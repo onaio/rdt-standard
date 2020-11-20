@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vijay.jsonwizard.utils.Utils;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -51,6 +53,7 @@ public class CovidPatientProfileFragment extends Fragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        Utils.showProgressDialog(R.string.please_wait_title, R.string.launching_form, getContext());
         if (v.getId() == R.id.tv_covid_support_investigation) {
             launchOtherClinicalDataFragment();
         } else {

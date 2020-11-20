@@ -25,7 +25,7 @@ android {
         applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 6
+        versionCode 8
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
@@ -44,8 +44,12 @@ android {
         }
     }
 
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+
     sourceSets {
-        main.assets.srcDirs += ['src/test/assets/']
+        main.assets.srcDirs += ['src/test/assets/', 'src/testCovidIndonesia/assets/']
     }
 
     dataBinding.enabled = true
@@ -122,7 +126,7 @@ android {
             applicationId "io.ona.diagnostics.rdt.configurable.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.6.0"
+            versionName "v1.7.0"
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
@@ -157,7 +161,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.14.5.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.14.6.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -169,7 +173,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:2.2.6-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:3.2.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -211,6 +215,12 @@ dependencies {
     debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
     testImplementation 'androidx.test.ext:junit:1.1.1'
 }
+
+jarJar {
+    // Dependencies and related JarJar rules
+    remove = ['fhir-model-4.2.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
+}
+
 
 project.afterEvaluate {
     // Grab all build types and product flavors

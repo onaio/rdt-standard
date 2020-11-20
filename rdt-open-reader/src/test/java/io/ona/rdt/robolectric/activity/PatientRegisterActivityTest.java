@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
+import io.ona.rdt.robolectric.util.UtilsTest;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -132,6 +134,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         verify(RDTApplication.getInstance().getContext().userService()).logoutSession();
     }
 
+    @Config(shadows = { UtilsShadow.class })
     @Test
     public void testSelectDrawerItemShouldSyncDataFromServer() {
         MenuItem menuItem = mock(MenuItem.class);

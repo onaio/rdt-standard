@@ -18,6 +18,7 @@ import io.ona.rdt.job.ImageUploadSyncServiceJob;
 import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.LocationServiceHelperShadow;
 import io.ona.rdt.robolectric.shadow.SyncIntentServiceShadow;
+import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.sync.RDTSyncIntentService;
 import io.ona.rdt.util.Constants;
 
@@ -25,7 +26,7 @@ import io.ona.rdt.util.Constants;
  * Created by Vincent Karuri on 12/08/2020
  */
 
-@Config(shadows = { BaseJobShadow.class, SyncIntentServiceShadow.class, LocationServiceHelperShadow.class})
+@Config(shadows = { BaseJobShadow.class, SyncIntentServiceShadow.class, LocationServiceHelperShadow.class, UtilsShadow.class})
 public class RDTSettingsSyncIntentServiceTest extends IntentServiceRobolectricTest {
 
     private RDTSyncIntentService syncIntentService;
@@ -37,6 +38,7 @@ public class RDTSettingsSyncIntentServiceTest extends IntentServiceRobolectricTe
 
     @Test
     public void testOnHandleIntentShouldCallSuperAndInitiateImageUpload() {
+        RDTApplication.getInstance().getContext().allSharedPreferences().saveDefaultLocalityId("", "");
         Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
         ReflectionHelpers.callInstanceMethod(syncIntentService, "onHandleIntent",
                 ReflectionHelpers.ClassParameter.from(Intent.class, new Intent()));

@@ -56,7 +56,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     public void onImageSaved(CompositeImage compositeImage) {
-        hideProgressDialogFromFG(this);
+        hideProgressDialogFromFG();
         if (compositeImage != null) {
             ParcelableImageMetadata parcelableImageMetadata = compositeImage.getParcelableImageMetadata();
             parcelableImageMetadata.setManualCapture(isManualCapture);
