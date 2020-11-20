@@ -12,11 +12,14 @@ import org.robolectric.shadow.api.Shadow;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Location;
+import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.ImageRepository;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
@@ -37,6 +40,9 @@ public class OpenSRPContextShadow extends Shadow {
     private EventClientRepository eventClientRepository;
     private static AllSettings allSettings;
     private ImageRepository imageRepository;
+    private LocationRepository locationRepository;
+
+    public static final String PARENT_LOCATION_ID = "parent_location_id";
 
     @Implementation
     public CommonRepository commonrepository(String tablename) {
@@ -95,6 +101,19 @@ public class OpenSRPContextShadow extends Shadow {
             imageRepository.updateMasterRepository(getMasterRepository());
         }
         return imageRepository;
+    }
+
+    @Implementation
+    public LocationRepository getLocationRepository() {
+        if (locationRepository == null) {
+            locationRepository = Mockito.mock(LocationRepository.class);
+            Location location = new Location();
+            LocationProperty locationProperty = new LocationProperty();
+            locationProperty.setParentId(PARENT_LOCATION_ID);
+            location.setProperties(locationProperty);
+            Mockito.doReturn(location).when(locationRepository).getLocationById(any());
+        }
+        return locationRepository;
     }
 
     private Repository getMasterRepository() {

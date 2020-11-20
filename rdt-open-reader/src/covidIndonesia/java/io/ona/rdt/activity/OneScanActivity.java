@@ -33,6 +33,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.updateLocale(this);
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_one_scan);
         oneScanHelper = new OneScanHelper(this);

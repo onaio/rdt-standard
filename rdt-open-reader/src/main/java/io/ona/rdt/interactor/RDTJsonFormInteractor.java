@@ -7,6 +7,7 @@ import io.ona.rdt.widget.RDTCountdownTimerFactory;
 import io.ona.rdt.widget.RDTExpirationDateReaderFactory;
 import io.ona.rdt.widget.RDTGpsFactory;
 import io.ona.rdt.widget.RDTLabelFactory;
+import io.ona.rdt.widget.UWMalariaRDTCaptureFactory;
 import io.ona.rdt.widget.UWRDTCaptureFactory;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE;
@@ -33,7 +34,7 @@ public class RDTJsonFormInteractor extends JsonFormInteractor {
         map.put(BARCODE, new MalariaRDTBarcodeFactory());
         map.put(LABEL, new RDTLabelFactory());
         map.put(EXPIRATION_DATE_CAPTURE, new RDTExpirationDateReaderFactory());
-        map.put(RDT_CAPTURE, new UWRDTCaptureFactory());
+        map.put(RDT_CAPTURE, new UWMalariaRDTCaptureFactory());
         map.put(COUNTDOWN_TIMER, new RDTCountdownTimerFactory());
         map.put(GPS, new RDTGpsFactory());
     }

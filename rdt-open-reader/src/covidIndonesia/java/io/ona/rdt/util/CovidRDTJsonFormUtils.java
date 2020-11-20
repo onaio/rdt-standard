@@ -1,9 +1,11 @@
 package io.ona.rdt.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
+import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONArray;
@@ -15,6 +17,7 @@ import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -59,16 +63,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     @Override
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
+    public void prePopulateFormFields(Context context, JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             switch (jsonForm.getString(ENCOUNTER_TYPE)) {
                 case COVID_RDT_TEST:
-                    prePopulateRDTFormFields(field, uniqueID);
+                    prePopulateRDTFormFields(context, field, uniqueID);
                     break;
                 case SAMPLE_COLLECTION:
-                    prePopulateSampleCollectionFormFields(field, uniqueID, patient);
+                    prePopulateSampleCollectionFormFields(context, field, uniqueID, patient);
                     break;
                 case CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS:
                     prePopulateSampleShipmentDetailsFormFields(field);
@@ -78,34 +82,52 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
     }
 
-    private void prePopulateSampleCollectionFormFields(JSONObject field, String uniqueID, Patient patient) throws JSONException {
-        // pre-populate respiratory sample id labels
-        if (LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
-            field.put("text", "Sample ID: " + uniqueID);
+    @Override
+    protected void prePopulateRDTFormFields(Context context, JSONObject field, String uniqueID) throws JSONException {
+        super.prePopulateRDTFormFields(context, field, uniqueID);
+        // pre-populate available RDTs
+        if (Constants.RDTType.RDT_TYPE.equals(field.getString(JsonFormUtils.KEY))) {
+            try {
+                DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
+                JSONArray availableRDTsArr = Utils.createOptionsBlock(appendOtherOption(deviceDefinitionProcessor.getDeviceIDToDeviceNameMap()), "", "");
+                field.put(JsonFormConstants.OPTIONS_FIELD_NAME, availableRDTsArr);
+            } catch (IOException | FHIRParserException e) {
+                Timber.e(e);
+            }
         }
-        // pre-populate respiratory sample id field
-        if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
-            field.put(JsonFormConstants.VALUE, uniqueID);
-        }
+    }
 
-        // pre-populate the patient detail unique id
-        if (CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID.equals(field.getString(KEY))) {
-            fillPatientData(field, uniqueID);
-        }
+    public static Map<String, String> appendOtherOption(Map<String, String> optionsMap) {
+        optionsMap.put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
+        return optionsMap;
+    }
 
-        // pre-populate the patient detail name
-        if (CovidConstants.FormFields.PATIENT_INFO_NAME.equals(field.getString(KEY))) {
-            fillPatientData(field, patient.getPatientName());
-        }
-
-        // pre-populate the patient detail dob
-        if (CovidConstants.FormFields.PATIENT_INFO_DOB.equals(field.getString(KEY))) {
-            fillPatientData(field, patient.getDob());
-        }
-
-        // pre-populate the sampler name
-        if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(KEY))) {
-            field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
+    private void prePopulateSampleCollectionFormFields(Context context, JSONObject field, String uniqueID, Patient patient) throws JSONException {
+        switch (field.getString(KEY)) {
+            case LBL_RESPIRATORY_SAMPLE_ID:
+                // pre-populate respiratory sample id labels
+                field.put(JsonFormConstants.TEXT, context.getString(R.string.sample_id_prompt) + uniqueID);
+                break;
+            case COVID_SAMPLE_ID:
+                // pre-populate respiratory sample id field
+                field.put(JsonFormConstants.VALUE, uniqueID);
+                break;
+            case CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID:
+                // pre-populate the patient detail unique id
+                fillPatientData(field, uniqueID);
+                break;
+            case CovidConstants.FormFields.PATIENT_INFO_NAME:
+                // pre-populate the patient detail name
+                fillPatientData(field, patient.getPatientName());
+                break;
+            case CovidConstants.FormFields.PATIENT_INFO_DOB:
+                // pre-populate the patient detail dob
+                fillPatientData(field, patient.getDob());
+                break;
+            case CovidConstants.FormFields.SAMPLER_NAME:
+                // pre-populate the sampler name
+                field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
+                break;
         }
     }
 
@@ -165,23 +187,29 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
-        if (locationTree == null) {
-            Timber.e("Location tree is null!");
-            return new JSONArray();
-        }
-        LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
-        List<String> locations = filterLocations(locationMap);
 
         JSONArray jsonArray = new JSONArray();
-        for (String location : locations) {
-            JSONObject option = new JSONObject();
-            option.put(JsonFormConstants.KEY, location);
-            option.put(JsonFormConstants.TEXT, location);
-            option.put(JsonFormConstants.OPENMRS_ENTITY, "");
-            option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-            jsonArray.put(option);
+        if (locationTree == null) {
+            Timber.e("Location tree is null!");
+            return jsonArray;
         }
+
+        LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
+        List<String> locations = filterLocations(locationMap);
+        for (String location : locations) {
+            jsonArray.put(createOption(location, location));
+        }
+        jsonArray.put(createOption("other", "Other"));
         return jsonArray;
+    }
+
+    private JSONObject createOption(String key, String value) throws JSONException {
+        JSONObject option = new JSONObject();
+        option.put(JsonFormConstants.KEY, key);
+        option.put(JsonFormConstants.TEXT, value);
+        option.put(JsonFormConstants.OPENMRS_ENTITY, "");
+        option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
+        return option;
     }
 
     private List<String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {

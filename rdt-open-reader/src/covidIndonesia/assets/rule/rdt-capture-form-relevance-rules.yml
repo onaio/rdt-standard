@@ -1,14 +1,28 @@
 ---
-name: step5_other_rdt_type_lbl
+name: step6_other_rdt_type_lbl
 description: Other RDT type label
 priority: 1
-condition: "step5_rdt_type != '' && step5_rdt_type == 'other'"
+condition: "step6_rdt_type != '' && step6_rdt_type == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step5_other_rdt_type
+name: step6_other_rdt_type
 description: Other RDT type
 priority: 1
-condition:  "step5_rdt_type != '' && step5_rdt_type == 'other'"
+condition:  "step6_rdt_type != '' && step6_rdt_type == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_other_location_lbl
+description: Other location label
+priority: 1
+condition: "step4_health_facility_name.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_other_location
+description: Other location
+priority: 1
+condition: "step4_health_facility_name.contains('other')"
 actions:
   - "isRelevant = true"

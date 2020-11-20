@@ -14,9 +14,11 @@ import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 
 import java.lang.ref.WeakReference;
@@ -98,11 +100,17 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
     }
 
     @Test
-    public void testMoveToNextStep() throws JSONException {
+    public void testMoveToNextStepForNonBlankStep() throws JSONException {
+        // should move to next step for non-blank step
         addViewAndMockStaticClasses();
         presenter.moveToNextStep("step1");
         verify(view).hideKeyBoard();
         verify(view).transactThis(eq(formFragment));
+
+        // don't move to next step for blank step
+        Mockito.clearInvocations(view);
+        Assert.assertFalse(presenter.moveToNextStep(""));
+        Mockito.verifyZeroInteractions(view);
     }
 
     @Test

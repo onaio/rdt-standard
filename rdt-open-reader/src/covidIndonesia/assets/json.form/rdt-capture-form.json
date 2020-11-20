@@ -128,36 +128,6 @@
     "next_label": "{{rdt-capture-form-original.step4.next_label}}",
     "fields": [
       {
-        "key": "health_facility_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step4.health_facility_type.label}}",
-        "options": [
-          {
-            "key": "hospital",
-            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.hospital.text}}"
-          },
-          {
-            "key": "clinic",
-            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.clinic.text}}"
-          },
-          {
-            "key": "health_facility",
-            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.health_facility.text}}"
-          },
-          {
-            "key": "other",
-            "text": "{{rdt-capture-form-original.step4.health_facility_type.options.other.text}}"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{rdt-capture-form-original.step4.health_facility_type.v_required.err}}"
-        }
-      },
-      {
         "key": "health_facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -167,6 +137,37 @@
         "v_required": {
           "value": "false",
           "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_location_lbl",
+        "type": "label",
+        "text": "{{rdt-capture-form-original.step4.other_location_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{rdt-capture-form-original.step4.other_location.v_required.err}}"
         }
       }
     ]
@@ -216,54 +217,12 @@
     "next_label": "{{rdt-capture-form-original.step6.next_label}}",
     "fields": [
       {
-        "key": "rdt_manufacturer_lbl",
-        "type": "label",
-        "text": "{{rdt-capture-form-original.step6.rdt_manufacturer_lbl.text}}",
-        "text_color": "#000000",
-        "has_bg": true,
-        "top_margin": "15dp",
-        "bg_color": "#ffffff"
-      },
-      {
-        "key": "rdt_manufacturer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{rdt-capture-form-original.step6.rdt_manufacturer.v_required.err}}"
-        }
-      },
-      {
         "key": "rdt_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step6.rdt_type.label}}",
-        "options": [
-          {
-            "key": "double_line",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.double_line.text}}"
-          },
-          {
-            "key": "single_line",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.single_line.text}}"
-          },
-          {
-            "key": "IgG",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.IgG.text}}"
-          },
-          {
-            "key": "IgM",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.IgM.text}}"
-          },
-          {
-            "key": "other",
-            "text": "{{rdt-capture-form-original.step6.rdt_type.options.other.text}}"
-          }
-        ],
+        "type": "spinner",
+        "hint": "{{rdt-capture-form-original.step6.rdt_type.hint}}",
         "v_required": {
           "value": "true",
           "err": "{{rdt-capture-form-original.step6.rdt_type.v_required.err}}"

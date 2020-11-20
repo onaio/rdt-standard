@@ -5,13 +5,20 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.JsonFormUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
+import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static org.junit.Assert.assertEquals;
@@ -800,6 +807,16 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         allSharedPreferences.savePreference(CovidConstants.Preference.LOCATION_TREE, MOCK_LOCATION_TREE_JSON);
     }
 
+    @Config(shadows = {DeviceDefinitionProcessorShadow.class})
+    @Test
+    public void testPrePopulateRDTFormFieldsShouldPopulateAvailableRDTs() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormUtils.KEY, Constants.RDTType.RDT_TYPE);
+        getFormUtils().prePopulateRDTFormFields(RuntimeEnvironment.application, jsonObject, "");
+        Assert.assertEquals(Utils.createOptionsBlock(CovidRDTJsonFormUtils.appendOtherOption(DeviceDefinitionProcessorShadow.getDeviceIdToNameMap()), "", "").toString(),
+                jsonObject.get(JsonFormConstants.OPTIONS_FIELD_NAME).toString());
+    }
+
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
         assertEquals(10, numOfPopulatedFields);
     }
@@ -808,7 +825,8 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     protected int assertFieldsArePopulated(JSONObject field, Patient patient, int numOfPopulatedFields) throws JSONException {
         if (CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID.equals(field.getString(KEY))) {
             // pre-populate respiratory sample id labels
-            assertEquals(field.getString("text"), "Sample ID: " + UNIQUE_ID);
+            Utils.updateLocale(RuntimeEnvironment.application);
+            assertEquals(RuntimeEnvironment.application.getString(R.string.sample_id_prompt) + UNIQUE_ID, field.getString("text"));
             numOfPopulatedFields++;
         } else if (COVID_SAMPLE_ID.equals(field.getString(KEY))) {
             // pre-populate respiratory sample id field
@@ -843,10 +861,12 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
             numOfPopulatedFields++;
         } else if (CovidRDTJsonFormUtils.FACILITY_SET.contains(field.getString(JsonFormConstants.KEY))) {
             JSONArray jsonArray = new JSONArray(field.getString(JsonFormConstants.OPTIONS_FIELD_NAME));
-            assertEquals(3, jsonArray.length());
-            for (int i = 1; i <= jsonArray.length(); i++) {
+            final int four = 4;
+            assertEquals(four, jsonArray.length());
+            for (int i = 1; i < jsonArray.length(); i++) {
                 assertEquals("Indonesia Location " + i, jsonArray.getJSONObject(i - 1).getString(JsonFormConstants.TEXT));
             }
+            assertEquals("Other", jsonArray.getJSONObject(jsonArray.length() - 1).getString(JsonFormConstants.TEXT));
             numOfPopulatedFields++;
         }
 
