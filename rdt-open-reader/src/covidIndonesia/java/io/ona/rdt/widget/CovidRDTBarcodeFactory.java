@@ -3,20 +3,16 @@ package io.ona.rdt.widget;
 import android.content.Context;
 import android.content.Intent;
 
-import com.ibm.fhir.exception.FHIRException;
+import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.domain.UniqueId;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
@@ -70,7 +66,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                     moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
                             convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
                 }
-            } catch (JSONException | ParseException | FHIRException | IOException e) {
+            } catch (JSONException | ParseException | IOException | FHIRParserException e) {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
@@ -107,7 +103,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         }, 1);
     }
 
-    protected void populateRelevantFields(String[] individualVals) throws JSONException {
+    protected void populateRelevantFields(String[] individualVals) throws JSONException, IOException, FHIRParserException {
         Context context = widgetArgs.getContext();
         JsonApi jsonApi = (JsonApi) context;
         String stepName = widgetArgs.getStepName();
