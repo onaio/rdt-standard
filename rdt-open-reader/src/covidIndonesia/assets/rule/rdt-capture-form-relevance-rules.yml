@@ -1,15 +1,15 @@
 ---
-name: step5_other_rdt_type_lbl
+name: step6_other_rdt_type_lbl
 description: Other RDT type label
 priority: 1
-condition: "step5_rdt_type != '' && step5_rdt_type == 'other'"
+condition: "step6_rdt_type != '' && step6_rdt_type == 'other'"
 actions:
   - "isRelevant = true"
 ---
-name: step5_other_rdt_type
+name: step6_other_rdt_type
 description: Other RDT type
 priority: 1
-condition:  "step5_rdt_type != '' && step5_rdt_type == 'other'"
+condition:  "step6_rdt_type != '' && step6_rdt_type == 'other'"
 actions:
   - "isRelevant = true"
 ---

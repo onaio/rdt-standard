@@ -1,14 +1,14 @@
 package io.ona.rdt.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.TypedValue;
 
-import androidx.annotation.StringRes;
-
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -16,6 +16,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.LangUtils;
@@ -27,10 +28,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import androidx.annotation.StringRes;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
@@ -112,21 +116,21 @@ public class Utils {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
-    public static void showProgressDialogInFG(Activity activity, @StringRes int title, @StringRes int message) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                showProgressDialog(message, title, activity);
-            }
+    public static void showProgressDialogInFG(Context context, @StringRes int title, @StringRes int message) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            showProgressDialog(message, title, context);
         });
     }
 
-    public static void hideProgressDialogFromFG(Activity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                hideProgressDialog();
-            }
+    public static void hideProgressDialogFromFG() {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            hideProgressDialog();
+        });
+    }
+
+    public static void showToastInFG(Context context, String message) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            com.vijay.jsonwizard.utils.Utils.showToast(context, message);
         });
     }
 
@@ -164,12 +168,33 @@ public class Utils {
         return cursor == null || cursor.getCount() == 0;
     }
 
+    public static JSONArray convertToJsonArr(String str) {
+        try {
+            return StringUtils.isBlank(str) ? null : new JSONArray(str);
+        } catch (JSONException e) {
+            Timber.e("This is not valid JSON!");
+            return null;
+        }
+    }
+
+    public static JSONArray createOptionsBlock(Map<String, String> keyValPairs, String openmrsEntity, String openmrsEntityId) throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        for (Map.Entry<String, String> entry : keyValPairs.entrySet()) {
+            JSONObject option = new JSONObject();
+            option.put(JsonFormConstants.KEY, entry.getKey());
+            option.put(JsonFormConstants.TEXT, entry.getValue());
+            option.put(JsonFormConstants.OPENMRS_ENTITY, openmrsEntity);
+            option.put(JsonFormConstants.OPENMRS_ENTITY_ID, openmrsEntityId);
+            jsonArray.put(jsonArray.length(), option);
+        }
+        return jsonArray;
+    }
+
     public static String getParentLocationId() {
         org.smartregister.Context context = RDTApplication.getInstance().getContext();
         AllSharedPreferences sharedPreferences = context.allSharedPreferences();
         return context.getLocationRepository().getLocationById(sharedPreferences
                 .fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
                 .getProperties().getParentId();
-
     }
 }

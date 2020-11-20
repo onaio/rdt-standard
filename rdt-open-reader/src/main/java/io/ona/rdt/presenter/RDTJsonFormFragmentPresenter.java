@@ -63,13 +63,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     }
 
     private boolean moveToNextStep() {
-        if (hasNextStep()) {
-            JsonFormFragment next = RDTJsonFormFragment.getFormFragment(getNextStep());
-            this.getView().hideKeyBoard();
-            this.getView().transactThis(next);
-            return true;
-        }
-        return false;
+        return hasNextStep() && moveToNextStep(getNextStep());
     }
 
     @Override
@@ -81,10 +75,14 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         return mStepDetails.optString(JsonFormConstants.NEXT);
     }
 
-    public void moveToNextStep(String stepName) {
-        JsonFormFragment next = RDTJsonFormFragment.getFormFragment(stepName);
-        this.getView().hideKeyBoard();
-        this.getView().transactThis(next);
+    public boolean moveToNextStep(String stepName) {
+        if (StringUtils.isNotBlank(stepName)) {
+            JsonFormFragment next = RDTJsonFormFragment.getFormFragment(stepName);
+            this.getView().hideKeyBoard();
+            this.getView().transactThis(next);
+            return true;
+        }
+        return false;
     }
 
     @Override

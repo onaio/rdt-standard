@@ -36,12 +36,10 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class RDTApplication extends DrishtiApplication {
 
-    private String password;
     private RDTApplicationPresenter presenter;
     private Activity currentActivity;
     private RDTTestsRepository rdtTestsRepository;
     private ParasiteProfileRepository parasiteProfileRepository;
-    private com.vijay.jsonwizard.utils.AllSharedPreferences sharedPreferences;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;

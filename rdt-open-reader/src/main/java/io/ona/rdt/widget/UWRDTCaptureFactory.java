@@ -29,14 +29,15 @@ import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.StepStateConfig;
+import io.ona.rdt.util.Utils;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
-import static com.vijay.jsonwizard.utils.Utils.showProgressDialog;
 
 /**
  * Created by Vincent Karuri on 17/06/2020
  */
-public class UWRDTCaptureFactory extends RDTCaptureFactory {
+public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private final String TAG = UWRDTCaptureFactory.class.getName();
     public static final String RDT_NAME = "rdt_name";
@@ -47,6 +48,10 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     private String baseEntityId;
 
+    protected JSONObject stepStateConfig;
+
+    protected abstract void launchCamera(Intent intent, Context context);
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(JsonFormUtils.ENTITY_ID);
@@ -55,6 +60,8 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
                 .withJsonObject(jsonObject)
                 .withContext(context)
                 .withStepName(stepName);
+
+        stepStateConfig = StepStateConfig.getInstance(context).getStepStateObj();
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         return views;
@@ -72,7 +79,6 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(JsonFormUtils.ENTITY_ID, baseEntityId);
             intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
-            intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
             new LaunchRDTCameraTask().execute(intent);
         }
     }
@@ -123,13 +129,12 @@ public class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected void onPreExecute() {
-            showProgressDialog(com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message, context);
+            Utils.showProgressDialogInFG((Activity) context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
         }
 
         @Override
         protected Void doInBackground(Intent... intents) {
-            Activity activity = (Activity) context;
-            activity.startActivityForResult(intents[0], JsonFormConstants.RDT_CAPTURE_CODE);
+            launchCamera(intents[0], context);
             return null;
         }
     }

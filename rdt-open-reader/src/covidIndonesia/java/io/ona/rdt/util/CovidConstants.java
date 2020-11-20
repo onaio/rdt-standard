@@ -5,6 +5,24 @@ package io.ona.rdt.util;
  */
 public interface CovidConstants extends Constants {
 
+    interface FHIRResource {
+        String REF_IMG = "REF_IMG";
+        String MIDDLE_LINE_NAME = "MIDDLE_LINE_NAME";
+        String VIEW_FINDER_SCALE = "VIEW_FINDER_SCALE";
+        String RESULT_WINDOW_BOTTOM_RIGHT = "RESULT_WINDOW_BOTTOM_RIGHT";
+        String RESULT_WINDOW_TOP_LEFT = "RESULT_WINDOW_TOP_LEFT";
+        String MIDDLE_LINE_POSITION = "MIDDLE_LINE_POSITION";
+        String LINE_INTENSITY = "LINE_INTENSITY";
+        String BOTTOM_LINE_POSITION = "BOTTOM_LINE_POSITION";
+        String BOTTOM_LINE_NAME = "BOTTOM_LINE_NAME";
+        String TOP_LINE_POSITION = "TOP_LINE_POSITION";
+        String TOP_LINE_NAME = "TOP_LINE_NAME";
+        String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
+        String INSTRUCTIONS = "instructions";
+        String FHIR_RESOURCE_FOLDER = "fhir.resource/";
+        String DEVICE_RESOURCE_FILE = CovidConstants.FHIRResource.FHIR_RESOURCE_FOLDER + "DeviceDefinitionsBundle.json";
+    }
+
     interface Widget {
         String GOOGLE_COVID_BARCODE_READER = "google_covid_barcode_reader";
         String ONE_SCAN_COVID_BARCODE_READER = "one_scan_covid_barcode_reader";
@@ -52,6 +70,7 @@ public interface CovidConstants extends Constants {
         String COVID_ONE_SCAN_WIDGET_SPECIMEN_PAGE  = "covid_one_scan_widget_specimen_page";
         String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
         String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
+        String COVID_SELECT_RDT_TYPE_PAGE = "covid_select_rdt_type_page";
     }
 
     interface FormFields {
@@ -60,10 +79,6 @@ public interface CovidConstants extends Constants {
         String LBL_SCAN_RESPIRATORY_SPECIMEN_BARCODE = "lbl_scan_respiratory_specimen_barcode";
         String LBL_AFFIX_RESPIRATORY_SPECIMEN_LABEL = "lbl_affix_respiratory_specimen_label";
         String LBL_RESPIRATORY_SAMPLE_ID = "lbl_respiratory_sample_id";
-        String LBL_ADD_XRAY_RESULTS = "lbl_add_xray_results";
-        String LBL_SKIP_XRAY_RESULTS = "lbl_skip_xray_results";
-        String LBL_ADD_WBC_RESULTS = "lbl_add_wbc_results";
-        String LBL_SKIP_WBC_RESULTS = "lbl_skip_wbc_results";
         String LBL_SCAN_SAMPLE_BARCODE = "lbl_scan_sample_barcode";
         String LBL_ENTER_SAMPLE_DETAILS_MANUALLY = "lbl_enter_sample_details_manually";
         String COVID_SAMPLE_ID = "covid_sample_id";
@@ -81,6 +96,8 @@ public interface CovidConstants extends Constants {
         String PATIENT_INFO_DOB = "patient_info_dob";
         String SAMPLER_NAME = "sampler_name";
         String SENDER_NAME = "sender_name";
+        String OTHER_KEY = "other";
+        String OTHER_VALUE = "Other";
         String FACILITY_NAME = "facility_name";
         String HEALTH_FACILITY_NAME = "health_facility_name";
         String NAME_OF_HEALTH_FACILITY = "name_of_health_facility";

@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
@@ -257,7 +258,7 @@ public class RDTJsonFormUtils {
             formJsonObject = getFormJsonObject(formName, activity);
             if (formShouldBePrePopulated(formName)) {
                 String uniqueId = isEmptyCollection(uniqueIDs) ? "" : uniqueIDs.get(0);
-                prePopulateFormFields(formJsonObject, patient, uniqueId);
+                prePopulateFormFields(activity, formJsonObject, patient, uniqueId);
             }
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
@@ -282,18 +283,19 @@ public class RDTJsonFormUtils {
         return getFormsThatShouldBePrepopulated().contains(formName);
     }
 
-    public void prePopulateFormFields(JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
+    public void prePopulateFormFields(Context context, JSONObject jsonForm, Patient patient, String uniqueID) throws JSONException {
         JSONArray fields = getMultiStepFormFields(jsonForm);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
-            prePopulateRDTFormFields(field, uniqueID);
+            prePopulateRDTFormFields(context, field, uniqueID);
             prePopulateRDTPatientFields(patient, field);
         }
     }
 
-    protected void prePopulateRDTFormFields(JSONObject field, String uniqueID) throws JSONException {
+    protected void prePopulateRDTFormFields(Context context, JSONObject field, String uniqueID) throws JSONException {
+        String key = field.getString(KEY);
         // pre-populate rdt id labels
-        if (Constants.FormFields.LBL_RDT_ID.equals(field.getString(KEY))) {
+        if (Constants.FormFields.LBL_RDT_ID.equals(key)) {
             field.put("text", "RDT ID: " + uniqueID);
         }
         // pre-populate rdt id field
@@ -303,17 +305,18 @@ public class RDTJsonFormUtils {
     }
 
     protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
-        if (patient != null) {
-            String key = field.getString(KEY);
-            if (LBL_PATIENT_NAME.equals(key)) {
-                String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
-                        ? patient.getPatientId() : patient.getPatientName();
-                field.put(VALUE, patientIdentifier);
-                field.put(TEXT, patientIdentifier);
-            } else if (LBL_PATIENT_GENDER_AND_ID.equals(key)) {
-                field.put(VALUE, patient.getPatientSex());
-                field.put(TEXT, getPatientSexAndId(patient));
-            }
+        if (patient == null) {
+            return;
+        }
+        String key = field.getString(KEY);
+        if (LBL_PATIENT_NAME.equals(key)) {
+            String patientIdentifier = StringUtils.isBlank(patient.getPatientName())
+                    ? patient.getPatientId() : patient.getPatientName();
+            field.put(VALUE, patientIdentifier);
+            field.put(TEXT, patientIdentifier);
+        } else if (LBL_PATIENT_GENDER_AND_ID.equals(key)) {
+            field.put(VALUE, patient.getPatientSex());
+            field.put(TEXT, getPatientSexAndId(patient));
         }
     }
 

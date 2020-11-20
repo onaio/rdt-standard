@@ -5,14 +5,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.fragment.app.FragmentManager;
-
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.utils.Utils;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.FragmentManager;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormActivityContract;
@@ -32,6 +32,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.hideProgressDialog();
         updateLocale(this);
         super.onCreate(savedInstanceState);
         formUtils = getFormUtils();

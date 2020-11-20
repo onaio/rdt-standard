@@ -15,6 +15,7 @@ import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidOtherClinicalDataFragmentPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.Utils;
 
 public class CovidOtherClinicalDataFragment extends Fragment implements CovidOtherClinicalDataFragmentContract.View,
         View.OnClickListener {
@@ -31,6 +32,7 @@ public class CovidOtherClinicalDataFragment extends Fragment implements CovidOth
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.hideProgressDialogFromFG();
 
         getActivity().findViewById(R.id.patient_profile_tabbed_fragment_container).setVisibility(View.GONE);
         getActivity().findViewById(R.id.patient_profile_fragment_container).setVisibility(View.VISIBLE);
