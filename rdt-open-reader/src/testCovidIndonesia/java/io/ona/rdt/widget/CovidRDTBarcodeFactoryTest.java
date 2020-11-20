@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -12,20 +13,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.domain.UniqueId;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 import io.ona.rdt.callback.OnUniqueIdsFetchedCallback;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.DeviceDefinitionProcessor;
 import io.ona.rdt.util.FormLaunchArgs;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({DeviceDefinitionProcessor.class})
 public class CovidRDTBarcodeFactoryTest {
 
     private CovidRDTBarcodeFactory covidRdtBarcodeFactory;
@@ -34,7 +43,7 @@ public class CovidRDTBarcodeFactoryTest {
     private RDTJsonFormFragment formFragment;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws JSONException, IOException, FHIRParserException {
         covidRdtBarcodeFactory = Mockito.mock(CovidRDTBarcodeFactory.class, Mockito.CALLS_REAL_METHODS);
         Mockito.doNothing().when(covidRdtBarcodeFactory).moveToNextStep();
         Mockito.doNothing().when(covidRdtBarcodeFactory).navigateToUnusableProductPage();
@@ -42,6 +51,11 @@ public class CovidRDTBarcodeFactoryTest {
                 .thenReturn("val-0,2020-08-08,val-2,val-3,true");
         Mockito.when(covidRdtBarcodeFactory.splitCSV(Mockito.anyString()))
                 .thenReturn(new String[]{"val-0", "2020-08-08", "val-2", "val-3", "true"});
+
+        PowerMockito.mockStatic(DeviceDefinitionProcessor.class);
+        DeviceDefinitionProcessor deviceDefinitionProcessor = Mockito.mock(DeviceDefinitionProcessor.class);
+        Mockito.when(deviceDefinitionProcessor.getDeviceId(Mockito.anyString())).thenReturn(null);
+        PowerMockito.when(DeviceDefinitionProcessor.getInstance(Mockito.any(Context.class))).thenReturn(deviceDefinitionProcessor);
 
         mockInternalState();
     }
