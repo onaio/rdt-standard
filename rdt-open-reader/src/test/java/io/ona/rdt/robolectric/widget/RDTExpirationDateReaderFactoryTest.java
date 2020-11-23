@@ -22,6 +22,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLooper;
+import org.robolectric.util.ReflectionHelpers;
 
 import io.ona.rdt.activity.RDTExpirationDateActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -91,7 +92,10 @@ public class RDTExpirationDateReaderFactoryTest extends WidgetFactoryRobolectric
     }
 
     @Test
-    public void testSetUpRDTExpirationDateActivity() throws JSONException {
+    public void testSetUpRDTExpirationDateActivity() {
+        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
+                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
+
         suppress(methods(RDTCaptureFactory.class, "setUpRDTCaptureActivity"));
         readerFactory.setUpRDTExpirationDateActivity();
         verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
@@ -139,6 +143,8 @@ public class RDTExpirationDateReaderFactoryTest extends WidgetFactoryRobolectric
 
     @Test
     public void testGetViewsFromJson() throws Exception {
+        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
+                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
         JSONObject jsonObject = widgetArgs.getJsonObject();
         suppress(methods(RDTCaptureFactory.class, "getViewsFromJson"));
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();

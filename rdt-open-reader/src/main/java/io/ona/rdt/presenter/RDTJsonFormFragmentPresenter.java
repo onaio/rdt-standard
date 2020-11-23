@@ -28,6 +28,7 @@ import static io.ona.rdt.util.Constants.Step.TAKE_IMAGE_OF_RDT_PAGE;
 import static io.ona.rdt.util.Utils.isExpired;
 import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.conditionallyMoveToNextStep;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
+import static org.smartregister.util.JsonFormUtils.formatDate;
 import static org.smartregister.util.JsonFormUtils.getFieldValue;
 import static org.smartregister.util.JsonFormUtils.getJSONArray;
 
@@ -40,8 +41,8 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     private StepStateConfig stepStateConfig;
     private RDTJsonFormFragmentInteractor rdtJsonFormFragmentInteractor;
 
-    public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
-        super((JsonFormFragment) rdtFormFragment, jsonFormInteractor);
+    public RDTJsonFormFragmentPresenter(RDTJsonFormFragment rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
+        super(rdtFormFragment, jsonFormInteractor);
         this.rdtFormFragment = rdtFormFragment;
         this.rdtJsonFormFragmentInteractor = new RDTJsonFormFragmentInteractor();
     }

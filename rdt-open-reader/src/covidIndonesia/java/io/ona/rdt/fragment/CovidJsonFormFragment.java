@@ -3,6 +3,7 @@ package io.ona.rdt.fragment;
 import android.os.Bundle;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ public class CovidJsonFormFragment extends RDTJsonFormFragment {
     }
 
     @Override
-    protected RDTJsonFormFragmentPresenter createRDTJsonFormFragmentPresenter() {
+    protected JsonFormFragmentPresenter createPresenter() {
         return new CovidJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
     }
 

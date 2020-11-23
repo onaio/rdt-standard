@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnFieldsInvalid;
 import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
@@ -27,6 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
 
 import static io.ona.rdt.TestUtils.getDateWithOffset;
@@ -39,6 +41,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -54,10 +57,10 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
-        presenter.attachView((JsonFormFragment) rdtFormFragmentView);
+        presenter.attachView((JsonFormFragment) rdtFormFragment);
         presenter.performNextButtonAction("step6", null);
         verify(interactor).saveForm(any(JSONObject.class), isNull());
-        verify(rdtFormFragmentView).navigateToNextStep();
+        verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
@@ -65,7 +68,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", null);
-        verify(rdtFormFragmentView).navigateToNextStep();
+        verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
@@ -73,16 +76,16 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", true);
-        verify(rdtFormFragmentView).saveForm();
+        verify(rdtFormFragment).saveForm();
     }
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForCarestart() throws JSONException {
         mockStaticMethods();
         mockStaticClasses();
-        doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragmentView).getRDTType();
+        doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
         presenter.performNextButtonAction(BLOT_PAPER_TASK_PAGE_NO, false);
-        verify(rdtFormFragmentView).transactFragment(any(JsonFormFragment.class));
+        verify(rdtFormFragment).transactFragment(any(JsonFormFragment.class));
     }
 
     @Test
@@ -90,7 +93,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction(BLOT_PAPER_TASK_PAGE_NO, false);
-        verify(rdtFormFragmentView).navigateToNextStep();
+        verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
@@ -120,14 +123,14 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         // valid rdt
         mockStaticClasses();
         mockStaticMethods();
-        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragmentView).getStep(anyString());
+        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragmentView).next();
+        verify((JsonFormFragment) rdtFormFragment).next();
         // expired rdt
-        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragmentView).getStep(anyString());
-        doNothing().when((JsonFormFragment) rdtFormFragmentView).transactThis(any(JsonFormFragment.class));
+        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
+        doNothing().when((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragmentView).transactThis(any(JsonFormFragment.class));
+        verify((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
     }
 
     @Test
@@ -145,10 +148,18 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         addViewAndMockStaticClasses();
         mockStaticMethods();
         addMockStepDetails();
-        JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragmentView;
+        JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragment;
         jsonFormFragment.setOnFieldsInvalid(mock(OnFieldsInvalid.class));
+        JsonApi jsonApi = jsonFormFragment.getJsonApi();
+        doReturn("step1").when(jsonApi).nextStep();
+        doReturn(jsonApi).when(jsonFormFragment).getJsonApi();
+
+        presenter = spy(presenter);
+        doReturn(false).when(presenter).executeRefreshLogicForNextStep();
+        doReturn(mock(RDTJsonFormFragment.class)).when(presenter).getNextJsonFormFragment(anyString());
 
         presenter.onNextClick(mock(LinearLayout.class));
+
         verify(view).hideKeyBoard();
         verify(view).transactThis(any(JsonFormFragment.class));
     }
@@ -162,7 +173,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         Map<String, ValidationStatus> invalidFields = new HashMap<>();
         invalidFields.put(DUMMY_STR_VAL, new ValidationStatus(false, "", view, mock(View.class)));
         Whitebox.setInternalState(presenter, "invalidFields", invalidFields);
-        JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragmentView;
+        JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragment;
         jsonFormFragment.setOnFieldsInvalid(mock(OnFieldsInvalid.class));
 
         presenter.onNextClick(mock(LinearLayout.class));

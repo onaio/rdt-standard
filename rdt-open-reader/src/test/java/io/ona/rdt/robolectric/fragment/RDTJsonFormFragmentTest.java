@@ -3,21 +3,30 @@ package io.ona.rdt.robolectric.fragment;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.view.View;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
+import com.vijay.jsonwizard.utils.AppExecutors;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
+import java.util.concurrent.Executor;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.testing.FragmentScenario;
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -50,30 +59,27 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        Bundle args = new Bundle();
+        args.putString(JsonFormConstants.STEPNAME, STEP_3);
         fragmentScenario =
                 FragmentScenario.launchInContainer(RDTJsonFormFragment.class,
-                        null, R.style.AppTheme, null);
+                        args, R.style.AppTheme, new RDTJsonFormFragmentFactory());
         fragmentScenario.onFragment(fragment -> {
             jsonFormFragment = fragment;
-            fragment.setmJsonApi(mock(JsonApi.class));
-            Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, mock(RDTJsonFormFragmentPresenter.class));
         });
     }
 
     @Test
     public void testFragmentCreationShouldInitializeFragmentState() {
         assertNotNull(jsonFormFragment.getRootLayout());
+        assertNotNull(ReflectionHelpers.getField(jsonFormFragment, PRESENTER_FIELD));
     }
 
     @Test
     public void testGetFormFragmentShouldSetStepAndReturnValidJsonFormFragment() {
         RDTJsonFormFragment formFragment = (RDTJsonFormFragment) jsonFormFragment.getFormFragment(STEP_3);
         assertNotNull(formFragment);
-        assertEquals(STEP_3, formFragment.getArguments().getString("stepName"));
-        final int currStep = 3;
-        final int prevStep = 2;
-        assertEquals(currStep, jsonFormFragment.getCurrentStep());
-        assertEquals(prevStep, (int) ReflectionHelpers.getField(jsonFormFragment, "prevStep"));
+        assertEquals(STEP_3, jsonFormFragment.getCurrentStep());
     }
 
     @Test
@@ -118,7 +124,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
     }
 
     @Test
-    public void testbBackClickShouldShowConfirmationDialog() {
+    public void testBackClickShouldShowConfirmationDialog() {
         jsonFormFragment.backClick();
         assertNotNull(ShadowAlertDialog.getLatestDialog());
         assertTrue(ShadowAlertDialog.getLatestDialog() instanceof AlertDialog);
@@ -151,15 +157,23 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
         }
     }
 
-    @Test
-    public void testGetPresenterShouldNotBeNull() {
-        Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, (RDTJsonFormFragmentPresenter) null);
-        ReflectionHelpers.callInstanceMethod(jsonFormFragment, "createPresenter");
-        Assert.assertNotNull(jsonFormFragment.getFragmentPresenter());
-    }
-
     @Override
     public FragmentScenario getFragmentScenario() {
         return fragmentScenario;
+    }
+
+    private class RDTJsonFormFragmentFactory extends FragmentFactory {
+        @NonNull
+        public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className) {
+            RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
+            JsonApi jsonApi = mock(JsonApi.class);
+            AppExecutors appExecutors = mock(AppExecutors.class);
+            doReturn(appExecutors).when(jsonApi).getAppExecutors();
+            doReturn(mock(Executor.class)).when(appExecutors).mainThread();
+            doReturn(mock(Executor.class)).when(appExecutors).diskIO();
+            jsonFormFragment.setmJsonApi(jsonApi);
+            ReflectionHelpers.setField(jsonFormFragment, "presenter", mock(RDTJsonFormFragmentPresenter.class));
+            return jsonFormFragment;
+        }
     }
 }

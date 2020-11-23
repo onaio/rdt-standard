@@ -17,6 +17,7 @@ import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
+import com.vijay.jsonwizard.utils.AppExecutors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -35,6 +37,7 @@ import org.powermock.reflect.Whitebox;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.Executor;
 
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
@@ -224,7 +227,14 @@ public class RDTBarcodeFactoryTest {
     private void setWidgetArgs() throws JSONException {
         widgetArgs = new WidgetArgs();
         RDTJsonFormFragment formFragment = mock(RDTJsonFormFragment.class);
+
+        JsonApi jsonApi = mock(JsonApi.class);
+        AppExecutors appExecutors = mock(AppExecutors.class);
+        doReturn(appExecutors).when(jsonApi).getAppExecutors();
+        doReturn(mock(Executor.class)).when(appExecutors).mainThread();
+        Mockito.doReturn(jsonApi).when(formFragment).getJsonApi();
         widgetArgs.setFormFragment(formFragment);
+
         widgetArgs.setStepName("step1");
 
         JSONObject jsonObject = new JSONObject();

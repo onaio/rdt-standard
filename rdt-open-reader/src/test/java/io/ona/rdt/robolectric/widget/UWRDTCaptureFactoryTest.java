@@ -1,6 +1,7 @@
 package io.ona.rdt.robolectric.widget;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.util.JsonFormUtils;
 
 import io.ona.rdt.domain.LineReadings;
@@ -92,6 +94,8 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
 
     @Test
     public void testSetUpRDTCaptureActivity() {
+        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
+                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
         rdtCaptureFactory.setUpRDTCaptureActivity();
         Mockito.verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
     }
@@ -126,6 +130,8 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
     @Config(shadows = { ContextCompatShadow.class, RDTJsonFormUtilsShadow.class })
     @Test
     public void testGetViewsFromJsonShouldCorrectlyPopulateFields() throws Exception {
+        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
+                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
                 jsonObject, mock(CommonListener.class));
 

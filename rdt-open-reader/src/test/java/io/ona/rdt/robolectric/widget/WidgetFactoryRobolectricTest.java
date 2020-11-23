@@ -25,10 +25,7 @@ public abstract class WidgetFactoryRobolectricTest extends RobolectricTest {
     public void setUp() throws Exception {
         super.setUp();
         jsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class,
-                getJsonFormActivityIntent())
-                .create()
-                .resume()
-                .get();
+                getJsonFormActivityIntent()).get();
         jsonFormActivity = Mockito.spy(jsonFormActivity);
     }
 

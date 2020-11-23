@@ -7,6 +7,8 @@ import android.widget.ScrollView;
 
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.AppExecutors;
 
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -17,15 +19,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.shadows.ShadowAlertDialog;
+import org.robolectric.shadows.ShadowLooper;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.RDTGpsDialog;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.RDTGpsFactory;
+
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by Vincent Karuri on 08/11/2019
@@ -128,6 +135,10 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
     private void mockMethods() {
         formFragmentRootLayout = Mockito.mock(View.class);
         Mockito.doReturn(formFragmentRootLayout).when(formFragment).getRootLayout();
+
+        JsonApi jsonApi = mock(JsonApi.class);
+        doReturn(new AppExecutors()).when(jsonApi).getAppExecutors();
+        doReturn(jsonApi).when(formFragment).getJsonApi();
 
         scrollView = Mockito.mock(ScrollView.class);
         Mockito.doReturn(scrollView).when(formFragmentRootLayout).findViewById(ArgumentMatchers.eq(com.vijay.jsonwizard.R.id.scroll_view));

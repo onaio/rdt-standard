@@ -10,13 +10,14 @@ import org.mockito.Mockito;
 
 import io.ona.rdt.TestUtils;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
+import io.ona.rdt.fragment.RDTJsonFormFragment;
 
 import static org.mockito.Mockito.mock;
 
 /**
  * Created by Vincent Karuri on 14/08/2019
  */
-public class PatientRegisterFragmentStub extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
+public class RDTFormFragmentStub extends RDTJsonFormFragment implements RDTJsonFormFragmentContract.View {
 
     @Override
     public void setNextButtonState(View rootView, boolean buttonEnabled) {
