@@ -46,8 +46,8 @@ Silakan klik pada tombol <i>Cari lokasi saya</i> di bawah layar dan kami akan se
     <string name="json_form_on_next_error_msg">Mohon perbaiki kesalahan dalam form untuk melanjutkan.</string>
     <string name="show_password_text">Tampilkan Kata Sandi</string>
     <string name="login_text">Masuk</string>
-    <string name="str_next">Selanjutnya</string>
-    <string name="str_previous">Sebelumnya</string>
+    <string name="str_next">Selanjutnya &gt;&gt;</string>
+    <string name="str_previous">&lt;&lt; Sebelumnya</string>
     <string name="str_page_info">Halaman {0} dari {1}</string>
     <string name="male">Laki-laki</string>
     <string name="female">Perempuan</string>
