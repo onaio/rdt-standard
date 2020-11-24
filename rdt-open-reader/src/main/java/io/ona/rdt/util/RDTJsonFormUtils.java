@@ -228,13 +228,9 @@ public class RDTJsonFormUtils {
 
     public void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, getJsonFormActivityClass());
-        try {
-            intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
-            intent.putExtra(PERFORM_FORM_TRANSLATION, true);
-            context.startActivityForResult(intent, requestCode);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+        intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
+        intent.putExtra(PERFORM_FORM_TRANSLATION, true);
+        context.startActivityForResult(intent, requestCode);
     }
 
     protected Class getJsonFormActivityClass() {
