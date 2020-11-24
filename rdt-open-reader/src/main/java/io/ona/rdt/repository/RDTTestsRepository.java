@@ -41,38 +41,27 @@ public class RDTTestsRepository extends BaseRepository {
 
     @Nullable
     public RDTTestDetails getRDTTestDetailsByRDTId(String rdtId) {
-        Cursor cursor = null;
-        RDTTestDetails rdtTestDetail = null;
-        try {
-            cursor = getReadableDatabase().rawQuery("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
-                    " WHERE " + RDT_ID + " =?", new String[]{rdtId});
-            List<RDTTestDetails> rdtTestDetails = readCursor(cursor);
-            rdtTestDetail = rdtTestDetails.isEmpty() ?  rdtTestDetail : rdtTestDetails.get(0);
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
+                " WHERE " + RDT_ID + " =?", new String[]{rdtId});
+
+        List<RDTTestDetails> rdtTestDetails = readCursor(cursor);
+        if (cursor != null) {
+            cursor.close();
         }
-        return rdtTestDetail;
+
+        return rdtTestDetails.isEmpty() ?  null : rdtTestDetails.get(0);
     }
 
     @Nullable
     public List<RDTTestDetails> getRDTTestDetailsByBaseEntityId(String baseEntityId) {
-        Cursor cursor = null;
-        List<RDTTestDetails> rdtTestDetails = new ArrayList<>();
-        try {
-            cursor = getReadableDatabase().rawQuery("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
-                    " WHERE " + BASE_ENTITY_ID + " =?", new String[]{baseEntityId});
 
-            rdtTestDetails = readCursor(cursor);
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT " + COLUMNS + " FROM " + RDT_TESTS_TABLES +
+                " WHERE " + BASE_ENTITY_ID + " =?", new String[]{baseEntityId});
+
+        List<RDTTestDetails> rdtTestDetails = readCursor(cursor);
+        if (cursor != null) {
+            cursor.close();
         }
         return rdtTestDetails;
     }

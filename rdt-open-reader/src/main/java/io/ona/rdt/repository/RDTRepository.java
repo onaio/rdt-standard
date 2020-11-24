@@ -63,15 +63,10 @@ public class RDTRepository extends Repository {
 
     @Override
     public synchronized SQLiteDatabase getReadableDatabase() {
-        try {
-            if (readableDatabase == null || !readableDatabase.isOpen()) {
-                readableDatabase = super.getReadableDatabase();
-            }
-            return readableDatabase;
-        } catch (Exception e) {
-            Timber.e(e);
-            return null;
+        if (readableDatabase == null || !readableDatabase.isOpen()) {
+            readableDatabase = super.getReadableDatabase();
         }
+        return readableDatabase;
     }
 
     @Override

@@ -41,24 +41,20 @@ public class ParasiteProfileRepository extends BaseRepository {
     @Nullable
     public List<ParasiteProfileResult> getParasiteProfiles(String rdtId, String tableName, String experimentType) {
         Cursor cursor = null;
-        List<ParasiteProfileResult> parasiteProfileResults = null;
-        try {
-            if (MICROSCOPY_RESULTS.equals(tableName)) {
-                cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
-                        " WHERE " + RDT_ID + " =?" + " ORDER BY experiment_date", new String[]{rdtId});
-            } else if (PCR_RESULTS.equals(tableName)) {
-                cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
-                        " WHERE " + RDT_ID + "=?" + " AND " + EXPERIMENT_TYPE +  "=?" + " ORDER BY experiment_date",
-                        new String[]{rdtId, experimentType});
-            }
-            parasiteProfileResults = readCursor(cursor, experimentType);
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        if (MICROSCOPY_RESULTS.equals(tableName)) {
+            cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
+                    " WHERE " + RDT_ID + " =?" + " ORDER BY experiment_date", new String[]{rdtId});
+        } else if (PCR_RESULTS.equals(tableName)) {
+            cursor = getReadableDatabase().rawQuery("SELECT *" + " FROM " + tableName +
+                    " WHERE " + RDT_ID + "=?" + " AND " + EXPERIMENT_TYPE +  "=?" + " ORDER BY experiment_date",
+                    new String[]{rdtId, experimentType});
         }
+
+        List<ParasiteProfileResult> parasiteProfileResults = readCursor(cursor, experimentType);
+        if (cursor != null) {
+            cursor.close();
+        }
+
         return parasiteProfileResults;
     }
 
