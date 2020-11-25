@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -30,8 +31,6 @@ import static io.ona.rdt.util.CovidConstants.Table.PATIENT_DIAGNOSTIC_RESULTS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_COLLECTIONS;
 import static io.ona.rdt.util.CovidConstants.Table.SAMPLE_DELIVERY_RECORDS;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 
 /**
@@ -77,8 +76,8 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
         formJson.put(Constants.FormFields.ENCOUNTER_TYPE, SAMPLE_DELIVERY_DETAILS);
         Whitebox.invokeMethod(formSaver, "processAndSaveForm", formJson);
 
-        verify(RDTApplication.getInstance().getContext().getUniqueIdRepository(),
-                times(1)).close(eq(valBatchID));
+        Mockito.verify(RDTApplication.getInstance().getContext().getUniqueIdRepository(),
+                Mockito.times(1)).close(eq(valBatchID));
     }
 
     @Override
