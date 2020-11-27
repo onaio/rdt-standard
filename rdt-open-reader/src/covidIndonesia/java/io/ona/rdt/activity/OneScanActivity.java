@@ -3,22 +3,32 @@ package io.ona.rdt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 import io.ona.rdt.widget.RDTBarcodeFactory;
@@ -30,12 +40,21 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
     private OneScanHelper oneScanHelper;
     private OneScanHelper.ScanResponse response;
+    private LinearLayout parentView;
+    private boolean enableBatchScan;
+    private final Handler handler = new Handler();
+    private final JSONArray dataArray = new JSONArray();
+    private ViewDataBinding viewBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.updateLocale(this);
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_one_scan);
+        parentView = findViewById(R.id.item_list);
+        enableBatchScan = getIntent().getBooleanExtra(Constants.Config.ENABLE_BATCH_SCAN, false);
+        viewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_one_scan, parentView, false);
+        parentView.addView(viewBinding.getRoot());
         oneScanHelper = new OneScanHelper(this);
         doScan(CovidConstants.ScannerType.SCANNER);
         addListeners();
@@ -58,7 +77,16 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
 
         oneScanHelper.send(request, (resultCode, bundle) -> {
             if (resultCode == Activity.RESULT_OK) {
+                Toast.makeText(this, getString(R.string.captured), Toast.LENGTH_SHORT).show();
                 performPostScanActions(bundle);
+                if (enableBatchScan) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            doScan(reader);
+                        }
+                    }, 1);
+                }
             }
         });
     }
@@ -68,22 +96,34 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         try {
             displayStatusMessageAndSymbol(response.sensorTriggered, response.expirationDate);
             populateBarcodeDetails();
-        } catch (ParseException e) {
+        } catch (JSONException | ParseException e) {
             Timber.e(e);
         }
     }
 
-    private void populateBarcodeDetails() {
-        setBarcodeResult(R.id.barcode_product_id, response.productId);
-        setBarcodeResult(R.id.barcode_serial_no, response.serialNumber);
-        setBarcodeResult(R.id.barcode_additional_id, response.additionalIdentifier);
-        setBarcodeResult(R.id.barcode_lot_no, response.lot);
-        setBarcodeResult(R.id.barcode_expiration_date, response.expirationDate);
-        setBarcodeResult(R.id.barcode_is_sensor_triggered, response.sensorTriggered ? getString(R.string.yes) : getString(R.string.no));
+    private void populateBarcodeDetails() throws JSONException {
+
+        if (enableBatchScan) {
+            JSONObject scanObject = new JSONObject();
+            scanObject.put("productId", response.productId);
+            scanObject.put("serialNumber", response.serialNumber);
+            scanObject.put("additionalIdentifier", response.additionalIdentifier);
+            scanObject.put("lot", response.lot);
+            scanObject.put("expirationDate", response.expirationDate);
+            dataArray.put(scanObject);
+            return;
+        }
+
+        setBarcodeResult(viewBinding, R.id.barcode_product_id, response.productId);
+        setBarcodeResult(viewBinding, R.id.barcode_serial_no, response.serialNumber);
+        setBarcodeResult(viewBinding, R.id.barcode_additional_id, response.additionalIdentifier);
+        setBarcodeResult(viewBinding, R.id.barcode_lot_no, response.lot);
+        setBarcodeResult(viewBinding, R.id.barcode_expiration_date, response.expirationDate);
+        setBarcodeResult(viewBinding, R.id.barcode_is_sensor_triggered, response.sensorTriggered ? getString(R.string.yes) : getString(R.string.no));
     }
 
-    private void setBarcodeResult(int viewId, String result) {
-        View barcodeResultRow = findViewById(viewId);
+    private void setBarcodeResult(ViewDataBinding viewDataBinding, int viewId, String result) {
+        View barcodeResultRow = viewDataBinding.getRoot().findViewById(viewId);
         if (StringUtils.isBlank(result)) {
             barcodeResultRow.setVisibility(View.GONE);
         } else {
@@ -120,12 +160,26 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setResultAndFinish(OneScanHelper.ScanResponse response) {
+
         Intent resultIntent = new Intent();
-        Barcode barcode = new Barcode();
-        barcode.displayValue = StringUtils.join(new String[]{response.serialNumber, response.expirationDate,
-                response.lot, response.productId, String.valueOf(response.sensorTriggered),
-                response.status}, ',');
-        resultIntent.putExtra(BARCODE_KEY, barcode);
+
+        if (enableBatchScan) {
+            try {
+                JSONObject dataObject = new JSONObject();
+                dataObject.put("scans", dataArray);
+                resultIntent.putExtra("data", dataObject.toString());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        } else {
+            Barcode barcode = new Barcode();
+            barcode.displayValue = StringUtils.join(new String[]{response.serialNumber, response.expirationDate,
+                    response.lot, response.productId, String.valueOf(response.sensorTriggered),
+                    response.status}, ',');
+            resultIntent.putExtra(BARCODE_KEY, barcode);
+        }
+
+        resultIntent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, enableBatchScan);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
@@ -135,7 +189,11 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
-            onBackPressed();
+            if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
+                onBackPressed();
+            } else if (enableBatchScan) {
+                setResultAndFinish(response);
+            }
         }
     }
 

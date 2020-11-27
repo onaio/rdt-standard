@@ -58,18 +58,10 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
     @Override
     public synchronized void onUniqueIdsFetched(FormLaunchArgs args, List<UniqueId> uniqueIds) {
         Activity activity = args.getActivity();
-        List<String> ids = new ArrayList<>();
-        for (UniqueId uniqueId : uniqueIds) {
-            String currUniqueId = uniqueId.getOpenmrsId();
-            if (StringUtils.isNotBlank(currUniqueId)) {
-                currUniqueId = currUniqueId.replace("-", "");
-                ids.add(currUniqueId);
-            }
-        }
 
         // only launch form if you have all the unique ids you need
-        if (!ids.isEmpty()) {
-            formUtils.launchForm(activity, args.getFormName(), args.getPatient(), ids);
+        if (!uniqueIds.isEmpty()) {
+            formUtils.launchForm(activity, args.getFormName(), args.getPatient(), Utils.getUniqueId(uniqueIds));
         } else {
             showToast(activity, activity.getString(R.string.unique_id_fetch_error_msg));
         }

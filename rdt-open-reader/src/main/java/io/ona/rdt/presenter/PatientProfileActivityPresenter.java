@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientProfileActivityContract;
 import io.ona.rdt.interactor.PatientProfileActivityInteractor;
+import io.ona.rdt.util.FormSaver;
 import timber.log.Timber;
 
 /**
@@ -13,7 +14,7 @@ import timber.log.Timber;
  */
 public class PatientProfileActivityPresenter implements PatientProfileActivityContract.Presenter {
 
-    protected PatientProfileActivityInteractor interactor;
+    protected FormSaver interactor;
     protected PatientProfileActivityContract.View activity;
 
     public PatientProfileActivityPresenter(PatientProfileActivityContract.View activity) {
@@ -30,14 +31,14 @@ public class PatientProfileActivityPresenter implements PatientProfileActivityCo
         }
     }
 
-    protected PatientProfileActivityInteractor getInteractor() {
+    protected FormSaver getInteractor() {
         if (interactor == null) {
             interactor = createInteractor();
         }
         return interactor;
     }
 
-    protected PatientProfileActivityInteractor createInteractor() {
+    protected FormSaver createInteractor() {
         return new PatientProfileActivityInteractor();
     }
 }

@@ -41,7 +41,7 @@ public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
             } else {
                 Utils.hideProgressDialogFromFG();
                 onActivityResult(-1, Activity.RESULT_CANCELED, null);
-                Utils.showToastInFG((Activity) context, context.getString(R.string.rdt_not_supported));
+                Utils.showToastInFG(context, context.getString(R.string.rdt_not_supported));
             }
         } catch (JSONException | IOException | FHIRParserException e) {
             Timber.e(e);

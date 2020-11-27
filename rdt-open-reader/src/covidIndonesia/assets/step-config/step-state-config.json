@@ -16,5 +16,6 @@
   "covid_affix_respiratory_sample_id_page": "step7",
   "covid_scan_sample_for_delivery_page": "step3",
   "covid_enter_delivery_details_page": "step4",
-  "covid_select_rdt_type_page" : "step6"
+  "covid_select_rdt_type_page" : "step6",
+  "unique_batch_id_page": "step5"
 }
