@@ -1,5 +1,7 @@
 package io.ona.rdt.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
@@ -105,6 +107,7 @@ public interface CovidConstants extends Constants {
         String NAME_OF_HEALTH_FACILITY = "name_of_health_facility";
         String QR_CODE_READER = "qr_code_reader";
         String SELECTED_RDT_IMAGE = "selected_rdt_image";
+        String RDT_CONFIG = "rdt_config";
     }
 
     interface RDTType {

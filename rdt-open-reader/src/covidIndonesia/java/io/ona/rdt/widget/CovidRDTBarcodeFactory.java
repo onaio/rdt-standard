@@ -153,10 +153,16 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
 
         String deviceDetails = StringUtils.join(new String[]{manufacturer, rdtName}, doubleHtmlLineBreak);
-        String deviceRefImg = deviceDefinitionProcessor.extractDeviceConfig(deviceId)
-                .optString(CovidConstants.FHIRResource.REF_IMG);
+        JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
+
+        // write device details to confirmation page
         deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
-        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, deviceRefImg);
+        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG,
+                deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG));
+
+        // save extracted device config
+        ((JsonApi) widgetArgs.getContext()).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
+                deviceConfig.toString(), "", "", "", false);
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
