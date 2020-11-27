@@ -307,10 +307,7 @@
         "text": "Batch Id"
       },
       {
-        "key": "batch_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "key": "batch_id_text",
         "type": "label",
         "text_color": "#000000",
         "has_bg": true,
@@ -318,6 +315,13 @@
         "center_label": "true",
         "top_margin": "15dp",
         "text": ""
+      },
+      {
+        "key": "batch_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   }

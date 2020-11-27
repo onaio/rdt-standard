@@ -7,3 +7,4 @@ import io.ona.rdt.util.CovidFormSaver;
  */
 public class CovidPatientProfileActivityInteractor extends CovidFormSaver {
 }
+

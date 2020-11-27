@@ -38,7 +38,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     private static final int EXP_DATE_INDEX = 1;
     private static final int LOT_NO_INDEX = 2;
     private static final int UNIQUE_ID_INDEX = 0;
-    private static final String BATCH_ID = "batch_id";
+    public static final String BATCH_ID = "batch_id";
+    private static final String BATCH_ID_TEXT = "batch_id_text";
 
     private final String LOT_NO = "lot_no";
     private final String EXP_DATE = "exp_date";
@@ -95,6 +96,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
                 jsonApi.writeValue(stepName, CovidConstants.FormFields.QR_CODE_READER, jsonObject.toString(),  "", "", "", false);
                 jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID, uniqueId,  "", "", "", false);
+                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID_TEXT, uniqueId,  "", "", "", false);
 
                 moveToNextStep();
             } catch (JSONException e) {

@@ -6,6 +6,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Obs;
 
 import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 
 /**
  * Created by Vincent Karuri on 13/07/2020
@@ -21,7 +22,7 @@ public class CovidFormSaver extends FormSaver {
     protected void closeIDs(org.smartregister.domain.Event dbEvent) {
         super.closeIDs(dbEvent);
         // close respiratory sample id
-        Obs idObs = dbEvent.findObs(null, false, CovidConstants.FormFields.COVID_SAMPLE_ID);
+        Obs idObs = dbEvent.findObs(null, false, CovidConstants.FormFields.COVID_SAMPLE_ID, CovidRDTBarcodeFactory.BATCH_ID);
         if (idObs != null) {
             String rdtId = idObs.getValue() == null ? "" : idObs.getValue().toString();
             RDTApplication.getInstance().getContext().getUniqueIdRepository().close(rdtId);
@@ -31,13 +32,16 @@ public class CovidFormSaver extends FormSaver {
     @Override
     protected boolean formHasUniqueIDs(String bindType) {
         return CovidConstants.Table.COVID_RDT_TESTS.equals(bindType)
-                || CovidConstants.Table.SAMPLE_COLLECTIONS.equals(bindType);
+                || CovidConstants.Table.SAMPLE_COLLECTIONS.equals(bindType)
+                || CovidConstants.Table.SAMPLE_DELIVERY_RECORDS.equals(bindType);
     }
 
     @Override
     protected String getBindType(String encounterType) {
         String bindType = super.getBindType(encounterType);
-        if (StringUtils.isNotBlank(bindType)) { return bindType; }
+        if (StringUtils.isNotBlank(bindType)) {
+            return bindType;
+        }
         switch (encounterType) {
             case CovidConstants.Encounter.COVID_PATIENT_REGISTRATION:
                 bindType = CovidConstants.Table.COVID_PATIENTS;
