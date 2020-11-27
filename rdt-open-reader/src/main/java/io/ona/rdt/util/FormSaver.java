@@ -78,6 +78,8 @@ public class FormSaver {
             protected Void doInBackground(Void... voids) {
                 try {
                     processAndSaveForm(jsonForm);
+                } catch (RuntimeException e) {
+                    throw e;
                 } catch (Exception e) {
                     Timber.e(e);
                 }

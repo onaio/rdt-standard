@@ -9,6 +9,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import io.ona.rdt.activity.OneScanActivity;
+import io.ona.rdt.util.Constants;
 import timber.log.Timber;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -25,6 +26,7 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
         InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(editText.getWindowToken(), HIDE_NOT_ALWAYS);
         Intent intent = new Intent(activity, OneScanActivity.class);
+        intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, widgetArgs.getJsonObject().optBoolean(Constants.Config.ENABLE_BATCH_SCAN));
         activity.startActivityForResult(intent, BARCODE_REQUEST_CODE);
     }
 
