@@ -7,6 +7,7 @@ import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
+import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
@@ -117,10 +119,12 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
 
         // write fhir resource device id to rdt type field
-        String deviceId = DeviceDefinitionProcessor.getInstance(context).getDeviceId(individualVals[GTIN_INDEX]);
+        DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
+        String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
         if (deviceId != null) {
             jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
                     Constants.RDTType.RDT_TYPE, deviceId, "", "", "", false);
+            populateRDTDetailsConfirmationPage(deviceDefinitionProcessor, deviceId);
         }
 
         // write unique id to confirmation page
@@ -129,6 +133,27 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                         CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
                         widgetArgs.getContext());
         CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
+    }
+
+    private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException {
+        Context context = widgetArgs.getContext();
+
+        final String htmlLineBreak = "<br>";
+        final String doubleHtmlLineBreak = "<br><br>";
+
+        String manufacturer = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name),
+                deviceDefinitionProcessor.extractManufacturerName(deviceId)}, htmlLineBreak);
+
+        String rdtName = StringUtils.join(new String[]{context.getString(R.string.rdt_name),
+                deviceDefinitionProcessor.extractDeviceName(deviceId)}, htmlLineBreak);
+
+        String deviceDetails = StringUtils.join(new String[]{manufacturer, rdtName}, doubleHtmlLineBreak);
+        String rdtDetailsConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
+
+        JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
+                CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
+
+        deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
