@@ -617,7 +617,7 @@
     ]
   },
   "step14": {
-    "title": "Please confirm",
+    "title": "Please confirm RDT details",
     "display_back_button": "true",
     "next": "step9",
     "bottom_navigation": "true",
