@@ -2,6 +2,8 @@ package io.ona.rdt.presenter;
 
 import android.app.Activity;
 
+import org.json.JSONException;
+
 import java.util.List;
 
 import io.ona.rdt.contract.PatientProfileFragmentContract;
@@ -28,7 +30,7 @@ public class PatientProfileFragmentPresenter implements PatientProfileFragmentCo
     public void launchForm(Activity activity, Patient patient) {
         try {
             patientProfileFragmentInteractor.launchForm(activity, RDT_TEST_FORM, patient);
-        } catch (Exception e) {
+        } catch (JSONException e) {
             Timber.e(e);
         }
     }

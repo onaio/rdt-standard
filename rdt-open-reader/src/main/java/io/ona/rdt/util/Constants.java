@@ -15,6 +15,7 @@ public interface Constants {
     interface Config {
         String MULTI_VERSION = "multi_version";
         String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
+        String ENABLE_BATCH_SCAN = "enable_batch_scan";
     }
 
     interface Result {
