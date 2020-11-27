@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import io.ona.rdt.R;
 import io.ona.rdt.util.Constants;
@@ -39,7 +43,7 @@ public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
                 onActivityResult(-1, Activity.RESULT_CANCELED, null);
                 Utils.showToastInFG(context, context.getString(R.string.rdt_not_supported));
             }
-        } catch (Exception e) {
+        } catch (JSONException | IOException | FHIRParserException e) {
             Timber.e(e);
         }
     }
