@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/barcode_result_top_divider"
+            style="@style/Divider.Horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/barcode_product_id"
+            layout="@layout/covid_one_scan_result_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcode_result_top_divider"
+            app:resultKey="@{@string/covid_barcode_product_id}" />
+
+        <include
+            android:id="@+id/barcode_serial_no"
+            layout="@layout/covid_one_scan_result_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcode_product_id"
+            app:resultKey="@{@string/covid_barcode_serial_no}" />
+
+        <include
+            android:id="@+id/barcode_additional_id"
+            layout="@layout/covid_one_scan_result_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcode_serial_no"
+            app:resultKey="@{@string/covid_barcode_additional_id}" />
+
+        <include
+            android:id="@+id/barcode_lot_no"
+            layout="@layout/covid_one_scan_result_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcode_additional_id"
+            app:resultKey="@{@string/covid_barcode_lot_no}" />
+
+        <include
+            android:id="@+id/barcode_expiration_date"
+            layout="@layout/covid_one_scan_result_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcode_lot_no"
+            app:resultKey="@{@string/covid_barcode_expiration_date}" />
+
+        <include
+            android:id="@+id/barcode_is_sensor_triggered"
+            layout="@layout/covid_one_scan_result_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcode_expiration_date"
+            app:resultKey="@{@string/covid_barcode_is_sensor_triggered}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
