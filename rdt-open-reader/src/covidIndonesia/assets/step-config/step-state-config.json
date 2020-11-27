@@ -17,5 +17,6 @@
   "covid_scan_sample_for_delivery_page": "step3",
   "covid_enter_delivery_details_page": "step4",
   "covid_select_rdt_type_page" : "step6",
-  "unique_batch_id_page": "step5"
+  "unique_batch_id_page": "step5",
+  "covid_device_details_confirmation_page": "step14"
 }

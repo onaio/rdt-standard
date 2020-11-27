@@ -23,6 +23,7 @@ import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
+import io.ona.rdt.widget.validator.CovidImageViewFactory;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -135,7 +136,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
     }
 
-    private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException {
+    private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException, FHIRParserException, IOException {
         Context context = widgetArgs.getContext();
 
         final String htmlLineBreak = "<br>";
@@ -147,13 +148,15 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         String rdtName = StringUtils.join(new String[]{context.getString(R.string.rdt_name),
                 deviceDefinitionProcessor.extractDeviceName(deviceId)}, htmlLineBreak);
 
-        String deviceDetails = StringUtils.join(new String[]{manufacturer, rdtName}, doubleHtmlLineBreak);
         String rdtDetailsConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
-
         JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
                 CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
 
+        String deviceDetails = StringUtils.join(new String[]{manufacturer, rdtName}, doubleHtmlLineBreak);
+        String deviceRefImg = deviceDefinitionProcessor.extractDeviceConfig(deviceId)
+                .optString(CovidConstants.FHIRResource.REF_IMG);
         deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
+        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, deviceRefImg);
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
