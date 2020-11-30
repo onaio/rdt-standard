@@ -17,12 +17,14 @@ public class CovidImageViewFactory extends ImageViewFactory {
 
     @Override
     protected Bitmap getBitmap(WidgetArgs widgetArgs) {
-        return rotateBitmap(RDTJsonFormUtils.convertBase64StrToBitmap(widgetArgs.getJsonObject().optString(BASE64_ENCODED_IMG)), 90);
+        final int degrees = 90;
+        return rotateBitmap(RDTJsonFormUtils.convertBase64StrToBitmap(widgetArgs.getJsonObject().optString(BASE64_ENCODED_IMG)), degrees);
     }
 
     public static Bitmap rotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        final int xyCoordinate = 0;
+        return Bitmap.createBitmap(source, xyCoordinate, xyCoordinate, source.getWidth(), source.getHeight(), matrix, true);
     }
 }

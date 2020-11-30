@@ -136,7 +136,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
     }
 
-    private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException, FHIRParserException, IOException {
+    private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException {
         Context context = widgetArgs.getContext();
 
         final String htmlLineBreak = "<br>";
