@@ -44,3 +44,4 @@ public class CovidImageViewFactoryTest extends WidgetFactoryRobolectricTest {
                 ReflectionHelpers.ClassParameter.from(WidgetArgs.class, new WidgetArgs().withJsonObject(new JSONObject()))));
     }
 }
+
