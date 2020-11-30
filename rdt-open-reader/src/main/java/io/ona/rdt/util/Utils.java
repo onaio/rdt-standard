@@ -212,4 +212,13 @@ public class Utils {
 
         return org.smartregister.util.Utils.isEmptyCollection(ids) ? "" : ids.get(0);
     }
+
+    public static boolean isValidJSONObject(String str) {
+        try {
+            new JSONObject(str);
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
 }

@@ -33,9 +33,9 @@ public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
             String rdtDetailsConfirmationPage = stepStateConfig.getString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
             JSONObject rdtConfigField = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
                     CovidConstants.FormFields.RDT_CONFIG, context);
-            String rdtConfig = rdtConfigField.optString(JsonFormConstants.VALUE);
 
-            if (StringUtils.isNotBlank(rdtConfig)) {
+            String rdtConfig = rdtConfigField.optString(JsonFormConstants.VALUE);
+            if (Utils.isValidJSONObject(rdtConfig)) {
                 intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, rdtConfig);
                 intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
                 activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
