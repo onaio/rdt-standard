@@ -9,8 +9,10 @@ import com.vijay.jsonwizard.domain.WidgetArgs;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
@@ -27,11 +29,6 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-
 public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
 
     @Mock
@@ -39,7 +36,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
     private OneScanCovidRDTBarcodeFactory oneScanCovidRDTBarcodeFactory;
     private JSONObject stepStateConfig;
-    
+
     private final String TEST_STEP = "test-step";
     private final String TEST_PAGE = "test-page";
     private final String VAL_0 = "val-0";
@@ -47,7 +44,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     private final String VAL_3 = "val-3";
     private final String DATE = "2020-08-08";
     private final String SENSOR_TRIGGERED = "true";
-    
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -71,12 +68,12 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         // verify single scan data extraction works
         Mockito.clearInvocations(jsonFormActivity);
 
-        JSONObject deviceDetailsWidget = new JSONObject(new HashMap<String, JSONArray>(){{
+        JSONObject deviceDetailsWidget = new JSONObject(new HashMap<String, JSONArray>() {{
             put(JsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray("[{}]"));
         }});
         RDTJsonFormUtilsShadow.setJsonObject(deviceDetailsWidget);
 
-        JSONObject deviceConfig = new JSONObject(new HashMap<String,String>(){{
+        JSONObject deviceConfig = new JSONObject(new HashMap<String, String>() {{
             put(CovidConstants.FHIRResource.REF_IMG, CovidConstants.FHIRResource.REF_IMG);
         }});
         DeviceDefinitionProcessorShadow.setJSONObject(deviceConfig);
@@ -88,13 +85,13 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         verifySingleScanDataIsCorrectlyPopulated();
         verifyRDTDetailsConfirmationPageIsPopulated();
 
-        String deviceDetails =  ReflectionHelpers.callInstanceMethod(oneScanCovidRDTBarcodeFactory, "getFormattedRDTDetails",
+        String deviceDetails = ReflectionHelpers.callInstanceMethod(oneScanCovidRDTBarcodeFactory, "getFormattedRDTDetails",
                 ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.MANUFACTURER),
-                ReflectionHelpers.ClassParameter.from(String.class,  DeviceDefinitionProcessorShadow.DEVICE_NAME));
+                ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.DEVICE_NAME));
 
-        assertEquals(deviceDetails, deviceDetailsWidget.getString(JsonFormConstants.TEXT));
-        assertEquals(CovidConstants.FHIRResource.REF_IMG, deviceDetailsWidget.getString(CovidImageViewFactory.BASE64_ENCODED_IMG));
-        assertEquals(String.format("[{\"text\":\"%s\"}]", VAL_0), deviceDetailsWidget.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
+        Assert.assertEquals(deviceDetails, deviceDetailsWidget.getString(JsonFormConstants.TEXT));
+        Assert.assertEquals(CovidConstants.FHIRResource.REF_IMG, deviceDetailsWidget.getString(CovidImageViewFactory.BASE64_ENCODED_IMG));
+        Assert.assertEquals(String.format("[{\"text\":\"%s\"}]", VAL_0), deviceDetailsWidget.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
 
         Mockito.verify(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();
         Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, "", String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED), "", "", "", false);
@@ -120,11 +117,10 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.TEMP_SENSOR, SENSOR_TRIGGERED, "", "", "", false);
     }
 
-
     private void verifyRDTDetailsConfirmationPageIsPopulated() throws JSONException {
-        Mockito.verify(jsonFormActivity).writeValue(eq(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE),
-                eq(CovidConstants.FormFields.RDT_CONFIG), eq(DeviceDefinitionProcessorShadow.getJsonObject().toString()),
-                anyString(), anyString(), anyString(), anyBoolean());
+        Mockito.verify(jsonFormActivity).writeValue(ArgumentMatchers.eq(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE),
+                ArgumentMatchers.eq(CovidConstants.FormFields.RDT_CONFIG), ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.getJsonObject().toString()),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
         DeviceDefinitionProcessorShadow.setJSONObject(null);
         RDTJsonFormUtilsShadow.setJsonObject(null);
     }
@@ -135,13 +131,13 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Mockito.doReturn(String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED)).when(oneScanCovidRDTBarcodeFactory)
                 .getBarcodeValsAsCSV(Mockito.any(Intent.class));
         Mockito.doReturn(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}).when(oneScanCovidRDTBarcodeFactory)
-                .splitCSV(anyString());
+                .splitCSV(ArgumentMatchers.anyString());
 
         formFragment = Mockito.mock(RDTJsonFormFragment.class);
 
         jsonFormActivity = Mockito.spy(jsonFormActivity);
-        Mockito.doNothing().when(jsonFormActivity).writeValue(anyString(), anyString(), anyString(),
-                anyString(), anyString(), anyString(), anyBoolean());
+        Mockito.doNothing().when(jsonFormActivity).writeValue(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
 
         WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(new JSONObject()).withStepName(TEST_STEP)
                 .withContext(jsonFormActivity).withFormFragment(formFragment);
