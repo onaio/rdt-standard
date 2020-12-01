@@ -44,10 +44,10 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     public static final String BATCH_ID = "batch_id";
     private static final String BATCH_ID_TEXT = "batch_id_text";
 
-    private final String LOT_NO = "lot_no";
-    private final String EXP_DATE = "exp_date";
-    private final String GTIN = "gtin";
-    private final String TEMP_SENSOR = "temp_sensor";
+    public static final String LOT_NO = "lot_no";
+    public static final String EXP_DATE = "exp_date";
+    public static final String GTIN = "gtin";
+    public static final String TEMP_SENSOR = "temp_sensor";
 
     public static final String RDT_BARCODE_EXPIRATION_DATE_FORMAT = "YYYY-MM-dd";
     private RDTJsonFormUtils formUtils = new RDTJsonFormUtils();
@@ -136,21 +136,12 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException {
         Context context = widgetArgs.getContext();
-
-        final String htmlLineBreak = "<br>";
-        final String doubleHtmlLineBreak = "<br><br>";
-
-        String manufacturer = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name),
-                deviceDefinitionProcessor.extractManufacturerName(deviceId)}, htmlLineBreak);
-
-        String rdtName = StringUtils.join(new String[]{context.getString(R.string.rdt_name),
-                deviceDefinitionProcessor.extractDeviceName(deviceId)}, htmlLineBreak);
-
         String rdtDetailsConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
                 CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
 
-        String deviceDetails = StringUtils.join(new String[]{manufacturer, rdtName}, doubleHtmlLineBreak);
+        String deviceDetails = getFormattedRDTDetails(deviceDefinitionProcessor.extractManufacturerName(deviceId),
+                deviceDefinitionProcessor.extractDeviceName(deviceId));
         JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
 
         // write device details to confirmation page
@@ -159,8 +150,19 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG));
 
         // save extracted device config
-        ((JsonApi) widgetArgs.getContext()).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
+        ((JsonApi) context).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
                 deviceConfig.toString(), "", "", "", false);
+    }
+
+    private String getFormattedRDTDetails(String manufacturer, String deviceName) {
+        final String htmlLineBreak = "<br>";
+        final String doubleHtmlLineBreak = "<br><br>";
+        Context context = widgetArgs.getContext();
+
+        String formattedMftStr = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name), manufacturer}, htmlLineBreak);
+        String formattedDeviceNameStr = StringUtils.join(new String[]{context.getString(R.string.rdt_name), deviceName}, htmlLineBreak);
+
+        return StringUtils.join(new String[]{formattedMftStr, formattedDeviceNameStr}, doubleHtmlLineBreak);
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {

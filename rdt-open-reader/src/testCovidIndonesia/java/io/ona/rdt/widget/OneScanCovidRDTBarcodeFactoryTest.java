@@ -23,6 +23,7 @@ import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
 import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
@@ -36,13 +37,21 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     @Mock
     private RDTJsonFormFragment formFragment;
 
-    private OneScanCovidRDTBarcodeFactory covidRdtBarcodeFactory;
+    private OneScanCovidRDTBarcodeFactory oneScanCovidRDTBarcodeFactory;
     private JSONObject stepStateConfig;
-
+    
+    private final String TEST_STEP = "test-step";
+    private final String TEST_PAGE = "test-page";
+    private final String VAL_0 = "val-0";
+    private final String VAL_2 = "val-2";
+    private final String VAL_3 = "val-3";
+    private final String DATE = "2020-08-08";
+    private final String SENSOR_TRIGGERED = "true";
+    
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        covidRdtBarcodeFactory = Mockito.spy(new OneScanCovidRDTBarcodeFactory());
+        oneScanCovidRDTBarcodeFactory = Mockito.spy(new OneScanCovidRDTBarcodeFactory());
         stepStateConfig = new JSONObject();
         mockMethods();
     }
@@ -50,16 +59,16 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     @Config(shadows = {DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
     @Test
     public void testOnActivityResultShouldPopulateCorrectData() throws Exception {
-        // verify batch scan data works
+        // verify batch scan data extraction works
         Intent intent = new Intent();
-        intent.putExtra("enable_batch_scan", true);
+        intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, true);
         intent.putExtra("data", "{}");
 
-        covidRdtBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
+        oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
 
         verifyBatchScanDataIsCorrectlyPopulated();
 
-        // verify single scan works
+        // verify single scan data extraction works
         Mockito.clearInvocations(jsonFormActivity);
 
         JSONObject deviceDetailsWidget = new JSONObject(new HashMap<String, JSONArray>(){{
@@ -72,41 +81,43 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         }});
         DeviceDefinitionProcessorShadow.setJSONObject(deviceConfig);
 
-        intent.putExtra("enable_batch_scan", false);
+        intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, false);
 
-        covidRdtBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
+        oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
 
         verifySingleScanDataIsCorrectlyPopulated();
         verifyRDTDetailsConfirmationPageIsPopulated();
 
-        String deviceDetails = "<b>Manufacturer:</b><br>" + DeviceDefinitionProcessorShadow.MANUFACTURER
-                + "<br><br><b>RDT name:</b><br>" + DeviceDefinitionProcessorShadow.DEVICE_NAME;
+        String deviceDetails =  ReflectionHelpers.callInstanceMethod(oneScanCovidRDTBarcodeFactory, "getFormattedRDTDetails",
+                ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.MANUFACTURER),
+                ReflectionHelpers.ClassParameter.from(String.class,  DeviceDefinitionProcessorShadow.DEVICE_NAME));
+
         assertEquals(deviceDetails, deviceDetailsWidget.getString(JsonFormConstants.TEXT));
         assertEquals(CovidConstants.FHIRResource.REF_IMG, deviceDetailsWidget.getString(CovidImageViewFactory.BASE64_ENCODED_IMG));
-        assertEquals("[{\"text\":\"val-0\"}]", deviceDetailsWidget.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
+        assertEquals(String.format("[{\"text\":\"%s\"}]", VAL_0), deviceDetailsWidget.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
 
-        Mockito.verify(covidRdtBarcodeFactory).navigateToUnusableProductPage();
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "", "val-0,2020-08-08,val-2,val-3,true", "", "", "", false);
+        Mockito.verify(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, "", String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED), "", "", "", false);
 
-        // verify correct action on backpress
-        covidRdtBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_CANCELED, intent);
+        // verify correct action on back-press
+        oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_CANCELED, intent);
         Mockito.verify(formFragment).setMoveBackOneStep(true);
     }
 
     private void verifyBatchScanDataIsCorrectlyPopulated() throws Exception {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("batch_id", OpenSRPContextShadow.OPENMRS_ID);
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "qr_code_reader", jsonObject.toString(), "", "", "", false);
-        Mockito.verify(jsonFormActivity).writeValue("test-page", "batch_id", OpenSRPContextShadow.OPENMRS_ID, "", "", "", false);
-        Mockito.verify(covidRdtBarcodeFactory).moveToNextStep();
+        jsonObject.put(CovidRDTBarcodeFactory.BATCH_ID, OpenSRPContextShadow.OPENMRS_ID);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidConstants.FormFields.QR_CODE_READER, jsonObject.toString(), "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_PAGE, CovidRDTBarcodeFactory.BATCH_ID, OpenSRPContextShadow.OPENMRS_ID, "", "", "", false);
+        Mockito.verify(oneScanCovidRDTBarcodeFactory).moveToNextStep();
     }
 
     private void verifySingleScanDataIsCorrectlyPopulated() throws JSONException {
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "unique_id", "val-0", "", "", "", false);
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "exp_date", "2020-08-08", "", "", "", false);
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "lot_no", "val-2", "", "", "", false);
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "gtin", "val-3", "", "", "", false);
-        Mockito.verify(jsonFormActivity).writeValue("test-step", "temp_sensor", "true", "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidConstants.FormFields.UNIQUE_ID, VAL_0, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.EXP_DATE, DATE, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.LOT_NO, VAL_2, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.GTIN, VAL_3, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.TEMP_SENSOR, SENSOR_TRIGGERED, "", "", "", false);
     }
 
 
@@ -119,11 +130,11 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     }
 
     private void mockMethods() throws JSONException {
-        Mockito.doNothing().when(covidRdtBarcodeFactory).moveToNextStep();
-        Mockito.doNothing().when(covidRdtBarcodeFactory).navigateToUnusableProductPage();
-        Mockito.doReturn("val-0,2020-08-08,val-2,val-3,true").when(covidRdtBarcodeFactory)
+        Mockito.doNothing().when(oneScanCovidRDTBarcodeFactory).moveToNextStep();
+        Mockito.doNothing().when(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();
+        Mockito.doReturn(String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED)).when(oneScanCovidRDTBarcodeFactory)
                 .getBarcodeValsAsCSV(Mockito.any(Intent.class));
-        Mockito.doReturn(new String[]{"val-0", "2020-08-08", "val-2", "val-3", "true"}).when(covidRdtBarcodeFactory)
+        Mockito.doReturn(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}).when(oneScanCovidRDTBarcodeFactory)
                 .splitCSV(anyString());
 
         formFragment = Mockito.mock(RDTJsonFormFragment.class);
@@ -132,14 +143,14 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Mockito.doNothing().when(jsonFormActivity).writeValue(anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString(), anyBoolean());
 
-        WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(new JSONObject()).withStepName("test-step")
+        WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(new JSONObject()).withStepName(TEST_STEP)
                 .withContext(jsonFormActivity).withFormFragment(formFragment);
 
-        ReflectionHelpers.setField(covidRdtBarcodeFactory, "widgetArgs", widgetArgs);
+        ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "widgetArgs", widgetArgs);
 
-        stepStateConfig.put(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE, "test-page");
+        stepStateConfig.put(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE, TEST_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE, CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
-        ReflectionHelpers.setField(covidRdtBarcodeFactory, "stepStateConfig", stepStateConfig);
+        ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "stepStateConfig", stepStateConfig);
     }
 }
