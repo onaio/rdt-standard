@@ -70,8 +70,13 @@ public class CovidPatientHistoryActivityInteractor {
         List<String> values = new ArrayList<>();
         // for checkboxes, get keys from key-value map
         Map<String, Object> keyValPairs = obs.getKeyValPairs();
-        List<Object> obsValues = keyValPairs == null ? obs.getValues() : !Utils.isEmptyMap(keyValPairs) ? obs.getValues()
-                : new ArrayList<>(keyValPairs.keySet());
+        List<Object> obsValues;
+        if (keyValPairs == null || !Utils.isEmptyMap(keyValPairs)) {
+            obsValues = obs.getValues();
+        } else {
+            obsValues = new ArrayList<>(keyValPairs.keySet());
+        }
+
         for (Object value : obsValues) {
             values.add(getValue(value.toString(), formWidgetKeyToTextMap));
         }
