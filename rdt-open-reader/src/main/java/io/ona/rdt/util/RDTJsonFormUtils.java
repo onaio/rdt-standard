@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.widget.Toast;
 
 import androidx.core.util.Pair;
@@ -219,6 +220,10 @@ public class RDTJsonFormUtils {
         ImageUtil.saveImage(context, stream.toByteArray(), 0, false, imageLocation -> {
             // do nothing
         });
+    }
+
+    public static Bitmap convertBase64StrToBitmap(String base64Str) {
+        return StringUtils.isBlank(base64Str) ? null : convertByteArrayToBitmap(Base64.decode(base64Str.getBytes(), Base64.DEFAULT));
     }
 
     public static Bitmap convertByteArrayToBitmap(final byte[] src) {
