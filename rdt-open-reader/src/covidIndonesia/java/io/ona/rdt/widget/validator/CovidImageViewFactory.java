@@ -22,6 +22,9 @@ public class CovidImageViewFactory extends ImageViewFactory {
     }
 
     public static Bitmap rotateBitmap(Bitmap source, float angle) {
+        if (source == null) {
+            return source;
+        }
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         final int xyCoordinate = 0;

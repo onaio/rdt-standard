@@ -68,14 +68,18 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         // verify single scan data extraction works
         Mockito.clearInvocations(jsonFormActivity);
 
-        JSONObject deviceDetailsWidget = new JSONObject(new HashMap<String, JSONArray>() {{
-            put(JsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray("[{}]"));
-        }});
+        JSONObject deviceDetailsWidget = new JSONObject(new HashMap<String, JSONArray>() {
+            {
+                put(JsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray("[{}]"));
+            }
+        });
         RDTJsonFormUtilsShadow.setJsonObject(deviceDetailsWidget);
 
-        JSONObject deviceConfig = new JSONObject(new HashMap<String, String>() {{
-            put(CovidConstants.FHIRResource.REF_IMG, CovidConstants.FHIRResource.REF_IMG);
-        }});
+        JSONObject deviceConfig = new JSONObject(new HashMap<String, String>() {
+            {
+                put(CovidConstants.FHIRResource.REF_IMG, CovidConstants.FHIRResource.REF_IMG);
+            }
+        });
         DeviceDefinitionProcessorShadow.setJSONObject(deviceConfig);
 
         intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, false);
