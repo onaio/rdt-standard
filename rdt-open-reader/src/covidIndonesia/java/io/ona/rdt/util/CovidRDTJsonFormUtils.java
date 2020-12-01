@@ -161,14 +161,14 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
     }
 
-    public static void fillPatientData(JSONObject field, String value) throws JSONException {
-        if (field == null) {
+    public static void fillPatientData(JSONObject patientInfoField, String value) throws JSONException {
+        if (patientInfoField == null) {
             return;
         }
-        JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray options = patientInfoField.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         if (options.length() > 0) {
-            JSONObject dobObject = options.getJSONObject(0);
-            dobObject.put(JsonFormConstants.TEXT, value);
+            JSONObject patientInfo = options.getJSONObject(0);
+            patientInfo.put(JsonFormConstants.TEXT, value);
         }
     }
 

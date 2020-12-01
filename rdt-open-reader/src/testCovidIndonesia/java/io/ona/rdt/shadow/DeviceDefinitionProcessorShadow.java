@@ -19,6 +19,8 @@ public class DeviceDefinitionProcessorShadow {
 
     private static JSONObject jsonObject;
     public static final String DEVICE_ID = "device_id";
+    public static final String MANUFACTURER = "manufacturer";
+    public static final String DEVICE_NAME = "device_name";
 
     @Implementation
     public JSONObject extractDeviceConfig(String deviceId) throws JSONException {
@@ -35,6 +37,16 @@ public class DeviceDefinitionProcessorShadow {
         return DEVICE_ID;
     }
 
+    @Implementation
+    public String extractManufacturerName(String deviceId) {
+        return MANUFACTURER;
+    }
+
+    @Implementation
+    public String extractDeviceName(String deviceId) {
+        return DEVICE_NAME;
+    }
+
     public static Map<String, String> getDeviceIdToNameMap() {
         Map<String, String> deviceIdToName = new HashMap<>();
         deviceIdToName.put("rdtId1", "rdtName1");
@@ -45,5 +57,9 @@ public class DeviceDefinitionProcessorShadow {
 
     public static void setJSONObject(JSONObject jsonObject) {
         DeviceDefinitionProcessorShadow.jsonObject = jsonObject;
+    }
+
+    public static JSONObject getJsonObject() {
+        return jsonObject;
     }
 }

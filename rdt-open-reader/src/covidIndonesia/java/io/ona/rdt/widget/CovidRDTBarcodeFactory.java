@@ -58,7 +58,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
                 if (data.getBooleanExtra(Constants.Config.ENABLE_BATCH_SCAN, false)) {
-                    populateBarcodeData(data);
+                    populateBatchScanData(data);
                 } else {
                     String barcodeVals = getBarcodeValsAsCSV(data);
                     jsonApi.writeValue(widgetArgs.getStepName(),
@@ -66,7 +66,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                             barcodeVals, "", "", "", false);
 
                     String[] individualVals = splitCSV(barcodeVals);
-                    populateRelevantFields(individualVals);
+                    populateSingleScanData(individualVals);
                     moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
                             convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
                 }
@@ -84,7 +84,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     protected abstract String[] splitCSV(String barcodeCSV);
 
-    protected void populateBarcodeData(Intent data) throws JSONException {
+    private void populateBatchScanData(Intent data) throws JSONException {
 
         JSONObject jsonObject = new JSONObject(data.getStringExtra("data"));
 
@@ -108,7 +108,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         }, 1);
     }
 
-    protected void populateRelevantFields(String[] individualVals) throws JSONException, IOException, FHIRParserException {
+    protected void populateSingleScanData(String[] individualVals) throws JSONException, IOException, FHIRParserException {
         Context context = widgetArgs.getContext();
         JsonApi jsonApi = (JsonApi) context;
         String stepName = widgetArgs.getStepName();
@@ -123,8 +123,6 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
         String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
         if (deviceId != null) {
-            jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
-                    Constants.RDTType.RDT_TYPE, deviceId, "", "", "", false);
             populateRDTDetailsConfirmationPage(deviceDefinitionProcessor, deviceId);
         }
 
