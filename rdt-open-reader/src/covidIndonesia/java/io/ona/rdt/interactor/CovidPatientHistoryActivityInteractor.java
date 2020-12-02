@@ -70,15 +70,10 @@ public class CovidPatientHistoryActivityInteractor {
         List<String> values = new ArrayList<>();
         // for checkboxes, get keys from key-value map
         Map<String, Object> keyValPairs = obs.getKeyValPairs();
-        List<Object> obsValues;
-        if (keyValPairs == null || !Utils.isEmptyMap(keyValPairs)) {
-            obsValues = obs.getValues();
-        } else {
-            obsValues = new ArrayList<>(keyValPairs.keySet());
-        }
-
+        List<Object> obsValues = Utils.isEmptyMap(keyValPairs) ? obs.getValues()
+                : new ArrayList<>(keyValPairs.keySet());
         for (Object value : obsValues) {
-            values.add(getValue(value.toString(), formWidgetKeyToTextMap));
+            values.add(getValue(value.toString(), formWidgetKeyToTextMap, obs));
         }
         return StringUtils.join(values, ", ");
     }
@@ -90,8 +85,18 @@ public class CovidPatientHistoryActivityInteractor {
      * @param formWidgetKeyToTextMap
      * @return
      */
-    private String getValue(String value, Map<String, String> formWidgetKeyToTextMap) {
-        return formWidgetKeyToTextMap.containsKey(value) ? formWidgetKeyToTextMap.get(value) : value;
+    private String getValue(String value, Map<String, String> formWidgetKeyToTextMap, Obs obs) {
+
+        if (formWidgetKeyToTextMap.containsKey(value)) {
+            if (StringUtils.isNotBlank(formWidgetKeyToTextMap.get(value))) {
+                return formWidgetKeyToTextMap.get(value);
+            }
+            else {
+                return obs.getValue().toString();
+            }
+        } else {
+            return value;
+        }
     }
 
     private boolean isUniqueManualFormIDField(String key) {
