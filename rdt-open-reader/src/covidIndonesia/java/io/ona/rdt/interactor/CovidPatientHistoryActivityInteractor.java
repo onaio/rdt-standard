@@ -90,8 +90,7 @@ public class CovidPatientHistoryActivityInteractor {
         if (formWidgetKeyToTextMap.containsKey(value)) {
             if (StringUtils.isNotBlank(formWidgetKeyToTextMap.get(value))) {
                 return formWidgetKeyToTextMap.get(value);
-            }
-            else {
+            } else {
                 return obs.getValue().toString();
             }
         } else {
