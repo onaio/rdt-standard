@@ -1,7 +1,6 @@
 package io.ona.rdt.interactor;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
@@ -46,14 +45,8 @@ public class CovidPatientHistoryActivityInteractor {
                 }
                 String text = formWidgetKeyToTextMap.get(obs.getFormSubmissionField());
                 if (StringUtils.isNotBlank(text)) {
-                    PatientHistoryEntry patientHistoryEntry;
-                    String value = getValues(obs, formWidgetKeyToTextMap);
-                    try {
-                        JSONArray jsonArray = new JSONArray(value);
-                        patientHistoryEntry = new PatientHistoryEntry(text, String.valueOf(jsonArray.length()));
-                    } catch (JSONException ex) {
-                        patientHistoryEntry = new PatientHistoryEntry(text, value);
-                    }
+                    PatientHistoryEntry patientHistoryEntry = new PatientHistoryEntry(text,
+                            getValues(obs, formWidgetKeyToTextMap));
                     patientHistoryEntries.add(patientHistoryEntry);
                 }
             }
