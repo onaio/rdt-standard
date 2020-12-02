@@ -37,6 +37,8 @@ android {
         buildConfigField "String", "ONE_SCAN_CLIENT_ID", "\"$oneScanClientId\""
         buildConfigField "String", "ONE_SCAN_AUTH_TOKEN", "\"$oneScanAuthToken\""
 
+        multiDexEnabled true
+
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -62,6 +64,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     packagingOptions {
@@ -150,6 +153,8 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
+
     implementation "androidx.core:core-ktx:1.0.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
