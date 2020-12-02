@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
+import com.vijay.jsonwizard.widgets.SpinnerFactory;
 
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.widget.CovidDatePickerFactory;
 import io.ona.rdt.widget.CovidRDTLabelFactory;
 import io.ona.rdt.widget.CovidRepeatingGroupFactory;
+import io.ona.rdt.widget.CovidSpinnerFactory;
 import io.ona.rdt.widget.GoogleCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
@@ -42,6 +44,7 @@ public class CovidLoginActivity extends LoginActivity {
         widgetFactoryMap.put(JsonFormConstants.REPEATING_GROUP, new CovidRepeatingGroupFactory());
         widgetFactoryMap.put(JsonFormConstants.RDT_CAPTURE, new UWCovidRDTCaptureFactory());
         widgetFactoryMap.put(JsonFormConstants.IMAGE_VIEW, new CovidImageViewFactory());
+        widgetFactoryMap.put(JsonFormConstants.SPINNER, new CovidSpinnerFactory());
     }
 
     @Override
