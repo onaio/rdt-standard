@@ -34,7 +34,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS
 public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
 
     private static final String BATCH_ID_TEXT = "batch_id_text";
-    private CovidRDTJsonFormUtils formUtils = new CovidRDTJsonFormUtils();
 
     protected void launchBarcodeScanner(Activity activity, MaterialEditText editText, String barcodeType) {
         InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);

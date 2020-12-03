@@ -7,7 +7,10 @@ import android.content.Intent;
 import com.google.gson.Gson;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +30,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.widget.validator.CovidImageViewFactory;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
@@ -220,5 +223,43 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             locations.add(childNode.getLabel());
         }
         return locations;
+    }
+
+
+    public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
+        if (deviceId == null) {
+            return;
+        }
+
+        Context context = widgetArgs.getContext();
+        DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
+
+        String rdtDetailsConfirmationPage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
+        JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
+                CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
+
+        String deviceDetails = getFormattedRDTDetails(widgetArgs, deviceDefinitionProcessor.extractManufacturerName(deviceId),
+                deviceDefinitionProcessor.extractDeviceName(deviceId));
+        JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
+
+        // write device details to confirmation page
+        deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
+        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG,
+                deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG));
+
+        // save extracted device config
+        ((JsonApi) context).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
+                deviceConfig.toString(), "", "", "", false);
+    }
+
+    private String getFormattedRDTDetails(WidgetArgs widgetArgs, String manufacturer, String deviceName) {
+        final String htmlLineBreak = "<br>";
+        final String doubleHtmlLineBreak = "<br><br>";
+        Context context = widgetArgs.getContext();
+
+        String formattedMftStr = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name), manufacturer}, htmlLineBreak);
+        String formattedDeviceNameStr = StringUtils.join(new String[]{context.getString(R.string.rdt_name), deviceName}, htmlLineBreak);
+
+        return StringUtils.join(new String[]{formattedMftStr, formattedDeviceNameStr}, doubleHtmlLineBreak);
     }
 }

@@ -20,6 +20,7 @@ import java.util.List;
 
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
@@ -49,7 +50,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
                 .withFormFragment(formFragment)
                 .withStepName(stepName);
 
-        stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj();
+        stepStateConfig = RDTJsonFormUtils.getStepStateConfigObj();
 
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 

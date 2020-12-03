@@ -49,6 +49,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
 
     public static final String RDT_BARCODE_EXPIRATION_DATE_FORMAT = "YYYY-MM-dd";
 
+    protected CovidRDTJsonFormUtils formUtils = new CovidRDTJsonFormUtils();
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
@@ -94,12 +96,10 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX],  "", "", "", false);
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
 
-        // write fhir resource device id to rdt type field
+        // populate RDT device details confirmation page
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
         String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
-        if (deviceId != null) {
-            populateRDTDetailsConfirmationPage(deviceDefinitionProcessor, deviceId);
-        }
+        formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
 
         // write unique id to confirmation page
         String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
@@ -107,37 +107,6 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                         CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
                         widgetArgs.getContext());
         CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
-    }
-
-    private void populateRDTDetailsConfirmationPage(DeviceDefinitionProcessor deviceDefinitionProcessor, String deviceId) throws JSONException {
-        Context context = widgetArgs.getContext();
-        String rdtDetailsConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
-        JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
-                CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
-
-        String deviceDetails = getFormattedRDTDetails(deviceDefinitionProcessor.extractManufacturerName(deviceId),
-                deviceDefinitionProcessor.extractDeviceName(deviceId));
-        JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
-
-        // write device details to confirmation page
-        deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
-        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG,
-                deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG));
-
-        // save extracted device config
-        ((JsonApi) context).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
-                deviceConfig.toString(), "", "", "", false);
-    }
-
-    private String getFormattedRDTDetails(String manufacturer, String deviceName) {
-        final String htmlLineBreak = "<br>";
-        final String doubleHtmlLineBreak = "<br><br>";
-        Context context = widgetArgs.getContext();
-
-        String formattedMftStr = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name), manufacturer}, htmlLineBreak);
-        String formattedDeviceNameStr = StringUtils.join(new String[]{context.getString(R.string.rdt_name), deviceName}, htmlLineBreak);
-
-        return StringUtils.join(new String[]{formattedMftStr, formattedDeviceNameStr}, doubleHtmlLineBreak);
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {
