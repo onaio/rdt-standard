@@ -117,6 +117,7 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
+        "enable_back_press": true,
         "hint": "{{sample-delivery-details-form-original.step3.qr_code_reader.hint}}",
         "scanButtonText": "{{sample-delivery-details-form-original.step3.qr_code_reader.scanButtonText}}",
         "value": "0",

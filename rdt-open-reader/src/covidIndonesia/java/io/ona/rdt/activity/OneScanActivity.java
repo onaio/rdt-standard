@@ -46,6 +46,8 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     private final JSONArray dataArray = new JSONArray();
     private ViewDataBinding viewBinding;
 
+    public static final String ENABLE_BACK_PRESS = "enable_back_press";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.updateLocale(this);
@@ -80,12 +82,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(this, getString(R.string.captured), Toast.LENGTH_SHORT).show();
                 performPostScanActions(bundle);
                 if (enableBatchScan) {
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            doScan(reader);
-                        }
-                    }, 1);
+                    handler.postDelayed(() -> doScan(reader), 1);
                 }
             }
         });
@@ -190,7 +187,7 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
             if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
-                onBackPressed();
+                super.onBackPressed();
             } else if (enableBatchScan) {
                 setResultAndFinish(response);
             }
@@ -206,6 +203,15 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.barcode_results_next_button:
                 setResultAndFinish(response);
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getIntent().getBooleanExtra(ENABLE_BACK_PRESS, false)) {
+            super.onBackPressed();
+        } else {
+            Utils.showToastInFG(this, getString(R.string.backpress_disabled));
         }
     }
 }

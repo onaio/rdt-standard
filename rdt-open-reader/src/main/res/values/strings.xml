@@ -53,5 +53,6 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="rdt_not_supported">Sorry, the selected RDT is not currently supported.</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="backpress_disabled">Backpress is disabled! Continue to the next step and close out the form to record new data.</string>
 </resources>
 
