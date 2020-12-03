@@ -225,7 +225,6 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return locations;
     }
 
-
     public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
         if (StringUtils.isBlank(deviceId)) {
             return;

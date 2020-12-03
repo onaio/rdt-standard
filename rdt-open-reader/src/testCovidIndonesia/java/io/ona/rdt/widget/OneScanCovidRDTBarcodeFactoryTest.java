@@ -60,7 +60,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(null);
         DeviceDefinitionProcessorShadow.setJSONObject(null);
         RDTJsonFormUtilsShadow.setJsonObject(null);
@@ -158,9 +158,11 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Mockito.doNothing().when(jsonFormActivity).writeValue(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
 
-        JSONObject jsonObject = new JSONObject(new HashMap<String, String>() {{
-            put(JsonFormConstants.KEY, JsonFormConstants.KEY);
-        }});
+        JSONObject jsonObject = new JSONObject(new HashMap<String, String>() {
+            {
+                put(JsonFormConstants.KEY, JsonFormConstants.KEY);
+            }
+        });
         WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(jsonObject).withStepName(TEST_STEP)
                 .withContext(jsonFormActivity).withFormFragment(formFragment);
 
