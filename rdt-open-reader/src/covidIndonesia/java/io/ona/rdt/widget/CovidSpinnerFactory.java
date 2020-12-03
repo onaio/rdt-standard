@@ -28,18 +28,15 @@ public class CovidSpinnerFactory extends SpinnerFactory {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
 
         MaterialSpinner spinner = getSpinner((RelativeLayout) views.get(0));
-        final AdapterView.OnItemSelectedListener onItemSelectedListener = spinner.getOnItemSelectedListener();
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Utils.showToastInFG(context, context.getString(R.string.rdt_not_supported));
-                onItemSelectedListener.onItemSelected(parent, view, position, id);
+                listener.onItemSelected(parent, view, position, id);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                onItemSelectedListener.onNothingSelected(parent);
+                listener.onNothingSelected(parent);
             }
         });
 
