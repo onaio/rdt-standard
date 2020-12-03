@@ -14,13 +14,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.ona.rdt.R;
-import io.ona.rdt.util.Utils;
-
 /**
  * Created by Vincent Karuri on 02/12/2020
  */
-public class CovidSpinnerFactory extends SpinnerFactory {
+public class RDTDeviceSelectorSpinnerFactory extends SpinnerFactory {
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
@@ -43,6 +40,7 @@ public class CovidSpinnerFactory extends SpinnerFactory {
         return views;
     }
 
+    // This is required since the spinner widget assigns a random id to the spinner (not sure why)
     private MaterialSpinner getSpinner(RelativeLayout relativeLayout) {
         for (int i = 0; i < relativeLayout.getChildCount(); i++) {
             View child = relativeLayout.getChildAt(i);

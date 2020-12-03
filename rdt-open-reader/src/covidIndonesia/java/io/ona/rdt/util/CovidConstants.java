@@ -28,6 +28,7 @@ public interface CovidConstants extends Constants {
     interface Widget {
         String GOOGLE_COVID_BARCODE_READER = "google_covid_barcode_reader";
         String ONE_SCAN_COVID_BARCODE_READER = "one_scan_covid_barcode_reader";
+        String RDT_DEVICE_SELECTOR_SPINNER = "rdt_device_selector_spinner";
     }
 
     interface Table {
