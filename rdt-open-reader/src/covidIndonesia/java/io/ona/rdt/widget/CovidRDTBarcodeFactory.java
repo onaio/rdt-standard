@@ -17,12 +17,10 @@ import java.util.Date;
 
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
 import io.ona.rdt.util.RDTJsonFormUtils;
-import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.validator.CovidImageViewFactory;
 import timber.log.Timber;
 
@@ -42,7 +40,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     private static final int LOT_NO_INDEX = 2;
     private static final int UNIQUE_ID_INDEX = 0;
     public static final String BATCH_ID = "batch_id";
-    private static final String BATCH_ID_TEXT = "batch_id_text";
+
 
     public static final String LOT_NO = "lot_no";
     public static final String EXP_DATE = "exp_date";
@@ -50,26 +48,12 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     public static final String TEMP_SENSOR = "temp_sensor";
 
     public static final String RDT_BARCODE_EXPIRATION_DATE_FORMAT = "YYYY-MM-dd";
-    private RDTJsonFormUtils formUtils = new RDTJsonFormUtils();
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
-                if (data.getBooleanExtra(Constants.Config.ENABLE_BATCH_SCAN, false)) {
-                    populateBatchScanData(data);
-                } else {
-                    String barcodeVals = getBarcodeValsAsCSV(data);
-                    jsonApi.writeValue(widgetArgs.getStepName(),
-                            widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
-                            barcodeVals, "", "", "", false);
-
-                    String[] individualVals = splitCSV(barcodeVals);
-                    populateSingleScanData(individualVals);
-                    moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
-                            convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
-                }
+                processResultData(data);
             } catch (JSONException | ParseException | IOException | FHIRParserException e) {
                 Timber.e(e);
             }
@@ -80,33 +64,24 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         }
     }
 
+    protected void processResultData(Intent data) throws JSONException, ParseException, IOException, FHIRParserException {
+        final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+        String barcodeVals = getBarcodeValsAsCSV(data);
+
+        jsonApi.writeValue(widgetArgs.getStepName(),
+                widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
+                barcodeVals, "", "", "", false);
+
+        String[] individualVals = splitCSV(barcodeVals);
+        populateSingleScanData(individualVals);
+        moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
+                convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
+    }
+
     protected abstract String getBarcodeValsAsCSV(Intent data);
 
     protected abstract String[] splitCSV(String barcodeCSV);
 
-    private void populateBatchScanData(Intent data) throws JSONException {
-
-        JSONObject jsonObject = new JSONObject(data.getStringExtra("data"));
-
-        formUtils.getNextUniqueIds(null, (args, uniqueIds) -> {
-
-            String uniqueId = Utils.getUniqueId(uniqueIds);
-
-            try {
-                jsonObject.put(BATCH_ID, uniqueId);
-                JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
-                String stepName = widgetArgs.getStepName();
-
-                jsonApi.writeValue(stepName, CovidConstants.FormFields.QR_CODE_READER, jsonObject.toString(),  "", "", "", false);
-                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID, uniqueId,  "", "", "", false);
-                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID_TEXT, uniqueId,  "", "", "", false);
-
-                moveToNextStep();
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }, 1);
-    }
 
     protected void populateSingleScanData(String[] individualVals) throws JSONException, IOException, FHIRParserException {
         Context context = widgetArgs.getContext();

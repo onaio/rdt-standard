@@ -14,6 +14,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import io.ona.rdt.R;
+import io.ona.rdt.util.Utils;
+
 /**
  * Created by Vincent Karuri on 02/12/2020
  */
@@ -28,6 +31,7 @@ public class RDTDeviceSelectorSpinnerFactory extends SpinnerFactory {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Utils.showToastInFG(context, "We in here, boy!!");
                 listener.onItemSelected(parent, view, position, id);
             }
 
