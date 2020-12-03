@@ -238,7 +238,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
                 CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
 
-        String deviceDetails = getFormattedRDTDetails(widgetArgs, deviceDefinitionProcessor.extractManufacturerName(deviceId),
+        String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
                 deviceDefinitionProcessor.extractDeviceName(deviceId));
         JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
 
@@ -252,10 +252,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 deviceConfig.toString(), "", "", "", false);
     }
 
-    private String getFormattedRDTDetails(WidgetArgs widgetArgs, String manufacturer, String deviceName) {
+    private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {
         final String htmlLineBreak = "<br>";
         final String doubleHtmlLineBreak = "<br><br>";
-        Context context = widgetArgs.getContext();
 
         String formattedMftStr = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name), manufacturer}, htmlLineBreak);
         String formattedDeviceNameStr = StringUtils.join(new String[]{context.getString(R.string.rdt_name), deviceName}, htmlLineBreak);
