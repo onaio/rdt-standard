@@ -17,6 +17,7 @@ import java.util.Date;
 
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
@@ -95,6 +96,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         jsonApi.writeValue(stepName, LOT_NO, individualVals[LOT_NO_INDEX],  "", "", "", false);
         jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX],  "", "", "", false);
         jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
+        jsonApi.writeValue(stepStateConfig.optString(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE), Constants.FormFields.LBL_RDT_ID, "RDT ID: " + individualVals[UNIQUE_ID_INDEX], "", "", "", false);
 
         // populate RDT device details confirmation page
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);

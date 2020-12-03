@@ -75,7 +75,7 @@ public interface CovidConstants extends Constants {
         String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
         String COVID_SELECT_RDT_TYPE_PAGE = "covid_select_rdt_type_page";
         String COVID_DEVICE_DETAILS_CONFIRMATION_PAGE = "covid_device_details_confirmation_page";
-        String UNIQUE_BATCH_ID_PAGE = "unique_batch_id_page";
+        String COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE = "covid_sample_delivery_details_unique_batch_id_page";
     }
 
     interface FormFields {

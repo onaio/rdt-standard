@@ -19,7 +19,6 @@ import java.text.ParseException;
 import io.ona.rdt.activity.OneScanActivity;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
-import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
@@ -78,8 +77,8 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
                 String stepName = widgetArgs.getStepName();
 
                 jsonApi.writeValue(stepName, CovidConstants.FormFields.QR_CODE_READER, jsonObject.toString(),  "", "", "", false);
-                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID, uniqueId,  "", "", "", false);
-                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE), BATCH_ID_TEXT, uniqueId,  "", "", "", false);
+                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE), BATCH_ID, uniqueId,  "", "", "", false);
+                jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE), BATCH_ID_TEXT, uniqueId,  "", "", "", false);
 
                 moveToNextStep();
             } catch (JSONException e) {

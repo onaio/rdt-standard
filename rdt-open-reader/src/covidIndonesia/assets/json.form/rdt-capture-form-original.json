@@ -211,7 +211,7 @@
   "step6": {
     "title": "Record RDT information",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step14",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -296,35 +296,6 @@
           "value": true,
           "err": "Please specify the expiration date"
         }
-      }
-    ]
-  },
-  "step7": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step9",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
-    "fields": [
-      {
-        "key": "lbl_handle_rdt",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold",
-        "top_margin": "15dp",
-        "text": "Record ID on RDT"
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "top_margin": "15dp",
-        "label_text_style": "bold"
       }
     ]
   },
@@ -418,6 +389,14 @@
         "has_bg": true,
         "top_margin": "15dp",
         "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "top_margin": "15dp"
       }
     ]
   },

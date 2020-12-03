@@ -148,7 +148,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
         ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "widgetArgs", widgetArgs);
 
-        stepStateConfig.put(CovidConstants.Step.UNIQUE_BATCH_ID_PAGE, TEST_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE, TEST_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE, CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "stepStateConfig", stepStateConfig);
