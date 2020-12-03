@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
+import timber.log.Timber;
 
 /**
  * Created by Vincent Karuri on 02/12/2020
@@ -41,7 +42,9 @@ public class RDTDeviceSelectorSpinnerFactory extends SpinnerFactory {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 listener.onItemSelected(parent, view, position, id);
-                populateRDTConfirmationPageDetails(widgetArgs);
+                if (position > -1) {
+                    populateRDTConfirmationPageDetails(widgetArgs);
+                }
             }
 
             @Override
@@ -60,7 +63,7 @@ public class RDTDeviceSelectorSpinnerFactory extends SpinnerFactory {
             String deviceId = rdtTypeField.getString(JsonFormConstants.VALUE);
             formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
         } catch (JSONException | IOException | FHIRParserException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 
