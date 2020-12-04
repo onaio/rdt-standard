@@ -178,7 +178,7 @@ public class Utils {
         }
     }
 
-    public static JSONArray createOptionsBlock(Map<String, String> keyValPairs, String openmrsEntity, String openmrsEntityId) throws JSONException {
+    public static JSONArray createOptionsBlock(Map<String, String> keyValPairs, String openmrsEntity, String openmrsEntityId, String openmrsEntityParent) throws JSONException {
         JSONArray jsonArray = new JSONArray();
         for (Map.Entry<String, String> entry : keyValPairs.entrySet()) {
             JSONObject option = new JSONObject();
@@ -186,6 +186,7 @@ public class Utils {
             option.put(JsonFormConstants.TEXT, entry.getValue());
             option.put(JsonFormConstants.OPENMRS_ENTITY, openmrsEntity);
             option.put(JsonFormConstants.OPENMRS_ENTITY_ID, openmrsEntityId);
+            option.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openmrsEntityParent);
             jsonArray.put(jsonArray.length(), option);
         }
         return jsonArray;

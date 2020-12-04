@@ -93,7 +93,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         if (Constants.RDTType.RDT_TYPE.equals(field.getString(JsonFormUtils.KEY))) {
             try {
                 DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
-                JSONArray availableRDTsArr = Utils.createOptionsBlock(appendOtherOption(deviceDefinitionProcessor.getDeviceIDToDeviceNameMap()), "", "");
+                JSONArray availableRDTsArr = Utils.createOptionsBlock(appendOtherOption(deviceDefinitionProcessor.getDeviceIDToDeviceNameMap()), "", "", "");
                 field.put(JsonFormConstants.OPTIONS_FIELD_NAME, availableRDTsArr);
             } catch (IOException | FHIRParserException e) {
                 Timber.e(e);

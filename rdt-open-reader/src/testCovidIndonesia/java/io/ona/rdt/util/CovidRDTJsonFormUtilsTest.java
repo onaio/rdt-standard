@@ -813,7 +813,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(JsonFormUtils.KEY, Constants.RDTType.RDT_TYPE);
         getFormUtils().prePopulateRDTFormFields(RuntimeEnvironment.application, jsonObject, "");
-        Assert.assertEquals(Utils.createOptionsBlock(CovidRDTJsonFormUtils.appendOtherOption(DeviceDefinitionProcessorShadow.getDeviceIdToNameMap()), "", "").toString(),
+        Assert.assertEquals(Utils.createOptionsBlock(CovidRDTJsonFormUtils.appendOtherOption(DeviceDefinitionProcessorShadow.getDeviceIdToNameMap()), "", "", "").toString(),
                 jsonObject.get(JsonFormConstants.OPTIONS_FIELD_NAME).toString());
     }
 
