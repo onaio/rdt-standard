@@ -73,7 +73,7 @@ public class CovidPatientHistoryActivityInteractor {
         List<Object> obsValues = Utils.isEmptyMap(keyValPairs) ? obs.getValues()
                 : new ArrayList<>(keyValPairs.keySet());
         for (Object value : obsValues) {
-            values.add(getValue(value.toString(), formWidgetKeyToTextMap));
+            values.add(getValue(value.toString(), formWidgetKeyToTextMap, obs));
         }
         return StringUtils.join(values, ", ");
     }
@@ -85,8 +85,17 @@ public class CovidPatientHistoryActivityInteractor {
      * @param formWidgetKeyToTextMap
      * @return
      */
-    private String getValue(String value, Map<String, String> formWidgetKeyToTextMap) {
-        return formWidgetKeyToTextMap.containsKey(value) ? formWidgetKeyToTextMap.get(value) : value;
+    private String getValue(String value, Map<String, String> formWidgetKeyToTextMap, Obs obs) {
+
+        if (formWidgetKeyToTextMap.containsKey(value)) {
+            if (StringUtils.isNotBlank(formWidgetKeyToTextMap.get(value))) {
+                return formWidgetKeyToTextMap.get(value);
+            } else {
+                return obs.getValue().toString();
+            }
+        } else {
+            return value;
+        }
     }
 
     private boolean isUniqueManualFormIDField(String key) {
