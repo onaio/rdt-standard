@@ -55,6 +55,6 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="female">Female</string>
     <string name="lbl_back">Back</string>
     <string name="lbl_gender_id">Female . ID: 99358357</string>
-    <string name="lbl_visit">Visit</string>
+    <string name="lbl_visit">Visit %d</string>
 </resources>
 

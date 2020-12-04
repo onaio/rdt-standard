@@ -29,7 +29,7 @@ public class CovidPatientVisitFragmentInteractor {
         List<EventClient> eventClients = patientHistoryRepository.getEventsByUniqueDate(baseEntityId);
         List<Visit> visits = new ArrayList<>();
         for (int i = 0; i < eventClients.size(); i++) {
-            visits.add(new Visit(String.format(RDTApplication.getInstance().getResources().getString(R.string.lbl_visit) + " %d", i + 1),
+            visits.add(new Visit(String.format(RDTApplication.getInstance().getResources().getString(R.string.lbl_visit), i + 1),
                     formatDate(eventClients.get(i).getEvent().getEventDate())));
         }
         return visits;
