@@ -1,6 +1,7 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ReflectionHelpers;
 
 import io.ona.rdt.R;
@@ -240,7 +242,21 @@ public class OneScanActivityTest extends ActivityRobolectricTest {
         Assert.assertEquals(Activity.RESULT_OK, shadowOneScanActivity.getResultCode());
         Assert.assertNotNull(resultBarcode);
         Assert.assertEquals(displayValues, resultBarcode.displayValue);
+    }
 
+    @Test
+    public void testOnBackPressedShouldNavigateBackOnlyIfBackPressIsEnabled() {
+        // if disabled
+        oneScanActivity.onBackPressed();
+        Assert.assertNotNull(ShadowToast.getLatestToast());
+
+        // if enabled
+        ShadowToast.reset();
+        Intent intent = new Intent();
+        intent.putExtra(OneScanActivity.ENABLE_BACK_PRESS, true);
+        oneScanActivity.setIntent(intent);
+        oneScanActivity.onBackPressed();
+        Assert.assertNull(ShadowToast.getLatestToast());
     }
 
     @Override
