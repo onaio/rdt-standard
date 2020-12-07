@@ -9,8 +9,6 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.widget.Toast;
 
-import androidx.core.util.Pair;
-
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -44,6 +42,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.RDTJsonFormActivity;
@@ -403,5 +402,9 @@ public class RDTJsonFormUtils {
         }
         FormUtils formUtils = new FormUtils();
         return formUtils.getFieldJSONObject(formUtils.getFormFields(step, context), key);
+    }
+
+    public static JSONObject getStepStateConfigObj() {
+        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj();
     }
 }

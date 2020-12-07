@@ -147,7 +147,7 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
         jsonObject.put(OPENMRS_ENTITY_PARENT, "openmrs_entity_parent");
         jsonObject.put(KEY, "key");
         jsonObject.put(JsonFormUtils.STEP1, new JSONObject());
-        jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
+        jsonObject.put(JsonFormConstants.VALUE, new JSONObject());
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
         RDTJsonFormUtilsShadow.setJsonObject(jsonObject);

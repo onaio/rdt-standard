@@ -117,6 +117,7 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
+        "enable_back_press": true,
         "hint": "",
         "scanButtonText": "",
         "value": "0",

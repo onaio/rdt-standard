@@ -1,24 +1,37 @@
 package io.ona.rdt.util;
 
+import android.content.Context;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import io.ona.rdt.R;
+import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
+import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
 import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
+import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static org.junit.Assert.assertEquals;
@@ -807,14 +820,80 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         allSharedPreferences.savePreference(CovidConstants.Preference.LOCATION_TREE, MOCK_LOCATION_TREE_JSON);
     }
 
+    @After
+    public void tearDown() {
+        RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(null);
+        DeviceDefinitionProcessorShadow.setJSONObject(null);
+        RDTJsonFormUtilsShadow.setJsonObject(null);
+    }
+
     @Config(shadows = {DeviceDefinitionProcessorShadow.class})
     @Test
     public void testPrePopulateRDTFormFieldsShouldPopulateAvailableRDTs() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(JsonFormUtils.KEY, Constants.RDTType.RDT_TYPE);
         getFormUtils().prePopulateRDTFormFields(RuntimeEnvironment.application, jsonObject, "");
-        Assert.assertEquals(Utils.createOptionsBlock(CovidRDTJsonFormUtils.appendOtherOption(DeviceDefinitionProcessorShadow.getDeviceIdToNameMap()), "", "").toString(),
+        Assert.assertEquals(Utils.createOptionsBlock(CovidRDTJsonFormUtils.appendOtherOption(DeviceDefinitionProcessorShadow.getDeviceIdToNameMap()), "", "", "").toString(),
                 jsonObject.get(JsonFormConstants.OPTIONS_FIELD_NAME).toString());
+    }
+
+    @Config(shadows = {DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
+    @Test
+    public void testPopulateRDTDetailsConfirmationPageShouldCorrectlyPopulateDetails() throws Exception {
+        JSONObject jsonObject = new JSONObject();
+        RDTJsonFormActivity jsonFormActivity = WidgetFactoryRobolectricTest.getRDTJsonFormActivity();
+        Mockito.doNothing().when(jsonFormActivity).writeValue(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
+
+        JsonFormFragment formFragment = Mockito.mock(JsonFormFragment.class);
+        final String TEST_STEP = "test_step";
+        final String DEVICE_ID = "device_id";
+
+
+        JSONObject deviceDetailsWidget = new JSONObject(new HashMap<String, JSONArray>() {
+            {
+                put(JsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray("[{}]"));
+            }
+        });
+        RDTJsonFormUtilsShadow.setJsonObject(deviceDetailsWidget);
+
+        JSONObject deviceConfig = new JSONObject(new HashMap<String, String>() {
+            {
+                put(CovidConstants.FHIRResource.REF_IMG, CovidConstants.FHIRResource.REF_IMG);
+            }
+        });
+        DeviceDefinitionProcessorShadow.setJSONObject(deviceConfig);
+
+        JSONObject stepStateConfig = new JSONObject();
+        stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
+        RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(stepStateConfig);
+
+        WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(jsonObject).withStepName(TEST_STEP)
+                .withContext(jsonFormActivity).withFormFragment(formFragment);
+
+        getCovidFormUtils().populateRDTDetailsConfirmationPage(widgetArgs, DEVICE_ID);
+
+        verifyRDTDetailsConfirmationPageIsPopulated(jsonFormActivity, deviceDetailsWidget);
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.FormFields.RDT_CONFIG,
+                deviceConfig.toString(), "", "", "", false);
+
+        jsonFormActivity.finish();
+    }
+
+    private void verifyRDTDetailsConfirmationPageIsPopulated(RDTJsonFormActivity jsonFormActivity, JSONObject deviceDetailsWidget) throws JSONException {
+
+        String deviceDetails = ReflectionHelpers.callInstanceMethod(new CovidRDTJsonFormUtils(), "getFormattedRDTDetails",
+                ReflectionHelpers.ClassParameter.from(Context.class, RuntimeEnvironment.application),
+                ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.MANUFACTURER),
+                ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.DEVICE_NAME));
+
+        Assert.assertEquals(deviceDetails, deviceDetailsWidget.getString(JsonFormConstants.TEXT));
+        Assert.assertEquals(CovidConstants.FHIRResource.REF_IMG, deviceDetailsWidget.getString(CovidImageViewFactory.BASE64_ENCODED_IMG));
+
+        Mockito.verify(jsonFormActivity).writeValue(ArgumentMatchers.eq(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE),
+                ArgumentMatchers.eq(CovidConstants.FormFields.RDT_CONFIG), ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.getJsonObject().toString()),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
@@ -876,6 +955,10 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     @Override
     protected RDTJsonFormUtils getFormUtils() {
         return new CovidRDTJsonFormUtils();
+    }
+
+    private CovidRDTJsonFormUtils getCovidFormUtils() {
+        return (CovidRDTJsonFormUtils) getFormUtils();
     }
 
     @Override
