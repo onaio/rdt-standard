@@ -22,11 +22,10 @@ import org.smartregister.util.JsonFormUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -198,29 +197,15 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         }
 
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
-        List<String> locations = filterLocations(locationMap);
-        for (String location : locations) {
-            jsonArray.put(createOption(location, location));
-        }
-        jsonArray.put(createOption("other", "Other"));
-        return jsonArray;
+        return Utils.createOptionsBlock(appendOtherOption(filterLocations(locationMap)), "", "", "");
     }
 
-    private JSONObject createOption(String key, String value) throws JSONException {
-        JSONObject option = new JSONObject();
-        option.put(JsonFormConstants.KEY, key);
-        option.put(JsonFormConstants.TEXT, value);
-        option.put(JsonFormConstants.OPENMRS_ENTITY, "");
-        option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-        return option;
-    }
-
-    private List<String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
-        List<String> locations = new ArrayList<>();
+    private Map<String, String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
+        LinkedHashMap<String, String> locations = new LinkedHashMap<>();
         Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
         for (Map.Entry<String, TreeNode<String, Location>> childEntry : entry.getValue().getChildren().entrySet()) {
             TreeNode<String, Location> childNode = childEntry.getValue();
-            locations.add(childNode.getLabel());
+            locations.put(childNode.getLabel(), childNode.getLabel());
         }
         return locations;
     }
