@@ -202,11 +202,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_min_length.err}}"
         }
       },
       {
@@ -259,11 +259,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_min_length.err}}"
         }
       },
       {
