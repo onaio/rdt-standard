@@ -186,7 +186,7 @@
         "hint": "Date of birth",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "DoB"
         },
         "min_date": "today-100y",
         "max_date": "today",
