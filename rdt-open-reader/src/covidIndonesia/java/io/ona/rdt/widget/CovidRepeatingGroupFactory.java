@@ -44,6 +44,7 @@ public class CovidRepeatingGroupFactory extends RepeatingGroupFactory {
                 addOnDoneAction(referenceEditText, doneButton, widgetArgs);
             }
         });
+
         return views;
     }
 }
