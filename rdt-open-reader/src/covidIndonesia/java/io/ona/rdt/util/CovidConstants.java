@@ -1,5 +1,7 @@
 package io.ona.rdt.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
@@ -26,6 +28,7 @@ public interface CovidConstants extends Constants {
     interface Widget {
         String GOOGLE_COVID_BARCODE_READER = "google_covid_barcode_reader";
         String ONE_SCAN_COVID_BARCODE_READER = "one_scan_covid_barcode_reader";
+        String RDT_DEVICE_SELECTOR_SPINNER = "rdt_device_selector_spinner";
     }
 
     interface Table {
@@ -71,7 +74,8 @@ public interface CovidConstants extends Constants {
         String COVID_SCAN_SAMPLE_FOR_DELIVERY_PAGE = "covid_scan_sample_for_delivery_page";
         String COVID_ENTER_DELIVERY_DETAILS_PAGE = "covid_enter_delivery_details_page";
         String COVID_SELECT_RDT_TYPE_PAGE = "covid_select_rdt_type_page";
-        String UNIQUE_BATCH_ID_PAGE = "unique_batch_id_page";
+        String COVID_DEVICE_DETAILS_CONFIRMATION_PAGE = "covid_device_details_confirmation_page";
+        String COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE = "covid_sample_delivery_details_unique_batch_id_page";
     }
 
     interface FormFields {
@@ -103,6 +107,8 @@ public interface CovidConstants extends Constants {
         String HEALTH_FACILITY_NAME = "health_facility_name";
         String NAME_OF_HEALTH_FACILITY = "name_of_health_facility";
         String QR_CODE_READER = "qr_code_reader";
+        String SELECTED_RDT_IMAGE = "selected_rdt_image";
+        String RDT_CONFIG = "rdt_config";
     }
 
     interface RDTType {

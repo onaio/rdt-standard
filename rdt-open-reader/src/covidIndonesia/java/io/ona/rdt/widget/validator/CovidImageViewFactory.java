@@ -1,6 +1,7 @@
 package io.ona.rdt.widget.validator;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.widgets.ImageViewFactory;
@@ -16,6 +17,17 @@ public class CovidImageViewFactory extends ImageViewFactory {
 
     @Override
     protected Bitmap getBitmap(WidgetArgs widgetArgs) {
-        return RDTJsonFormUtils.convertBase64StrToBitmap(widgetArgs.getJsonObject().optString(BASE64_ENCODED_IMG));
+        final int degrees = 90;
+        return rotateBitmap(RDTJsonFormUtils.convertBase64StrToBitmap(widgetArgs.getJsonObject().optString(BASE64_ENCODED_IMG)), degrees);
+    }
+
+    public static Bitmap rotateBitmap(Bitmap source, float angle) {
+        if (source == null) {
+            return source;
+        }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        final int xyCoordinate = 0;
+        return Bitmap.createBitmap(source, xyCoordinate, xyCoordinate, source.getWidth(), source.getHeight(), matrix, true);
     }
 }
