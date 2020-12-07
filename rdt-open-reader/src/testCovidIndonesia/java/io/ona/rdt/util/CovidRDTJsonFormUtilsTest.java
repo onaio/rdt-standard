@@ -837,7 +837,6 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
                 jsonObject.get(JsonFormConstants.OPTIONS_FIELD_NAME).toString());
     }
 
-
     @Config(shadows = {DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
     @Test
     public void testPopulateRDTDetailsConfirmationPageShouldCorrectlyPopulateDetails() throws Exception {
@@ -881,7 +880,6 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
         jsonFormActivity.finish();
     }
-
 
     private void verifyRDTDetailsConfirmationPageIsPopulated(RDTJsonFormActivity jsonFormActivity, JSONObject deviceDetailsWidget) throws JSONException {
 

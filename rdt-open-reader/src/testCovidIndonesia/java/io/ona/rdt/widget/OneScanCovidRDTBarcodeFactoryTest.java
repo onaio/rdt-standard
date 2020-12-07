@@ -138,7 +138,6 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE, Constants.FormFields.LBL_RDT_ID, "RDT ID: " + VAL_0, "", "", "", false);
     }
 
-
     private void mockMethods() throws JSONException {
         Mockito.doNothing().when(oneScanCovidRDTBarcodeFactory).moveToNextStep();
         Mockito.doNothing().when(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();

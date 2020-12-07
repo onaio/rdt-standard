@@ -36,7 +36,7 @@ import io.ona.rdt.util.Utils;
  * Created by Vincent Karuri on 04/12/2020
  */
 
-@Config(shadows = { RDTJsonFormUtilsShadow.class })
+@Config(shadows = {RDTJsonFormUtilsShadow.class})
 public class RDTDeviceSelectorSpinnerFactoryTest extends WidgetFactoryRobolectricTest {
 
     private RDTDeviceSelectorSpinnerFactory deviceSelectorSpinnerFactory;
