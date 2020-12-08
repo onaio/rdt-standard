@@ -220,8 +220,13 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
+
+        if (deviceId == null) {
+            return;
+        }
+
         Context context = widgetArgs.getContext();
-        if (StringUtils.isBlank(deviceId) || CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
+        if (CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
             // reset details when other is selected or device id is blank
             writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected), "", "");
         } else {
