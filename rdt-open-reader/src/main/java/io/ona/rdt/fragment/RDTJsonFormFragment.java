@@ -43,8 +43,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     private View rootLayout;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       rootLayout = super.onCreateView(inflater, container, savedInstanceState);
-       return rootLayout;
+        rootLayout = super.onCreateView(inflater, container, savedInstanceState);
+        return rootLayout;
     }
 
     @Override
