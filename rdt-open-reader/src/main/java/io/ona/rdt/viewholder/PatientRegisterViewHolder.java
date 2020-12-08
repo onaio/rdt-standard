@@ -62,7 +62,7 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
         String nameAndAge = createNameAndAgeLabel(patientName, patientId, patientAge);
         String translatedSex = "Male".equalsIgnoreCase(sex) ? context.getString(R.string.male) : context.getString(R.string.female);
 
-        final Patient patient = new Patient(patientName, sex, baseEntityId, patientId, Integer.parseInt(patientAge), Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.DOB, false));
+        final Patient patient = new Patient(patientName, translatedSex, baseEntityId, patientId, Integer.parseInt(patientAge), Utils.getValue(commonPersonObjectClient.getColumnmaps(), Constants.DBConstants.DOB, false));
 
         viewHolder.tvPatientNameAndAge.setText(nameAndAge);
         viewHolder.tvPatientSex.setText(translatedSex);

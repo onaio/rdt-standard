@@ -1,5 +1,5 @@
 {
-  "count": "13",
+  "count": "14",
   "encounter_type": "covid_rdt_test",
   "entity_id": "",
   "metadata": {
@@ -211,7 +211,7 @@
   "step6": {
     "title": "Record RDT information",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step14",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
@@ -221,7 +221,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "spinner",
+        "type": "rdt_device_selector_spinner",
         "hint": "RDT type?",
         "v_required": {
           "value": "true",
@@ -299,39 +299,10 @@
       }
     ]
   },
-  "step7": {
-    "title": "RDT",
-    "display_back_button": "true",
-    "next": "step9",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "CONTINUE",
-    "fields": [
-      {
-        "key": "lbl_handle_rdt",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold",
-        "top_margin": "15dp",
-        "text": "Record ID on RDT"
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "top_margin": "15dp",
-        "label_text_style": "bold"
-      }
-    ]
-  },
   "step8": {
     "title": "RDT",
     "display_back_button": "true",
-    "next": "step9",
+    "next": "step14",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -418,6 +389,14 @@
         "has_bg": true,
         "top_margin": "15dp",
         "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "top_margin": "15dp"
       }
     ]
   },
@@ -613,6 +592,34 @@
         "label_text_style": "bold",
         "top_margin": "15dp",
         "text": "Diagnostic test collection for the patient has concluded. Using approved protocols, inform the patient of their results and followup procedures"
+      }
+    ]
+  },
+  "step14": {
+    "title": "Please confirm RDT details",
+    "display_back_button": "true",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "CONTINUE",
+    "fields": [
+      {
+        "key": "selected_rdt_image",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "image_view",
+        "text": "",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "base64_encoded_img": ""
+      },
+      {
+        "key": "rdt_config",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   }

@@ -21,6 +21,9 @@
     <string name="no_barcode_captured_err">Please capture a barcode to continue!</string>
     <string name="sample_id_prompt">Sample ID:\u0020</string>
     <string name="captured">Captured!</string>
+    <string name="manufacturer_name"><![CDATA[<b>Manufacturer:</b>]]></string>
+    <string name="rdt_name"><![CDATA[<b>RDT name:</b>]]></string>
+
     <string-array name="locales_key">
         <item>English</item>
         <item>Indonesia</item>
@@ -29,4 +32,7 @@
         <item>en</item>
         <item>in</item>
     </string-array>
+    <string name="lbl_back">Back</string>
+    <string name="lbl_gender_id">Female . ID: 99358357</string>
+    <string name="lbl_visit">Visit %d</string>
 </resources>

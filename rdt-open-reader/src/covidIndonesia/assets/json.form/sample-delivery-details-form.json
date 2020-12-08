@@ -117,6 +117,7 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
+        "enable_back_press": true,
         "hint": "{{sample-delivery-details-form-original.step3.qr_code_reader.hint}}",
         "scanButtonText": "{{sample-delivery-details-form-original.step3.qr_code_reader.scanButtonText}}",
         "value": "0",
@@ -201,11 +202,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{sample-delivery-details-form-original.step4.courier_phone_number.v_min_length.err}}"
         }
       },
       {
@@ -258,11 +259,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{sample-delivery-details-form-original.step4.sender_phone_number.v_min_length.err}}"
         }
       },
       {
