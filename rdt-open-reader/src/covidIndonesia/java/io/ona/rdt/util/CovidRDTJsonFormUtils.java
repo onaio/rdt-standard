@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
@@ -186,17 +187,26 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     private JSONArray getLocations() throws JSONException {
-
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
 
-        JSONArray jsonArray = new JSONArray();
         if (locationTree == null) {
-            return jsonArray;
+           return getDefaultLocations();
         }
 
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
         return Utils.createOptionsBlock(appendOtherOption(filterLocations(locationMap)), "", "", "");
+    }
+
+    private JSONArray getDefaultLocations() throws JSONException {
+        String defaultLocation = LocationHelper.getInstance().getDefaultLocation();
+        Map<String, String> defaultLocations = new LinkedHashMap<String, String>() {
+            {
+                put(defaultLocation.toLowerCase(), defaultLocation);
+                put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
+            }
+        };
+        return Utils.createOptionsBlock(defaultLocations, "", "", "");
     }
 
     private Map<String, String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
