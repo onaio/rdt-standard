@@ -1,105 +1,71 @@
 package io.ona.rdt.interactor;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
-import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.Obs;
+import org.mockito.Mockito;
+import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.domain.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.ona.rdt.TestUtils;
-import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.domain.PatientHistoryEntry;
-import io.ona.rdt.util.FormSaver;
+import io.ona.rdt.repository.PatientHistoryRepository;
+import io.ona.rdt.robolectric.RobolectricTest;
+import io.ona.rdt.robolectric.shadow.EventClientRepositoryShadow;
 
-import static io.ona.rdt.util.Constants.FormFields.RDT_ID;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 /**
- * Created by Vincent Karuri on 05/08/2019
+ * Created by Syed Owais Ali on 08/12/2020
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({RDTApplication.class, ClientProcessorForJava.class})
-public class CovidPatientHistoryActivityInteractorTest {
+@Config(shadows = {EventClientRepositoryShadow.class})
+public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
 
+    private static final String EVENT_JSON = "{\"type\":\"Event\",\"dateCreated\":\"2020-09-03T09:37:31.385Z\",\"serverVersion\":1599125920026,\"identifiers\":{},\"baseEntityId\":\"06891a4f-2625-4d12-a15e-634179df3813\",\"locationId\":\"ae5e8535-6f3f-48cd-b7a3-7f86bba093ea\",\"eventDate\":\"2020-09-02T21:00:00.000Z\",\"eventType\":\"patient_diagnostics\",\"formSubmissionId\":\"004f519a-57ea-409b-ab00-fc7ee5412f07\",\"providerId\":\"indtester1\",\"duration\":0,\"obs\":[{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"facility_type\",\"parentCode\":\"\",\"values\":[\"home\"],\"set\":[],\"formSubmissionField\":\"facility_type\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"patient_age\",\"parentCode\":\"\",\"values\":[\"9\"],\"set\":[],\"formSubmissionField\":\"patient_age\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"patient_sex\",\"parentCode\":\"\",\"values\":[\"male\"],\"set\":[],\"formSubmissionField\":\"patient_sex\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"using_ventilator\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"using_ventilator\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"patient_case_category\",\"parentCode\":\"\",\"values\":[\"without_symptoms\"],\"set\":[],\"formSubmissionField\":\"patient_case_category\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_chronic_heart_disease_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_chronic_heart_disease_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_chronic_lung_disease_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_chronic_lung_disease_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_chronic_kidney_disease_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_chronic_kidney_disease_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_urinary_or_kidney_disease_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_urinary_or_kidney_disease_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_diabetes\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_diabetes\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_gout_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_gout_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_autoimmune_disease_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_autoimmune_disease_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_neurological_disease\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_neurological_disease\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_hiv\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_hiv\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_hypertension\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_hypertension\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_other_health_issues\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_other_health_issues\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"date_of_onset_of_symptoms\",\"parentCode\":\"\",\"values\":[\"03-09-2019\"],\"set\":[],\"formSubmissionField\":\"date_of_onset_of_symptoms\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_fever\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_fever\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_nausea\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_nausea\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_diarrhoea\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_diarrhoea\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_sore_throat\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_sore_throat\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_cough\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_cough\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_cold\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_cold\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_lost_smell\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_lost_smell\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_shortness_of_breath\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_shortness_of_breath\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_decreased_taste_sensitivity\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_decreased_taste_sensitivity\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_abnormal_headaches\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_abnormal_headaches\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_chest_pains\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_chest_pains\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_muscle_pains\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_muscle_pains\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_fatigue\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_fatigue\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_travel_history\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_travel_history\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_close_contact_with_sick_traveller\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_close_contact_with_sick_traveller\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"covid_patients_in_compound\",\"parentCode\":\"\",\"values\":[\"[{\\\"key\\\":\\\"name_label\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Contacts name\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"name\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}},{\\\"key\\\":\\\"phone_number_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Contacts phone number\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"phone_number\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"},\\\"v_numeric\\\":{\\\"value\\\":\\\"true\\\",\\\"err\\\":\\\"Value must be numeric\\\"},\\\"v_max_length\\\":{\\\"value\\\":\\\"13\\\",\\\"err\\\":\\\"Phone number cannot be more than 13 digits\\\"},\\\"v_min_length\\\":{\\\"value\\\":\\\"8\\\",\\\"err\\\":\\\"Phone number cannot be less than 8 digits\\\"}},{\\\"key\\\":\\\"relationship_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Relationship with contact\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"relationship\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}},{\\\"key\\\":\\\"date_of_first_contact\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"date_picker\\\",\\\"hint\\\":\\\"Date of first contact\\\",\\\"expanded\\\":false,\\\"duration\\\":{\\\"label\\\":\\\"Date of first contact\\\"},\\\"min_date\\\":\\\"today-100y\\\",\\\"max_date\\\":\\\"today\\\"},{\\\"key\\\":\\\"date_of_last_contact\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"date_picker\\\",\\\"hint\\\":\\\"Date of last contact\\\",\\\"expanded\\\":false,\\\"duration\\\":{\\\"label\\\":\\\"Date of last contact\\\"},\\\"min_date\\\":\\\"today-100y\\\",\\\"max_date\\\":\\\"today\\\"}]\"],\"set\":[],\"formSubmissionField\":\"covid_patients_in_compound\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_close_contact_with_covid_patient\",\"parentCode\":\"\",\"values\":[\"[{\\\"key\\\":\\\"name_label\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Contacts name\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"name\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}},{\\\"key\\\":\\\"phone_number_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Contacts phone number\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"phone_number\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"},\\\"v_numeric\\\":{\\\"value\\\":\\\"true\\\",\\\"err\\\":\\\"Value must be numeric\\\"},\\\"v_max_length\\\":{\\\"value\\\":\\\"13\\\",\\\"err\\\":\\\"Phone number cannot be more than 13 digits\\\"},\\\"v_min_length\\\":{\\\"value\\\":\\\"8\\\",\\\"err\\\":\\\"Phone number cannot be less than 8 digits\\\"}},{\\\"key\\\":\\\"relationship_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Relationship with contact\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"relationship\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}},{\\\"key\\\":\\\"date_of_first_contact\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"date_picker\\\",\\\"hint\\\":\\\"Date of first contact\\\",\\\"expanded\\\":false,\\\"duration\\\":{\\\"label\\\":\\\"Date of first contact\\\"},\\\"min_date\\\":\\\"today-100y\\\",\\\"max_date\\\":\\\"today\\\"},{\\\"key\\\":\\\"date_of_last_contact\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"date_picker\\\",\\\"hint\\\":\\\"Date of last contact\\\",\\\"expanded\\\":false,\\\"duration\\\":{\\\"label\\\":\\\"Date of last contact\\\"},\\\"min_date\\\":\\\"today-100y\\\",\\\"max_date\\\":\\\"today\\\"}]\"],\"set\":[],\"formSubmissionField\":\"has_close_contact_with_covid_patient\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_close_contact_with_someone_outside_household\",\"parentCode\":\"\",\"values\":[\"[{\\\"key\\\":\\\"name_label\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Contacts name\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"name\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}},{\\\"key\\\":\\\"phone_number_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Contacts phone number\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"phone_number\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"},\\\"v_numeric\\\":{\\\"value\\\":\\\"true\\\",\\\"err\\\":\\\"Value must be numeric\\\"},\\\"v_max_length\\\":{\\\"value\\\":\\\"13\\\",\\\"err\\\":\\\"Phone number cannot be more than 13 digits\\\"},\\\"v_min_length\\\":{\\\"value\\\":\\\"8\\\",\\\"err\\\":\\\"Phone number cannot be less than 8 digits\\\"}},{\\\"key\\\":\\\"relationship_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Relationship with contact\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"relationship\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}},{\\\"key\\\":\\\"date_of_first_contact\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"date_picker\\\",\\\"hint\\\":\\\"Date of first contact\\\",\\\"expanded\\\":false,\\\"duration\\\":{\\\"label\\\":\\\"Date of first contact\\\"},\\\"min_date\\\":\\\"today-100y\\\",\\\"max_date\\\":\\\"today\\\"},{\\\"key\\\":\\\"date_of_last_contact\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"date_picker\\\",\\\"hint\\\":\\\"Date of last contact\\\",\\\"expanded\\\":false,\\\"duration\\\":{\\\"label\\\":\\\"Date of last contact\\\"},\\\"min_date\\\":\\\"today-100y\\\",\\\"max_date\\\":\\\"today\\\"},{\\\"key\\\":\\\"location_lbl\\\",\\\"type\\\":\\\"label\\\",\\\"text\\\":\\\"Location of contact\\\",\\\"text_color\\\":\\\"#000000\\\"},{\\\"key\\\":\\\"location\\\",\\\"openmrs_entity_parent\\\":\\\"\\\",\\\"openmrs_entity\\\":\\\"\\\",\\\"openmrs_entity_id\\\":\\\"\\\",\\\"type\\\":\\\"edit_text\\\",\\\"v_required\\\":{\\\"value\\\":\\\"false\\\",\\\"err\\\":\\\"\\\"}}]\"],\"set\":[],\"formSubmissionField\":\"has_close_contact_with_someone_outside_household\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_close_contact_with_infectious_animal\",\"parentCode\":\"\",\"values\":[\"No\"],\"set\":[],\"formSubmissionField\":\"has_close_contact_with_infectious_animal\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"has_close_contact_with_someone_outside_household_count\",\"parentCode\":\"\",\"values\":[\"4\"],\"set\":[],\"formSubmissionField\":\"has_close_contact_with_someone_outside_household_count\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_deb1441d0edf4766af8d397e9b9a1feb\",\"parentCode\":\"\",\"values\":[\"886998888\"],\"set\":[],\"formSubmissionField\":\"phone_number_deb1441d0edf4766af8d397e9b9a1feb\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_07041aa96a0b48c08eec9dbc673ef0c8\",\"parentCode\":\"\",\"values\":[\"88888999\"],\"set\":[],\"formSubmissionField\":\"phone_number_07041aa96a0b48c08eec9dbc673ef0c8\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_bde54e6822e64e51a47d37eb7910ffc4\",\"parentCode\":\"\",\"values\":[\"88888888\"],\"set\":[],\"formSubmissionField\":\"phone_number_bde54e6822e64e51a47d37eb7910ffc4\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_bf5e61d7443248f8b6b77599e5fd7573\",\"parentCode\":\"\",\"values\":[\"58888888\"],\"set\":[],\"formSubmissionField\":\"phone_number_bf5e61d7443248f8b6b77599e5fd7573\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_c8b2fc7b33ea4957bc7f109062f6506c\",\"parentCode\":\"\",\"values\":[\"58899998\"],\"set\":[],\"formSubmissionField\":\"phone_number_c8b2fc7b33ea4957bc7f109062f6506c\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_ee32f86a3d45462596931fd7c41c14dd\",\"parentCode\":\"\",\"values\":[\"88555555\"],\"set\":[],\"formSubmissionField\":\"phone_number_ee32f86a3d45462596931fd7c41c14dd\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_68334a8736754685a74e9542e76d6767\",\"parentCode\":\"\",\"values\":[\"8888558555\"],\"set\":[],\"formSubmissionField\":\"phone_number_68334a8736754685a74e9542e76d6767\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_9c0dbf815ea54d0193db29e08f6f7559\",\"parentCode\":\"\",\"values\":[\"88889985\"],\"set\":[],\"formSubmissionField\":\"phone_number_9c0dbf815ea54d0193db29e08f6f7559\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"formsubmissionField\",\"fieldDataType\":\"text\",\"fieldCode\":\"phone_number_60b6cdd7b8c344c082d59385019a3ca7\",\"parentCode\":\"\",\"values\":[\"887775555\"],\"set\":[],\"formSubmissionField\":\"phone_number_60b6cdd7b8c344c082d59385019a3ca7\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"concept\",\"fieldDataType\":\"start\",\"fieldCode\":\"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"parentCode\":\"\",\"values\":[\"2020-09-03 12:08:28\"],\"set\":[],\"formSubmissionField\":\"start\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"concept\",\"fieldDataType\":\"end\",\"fieldCode\":\"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"parentCode\":\"\",\"values\":[\"2020-09-03 12:10:53\"],\"set\":[],\"formSubmissionField\":\"end\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldType\":\"concept\",\"fieldDataType\":\"deviceid\",\"fieldCode\":\"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"parentCode\":\"\",\"values\":[\"352121115004895\"],\"set\":[],\"formSubmissionField\":\"deviceid\",\"humanReadableValues\":[],\"saveObsAsArray\":false},{\"fieldCode\":\"phone_os_version\",\"values\":[\"9\"],\"set\":[],\"formSubmissionField\":\"phone_os_version\",\"saveObsAsArray\":false},{\"fieldCode\":\"app_version\",\"values\":[\"v1.4.0-COVID-ID\"],\"set\":[],\"formSubmissionField\":\"app_version\",\"saveObsAsArray\":false},{\"fieldCode\":\"phone_manufacturer\",\"values\":[\"samsung\"],\"set\":[],\"formSubmissionField\":\"phone_manufacturer\",\"saveObsAsArray\":false},{\"fieldCode\":\"phone_model\",\"values\":[\"SM-A107F\"],\"set\":[],\"formSubmissionField\":\"phone_model\",\"saveObsAsArray\":false}],\"entityType\":\"\",\"details\":{\"formVersion\":\"\",\"appVersionName\":\"1.14.2.0kfsajdhskjd32-SNAPSHOT\"},\"version\":1599124253400,\"teamId\":\"752c8d0e-3572-4d0e-b90a-cd0a51819164\",\"team\":\"indonesia-team-1\",\"_id\":\"8ae30372-cc9f-4c42-901c-9157acd01e61\",\"_rev\":\"v2\"}";
     private CovidPatientHistoryActivityInteractor interactor;
-    private static JSONObject formJsonObj;
 
-    @Mock
-    private RDTApplication rdtApplication;
-    @Mock
-    private org.smartregister.Context drishtiContext;
     @Mock
     protected EventClientRepository eventClientRepository;
 
-    @BeforeClass
-    public static void init() throws JSONException {
-        formJsonObj = new JSONObject(TestUtils.PATIENT_REGISTRATION_JSON_FORM);
-    }
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockStaticMethods();
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         interactor = new CovidPatientHistoryActivityInteractor();
+        mockStaticMethods();
     }
 
     @Test
     public void testGetPatientHistoryEntries() throws JSONException {
-        List<PatientHistoryEntry> rdtPatient = interactor.getPatientHistoryEntries("", "", "");
-        assertNotNull(rdtPatient);
-        //assertEquals(rdtPatient.getPatientName(), FormSaverTest.expectedPatient.getPatientName());
-        //assertEquals(rdtPatient.getPatientSex(), FormSaverTest.expectedPatient.getPatientSex());
-        //assertEquals(rdtPatient.getBaseEntityId(), FormSaverTest.expectedPatient.getBaseEntityId());
-        //assertEquals(rdtPatient.getPatientId(), FormSaverTest.expectedPatient.getPatientId());
-    }
+        List<PatientHistoryEntry> list = interactor.getPatientHistoryEntries("", "", "");
 
-    @Test
-    public void testSaveFormShouldSaveForm() {
-        JSONObject jsonForm = mock(JSONObject.class);
-        OnFormSavedCallback callback = mock(OnFormSavedCallback.class);
+        assertNotNull(list);
+        Assert.assertEquals(33, list.size());
 
-        FormSaver formSaver =  mock(FormSaver.class);
-        Whitebox.setInternalState(interactor, "formSaver", formSaver);
-        //interactor.saveForm(jsonForm, callback);
-        verify(formSaver).saveForm(eq(jsonForm), eq(callback));
-    }
-
-    protected Event getEvent() {
-        Event event = new Event();
-        event.setObs(new ArrayList<>());
-        Obs obs = new Obs();
-        obs.setValue("unique_id");
-        obs.setFieldCode(RDT_ID);
-        event.getObs().add(obs);
-        return event;
+        for (PatientHistoryEntry entry : list) {
+            Assert.assertNotEquals("", entry.getValue());
+        }
     }
 
     private void mockStaticMethods() {
-        // mock RDTApplication and Drishti context
-        mockStatic(RDTApplication.class);
-        PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
-        PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
 
-        // mock repositories
-        PowerMockito.when(drishtiContext.getEventClientRepository()).thenReturn(eventClientRepository);
+        EventClientRepository repository = new EventClientRepository();
+        Event event = repository.convert(EVENT_JSON, Event.class);
+        EventClient eventClient = new EventClient(event);
+        List<EventClient> list = new ArrayList<>();
+        list.add(eventClient);
+
+        PatientHistoryRepository patientHistoryRepository = Mockito.mock(PatientHistoryRepository.class);
+        ReflectionHelpers.setField(interactor, "patientHistoryRepository", patientHistoryRepository);
+
+        Mockito.doReturn(eventClient).when(patientHistoryRepository).getEvent(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
     }
+
+
 }
