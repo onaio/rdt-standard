@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
@@ -162,7 +163,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_CANCELED) {
+        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == JsonFormConstants.RESULT_CODE.RUNTIME_EXCEPTION_OCCURRED) {
             throw new RuntimeException("Unchecked exception occurred when working on a form launched from the patient profile!"); // app crashed during form launch so propagate the crash
         } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");

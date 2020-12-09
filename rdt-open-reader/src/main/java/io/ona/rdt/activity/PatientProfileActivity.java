@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -59,7 +61,7 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_CANCELED) {
+        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == JsonFormConstants.RESULT_CODE.RUNTIME_EXCEPTION_OCCURRED) {
             throw new RuntimeException("Unchecked exception occurred when working on a form launched from the patient profile!"); // app crashed during form launch so propagate the crash
         } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
