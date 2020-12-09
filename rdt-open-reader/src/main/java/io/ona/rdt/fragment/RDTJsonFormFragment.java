@@ -1,7 +1,9 @@
 package io.ona.rdt.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -174,6 +176,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
                 .setMessage(R.string.confirm_close_msg).setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        getActivity().setResult(Activity.RESULT_OK);
                         getActivity().finish();
                         CountDownTimerFactory.stopAlarm();
                     }

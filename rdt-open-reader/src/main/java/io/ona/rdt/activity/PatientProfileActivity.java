@@ -59,7 +59,9 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_CANCELED) {
+            throw new RuntimeException("Unchecked exception occurred when working on a form launched from the patient profile!"); // app crashed during form launch so propagate the crash
+        } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
             Timber.d(jsonForm);
             presenter.saveForm(jsonForm, null);
