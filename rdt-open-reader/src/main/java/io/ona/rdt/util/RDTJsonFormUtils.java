@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -41,7 +42,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
@@ -71,7 +71,6 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
-import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by Vincent Karuri on 24/05/2019
@@ -222,19 +221,19 @@ public class RDTJsonFormUtils {
         });
     }
 
+    public static Bitmap convertBase64StrToBitmap(String base64Str) {
+        return StringUtils.isBlank(base64Str) ? null : convertByteArrayToBitmap(Base64.decode(base64Str.getBytes(), Base64.DEFAULT));
+    }
+
     public static Bitmap convertByteArrayToBitmap(final byte[] src) {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 
     public void startJsonForm(JSONObject form, Activity context, int requestCode) {
         Intent intent = new Intent(context, getJsonFormActivityClass());
-        try {
-            intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
-            intent.putExtra(PERFORM_FORM_TRANSLATION, true);
-            context.startActivityForResult(intent, requestCode);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+        intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
+        intent.putExtra(PERFORM_FORM_TRANSLATION, true);
+        context.startActivityForResult(intent, requestCode);
     }
 
     protected Class getJsonFormActivityClass() {
@@ -252,13 +251,12 @@ public class RDTJsonFormUtils {
         }
     }
 
-    public JSONObject launchForm(Activity activity, String formName, Patient patient, List<String> uniqueIDs) {
+    public JSONObject launchForm(Activity activity, String formName, Patient patient, String uniqueId) {
         JSONObject formJsonObject = null;
         try {
             formJsonObject = getFormJsonObject(formName, activity);
             if (formShouldBePrePopulated(formName)) {
-                String uniqueId = isEmptyCollection(uniqueIDs) ? "" : uniqueIDs.get(0);
-                prePopulateFormFields(activity, formJsonObject, patient, uniqueId);
+                prePopulateFormFields(activity, formJsonObject, patient, uniqueId == null ? "" : uniqueId);
             }
             formJsonObject.put(ENTITY_ID, patient == null ? null : patient.getBaseEntityId());
             startJsonForm(formJsonObject, activity, REQUEST_CODE_GET_JSON);
@@ -404,5 +402,9 @@ public class RDTJsonFormUtils {
         }
         FormUtils formUtils = new FormUtils();
         return formUtils.getFieldJSONObject(formUtils.getFormFields(step, context), key);
+    }
+
+    public static JSONObject getStepStateConfigObj() {
+        return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj();
     }
 }

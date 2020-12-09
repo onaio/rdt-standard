@@ -25,7 +25,7 @@ android {
         applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 8
+        versionCode 9
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
@@ -36,6 +36,8 @@ android {
         def oneScanAuthToken = System.getenv('ONE_SCAN_AUTH_TOKEN')
         buildConfigField "String", "ONE_SCAN_CLIENT_ID", "\"$oneScanClientId\""
         buildConfigField "String", "ONE_SCAN_AUTH_TOKEN", "\"$oneScanAuthToken\""
+
+        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -62,6 +64,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     packagingOptions {
@@ -126,7 +129,7 @@ android {
             applicationId "io.ona.diagnostics.rdt.configurable.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.7.0"
+            versionName "v1.8.0"
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
@@ -150,6 +153,8 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
+
     implementation "androidx.core:core-ktx:1.0.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -161,7 +166,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.14.6.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.14.7.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -263,7 +268,7 @@ project.afterEvaluate {
                         getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
                         getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
-                        classDirectories = fileTree(
+                        classDirectories.from(fileTree(
                                 dir: "${project.buildDir}/intermediates/javac/${sourceName}/classes/",
                                 excludes: [
                                         '**/R.class',
@@ -274,16 +279,16 @@ project.afterEvaluate {
                                         '**/Manifest*.*',
                                         '**/META-INF/**/*'
                                 ]
-                        )
+                        ))
 
                         def coverageSourceDirs = [
                                 "src/main/java",
                                 "src/$productFlavorName/java",
                                 "src/$buildTypeName/java"
                         ]
-                        additionalSourceDirs = files(coverageSourceDirs)
-                        sourceDirectories = files(coverageSourceDirs)
-                        executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+                        additionalSourceDirs.from(files(coverageSourceDirs))
+                        sourceDirectories.from(files(coverageSourceDirs))
+                        executionData.from(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
 
                         reports {
                             // enables and disable the type of file you need

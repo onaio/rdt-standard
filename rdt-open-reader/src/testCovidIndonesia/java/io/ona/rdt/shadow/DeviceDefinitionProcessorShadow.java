@@ -1,17 +1,10 @@
 package io.ona.rdt.shadow;
 
-import android.content.Context;
-
-import com.ibm.fhir.model.parser.exception.FHIRParserException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,18 +18,33 @@ import io.ona.rdt.util.DeviceDefinitionProcessor;
 public class DeviceDefinitionProcessorShadow {
 
     private static JSONObject jsonObject;
+    public static final String DEVICE_ID = "device_id";
+    public static final String MANUFACTURER = "manufacturer";
+    public static final String DEVICE_NAME = "device_name";
 
     @Implementation
-    public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
-        try {
-            DeviceDefinitionProcessor deviceDefinitionProcessor = Mockito.mock(DeviceDefinitionProcessor.class);
-            Mockito.doReturn(jsonObject).when(deviceDefinitionProcessor).extractDeviceConfig(ArgumentMatchers.anyString());
-            Mockito.doReturn(getDeviceIdToNameMap()).when(deviceDefinitionProcessor).getDeviceIDToDeviceNameMap();
-            return deviceDefinitionProcessor;
-        } catch (JSONException e) {
-            // do nothing
-        }
-        return null;
+    public JSONObject extractDeviceConfig(String deviceId) throws JSONException {
+        return jsonObject;
+    }
+
+    @Implementation
+    public Map<String, String> getDeviceIDToDeviceNameMap() {
+        return getDeviceIdToNameMap();
+    }
+
+    @Implementation
+    public String getDeviceId(String productCode) {
+        return DEVICE_ID;
+    }
+
+    @Implementation
+    public String extractManufacturerName(String deviceId) {
+        return MANUFACTURER;
+    }
+
+    @Implementation
+    public String extractDeviceName(String deviceId) {
+        return DEVICE_NAME;
     }
 
     public static Map<String, String> getDeviceIdToNameMap() {
@@ -49,5 +57,9 @@ public class DeviceDefinitionProcessorShadow {
 
     public static void setJSONObject(JSONObject jsonObject) {
         DeviceDefinitionProcessorShadow.jsonObject = jsonObject;
+    }
+
+    public static JSONObject getJsonObject() {
+        return jsonObject;
     }
 }

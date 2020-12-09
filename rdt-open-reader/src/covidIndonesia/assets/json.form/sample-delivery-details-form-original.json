@@ -1,5 +1,5 @@
 {
-  "count": "4",
+  "count": "5",
   "encounter_type": "sample_delivery_details",
   "entity_id": "",
   "metadata": {
@@ -117,6 +117,7 @@
         "openmrs_entity_id": "",
         "type": "one_scan_covid_barcode_reader",
         "barcode_type": "qrcode",
+        "enable_back_press": true,
         "hint": "",
         "scanButtonText": "",
         "value": "0",
@@ -127,42 +128,8 @@
         "v_required": {
           "value": "true",
           "err": ""
-        }
-      },
-      {
-        "key": "unique_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
-        "key": "lot_no",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
-        "key": "exp_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
-        "key": "gtin",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
-        "key": "temp_sensor",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
+        },
+        "enable_batch_scan": "true"
       }
     ]
   },
@@ -171,8 +138,8 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "next": "step5",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "manual_sample_id_label",
@@ -319,6 +286,43 @@
           "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
           "err": "Please enter a valid email address"
         }
+      }
+    ]
+  },
+  "step5": {
+    "title": "Sample shipment details",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "lbl_batch_id",
+        "type": "label",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": "Batch Id"
+      },
+      {
+        "key": "batch_id_text",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "center_label": "true",
+        "top_margin": "15dp",
+        "text": ""
+      },
+      {
+        "key": "batch_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   }

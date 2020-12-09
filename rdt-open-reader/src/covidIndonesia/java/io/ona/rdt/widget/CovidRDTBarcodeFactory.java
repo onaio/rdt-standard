@@ -3,7 +3,7 @@ package io.ona.rdt.widget;
 import android.content.Context;
 import android.content.Intent;
 
-import com.ibm.fhir.exception.FHIRException;
+import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 
@@ -36,29 +36,23 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
     private static final int EXP_DATE_INDEX = 1;
     private static final int LOT_NO_INDEX = 2;
     private static final int UNIQUE_ID_INDEX = 0;
+    public static final String BATCH_ID = "batch_id";
 
-    private final String LOT_NO = "lot_no";
-    private final String EXP_DATE = "exp_date";
-    private final String GTIN = "gtin";
-    private final String TEMP_SENSOR = "temp_sensor";
+    public static final String LOT_NO = "lot_no";
+    public static final String EXP_DATE = "exp_date";
+    public static final String GTIN = "gtin";
+    public static final String TEMP_SENSOR = "temp_sensor";
 
     public static final String RDT_BARCODE_EXPIRATION_DATE_FORMAT = "YYYY-MM-dd";
 
+    protected CovidRDTJsonFormUtils formUtils = new CovidRDTJsonFormUtils();
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
         if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             try {
-                String barcodeVals = getBarcodeValsAsCSV(data);
-                jsonApi.writeValue(widgetArgs.getStepName(),
-                        widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
-                        barcodeVals, "", "", "", false);
-
-                String[] individualVals = splitCSV(barcodeVals);
-                populateRelevantFields(individualVals);
-                moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
-                        convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
-            } catch (JSONException | ParseException | FHIRException | IOException e) {
+                processResultData(data);
+            } catch (JSONException | ParseException | IOException | FHIRParserException e) {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
@@ -68,33 +62,46 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         }
     }
 
+    protected void processResultData(Intent data) throws JSONException, ParseException, IOException, FHIRParserException {
+        final JsonApi jsonApi = (JsonApi) widgetArgs.getContext();
+        String barcodeVals = getBarcodeValsAsCSV(data);
+
+        jsonApi.writeValue(widgetArgs.getStepName(),
+                widgetArgs.getJsonObject().optString(JsonFormConstants.KEY),
+                barcodeVals, "", "", "", false);
+
+        String[] individualVals = splitCSV(barcodeVals);
+        populateSingleScanData(individualVals);
+        moveToNextStep(Boolean.parseBoolean(individualVals[SENSOR_TRIGGER_INDEX]),
+                convertDate(individualVals[1], RDT_BARCODE_EXPIRATION_DATE_FORMAT));
+    }
+
     protected abstract String getBarcodeValsAsCSV(Intent data);
 
     protected abstract String[] splitCSV(String barcodeCSV);
 
-    protected void populateRelevantFields(String[] individualVals) throws JSONException, FHIRException, IOException {
+    protected void populateSingleScanData(String[] individualVals) throws JSONException, IOException, FHIRParserException {
         Context context = widgetArgs.getContext();
         JsonApi jsonApi = (JsonApi) context;
         String stepName = widgetArgs.getStepName();
 
-        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[UNIQUE_ID_INDEX],  "", "", "", false);
-        jsonApi.writeValue(stepName, EXP_DATE, individualVals[EXP_DATE_INDEX],  "", "", "", false);
-        jsonApi.writeValue(stepName, LOT_NO, individualVals[LOT_NO_INDEX],  "", "", "", false);
-        jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX],  "", "", "", false);
-        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX],  "", "", "", false);
+        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[UNIQUE_ID_INDEX], "", "", "", false);
+        jsonApi.writeValue(stepName, EXP_DATE, individualVals[EXP_DATE_INDEX], "", "", "", false);
+        jsonApi.writeValue(stepName, LOT_NO, individualVals[LOT_NO_INDEX], "", "", "", false);
+        jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX], "", "", "", false);
+        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX], "", "", "", false);
+        jsonApi.writeValue(stepStateConfig.optString(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE), Constants.FormFields.LBL_RDT_ID, "RDT ID: " + individualVals[UNIQUE_ID_INDEX], "", "", "", false);
 
-        // write fhir resource device id to rdt type field
-        String deviceId = DeviceDefinitionProcessor.getInstance(context).getDeviceId(individualVals[GTIN_INDEX]);
-        if (deviceId != null) {
-            jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
-                    Constants.RDTType.RDT_TYPE, deviceId, "", "", "", false);
-        }
+        // populate RDT device details confirmation page
+        DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
+        String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
+        formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
 
         // write unique id to confirmation page
         String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
         JSONObject uniqueIdCheckBox = CovidRDTJsonFormUtils.getField(patientInfoConfirmationPage,
-                        CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
-                        widgetArgs.getContext());
+                CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
+                widgetArgs.getContext());
         CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
     }
 

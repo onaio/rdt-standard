@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import io.ona.rdt.R;
 import io.ona.rdt.util.Constants;
@@ -24,22 +29,24 @@ public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
     protected void launchCamera(Intent intent, Context context) {
         try {
             Activity activity = (Activity) context;
-            JSONObject rdtTypeField = RDTJsonFormUtils.getField(stepStateConfig.getString(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE),
-                    Constants.RDTType.RDT_TYPE, context);
-            String rdtType = rdtTypeField.getString(JsonFormConstants.VALUE);
-            JSONObject deviceConfig = DeviceDefinitionProcessor.getInstance(context).extractDeviceConfig(rdtType);
-            if (deviceConfig.length() != 0) {
-                intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, deviceConfig.toString());
+
+            String rdtDetailsConfirmationPage = stepStateConfig.getString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
+            JSONObject rdtConfigField = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
+                    CovidConstants.FormFields.RDT_CONFIG, context);
+
+            String rdtConfig = rdtConfigField.optString(JsonFormConstants.VALUE);
+            if (Utils.isValidJSONObject(rdtConfig)) {
+                intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, rdtConfig);
                 intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
                 activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
-            } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtType)) {
+            } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtConfig)) {
                 activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
             } else {
                 Utils.hideProgressDialogFromFG();
                 onActivityResult(-1, Activity.RESULT_CANCELED, null);
-                Utils.showToastInFG((Activity) context, context.getString(R.string.rdt_not_supported));
+                Utils.showToastInFG(context, context.getString(R.string.rdt_not_supported));
             }
-        } catch (Exception e) {
+        } catch (JSONException e) {
             Timber.e(e);
         }
     }

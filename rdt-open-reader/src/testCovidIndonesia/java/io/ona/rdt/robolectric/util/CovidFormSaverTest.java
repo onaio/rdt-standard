@@ -4,13 +4,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
+import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidFormSaver;
 import io.ona.rdt.util.FormSaver;
+import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_PATIENT_REGISTRATION;
 import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
@@ -44,6 +48,36 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
         Assert.assertEquals(SAMPLE_DELIVERY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, SAMPLE_DELIVERY_DETAILS));
         Assert.assertEquals(CovidConstants.Table.COVID_WBC_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, CovidConstants.Encounter.COVID_WBC));
         Assert.assertEquals(CovidConstants.Table.COVID_XRAY_RECORDS, Whitebox.invokeMethod(getFormSaver(), getBindType, CovidConstants.Encounter.COVID_XRAY));
+    }
+
+    @Test
+    public void testProcessAndSaveFormShouldCloseBatchIdForDeliveryDetailsForm() throws Exception {
+        final String valBatchID = "test-batch-id";
+        final String sampleDeliveryDetailsForm = "{\n" +
+                "   \"count\":\"2\",\n" +
+                "   \"encounter_type\":\"sample_delivery_details\",\n" +
+                "   \"metadata\":{},\n" +
+                "   \"step1\":{\n" +
+                "      \"fields\":[]\n" +
+                "   },\n" +
+                "   \"step2\":{\n" +
+                "      \"fields\":[\n" +
+                "         {\n" +
+                "            \"key\":\"" + CovidRDTBarcodeFactory.BATCH_ID + "\",\n" +
+                "            \"type\":\"hidden\",\n" +
+                "            \"value\":\"" + valBatchID + "\"\n" +
+                "         }\n" +
+                "      ]\n" +
+                "   }\n" +
+                "}";
+
+        FormSaver formSaver = getFormSaver();
+        JSONObject formJson = new JSONObject(sampleDeliveryDetailsForm);
+        formJson.put(Constants.FormFields.ENCOUNTER_TYPE, SAMPLE_DELIVERY_DETAILS);
+        Whitebox.invokeMethod(formSaver, "processAndSaveForm", formJson);
+
+        Mockito.verify(RDTApplication.getInstance().getContext().getUniqueIdRepository(),
+                Mockito.times(1)).close(eq(valBatchID));
     }
 
     @Override
@@ -84,7 +118,7 @@ public class CovidFormSaverTest extends BaseFormSaverTest {
 
     @Override
     protected Event getEvent() {
-        Event event = super.getEvent();;
+        Event event = super.getEvent();
         Obs obs = new Obs();
         obs.setValue(UNIQUE_ID);
         obs.setFieldCode(COVID_SAMPLE_ID);
