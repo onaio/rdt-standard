@@ -62,9 +62,7 @@ public class RDTDeviceSelectorSpinnerFactory extends SpinnerFactory {
             JSONObject rdtTypeField = formUtils.getField(widgetArgs.getStepName(),
                     widgetArgs.getJsonObject().getString(JsonFormConstants.KEY), widgetArgs.getContext());
             String deviceId = rdtTypeField.getString(JsonFormConstants.VALUE);
-            if (!CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
-                formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
-            }
+            formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
         } catch (JSONException | IOException | FHIRParserException e) {
             Timber.e(e);
         }

@@ -1,7 +1,9 @@
 package io.ona.rdt.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
+import com.vijay.jsonwizard.utils.Utils;
 import com.vijay.jsonwizard.widgets.CountDownTimerFactory;
 
 import org.json.JSONObject;
@@ -43,8 +46,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     private View rootLayout;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       rootLayout = super.onCreateView(inflater, container, savedInstanceState);
-       return rootLayout;
+        rootLayout = super.onCreateView(inflater, container, savedInstanceState);
+        return rootLayout;
     }
 
     @Override
@@ -170,21 +173,16 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     @Override
     public void backClick() {
-        AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog).setTitle(R.string.confirm_close_title)
-                .setMessage(R.string.confirm_close_msg).setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        getActivity().finish();
-                        CountDownTimerFactory.stopAlarm();
-                    }
-                }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Timber.d("No button on dialog in %s", JsonFormActivity.class.getCanonicalName());
-                    }
-                }).create();
+        DialogInterface.OnClickListener negativeOnClickListener = (dialog, which) -> {
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
+            CountDownTimerFactory.stopAlarm();
+        };
 
-        dialog.show();
+        DialogInterface.OnClickListener positiveOnClickListener = (dialog, which) -> dialog.dismiss();
+
+        Utils.showAlertDialog(getContext(), getString(R.string.confirm_close_title), getString(R.string.confirm_close_msg),
+                getString(R.string.yes), getString(R.string.no), negativeOnClickListener, positiveOnClickListener);
     }
 
     public boolean isMoveBackOneStep() {

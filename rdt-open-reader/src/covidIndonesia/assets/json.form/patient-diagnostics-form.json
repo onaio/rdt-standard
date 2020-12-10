@@ -96,7 +96,7 @@
         "type": "spinner",
         "hint": "{{patient-diagnostics-form-original.step1.facility_name.hint}}",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "{{patient-diagnostics-form-original.step1.facility_name.v_required.err}}"
         }
       },
