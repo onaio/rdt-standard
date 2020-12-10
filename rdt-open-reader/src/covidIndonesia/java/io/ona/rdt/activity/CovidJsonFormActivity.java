@@ -38,7 +38,7 @@ import static io.ona.rdt.util.CovidConstants.RequestCodes.LOCATION_PERMISSIONS;
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
-public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSuccessListener<Location> {
+public class CovidJsonFormActivity extends RDTJsonFormActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -54,7 +54,7 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSucc
         requestPermissions();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (isLocationPermissionGranted()) {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, this);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, getOnLocationSuccessListener());
         }
     }
 
@@ -90,19 +90,20 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSucc
         return CovidJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
     }
 
-    @Override
-    public void onSuccess(Location location) {
-        if (location != null) {
-            try {
-                JSONObject locationObj = new JSONObject();
-                locationObj.put(LNG, location.getLongitude());
-                locationObj.put(LAT, location.getLatitude());
-                RDTApplication.getInstance().getContext().allSettings().put(LAST_KNOWN_LOCATION,
-                        locationObj.toString());
-            } catch (JSONException e) {
-                Timber.e(e);
+    private OnSuccessListener<Location> getOnLocationSuccessListener() {
+        return location -> {
+            if (location != null) {
+                try {
+                    JSONObject locationObj = new JSONObject();
+                    locationObj.put(LNG, location.getLongitude());
+                    locationObj.put(LAT, location.getLatitude());
+                    RDTApplication.getInstance().getContext().allSettings().put(LAST_KNOWN_LOCATION,
+                            locationObj.toString());
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
             }
-        }
+        };
     }
 
     @Override
