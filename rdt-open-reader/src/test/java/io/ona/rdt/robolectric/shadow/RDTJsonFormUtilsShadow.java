@@ -1,5 +1,6 @@
 package io.ona.rdt.robolectric.shadow;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -21,6 +22,7 @@ import io.ona.rdt.util.RDTJsonFormUtils;
 public class RDTJsonFormUtilsShadow {
 
     private static JSONObject jsonObject;
+    private static MockCounter mockCounter;
 
     @Implementation
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
@@ -31,7 +33,24 @@ public class RDTJsonFormUtilsShadow {
         return jsonObject;
     }
 
+    @Implementation
+    public static void showLocationServicesDialog(final Activity activity) {
+        getMockCounter().setCount(1);
+    }
+
     public static void setJsonObject(JSONObject jsonObject) {
         RDTJsonFormUtilsShadow.jsonObject = jsonObject;
+    }
+
+    public static JSONObject getJsonObject() {
+        return jsonObject;
+    }
+
+    public static MockCounter getMockCounter() {
+        return mockCounter;
+    }
+
+    public static void setMockCounter(MockCounter mockCounter) {
+        RDTJsonFormUtilsShadow.mockCounter = mockCounter;
     }
 }

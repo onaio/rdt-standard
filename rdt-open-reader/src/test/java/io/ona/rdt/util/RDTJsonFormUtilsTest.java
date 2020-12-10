@@ -1,7 +1,12 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.LocationManager;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -13,10 +18,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.shadows.ShadowAlertDialog;
+import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.UniqueId;
@@ -46,13 +55,10 @@ import static io.ona.rdt.util.Constants.Format.BULLET_DOT;
 import static io.ona.rdt.util.Constants.Test.CROPPED_IMAGE;
 import static io.ona.rdt.util.Constants.Test.FULL_IMAGE;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 
 /**
  * Created by Vincent Karuri on 13/08/2019
@@ -805,11 +811,11 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testGetUniqueIDsShouldGetIDs() {
-        OnUniqueIdsFetchedCallback uniqueIdsFetchedCallback = mock(OnUniqueIdsFetchedCallback.class);
-        FormLaunchArgs formLaunchArgs = mock(FormLaunchArgs.class);
+        OnUniqueIdsFetchedCallback uniqueIdsFetchedCallback = Mockito.mock(OnUniqueIdsFetchedCallback.class);
+        FormLaunchArgs formLaunchArgs = Mockito.mock(FormLaunchArgs.class);
         getFormUtils().getNextUniqueIds(formLaunchArgs, uniqueIdsFetchedCallback, 2);
 
-        verify(uniqueIdsFetchedCallback).onUniqueIdsFetched(eq(formLaunchArgs), uniqueIdsArgumentCaptor.capture());
+        Mockito.verify(uniqueIdsFetchedCallback).onUniqueIdsFetched(eq(formLaunchArgs), uniqueIdsArgumentCaptor.capture());
 
         List<UniqueId> uniqueIds = uniqueIdsArgumentCaptor.getValue();
         assertEquals("openmrsID1", uniqueIds.get(0).getOpenmrsId());
@@ -827,9 +833,9 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Test
     public void testWriteImageToDiskShouldSuccessfullyWriteImageToDisk() throws Exception {
-        Bitmap image = mock(Bitmap.class);
-        Pair<Boolean, String> result = Whitebox.invokeMethod(getFormUtils(), "writeImageToDisk", getTestFilePath(), image, mock(Context.class));
-        verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), any(OutputStream.class));
+        Bitmap image = Mockito.mock(Bitmap.class);
+        Pair<Boolean, String> result = Whitebox.invokeMethod(getFormUtils(), "writeImageToDisk", getTestFilePath(), image, Mockito.mock(Context.class));
+        Mockito.verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), ArgumentMatchers.any(OutputStream.class));
         cleanUpFiles(result.second);
     }
 
@@ -841,21 +847,21 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
                 .withBaseEntityId("entity_id");
 
         Whitebox.invokeMethod(getFormUtils(), "saveImgDetails", "file_path", parcelableImageMetadata, profileImage);
-        verify(profileImage).setAnmId(eq("anm_id"));
-        verify(profileImage).setEntityID(eq("entity_id"));
-        verify(profileImage).setFilepath(eq("file_path"));
-        verify(profileImage).setFilecategory(eq(MULTI_VERSION));
-        verify(profileImage).setSyncStatus(eq(ImageRepository.TYPE_Unsynced));
-        verify(RDTApplication.getInstance().getContext().imageRepository()).add(eq(profileImage));
+        Mockito.verify(profileImage).setAnmId(eq("anm_id"));
+        Mockito.verify(profileImage).setEntityID(eq("entity_id"));
+        Mockito.verify(profileImage).setFilepath(eq("file_path"));
+        Mockito.verify(profileImage).setFilecategory(eq(MULTI_VERSION));
+        Mockito.verify(profileImage).setSyncStatus(eq(ImageRepository.TYPE_Unsynced));
+        Mockito.verify(RDTApplication.getInstance().getContext().imageRepository()).add(eq(profileImage));
     }
 
     @Test
     public void testSaveStaticImagesToDiskShouldReturnIfMissingInformation() throws Exception {
-        OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
-        CompositeImage compositeImage = mock(CompositeImage.class);
-        Mockito.doReturn(mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
-        getFormUtils().saveStaticImagesToDisk(mock(Context.class), compositeImage, onImageSavedCallback);
-        verify(onImageSavedCallback).onImageSaved(isNull());
+        OnImageSavedCallback onImageSavedCallback = Mockito.mock(OnImageSavedCallback.class);
+        CompositeImage compositeImage = Mockito.mock(CompositeImage.class);
+        Mockito.doReturn(Mockito.mock(ParcelableImageMetadata.class)).when(compositeImage).getParcelableImageMetadata();
+        getFormUtils().saveStaticImagesToDisk(Mockito.mock(Context.class), compositeImage, onImageSavedCallback);
+        Mockito.verify(onImageSavedCallback).onImageSaved(isNull());
     }
 
     @Test
@@ -867,30 +873,30 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
                 .withProviderId("provider_id");
 
         CompositeImage compositeImage = new CompositeImage();
-        compositeImage.withCroppedImage(mock(Bitmap.class))
-                .withFullImage(mock(Bitmap.class))
+        compositeImage.withCroppedImage(Mockito.mock(Bitmap.class))
+                .withFullImage(Mockito.mock(Bitmap.class))
                 .withParcelableImageMetadata(parcelableImageMetadata);
 
-        OnImageSavedCallback onImageSavedCallback = mock(OnImageSavedCallback.class);
+        OnImageSavedCallback onImageSavedCallback = Mockito.mock(OnImageSavedCallback.class);
         getFormUtils().saveStaticImagesToDisk(RuntimeEnvironment.application, compositeImage, onImageSavedCallback);
 
         // verify cropped and full image get a turn being saved
-        verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
-        verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
+        Mockito.verify(parcelableImageMetadata).setImageToSave(eq(FULL_IMAGE));
+        Mockito.verify(parcelableImageMetadata).setImageToSave(eq(CROPPED_IMAGE));
 
         // verify cropped image is saved
-        verify(parcelableImageMetadata).setCroppedImageId(any());
+        Mockito.verify(parcelableImageMetadata).setCroppedImageId(ArgumentMatchers.any());
         Assert.assertNotNull(compositeImage.getCroppedImageFilePath());
 
         // verify full image is saved
-        verify(parcelableImageMetadata).setFullImageId(any());
-        verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
+        Mockito.verify(parcelableImageMetadata).setFullImageId(ArgumentMatchers.any());
+        Mockito.verify(parcelableImageMetadata).setImageTimeStamp(anyLong());
         Assert.assertNotNull(compositeImage.getFullImageFilePath());
 
         // image should be saved to gallery for debug builds
         assertEquals(1, ImageUtilShadow.getMockCounter().getCount());
 
-        verify(onImageSavedCallback).onImageSaved(eq(compositeImage));
+        Mockito.verify(onImageSavedCallback).onImageSaved(eq(compositeImage));
     }
 
     @Test
@@ -954,6 +960,54 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     public void testConvertBase64StrToBitmapShouldReturnNullBitmapForEmptyString() {
         Assert.assertNull(getFormUtils().convertBase64StrToBitmap(""));
         Assert.assertNull(getFormUtils().convertBase64StrToBitmap(null));
+    }
+
+    @Test
+    public void testShowLocationServicesDialogShouldShowDialogForDisabledLocationServices() {
+        Activity activity = Mockito.spy(Robolectric.buildActivity(Activity.class).create().get());
+
+        RDTJsonFormUtils.showLocationServicesDialog(activity);
+
+        AlertDialog alertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        Assert.assertNotNull(alertDialog);
+
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+        Mockito.verify(activity).startActivity(ArgumentMatchers.any(Intent.class));
+
+        Mockito.reset(activity);
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+        Mockito.verify(activity).finish();
+        Assert.assertNotNull(ShadowToast.getLatestToast());
+
+        activity.finish();
+    }
+
+    @Test
+    public void testIsLocationServiceDisabledShouldReturnCorrectStatus() {
+        Context context = Mockito.mock(Context.class);
+        LocationManager locationManager = Mockito.mock(LocationManager.class);
+        Mockito.doReturn(locationManager).when(context).getSystemService(Context.LOCATION_SERVICE);
+
+        // if both network and gps disabled
+        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean isLocationServiceDisabled = RDTJsonFormUtils.isLocationServiceDisabled(context);
+
+        Assert.assertTrue(isLocationServiceDisabled);
+
+        // if gps enabled
+        Mockito.doReturn(true).when(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        isLocationServiceDisabled = RDTJsonFormUtils.isLocationServiceDisabled(context);
+
+        Assert.assertFalse(isLocationServiceDisabled);
+
+        // if network available
+        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+        Mockito.doReturn(true).when(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        isLocationServiceDisabled = RDTJsonFormUtils.isLocationServiceDisabled(context);
+
+        Assert.assertFalse(isLocationServiceDisabled);
     }
 
     @Override
