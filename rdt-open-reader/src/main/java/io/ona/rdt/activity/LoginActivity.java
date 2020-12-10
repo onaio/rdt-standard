@@ -64,7 +64,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (isRemote) {
             org.smartregister.util.Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        Intent intent = new Intent(this, getLoginActivityClass());
+        Intent intent = new Intent(this, getHomeActivityClass());
         startActivity(intent);
         finish();
     }
@@ -77,7 +77,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
     }
 
-    protected Class getLoginActivityClass() {
+    protected Class getHomeActivityClass() {
         return PatientRegisterActivity.class;
     }
 }
