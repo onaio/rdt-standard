@@ -164,7 +164,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == JsonFormConstants.RESULT_CODE.RUNTIME_EXCEPTION_OCCURRED) {
-            throw new RuntimeException("Unchecked exception occurred when working on a form launched from the patient profile!"); // app crashed during form launch so propagate the crash
+            Bundle bundle = data.getExtras();
+            throw  (RuntimeException) bundle.getSerializable(JsonFormConstants.RESULT_INTENT.RUNTIME_EXCEPTION);
         } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
             Timber.d(jsonForm);
