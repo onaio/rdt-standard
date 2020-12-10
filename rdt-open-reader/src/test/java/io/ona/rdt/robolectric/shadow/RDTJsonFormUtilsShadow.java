@@ -23,6 +23,7 @@ public class RDTJsonFormUtilsShadow {
 
     private static JSONObject jsonObject;
     private static MockCounter mockCounter;
+    private static boolean isLocationServiceDisabled;
 
     @Implementation
     public static void saveStaticImagesToDisk(final Context context, CompositeImage compositeImage, final OnImageSavedCallback onImageSavedCallBack) {
@@ -36,6 +37,11 @@ public class RDTJsonFormUtilsShadow {
     @Implementation
     public static void showLocationServicesDialog(final Activity activity) {
         getMockCounter().setCount(1);
+    }
+
+    @Implementation
+    public static boolean isLocationServiceDisabled(Context context) {
+        return isLocationServiceDisabled;
     }
 
     public static void setJsonObject(JSONObject jsonObject) {
@@ -52,5 +58,13 @@ public class RDTJsonFormUtilsShadow {
 
     public static void setMockCounter(MockCounter mockCounter) {
         RDTJsonFormUtilsShadow.mockCounter = mockCounter;
+    }
+
+    public static boolean isIsLocationServiceDisabled() {
+        return isLocationServiceDisabled;
+    }
+
+    public static void setIsLocationServiceDisabled(boolean isLocationServiceDisabled) {
+        RDTJsonFormUtilsShadow.isLocationServiceDisabled = isLocationServiceDisabled;
     }
 }

@@ -75,8 +75,9 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
     }
 
     private LocationRequest getLocationRequest() {
+        final int requestInterval = 5000;
         LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(5000);
+        locationRequest.setInterval(requestInterval);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         return locationRequest;
     }
