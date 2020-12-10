@@ -7,11 +7,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -41,6 +44,7 @@ import static io.ona.rdt.util.CovidConstants.RequestCodes.LOCATION_PERMISSIONS;
 public class CovidJsonFormActivity extends RDTJsonFormActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationCallback locationCallback;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -53,9 +57,28 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
 
         requestPermissions();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationCallback = new LocationCallback();
         if (isLocationPermissionGranted()) {
+            fusedLocationProviderClient.requestLocationUpdates(getLocationRequest(), locationCallback, null);
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, getOnLocationSuccessListener());
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+    }
+
+    private LocationRequest getLocationRequest() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        return locationRequest;
     }
 
     @Override
