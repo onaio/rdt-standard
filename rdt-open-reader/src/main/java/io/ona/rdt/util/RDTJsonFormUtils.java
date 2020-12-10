@@ -113,7 +113,6 @@ public class RDTJsonFormUtils {
         new SaveImageTask().execute();
     }
 
-
     private static void saveImage(String entityId, ParcelableImageMetadata parcelableImageMetadata, CompositeImage compositeImage, Context context) {
 
         if (!StringUtils.isBlank(entityId)) {
@@ -424,7 +423,7 @@ public class RDTJsonFormUtils {
     }
 
     public static boolean isLocationServiceDisabled(Context context) {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         return !isGpsEnabled && !isNetworkEnabled;

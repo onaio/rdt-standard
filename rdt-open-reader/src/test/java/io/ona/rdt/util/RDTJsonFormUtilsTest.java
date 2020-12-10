@@ -822,8 +822,6 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         assertEquals("openmrsID1", uniqueIds.get(1).getOpenmrsId());
     }
 
-
-
     @Test
     public void testGetFormJsonObjectShouldGetFormJsonObject() throws Exception {
         JSONObject jsonObject = getFormUtils().getFormJsonObject("form_name.json",
@@ -835,7 +833,8 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     public void testWriteImageToDiskShouldSuccessfullyWriteImageToDisk() throws Exception {
         Bitmap image = Mockito.mock(Bitmap.class);
         Pair<Boolean, String> result = Whitebox.invokeMethod(getFormUtils(), "writeImageToDisk", getTestFilePath(), image, Mockito.mock(Context.class));
-        Mockito.verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(100), ArgumentMatchers.any(OutputStream.class));
+        final int quality = 100;
+        Mockito.verify(image).compress(eq(Bitmap.CompressFormat.JPEG), eq(quality), ArgumentMatchers.any(OutputStream.class));
         cleanUpFiles(result.second);
     }
 
@@ -1030,7 +1029,7 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         if (Constants.FormFields.LBL_PATIENT_NAME.equals(field.getString(JsonFormUtils.KEY))) {
             // test patient fields are populated
             assertEquals(field.getString("text"), patient.getPatientName());
-            numOfPopulatedFields++;;
+            numOfPopulatedFields++;
         } else if (Constants.FormFields.LBL_PATIENT_GENDER_AND_ID.equals(field.getString(JsonFormUtils.KEY))) {
             // test patient fields are populated
             assertEquals(field.getString("text"), patient.getPatientSex() + BULLET_DOT + "ID: " + patient.getBaseEntityId());
