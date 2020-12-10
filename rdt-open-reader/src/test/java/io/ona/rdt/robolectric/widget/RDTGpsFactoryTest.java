@@ -90,6 +90,8 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
     public void testShowLocationServicesDialogShouldShowDialogForDisabledLocationServices() throws Exception {
         RDTJsonFormUtilsShadow.setMockCounter(new MockCounter());
         Assert.assertEquals(0, RDTJsonFormUtilsShadow.getMockCounter().getCount());
+        RDTJsonFormUtilsShadow.setIsLocationServiceDisabled(true);
+
         List<View> views = gpsFactory.getViewsFromJson(STEP1, jsonFormActivity,
                 formFragment, jsonObject, commonListener, false);
 
@@ -99,6 +101,7 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
         Assert.assertEquals(1, RDTJsonFormUtilsShadow.getMockCounter().getCount());
 
         RDTJsonFormUtilsShadow.setMockCounter(null);
+        RDTJsonFormUtilsShadow.setIsLocationServiceDisabled(false);
     }
 
     private void mockMethods() {
