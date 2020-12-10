@@ -13,6 +13,7 @@ import com.rey.material.widget.Button;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.utils.Utils;
 import com.vijay.jsonwizard.widgets.GpsFactory;
 
 import org.json.JSONObject;
@@ -88,17 +89,9 @@ public class RDTGpsFactory extends GpsFactory {
     }
 
     private void showLocationServicesDialog(final Context context) {
-        new AlertDialog.Builder(context)
-                .setMessage("Location services are disabled. Please go to the phone settings to enable them.")
-                .setPositiveButton( "Settings" , new
-                        DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick (DialogInterface paramDialogInterface, int paramInt) {
-                                context.startActivity( new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                            }
-                        })
-                .setNegativeButton( "Cancel" , null )
-                .show() ;
+        DialogInterface.OnClickListener onClickListener = (paramDialogInterface, paramInt) -> context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        Utils.showAlertDialog(context, "", context.getString(R.string.location_settings_disabled_msg),
+                context.getString(R.string.cancel), context.getString(R.string.settings), null, onClickListener);
     }
 
     private boolean isLocationServiceDisabled(Context context) {

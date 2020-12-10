@@ -85,7 +85,7 @@ public class LoginActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testGetLoginActivityClassShouldGetCorrectLoginActivityClass() {
-        Class loginActivityClass = ReflectionHelpers.callInstanceMethod(loginActivity, "getLoginActivityClass");
+        Class loginActivityClass = ReflectionHelpers.callInstanceMethod(loginActivity, "getHomeActivityClass");
         assertEquals(PatientRegisterActivity.class, loginActivityClass);
     }
 

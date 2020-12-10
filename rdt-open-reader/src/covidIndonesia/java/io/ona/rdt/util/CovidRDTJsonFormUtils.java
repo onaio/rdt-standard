@@ -193,7 +193,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
 
         if (locationTree == null) {
-           return getDefaultLocations();
+            return getDefaultLocations();
         }
 
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
