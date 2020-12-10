@@ -129,4 +129,9 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         patientVisitFragment.setArguments(getPatientBundle());
         return patientVisitFragment;
     }
+
+    @Override
+    protected Class<? extends PatientRegisterActivity> getHomeActivityClass() {
+        return CovidPatientRegisterActivity.class;
+    }
 }

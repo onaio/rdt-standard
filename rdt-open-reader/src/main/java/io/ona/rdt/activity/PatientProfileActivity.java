@@ -94,4 +94,15 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
     protected Fragment getPatientProfileFragment() {
         return new PatientProfileFragment();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, getHomeActivityClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    protected Class<? extends PatientRegisterActivity> getHomeActivityClass() {
+        return PatientRegisterActivity.class;
+    }
 }

@@ -59,10 +59,12 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     public static final Set<String> FACILITY_SET = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME,
             CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
 
-    public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
-        Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
+    public static void launchPatientProfile(Patient patient, WeakReference<Activity> activityReference) {
+        Activity activity = activityReference.get();
+        Intent intent = new Intent(activity, CovidPatientProfileActivity.class);
         intent.putExtra(PATIENT, patient);
-        activity.get().startActivity(intent, null);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent, null);
     }
 
     @Override
