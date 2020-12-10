@@ -2,15 +2,19 @@ package io.ona.rdt.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.util.Base64;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -45,6 +49,7 @@ import java.util.UUID;
 import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
+import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnImageSavedCallback;
@@ -406,5 +411,22 @@ public class RDTJsonFormUtils {
 
     public static JSONObject getStepStateConfigObj() {
         return RDTApplication.getInstance().getStepStateConfiguration().getStepStateObj();
+    }
+
+    public static void showLocationServicesDialog(final Activity activity) {
+        DialogInterface.OnClickListener positiveOnClickListener = (paramDialogInterface, paramInt) -> activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        DialogInterface.OnClickListener negativeOnClickListener = (dialog, which) -> {
+            Utils.showToast(activity, activity.getString(R.string.location_services_required));
+            activity.finish();
+        };
+        Utils.showAlertDialog(activity, "", activity.getString(R.string.location_settings_disabled_msg),
+                activity.getString(R.string.cancel), activity.getString(R.string.settings), negativeOnClickListener, positiveOnClickListener);
+    }
+
+    public static boolean isLocationServiceDisabled(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
+        boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        return !isGpsEnabled && !isNetworkEnabled;
     }
 }

@@ -1,5 +1,6 @@
 package io.ona.rdt.widget;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +24,7 @@ import java.util.List;
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.RDTGpsDialog;
+import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.Utils.convertDpToPixels;
@@ -31,8 +33,6 @@ import static io.ona.rdt.util.Utils.convertDpToPixels;
  * Created by Vincent Karuri on 19/08/2019
  */
 public class RDTGpsFactory extends GpsFactory {
-
-    private static final String TAG = RDTGpsFactory.class.getName();
 
     private WidgetArgs widgetArgs;
 
@@ -58,8 +58,8 @@ public class RDTGpsFactory extends GpsFactory {
         new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
 
         rootLayout.findViewById(R.id.record_button).setOnClickListener(v -> {
-            if (isLocationServiceDisabled(context)) {
-                showLocationServicesDialog(context);
+            if (RDTJsonFormUtils.isLocationServiceDisabled(context)) {
+                RDTJsonFormUtils.showLocationServicesDialog((Activity) context);
             } else {
                 requestPermissionsForLocation(context);
             }
@@ -86,18 +86,5 @@ public class RDTGpsFactory extends GpsFactory {
         gpsDialog = new RDTGpsDialog(gpsDialog);
         gpsDialog.setTitle(R.string.please_wait_title);
         ((RDTGpsDialog) gpsDialog).setFormFragment(widgetArgs.getFormFragment());
-    }
-
-    private void showLocationServicesDialog(final Context context) {
-        DialogInterface.OnClickListener onClickListener = (paramDialogInterface, paramInt) -> context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        Utils.showAlertDialog(context, "", context.getString(R.string.location_settings_disabled_msg),
-                context.getString(R.string.cancel), context.getString(R.string.settings), null, onClickListener);
-    }
-
-    private boolean isLocationServiceDisabled(Context context) {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
-        boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        return !isGpsEnabled && !isNetworkEnabled;
     }
 }

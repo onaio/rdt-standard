@@ -46,6 +46,11 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSucc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (RDTJsonFormUtils.isLocationServiceDisabled(this)) {
+            RDTJsonFormUtils.showLocationServicesDialog(this);
+        }
+
         requestPermissions();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (isLocationPermissionGranted()) {
