@@ -1,7 +1,5 @@
 package io.ona.rdt.robolectric.widget;
 
-import android.content.Context;
-import android.location.LocationManager;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -15,9 +13,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.List;
@@ -26,7 +22,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
-import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.util.RDTGpsDialog;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.RDTGpsFactory;
