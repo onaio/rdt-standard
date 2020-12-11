@@ -35,14 +35,9 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
     protected JSONObject stepStateConfig;
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) {
-        return getViewsFromJson(stepName, context, formFragment, jsonObject, listener, false);
-    }
-
-    @Override
     public List<View> getViewsFromJson(String stepName, final Context context,
                                        JsonFormFragment formFragment, final JSONObject jsonObject,
-                                       CommonListener listener, boolean popup) {
+                                       CommonListener listener, boolean popup) throws Exception {
 
         widgetArgs = new WidgetArgs();
         widgetArgs.withContext(context)

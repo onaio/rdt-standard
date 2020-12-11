@@ -135,7 +135,7 @@
         "type": "spinner",
         "hint": "{{rdt-capture-form-original.step4.health_facility_name.hint}}",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
         }
       },
