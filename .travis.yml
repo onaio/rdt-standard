@@ -46,7 +46,7 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-#  - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaKenyaDebugUnitTestCoverage
+  - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaKenyaDebugUnitTestCoverage
   - ./gradlew :rdt-open-reader:clean :rdt-open-reader:testCovidIndonesiaDebugUnitTestCoverage
   - ./gradlew coveralls --stacktrace --info
 

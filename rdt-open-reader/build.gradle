@@ -52,7 +52,6 @@ android {
 
     sourceSets {
         main.assets.srcDirs += ['src/test/assets/', 'src/testCovidIndonesia/assets/']
-
     }
 
     dataBinding.enabled = true
