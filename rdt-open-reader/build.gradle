@@ -307,6 +307,6 @@ tasks.withType(Test) {
 }
 
 coveralls {
-    sourceDirs += [ android.sourceSets.main.java.srcDirs, android.sourceSets.covidIndonesia.java.srcDirs ]
+    sourceDirs += android.sourceSets.covidIndonesia.java.srcDirs.flatten()
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
