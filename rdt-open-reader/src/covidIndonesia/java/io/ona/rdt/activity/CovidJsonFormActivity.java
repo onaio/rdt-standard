@@ -7,11 +7,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -38,19 +41,45 @@ import static io.ona.rdt.util.CovidConstants.RequestCodes.LOCATION_PERMISSIONS;
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
-public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSuccessListener<Location> {
+public class CovidJsonFormActivity extends RDTJsonFormActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationCallback locationCallback;
 
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (RDTJsonFormUtils.isLocationServiceDisabled(this)) {
+            RDTJsonFormUtils.showLocationServicesDialog(this);
+        }
+
         requestPermissions();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationCallback = new LocationCallback();
         if (isLocationPermissionGranted()) {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, this);
+            fusedLocationProviderClient.requestLocationUpdates(getLocationRequest(), locationCallback, null);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, getOnLocationSuccessListener());
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+    }
+
+    private LocationRequest getLocationRequest() {
+        final int requestInterval = 5000;
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(requestInterval);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        return locationRequest;
     }
 
     @Override
@@ -85,19 +114,20 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity implements OnSucc
         return CovidJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
     }
 
-    @Override
-    public void onSuccess(Location location) {
-        if (location != null) {
-            try {
-                JSONObject locationObj = new JSONObject();
-                locationObj.put(LNG, location.getLongitude());
-                locationObj.put(LAT, location.getLatitude());
-                RDTApplication.getInstance().getContext().allSettings().put(LAST_KNOWN_LOCATION,
-                        locationObj.toString());
-            } catch (JSONException e) {
-                Timber.e(e);
+    private OnSuccessListener<Location> getOnLocationSuccessListener() {
+        return location -> {
+            if (location != null) {
+                try {
+                    JSONObject locationObj = new JSONObject();
+                    locationObj.put(LNG, location.getLongitude());
+                    locationObj.put(LAT, location.getLatitude());
+                    RDTApplication.getInstance().getContext().allSettings().put(LAST_KNOWN_LOCATION,
+                            locationObj.toString());
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
             }
-        }
+        };
     }
 
     @Override

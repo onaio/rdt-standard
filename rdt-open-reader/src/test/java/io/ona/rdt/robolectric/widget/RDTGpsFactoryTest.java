@@ -1,7 +1,5 @@
 package io.ona.rdt.robolectric.widget;
 
-import android.content.Context;
-import android.location.LocationManager;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -15,14 +13,15 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
-import org.robolectric.shadows.ShadowAlertDialog;
+import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.List;
 
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
+import io.ona.rdt.robolectric.shadow.MockCounter;
+import io.ona.rdt.robolectric.shadow.RDTJsonFormUtilsShadow;
 import io.ona.rdt.util.RDTGpsDialog;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.RDTGpsFactory;
@@ -57,35 +56,6 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
     }
 
     @Test
-    public void testIsLocationServiceDisabledShouldReturnCorrectStatus() throws Exception {
-        Context context = Mockito.mock(Context.class);
-        LocationManager locationManager = Mockito.mock(LocationManager.class);
-        Mockito.doReturn(locationManager).when(context).getSystemService(Context.LOCATION_SERVICE);
-        String methodName = "isLocationServiceDisabled";
-        
-        // if both network and gps disabled
-        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
-        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        boolean isLocationServiceDisabled = Whitebox.invokeMethod(gpsFactory, methodName, context);
-
-        Assert.assertTrue(isLocationServiceDisabled);
-
-        // if gps enabled
-        Mockito.doReturn(true).when(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
-        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        isLocationServiceDisabled = Whitebox.invokeMethod(gpsFactory, methodName, context);
-
-        Assert.assertFalse(isLocationServiceDisabled);
-
-        // if network available
-        Mockito.doReturn(false).when(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
-        Mockito.doReturn(true).when(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        isLocationServiceDisabled = Whitebox.invokeMethod(gpsFactory, methodName, context);
-
-        Assert.assertFalse(isLocationServiceDisabled);
-    }
-
-    @Test
     public void testGetViewsFromJsonShouldCorrectlyInitializeWidget() throws Exception {
 
         List<View> views = gpsFactory.getViewsFromJson(STEP1, jsonFormActivity,
@@ -115,14 +85,23 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
         Assert.assertEquals(formFragment, gpsDialog.getFormFragment());
     }
 
+    @Config(shadows = {RDTJsonFormUtilsShadow.class})
     @Test
     public void testShowLocationServicesDialogShouldShowDialogForDisabledLocationServices() throws Exception {
+        RDTJsonFormUtilsShadow.setMockCounter(new MockCounter());
+        Assert.assertEquals(0, RDTJsonFormUtilsShadow.getMockCounter().getCount());
+        RDTJsonFormUtilsShadow.setIsLocationServiceDisabled(true);
+
         List<View> views = gpsFactory.getViewsFromJson(STEP1, jsonFormActivity,
                 formFragment, jsonObject, commonListener, false);
 
         View rootLayout = views.get(0);
         rootLayout.findViewById(R.id.record_button).performClick();
-        Assert.assertNotNull(ShadowAlertDialog.getLatestAlertDialog());
+
+        Assert.assertEquals(1, RDTJsonFormUtilsShadow.getMockCounter().getCount());
+
+        RDTJsonFormUtilsShadow.setMockCounter(null);
+        RDTJsonFormUtilsShadow.setIsLocationServiceDisabled(false);
     }
 
     private void mockMethods() {

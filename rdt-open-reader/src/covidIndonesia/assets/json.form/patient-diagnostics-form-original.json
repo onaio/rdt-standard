@@ -96,7 +96,7 @@
         "type": "spinner",
         "hint": "Name of facility",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": ""
         }
       },
