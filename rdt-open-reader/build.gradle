@@ -52,6 +52,7 @@ android {
 
     sourceSets {
         main.assets.srcDirs += ['src/test/assets/', 'src/testCovidIndonesia/assets/']
+
     }
 
     dataBinding.enabled = true
@@ -306,5 +307,6 @@ tasks.withType(Test) {
 }
 
 coveralls {
+    sourceDirs += [ android.sourceSets.main.java.srcDirs, android.sourceSets.covidIndonesia.java.srcDirs ]
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
