@@ -95,7 +95,7 @@
             android:background="@drawable/btn_bg"
             android:paddingStart="@dimen/bottom_navigation_padding"
             android:paddingEnd="@dimen/bottom_navigation_padding"
-            android:text="CONTINUE"
+            android:text="@string/label_continue"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="#FFFFFF"
