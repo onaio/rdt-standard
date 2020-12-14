@@ -35,4 +35,5 @@
     <string name="lbl_back">Back</string>
     <string name="lbl_gender_id">Female . ID: 99358357</string>
     <string name="lbl_visit">Visit %d</string>
+    <string name="label_continue">CONTINUE</string>
 </resources>

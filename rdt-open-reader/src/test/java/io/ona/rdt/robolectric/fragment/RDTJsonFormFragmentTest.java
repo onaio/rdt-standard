@@ -1,10 +1,13 @@
 package io.ona.rdt.robolectric.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
@@ -13,11 +16,14 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.testing.FragmentScenario;
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -34,7 +40,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -55,8 +60,8 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
                         null, R.style.AppTheme, null);
         fragmentScenario.onFragment(fragment -> {
             jsonFormFragment = fragment;
-            fragment.setmJsonApi(mock(JsonApi.class));
-            Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, mock(RDTJsonFormFragmentPresenter.class));
+            fragment.setmJsonApi(Mockito.mock(JsonApi.class));
+            Whitebox.setInternalState(jsonFormFragment, PRESENTER_FIELD, Mockito.mock(RDTJsonFormFragmentPresenter.class));
         });
     }
 
@@ -90,8 +95,8 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testSetNextButtonStateShouldSetCorrectState() {
-        View view = mock(View.class);
-        doReturn(mock(GradientDrawable.class)).when(view).getBackground();
+        View view = Mockito.mock(View.class);
+        doReturn(Mockito.mock(GradientDrawable.class)).when(view).getBackground();
 
         jsonFormFragment.setNextButtonState(view, false);
         verify(view).setEnabled(eq(false));
@@ -104,7 +109,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testNavigateToNextStepShouldNavigateToNextStep() {
-        JsonFormFragmentPresenter presenter = mock(JsonFormFragmentPresenter.class);
+        JsonFormFragmentPresenter presenter = Mockito.mock(JsonFormFragmentPresenter.class);
         ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);
         jsonFormFragment.navigateToNextStep();
         verify(presenter).onNextClick(any());
@@ -112,17 +117,34 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
 
     @Test
     public void testSaveFormShouldSaveForm() {
-        JsonFormFragmentPresenter presenter = mock(JsonFormFragmentPresenter.class);
+        JsonFormFragmentPresenter presenter = Mockito.mock(JsonFormFragmentPresenter.class);
         ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);
         jsonFormFragment.saveForm();
         verify(presenter).onSaveClick(any());
     }
 
     @Test
-    public void testbBackClickShouldShowConfirmationDialog() {
+    public void testBackClickShouldShowConfirmationDialog() {
+        jsonFormFragment = Mockito.spy(jsonFormFragment);
+        FragmentActivity activity = Mockito.spy(jsonFormFragment.getActivity());
+
+        // show confirmation dialog
+        Mockito.doReturn(activity).when(jsonFormFragment).getActivity();
         jsonFormFragment.backClick();
-        assertNotNull(ShadowAlertDialog.getLatestDialog());
-        assertTrue(ShadowAlertDialog.getLatestDialog() instanceof AlertDialog);
+        AlertDialog alertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        assertNotNull(alertDialog);
+
+        // click yes
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+        Mockito.verify(activity).setResult(Activity.RESULT_OK);
+        Mockito.verify(activity).finish();
+
+        // click no
+        jsonFormFragment.backClick();
+        alertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        Assert.assertTrue(alertDialog.isShowing());
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+        Assert.assertFalse(alertDialog.isShowing());
     }
 
     @Test
@@ -130,13 +152,13 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
         ReflectionHelpers.callInstanceMethod(jsonFormFragment, "initializeBottomNavigation",
                 ReflectionHelpers.ClassParameter.from(JSONObject.class, new JSONObject()),
                 ReflectionHelpers.ClassParameter.from(View.class, jsonFormFragment.getRootLayout()));
-        RDTJsonFormFragmentPresenter presenter = mock(RDTJsonFormFragmentPresenter.class);
+        RDTJsonFormFragmentPresenter presenter = Mockito.mock(RDTJsonFormFragmentPresenter.class);
 
         ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);
         jsonFormFragment.getRootLayout().findViewById(com.vijay.jsonwizard.R.id.previous_button).performClick();
         verify(presenter).onSaveClick(any());
 
-        JsonApi jsonApi = mock(JsonApi.class);
+        JsonApi jsonApi = Mockito.mock(JsonApi.class);
         JSONObject mJsonObject = new JSONObject();
         doReturn(mJsonObject).when(jsonApi).getmJSONObject();
         ReflectionHelpers.setField(jsonFormFragment, "mJsonApi", jsonApi);

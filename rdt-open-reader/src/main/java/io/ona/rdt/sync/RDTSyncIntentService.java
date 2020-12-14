@@ -26,12 +26,16 @@ public class RDTSyncIntentService extends SyncIntentService {
     protected void onHandleIntent(Intent intent) {
         LocationStructureServiceJob.scheduleJobImmediately(LocationStructureServiceJob.TAG);
         super.onHandleIntent(intent);
+        saveLocationTree();
+        if (isImageSyncEnabled()) {
+            ImageUploadSyncServiceJob.scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
+        }
+    }
+
+    private void saveLocationTree() {
         LocationTree locationTree = LocationServiceHelper.getInstance().getLocationHierarchy(Utils.getParentLocationId());
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         String locationTreeJson = new Gson().toJson(locationTree);
         allSharedPreferences.savePreference(Constants.Preference.LOCATION_TREE, locationTreeJson);
-        if (isImageSyncEnabled()) {
-            ImageUploadSyncServiceJob.scheduleJobImmediately(ImageUploadSyncServiceJob.TAG);
-        }
     }
 }
