@@ -48,7 +48,7 @@ public class ProfileFragmentAdapterTest extends RobolectricTest {
     }
 
     private Intent getIntent() {
-        Patient patient = new Patient("patient 1", "Male", "324-343-3sdf3-3", "23", 20, "11-8-2000");
+        Patient patient = new Patient("patient 1", "Male", "324-343-3sdf3-3", "23");
         Intent intent = new Intent();
         intent.putExtra(Constants.FormFields.PATIENT, patient);
         return intent;
