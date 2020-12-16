@@ -1,7 +1,8 @@
-package io.ona.rdt.presenter;
+package io.ona.rdt.robolectric.presenter;
 
 import org.json.JSONException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -10,16 +11,17 @@ import org.robolectric.util.ReflectionHelpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.domain.PatientHistoryEntry;
 import io.ona.rdt.interactor.CovidPatientHistoryActivityInteractor;
+import io.ona.rdt.presenter.CovidPatientHistoryActivityPresenter;
+import io.ona.rdt.robolectric.RobolectricTest;
 
-public class CovidPatientHistoryActivityPresenterTest extends PowerMockTest {
+public class CovidPatientHistoryActivityPresenterTest extends RobolectricTest {
 
     private static final int LIST_SIZE = 1;
     private CovidPatientHistoryActivityPresenter covidPatientHistoryActivityPresenter;
 
-    @Test
+    @Before
     public void setUp() {
         covidPatientHistoryActivityPresenter = new CovidPatientHistoryActivityPresenter(null);
     }
