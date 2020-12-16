@@ -39,6 +39,7 @@ public class CovidPatientRegisterActivityInteractorTest extends RobolectricTest 
 
     @Test
     public void testGetPatientForRDT() throws JSONException {
+        int age = 31;
         Patient patient = interactor.getPatientForRDT(new JSONObject(PATIENT_FORM));
 
         Assert.assertNotNull(patient);
@@ -46,7 +47,7 @@ public class CovidPatientRegisterActivityInteractorTest extends RobolectricTest 
         Assert.assertEquals("Male", patient.getPatientSex());
         Assert.assertEquals("3sldfkl3-2-sf-3-sdf", patient.getBaseEntityId());
         Assert.assertEquals("242424234", patient.getPatientId());
-        Assert.assertEquals(31, patient.getAge());
+        Assert.assertEquals(age, patient.getAge());
         Assert.assertEquals("16-12-2020", patient.getDob());
     }
 }

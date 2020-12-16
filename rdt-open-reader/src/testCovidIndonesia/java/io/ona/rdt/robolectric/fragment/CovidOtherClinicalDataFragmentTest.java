@@ -63,7 +63,7 @@ public class CovidOtherClinicalDataFragmentTest extends RobolectricTest {
         CovidPatientProfileActivity covidPatientProfileActivity = Robolectric.buildActivity(CovidPatientProfileActivity.class, intent).create().resume().get();
         FragmentManager fragmentManager = covidPatientProfileActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null );
+        fragmentTransaction.add(fragment, null);
         fragmentTransaction.commit();
 
         return fragment;
