@@ -17,6 +17,7 @@ import io.ona.rdt.util.FormSaver;
 public class CovidPatientRegisterActivityInteractorTest extends RobolectricTest {
 
     private static final String PATIENT_FORM = "{\"entity_id\":\"3sldfkl3-2-sf-3-sdf\",\"step1\":{\"fields\":[{\"key\":\"patient_first_name\",\"value\":\"New\"},{\"key\":\"patient_last_name\",\"value\":\"Moon\"},{\"key\":\"sex\",\"value\":\"Male\"},{\"key\":\"age\",\"value\":\"31\"},{\"key\":\"patient_dob\",\"value\":\"16-12-2020\"},{\"key\":\"drivers_license_number\",\"value\":\"242424234\"}]}}";
+    private static final int AGE = 31;
     private CovidPatientRegisterActivityInteractor interactor;
 
     @Override
@@ -39,7 +40,6 @@ public class CovidPatientRegisterActivityInteractorTest extends RobolectricTest 
 
     @Test
     public void testGetPatientForRDT() throws JSONException {
-        int age = 31;
         Patient patient = interactor.getPatientForRDT(new JSONObject(PATIENT_FORM));
 
         Assert.assertNotNull(patient);
@@ -47,7 +47,7 @@ public class CovidPatientRegisterActivityInteractorTest extends RobolectricTest 
         Assert.assertEquals("Male", patient.getPatientSex());
         Assert.assertEquals("3sldfkl3-2-sf-3-sdf", patient.getBaseEntityId());
         Assert.assertEquals("242424234", patient.getPatientId());
-        Assert.assertEquals(age, patient.getAge());
+        Assert.assertEquals(AGE, patient.getAge());
         Assert.assertEquals("16-12-2020", patient.getDob());
     }
 }
