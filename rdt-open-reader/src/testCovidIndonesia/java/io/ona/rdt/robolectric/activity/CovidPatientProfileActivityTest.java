@@ -25,14 +25,14 @@ import io.ona.rdt.util.Constants;
 
 public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
+    private static final int AGE = 10;
     private CovidPatientProfileActivity activity;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        int ten = 10;
         Intent intent = new Intent();
-        intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", ten, "dob"));
+        intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", AGE, "dob"));
         activity = Robolectric.buildActivity(CovidPatientProfileActivity.class, intent).create().get();
     }
 
@@ -68,7 +68,7 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
     @Test
     public void testGetHomeActivityClass() throws Exception {
         Class<?> clazz = Whitebox.invokeMethod(activity, "getHomeActivityClass");
-        Assert.assertEquals(CovidPatientRegisterActivity.class. getName(), clazz.getName());
+        Assert.assertEquals(CovidPatientRegisterActivity.class.getName(), clazz.getName());
     }
 
     @Override
