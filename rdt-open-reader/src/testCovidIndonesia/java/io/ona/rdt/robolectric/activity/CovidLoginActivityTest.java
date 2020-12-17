@@ -18,7 +18,7 @@ public class CovidLoginActivityTest extends ActivityRobolectricTest {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        activity = Robolectric.buildActivity(CovidLoginActivity.class).get();
+        activity = Robolectric.buildActivity(CovidLoginActivity.class).create().get();
     }
 
     @Test
@@ -31,7 +31,6 @@ public class CovidLoginActivityTest extends ActivityRobolectricTest {
     public void testGetRegisterTableName() throws Exception {
         Assert.assertEquals(CovidConstants.Table.COVID_PATIENTS, Whitebox.invokeMethod(activity, "getRegisterTableName"));
     }
-
 
     @Override
     public Activity getActivity() {
