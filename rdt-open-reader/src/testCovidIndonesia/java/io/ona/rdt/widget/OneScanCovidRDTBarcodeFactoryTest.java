@@ -2,7 +2,10 @@ package io.ona.rdt.widget;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.gms.vision.barcode.Barcode;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 
@@ -19,6 +22,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
@@ -44,6 +48,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     private ArgumentCaptor<WidgetArgs> widgetArgsArgumentCaptor;
 
     private OneScanCovidRDTBarcodeFactory oneScanCovidRDTBarcodeFactory;
+    private OneScanCovidRDTBarcodeFactory oneScanCovidRDTBarcodeFactoryOriginal;
     private JSONObject stepStateConfig;
 
     private final String TEST_STEP = "test-step";
@@ -59,7 +64,8 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        oneScanCovidRDTBarcodeFactory = Mockito.spy(new OneScanCovidRDTBarcodeFactory());
+        oneScanCovidRDTBarcodeFactoryOriginal = Mockito.spy(new OneScanCovidRDTBarcodeFactory());
+        oneScanCovidRDTBarcodeFactory = Mockito.spy(oneScanCovidRDTBarcodeFactoryOriginal);
         stepStateConfig = new JSONObject();
         mockMethods();
     }
@@ -108,6 +114,40 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         // verify correct action on back-press
         oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_CANCELED, intent);
         Mockito.verify(formFragment).setMoveBackOneStep(true);
+
+        Intent invalidIntent = new Intent();
+        invalidIntent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, true);
+        invalidIntent.putExtra("data", "");
+        oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, invalidIntent);
+        oneScanCovidRDTBarcodeFactory.onActivityResult(Activity.RESULT_OK, JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, null);
+    }
+
+    @Test
+    public void testLaunchBarcodeScanner() throws Exception {
+        MaterialEditText materialEditText = Mockito.mock(MaterialEditText.class);
+        InputMethodManager inputManager = Mockito.mock(InputMethodManager.class);
+        Activity activity = Mockito.mock(Activity.class);
+        Mockito.when(activity.getSystemService(ArgumentMatchers.anyString())).thenReturn(inputManager);
+        Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "launchBarcodeScanner", activity, materialEditText, "");
+        Mockito.verify(activity).startActivityForResult(ArgumentMatchers.any(Intent.class), ArgumentMatchers.anyInt());
+    }
+
+    @Test
+    public void testGetBarcodeValsAsCSV() throws Exception {
+        Barcode barcode = new Barcode();
+        barcode.displayValue = "";
+        Intent intent = new Intent();
+        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
+        String displayValue = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactoryOriginal, "getBarcodeValsAsCSV", intent);
+        Assert.assertTrue(StringUtils.isEmpty(displayValue));
+    }
+
+    @Test
+    public void testSplitCSV() throws Exception {
+        String value = "1,2";
+        String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactoryOriginal, "splitCSV", value);
+        Assert.assertEquals("1", result[0]);
+        Assert.assertEquals("2", result[1]);
     }
 
     private void verifyWidgetArgsMatch(WidgetArgs capturedWidgetArgs) {

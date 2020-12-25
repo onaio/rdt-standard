@@ -1,5 +1,7 @@
 package io.ona.rdt.widget;
 
+import android.view.View;
+
 import com.vijay.jsonwizard.domain.WidgetArgs;
 
 import org.json.JSONObject;
@@ -9,7 +11,9 @@ import org.junit.Test;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.HashMap;
+import java.util.List;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
 import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
@@ -24,6 +28,12 @@ public class CovidImageViewFactoryTest extends WidgetFactoryRobolectricTest {
     public void setUp() throws Exception {
         super.setUp();
         covidImageViewFactory = new CovidImageViewFactory();
+    }
+
+    @Test
+    public void testGetViewsFromJson() throws Exception {
+        List<View> views = covidImageViewFactory.getViewsFromJson("step1", RDTApplication.getInstance(), null, new JSONObject(), null);
+        Assert.assertEquals(1, views.size());
     }
 
     @Test

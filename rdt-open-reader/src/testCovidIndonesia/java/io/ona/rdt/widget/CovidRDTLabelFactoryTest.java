@@ -3,11 +3,16 @@ package io.ona.rdt.widget;
 import android.view.View;
 
 import org.json.JSONException;
+import org.junit.Assert;
 import org.junit.Test;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.robolectric.util.ReflectionHelpers;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.CovidOnLabelClickedListener;
 import io.ona.rdt.callback.OnLabelClickedListener;
 import io.ona.rdt.util.CovidConstants;
+import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Step.MANUAL_EXPIRATION_DATE_ENTRY_PAGE;
 import static io.ona.rdt.util.CovidConstants.Step.COVID_AFFIX_RESPIRATORY_SAMPLE_ID_PAGE;
@@ -27,6 +32,17 @@ import static org.mockito.Mockito.verify;
  * Created by Vincent Karuri on 15/07/2020
  */
 public class CovidRDTLabelFactoryTest extends BaseRDTLabelFactoryTest {
+
+    @Override
+    public void setUp() {
+        super.setUp();
+        try {
+            mockStaticMethods();
+            rdtLabelFactory = getRdtLabelFactory();
+        } catch (JSONException ex) {
+            Timber.e(ex);
+        }
+    }
 
     @Test
     public void testOnClickShouldPerformCorrectAction() throws Exception {
@@ -57,7 +73,14 @@ public class CovidRDTLabelFactoryTest extends BaseRDTLabelFactoryTest {
         verify(presenter).moveToNextStep(eq(COVID_ENTER_DELIVERY_DETAILS_PAGE));
     }
 
+    @Test
+    public void verifyLabelClickLIstener() throws JSONException {
+        ReflectionHelpers.setField(rdtLabelFactory, "widgetArgs", getWidgetArgs(""));
+        Assert.assertEquals(CovidOnLabelClickedListener.class.getName(), rdtLabelFactory.getOnLabelClickedListener().getClass().getName());
+    }
+
     @Override
+    @PrepareForTest(RDTApplication.class)
     protected void mockStaticMethods() throws JSONException {
         super.mockStaticMethods();
         jsonObject.put(COVID_SCAN_BARCODE_PAGE, COVID_SCAN_BARCODE_PAGE);

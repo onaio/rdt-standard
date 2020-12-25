@@ -15,10 +15,11 @@ import java.util.Date;
 public class MinAllowedDateValidatorTest {
 
     private MinAllowedDateValidator minAllowedDateValidator;
+    private final String minAllowDate = "today+1d";
 
     @Before
     public void setUp() {
-        minAllowedDateValidator = new MinAllowedDateValidator("error", "today+1d");
+        minAllowedDateValidator = new MinAllowedDateValidator("error", minAllowDate);
     }
 
     @Test
@@ -27,6 +28,13 @@ public class MinAllowedDateValidatorTest {
         Assert.assertFalse(minAllowedDateValidator.isValid(getOffSetDate(0), false)); // expires today
         Assert.assertTrue(minAllowedDateValidator.isValid(getOffSetDate(1), false)); // expires tomorrow
         Assert.assertTrue(minAllowedDateValidator.isValid(getOffSetDate(2), false)); // expires day after tomorrow
+        Assert.assertTrue(minAllowedDateValidator.isValid(null, false)); // return true in case of null argument
+        Assert.assertTrue(minAllowedDateValidator.isValid("invalid_format", false)); // return true in case of invalid argument
+    }
+
+    @Test
+    public void testGetMinAllowedDateStr() {
+        Assert.assertEquals(minAllowDate, minAllowedDateValidator.getMinAllowedDateStr());
     }
 
     private String getOffSetDate(int dayOffset) {
