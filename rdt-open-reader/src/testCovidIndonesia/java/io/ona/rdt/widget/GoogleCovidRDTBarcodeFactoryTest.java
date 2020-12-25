@@ -30,10 +30,9 @@ public class GoogleCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTe
         String barcodeCSV = Whitebox.invokeMethod(googleCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", intent);
         String[] data = Whitebox.invokeMethod(googleCovidRDTBarcodeFactory, "splitCSV", barcodeCSV);
 
-        Assert.assertEquals("enrdt.ona.io.w", data[0]);
-        Assert.assertEquals("get.GoogleCovidRDTBarcodeFactory", data[1]);
-        Assert.assertEquals("012299", data[2]);
-        Assert.assertEquals("4524", data[3]);
-        Assert.assertEquals("52605", data[4]);
+        String[] results = new String[]{"enrdt.ona.io.w", "get.GoogleCovidRDTBarcodeFactory", "012299", "4524", "52605"};
+        for (int i = 0; i < results.length; i++) {
+            Assert.assertEquals(results[i], data[i]);
+        }
     }
 }
