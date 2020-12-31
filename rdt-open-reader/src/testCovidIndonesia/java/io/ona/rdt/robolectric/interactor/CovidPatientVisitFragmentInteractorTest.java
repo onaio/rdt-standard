@@ -1,10 +1,12 @@
 package io.ona.rdt.robolectric.interactor;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
@@ -44,5 +46,12 @@ public class CovidPatientVisitFragmentInteractorTest extends RobolectricTest {
         Assert.assertEquals(listSize, visitList.size());
         Assert.assertEquals("Visit 1", visitList.get(listSize - 1).getVisitName());
         Assert.assertNull(visitList.get(listSize - 1).getDateOfVisit());
+    }
+
+    @Test
+    public void testFormatDate() throws Exception {
+        DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").parseDateTime("2020-09-03 02:00:00");
+        String formattedDate = Whitebox.invokeMethod(interactor, "formatDate", dateTime);
+        Assert.assertNull(formattedDate);
     }
 }

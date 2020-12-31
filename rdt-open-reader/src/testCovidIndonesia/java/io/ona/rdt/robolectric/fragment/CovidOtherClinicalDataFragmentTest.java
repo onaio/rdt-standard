@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -45,6 +46,20 @@ public class CovidOtherClinicalDataFragmentTest extends RobolectricTest {
         covidOtherClinicalDataFragment.onClick(view);
 
         Mockito.verify(presenter).launchForm(covidOtherClinicalDataFragment.getActivity(), CovidConstants.Form.WBC_FORM, patient);
+    }
+
+    @Test
+    public void testOnDestroyView() {
+        View patientProfileTabbedFragmentContainer = covidOtherClinicalDataFragment.getActivity().findViewById(R.id.patient_profile_tabbed_fragment_container);
+        View patientProfileFragmentContainer = covidOtherClinicalDataFragment.getActivity().findViewById(R.id.patient_profile_fragment_container);
+
+        Assert.assertEquals(View.GONE, patientProfileTabbedFragmentContainer.getVisibility());
+        Assert.assertEquals(View.VISIBLE, patientProfileFragmentContainer.getVisibility());
+
+        covidOtherClinicalDataFragment.onDestroyView();
+
+        Assert.assertEquals(View.VISIBLE, patientProfileTabbedFragmentContainer.getVisibility());
+        Assert.assertEquals(View.GONE, patientProfileFragmentContainer.getVisibility());
     }
 
     private CovidOtherClinicalDataFragment buildFragment() {
