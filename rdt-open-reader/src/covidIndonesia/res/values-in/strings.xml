@@ -17,8 +17,13 @@
     <string name="covid_barcode_expiration_date">Tanggal kedaluwarsa</string>
     <string name="covid_barcode_is_sensor_triggered">Sensor panas terpicu suhu tinggi</string>
     <string name="sensor_activated">Status: Sensor diaktifkan</string>
+    <string name="sensor_status_ok">Status: OK</string>
     <string name="no_barcode_captured_err">Mohon ambil gambar barcode untuk melanjutkan</string>
     <string name="sample_id_prompt">ID Sampel:\u0020</string>
+    <string name="captured">Tertangkap!</string>
+    <string name="manufacturer_name"><![CDATA[<b>Produsen:</b>]]></string>
+    <string name="rdt_name"><![CDATA[<b>Nama RDT:</b>]]></string>
+
     <string-array name="locales_key">
         <item>Inggris</item>
         <item>Indonesia</item>
@@ -27,4 +32,8 @@
         <item>en</item>
         <item>in</item>
     </string-array>
+    <string name="lbl_back">Kembali</string>
+    <string name="lbl_gender_id">Perempuan . ID: 99358357</string>
+    <string name="lbl_visit">Kunjungan %d</string>
+    <string name="label_continue">LANJUTKAN</string>
 </resources>

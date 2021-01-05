@@ -923,7 +923,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     private void verifyRDTDetailsConfirmationPageIsPopulated(RDTJsonFormActivity jsonFormActivity, JSONObject deviceDetailsWidget) throws JSONException {
 
         String deviceDetails = ReflectionHelpers.callInstanceMethod(new CovidRDTJsonFormUtils(), "getFormattedRDTDetails",
-                ReflectionHelpers.ClassParameter.from(Context.class, RuntimeEnvironment.application),
+                ReflectionHelpers.ClassParameter.from(Context.class, jsonFormActivity),
                 ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.MANUFACTURER),
                 ReflectionHelpers.ClassParameter.from(String.class, DeviceDefinitionProcessorShadow.DEVICE_NAME));
 
