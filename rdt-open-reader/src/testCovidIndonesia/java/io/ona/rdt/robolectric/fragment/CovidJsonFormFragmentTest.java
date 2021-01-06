@@ -4,15 +4,22 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import io.ona.rdt.fragment.CovidJsonFormFragment;
 import io.ona.rdt.presenter.CovidJsonFormFragmentPresenter;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.robolectric.RobolectricTest;
-import io.ona.rdt.util.Constants;
+
+import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
+import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 
 public class CovidJsonFormFragmentTest extends RobolectricTest {
 
     private CovidJsonFormFragment covidJsonFormFragment;
+    private Set<String> formsWithSpecialNavigationRules = new HashSet<>(Arrays.asList(RDT_TEST, COVID_RDT_TEST));
 
     @Override
     public void setUp() throws Exception {
@@ -22,8 +29,9 @@ public class CovidJsonFormFragmentTest extends RobolectricTest {
 
     @Test
     public void testFormHasSpecialNavigationRules() throws Exception {
-        Assert.assertTrue(Whitebox.invokeMethod(covidJsonFormFragment, "formHasSpecialNavigationRules", Constants.Encounter.RDT_TEST));
-        Assert.assertFalse(Whitebox.invokeMethod(covidJsonFormFragment, "formHasSpecialNavigationRules", ""));
+        for (String formName : formsWithSpecialNavigationRules) {
+            Assert.assertTrue(Whitebox.invokeMethod(covidJsonFormFragment, "formHasSpecialNavigationRules", formName));
+        }
     }
 
     @Test

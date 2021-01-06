@@ -28,8 +28,7 @@ public class CovidRepeatingGroupFactoryTest extends WidgetFactoryRobolectricTest
     }
 
     @Override
-    protected JSONObject getJsonObject() throws JSONException {
-        JSONObject jsonObject = new JSONObject("{\"fields\": []}");
-        return jsonObject;
+    protected JSONObject getStepObject() throws JSONException {
+        return new JSONObject("{\"fields\": []}");
     }
 }

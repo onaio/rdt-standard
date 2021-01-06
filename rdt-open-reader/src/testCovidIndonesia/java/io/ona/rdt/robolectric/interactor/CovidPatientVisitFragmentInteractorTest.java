@@ -50,7 +50,7 @@ public class CovidPatientVisitFragmentInteractorTest extends RobolectricTest {
 
     @Test
     public void testFormatDate() throws Exception {
-        DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").parseDateTime("2020-09-03 02:00:00");
+        DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseDateTime("2020-07-20T09:00:00.000+05:00");
         String formattedDate = Whitebox.invokeMethod(interactor, "formatDate", dateTime);
         Assert.assertNull(formattedDate);
     }
