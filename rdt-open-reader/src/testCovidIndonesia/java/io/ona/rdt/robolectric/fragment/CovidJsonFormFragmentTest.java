@@ -15,7 +15,6 @@ import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 
-
 public class CovidJsonFormFragmentTest extends RobolectricTest {
 
     private CovidJsonFormFragment covidJsonFormFragment;
