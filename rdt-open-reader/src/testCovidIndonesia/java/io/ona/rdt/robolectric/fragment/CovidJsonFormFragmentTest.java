@@ -12,14 +12,14 @@ import io.ona.rdt.fragment.CovidJsonFormFragment;
 import io.ona.rdt.presenter.CovidJsonFormFragmentPresenter;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.robolectric.RobolectricTest;
+import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.CovidConstants;
 
-import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
-import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
 
 public class CovidJsonFormFragmentTest extends RobolectricTest {
 
     private CovidJsonFormFragment covidJsonFormFragment;
-    private Set<String> formsWithSpecialNavigationRules = new HashSet<>(Arrays.asList(RDT_TEST, COVID_RDT_TEST));
+    private Set<String> formsWithSpecialNavigationRules = new HashSet<>(Arrays.asList(Constants.Encounter.RDT_TEST, CovidConstants.Encounter.COVID_RDT_TEST));
 
     @Override
     public void setUp() throws Exception {
