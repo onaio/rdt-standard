@@ -15,7 +15,7 @@
     <string name="confirm_close_msg">Apakah anda yakin ingin keluar dari formulir? Semua data yang dimasukkan pada formulir ini akan hilang.</string>
     <string name="confirm_close_title">Mohon konfirmasi</string>
     <string name="unique_id_fetch_error_msg">ID Unik tidak cukup. Mohon nyalakan koneksi internet Anda dan lakukan sinkronisasi manual untuk mengambil perintah.</string>
-    <string name="txt_record_btn">Temukan Aku</string>
+    <string name="txt_record_btn">Temukan Lokasi Saya</string>
     <string name="txt_location_generation_instructions">Kami membutuhkan lokasi Anda sebelum melanjutkan ke tes.
 Silakan klik tombol <i>Temukan Saya</i> di bagian bawah layar dan kami akan secara otomatis menentukan lokasi Anda.</string>
     <string name="drawer_menu_item_sync">Sinkronisasi</string>
@@ -47,7 +47,7 @@ Silakan klik tombol <i>Temukan Saya</i> di bagian bawah layar dan kami akan seca
     <string name="lang_english">Inggris</string>
     <string name="lang_indonesia">Indonesia</string>
     <string name="show_password_text">Tampilkan Kata Sandi</string>
-    <string name="login_text">Gabung</string>
+    <string name="login_text">Masuk</string>
     <string name="launching_form">Meluncurkan formulir...</string>
     <string name="rdt_not_supported">Maaf, RDT yang dipilih saat ini tidak didukung.</string>
     <string name="male">Laki-laki</string>
