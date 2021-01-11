@@ -147,8 +147,10 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
     }
 
     @Test
-    public void testNavigationShouldNavigateToCorrectStep() throws Exception {
-        Whitebox.invokeMethod(jsonFormFragment, "initializeBottomNavigation", new JSONObject(), jsonFormFragment.getRootLayout());
+    public void testNavigationShouldNavigateToCorrectStep(){
+        ReflectionHelpers.callInstanceMethod(jsonFormFragment, "initializeBottomNavigation",
+                ReflectionHelpers.ClassParameter.from(JSONObject.class, new JSONObject()),
+                ReflectionHelpers.ClassParameter.from(View.class, jsonFormFragment.getRootLayout()));
         RDTJsonFormFragmentPresenter presenter = Mockito.mock(RDTJsonFormFragmentPresenter.class);
 
         ReflectionHelpers.setField(jsonFormFragment, PRESENTER_FIELD, presenter);

@@ -14,11 +14,10 @@ import java.util.Date;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
-import io.ona.rdt.widget.RDTBarcodeFactory;
 
 public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
 
-    private RDTBarcodeFactory oneScanCovidRDTBarcodeFactory;
+    private OneScanCovidRDTBarcodeFactory oneScanCovidRDTBarcodeFactory;
 
     private WidgetArgs widgetArgs;
     private JsonFormActivity jsonFormActivity;
