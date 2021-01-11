@@ -32,13 +32,13 @@ public class CovidPatientHistoryViewHolderTest extends PowerMockTest {
     }
 
     @Test
-    public void testGetTvHistoryKey() {
+    public void testGetTvHistoryKeyShouldValidViewAndData() {
         Assert.assertNotNull(covidPatientHistoryViewHolder.getTvHistoryKey());
         Assert.assertEquals(txtKey, covidPatientHistoryViewHolder.getTvHistoryKey().getText());
     }
 
     @Test
-    public void testGetTvHistoryValue() {
+    public void testGetTvHistoryValueShouldReturnValidViewAndData() {
         Assert.assertNotNull(covidPatientHistoryViewHolder.getTvHistoryValue());
         Assert.assertEquals(txtVal, covidPatientHistoryViewHolder.getTvHistoryValue().getText());
     }

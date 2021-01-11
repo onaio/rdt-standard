@@ -30,7 +30,7 @@ public class CovidPatientVisitFragmentInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetPatientVisits() {
+    public void testGetPatientVisitsShouldReturnValidVisits() {
         PatientHistoryRepository patientHistoryRepository = Mockito.mock(PatientHistoryRepository.class);
         ReflectionHelpers.setField(interactor, "patientHistoryRepository", patientHistoryRepository);
 
@@ -49,7 +49,7 @@ public class CovidPatientVisitFragmentInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testFormatDate() throws Exception {
+    public void testFormatDateShouldReturnNull() throws Exception {
         DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseDateTime("2020-07-20T09:00:00.000+05:00");
         String formattedDate = Whitebox.invokeMethod(interactor, "formatDate", dateTime);
         Assert.assertNull(formattedDate);

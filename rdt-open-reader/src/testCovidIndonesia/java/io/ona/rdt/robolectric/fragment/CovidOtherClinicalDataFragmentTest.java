@@ -39,7 +39,7 @@ public class CovidOtherClinicalDataFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testOnClick() {
+    public void testOnClickShouldVerifyLaunchForm() {
         View view = Mockito.mock(View.class);
 
         Mockito.when(view.getId()).thenReturn(R.id.tv_covid_wbc);
@@ -49,7 +49,7 @@ public class CovidOtherClinicalDataFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testOnDestroyView() {
+    public void testOnDestroyViewShouldVerifyTheRelevantViewVisibility() {
         View patientProfileTabbedFragmentContainer = covidOtherClinicalDataFragment.getActivity().findViewById(R.id.patient_profile_tabbed_fragment_container);
         View patientProfileFragmentContainer = covidOtherClinicalDataFragment.getActivity().findViewById(R.id.patient_profile_fragment_container);
 

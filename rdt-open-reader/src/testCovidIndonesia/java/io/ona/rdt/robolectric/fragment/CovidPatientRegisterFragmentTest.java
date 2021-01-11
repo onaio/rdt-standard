@@ -28,19 +28,19 @@ public class CovidPatientRegisterFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testCreatePatientRegisterFragmentPresenter() throws Exception {
+    public void testCreatePatientRegisterFragmentPresenterShouldReturnCovidPatientRegisterFragmentPresenter() throws Exception {
         PatientRegisterFragmentPresenter presenter = Whitebox.invokeMethod(covidPatientRegisterFragment, "createPatientRegisterFragmentPresenter");
         Assert.assertEquals(CovidPatientRegisterFragmentPresenter.class.getName(), presenter.getClass().getName());
     }
 
     @Test
-    public void testGetPatientRegisterViewHolder() throws Exception {
+    public void testGetPatientRegisterViewHolderShouldReturnCovidPatientRegisterViewHolder() throws Exception {
         PatientRegisterViewHolder viewHolder = Whitebox.invokeMethod(covidPatientRegisterFragment, "getPatientRegisterViewHolder");
         Assert.assertEquals(CovidPatientRegisterViewHolder.class.getName(), viewHolder.getClass().getName());
     }
 
     @Test
-    public void testGetPatientRegistrationForm() throws Exception {
+    public void testGetPatientRegistrationFormShouldReturnCovidPatientRegistrationForm() throws Exception {
         Assert.assertEquals(CovidConstants.Form.COVID_PATIENT_REGISTRATION_FORM, Whitebox.invokeMethod(covidPatientRegisterFragment, "getPatientRegistrationForm"));
     }
 

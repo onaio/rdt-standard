@@ -22,7 +22,7 @@ public class GoogleCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTe
     }
 
     @Test
-    public void testGetBarcodeValuesAsCSV() throws Exception {
+    public void testGetBarcodeValuesAsCSVShouldReturnValidBarcodeData() throws Exception {
         Barcode barcode = new Barcode();
         barcode.displayValue = "openrdt.ona.io.widget.GoogleCovidRDTBarcodeFactory\u001D31012299564524\u001D52605,M017G71\u001DMalariaPfPv\u001D5060511890000";
         Intent intent = new Intent();

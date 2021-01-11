@@ -31,7 +31,7 @@ public class ProfileFragmentAdapterTest extends RobolectricTest {
     }
 
     @Test
-    public void testCreateFragment() {
+    public void testCreateFragmentShouldVerifyTheFragmentClasses() {
 
         Fragment covidPatientProfileFragment = adapter.createFragment(INDEX_COVID_PATIENT_PROFILE_FRAGMENT);
         Fragment covidPatientVisitFragment = adapter.createFragment(INDEX_COVID_PATIENT_VISIT_FRAGMENT);
@@ -43,7 +43,7 @@ public class ProfileFragmentAdapterTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetItemCount() {
+    public void testGetItemCountShouldMatchWithTotalFragments() {
         Assert.assertEquals(FRAGMENT_COUNT, adapter.getItemCount());
     }
 

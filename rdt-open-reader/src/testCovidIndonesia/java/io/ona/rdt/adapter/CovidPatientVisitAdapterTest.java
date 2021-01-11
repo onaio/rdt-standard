@@ -42,7 +42,7 @@ public class CovidPatientVisitAdapterTest extends RobolectricTest {
     }
 
     @Test
-    public void testOnCreateViewHolder() {
+    public void testCovidPatientVisitViewHolderShouldReturnNonNullViews() {
         CovidPatientVisitViewHolder viewHolder = adapter.onCreateViewHolder(parent, 0);
 
         Assert.assertNotNull(viewHolder.getTvVisitName());
@@ -51,7 +51,7 @@ public class CovidPatientVisitAdapterTest extends RobolectricTest {
     }
 
     @Test
-    public void testOnBindViewHolder() {
+    public void testBindViewHolderShouldVerifyCorrectModelData() {
         CovidPatientVisitViewHolder viewHolder = adapter.onCreateViewHolder(parent, 0);
 
         adapter.onBindViewHolder(viewHolder, 0);
@@ -63,7 +63,7 @@ public class CovidPatientVisitAdapterTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetItemCount() {
+    public void testGetItemCountShouldMatchWithListSize() {
         Assert.assertEquals(list.size(), adapter.getItemCount());
     }
 }

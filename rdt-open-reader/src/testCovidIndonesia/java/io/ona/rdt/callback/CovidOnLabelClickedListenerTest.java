@@ -33,7 +33,7 @@ public class CovidOnLabelClickedListenerTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetNextStep() {
+    public void testGetNextStepShouldPopulateRelevantSteps() {
 
         Set<Map.Entry<String, String>> entrySet = stepMap.entrySet();
         for (Map.Entry<String, String> entry : entrySet) {

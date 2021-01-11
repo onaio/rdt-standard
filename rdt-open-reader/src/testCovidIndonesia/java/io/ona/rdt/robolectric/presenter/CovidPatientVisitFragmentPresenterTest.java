@@ -26,7 +26,7 @@ public class CovidPatientVisitFragmentPresenterTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetPatientVisits() {
+    public void testGetPatientVisitsShouldPopulateCorrectVisits() {
         CovidPatientVisitFragmentInteractor interactor = Mockito.mock(CovidPatientVisitFragmentInteractor.class);
         ReflectionHelpers.setField(covidPatientVisitFragmentPresenter, "interactor", interactor);
 

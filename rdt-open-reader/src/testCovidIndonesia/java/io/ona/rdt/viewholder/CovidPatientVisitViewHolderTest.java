@@ -34,19 +34,19 @@ public class CovidPatientVisitViewHolderTest extends PowerMockTest {
     }
 
     @Test
-    public void testGetTvVisitName() {
+    public void testGetTvVisitNameShouldReturnValidViewAndData() {
         Assert.assertNotNull(viewHolder.getTvVisitName());
         Assert.assertEquals(txtVisitName, viewHolder.getTvVisitName().getText());
     }
 
     @Test
-    public void testGetTvDateOfVisit() {
+    public void testGetTvDateOfVisitShouldReturnValidViewAndData() {
         Assert.assertNotNull(viewHolder.getTvDateOfVisit());
         Assert.assertEquals(txtDateOfVisit, viewHolder.getTvDateOfVisit().getText());
     }
 
     @Test
-    public void testGetPatientVisitRow() {
+    public void testGetPatientVisitRowShouldReturnNonNullView() {
         Assert.assertNotNull(viewHolder.getPatientVisitRow());
     }
 }

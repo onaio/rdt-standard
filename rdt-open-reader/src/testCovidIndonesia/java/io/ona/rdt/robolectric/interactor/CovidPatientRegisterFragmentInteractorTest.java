@@ -22,13 +22,13 @@ public class CovidPatientRegisterFragmentInteractorTest extends RobolectricTest 
     }
 
     @Test
-    public void testCreateFormLauncher() throws Exception {
+    public void testCreateFormLauncherShouldReturnCovidFormLauncher() throws Exception {
         FormLauncher formLauncher = Whitebox.invokeMethod(interactor, "createFormLauncher");
         Assert.assertEquals(CovidFormLauncher.class.getName(), formLauncher.getClass().getName());
     }
 
     @Test
-    public void testCreateFormSaver() throws Exception {
+    public void testCreateFormSaverShouldReturnCovidFormSaver() throws Exception {
         FormSaver formSaver = Whitebox.invokeMethod(interactor, "createFormSaver");
         Assert.assertEquals(CovidFormSaver.class.getName(), formSaver.getClass().getName());
     }

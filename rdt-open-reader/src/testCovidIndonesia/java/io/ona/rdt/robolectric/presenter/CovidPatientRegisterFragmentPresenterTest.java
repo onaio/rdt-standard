@@ -20,7 +20,7 @@ public class CovidPatientRegisterFragmentPresenterTest extends RobolectricTest {
     }
 
     @Test
-    public void testCreateInteractor() throws Exception {
+    public void testCreateInteractorShouldReturnCovidPatientRegisterFragmentInteractor() throws Exception {
         PatientRegisterFragmentInteractor interactor = Whitebox.invokeMethod(presenter, "createInteractor");
         Assert.assertEquals(CovidPatientRegisterFragmentInteractor.class.getName(), interactor.getClass().getName());
     }

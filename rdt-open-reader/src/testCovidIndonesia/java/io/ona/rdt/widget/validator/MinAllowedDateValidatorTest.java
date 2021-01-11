@@ -33,7 +33,7 @@ public class MinAllowedDateValidatorTest {
     }
 
     @Test
-    public void testGetMinAllowedDateStr() {
+    public void testGetMinAllowedDateStrShouldReturnValidMinData() {
         Assert.assertEquals(minAllowDate, minAllowedDateValidator.getMinAllowedDateStr());
     }
 

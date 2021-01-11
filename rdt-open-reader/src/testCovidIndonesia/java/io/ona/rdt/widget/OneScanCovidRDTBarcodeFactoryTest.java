@@ -114,7 +114,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     }
 
     @Test
-    public void testLaunchBarcodeScanner() throws Exception {
+    public void testLaunchBarcodeScannerShouldVerifyActivityStartup() throws Exception {
         MaterialEditText materialEditText = Mockito.mock(MaterialEditText.class);
         InputMethodManager inputManager = Mockito.mock(InputMethodManager.class);
         Activity activity = Mockito.mock(Activity.class);
@@ -124,13 +124,13 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     }
 
     @Test
-    public void testGetBarcodeValsAsCSV() throws Exception {
+    public void testGetBarcodeValsAsCSVShouldReturnCorrectDisplayValue() throws Exception {
         String displayValue = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", new Intent());
         Assert.assertEquals(String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED), displayValue);
     }
 
     @Test
-    public void testSplitCSV() throws Exception {
+    public void testSplitCSVShouldReturnCorrectArrays() throws Exception {
         String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "splitCSV", "");
         Assert.assertArrayEquals(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}, result);
     }

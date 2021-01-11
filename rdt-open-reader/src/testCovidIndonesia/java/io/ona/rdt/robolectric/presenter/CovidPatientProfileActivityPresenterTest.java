@@ -20,7 +20,7 @@ public class CovidPatientProfileActivityPresenterTest extends RobolectricTest {
     }
 
     @Test
-    public void testCreateInteractor() throws Exception {
+    public void testCreateInteractorShouldReturnCovidPatientProfileActivityInteractor() throws Exception {
         FormSaver formSaver = Whitebox.invokeMethod(presenter, "createInteractor");
         Assert.assertEquals(CovidPatientProfileActivityInteractor.class.getName(), formSaver.getClass().getName());
     }

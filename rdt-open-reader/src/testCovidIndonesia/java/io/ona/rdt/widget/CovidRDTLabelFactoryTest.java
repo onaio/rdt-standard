@@ -60,7 +60,7 @@ public class CovidRDTLabelFactoryTest extends BaseRDTLabelFactoryTest {
     }
 
     @Test
-    public void verifyLabelClickLIstener() throws JSONException {
+    public void verifyLabelClickListenerShouldReturnCovidOnLabelClickedListenerClassName() throws JSONException {
         mockStaticMethods();
         ReflectionHelpers.setField(rdtLabelFactory, "widgetArgs", getWidgetArgs(""));
         Assert.assertEquals(CovidOnLabelClickedListener.class.getName(), rdtLabelFactory.getOnLabelClickedListener().getClass().getName());

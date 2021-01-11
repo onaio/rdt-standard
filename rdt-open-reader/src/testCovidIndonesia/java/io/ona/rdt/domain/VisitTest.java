@@ -18,13 +18,13 @@ public class VisitTest extends PowerMockTest {
     }
 
     @Test
-    public void testOnVerifyVisitInfo() {
+    public void testVerifyVisitInfoShouldMatchModelData() {
         Assert.assertEquals(visitName, visit.getVisitName());
         Assert.assertEquals(visitDate, visit.getDateOfVisit());
     }
 
     @Test
-    public void testUpdatedVisitInfo() {
+    public void testUpdatedVisitInfoShouldVerifyUpdatedModelData() {
         visitName = "second visit";
         visitDate = "12-17-2020";
 

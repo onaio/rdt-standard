@@ -18,7 +18,7 @@ import io.ona.rdt.robolectric.widget.WidgetFactoryRobolectricTest;
 public class CovidRepeatingGroupFactoryTest extends WidgetFactoryRobolectricTest {
 
     @Test
-    public void verifyEditTextListeners() throws Exception {
+    public void verifyEditTextListenersShouldPerformFocusChangeListener() throws Exception {
         CovidRepeatingGroupFactory covidRepeatingGroupFactory = new CovidRepeatingGroupFactory();
         JSONObject jsonObject = new JSONObject("{\"value\": [], \"key\": \"test\", \"reference_edit_text_hint\": \"\"}");
         List<View> views = covidRepeatingGroupFactory.getViewsFromJson("step1", jsonFormActivity, new JsonFormFragment(), jsonObject, null);

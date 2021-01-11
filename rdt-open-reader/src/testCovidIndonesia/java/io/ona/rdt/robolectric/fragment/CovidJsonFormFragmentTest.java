@@ -20,19 +20,19 @@ public class CovidJsonFormFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testFormHasSpecialNavigationRules() throws Exception {
+    public void testFormHasSpecialNavigationRulesShouldContainsRelevantForms() throws Exception {
         for (String formName : covidJsonFormFragment.formsWithSpecialNavigationRules) {
             Assert.assertTrue(Whitebox.invokeMethod(covidJsonFormFragment, "formHasSpecialNavigationRules", formName));
         }
     }
 
     @Test
-    public void testIs20minTimerPage() throws Exception {
+    public void testIs20minTimerPageShouldReturnFalse() throws Exception {
         Assert.assertFalse(Whitebox.invokeMethod(covidJsonFormFragment, "is20minTimerPage", "none"));
     }
 
     @Test
-    public void testCreateRDTJsonFormFragmentPresenter() throws Exception {
+    public void testCreateRDTJsonFormFragmentPresenterShouldReturnCovidJsonFormFragmentPresenter() throws Exception {
         RDTJsonFormFragmentPresenter presenter = Whitebox.invokeMethod(covidJsonFormFragment, "createRDTJsonFormFragmentPresenter");
         Assert.assertEquals(CovidJsonFormFragmentPresenter.class.getName(), presenter.getClass().getName());
     }

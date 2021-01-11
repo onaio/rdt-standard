@@ -42,7 +42,7 @@ public class CovidPatientProfileFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testOnClick() {
+    public void testOnClickShouldVerifyLaunchForm() {
         View view = Mockito.mock(View.class);
 
         Mockito.when(view.getId()).thenReturn(R.id.tv_covid_delivery_details);
@@ -51,7 +51,7 @@ public class CovidPatientProfileFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testLaunchOtherClinicalDataFragment() {
+    public void testLaunchOtherClinicalDataFragmentShouldVerifyLaunchFragmentClass() {
         View view = Mockito.mock(View.class);
         Mockito.when(view.getId()).thenReturn(R.id.tv_covid_support_investigation);
 
@@ -66,7 +66,7 @@ public class CovidPatientProfileFragmentTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetFormName() throws Exception {
+    public void testGetFormNameShouldVerifyRelevantFormNames() throws Exception {
         View view = Mockito.mock(View.class);
 
         Mockito.when(view.getId()).thenReturn(R.id.tv_covid_delivery_details);

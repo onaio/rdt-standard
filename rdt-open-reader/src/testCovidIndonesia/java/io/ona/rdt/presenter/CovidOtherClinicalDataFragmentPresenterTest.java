@@ -22,7 +22,7 @@ public class CovidOtherClinicalDataFragmentPresenterTest extends PowerMockTest {
     }
 
     @Test
-    public void testLaunchForm() throws JSONException {
+    public void testLaunchFormShouldVerifyCorrectFormLaunch() throws JSONException {
         Activity activity = Mockito.mock(Activity.class);
         String formName = "formName";
         Patient patient = Mockito.mock(Patient.class);

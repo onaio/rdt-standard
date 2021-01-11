@@ -22,13 +22,13 @@ public class CovidLoginActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testGetHomeActivityClass() throws Exception {
+    public void testGetHomeActivityClassShouldReturnCovidPatientRegisterActivity() throws Exception {
         Class<?> clazz = Whitebox.invokeMethod(activity, "getHomeActivityClass");
         Assert.assertEquals(CovidPatientRegisterActivity.class.getName(), clazz.getName());
     }
 
     @Test
-    public void testGetRegisterTableName() throws Exception {
+    public void testGetRegisterTableNameShouldReturnCovidPatientsTableName() throws Exception {
         Assert.assertEquals(CovidConstants.Table.COVID_PATIENTS, Whitebox.invokeMethod(activity, "getRegisterTableName"));
     }
 

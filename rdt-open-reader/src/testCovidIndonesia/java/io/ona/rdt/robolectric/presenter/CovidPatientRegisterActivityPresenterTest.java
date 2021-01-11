@@ -22,13 +22,13 @@ public class CovidPatientRegisterActivityPresenterTest extends RobolectricTest {
     }
 
     @Test
-    public void testInitializeInteractor() throws Exception {
+    public void testInitializeInteractorShouldReturnCovidPatientRegisterActivityInteractor() throws Exception {
         PatientRegisterActivityInteractor interactor = Whitebox.invokeMethod(presenter, "initializeInteractor");
         Assert.assertEquals(CovidPatientRegisterActivityInteractor.class.getName(), interactor.getClass().getName());
     }
 
     @Test
-    public void testInitializeFormUtils() throws Exception {
+    public void testInitializeFormUtilsShouldReturnCovidRDTJsonFormUtils() throws Exception {
         RDTJsonFormUtils rdtJsonFormUtils = Whitebox.invokeMethod(presenter, "initializeFormUtils");
         Assert.assertEquals(CovidRDTJsonFormUtils.class.getName(), rdtJsonFormUtils.getClass().getName());
     }

@@ -37,36 +37,36 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testVerifyProfileFragmentViewPagerAdapter() {
+    public void testVerifyProfileFragmentViewPagerAdapterShouldReturnProfileFragmentAdapter() {
         ViewPager2 viewPage = activity.findViewById(R.id.covid_patient_profile_fragment_container);
         Assert.assertEquals(ProfileFragmentAdapter.class.getName(), viewPage.getAdapter().getClass().getName());
     }
 
     @Test
-    public void testGetContentViewId() throws Exception {
+    public void testGetContentViewIdShouldReturnActivityCovidPatientProfileId() throws Exception {
         Assert.assertEquals(R.layout.activity_covid_patient_profile, (int) Whitebox.invokeMethod(activity, "getContentViewId"));
     }
 
     @Test
-    public void testVerifyActivityPresenter() {
+    public void testVerifyActivityPresenterShouldReturnCovidPatientProfileActivityPresenter() {
         PatientProfileActivityPresenter presenter = ReflectionHelpers.getField(activity, "presenter");
         Assert.assertEquals(CovidPatientProfileActivityPresenter.class.getName(), presenter.getClass().getName());
     }
 
     @Test
-    public void testVerifyPatientProfileFragment() throws Exception {
+    public void testVerifyPatientProfileFragmentShouldReturnCovidPatientProfileFragment() throws Exception {
         Fragment fragment = Whitebox.invokeMethod(activity, "getPatientProfileFragment");
         Assert.assertEquals(CovidPatientProfileFragment.class.getName(), fragment.getClass().getName());
     }
 
     @Test
-    public void testVerifyPatientVisitFragmentCreation() {
+    public void testVerifyPatientVisitFragmentCreationShouldReturnCovidPatientVisitFragment() {
         Fragment fragment = activity.createPatientVisitFragment();
         Assert.assertEquals(CovidPatientVisitFragment.class.getName(), fragment.getClass().getName());
     }
 
     @Test
-    public void testGetHomeActivityClass() throws Exception {
+    public void testGetHomeActivityClassShouldReturnCovidPatientRegisterActivity() throws Exception {
         Class<?> clazz = Whitebox.invokeMethod(activity, "getHomeActivityClass");
         Assert.assertEquals(CovidPatientRegisterActivity.class.getName(), clazz.getName());
     }

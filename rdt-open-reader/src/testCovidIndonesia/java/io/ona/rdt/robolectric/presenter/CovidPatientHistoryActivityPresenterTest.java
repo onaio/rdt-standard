@@ -27,7 +27,7 @@ public class CovidPatientHistoryActivityPresenterTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetPatientHistoryEntries() throws JSONException {
+    public void testGetPatientHistoryEntriesShouldPopulateCorrectEntries() throws JSONException {
 
         String patientKey = "patient_key";
         String patientVal = "patient_val";
