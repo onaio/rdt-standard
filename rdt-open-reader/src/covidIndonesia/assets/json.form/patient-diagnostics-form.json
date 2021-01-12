@@ -786,83 +786,63 @@
     "submit_label": "{{patient-diagnostics-form-original.step3.submit_label}}",
     "fields": [
       {
-        "key": "has_travel_history",
+        "key": "has_international_travel_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step3.has_travel_history.label}}",
+        "label": "{{patient-diagnostics-form-original.step3.has_international_travel_history.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-diagnostics-form-original.step3.has_travel_history.options.Yes.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_international_travel_history.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-diagnostics-form-original.step3.has_travel_history.options.No.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_international_travel_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step3.has_travel_history.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step3.has_international_travel_history.v_required.err}}"
         }
       },
       {
-        "key": "travel_location",
+        "key": "international_travel_location",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "{{patient-diagnostics-form-original.step3.travel_location.label}}",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.international_travel_location.label}}",
         "options": [
           {
-            "key": "jakarta",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.jakarta.text}}"
+            "key": "americas",
+            "text": "{{patient-diagnostics-form-original.step3.international_travel_location.options.americas.text}}"
           },
           {
-            "key": "bandung",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.bandung.text}}"
+            "key": "europe",
+            "text": "{{patient-diagnostics-form-original.step3.international_travel_location.options.europe.text}}"
           },
           {
-            "key": "yogyakarta",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.yogyakarta.text}}"
+            "key": "se_asia",
+            "text": "{{patient-diagnostics-form-original.step3.international_travel_location.options.se_asia.text}}"
           },
           {
-            "key": "depok",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.depok.text}}"
+            "key": "eastern_mediterranean",
+            "text": "{{patient-diagnostics-form-original.step3.international_travel_location.options.eastern_mediterranean.text}}"
           },
           {
-            "key": "tangerang",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.tangerang.text}}"
+            "key": "africa",
+            "text": "{{patient-diagnostics-form-original.step3.international_travel_location.options.africa.text}}"
           },
           {
-            "key": "bogor",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.bogor.text}}"
-          },
-          {
-            "key": "manado",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.manado.text}}"
-          },
-          {
-            "key": "pontianak",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.pontianak.text}}"
-          },
-          {
-            "key": "solo",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.solo.text}}"
-          },
-          {
-            "key": "denpasar",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.denpasar.text}}"
-          },
-          {
-            "key": "other",
-            "text": "{{patient-diagnostics-form-original.step3.travel_location.options.other.text}}"
+            "key": "western_pacific",
+            "text": "{{patient-diagnostics-form-original.step3.international_travel_location.options.western_pacific.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step3.travel_location.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step3.international_travel_location.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -873,9 +853,9 @@
         }
       },
       {
-        "key": "other_location_lbl",
+        "key": "international_country_lbl",
         "type": "label",
-        "text": "{{patient-diagnostics-form-original.step3.other_location_lbl.text}}",
+        "text": "{{patient-diagnostics-form-original.step3.international_country_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -886,21 +866,94 @@
         }
       },
       {
-        "key": "other_location",
+        "key": "international_country",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.international_country.v_required.err}}"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "patient-diagnostics-form-relevance-rules.yml"
             }
           }
-        },
+        }
+      },
+      {
+        "key": "international_city_lbl",
+        "type": "label",
+        "text": "{{patient-diagnostics-form-original.step3.international_city_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "international_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
         "v_required": {
-          "value": "false",
-          "err": "{{patient-diagnostics-form-original.step3.other_location.v_required.err}}"
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.international_city.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "international_travel_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{patient-diagnostics-form-original.step3.international_travel_date.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{patient-diagnostics-form-original.step3.international_travel_date.duration.label}}"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "international_arrival_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{patient-diagnostics-form-original.step3.international_arrival_date.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{patient-diagnostics-form-original.step3.international_arrival_date.duration.label}}"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -935,7 +988,7 @@
         "key": "covid_patients_in_compound",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.reference_edit_text_hint}}",
-        "repeating_group_label": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.repeating_group_label}}",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -943,7 +996,7 @@
           {
             "key": "covid_patient_in_compound_name_label",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_name_label.text}}",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -960,7 +1013,7 @@
           {
             "key": "covid_patient_in_compound_name_phone_number_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_name_phone_number_lbl.text}}",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -975,21 +1028,21 @@
             },
             "v_numeric": {
               "value": "true",
-              "err": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_phone_number.v_numeric.err}}"
+              "err": "Value must be numeric"
             },
             "v_max_length": {
               "value": "13",
-              "err": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_phone_number.v_max_length.err}}"
+              "err": "Phone number cannot be more than 13 digits"
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_phone_number.v_min_length.err}}"
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
             "key": "covid_patient_in_compound_relationship_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_relationship_lbl.text}}",
+            "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
@@ -1009,10 +1062,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_first_contact.hint}}",
+            "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_first_contact.duration.label}}"
+              "label": "Date of first contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1023,10 +1076,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_last_contact.hint}}",
+            "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_last_contact.duration.label}}"
+              "label": "Date of last contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1043,7 +1096,7 @@
         "key": "has_close_contact_with_covid_patient",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.reference_edit_text_hint}}",
-        "repeating_group_label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.repeating_group_label}}",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1051,7 +1104,7 @@
           {
             "key": "close_contact_covid_patient_name_label",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_name_label.text}}",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -1068,7 +1121,7 @@
           {
             "key": "close_contact_covid_patient_phone_number_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number_lbl.text}}",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -1083,21 +1136,21 @@
             },
             "v_numeric": {
               "value": "true",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number.v_numeric.err}}"
+              "err": "Value must be numeric"
             },
             "v_max_length": {
               "value": "13",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number.v_max_length.err}}"
+              "err": "Phone number cannot be more than 13 digits"
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number.v_min_length.err}}"
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
             "key": "close_contact_covid_patient_relationship_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_relationship_lbl.text}}",
+            "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
@@ -1117,10 +1170,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_first_contact.hint}}",
+            "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_first_contact.duration.label}}"
+              "label": "Date of first contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1131,10 +1184,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_last_contact.hint}}",
+            "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_last_contact.duration.label}}"
+              "label": "Date of last contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1151,7 +1204,7 @@
         "key": "has_close_contact_with_someone_outside_household",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.reference_edit_text_hint}}",
-        "repeating_group_label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.repeating_group_label}}",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1159,7 +1212,7 @@
           {
             "key": "close_contact_outside_household_name_label",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_name_label.text}}",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -1176,7 +1229,7 @@
           {
             "key": "close_contact_outside_household_phone_number_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number_lbl.text}}",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -1191,21 +1244,21 @@
             },
             "v_numeric": {
               "value": "true",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number.v_numeric.err}}"
+              "err": "Value must be numeric"
             },
             "v_max_length": {
               "value": "13",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number.v_max_length.err}}"
+              "err": "Phone number cannot be more than 13 digits"
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number.v_min_length.err}}"
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
             "key": "close_contact_outside_household_relationship_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_relationship_lbl.text}}",
+            "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
@@ -1225,10 +1278,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_first_contact.hint}}",
+            "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_first_contact.duration.label}}"
+              "label": "Date of first contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1239,10 +1292,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_last_contact.hint}}",
+            "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_last_contact.duration.label}}"
+              "label": "Date of last contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1250,7 +1303,7 @@
           {
             "key": "close_contact_outside_household_location_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_location_lbl.text}}",
+            "text": "Location of contact",
             "text_color": "#000000"
           },
           {

@@ -20,23 +20,51 @@ condition: "step1_has_other_health_issues != '' && step1_has_other_health_issues
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_location_lbl
-description: Other health issues label
-priority: 1
-condition: "step3_travel_location.contains('other')"
-actions:
-  - "isRelevant = true"
----
-name: step3_other_location
-description: Other health issues
-priority: 1
-condition: "step3_travel_location.contains('other')"
-actions:
-  - "isRelevant = true"
----
-name: step3_travel_location
+name: step3_international_travel_location
 description: Location of travel
 priority: 1
-condition: "step3_has_travel_history != '' && step3_has_travel_history == 'Yes'"
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_country_lbl
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_country
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_city_lbl
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_city
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_travel_date
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_arrival_date
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
 actions:
   - "isRelevant = true"
