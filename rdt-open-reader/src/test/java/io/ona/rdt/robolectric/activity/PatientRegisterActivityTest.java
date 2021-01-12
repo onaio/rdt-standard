@@ -115,6 +115,14 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         verify(presenter).saveForm(eq(data.toString()), eq(patientRegisterActivity));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testOnActivityResultShouldThrowExceptionIfJsonFormActivityThrewException() {
+        ReflectionHelpers.callInstanceMethod(patientRegisterActivity, "onActivityResult",
+                ReflectionHelpers.ClassParameter.from(int.class, REQUEST_CODE_GET_JSON),
+                ReflectionHelpers.ClassParameter.from(int.class, Activity.RESULT_CANCELED),
+                ReflectionHelpers.ClassParameter.from(Intent.class, null));
+    }
+
     @Test
     public void testOpenDrawerLayoutShouldOpenDrawer() {
         patientRegisterActivity.openDrawerLayout();
