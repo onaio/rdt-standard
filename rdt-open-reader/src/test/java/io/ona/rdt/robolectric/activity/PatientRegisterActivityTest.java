@@ -36,7 +36,6 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.robolectric.util.UtilsTest;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_RDT_PERMISSIONS;
@@ -120,7 +119,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     public void testOnActivityResultShouldThrowExceptionIfJsonFormActivityThrewException() {
         ReflectionHelpers.callInstanceMethod(patientRegisterActivity, "onActivityResult",
                 ReflectionHelpers.ClassParameter.from(int.class, REQUEST_CODE_GET_JSON),
-                ReflectionHelpers.ClassParameter.from(int.class, RESULT_CANCELED),
+                ReflectionHelpers.ClassParameter.from(int.class, Activity.RESULT_CANCELED),
                 ReflectionHelpers.ClassParameter.from(Intent.class, null));
     }
 

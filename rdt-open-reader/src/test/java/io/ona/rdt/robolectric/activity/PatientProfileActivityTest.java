@@ -24,7 +24,6 @@ import io.ona.rdt.activity.PatientProfileActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static io.ona.rdt.util.Constants.FormFields.PATIENT;
 import static io.ona.rdt.util.Constants.RequestCodes.REQUEST_CODE_GET_JSON;
 import static org.junit.Assert.assertEquals;
@@ -84,7 +83,7 @@ public class PatientProfileActivityTest extends ActivityRobolectricTest {
     public void testOnActivityResultShouldThrowExceptionIfJsonFormActivityThrewException() {
         ReflectionHelpers.callInstanceMethod(patientProfileActivity, "onActivityResult",
                 ReflectionHelpers.ClassParameter.from(int.class, REQUEST_CODE_GET_JSON),
-                ReflectionHelpers.ClassParameter.from(int.class, RESULT_CANCELED),
+                ReflectionHelpers.ClassParameter.from(int.class, Activity.RESULT_CANCELED),
                 ReflectionHelpers.ClassParameter.from(Intent.class, null));
     }
 
