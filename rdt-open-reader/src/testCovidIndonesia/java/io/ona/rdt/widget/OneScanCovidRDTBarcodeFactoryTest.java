@@ -69,7 +69,6 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
     @After
     public void tearDown() {
-        RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(null);
         DeviceDefinitionProcessorShadow.setJSONObject(null);
         RDTJsonFormUtilsShadow.setJsonObject(null);
     }

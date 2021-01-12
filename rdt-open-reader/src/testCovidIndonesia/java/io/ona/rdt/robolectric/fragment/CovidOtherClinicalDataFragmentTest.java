@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.testing.FragmentScenario;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,23 +21,52 @@ import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidOtherClinicalDataFragment;
 import io.ona.rdt.presenter.CovidOtherClinicalDataFragmentPresenter;
-import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 
-public class CovidOtherClinicalDataFragmentTest extends RobolectricTest {
+public class CovidOtherClinicalDataFragmentTest extends FragmentRobolectricTest {
 
     @Mock
     private CovidOtherClinicalDataFragmentPresenter presenter;
 
     private CovidOtherClinicalDataFragment covidOtherClinicalDataFragment;
     private Patient patient;
+    private FragmentScenario<CovidOtherClinicalDataFragment> fragmentScenario;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        covidOtherClinicalDataFragment = buildFragment();
-        ReflectionHelpers.setField(covidOtherClinicalDataFragment, "presenter", presenter);
+
+        final int ten = 10;
+        patient = new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", ten, "dob");
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.FormFields.PATIENT, patient);
+
+        fragmentScenario = FragmentScenario.launchInContainer(CovidOtherClinicalDataFragment.class, bundle, new FragmentFactory(){
+            @NonNull
+            @Override
+            public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className) {
+                if (CovidOtherClinicalDataFragment.class.getName().equals(className)) {
+
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.FormFields.PATIENT, patient);
+
+                    CovidOtherClinicalDataFragment fragment = Mockito.spy(new CovidOtherClinicalDataFragment());
+
+                    Mockito.when(fragment.getActivity()).thenReturn(Robolectric.buildActivity(CovidPatientProfileActivity.class, intent).create().get());
+                    return fragment;
+                }
+                else {
+                    return super.instantiate(classLoader, className);
+                }
+            }
+        });
+
+        fragmentScenario.onFragment(fragment -> {
+            covidOtherClinicalDataFragment = fragment;
+            ReflectionHelpers.setField(covidOtherClinicalDataFragment, "presenter", presenter);
+        });
     }
 
     @Test
@@ -62,25 +93,8 @@ public class CovidOtherClinicalDataFragmentTest extends RobolectricTest {
         Assert.assertEquals(View.GONE, patientProfileFragmentContainer.getVisibility());
     }
 
-    private CovidOtherClinicalDataFragment buildFragment() {
-        final int ten = 10;
-        patient = new Patient("name", "sex", Constants.FormFields.ENTITY_ID, "patient_id", ten, "dob");
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.FormFields.PATIENT, patient);
-
-        Intent intent = new Intent();
-        intent.putExtra(Constants.FormFields.PATIENT, patient);
-
-        CovidOtherClinicalDataFragment fragment = new CovidOtherClinicalDataFragment();
-        fragment.setArguments(bundle);
-
-        CovidPatientProfileActivity covidPatientProfileActivity = Robolectric.buildActivity(CovidPatientProfileActivity.class, intent).create().resume().get();
-        FragmentManager fragmentManager = covidPatientProfileActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null);
-        fragmentTransaction.commit();
-
-        return fragment;
+    @Override
+    public FragmentScenario<CovidOtherClinicalDataFragment> getFragmentScenario() {
+        return fragmentScenario;
     }
 }

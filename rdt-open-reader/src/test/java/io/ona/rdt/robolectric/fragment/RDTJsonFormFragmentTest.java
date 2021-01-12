@@ -147,7 +147,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
     }
 
     @Test
-    public void testNavigationShouldNavigateToCorrectStep(){
+    public void testNavigationShouldNavigateToCorrectStep() {
         ReflectionHelpers.callInstanceMethod(jsonFormFragment, "initializeBottomNavigation",
                 ReflectionHelpers.ClassParameter.from(JSONObject.class, new JSONObject()),
                 ReflectionHelpers.ClassParameter.from(View.class, jsonFormFragment.getRootLayout()));

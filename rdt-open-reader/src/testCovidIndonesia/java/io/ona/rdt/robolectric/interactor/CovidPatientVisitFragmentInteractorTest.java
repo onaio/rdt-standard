@@ -34,18 +34,20 @@ public class CovidPatientVisitFragmentInteractorTest extends RobolectricTest {
         PatientHistoryRepository patientHistoryRepository = Mockito.mock(PatientHistoryRepository.class);
         ReflectionHelpers.setField(interactor, "patientHistoryRepository", patientHistoryRepository);
 
+        String dateStr = "2021-01-11";
         int listSize = 1;
         List<EventClient> eventClientList = new ArrayList<>(listSize);
         Event event = new Event();
-        event.setEventDate(DateTime.now());
+        event.setEventDate(DateTime.parse(dateStr));
         eventClientList.add(new EventClient(event));
 
         Mockito.when(patientHistoryRepository.getEventsByUniqueDate(ArgumentMatchers.anyString())).thenReturn(eventClientList);
 
         List<Visit> visitList = interactor.getPatientVisits("");
+        visitList.get(listSize - 1).setDateOfVisit(DateTime.parse(dateStr).toString());
         Assert.assertEquals(listSize, visitList.size());
         Assert.assertEquals("Visit 1", visitList.get(listSize - 1).getVisitName());
-        Assert.assertNull(visitList.get(listSize - 1).getDateOfVisit());
+        Assert.assertEquals(DateTime.parse(dateStr).toString(), visitList.get(listSize - 1).getDateOfVisit());
     }
 
     @Test
