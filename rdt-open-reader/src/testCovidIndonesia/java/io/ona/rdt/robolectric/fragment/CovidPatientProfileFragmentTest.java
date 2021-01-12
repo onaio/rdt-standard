@@ -45,7 +45,7 @@ public class CovidPatientProfileFragmentTest extends FragmentRobolectricTest {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.FormFields.PATIENT, patient);
 
-        fragmentScenario = FragmentScenario.launchInContainer(CovidPatientProfileFragment.class, bundle, new FragmentFactory(){
+        fragmentScenario = FragmentScenario.launchInContainer(CovidPatientProfileFragment.class, bundle, new FragmentFactory() {
             @NonNull
             @Override
             public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className) {
@@ -58,8 +58,7 @@ public class CovidPatientProfileFragmentTest extends FragmentRobolectricTest {
 
                     Mockito.when(fragment.getActivity()).thenReturn(Robolectric.buildActivity(CovidPatientProfileActivity.class, intent).create().get());
                     return fragment;
-                }
-                else {
+                } else {
                     return super.instantiate(classLoader, className);
                 }
             }
