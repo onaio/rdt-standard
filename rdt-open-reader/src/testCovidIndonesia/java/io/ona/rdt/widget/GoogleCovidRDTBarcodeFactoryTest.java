@@ -24,13 +24,13 @@ public class GoogleCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTe
     @Test
     public void testGetBarcodeValuesAsCSVShouldReturnValidBarcodeData() throws Exception {
         Barcode barcode = new Barcode();
-        barcode.displayValue = "openrdt.ona.io.widget.GoogleCovidRDTBarcodeFactory\u001D31012299564524\u001D52605,M017G71\u001DMalariaPfPv\u001D5060511890000";
+        barcode.displayValue = "010697027751469910NPC20059990\u001D1722022821A2182-B\u001D800901190409U02005055";
         Intent intent = new Intent();
         intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
         String barcodeCSV = Whitebox.invokeMethod(googleCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", intent);
         String[] data = Whitebox.invokeMethod(googleCovidRDTBarcodeFactory, "splitCSV", barcodeCSV);
 
-        String[] results = new String[]{"enrdt.ona.io.w", "get.GoogleCovidRDTBarcodeFactory", "012299", "4524", "52605"};
+        String[] results = new String[]{"06970277514699", "NPC20059990", "220228", "A2182-B", "800901190409U02005055"};
         for (int i = 0; i < results.length; i++) {
             Assert.assertEquals(results[i], data[i]);
         }
