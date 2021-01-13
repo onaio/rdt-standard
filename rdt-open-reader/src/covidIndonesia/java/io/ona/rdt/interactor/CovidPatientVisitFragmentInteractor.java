@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
+import io.ona.rdt.contract.CovidPatientVisitFragmentContract;
 import io.ona.rdt.domain.Visit;
 import io.ona.rdt.repository.PatientHistoryRepository;
 import io.ona.rdt.util.Utils;
@@ -20,8 +20,10 @@ import timber.log.Timber;
 public class CovidPatientVisitFragmentInteractor {
 
     private PatientHistoryRepository patientHistoryRepository;
+    private CovidPatientVisitFragmentContract.Presenter presenter;
 
-    public CovidPatientVisitFragmentInteractor() {
+    public CovidPatientVisitFragmentInteractor(CovidPatientVisitFragmentContract.Presenter presenter) {
+        this.presenter = presenter;
         this.patientHistoryRepository = new PatientHistoryRepository();
     }
 
@@ -29,7 +31,7 @@ public class CovidPatientVisitFragmentInteractor {
         List<EventClient> eventClients = patientHistoryRepository.getEventsByUniqueDate(baseEntityId);
         List<Visit> visits = new ArrayList<>();
         for (int i = 0; i < eventClients.size(); i++) {
-            visits.add(new Visit(String.format(RDTApplication.getInstance().getResources().getString(R.string.lbl_visit), i + 1),
+            visits.add(new Visit(String.format(presenter.translateString(R.string.lbl_visit), i + 1),
                     formatDate(eventClients.get(i).getEvent().getEventDate())));
         }
         return visits;
