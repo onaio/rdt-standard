@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "patient_diagnostics",
   "entity_id": "",
   "metadata": {
@@ -79,10 +79,32 @@
             "text": "home"
           },
           {
+            "key": "public_health_center",
+            "text": "Public health center"
+          },
+          {
             "key": "other",
             "text": "other"
           }
         ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "This field is required"
@@ -166,24 +188,42 @@
         }
       },
       {
-        "key": "patient_case_category",
+        "key": "has_chronic_liver_disease_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Patient case category?",
+        "label": "Does the patient have chronic liver disease?",
         "options": [
           {
-            "key": "under_monitoring",
-            "text": "Under monitoring"
+            "key": "Yes",
+            "text": "Yes"
           },
           {
-            "key": "under_surveillance",
-            "text": "Under surveillance"
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "has_cancer_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient have cancer?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
           },
           {
-            "key": "without_symptoms",
-            "text": "Without symptoms"
+            "key": "No",
+            "text": "No"
           }
         ],
         "v_required": {
@@ -782,8 +822,8 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "next": "step4",
+    "next_label": "CONTINUE",
     "fields": [
       {
         "key": "has_travel_history",
@@ -1281,6 +1321,66 @@
           {
             "key": "No",
             "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Patient case category",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "patient_case_category",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Patient case category?",
+        "options": [
+          {
+            "key": "negative_screening_result",
+            "text": "Negative screening result"
+          },
+          {
+            "key": "traveler",
+            "text": "Traveler"
+          },
+          {
+            "key": "close_contact",
+            "text": "Close contact"
+          },
+          {
+            "key": "suspected",
+            "text": "Suspected"
+          },
+          {
+            "key": "probable",
+            "text": "Probable"
+          },
+          {
+            "key": "symptomatic_confirmed",
+            "text": "Symptomatic confirmed"
+          },
+          {
+            "key": "asymptomatic_confirmed",
+            "text": "Asymptomatic confirmed"
+          },
+          {
+            "key": "discarded",
+            "text": "Discarded"
+          },
+          {
+            "key": "isolation_completed",
+            "text": "Isolation completed"
           }
         ],
         "v_required": {
