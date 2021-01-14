@@ -96,3 +96,17 @@ priority: 1
 condition: "step3_contact_with_dead_ard_patients != '' && step3_contact_with_dead_ard_patients == 'Yes'"
 actions:
   - "isRelevant = true"
+---
+name: step3_what_ppe
+description: Dead ARD patient contacts
+priority: 1
+condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_performed_aerosol_procedures
+description: Performed aerosol procedures
+priority: 1
+condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'Yes'"
+actions:
+  - "isRelevant = true"

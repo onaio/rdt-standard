@@ -1583,6 +1583,114 @@
           "value": "true",
           "err": "This field is required"
         }
+      },
+      {
+        "key": "is_part_of_ari_cluster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient belong to a cluster of severe ARI (fever and pneumonia requiring hospital treatment) with no known cause?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "is_patient_health_worker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Is the patient a health worker?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "what_ppe",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "What personal protective equipment (PPE) is used when treating a suspect/probable/confirmed patient?",
+        "options": [
+          {
+            "key": "gown",
+            "text": "Gown"
+          },
+          {
+            "key": "mask",
+            "text": "Mask"
+          },
+          {
+            "key": "gloves",
+            "text": "Medical gloves"
+          },
+          {
+            "key": "masker",
+            "text": "Masker NIOSH-N95. AN EU STANDARD FFP2"
+          },
+          {
+            "key": "ffp3",
+            "text": "FFP3"
+          },
+          {
+            "key": "goggles",
+            "text": "Medical goggles"
+          },
+          {
+            "key": "none",
+            "text": "Not wearing PPE"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "performed_aerosol_procedures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Did the patient perform aerosol-generating procedures?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
       }
     ]
   }

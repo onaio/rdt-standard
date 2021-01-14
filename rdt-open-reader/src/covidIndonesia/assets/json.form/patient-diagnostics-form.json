@@ -1583,6 +1583,114 @@
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.v_required.err}}"
         }
+      },
+      {
+        "key": "is_part_of_ari_cluster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.v_required.err}}"
+        }
+      },
+      {
+        "key": "is_patient_health_worker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.v_required.err}}"
+        }
+      },
+      {
+        "key": "what_ppe",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{patient-diagnostics-form-original.step3.what_ppe.label}}",
+        "options": [
+          {
+            "key": "gown",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.gown.text}}"
+          },
+          {
+            "key": "mask",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.mask.text}}"
+          },
+          {
+            "key": "gloves",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.gloves.text}}"
+          },
+          {
+            "key": "masker",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.masker.text}}"
+          },
+          {
+            "key": "ffp3",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.ffp3.text}}"
+          },
+          {
+            "key": "goggles",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.goggles.text}}"
+          },
+          {
+            "key": "none",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.none.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.what_ppe.v_required.err}}"
+        }
+      },
+      {
+        "key": "performed_aerosol_procedures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.v_required.err}}"
+        }
       }
     ]
   },
