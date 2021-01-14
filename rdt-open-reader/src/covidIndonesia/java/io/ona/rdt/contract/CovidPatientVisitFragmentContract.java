@@ -6,10 +6,10 @@ package io.ona.rdt.contract;
 public interface CovidPatientVisitFragmentContract {
 
     interface View {
-
+        String translateString(int resourceId);
     }
 
     interface Presenter {
-
+        String translateString(int resourceId);
     }
 }
