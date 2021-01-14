@@ -979,28 +979,51 @@
         }
       },
       {
-        "key": "covid_patients_in_compound_lbl",
-        "type": "label",
-        "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound_lbl.text}}",
-        "text_color": "#000000"
+        "key": "contact_with_covid_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.v_required.err}}"
+        }
       },
       {
-        "key": "covid_patients_in_compound",
+        "key": "covid_close_contacts",
         "type": "repeating_group",
-        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.reference_edit_text_hint}}",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.covid_close_contacts.reference_edit_text_hint}}",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "value": [
           {
-            "key": "covid_patient_in_compound_name_label",
+            "key": "covid_close_contacts_name_label",
             "type": "label",
             "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
-            "key": "covid_patient_in_compound_name_name",
+            "key": "covid_close_contacts_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1011,13 +1034,13 @@
             }
           },
           {
-            "key": "covid_patient_in_compound_name_phone_number_lbl",
+            "key": "covid_close_contacts_phone_number_lbl",
             "type": "label",
             "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
-            "key": "covid_patient_in_compound_phone_number",
+            "key": "covid_close_contacts_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1040,13 +1063,13 @@
             }
           },
           {
-            "key": "covid_patient_in_compound_relationship_lbl",
+            "key": "covid_close_contacts_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "covid_patient_in_compound_relationship",
+            "key": "covid_close_contacts_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1057,7 +1080,33 @@
             }
           },
           {
-            "key": "covid_patient_in_compound_date_of_first_contact",
+            "key": "has_close_contact_with_infectious_animal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "native_radio",
+            "label": "How was the patient diagnosed?",
+            "options": [
+              {
+                "key": "pcr",
+                "text": "PCR test"
+              },
+              {
+                "key": "antigen",
+                "text": "Antigen RDT"
+              },
+              {
+                "key": "antibody",
+                "text": "Antibody RDT"
+              }
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "This field is required"
+            }
+          },
+          {
+            "key": "covid_close_contacts_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1071,7 +1120,7 @@
             "max_date": "today"
           },
           {
-            "key": "covid_patient_in_compound_date_of_last_contact",
+            "key": "covid_close_contacts_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1087,28 +1136,51 @@
         ]
       },
       {
-        "key": "has_close_contact_with_covid_patient_lbl",
-        "type": "label",
-        "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient_lbl.text}}",
-        "text_color": "#000000"
+        "key": "contact_with_ari_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.v_required.err}}"
+        }
       },
       {
-        "key": "has_close_contact_with_covid_patient",
+        "key": "has_close_contact_with_ari_patient",
         "type": "repeating_group",
-        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.reference_edit_text_hint}}",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_ari_patient.reference_edit_text_hint}}",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "value": [
           {
-            "key": "close_contact_covid_patient_name_label",
+            "key": "close_contact_ari_patient_name_label",
             "type": "label",
             "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_covid_patient_name",
+            "key": "close_contact_ari_patient_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1119,13 +1191,13 @@
             }
           },
           {
-            "key": "close_contact_covid_patient_phone_number_lbl",
+            "key": "close_contact_ari_patient_phone_number_lbl",
             "type": "label",
             "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_covid_patient_phone_number",
+            "key": "close_contact_ari_patient_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1148,13 +1220,13 @@
             }
           },
           {
-            "key": "close_contact_covid_patient_relationship_lbl",
+            "key": "close_contact_ari_patient_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_covid_patient_relationship",
+            "key": "close_contact_ari_patient_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1165,7 +1237,7 @@
             }
           },
           {
-            "key": "close_contact_covid_patient_date_of_first_contact",
+            "key": "close_contact_ari_patient_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1179,7 +1251,7 @@
             "max_date": "today"
           },
           {
-            "key": "close_contact_covid_patient_date_of_last_contact",
+            "key": "close_contact_ari_patient_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1195,28 +1267,51 @@
         ]
       },
       {
-        "key": "has_close_contact_with_someone_outside_household_lbl",
-        "type": "label",
-        "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household_lbl.text}}",
-        "text_color": "#000000"
+        "key": "contact_with_hospitalized_ard_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.v_required.err}}"
+        }
       },
       {
-        "key": "has_close_contact_with_someone_outside_household",
+        "key": "has_exposure_to_hospitalized_ard_patient",
         "type": "repeating_group",
-        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.reference_edit_text_hint}}",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_exposure_to_hospitalized_ard_patient.reference_edit_text_hint}}",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "value": [
           {
-            "key": "close_contact_outside_household_name_label",
+            "key": "hospitalized_ard_patient_name_label",
             "type": "label",
             "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_name",
+            "key": "hospitalized_ard_patient_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1227,13 +1322,13 @@
             }
           },
           {
-            "key": "close_contact_outside_household_phone_number_lbl",
+            "key": "hospitalized_ard_patient_phone_number_lbl",
             "type": "label",
             "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_phone_number",
+            "key": "hospitalized_ard_patient_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1256,13 +1351,13 @@
             }
           },
           {
-            "key": "close_contact_outside_household_relationship_lbl",
+            "key": "hospitalized_ard_patient_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_relationship",
+            "key": "hospitalized_ard_patient_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1273,7 +1368,7 @@
             }
           },
           {
-            "key": "close_contact_outside_household_date_of_first_contact",
+            "key": "hospitalized_ard_patient_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1287,7 +1382,7 @@
             "max_date": "today"
           },
           {
-            "key": "close_contact_outside_household_date_of_last_contact",
+            "key": "hospitalized_ard_patient_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1301,13 +1396,161 @@
             "max_date": "today"
           },
           {
-            "key": "close_contact_outside_household_location_lbl",
+            "key": "hospitalized_ard_patient_location_lbl",
             "type": "label",
             "text": "Location of contact",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_location",
+            "key": "hospitalized_ard_patient_location",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact_with_dead_ard_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.v_required.err}}"
+        }
+      },
+      {
+        "key": "has_exposure_to_dead_ard_patient",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_exposure_to_dead_ard_patient.reference_edit_text_hint}}",
+        "repeating_group_label": "Patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "value": [
+          {
+            "key": "dead_ard_patient_name_label",
+            "type": "label",
+            "text": "Contact\u0027s name",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          },
+          {
+            "key": "dead_ard_patient_phone_number_lbl",
+            "type": "label",
+            "text": "Contact\u0027s phone number",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_phone_number",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Value must be numeric"
+            },
+            "v_max_length": {
+              "value": "13",
+              "err": "Phone number cannot be more than 13 digits"
+            },
+            "v_min_length": {
+              "value": "8",
+              "err": "Phone number cannot be less than 8 digits"
+            }
+          },
+          {
+            "key": "dead_ard_patient_relationship_lbl",
+            "type": "label",
+            "text": "Relationship with contact",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_relationship",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          },
+          {
+            "key": "dead_ard_patient_date_of_first_contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date of first contact",
+            "expanded": false,
+            "duration": {
+              "label": "Date of first contact"
+            },
+            "min_date": "today-100y",
+            "max_date": "today"
+          },
+          {
+            "key": "dead_ard_patient_date_of_last_contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date of last contact",
+            "expanded": false,
+            "duration": {
+              "label": "Date of last contact"
+            },
+            "min_date": "today-100y",
+            "max_date": "today"
+          },
+          {
+            "key": "dead_ard_patient_location_lbl",
+            "type": "label",
+            "text": "Location of contact",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_location",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",

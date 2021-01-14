@@ -68,3 +68,31 @@ priority: 1
 condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
 actions:
   - "isRelevant = true"
+---
+name: step3_covid_close_contacts
+description: Close Covid-19 contacts
+priority: 1
+condition: "step3_contact_with_covid_patients != '' && step3_contact_with_covid_patients == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_contact_with_ari_patients
+description: Close ARD contacts
+priority: 1
+condition: "step3_covid_close_contacts != '' && step3_covid_close_contacts == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_has_exposure_to_hospitalized_ard_patient
+description: Hospitalized ARD patient contacts
+priority: 1
+condition: "step3_contact_with_hospitalized_ard_patients != '' && step3_contact_with_hospitalized_ard_patients == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_has_exposure_to_dead_ard_patient
+description: Dead ARD patient contacts
+priority: 1
+condition: "step3_contact_with_dead_ard_patients != '' && step3_contact_with_dead_ard_patients == 'Yes'"
+actions:
+  - "isRelevant = true"
