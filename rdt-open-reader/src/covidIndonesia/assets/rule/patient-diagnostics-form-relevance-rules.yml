@@ -47,3 +47,10 @@ priority: 1
 condition: "step1_facility_type == 'other'"
 actions:
   - "isRelevant = true"
+---
+name: step2_fever_temperature
+description: Body Temperature
+priority: 1
+condition: "step2_has_fever == 'Yes'"
+actions:
+  - "isRelevant = true"

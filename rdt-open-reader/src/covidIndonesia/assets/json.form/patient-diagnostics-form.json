@@ -552,6 +552,47 @@
         }
       },
       {
+        "key": "fever_temperature",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{patient-diagnostics-form-original.step2.fever_temperature.hint}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.fever_temperature.v_required.err}}"
+        }
+      },
+      {
+        "key": "has_fever_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step2.has_fever_history.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step2.has_fever_history.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step2.has_fever_history.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.has_fever_history.v_required.err}}"
+        }
+      },
+      {
         "key": "has_nausea",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -794,6 +835,28 @@
         }
       },
       {
+        "key": "has_abdominal_pain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.v_required.err}}"
+        }
+      },
+      {
         "key": "has_fatigue",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -813,6 +876,28 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step2.has_fatigue.v_required.err}}"
+        }
+      },
+      {
+        "key": "has_abdominal_pain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.v_required.err}}"
         }
       }
     ]
@@ -1331,12 +1416,12 @@
     ]
   },
   "step4": {
-    "title": "Patient case category",
+    "title": "{{patient-diagnostics-form-original.step4.title}}",
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "submit_label": "{{patient-diagnostics-form-original.step4.submit_label}}",
     "fields": [
       {
         "key": "patient_case_category",
@@ -1344,48 +1429,48 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Patient case category?",
+        "label": "{{patient-diagnostics-form-original.step4.patient_case_category.label}}",
         "options": [
           {
             "key": "negative_screening_result",
-            "text": "Negative screening result"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.negative_screening_result.text}}"
           },
           {
             "key": "traveler",
-            "text": "Traveler"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.traveler.text}}"
           },
           {
             "key": "close_contact",
-            "text": "Close contact"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.close_contact.text}}"
           },
           {
             "key": "suspected",
-            "text": "Suspected"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.suspected.text}}"
           },
           {
             "key": "probable",
-            "text": "Probable"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.probable.text}}"
           },
           {
             "key": "symptomatic_confirmed",
-            "text": "Symptomatic confirmed"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.symptomatic_confirmed.text}}"
           },
           {
             "key": "asymptomatic_confirmed",
-            "text": "Asymptomatic confirmed"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.asymptomatic_confirmed.text}}"
           },
           {
             "key": "discarded",
-            "text": "Discarded"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.discarded.text}}"
           },
           {
             "key": "isolation_completed",
-            "text": "Isolation completed"
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.isolation_completed.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This field is required"
+          "err": "{{patient-diagnostics-form-original.step4.patient_case_category.v_required.err}}"
         }
       }
     ]
