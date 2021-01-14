@@ -66,7 +66,11 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
       },
       {
         "key": "patient_last_name_label",
@@ -268,10 +272,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": ""
-        },
         "v_regex": {
           "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
           "err": "Please enter a valid email address"
@@ -326,6 +326,237 @@
         "v_required": {
           "value": "false",
           "err": ""
+        }
+      },
+      {
+        "key": "head_of_household_no_lbl",
+        "type": "label",
+        "text": "Head of household phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "head_of_household_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "head_of_household_address_lbl",
+        "type": "label",
+        "text": "Head of household address",
+        "text_color": "#000000"
+      },
+      {
+        "key": "head_of_household_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "taken_tests_before",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient taken any Covid tests before?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "no_of_covid_tests_lbl",
+        "type": "label",
+        "text": "How many covid tests has the patient taken?",
+        "text_color": "#000000"
+      },
+      {
+        "key": "no_of_covid_tests",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "latest_covid_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Latest Covid test date",
+        "expanded": false,
+        "duration": {
+          "label": "Test Date"
+        },
+        "min_date": "today-10y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "test_location_lbl",
+        "type": "label",
+        "text": "Test location?",
+        "text_color": "#000000"
+      },
+      {
+        "key": "test_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "covid_patient_in_compound_date_of_first_contact",
+        "key": "has_close_contact_with_infectious_animal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "How was the patient diagnosed?",
+        "options": [
+          {
+            "key": "pcr",
+            "text": "PCR test"
+          },
+          {
+            "key": "antigen",
+            "text": "Antigen RDT"
+          },
+          {
+            "key": "antibody",
+            "text": "Antibody RDT"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "type_of_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Type of test?",
+        "options": [
+          {
+            "key": "pcr",
+            "text": "PCR test"
+          },
+          {
+            "key": "antigen",
+            "text": "Antigen RDT"
+          },
+          {
+            "key": "antibody",
+            "text": "Antibody RDT"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "antibody_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "RDT result?",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "Reactive"
+          },
+          {
+            "key": "nonreactive",
+            "text": "NonReactive"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "antigen_or_pcr_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "RDT result?",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive"
+          },
+          {
+            "key": "negative",
+            "text": "Negative"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Follow-up to the latest test result?",
+        "options": [
+          {
+            "key": "admission",
+            "text": "Hospital admission"
+          },
+          {
+            "key": "referral",
+            "text": "Referral"
+          },
+          {
+            "key": "isolation",
+            "text": "Self isolation"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
         }
       }
     ]
