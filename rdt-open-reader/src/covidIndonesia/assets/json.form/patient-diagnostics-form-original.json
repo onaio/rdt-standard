@@ -957,6 +957,70 @@
         }
       },
       {
+        "key": "has_local_transmission_area_travel_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient travelled or lived in the local transmission area in the past 14 days?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "local_area_travel_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date of local area travel",
+        "expanded": false,
+        "duration": {
+          "label": "Date of local area travel"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_arrival_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date of local area arrival",
+        "expanded": false,
+        "duration": {
+          "label": "Date of local area arrival"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "has_close_contact_with_sick_traveller",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

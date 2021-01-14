@@ -957,6 +957,70 @@
         }
       },
       {
+        "key": "has_local_transmission_area_travel_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step3.has_local_transmission_area_travel_history.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step3.has_local_transmission_area_travel_history.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step3.has_local_transmission_area_travel_history.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.has_local_transmission_area_travel_history.v_required.err}}"
+        }
+      },
+      {
+        "key": "local_area_travel_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{patient-diagnostics-form-original.step3.local_area_travel_date.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{patient-diagnostics-form-original.step3.local_area_travel_date.duration.label}}"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_arrival_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{patient-diagnostics-form-original.step3.local_area_arrival_date.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{patient-diagnostics-form-original.step3.local_area_arrival_date.duration.label}}"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "has_close_contact_with_sick_traveller",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
