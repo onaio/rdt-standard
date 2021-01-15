@@ -388,7 +388,14 @@
         "key": "no_of_covid_tests_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.no_of_covid_tests_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "no_of_covid_tests",
@@ -396,6 +403,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.no_of_covid_tests.v_required.err}}"
@@ -409,6 +423,13 @@
         "type": "date_picker",
         "hint": "{{patient-registration-form-original.step1.latest_covid_test_date.hint}}",
         "expanded": false,
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
         "duration": {
           "label": "{{patient-registration-form-original.step1.latest_covid_test_date.duration.label}}"
         },
@@ -423,7 +444,14 @@
         "key": "test_location_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.test_location_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "test_location",
@@ -431,35 +459,16 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.test_location.v_required.err}}"
-        }
-      },
-      {
-        "key": "has_close_contact_with_infectious_animal",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{patient-registration-form-original.step1.has_close_contact_with_infectious_animal.label}}",
-        "options": [
-          {
-            "key": "pcr",
-            "text": "{{patient-registration-form-original.step1.has_close_contact_with_infectious_animal.options.pcr.text}}"
-          },
-          {
-            "key": "antigen",
-            "text": "{{patient-registration-form-original.step1.has_close_contact_with_infectious_animal.options.antigen.text}}"
-          },
-          {
-            "key": "antibody",
-            "text": "{{patient-registration-form-original.step1.has_close_contact_with_infectious_animal.options.antibody.text}}"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{patient-registration-form-original.step1.has_close_contact_with_infectious_animal.v_required.err}}"
         }
       },
       {
@@ -469,6 +478,13 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "{{patient-registration-form-original.step1.type_of_test.label}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
         "options": [
           {
             "key": "pcr",
@@ -508,6 +524,13 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.antibody_test_result.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -530,6 +553,13 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.antigen_or_pcr_result.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -556,6 +586,13 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.follow_up.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       }
     ]

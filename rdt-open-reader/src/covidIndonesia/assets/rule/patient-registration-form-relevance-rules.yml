@@ -1,0 +1,64 @@
+---
+name: step1_no_of_covid_tests_lbl
+description: No of covid tests lbl
+priority: 1
+condition: "step1_taken_tests_before.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_of_covid_tests
+description: No of covid tests
+priority: 1
+condition: "step1_taken_tests_before.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_latest_covid_test_date
+description: Latest covid test date
+priority: 1
+condition: "step1_taken_tests_before.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_location_lbl
+description: Test location lbl
+priority: 1
+condition: "step1_taken_tests_before.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_location
+description: Test location
+priority: 1
+condition: "step1_taken_tests_before.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_type_of_test
+description: Test type
+priority: 1
+condition: "step1_taken_tests_before.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_antibody_test_result
+description: Antibody test result
+priority: 1
+condition: "step1_type_of_test.contains('antibody')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_antigen_or_pcr_result
+description: Antigen or PCR test result
+priority: 1
+condition: "step1_type_of_test.contains('antigen') || step1_type_of_test.contains('pcr')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_follow_up
+description: Test type
+priority: 1
+condition: "step1_antibody_test_result.contains('reactive') || step1_antigen_or_pcr_result.contains('positive')"
+actions:
+  - "isRelevant = true"
+---
