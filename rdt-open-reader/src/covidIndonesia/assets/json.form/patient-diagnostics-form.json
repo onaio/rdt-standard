@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "patient_diagnostics",
   "entity_id": "",
   "metadata": {
@@ -79,6 +79,10 @@
             "text": "{{patient-diagnostics-form-original.step1.facility_type.options.home.text}}"
           },
           {
+            "key": "public_health_center",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.public_health_center.text}}"
+          },
+          {
             "key": "other",
             "text": "{{patient-diagnostics-form-original.step1.facility_type.options.other.text}}"
           }
@@ -86,6 +90,24 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step1.facility_type.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.other_facility_type.v_required.err}}"
         }
       },
       {
@@ -166,29 +188,47 @@
         }
       },
       {
-        "key": "patient_case_category",
+        "key": "has_chronic_liver_disease_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step1.patient_case_category.label}}",
+        "label": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.label}}",
         "options": [
           {
-            "key": "under_monitoring",
-            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.under_monitoring.text}}"
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.options.Yes.text}}"
           },
           {
-            "key": "under_surveillance",
-            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.under_surveillance.text}}"
-          },
-          {
-            "key": "without_symptoms",
-            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.without_symptoms.text}}"
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step1.patient_case_category.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.v_required.err}}"
+        }
+      },
+      {
+        "key": "has_cancer_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step1.has_cancer_history.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step1.has_cancer_history.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step1.has_cancer_history.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.has_cancer_history.v_required.err}}"
         }
       },
       {
@@ -782,8 +822,8 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "{{patient-diagnostics-form-original.step3.submit_label}}",
+    "next": "step4",
+    "next_label": "{{patient-diagnostics-form-original.step3.next_label}}",
     "fields": [
       {
         "key": "has_international_travel_history",
@@ -1768,6 +1808,66 @@
               "rules-file": "patient-diagnostics-form-relevance-rules.yml"
             }
           }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Patient case category",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "patient_case_category",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Patient case category?",
+        "options": [
+          {
+            "key": "negative_screening_result",
+            "text": "Negative screening result"
+          },
+          {
+            "key": "traveler",
+            "text": "Traveler"
+          },
+          {
+            "key": "close_contact",
+            "text": "Close contact"
+          },
+          {
+            "key": "suspected",
+            "text": "Suspected"
+          },
+          {
+            "key": "probable",
+            "text": "Probable"
+          },
+          {
+            "key": "symptomatic_confirmed",
+            "text": "Symptomatic confirmed"
+          },
+          {
+            "key": "asymptomatic_confirmed",
+            "text": "Asymptomatic confirmed"
+          },
+          {
+            "key": "discarded",
+            "text": "Discarded"
+          },
+          {
+            "key": "isolation_completed",
+            "text": "Isolation completed"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
         }
       }
     ]
