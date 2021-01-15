@@ -1043,25 +1043,25 @@
         }
       },
       {
-        "key": "contact_with_covid_patients",
+        "key": "has_close_contact_with_covid_patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.label}}",
+        "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.label}}",
         "options": [
           {
             "key": "yes",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.options.yes.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.options.yes.text}}"
           },
           {
             "key": "no",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.options.no.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.options.no.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step3.contact_with_covid_patients.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.v_required.err}}"
         }
       },
       {
@@ -1200,31 +1200,31 @@
         ]
       },
       {
-        "key": "contact_with_ari_patients",
+        "key": "has_contact_with_ari_patients",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.label}}",
+        "label": "{{patient-diagnostics-form-original.step3.has_contact_with_ari_patients.label}}",
         "options": [
           {
             "key": "yes",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.options.yes.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_contact_with_ari_patients.options.yes.text}}"
           },
           {
             "key": "no",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.options.no.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_contact_with_ari_patients.options.no.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step3.contact_with_ari_patients.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step3.has_contact_with_ari_patients.v_required.err}}"
         }
       },
       {
-        "key": "has_close_contact_with_ari_patient",
+        "key": "close_ari_patient_contacts",
         "type": "repeating_group",
-        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_ari_patient.reference_edit_text_hint}}",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.close_ari_patient_contacts.reference_edit_text_hint}}",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1331,31 +1331,31 @@
         ]
       },
       {
-        "key": "contact_with_hospitalized_ard_patients",
+        "key": "has_contact_with_hospitalized_ard_patients",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.label}}",
+        "label": "{{patient-diagnostics-form-original.step3.has_contact_with_hospitalized_ard_patients.label}}",
         "options": [
           {
             "key": "yes",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.options.yes.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_contact_with_hospitalized_ard_patients.options.yes.text}}"
           },
           {
             "key": "no",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.options.no.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_contact_with_hospitalized_ard_patients.options.no.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step3.contact_with_hospitalized_ard_patients.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step3.has_contact_with_hospitalized_ard_patients.v_required.err}}"
         }
       },
       {
-        "key": "has_exposure_to_hospitalized_ard_patient",
+        "key": "hospitalized_ard_patient_contacts",
         "type": "repeating_group",
-        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_exposure_to_hospitalized_ard_patient.reference_edit_text_hint}}",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.hospitalized_ard_patient_contacts.reference_edit_text_hint}}",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1479,31 +1479,31 @@
         ]
       },
       {
-        "key": "contact_with_dead_ard_patients",
+        "key": "has_contact_with_dead_ard_patients",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.label}}",
+        "label": "{{patient-diagnostics-form-original.step3.has_contact_with_dead_ard_patients.label}}",
         "options": [
           {
             "key": "yes",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.options.yes.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_contact_with_dead_ard_patients.options.yes.text}}"
           },
           {
             "key": "no",
-            "text": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.options.no.text}}"
+            "text": "{{patient-diagnostics-form-original.step3.has_contact_with_dead_ard_patients.options.no.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step3.contact_with_dead_ard_patients.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step3.has_contact_with_dead_ard_patients.v_required.err}}"
         }
       },
       {
-        "key": "has_exposure_to_dead_ard_patient",
+        "key": "dead_ard_patient_contacts",
         "type": "repeating_group",
-        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_exposure_to_dead_ard_patient.reference_edit_text_hint}}",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.dead_ard_patient_contacts.reference_edit_text_hint}}",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1635,11 +1635,11 @@
         "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.label}}",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.options.Yes.text}}"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.options.No.text}}"
           }
         ],
@@ -1657,11 +1657,11 @@
         "label": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.label}}",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.options.Yes.text}}"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "{{patient-diagnostics-form-original.step3.is_part_of_ari_cluster.options.No.text}}"
           }
         ],
@@ -1679,11 +1679,11 @@
         "label": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.label}}",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.options.Yes.text}}"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "{{patient-diagnostics-form-original.step3.is_patient_health_worker.options.No.text}}"
           }
         ],
@@ -1732,6 +1732,13 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step3.what_ppe.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -1743,17 +1750,24 @@
         "label": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.label}}",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.options.Yes.text}}"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step3.performed_aerosol_procedures.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       }
     ]

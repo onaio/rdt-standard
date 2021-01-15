@@ -72,41 +72,41 @@ actions:
 name: step3_covid_close_contacts
 description: Close Covid-19 contacts
 priority: 1
-condition: "step3_contact_with_covid_patients != '' && step3_contact_with_covid_patients == 'Yes'"
+condition: "step3_has_close_contact_with_covid_patient != '' && step3_has_close_contact_with_covid_patient == 'yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_contact_with_ari_patients
+name: step3_close_ari_patient_contacts
 description: Close ARD contacts
 priority: 1
-condition: "step3_covid_close_contacts != '' && step3_covid_close_contacts == 'Yes'"
+condition: "step3_has_contact_with_ari_patients != '' && step3_has_contact_with_ari_patients == 'yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_has_exposure_to_hospitalized_ard_patient
+name: step3_hospitalized_ard_patient_contacts
 description: Hospitalized ARD patient contacts
 priority: 1
-condition: "step3_contact_with_hospitalized_ard_patients != '' && step3_contact_with_hospitalized_ard_patients == 'Yes'"
+condition: "step3_has_contact_with_hospitalized_ard_patients!= '' && step3_has_contact_with_hospitalized_ard_patients == 'yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_has_exposure_to_dead_ard_patient
+name: step3_dead_ard_patient_contacts
 description: Dead ARD patient contacts
 priority: 1
-condition: "step3_contact_with_dead_ard_patients != '' && step3_contact_with_dead_ard_patients == 'Yes'"
+condition: "step3_has_contact_with_dead_ard_patients != '' && step3_has_contact_with_dead_ard_patients == 'yes'"
 actions:
   - "isRelevant = true"
 ---
 name: step3_what_ppe
 description: Dead ARD patient contacts
 priority: 1
-condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'Yes'"
+condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'yes'"
 actions:
   - "isRelevant = true"
 ---
 name: step3_performed_aerosol_procedures
 description: Performed aerosol procedures
 priority: 1
-condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'Yes'"
+condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'yes'"
 actions:
   - "isRelevant = true"

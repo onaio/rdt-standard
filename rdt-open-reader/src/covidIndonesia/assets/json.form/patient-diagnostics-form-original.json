@@ -1043,12 +1043,12 @@
         }
       },
       {
-        "key": "contact_with_covid_patients",
+        "key": "has_close_contact_with_covid_patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has the patient had contact with confirmed cases of Covid-19 in the past 14 days?",
+        "label": "Has the patient had close contact with confirmed cases of Covid-19 in the past 14 days?",
         "options": [
           {
             "key": "yes",
@@ -1200,7 +1200,7 @@
         ]
       },
       {
-        "key": "contact_with_ari_patients",
+        "key": "has_contact_with_ari_patients",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1222,7 +1222,7 @@
         }
       },
       {
-        "key": "has_close_contact_with_ari_patient",
+        "key": "close_ari_patient_contacts",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of ARI/ARD patients",
         "repeating_group_label": "Patient",
@@ -1331,7 +1331,7 @@
         ]
       },
       {
-        "key": "contact_with_hospitalized_ard_patients",
+        "key": "has_contact_with_hospitalized_ard_patients",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1353,7 +1353,7 @@
         }
       },
       {
-        "key": "has_exposure_to_hospitalized_ard_patient",
+        "key": "hospitalized_ard_patient_contacts",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of hospitalized ARD patients",
         "repeating_group_label": "Patient",
@@ -1479,7 +1479,7 @@
         ]
       },
       {
-        "key": "contact_with_dead_ard_patients",
+        "key": "has_contact_with_dead_ard_patients",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1501,7 +1501,7 @@
         }
       },
       {
-        "key": "has_exposure_to_dead_ard_patient",
+        "key": "dead_ard_patient_contacts",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of dead ARD patients",
         "repeating_group_label": "Patient",
@@ -1635,11 +1635,11 @@
         "label": "Does the patient have history of contact with an infectious animal with Covid-19 (if an infectious animal has been identified)",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
@@ -1657,11 +1657,11 @@
         "label": "Does the patient belong to a cluster of severe ARI (fever and pneumonia requiring hospital treatment) with no known cause?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
@@ -1679,11 +1679,11 @@
         "label": "Is the patient a health worker?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
@@ -1732,6 +1732,13 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -1743,17 +1750,24 @@
         "label": "Did the patient perform aerosol-generating procedures?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
