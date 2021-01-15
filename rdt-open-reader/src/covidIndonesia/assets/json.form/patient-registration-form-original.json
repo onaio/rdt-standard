@@ -371,11 +371,11 @@
         "label": "Has the patient taken any Covid tests before?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],

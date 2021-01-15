@@ -371,11 +371,11 @@
         "label": "{{patient-registration-form-original.step1.taken_tests_before.label}}",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "{{patient-registration-form-original.step1.taken_tests_before.options.Yes.text}}"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "{{patient-registration-form-original.step1.taken_tests_before.options.No.text}}"
           }
         ],
