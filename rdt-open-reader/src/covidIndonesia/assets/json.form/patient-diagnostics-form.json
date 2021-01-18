@@ -879,25 +879,25 @@
         }
       },
       {
-        "key": "has_abdominal_pain",
+        "key": "has_feel_malaise",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.label}}",
+        "label": "{{patient-diagnostics-form-original.step2.has_feel_malaise.label}}",
         "options": [
           {
             "key": "Yes",
-            "text": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.options.Yes.text}}"
+            "text": "{{patient-diagnostics-form-original.step2.has_feel_malaise.options.Yes.text}}"
           },
           {
             "key": "No",
-            "text": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.options.No.text}}"
+            "text": "{{patient-diagnostics-form-original.step2.has_feel_malaise.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step2.has_abdominal_pain.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step2.has_feel_malaise.v_required.err}}"
         }
       }
     ]
