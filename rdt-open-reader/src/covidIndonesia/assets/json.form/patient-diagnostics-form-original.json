@@ -1005,17 +1005,79 @@
         "label": "Has the patient travelled or lived in the local transmission area in the past 14 days?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        }
+      },
+      {
+        "key": "local_area_province_lbl",
+        "type": "label",
+        "text": "Local area province?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_province",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_city_lbl",
+        "type": "label",
+        "text": "Local area city of travel?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {

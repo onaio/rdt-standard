@@ -117,4 +117,46 @@ priority: 1
 condition: "step1_facility_type == 'other'"
 actions:
   - "isRelevant = true"
+---
+name: step3_local_area_province_lbl
+description: Province of local travel label
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_province
+description: Province of local travel
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_city_lbl
+description: City of local travel label
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_city
+description: City of local travel
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_travel_date
+description: Location of local travel label
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_arrival_date
+description: Location of local travel
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
 
