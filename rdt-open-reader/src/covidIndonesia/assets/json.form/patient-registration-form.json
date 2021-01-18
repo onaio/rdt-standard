@@ -66,7 +66,11 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_first_name.v_required.err}}"
+        }
       },
       {
         "key": "patient_last_name_label",
@@ -249,11 +253,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_max_length.err}}"
+          "err": "Phone number cannot be more than 13 digits"
         },
         "v_min_length": {
           "value": "8",
-          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_min_length.err}}"
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -267,31 +271,124 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{patient-registration-form-original.step1.patient_email_address.v_required.err}}"
-        },
-        "v_regex": {
-          "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
-          "err": "{{patient-registration-form-original.step1.patient_email_address.v_regex.err}}"
-        }
+        "type": "edit_text"
       },
       {
-        "key": "patient_home_address_lbl",
+        "key": "gvt_id_province_lbl",
         "type": "label",
-        "text": "{{patient-registration-form-original.step1.patient_home_address_lbl.text}}",
+        "text": "{{patient-registration-form-original.step1.gvt_id_province_lbl.text}}",
         "text_color": "#000000"
       },
       {
-        "key": "patient_home_address",
+        "key": "gvt_id_province",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
-          "value": "false",
-          "err": "{{patient-registration-form-original.step1.patient_home_address.v_required.err}}"
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.gvt_id_province.v_required.err}}"
+        }
+      },
+      {
+        "key": "gvt_id_city_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.gvt_id_city_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "gvt_id_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.gvt_id_city.v_required.err}}"
+        }
+      },
+      {
+        "key": "domicile_same_as_gvt_id_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.domicile_same_as_gvt_id_address.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-registration-form-original.step1.domicile_same_as_gvt_id_address.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-registration-form-original.step1.domicile_same_as_gvt_id_address.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.domicile_same_as_gvt_id_address.v_required.err}}"
+        }
+      },
+      {
+        "key": "domicile_province_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.domicile_province_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_province",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.domicile_province.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_city_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.domicile_city_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.domicile_city.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -326,6 +423,273 @@
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.head_of_household.v_required.err}}"
+        }
+      },
+      {
+        "key": "head_of_household_no_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.head_of_household_no_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "head_of_household_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_required.err}}"
+        }
+      },
+      {
+        "key": "head_of_household_address_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.head_of_household_address_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "head_of_household_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": "{{patient-registration-form-original.step1.head_of_household_address.v_required.err}}"
+        }
+      },
+      {
+        "key": "taken_tests_before",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.taken_tests_before.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-registration-form-original.step1.taken_tests_before.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-registration-form-original.step1.taken_tests_before.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.taken_tests_before.v_required.err}}"
+        }
+      },
+      {
+        "key": "no_of_covid_tests_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.no_of_covid_tests_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_of_covid_tests",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{patient-registration-form-original.step1.no_of_covid_tests.v_required.err}}"
+        }
+      },
+      {
+        "key": "latest_covid_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "{{patient-registration-form-original.step1.latest_covid_test_date.hint}}",
+        "expanded": false,
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
+        "duration": {
+          "label": "{{patient-registration-form-original.step1.latest_covid_test_date.duration.label}}"
+        },
+        "min_date": "today-10y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.latest_covid_test_date.v_required.err}}"
+        }
+      },
+      {
+        "key": "test_location_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.test_location_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "test_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{patient-registration-form-original.step1.test_location.v_required.err}}"
+        }
+      },
+      {
+        "key": "type_of_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.type_of_test.label}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "pcr",
+            "text": "{{patient-registration-form-original.step1.type_of_test.options.pcr.text}}"
+          },
+          {
+            "key": "antigen",
+            "text": "{{patient-registration-form-original.step1.type_of_test.options.antigen.text}}"
+          },
+          {
+            "key": "antibody",
+            "text": "{{patient-registration-form-original.step1.type_of_test.options.antibody.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.type_of_test.v_required.err}}"
+        }
+      },
+      {
+        "key": "antibody_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.antibody_test_result.label}}",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "{{patient-registration-form-original.step1.antibody_test_result.options.reactive.text}}"
+          },
+          {
+            "key": "nonreactive",
+            "text": "{{patient-registration-form-original.step1.antibody_test_result.options.nonreactive.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.antibody_test_result.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "antigen_or_pcr_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.antigen_or_pcr_result.label}}",
+        "options": [
+          {
+            "key": "positive",
+            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.positive.text}}"
+          },
+          {
+            "key": "negative",
+            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.negative.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.antigen_or_pcr_result.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-registration-form-original.step1.follow_up.label}}",
+        "options": [
+          {
+            "key": "admission",
+            "text": "{{patient-registration-form-original.step1.follow_up.options.admission.text}}"
+          },
+          {
+            "key": "referral",
+            "text": "{{patient-registration-form-original.step1.follow_up.options.referral.text}}"
+          },
+          {
+            "key": "isolation",
+            "text": "{{patient-registration-form-original.step1.follow_up.options.isolation.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.follow_up.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
