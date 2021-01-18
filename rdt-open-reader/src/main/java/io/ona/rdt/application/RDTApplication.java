@@ -49,7 +49,7 @@ public class RDTApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
-        //initializeCrashlyticsAndLogging();
+        initializeCrashlyticsAndLogging();
 
         mInstance = this;
         context = Context.getInstance();
