@@ -14,6 +14,7 @@ import org.smartregister.domain.db.EventClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ona.rdt.contract.CovidPatientVisitFragmentContract;
 import io.ona.rdt.domain.Visit;
 import io.ona.rdt.interactor.CovidPatientVisitFragmentInteractor;
 import io.ona.rdt.repository.PatientHistoryRepository;
@@ -26,7 +27,9 @@ public class CovidPatientVisitFragmentInteractorTest extends RobolectricTest {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        interactor = new CovidPatientVisitFragmentInteractor();
+        CovidPatientVisitFragmentContract.Presenter presenter = Mockito.mock(CovidPatientVisitFragmentContract.Presenter.class);
+        Mockito.when(presenter.translateString(ArgumentMatchers.anyInt())).thenReturn("Visit 1");
+        interactor = new CovidPatientVisitFragmentInteractor(presenter);
     }
 
     @Test
