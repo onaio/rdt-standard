@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "patient_diagnostics",
   "entity_id": "",
   "metadata": {
@@ -79,6 +79,10 @@
             "text": "{{patient-diagnostics-form-original.step1.facility_type.options.home.text}}"
           },
           {
+            "key": "public_health_center",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.public_health_center.text}}"
+          },
+          {
             "key": "other",
             "text": "{{patient-diagnostics-form-original.step1.facility_type.options.other.text}}"
           }
@@ -86,6 +90,24 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step1.facility_type.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.other_facility_type.v_required.err}}"
         }
       },
       {
@@ -166,29 +188,47 @@
         }
       },
       {
-        "key": "patient_case_category",
+        "key": "has_chronic_liver_disease_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-diagnostics-form-original.step1.patient_case_category.label}}",
+        "label": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.label}}",
         "options": [
           {
-            "key": "under_monitoring",
-            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.under_monitoring.text}}"
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.options.Yes.text}}"
           },
           {
-            "key": "under_surveillance",
-            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.under_surveillance.text}}"
-          },
-          {
-            "key": "without_symptoms",
-            "text": "{{patient-diagnostics-form-original.step1.patient_case_category.options.without_symptoms.text}}"
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.options.No.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-diagnostics-form-original.step1.patient_case_category.v_required.err}}"
+          "err": "{{patient-diagnostics-form-original.step1.has_chronic_liver_disease_history.v_required.err}}"
+        }
+      },
+      {
+        "key": "has_cancer_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step1.has_cancer_history.label}}",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "{{patient-diagnostics-form-original.step1.has_cancer_history.options.Yes.text}}"
+          },
+          {
+            "key": "No",
+            "text": "{{patient-diagnostics-form-original.step1.has_cancer_history.options.No.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.has_cancer_history.v_required.err}}"
         }
       },
       {
@@ -782,8 +822,8 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "{{patient-diagnostics-form-original.step3.submit_label}}",
+    "next": "step4",
+    "next_label": "{{patient-diagnostics-form-original.step3.next_label}}",
     "fields": [
       {
         "key": "has_travel_history",
@@ -935,7 +975,7 @@
         "key": "covid_patients_in_compound",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.reference_edit_text_hint}}",
-        "repeating_group_label": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.repeating_group_label}}",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -943,7 +983,7 @@
           {
             "key": "covid_patient_in_compound_name_label",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_name_label.text}}",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -960,7 +1000,7 @@
           {
             "key": "covid_patient_in_compound_name_phone_number_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_name_phone_number_lbl.text}}",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -975,21 +1015,21 @@
             },
             "v_numeric": {
               "value": "true",
-              "err": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_phone_number.v_numeric.err}}"
+              "err": "Value must be numeric"
             },
             "v_max_length": {
               "value": "13",
-              "err": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_phone_number.v_max_length.err}}"
+              "err": "Phone number cannot be more than 13 digits"
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_phone_number.v_min_length.err}}"
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
             "key": "covid_patient_in_compound_relationship_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_relationship_lbl.text}}",
+            "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
@@ -1009,10 +1049,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_first_contact.hint}}",
+            "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_first_contact.duration.label}}"
+              "label": "Date of first contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1023,10 +1063,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_last_contact.hint}}",
+            "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.covid_patients_in_compound.covid_patient_in_compound_date_of_last_contact.duration.label}}"
+              "label": "Date of last contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1043,7 +1083,7 @@
         "key": "has_close_contact_with_covid_patient",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.reference_edit_text_hint}}",
-        "repeating_group_label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.repeating_group_label}}",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1051,7 +1091,7 @@
           {
             "key": "close_contact_covid_patient_name_label",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_name_label.text}}",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -1068,7 +1108,7 @@
           {
             "key": "close_contact_covid_patient_phone_number_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number_lbl.text}}",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -1083,21 +1123,21 @@
             },
             "v_numeric": {
               "value": "true",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number.v_numeric.err}}"
+              "err": "Value must be numeric"
             },
             "v_max_length": {
               "value": "13",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number.v_max_length.err}}"
+              "err": "Phone number cannot be more than 13 digits"
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_phone_number.v_min_length.err}}"
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
             "key": "close_contact_covid_patient_relationship_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_relationship_lbl.text}}",
+            "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
@@ -1117,10 +1157,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_first_contact.hint}}",
+            "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_first_contact.duration.label}}"
+              "label": "Date of first contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1131,10 +1171,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_last_contact.hint}}",
+            "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_covid_patient.close_contact_covid_patient_date_of_last_contact.duration.label}}"
+              "label": "Date of last contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1151,7 +1191,7 @@
         "key": "has_close_contact_with_someone_outside_household",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.reference_edit_text_hint}}",
-        "repeating_group_label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.repeating_group_label}}",
+        "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1159,7 +1199,7 @@
           {
             "key": "close_contact_outside_household_name_label",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_name_label.text}}",
+            "text": "Contact\u0027s name",
             "text_color": "#000000"
           },
           {
@@ -1176,7 +1216,7 @@
           {
             "key": "close_contact_outside_household_phone_number_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number_lbl.text}}",
+            "text": "Contact\u0027s phone number",
             "text_color": "#000000"
           },
           {
@@ -1191,21 +1231,21 @@
             },
             "v_numeric": {
               "value": "true",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number.v_numeric.err}}"
+              "err": "Value must be numeric"
             },
             "v_max_length": {
               "value": "13",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number.v_max_length.err}}"
+              "err": "Phone number cannot be more than 13 digits"
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_phone_number.v_min_length.err}}"
+              "err": "Phone number cannot be less than 8 digits"
             }
           },
           {
             "key": "close_contact_outside_household_relationship_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_relationship_lbl.text}}",
+            "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
@@ -1225,10 +1265,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_first_contact.hint}}",
+            "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_first_contact.duration.label}}"
+              "label": "Date of first contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1239,10 +1279,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_last_contact.hint}}",
+            "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_date_of_last_contact.duration.label}}"
+              "label": "Date of last contact"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1250,7 +1290,7 @@
           {
             "key": "close_contact_outside_household_location_lbl",
             "type": "label",
-            "text": "{{patient-diagnostics-form-original.step3.has_close_contact_with_someone_outside_household.close_contact_outside_household_location_lbl.text}}",
+            "text": "Location of contact",
             "text_color": "#000000"
           },
           {
@@ -1286,6 +1326,66 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-diagnostics-form-original.step3.has_close_contact_with_infectious_animal.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Patient case category",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "patient_case_category",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Patient case category?",
+        "options": [
+          {
+            "key": "negative_screening_result",
+            "text": "Negative screening result"
+          },
+          {
+            "key": "traveler",
+            "text": "Traveler"
+          },
+          {
+            "key": "close_contact",
+            "text": "Close contact"
+          },
+          {
+            "key": "suspected",
+            "text": "Suspected"
+          },
+          {
+            "key": "probable",
+            "text": "Probable"
+          },
+          {
+            "key": "symptomatic_confirmed",
+            "text": "Symptomatic confirmed"
+          },
+          {
+            "key": "asymptomatic_confirmed",
+            "text": "Asymptomatic confirmed"
+          },
+          {
+            "key": "discarded",
+            "text": "Discarded"
+          },
+          {
+            "key": "isolation_completed",
+            "text": "Isolation completed"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
         }
       }
     ]

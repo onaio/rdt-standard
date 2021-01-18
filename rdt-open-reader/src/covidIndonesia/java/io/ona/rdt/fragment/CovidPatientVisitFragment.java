@@ -6,21 +6,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import com.vijay.jsonwizard.utils.Utils;
-
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.vijay.jsonwizard.utils.Utils;
+
+import java.util.List;
+
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientHistoryActivity;
 import io.ona.rdt.adapter.CovidPatientVisitAdapter;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.CovidPatientVisitFragmentContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.domain.Visit;
@@ -94,5 +93,10 @@ public class CovidPatientVisitFragment extends Fragment implements CovidPatientV
         intent.putExtra(Constants.FormFields.PATIENT, currPatient);
         intent.putExtra(Constants.FormFields.PATIENT_VISIT_DATE, visitDate);
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public String translateString(int resourceId) {
+        return getResources().getString(resourceId);
     }
 }

@@ -40,3 +40,10 @@ priority: 1
 condition: "step3_has_travel_history != '' && step3_has_travel_history == 'Yes'"
 actions:
   - "isRelevant = true"
+---
+name: step1_other_facility_type
+description: Facility Type
+priority: 1
+condition: "step1_facility_type == 'other'"
+actions:
+  - "isRelevant = true"
