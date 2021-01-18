@@ -20,24 +20,94 @@ condition: "step1_has_other_health_issues != '' && step1_has_other_health_issues
 actions:
   - "isRelevant = true"
 ---
-name: step3_other_location_lbl
-description: Other health issues label
-priority: 1
-condition: "step3_travel_location.contains('other')"
-actions:
-  - "isRelevant = true"
----
-name: step3_other_location
-description: Other health issues
-priority: 1
-condition: "step3_travel_location.contains('other')"
-actions:
-  - "isRelevant = true"
----
-name: step3_travel_location
+name: step3_international_travel_location
 description: Location of travel
 priority: 1
-condition: "step3_has_travel_history != '' && step3_has_travel_history == 'Yes'"
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_country_lbl
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_country
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_city_lbl
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_city
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_travel_date
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_international_arrival_date
+description: Location of travel
+priority: 1
+condition: "step3_has_international_travel_history!= '' && step3_has_international_travel_history == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_covid_close_contacts
+description: Close Covid-19 contacts
+priority: 1
+condition: "step3_has_close_contact_with_covid_patient != '' && step3_has_close_contact_with_covid_patient == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_close_ari_patient_contacts
+description: Close ARD contacts
+priority: 1
+condition: "step3_has_contact_with_ari_patients != '' && step3_has_contact_with_ari_patients == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_hospitalized_ard_patient_contacts
+description: Hospitalized ARD patient contacts
+priority: 1
+condition: "step3_has_contact_with_hospitalized_ard_patients!= '' && step3_has_contact_with_hospitalized_ard_patients == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_dead_ard_patient_contacts
+description: Dead ARD patient contacts
+priority: 1
+condition: "step3_has_contact_with_dead_ard_patients != '' && step3_has_contact_with_dead_ard_patients == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_what_ppe
+description: Dead ARD patient contacts
+priority: 1
+condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_performed_aerosol_procedures
+description: Performed aerosol procedures
+priority: 1
+condition: "step3_is_patient_health_worker != '' && step3_is_patient_health_worker == 'yes'"
 actions:
   - "isRelevant = true"
 ---
@@ -45,6 +115,48 @@ name: step1_other_facility_type
 description: Facility Type
 priority: 1
 condition: "step1_facility_type == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_province_lbl
+description: Province of local travel label
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_province
+description: Province of local travel
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_city_lbl
+description: City of local travel label
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_city
+description: City of local travel
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_travel_date
+description: Location of local travel label
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_local_area_arrival_date
+description: Location of local travel
+priority: 1
+condition: "step3_has_local_transmission_area_travel_history != '' && step3_has_local_transmission_area_travel_history == 'yes'"
 actions:
   - "isRelevant = true"
 ---
