@@ -61,3 +61,31 @@ priority: 1
 condition: "step1_antibody_test_result.contains('reactive') || step1_antigen_or_pcr_result.contains('positive')"
 actions:
   - "isRelevant = true"
+---
+name: step1_domicile_province_lbl
+description: Domicile province label
+priority: 1
+condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_domicile_province
+description: Domicile province
+priority: 1
+condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_domicile_city_lbl
+description: Domicile city label
+priority: 1
+condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_domicile_city
+description: Domicile city
+priority: 1
+condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
+actions:
+  - "isRelevant = true"

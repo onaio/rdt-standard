@@ -271,27 +271,124 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_regex": {
-          "value": "\\s*\\S+@\\S+\\.\\S+\\s*",
-          "err": "Please enter a valid email address"
-        }
+        "type": "edit_text"
       },
       {
-        "key": "patient_home_address_lbl",
+        "key": "gvt_id_province_lbl",
         "type": "label",
-        "text": "Physical home address",
+        "text": "Government ID province?",
         "text_color": "#000000"
       },
       {
-        "key": "patient_home_address",
+        "key": "gvt_id_province",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": ""
+        }
+      },
+      {
+        "key": "gvt_id_city_lbl",
+        "type": "label",
+        "text": "Government ID city?",
+        "text_color": "#000000"
+      },
+      {
+        "key": "gvt_id_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        }
+      },
+      {
+        "key": "domicile_same_as_gvt_id_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Is the domicile address the same as the government ID address?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "domicile_province_lbl",
+        "type": "label",
+        "text": "Domicile province?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_province",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_city_lbl",
+        "type": "label",
+        "text": "Domicile city?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
