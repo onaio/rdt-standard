@@ -20,10 +20,14 @@ public class CovidPatientHistoryActivityPresenterTest extends RobolectricTest {
 
     private static final int LIST_SIZE = 1;
     private CovidPatientHistoryActivityPresenter covidPatientHistoryActivityPresenter;
+    private CovidPatientHistoryActivityInteractor interactor;
 
     @Before
     public void setUp() {
         covidPatientHistoryActivityPresenter = new CovidPatientHistoryActivityPresenter(null);
+
+        interactor = Mockito.mock(CovidPatientHistoryActivityInteractor.class);
+        ReflectionHelpers.setField(covidPatientHistoryActivityPresenter, "interactor", interactor);
     }
 
     @Test
@@ -36,8 +40,6 @@ public class CovidPatientHistoryActivityPresenterTest extends RobolectricTest {
         List<PatientHistoryEntry> list = new ArrayList<>(LIST_SIZE);
         list.add(patientHistoryEntry);
 
-        CovidPatientHistoryActivityInteractor interactor = Mockito.mock(CovidPatientHistoryActivityInteractor.class);
-        ReflectionHelpers.setField(covidPatientHistoryActivityPresenter, "interactor", interactor);
 
         Mockito.when(interactor.getPatientHistoryEntries(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(list);
         List<PatientHistoryEntry> patientList = covidPatientHistoryActivityPresenter.getPatientHistoryEntries("", "", "");
@@ -45,5 +47,12 @@ public class CovidPatientHistoryActivityPresenterTest extends RobolectricTest {
         Assert.assertEquals(LIST_SIZE, patientList.size());
         Assert.assertEquals(patientKey, patientList.get(LIST_SIZE - 1).getKey());
         Assert.assertEquals(patientVal, patientList.get(LIST_SIZE - 1).getValue());
+    }
+
+    @Test
+    public void testGetPatientHistoryShouldThrowJSONException() throws JSONException {
+        Mockito.when(interactor.getPatientHistoryEntries(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenThrow(JSONException.class);
+        List<PatientHistoryEntry> patientList = covidPatientHistoryActivityPresenter.getPatientHistoryEntries("", "", "");
+        Assert.assertNull(patientList);
     }
 }
