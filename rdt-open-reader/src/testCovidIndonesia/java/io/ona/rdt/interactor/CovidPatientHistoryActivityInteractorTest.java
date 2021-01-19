@@ -135,6 +135,6 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     @Override
     public void tearDown() {
         super.tearDown();
-        formWidgetKeyToTextMap.remove(PATIENT_KEY);
+        FormKeyTextExtractionUtil.destroyFormWidgetKeyToTextMap();
     }
 }
