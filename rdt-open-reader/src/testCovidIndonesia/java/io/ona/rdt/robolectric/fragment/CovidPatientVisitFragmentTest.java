@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.testing.FragmentScenario;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +18,6 @@ import org.robolectric.util.ReflectionHelpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.fragment.app.testing.FragmentScenario;
-import androidx.recyclerview.widget.RecyclerView;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
@@ -79,6 +80,12 @@ public class CovidPatientVisitFragmentTest extends FragmentRobolectricTest {
         assertListValuesAreCorrect(visitList, visitOne);
         assertListValuesAreCorrect(visitList, visitTwo);
         assertListValuesAreCorrect(visitList, visitThree);
+    }
+
+    @Test
+    public void testGetInstance() {
+        CovidPatientVisitFragment instance = CovidPatientVisitFragment.getInstance(null);
+        Assert.assertNotNull(instance);
     }
 
     private void assertListValuesAreCorrect(RecyclerView visitList, int position) {

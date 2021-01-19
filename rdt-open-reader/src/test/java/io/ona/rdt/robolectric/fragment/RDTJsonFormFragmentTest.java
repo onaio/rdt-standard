@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.testing.FragmentScenario;
+
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
@@ -16,15 +18,12 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.testing.FragmentScenario;
 import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
