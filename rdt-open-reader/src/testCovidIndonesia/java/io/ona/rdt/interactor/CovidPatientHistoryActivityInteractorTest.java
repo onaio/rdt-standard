@@ -118,7 +118,7 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
 
         String values = Whitebox.invokeMethod(interactor, "getValues", obs, formWidgetKeyToTextMap);
 
-        Assert.assertEquals("Location travelled?", values);
+        Assert.assertEquals("travel_location", values);
     }
 
     @Test
