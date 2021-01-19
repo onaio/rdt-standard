@@ -579,11 +579,11 @@
         "label": "Does the patient have the history of fever?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
@@ -843,11 +843,11 @@
         "label": "Does the patient have abdominal pain?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
@@ -879,7 +879,7 @@
         }
       },
       {
-        "key": "has_feel_malaise",
+        "key": "feels_malaised",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -887,11 +887,11 @@
         "label": "Does the patient feel malaise?",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
           }
         ],
