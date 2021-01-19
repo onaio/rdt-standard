@@ -7,23 +7,25 @@ import android.content.Intent;
 import com.google.gson.Gson;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.WidgetArgs;
+import com.vijay.jsonwizard.interfaces.JsonApi;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,6 +34,7 @@ import io.ona.rdt.activity.CovidJsonFormActivity;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.widget.validator.CovidImageViewFactory;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ENCOUNTER_TYPE;
@@ -56,10 +59,12 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     public static final Set<String> FACILITY_SET = new HashSet<>(Arrays.asList(CovidConstants.FormFields.FACILITY_NAME,
             CovidConstants.FormFields.HEALTH_FACILITY_NAME, CovidConstants.FormFields.NAME_OF_HEALTH_FACILITY));
 
-    public static void launchPatientProfile(Patient patient, WeakReference<Activity> activity) {
-        Intent intent = new Intent(activity.get(), CovidPatientProfileActivity.class);
+    public static void launchPatientProfile(Patient patient, WeakReference<Activity> activityReference) {
+        Activity activity = activityReference.get();
+        Intent intent = new Intent(activity, CovidPatientProfileActivity.class);
         intent.putExtra(PATIENT, patient);
-        activity.get().startActivity(intent, null);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent, null);
     }
 
     @Override
@@ -89,7 +94,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         if (Constants.RDTType.RDT_TYPE.equals(field.getString(JsonFormUtils.KEY))) {
             try {
                 DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
-                JSONArray availableRDTsArr = Utils.createOptionsBlock(appendOtherOption(deviceDefinitionProcessor.getDeviceIDToDeviceNameMap()), "", "");
+                JSONArray availableRDTsArr = Utils.createOptionsBlock(appendOtherOption(deviceDefinitionProcessor.getDeviceIDToDeviceNameMap()), "", "", "");
                 field.put(JsonFormConstants.OPTIONS_FIELD_NAME, availableRDTsArr);
             } catch (IOException | FHIRParserException e) {
                 Timber.e(e);
@@ -160,14 +165,14 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return new HashSet<>(Arrays.asList(CovidConstants.Encounter.COVID_PATIENT_REGISTRATION));
     }
 
-    public static void fillPatientData(JSONObject field, String value) throws JSONException {
-        if (field == null) {
+    public static void fillPatientData(JSONObject patientInfoField, String value) throws JSONException {
+        if (patientInfoField == null) {
             return;
         }
-        JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray options = patientInfoField.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         if (options.length() > 0) {
-            JSONObject dobObject = options.getJSONObject(0);
-            dobObject.put(JsonFormConstants.TEXT, value);
+            JSONObject patientInfo = options.getJSONObject(0);
+            patientInfo.put(JsonFormConstants.TEXT, value);
         }
     }
 
@@ -184,41 +189,79 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     private JSONArray getLocations() throws JSONException {
-
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         LocationTree locationTree = new Gson().fromJson(allSharedPreferences.getPreference(CovidConstants.Preference.LOCATION_TREE), LocationTree.class);
 
-        JSONArray jsonArray = new JSONArray();
         if (locationTree == null) {
-            Timber.e("Location tree is null!");
-            return jsonArray;
+            return getDefaultLocations();
         }
 
         LinkedHashMap<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
-        List<String> locations = filterLocations(locationMap);
-        for (String location : locations) {
-            jsonArray.put(createOption(location, location));
-        }
-        jsonArray.put(createOption("other", "Other"));
-        return jsonArray;
+        return Utils.createOptionsBlock(appendOtherOption(filterLocations(locationMap)), "", "", "");
     }
 
-    private JSONObject createOption(String key, String value) throws JSONException {
-        JSONObject option = new JSONObject();
-        option.put(JsonFormConstants.KEY, key);
-        option.put(JsonFormConstants.TEXT, value);
-        option.put(JsonFormConstants.OPENMRS_ENTITY, "");
-        option.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-        return option;
+    private JSONArray getDefaultLocations() throws JSONException {
+        String defaultLocation = LocationHelper.getInstance().getDefaultLocation();
+        Map<String, String> defaultLocations = new LinkedHashMap<String, String>() {
+            {
+                put(defaultLocation.toLowerCase(), defaultLocation);
+                put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
+            }
+        };
+        return Utils.createOptionsBlock(defaultLocations, "", "", "");
     }
 
-    private List<String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
-        List<String> locations = new ArrayList<>();
+    private Map<String, String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
+        LinkedHashMap<String, String> locations = new LinkedHashMap<>();
         Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
         for (Map.Entry<String, TreeNode<String, Location>> childEntry : entry.getValue().getChildren().entrySet()) {
             TreeNode<String, Location> childNode = childEntry.getValue();
-            locations.add(childNode.getLabel());
+            locations.put(childNode.getLabel(), childNode.getLabel());
         }
         return locations;
+    }
+
+    public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
+
+        if (StringUtils.isBlank(deviceId)) {
+            return;
+        }
+
+        Context context = widgetArgs.getContext();
+        if (CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
+            // reset details when other is selected or device id is blank
+            writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected), "", "");
+        } else {
+            DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
+            String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
+                    deviceDefinitionProcessor.extractDeviceName(deviceId));
+            JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
+            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceConfig.toString());
+        }
+    }
+
+    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceDetails, String rdtImage, String deviceConfig) throws JSONException {
+        Context context = widgetArgs.getContext();
+        String rdtDetailsConfirmationPage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
+        JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
+                CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
+
+        // write device details to confirmation page
+        deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
+        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
+
+        // save extracted device config
+        ((JsonApi) context).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
+                deviceConfig, "", "", "", false);
+    }
+
+    private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {
+        final String htmlLineBreak = "<br>";
+        final String doubleHtmlLineBreak = "<br><br>";
+
+        String formattedMftStr = StringUtils.join(new String[]{context.getString(R.string.manufacturer_name), manufacturer}, htmlLineBreak);
+        String formattedDeviceNameStr = StringUtils.join(new String[]{context.getString(R.string.rdt_name), deviceName}, htmlLineBreak);
+
+        return StringUtils.join(new String[]{formattedMftStr, formattedDeviceNameStr}, doubleHtmlLineBreak);
     }
 }

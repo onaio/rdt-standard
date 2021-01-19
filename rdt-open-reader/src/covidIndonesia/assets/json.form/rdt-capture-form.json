@@ -1,5 +1,5 @@
 {
-  "count": "13",
+  "count": "14",
   "encounter_type": "covid_rdt_test",
   "entity_id": "",
   "metadata": {
@@ -93,7 +93,7 @@
   "step3": {
     "title": "{{rdt-capture-form-original.step3.title}}",
     "display_back_button": "true",
-    "next": "step4",
+    "next": "step11",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "{{rdt-capture-form-original.step3.next_label}}",
@@ -135,7 +135,7 @@
         "type": "spinner",
         "hint": "{{rdt-capture-form-original.step4.health_facility_name.hint}}",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "{{rdt-capture-form-original.step4.health_facility_name.v_required.err}}"
         }
       },
@@ -211,7 +211,7 @@
   "step6": {
     "title": "{{rdt-capture-form-original.step6.title}}",
     "display_back_button": "true",
-    "next": "step7",
+    "next": "step14",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "{{rdt-capture-form-original.step6.next_label}}",
@@ -221,7 +221,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "spinner",
+        "type": "rdt_device_selector_spinner",
         "hint": "{{rdt-capture-form-original.step6.rdt_type.hint}}",
         "v_required": {
           "value": "true",
@@ -299,39 +299,10 @@
       }
     ]
   },
-  "step7": {
-    "title": "{{rdt-capture-form-original.step7.title}}",
-    "display_back_button": "true",
-    "next": "step9",
-    "bottom_navigation": "true",
-    "bottom_navigation_orientation": "vertical",
-    "next_label": "{{rdt-capture-form-original.step7.next_label}}",
-    "fields": [
-      {
-        "key": "lbl_handle_rdt",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "label_text_style": "bold",
-        "top_margin": "15dp",
-        "text": "{{rdt-capture-form-original.step7.lbl_handle_rdt.text}}"
-      },
-      {
-        "key": "lbl_rdt_id",
-        "type": "label",
-        "text_color": "#000000",
-        "has_bg": true,
-        "bg_color": "#ffffff",
-        "top_margin": "15dp",
-        "label_text_style": "bold"
-      }
-    ]
-  },
   "step8": {
     "title": "{{rdt-capture-form-original.step8.title}}",
     "display_back_button": "true",
-    "next": "step9",
+    "next": "step14",
     "fields": [
       {
         "key": "qr_code_reader",
@@ -418,6 +389,14 @@
         "has_bg": true,
         "top_margin": "15dp",
         "bg_color": "#ffffff"
+      },
+      {
+        "key": "lbl_rdt_id",
+        "type": "label",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#ffffff",
+        "top_margin": "15dp"
       }
     ]
   },
@@ -518,29 +497,85 @@
     "next": "step12",
     "fields": [
       {
-        "key": "chw_result",
+        "key": "chw_rdt_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step11.chw_result.label}}",
+        "label": "{{rdt-capture-form-original.step11.chw_rdt_type.label}}",
         "options": [
           {
-            "key": "positive",
-            "text": "{{rdt-capture-form-original.step11.chw_result.options.positive.text}}"
+            "key": "antigen",
+            "text": "{{rdt-capture-form-original.step11.chw_rdt_type.options.antigen.text}}"
           },
           {
-            "key": "negative",
-            "text": "{{rdt-capture-form-original.step11.chw_result.options.negative.text}}"
-          },
-          {
-            "key": "invalid",
-            "text": "{{rdt-capture-form-original.step11.chw_result.options.invalid.text}}"
+            "key": "antibody",
+            "text": "{{rdt-capture-form-original.step11.chw_rdt_type.options.antibody.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{rdt-capture-form-original.step11.chw_result.v_required.err}}"
+          "err": "{{rdt-capture-form-original.step11.chw_rdt_type.v_required.err}}"
+        }
+      },
+      {
+        "key": "chw_result_antibody",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{rdt-capture-form-original.step11.chw_result_antibody.label}}",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "{{rdt-capture-form-original.step11.chw_result_antibody.options.reactive.text}}"
+          },
+          {
+            "key": "nonreactive",
+            "text": "{{rdt-capture-form-original.step11.chw_result_antibody.options.nonreactive.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{rdt-capture-form-original.step11.chw_result_antibody.v_required.err}}"
+        },
+        "relevance": {
+          "step11:chw_rdt_type": {
+            "type": "string",
+            "ex": "equalTo(., \"antibody\")"
+          }
+        }
+      },
+      {
+        "key": "chw_result_antigen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{rdt-capture-form-original.step11.chw_result_antigen.label}}",
+        "options": [
+          {
+            "key": "positive",
+            "text": "{{rdt-capture-form-original.step11.chw_result_antigen.options.positive.text}}"
+          },
+          {
+            "key": "negative",
+            "text": "{{rdt-capture-form-original.step11.chw_result_antigen.options.negative.text}}"
+          },
+          {
+            "key": "invalid",
+            "text": "{{rdt-capture-form-original.step11.chw_result_antigen.options.invalid.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{rdt-capture-form-original.step11.chw_result_antigen.v_required.err}}"
+        },
+        "relevance": {
+          "step11:chw_rdt_type": {
+            "type": "string",
+            "ex": "equalTo(., \"antigen\")"
+          }
         }
       },
       {
@@ -568,7 +603,7 @@
           "err": "{{rdt-capture-form-original.step11.antibody_type.v_required.err}}"
         },
         "relevance": {
-          "step11:chw_result": {
+          "step11:chw_result_antigen": {
             "type": "string",
             "ex": "equalTo(., \"positive\")"
           }
@@ -613,6 +648,34 @@
         "label_text_style": "bold",
         "top_margin": "15dp",
         "text": "{{rdt-capture-form-original.step13.lbl_test_complete.text}}"
+      }
+    ]
+  },
+  "step14": {
+    "title": "{{rdt-capture-form-original.step14.title}}",
+    "display_back_button": "true",
+    "next": "step9",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_label": "{{rdt-capture-form-original.step14.next_label}}",
+    "fields": [
+      {
+        "key": "selected_rdt_image",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "image_view",
+        "text": "{{rdt-capture-form-original.step14.selected_rdt_image.text}}",
+        "label_text_size": "18sp",
+        "text_color": "#000000",
+        "base64_encoded_img": ""
+      },
+      {
+        "key": "rdt_config",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "patient_diagnostics",
   "entity_id": "",
   "metadata": {
@@ -79,10 +79,32 @@
             "text": "home"
           },
           {
+            "key": "public_health_center",
+            "text": "Public health center"
+          },
+          {
             "key": "other",
             "text": "other"
           }
         ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "other_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "This field is required"
@@ -96,7 +118,7 @@
         "type": "spinner",
         "hint": "Name of facility",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": ""
         }
       },
@@ -166,24 +188,42 @@
         }
       },
       {
-        "key": "patient_case_category",
+        "key": "has_chronic_liver_disease_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Patient case category?",
+        "label": "Does the patient have chronic liver disease?",
         "options": [
           {
-            "key": "under_monitoring",
-            "text": "Under monitoring"
+            "key": "Yes",
+            "text": "Yes"
           },
           {
-            "key": "under_surveillance",
-            "text": "Under surveillance"
+            "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "has_cancer_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient have cancer?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
           },
           {
-            "key": "without_symptoms",
-            "text": "Without symptoms"
+            "key": "No",
+            "text": "No"
           }
         ],
         "v_required": {
@@ -782,16 +822,16 @@
     "display_back_button": "true",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
-    "next_type": "submit",
-    "submit_label": "SUBMIT",
+    "next": "step4",
+    "next_label": "CONTINUE",
     "fields": [
       {
-        "key": "has_travel_history",
+        "key": "has_international_travel_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has the patient travelled internationally / domestically in the past 14 days?",
+        "label": "Has the patient travelled internationally in the past 14 days?",
         "options": [
           {
             "key": "Yes",
@@ -808,56 +848,36 @@
         }
       },
       {
-        "key": "travel_location",
+        "key": "international_travel_location",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "Location travelled?",
+        "type": "native_radio",
+        "label": "International travel location?",
         "options": [
           {
-            "key": "jakarta",
-            "text": "Jakarta"
+            "key": "americas",
+            "text": "Americas"
           },
           {
-            "key": "bandung",
-            "text": "Bandung"
+            "key": "europe",
+            "text": "Europe"
           },
           {
-            "key": "yogyakarta",
-            "text": "Yogyakarta"
+            "key": "se_asia",
+            "text": "South East Asia"
           },
           {
-            "key": "depok",
-            "text": "Depok"
+            "key": "eastern_mediterranean",
+            "text": "Eastern Mediterranean"
           },
           {
-            "key": "tangerang",
-            "text": "Tangerang"
+            "key": "africa",
+            "text": "Africa"
           },
           {
-            "key": "bogor",
-            "text": "Bogor"
-          },
-          {
-            "key": "manado",
-            "text": "Manado"
-          },
-          {
-            "key": "pontianak",
-            "text": "Pontianak"
-          },
-          {
-            "key": "solo",
-            "text": "Solo"
-          },
-          {
-            "key": "denpasar",
-            "text": "Denpasar"
-          },
-          {
-            "key": "other",
-            "text": "Other"
+            "key": "western_pacific",
+            "text": "Western Pacific"
           }
         ],
         "v_required": {
@@ -873,9 +893,9 @@
         }
       },
       {
-        "key": "other_location_lbl",
+        "key": "international_country_lbl",
         "type": "label",
-        "text": "Specify location",
+        "text": "International country of travel?",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -886,21 +906,220 @@
         }
       },
       {
-        "key": "other_location",
+        "key": "international_country",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "patient-diagnostics-form-relevance-rules.yml"
             }
           }
-        },
+        }
+      },
+      {
+        "key": "international_city_lbl",
+        "type": "label",
+        "text": "International city of travel?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "international_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "international_travel_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date of international travel",
+        "expanded": false,
+        "duration": {
+          "label": "Date of international travel"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "international_arrival_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date of international arrival",
+        "expanded": false,
+        "duration": {
+          "label": "Date of international arrival"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_local_transmission_area_travel_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient travelled or lived in the local transmission area in the past 14 days?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "local_area_province_lbl",
+        "type": "label",
+        "text": "Local area province?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_province",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_city_lbl",
+        "type": "label",
+        "text": "Local area city of travel?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_city",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_travel_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date of local area travel",
+        "expanded": false,
+        "duration": {
+          "label": "Date of local area travel"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "local_area_arrival_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date of local area arrival",
+        "expanded": false,
+        "duration": {
+          "label": "Date of local area arrival"
+        },
+        "min_date": "today-100y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -926,136 +1145,51 @@
         }
       },
       {
-        "key": "covid_patients_in_compound_lbl",
-        "type": "label",
-        "text": "Number of Covid-19 patients in household / compound?",
-        "text_color": "#000000"
-      },
-      {
-        "key": "covid_patients_in_compound",
-        "type": "repeating_group",
-        "reference_edit_text_hint": "# of covid patients in compound",
-        "repeating_group_label": "Patient",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "value": [
-          {
-            "key": "covid_patient_in_compound_name_label",
-            "type": "label",
-            "text": "Contact's name",
-            "text_color": "#000000"
-          },
-          {
-            "key": "covid_patient_in_compound_name_name",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "edit_text",
-            "v_required": {
-              "value": "false",
-              "err": ""
-            }
-          },
-          {
-            "key": "covid_patient_in_compound_name_phone_number_lbl",
-            "type": "label",
-            "text": "Contact's phone number",
-            "text_color": "#000000"
-          },
-          {
-            "key": "covid_patient_in_compound_phone_number",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "edit_text",
-            "v_required": {
-              "value": "false",
-              "err": ""
-            },
-            "v_numeric": {
-              "value": "true",
-              "err": "Value must be numeric"
-            },
-            "v_max_length": {
-              "value": "13",
-              "err": "Phone number cannot be more than 13 digits"
-            },
-            "v_min_length": {
-              "value": "8",
-              "err": "Phone number cannot be less than 8 digits"
-            }
-          },
-          {
-            "key": "covid_patient_in_compound_relationship_lbl",
-            "type": "label",
-            "text": "Relationship with contact",
-            "text_color": "#000000"
-          },
-          {
-            "key": "covid_patient_in_compound_relationship",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "edit_text",
-            "v_required": {
-              "value": "false",
-              "err": ""
-            }
-          },
-          {
-            "key": "covid_patient_in_compound_date_of_first_contact",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "date_picker",
-            "hint": "Date of first contact",
-            "expanded": false,
-            "duration": {
-              "label": "Date of first contact"
-            },
-            "min_date": "today-100y",
-            "max_date": "today"
-          },
-          {
-            "key": "covid_patient_in_compound_date_of_last_contact",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "date_picker",
-            "hint": "Date of last contact",
-            "expanded": false,
-            "duration": {
-              "label": "Date of last contact"
-            },
-            "min_date": "today-100y",
-            "max_date": "today"
-          }
-        ]
-      },
-      {
-        "key": "has_close_contact_with_covid_patient_lbl",
-        "type": "label",
-        "text": "Number of Covid-19 patients who are close contacts?",
-        "text_color": "#000000"
-      },
-      {
         "key": "has_close_contact_with_covid_patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient had close contact with confirmed cases of Covid-19 in the past 14 days?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "covid_close_contacts",
         "type": "repeating_group",
-        "reference_edit_text_hint": "# of covid patients who are close contacts",
+        "reference_edit_text_hint": "# of close contacts",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "value": [
           {
-            "key": "close_contact_covid_patient_name_label",
+            "key": "covid_close_contacts_name_label",
             "type": "label",
             "text": "Contact's name",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_covid_patient_name",
+            "key": "covid_close_contacts_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1066,13 +1200,13 @@
             }
           },
           {
-            "key": "close_contact_covid_patient_phone_number_lbl",
+            "key": "covid_close_contacts_phone_number_lbl",
             "type": "label",
             "text": "Contact's phone number",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_covid_patient_phone_number",
+            "key": "covid_close_contacts_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1095,13 +1229,13 @@
             }
           },
           {
-            "key": "close_contact_covid_patient_relationship_lbl",
+            "key": "covid_close_contacts_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_covid_patient_relationship",
+            "key": "covid_close_contacts_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1112,7 +1246,33 @@
             }
           },
           {
-            "key": "close_contact_covid_patient_date_of_first_contact",
+            "key": "has_close_contact_with_infectious_animal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "native_radio",
+            "label": "How was the patient diagnosed?",
+            "options": [
+              {
+                "key": "pcr",
+                "text": "PCR test"
+              },
+              {
+                "key": "antigen",
+                "text": "Antigen RDT"
+              },
+              {
+                "key": "antibody",
+                "text": "Antibody RDT"
+              }
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "This field is required"
+            }
+          },
+          {
+            "key": "covid_close_contacts_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1126,7 +1286,7 @@
             "max_date": "today"
           },
           {
-            "key": "close_contact_covid_patient_date_of_last_contact",
+            "key": "covid_close_contacts_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1142,28 +1302,51 @@
         ]
       },
       {
-        "key": "has_close_contact_with_someone_outside_household_lbl",
-        "type": "label",
-        "text": "Number of close contacts outside patient household?",
-        "text_color": "#000000"
+        "key": "has_contact_with_ari_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient had exposure to anyone with an Acute Respiratory Infection (ARI) or an Acute Respiratory Disease (ARD) in the past 14 days?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
       },
       {
-        "key": "has_close_contact_with_someone_outside_household",
+        "key": "close_ari_patient_contacts",
         "type": "repeating_group",
-        "reference_edit_text_hint": "# of close contacts outside household",
+        "reference_edit_text_hint": "# of ARI/ARD patients",
         "repeating_group_label": "Patient",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
         "value": [
           {
-            "key": "close_contact_outside_household_name_label",
+            "key": "close_contact_ari_patient_name_label",
             "type": "label",
             "text": "Contact's name",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_name",
+            "key": "close_contact_ari_patient_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1174,13 +1357,13 @@
             }
           },
           {
-            "key": "close_contact_outside_household_phone_number_lbl",
+            "key": "close_contact_ari_patient_phone_number_lbl",
             "type": "label",
             "text": "Contact's phone number",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_phone_number",
+            "key": "close_contact_ari_patient_phone_number",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1203,13 +1386,13 @@
             }
           },
           {
-            "key": "close_contact_outside_household_relationship_lbl",
+            "key": "close_contact_ari_patient_relationship_lbl",
             "type": "label",
             "text": "Relationship with contact",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_relationship",
+            "key": "close_contact_ari_patient_relationship",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1220,7 +1403,7 @@
             }
           },
           {
-            "key": "close_contact_outside_household_date_of_first_contact",
+            "key": "close_contact_ari_patient_date_of_first_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1234,7 +1417,138 @@
             "max_date": "today"
           },
           {
-            "key": "close_contact_outside_household_date_of_last_contact",
+            "key": "close_contact_ari_patient_date_of_last_contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date of last contact",
+            "expanded": false,
+            "duration": {
+              "label": "Date of last contact"
+            },
+            "min_date": "today-100y",
+            "max_date": "today"
+          }
+        ]
+      },
+      {
+        "key": "has_contact_with_hospitalized_ard_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient had exposure to anyone with an Acute Respiratory Disease that required hospitalization in the last 14 days?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "hospitalized_ard_patient_contacts",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "# of hospitalized ARD patients",
+        "repeating_group_label": "Patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "value": [
+          {
+            "key": "hospitalized_ard_patient_name_label",
+            "type": "label",
+            "text": "Contact's name",
+            "text_color": "#000000"
+          },
+          {
+            "key": "hospitalized_ard_patient_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          },
+          {
+            "key": "hospitalized_ard_patient_phone_number_lbl",
+            "type": "label",
+            "text": "Contact's phone number",
+            "text_color": "#000000"
+          },
+          {
+            "key": "hospitalized_ard_patient_phone_number",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Value must be numeric"
+            },
+            "v_max_length": {
+              "value": "13",
+              "err": "Phone number cannot be more than 13 digits"
+            },
+            "v_min_length": {
+              "value": "8",
+              "err": "Phone number cannot be less than 8 digits"
+            }
+          },
+          {
+            "key": "hospitalized_ard_patient_relationship_lbl",
+            "type": "label",
+            "text": "Relationship with contact",
+            "text_color": "#000000"
+          },
+          {
+            "key": "hospitalized_ard_patient_relationship",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          },
+          {
+            "key": "hospitalized_ard_patient_date_of_first_contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date of first contact",
+            "expanded": false,
+            "duration": {
+              "label": "Date of first contact"
+            },
+            "min_date": "today-100y",
+            "max_date": "today"
+          },
+          {
+            "key": "hospitalized_ard_patient_date_of_last_contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1248,13 +1562,161 @@
             "max_date": "today"
           },
           {
-            "key": "close_contact_outside_household_location_lbl",
+            "key": "hospitalized_ard_patient_location_lbl",
             "type": "label",
             "text": "Location of contact",
             "text_color": "#000000"
           },
           {
-            "key": "close_contact_outside_household_location",
+            "key": "hospitalized_ard_patient_location",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          }
+        ]
+      },
+      {
+        "key": "has_contact_with_dead_ard_patients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the patient had exposure to anyone with an Acute Respiratory Disease who died in the last 14 days?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "dead_ard_patient_contacts",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "# of dead ARD patients",
+        "repeating_group_label": "Patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "value": [
+          {
+            "key": "dead_ard_patient_name_label",
+            "type": "label",
+            "text": "Contact's name",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          },
+          {
+            "key": "dead_ard_patient_phone_number_lbl",
+            "type": "label",
+            "text": "Contact's phone number",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_phone_number",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Value must be numeric"
+            },
+            "v_max_length": {
+              "value": "13",
+              "err": "Phone number cannot be more than 13 digits"
+            },
+            "v_min_length": {
+              "value": "8",
+              "err": "Phone number cannot be less than 8 digits"
+            }
+          },
+          {
+            "key": "dead_ard_patient_relationship_lbl",
+            "type": "label",
+            "text": "Relationship with contact",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_relationship",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_required": {
+              "value": "false",
+              "err": ""
+            }
+          },
+          {
+            "key": "dead_ard_patient_date_of_first_contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date of first contact",
+            "expanded": false,
+            "duration": {
+              "label": "Date of first contact"
+            },
+            "min_date": "today-100y",
+            "max_date": "today"
+          },
+          {
+            "key": "dead_ard_patient_date_of_last_contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date of last contact",
+            "expanded": false,
+            "duration": {
+              "label": "Date of last contact"
+            },
+            "min_date": "today-100y",
+            "max_date": "today"
+          },
+          {
+            "key": "dead_ard_patient_location_lbl",
+            "type": "label",
+            "text": "Location of contact",
+            "text_color": "#000000"
+          },
+          {
+            "key": "dead_ard_patient_location",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -1275,12 +1737,194 @@
         "label": "Does the patient have history of contact with an infectious animal with Covid-19 (if an infectious animal has been identified)",
         "options": [
           {
-            "key": "Yes",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "No",
+            "key": "no",
             "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "is_part_of_ari_cluster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient belong to a cluster of severe ARI (fever and pneumonia requiring hospital treatment) with no known cause?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "is_patient_health_worker",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Is the patient a health worker?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "what_ppe",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "What personal protective equipment (PPE) is used when treating a suspect/probable/confirmed patient?",
+        "options": [
+          {
+            "key": "gown",
+            "text": "Gown"
+          },
+          {
+            "key": "mask",
+            "text": "Mask"
+          },
+          {
+            "key": "gloves",
+            "text": "Medical gloves"
+          },
+          {
+            "key": "masker",
+            "text": "Masker NIOSH-N95. AN EU STANDARD FFP2"
+          },
+          {
+            "key": "ffp3",
+            "text": "FFP3"
+          },
+          {
+            "key": "goggles",
+            "text": "Medical goggles"
+          },
+          {
+            "key": "none",
+            "text": "Not wearing PPE"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "performed_aerosol_procedures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Did the patient perform aerosol-generating procedures?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Patient case category",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "SUBMIT",
+    "fields": [
+      {
+        "key": "patient_case_category",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Patient case category?",
+        "options": [
+          {
+            "key": "negative_screening_result",
+            "text": "Negative screening result"
+          },
+          {
+            "key": "traveler",
+            "text": "Traveler"
+          },
+          {
+            "key": "close_contact",
+            "text": "Close contact"
+          },
+          {
+            "key": "suspected",
+            "text": "Suspected"
+          },
+          {
+            "key": "probable",
+            "text": "Probable"
+          },
+          {
+            "key": "symptomatic_confirmed",
+            "text": "Symptomatic confirmed"
+          },
+          {
+            "key": "asymptomatic_confirmed",
+            "text": "Asymptomatic confirmed"
+          },
+          {
+            "key": "discarded",
+            "text": "Discarded"
+          },
+          {
+            "key": "isolation_completed",
+            "text": "Isolation completed"
           }
         ],
         "v_required": {

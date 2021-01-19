@@ -75,71 +75,14 @@
             app:layout_constraintBottom_toTopOf="@id/barcode_results_next_button"
             android:layout_marginBottom="15dp" >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/item_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <View
-                    android:id="@+id/barcode_result_top_divider"
-                    style="@style/Divider.Horizontal"
-                    android:layout_marginBottom="15dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
-                <include
-                    android:id="@+id/barcode_product_id"
-                    layout="@layout/covid_one_scan_result_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/barcode_result_top_divider"
-                    app:resultKey="@{@string/covid_barcode_product_id}" />
-
-                <include
-                    android:id="@+id/barcode_serial_no"
-                    layout="@layout/covid_one_scan_result_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/barcode_product_id"
-                    app:resultKey="@{@string/covid_barcode_serial_no}" />
-
-                <include
-                    android:id="@+id/barcode_additional_id"
-                    layout="@layout/covid_one_scan_result_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/barcode_serial_no"
-                    app:resultKey="@{@string/covid_barcode_additional_id}" />
-
-                <include
-                    android:id="@+id/barcode_lot_no"
-                    layout="@layout/covid_one_scan_result_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/barcode_additional_id"
-                    app:resultKey="@{@string/covid_barcode_lot_no}" />
-
-                <include
-                    android:id="@+id/barcode_expiration_date"
-                    layout="@layout/covid_one_scan_result_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/barcode_lot_no"
-                    app:resultKey="@{@string/covid_barcode_expiration_date}" />
-
-                <include
-                    android:id="@+id/barcode_is_sensor_triggered"
-                    layout="@layout/covid_one_scan_result_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/barcode_expiration_date"
-                    app:resultKey="@{@string/covid_barcode_is_sensor_triggered}" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
         <Button
@@ -152,7 +95,7 @@
             android:background="@drawable/btn_bg"
             android:paddingStart="@dimen/bottom_navigation_padding"
             android:paddingEnd="@dimen/bottom_navigation_padding"
-            android:text="CONTINUE"
+            android:text="@string/label_continue"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="#FFFFFF"

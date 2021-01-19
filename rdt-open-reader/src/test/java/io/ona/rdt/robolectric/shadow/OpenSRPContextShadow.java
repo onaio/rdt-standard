@@ -43,6 +43,7 @@ public class OpenSRPContextShadow extends Shadow {
     private LocationRepository locationRepository;
 
     public static final String PARENT_LOCATION_ID = "parent_location_id";
+    public static final String OPENMRS_ID = "openmrsID1";
 
     @Implementation
     public CommonRepository commonrepository(String tablename) {
@@ -69,7 +70,7 @@ public class OpenSRPContextShadow extends Shadow {
         if (uniqueIdRepository == null) {
             uniqueIdRepository = Mockito.mock(UniqueIdRepository.class);
             UniqueId uniqueId = new UniqueId();
-            uniqueId.setOpenmrsId("openmrsID1");
+            uniqueId.setOpenmrsId(OPENMRS_ID);
             Mockito.doReturn(uniqueId).when(uniqueIdRepository).getNextUniqueId();
         }
         return uniqueIdRepository;

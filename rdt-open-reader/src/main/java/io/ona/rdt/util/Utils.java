@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.domain.UniqueId;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.LangUtils;
@@ -177,7 +178,7 @@ public class Utils {
         }
     }
 
-    public static JSONArray createOptionsBlock(Map<String, String> keyValPairs, String openmrsEntity, String openmrsEntityId) throws JSONException {
+    public static JSONArray createOptionsBlock(Map<String, String> keyValPairs, String openmrsEntity, String openmrsEntityId, String openmrsEntityParent) throws JSONException {
         JSONArray jsonArray = new JSONArray();
         for (Map.Entry<String, String> entry : keyValPairs.entrySet()) {
             JSONObject option = new JSONObject();
@@ -185,6 +186,7 @@ public class Utils {
             option.put(JsonFormConstants.TEXT, entry.getValue());
             option.put(JsonFormConstants.OPENMRS_ENTITY, openmrsEntity);
             option.put(JsonFormConstants.OPENMRS_ENTITY_ID, openmrsEntityId);
+            option.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openmrsEntityParent);
             jsonArray.put(jsonArray.length(), option);
         }
         return jsonArray;
@@ -196,5 +198,28 @@ public class Utils {
         return context.getLocationRepository().getLocationById(sharedPreferences
                 .fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
                 .getProperties().getParentId();
+
+    }
+
+    public static String getUniqueId(List<UniqueId> uniqueIds) {
+        List<String> ids = new ArrayList<>();
+        for (UniqueId uniqueId : uniqueIds) {
+            String currUniqueId = uniqueId.getOpenmrsId();
+            if (StringUtils.isNotBlank(currUniqueId)) {
+                currUniqueId = currUniqueId.replace("-", "");
+                ids.add(currUniqueId);
+            }
+        }
+
+        return org.smartregister.util.Utils.isEmptyCollection(ids) ? "" : ids.get(0);
+    }
+
+    public static boolean isValidJSONObject(String str) {
+        try {
+            new JSONObject(str);
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
     }
 }

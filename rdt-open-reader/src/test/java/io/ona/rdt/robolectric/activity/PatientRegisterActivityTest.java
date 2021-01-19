@@ -3,7 +3,10 @@ package io.ona.rdt.robolectric.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -84,6 +87,18 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
                 .getResources().getConfiguration().locale.getLanguage());
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testOnActivityResultShouldThrowRuntimeException() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(JsonFormConstants.RESULT_INTENT.RUNTIME_EXCEPTION, new RuntimeException("Dummy Exception!"));
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        ReflectionHelpers.callInstanceMethod(patientRegisterActivity, "onActivityResult",
+                ReflectionHelpers.ClassParameter.from(int.class, REQUEST_CODE_GET_JSON),
+                ReflectionHelpers.ClassParameter.from(int.class, JsonFormConstants.RESULT_CODE.RUNTIME_EXCEPTION_OCCURRED),
+                ReflectionHelpers.ClassParameter.from(Intent.class, intent));
+    }
+
     @Test
     public void testOnActivityResultShouldSaveForm() {
         PatientRegisterActivityPresenter presenter = mock(PatientRegisterActivityPresenter.class);
@@ -98,6 +113,14 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
                 ReflectionHelpers.ClassParameter.from(int.class, RESULT_OK),
                 ReflectionHelpers.ClassParameter.from(Intent.class, intent));
         verify(presenter).saveForm(eq(data.toString()), eq(patientRegisterActivity));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testOnActivityResultShouldThrowExceptionIfJsonFormActivityThrewException() {
+        ReflectionHelpers.callInstanceMethod(patientRegisterActivity, "onActivityResult",
+                ReflectionHelpers.ClassParameter.from(int.class, REQUEST_CODE_GET_JSON),
+                ReflectionHelpers.ClassParameter.from(int.class, Activity.RESULT_CANCELED),
+                ReflectionHelpers.ClassParameter.from(Intent.class, null));
     }
 
     @Test

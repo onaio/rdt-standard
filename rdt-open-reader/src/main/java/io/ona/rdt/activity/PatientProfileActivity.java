@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -59,7 +61,14 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == JsonFormConstants.RESULT_CODE.RUNTIME_EXCEPTION_OCCURRED) {
+            // for exceptions thrown and caught during widget instantiation
+            Bundle bundle = data.getExtras();
+            throw  (RuntimeException) bundle.getSerializable(JsonFormConstants.RESULT_INTENT.RUNTIME_EXCEPTION);
+        } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_CANCELED) {
+            // for general uncaught runtime exceptions thrown by json form activity
+            throw new RuntimeException("Runtime exception thrown by json form activity!");
+        }  else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
             Timber.d(jsonForm);
             presenter.saveForm(jsonForm, null);
@@ -88,5 +97,16 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
 
     protected Fragment getPatientProfileFragment() {
         return new PatientProfileFragment();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, getHomeActivityClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    protected Class<? extends PatientRegisterActivity> getHomeActivityClass() {
+        return PatientRegisterActivity.class;
     }
 }

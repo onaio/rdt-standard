@@ -53,5 +53,13 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="rdt_not_supported">Sorry, the selected RDT is not currently supported.</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="backpress_disabled">Backpress is disabled! Continue to the next step and close out the form to record new data.</string>
+    <string name="lbl_back">Back</string>
+    <string name="lbl_gender_id">Female . ID: 99358357</string>
+    <string name="lbl_visit">Visit %d</string>
+    <string name="unknown_rdt_selected">No details available for this RDT selection!</string>
+    <string name="settings">Settings</string>
+    <string name="location_settings_disabled_msg">Location services are disabled. Please go to the phone settings to enable them.</string>
+    <string name="location_services_required">Location services enable efficient data collection. Please enable them to continue.</string>
 </resources>
 

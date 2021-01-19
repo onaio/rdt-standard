@@ -14,7 +14,9 @@ import io.ona.rdt.widget.CovidRDTLabelFactory;
 import io.ona.rdt.widget.CovidRepeatingGroupFactory;
 import io.ona.rdt.widget.GoogleCovidRDTBarcodeFactory;
 import io.ona.rdt.widget.OneScanCovidRDTBarcodeFactory;
+import io.ona.rdt.widget.RDTDeviceSelectorSpinnerFactory;
 import io.ona.rdt.widget.UWCovidRDTCaptureFactory;
+import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.LABEL;
 import static io.ona.rdt.util.CovidConstants.Table.COVID_PATIENTS;
@@ -40,10 +42,12 @@ public class CovidLoginActivity extends LoginActivity {
         widgetFactoryMap.put(JsonFormConstants.DATE_PICKER, new CovidDatePickerFactory());
         widgetFactoryMap.put(JsonFormConstants.REPEATING_GROUP, new CovidRepeatingGroupFactory());
         widgetFactoryMap.put(CovidConstants.Widget.COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
+        widgetFactoryMap.put(JsonFormConstants.IMAGE_VIEW, new CovidImageViewFactory());
+        widgetFactoryMap.put(CovidConstants.Widget.RDT_DEVICE_SELECTOR_SPINNER, new RDTDeviceSelectorSpinnerFactory());
     }
 
     @Override
-    protected Class getLoginActivityClass() {
+    protected Class getHomeActivityClass() {
         return CovidPatientRegisterActivity.class;
     }
 
