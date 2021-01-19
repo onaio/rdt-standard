@@ -16,11 +16,6 @@ import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.StepStateConfig;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-
 @PrepareForTest({RDTApplication.class})
 public class CovidJsonFormFragmentPresenterTest extends PowerMockTest {
 
@@ -32,8 +27,8 @@ public class CovidJsonFormFragmentPresenterTest extends PowerMockTest {
     public void setUp() throws JSONException {
         mockStaticMethods();
 
-        rdtFormFragmentView = spy(new PatientRegisterFragmentStub());
-        presenter = new CovidJsonFormFragmentPresenter(rdtFormFragmentView, mock(RDTJsonFormInteractor.class));
+        rdtFormFragmentView = Mockito.spy(new PatientRegisterFragmentStub());
+        presenter = new CovidJsonFormFragmentPresenter(rdtFormFragmentView, Mockito.mock(RDTJsonFormInteractor.class));
         Whitebox.setInternalState(presenter, "rdtJsonFormFragmentInteractor", Mockito.mock(RDTJsonFormFragmentInteractor.class));
 
     }
@@ -45,7 +40,7 @@ public class CovidJsonFormFragmentPresenterTest extends PowerMockTest {
     }
 
     private void mockStaticMethods() {
-        mockStatic(RDTApplication.class);
+        PowerMockito.mockStatic(RDTApplication.class);
 
         RDTApplication rdtApplication = Mockito.mock(RDTApplication.class);
         org.smartregister.Context drishtiContext = Mockito.mock(org.smartregister.Context.class);
@@ -54,8 +49,8 @@ public class CovidJsonFormFragmentPresenterTest extends PowerMockTest {
         PowerMockito.when(RDTApplication.getInstance()).thenReturn(rdtApplication);
         PowerMockito.when(rdtApplication.getStepStateConfiguration()).thenReturn(stepStateConfig);
         PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
-        JSONObject jsonObject = mock(JSONObject.class);
-        doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
+        JSONObject jsonObject = Mockito.mock(JSONObject.class);
+        Mockito.doReturn(jsonObject).when(stepStateConfig).getStepStateObj();
     }
 
 }
