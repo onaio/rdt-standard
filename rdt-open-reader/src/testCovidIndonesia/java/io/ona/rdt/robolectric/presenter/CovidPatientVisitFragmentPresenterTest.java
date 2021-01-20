@@ -10,6 +10,7 @@ import org.robolectric.util.ReflectionHelpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ona.rdt.contract.CovidPatientVisitFragmentContract;
 import io.ona.rdt.domain.Visit;
 import io.ona.rdt.interactor.CovidPatientVisitFragmentInteractor;
 import io.ona.rdt.presenter.CovidPatientVisitFragmentPresenter;
@@ -19,10 +20,13 @@ public class CovidPatientVisitFragmentPresenterTest extends RobolectricTest {
 
     private static final int LIST_SIZE = 1;
     private CovidPatientVisitFragmentPresenter covidPatientVisitFragmentPresenter;
+    private CovidPatientVisitFragmentContract.View view;
+    private final String translatedText = "translation done";
 
     @Before
     public void setUp() {
-        covidPatientVisitFragmentPresenter = new CovidPatientVisitFragmentPresenter(null);
+        view = Mockito.mock(CovidPatientVisitFragmentContract.View.class);
+        covidPatientVisitFragmentPresenter = new CovidPatientVisitFragmentPresenter(view);
     }
 
     @Test
@@ -43,5 +47,11 @@ public class CovidPatientVisitFragmentPresenterTest extends RobolectricTest {
         Assert.assertEquals(LIST_SIZE, visitList.size());
         Assert.assertEquals(visitName, visitList.get(LIST_SIZE - 1).getVisitName());
         Assert.assertEquals(dateOfVisit, visitList.get(LIST_SIZE - 1).getDateOfVisit());
+    }
+
+    @Test
+    public void testTranslateStringShouldReturnValidText() {
+        Mockito.when(view.translateString(ArgumentMatchers.anyInt())).thenReturn(translatedText);
+        Assert.assertEquals(translatedText, covidPatientVisitFragmentPresenter.translateString(ArgumentMatchers.anyInt()));
     }
 }

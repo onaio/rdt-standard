@@ -16,12 +16,16 @@ public class CovidPatientVisitViewHolderTest extends PowerMockTest {
     private CovidPatientVisitViewHolder viewHolder;
     private final String txtVisitName = "first visit";
     private final String txtDateOfVisit = "02-05-2021";
+    private View itemView;
+    private TextView tvVisitName;
+    private TextView tvDateOfVisit;
 
     @Before
     public void setUp() {
-        View itemView = Mockito.mock(View.class);
-        TextView tvVisitName = Mockito.mock(TextView.class);
-        TextView tvDateOfVisit = Mockito.mock(TextView.class);
+
+        itemView = Mockito.mock(View.class);
+        tvVisitName = Mockito.mock(TextView.class);
+        tvDateOfVisit = Mockito.mock(TextView.class);
         View btnVisitHistory = Mockito.mock(View.class);
 
         Mockito.when(itemView.findViewById(Mockito.eq(R.id.visit_name))).thenReturn(tvVisitName);
@@ -35,18 +39,24 @@ public class CovidPatientVisitViewHolderTest extends PowerMockTest {
 
     @Test
     public void testGetTvVisitNameShouldReturnValidViewAndData() {
+        viewHolder.setTvVisitName(tvVisitName);
+
         Assert.assertNotNull(viewHolder.getTvVisitName());
         Assert.assertEquals(txtVisitName, viewHolder.getTvVisitName().getText());
     }
 
     @Test
     public void testGetTvDateOfVisitShouldReturnValidViewAndData() {
+        viewHolder.setTvDateOfVisit(tvDateOfVisit);
+
         Assert.assertNotNull(viewHolder.getTvDateOfVisit());
         Assert.assertEquals(txtDateOfVisit, viewHolder.getTvDateOfVisit().getText());
     }
 
     @Test
     public void testGetPatientVisitRowShouldReturnNonNullView() {
+        viewHolder.setPatientVisitRow(itemView);
+
         Assert.assertNotNull(viewHolder.getPatientVisitRow());
     }
 }
