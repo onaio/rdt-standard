@@ -46,6 +46,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     private static String currentStep;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        currentStep = getArguments().getString(JsonFormConstants.STEPNAME);
         rootLayout = super.onCreateView(inflater, container, savedInstanceState);
         return rootLayout;
     }

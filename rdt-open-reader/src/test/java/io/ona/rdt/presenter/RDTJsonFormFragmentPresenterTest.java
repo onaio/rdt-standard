@@ -21,6 +21,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -170,14 +171,16 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         addMockStepDetails();
 
-        Map<String, ValidationStatus> invalidFields = new HashMap<>();
-        invalidFields.put(DUMMY_STR_VAL, new ValidationStatus(false, "", view, mock(View.class)));
-        Whitebox.setInternalState(presenter, "invalidFields", invalidFields);
+        presenter = Mockito.spy(presenter);
+        Mockito.doReturn(false).when(presenter).isFormValid();
+
         JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragment;
         jsonFormFragment.setOnFieldsInvalid(mock(OnFieldsInvalid.class));
 
+        ReflectionHelpers.setField(presenter, "mStepName", JsonFormConstants.STEP1);
+
         presenter.onNextClick(mock(LinearLayout.class));
-        verify(view).showSnackBar(eq(DUMMY_STR_VAL));
+        verify(view).showSnackBar(DUMMY_STR_VAL);
     }
 
     private void invokePerformNextButtonActionFromExpirationPage() {

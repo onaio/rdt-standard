@@ -92,17 +92,13 @@ public class RDTExpirationDateReaderFactoryTest extends WidgetFactoryRobolectric
     }
 
     @Test
-    public void testSetUpRDTExpirationDateActivity() {
-        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
-                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
-
-        suppress(methods(RDTCaptureFactory.class, "setUpRDTCaptureActivity"));
+    public void testSetUpRDTExpirationDateActivityShouldCorrectlySetUpActivity() {
         readerFactory.setUpRDTExpirationDateActivity();
         verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
     }
 
     @Test
-    public void testAddWidgetTags() throws Exception {
+    public void testAddWidgetTagsShouldAddAllRelevantTags() throws Exception {
         Whitebox.invokeMethod(readerFactory, "addWidgetTags");
         verify(rootLayout).setTag(com.vijay.jsonwizard.R.id.key, "key");
         verify(rootLayout).setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, "entity_parent");
@@ -142,11 +138,8 @@ public class RDTExpirationDateReaderFactoryTest extends WidgetFactoryRobolectric
     }
 
     @Test
-    public void testGetViewsFromJson() throws Exception {
-        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
-                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
+    public void testGetViewsFromJsonShouldCorrectlyBootstrapWidget() throws Exception {
         JSONObject jsonObject = widgetArgs.getJsonObject();
-        suppress(methods(RDTCaptureFactory.class, "getViewsFromJson"));
         doReturn(jsonObject).when(jsonFormActivity).getmJSONObject();
 
         JsonFormFragment formFragment = mock(JsonFormFragment.class);
