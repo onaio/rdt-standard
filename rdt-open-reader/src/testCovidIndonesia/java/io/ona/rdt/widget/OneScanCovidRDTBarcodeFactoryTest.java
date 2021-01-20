@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.WidgetArgs;
@@ -99,6 +100,10 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         });
         RDTJsonFormUtilsShadow.setJsonObject(deviceDetailsWidget);
 
+        String displayValue = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
+        Barcode barcode = new Barcode();
+        barcode.displayValue = displayValue;
+        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
         oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
 
         verifySingleScanDataIsCorrectlyPopulated();
@@ -124,13 +129,19 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
     @Test
     public void testGetBarcodeValsAsCSVShouldReturnCorrectDisplayValue() throws Exception {
-        String displayValue = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", new Intent());
-        Assert.assertEquals(String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED), displayValue);
+        String displayValue = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
+        Barcode barcode = new Barcode();
+        barcode.displayValue = displayValue;
+        Intent intent = new Intent();
+        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
+        String result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", intent);
+        Assert.assertEquals(displayValue, result);
     }
 
     @Test
     public void testSplitCSVShouldReturnCorrectArrays() throws Exception {
-        String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "splitCSV", "");
+        String data = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
+        String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "splitCSV", data);
         Assert.assertArrayEquals(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}, result);
     }
 
@@ -165,10 +176,6 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     private void mockMethods() throws JSONException {
         Mockito.doNothing().when(oneScanCovidRDTBarcodeFactory).moveToNextStep();
         Mockito.doNothing().when(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();
-        Mockito.doReturn(String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED)).when(oneScanCovidRDTBarcodeFactory)
-                .getBarcodeValsAsCSV(Mockito.any(Intent.class));
-        Mockito.doReturn(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}).when(oneScanCovidRDTBarcodeFactory)
-                .splitCSV(ArgumentMatchers.anyString());
 
         formFragment = Mockito.mock(RDTJsonFormFragment.class);
 

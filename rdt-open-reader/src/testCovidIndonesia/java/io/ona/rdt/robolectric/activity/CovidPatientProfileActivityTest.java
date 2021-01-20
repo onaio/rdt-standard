@@ -1,27 +1,34 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
+import org.robolectric.Shadows;
 import org.robolectric.util.ReflectionHelpers;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.adapter.ProfileFragmentAdapter;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
 import io.ona.rdt.fragment.CovidPatientVisitFragment;
 import io.ona.rdt.presenter.CovidPatientProfileActivityPresenter;
 import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 import io.ona.rdt.util.Constants;
+import io.ona.rdt.util.FormKeyTextExtractionUtil;
 
 public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
@@ -69,6 +76,24 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
     public void testGetHomeActivityClassShouldReturnCovidPatientRegisterActivity() throws Exception {
         Class<?> clazz = Whitebox.invokeMethod(activity, "getHomeActivityClass");
         Assert.assertEquals(CovidPatientRegisterActivity.class.getName(), clazz.getName());
+    }
+
+    @Test
+    public void testonClickShouldVerifyBackPressedMethod() {
+        View view = Mockito.mock(View.class);
+        Mockito.when(view.getId()).thenReturn(R.id.btn_covid_back_to_patient_register);
+        activity.onClick(view);
+
+        Context applicationContext = RDTApplication.getInstance().getApplicationContext();
+        Intent expectedIntent = new Intent(activity, CovidPatientRegisterActivity.class);
+        Intent actualIntent = Shadows.shadowOf(new ContextWrapper(applicationContext)).getNextStartedActivity();
+        Assert.assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+    }
+
+    @Test
+    public void testOnDestroyShouldReturnNullWidgetMap() throws Exception {
+        Whitebox.invokeMethod(activity, "onDestroy");
+        Assert.assertNull(ReflectionHelpers.getStaticField(FormKeyTextExtractionUtil.class, "formWidgetKeyToTextMap"));
     }
 
     @Override

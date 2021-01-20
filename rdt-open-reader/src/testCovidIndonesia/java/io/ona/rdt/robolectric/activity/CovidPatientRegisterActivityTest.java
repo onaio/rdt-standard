@@ -1,6 +1,7 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
@@ -15,6 +17,7 @@ import org.robolectric.shadows.ShadowAlertDialog;
 import org.smartregister.util.LangUtils;
 
 import io.ona.rdt.R;
+import io.ona.rdt.activity.CovidLoginActivity;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
@@ -85,6 +88,29 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
         LangUtils.saveLanguage(covidPatientRegisterActivity, localesVal[0]);
         Utils.updateLocale(covidPatientRegisterActivity);
         verifySavedLanguageIndex(0);
+    }
+
+    @Test
+    public void testSelectDrawerItemShouldReturnRelevantBoolean() {
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+
+        Mockito.when(menuItem.getItemId()).thenReturn(R.id.menu_item_sync);
+        Assert.assertTrue(covidPatientRegisterActivity.selectDrawerItem(menuItem));
+
+        Mockito.when(menuItem.getItemId()).thenReturn(R.id.menu_item_create_shipment);
+        Assert.assertTrue(covidPatientRegisterActivity.selectDrawerItem(menuItem));
+
+        Mockito.when(menuItem.getItemId()).thenReturn(R.id.menu_item_switch_language);
+        Assert.assertTrue(covidPatientRegisterActivity.selectDrawerItem(menuItem));
+
+        Mockito.when(menuItem.getItemId()).thenReturn(R.id.menu_item_toggle_img_sync);
+        Assert.assertFalse(covidPatientRegisterActivity.selectDrawerItem(menuItem));
+    }
+
+    @Test
+    public void testGetLoginPageShouldReturnCovidLoginActivity() throws Exception {
+        Class clazz = Whitebox.invokeMethod(covidPatientRegisterActivity, "getLoginPage");
+        Assert.assertEquals(CovidLoginActivity.class.getName(), clazz.getName());
     }
 
     private void verifySavedLanguageIndex(int expected) throws Exception {
