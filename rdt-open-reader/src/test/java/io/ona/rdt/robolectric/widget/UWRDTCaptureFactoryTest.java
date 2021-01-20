@@ -93,9 +93,7 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
     }
 
     @Test
-    public void testSetUpRDTCaptureActivity() {
-        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
-                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
+    public void testSetUpRDTCaptureActivityShouldCorrectlySetUpActivity() {
         rdtCaptureFactory.setUpRDTCaptureActivity();
         Mockito.verify(jsonFormActivity).addOnActivityResultListener(eq(RDT_CAPTURE_CODE), any(OnActivityResultListener.class));
     }
@@ -130,8 +128,6 @@ public abstract class UWRDTCaptureFactoryTest extends WidgetFactoryRobolectricTe
     @Config(shadows = { ContextCompatShadow.class, RDTJsonFormUtilsShadow.class })
     @Test
     public void testGetViewsFromJsonShouldCorrectlyPopulateFields() throws Exception {
-        ReflectionHelpers.callInstanceMethod(jsonFormActivity, "onCreate",
-                ReflectionHelpers.ClassParameter.from(Bundle.class, null));
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
                 jsonObject, mock(CommonListener.class));
 
