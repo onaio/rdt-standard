@@ -184,7 +184,7 @@ public class RDTJsonFormFragmentTest extends FragmentRobolectricTest {
         return fragmentScenario;
     }
 
-    private class RDTJsonFormFragmentFactory extends FragmentFactory {
+    public static class RDTJsonFormFragmentFactory extends FragmentFactory {
         @NonNull
         public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className) {
             RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();

@@ -1,5 +1,9 @@
 package fragment;
 
+import android.os.Bundle;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -10,6 +14,7 @@ import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.robolectric.RobolectricTest;
+import io.ona.rdt.robolectric.fragment.RDTJsonFormFragmentTest;
 
 import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
 import static org.junit.Assert.assertFalse;
@@ -27,9 +32,12 @@ public class MalariaRDTJsonFormFragmentTest extends RobolectricTest {
 
     @Test
     public void testIs20minTimerPageShouldReturnCorrectStatus() {
+        Bundle bundle = new Bundle();
+        bundle.putString(JsonFormConstants.STEPNAME, JsonFormConstants.STEP1);
+
         FragmentScenario<RDTJsonFormFragment> fragmentScenario =
                 FragmentScenario.launchInContainer(RDTJsonFormFragment.class,
-                        null, R.style.AppTheme, null);
+                        bundle, R.style.AppTheme, new RDTJsonFormFragmentTest.RDTJsonFormFragmentFactory());
 
         fragmentScenario.onFragment(fragment -> {
             String step = RDTApplication.getInstance().getStepStateConfiguration()

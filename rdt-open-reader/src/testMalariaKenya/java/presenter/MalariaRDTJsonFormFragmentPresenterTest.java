@@ -19,24 +19,24 @@ public class MalariaRDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFrag
     public void testPerformNextButtonActionShouldShowImageViewsForONARDT() throws JSONException {
         mockStaticMethods();
         mockStaticClasses();
-        doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragmentView).getRDTType();
+        doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
         presenter.performNextButtonAction("step8", null);
-        verify(rdtFormFragmentView).navigateToNextStep();
+        verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForOnaRDT() throws JSONException {
-        doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragmentView).getRDTType();
+        doReturn(Constants.RDTType.ONA_RDT).when(rdtFormFragment).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(rdtFormFragmentView).navigateToNextStep();
+        verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
     public void testPerformNextButtonActionShouldSkipImageViewsForCarestartRDT() throws JSONException {
-        doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragmentView).getRDTType();
+        doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
         mockStaticClasses();
         presenter.performNextButtonAction("step9", null);
-        verify(rdtFormFragmentView).transactFragment(eq(formFragment));
+        verify(rdtFormFragment).transactFragment(eq(formFragment));
     }
 }
