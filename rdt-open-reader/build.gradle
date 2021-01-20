@@ -25,7 +25,7 @@ android {
         applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 9
+        versionCode 10
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
@@ -166,7 +166,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation('org.smartregister:opensrp-client-native-form:2.0.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:2.0.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
