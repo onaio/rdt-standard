@@ -552,6 +552,47 @@
         }
       },
       {
+        "key": "fever_temperature",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Body temperature ℃",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "has_fever_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient have the history of fever?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
         "key": "has_nausea",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -794,6 +835,28 @@
         }
       },
       {
+        "key": "has_abdominal_pain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient have abdominal pain?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
         "key": "has_fatigue",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -807,6 +870,28 @@
           },
           {
             "key": "No",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        }
+      },
+      {
+        "key": "feels_malaised",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Does the patient feel malaise?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
             "text": "No"
           }
         ],
