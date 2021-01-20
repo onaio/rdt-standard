@@ -49,18 +49,6 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        rdtApplication.setCurrentActivity(this);
-    }
-
-    @Override
-    public void onPause() {
-        rdtApplication.clearCurrActivityReference(this);
-        super.onPause();
-    }
-
-    @Override
     public void useCapturedImage(RDTCaptureResult rdtCaptureResult, RDTInterpretationResult rdtInterpretationResult, long timeTaken) {
         Timber.i("Processing captured image");
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);

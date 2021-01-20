@@ -23,6 +23,7 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
+import edu.washington.cs.ubicomplab.rdt_reader.activities.ImageQualityActivity;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
@@ -53,6 +54,8 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     protected abstract void launchCamera(Intent intent, Context context);
 
+    private boolean isRdtScannerLaunched = false; // needed to avoid launching scanner twice
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(JsonFormUtils.ENTITY_ID);
@@ -75,12 +78,9 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     @Override
     protected void launchRDTCaptureActivity() {
-        if (RDTApplication.getInstance().getCurrentActivity() instanceof CustomRDTCaptureActivity) {
-            // avoids relaunching rdt capture if already visible
-            return;
-        }
         Context context = widgetArgs.getContext();
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+        if (!isRdtScannerLaunched && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            isRdtScannerLaunched = true;
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(JsonFormUtils.ENTITY_ID, baseEntityId);
             intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
@@ -90,6 +90,7 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        isRdtScannerLaunched = false;
         hideProgressDialog();
 
         RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
