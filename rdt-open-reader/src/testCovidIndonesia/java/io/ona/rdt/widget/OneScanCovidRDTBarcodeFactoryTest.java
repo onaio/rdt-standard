@@ -59,6 +59,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     private final String SENSOR_TRIGGERED = "true";
 
     private WidgetArgs widgetArgs;
+    private String barcodeVals = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
 
     @Before
     public void setUp() throws Exception {
@@ -100,9 +101,8 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         });
         RDTJsonFormUtilsShadow.setJsonObject(deviceDetailsWidget);
 
-        String displayValue = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
         Barcode barcode = new Barcode();
-        barcode.displayValue = displayValue;
+        barcode.displayValue = barcodeVals;
         intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
         oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
 
@@ -129,19 +129,17 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
     @Test
     public void testGetBarcodeValsAsCSVShouldReturnCorrectDisplayValue() throws Exception {
-        String displayValue = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
         Barcode barcode = new Barcode();
-        barcode.displayValue = displayValue;
+        barcode.displayValue = barcodeVals;
         Intent intent = new Intent();
         intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
         String result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", intent);
-        Assert.assertEquals(displayValue, result);
+        Assert.assertEquals(barcodeVals, result);
     }
 
     @Test
     public void testSplitCSVShouldReturnCorrectArrays() throws Exception {
-        String data = String.format("%s,%s,%s,%s,%s", VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED);
-        String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "splitCSV", data);
+        String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "splitCSV", barcodeVals);
         Assert.assertArrayEquals(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}, result);
     }
 
