@@ -12,8 +12,6 @@ import io.ona.rdt.TestUtils;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 
-import static org.mockito.Mockito.mock;
-
 /**
  * Created by Vincent Karuri on 14/08/2019
  */
@@ -46,13 +44,13 @@ public class RDTFormFragmentStub extends RDTJsonFormFragment implements RDTJsonF
 
     @Override
     public JsonApi getJsonApi() {
-        JsonApi jsonApi = mock(JsonApi.class);
+        JsonApi jsonApi = Mockito.mock(JsonApi.class);
         Mockito.doReturn(new JSONObject()).when(jsonApi).getmJSONObject();
         return jsonApi;
     }
 
     @Override
     public String getCurrentJsonState() {
-        return TestUtils.PATIENT_REGISTRATION_JSON_FORM ;
+        return TestUtils.PATIENT_REGISTRATION_JSON_FORM;
     }
 }

@@ -3,13 +3,7 @@ package io.ona.rdt.presenter;
 import io.ona.rdt.contract.PatientRegisterFragmentContract;
 import io.ona.rdt.interactor.CovidPatientRegisterFragmentInteractor;
 import io.ona.rdt.interactor.PatientRegisterFragmentInteractor;
-
-import static io.ona.rdt.util.Constants.DBConstants.AGE;
-import static io.ona.rdt.util.Constants.DBConstants.DOB;
-import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
-import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
-import static io.ona.rdt.util.Constants.DBConstants.PATIENT_ID;
-import static io.ona.rdt.util.Constants.DBConstants.SEX;
+import io.ona.rdt.util.Constants;
 
 /**
  * Created by Vincent Karuri on 05/08/2020
@@ -27,6 +21,6 @@ public class CovidPatientRegisterFragmentPresenter extends PatientRegisterFragme
 
     @Override
     protected String[] getMainColumns() {
-        return new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID, DOB};
+        return new String[] {"relationalid", Constants.DBConstants.FIRST_NAME, Constants.DBConstants.LAST_NAME, Constants.DBConstants.AGE, Constants.DBConstants.SEX, Constants.DBConstants.PATIENT_ID, Constants.DBConstants.DOB};
     }
 }

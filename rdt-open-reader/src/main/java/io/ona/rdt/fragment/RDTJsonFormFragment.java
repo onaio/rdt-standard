@@ -1,9 +1,7 @@
 package io.ona.rdt.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -30,7 +27,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
-import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
@@ -99,8 +95,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         });
     }
 
-
-
     protected boolean formHasSpecialNavigationRules(String formName) {
         return RDT_TEST.equals(formName);
     }
@@ -157,7 +151,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-       return new RDTJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
+        return new RDTJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
     }
 
     @Override

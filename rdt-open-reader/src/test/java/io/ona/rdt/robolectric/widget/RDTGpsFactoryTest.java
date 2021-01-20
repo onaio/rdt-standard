@@ -28,9 +28,6 @@ import io.ona.rdt.util.RDTGpsDialog;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.RDTGpsFactory;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-
 /**
  * Created by Vincent Karuri on 08/11/2019
  */
@@ -113,9 +110,9 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
         formFragmentRootLayout = Mockito.mock(View.class);
         Mockito.doReturn(formFragmentRootLayout).when(formFragment).getRootLayout();
 
-        JsonApi jsonApi = mock(JsonApi.class);
-        doReturn(new AppExecutors()).when(jsonApi).getAppExecutors();
-        doReturn(jsonApi).when(formFragment).getJsonApi();
+        JsonApi jsonApi = Mockito.mock(JsonApi.class);
+        Mockito.doReturn(new AppExecutors()).when(jsonApi).getAppExecutors();
+        Mockito.doReturn(jsonApi).when(formFragment).getJsonApi();
 
         scrollView = Mockito.mock(ScrollView.class);
         Mockito.doReturn(scrollView).when(formFragmentRootLayout).findViewById(ArgumentMatchers.eq(com.vijay.jsonwizard.R.id.scroll_view));

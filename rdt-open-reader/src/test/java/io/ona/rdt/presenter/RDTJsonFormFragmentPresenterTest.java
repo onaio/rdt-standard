@@ -2,14 +2,12 @@ package io.ona.rdt.presenter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.interfaces.OnFieldsInvalid;
-import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
@@ -26,15 +24,12 @@ import org.robolectric.util.ReflectionHelpers;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
 
 import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.RDTJsonFormUtilsTest.RDT_TEST_JSON_FORM;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -42,7 +37,6 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -155,7 +149,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         doReturn("step1").when(jsonApi).nextStep();
         doReturn(jsonApi).when(jsonFormFragment).getJsonApi();
 
-        presenter = spy(presenter);
+        presenter = Mockito.spy(presenter);
         doReturn(false).when(presenter).executeRefreshLogicForNextStep();
         doReturn(mock(RDTJsonFormFragment.class)).when(presenter).getNextJsonFormFragment(anyString());
 
