@@ -30,14 +30,10 @@ import io.ona.rdt.util.Constants;
 
 import static io.ona.rdt.TestUtils.getDateWithOffset;
 import static io.ona.rdt.util.RDTJsonFormUtilsTest.RDT_TEST_JSON_FORM;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 /**
  * Created by Vincent Karuri on 14/08/2019
@@ -54,8 +50,13 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
     public void testPerformNextButtonActionShouldNavigateToNextStepAndSaveFormFromExpirationPage() {
         presenter.attachView((JsonFormFragment) rdtFormFragment);
         presenter.performNextButtonAction("step6", null);
-        verify(interactor).saveForm(any(JSONObject.class), isNull());
-        verify(rdtFormFragment).navigateToNextStep();
+        Mockito.verify(interactor).saveForm(ArgumentMatchers.any(JSONObject.class), isNull());
+        Mockito.verify(rdtFormFragment).navigateToNextStep();
+    }
+
+    @Test
+    public void testGetNextJsonFormFragmentShouldGetJsonFormFragment() {
+        Assert.assertTrue(presenter.getNextJsonFormFragment(JsonFormConstants.STEP1) instanceof RDTJsonFormFragment);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", null);
-        verify(rdtFormFragment).navigateToNextStep();
+        Mockito.verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
@@ -71,16 +72,16 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction("step1", true);
-        verify(rdtFormFragment).saveForm();
+        Mockito.verify(rdtFormFragment).saveForm();
     }
 
     @Test
     public void testPerformNextButtonActionShouldMoveToNextStepForCarestart() throws JSONException {
         mockStaticMethods();
         mockStaticClasses();
-        doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
+        Mockito.doReturn(Constants.RDTType.CARESTART_RDT).when(rdtFormFragment).getRDTType();
         presenter.performNextButtonAction(BLOT_PAPER_TASK_PAGE_NO, false);
-        verify(rdtFormFragment).transactFragment(any(JsonFormFragment.class));
+        Mockito.verify(rdtFormFragment).transactFragment(ArgumentMatchers.any(JsonFormFragment.class));
     }
 
     @Test
@@ -88,7 +89,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         mockStaticMethods();
         mockStaticClasses();
         presenter.performNextButtonAction(BLOT_PAPER_TASK_PAGE_NO, false);
-        verify(rdtFormFragment).navigateToNextStep();
+        Mockito.verify(rdtFormFragment).navigateToNextStep();
     }
 
     @Test
@@ -96,8 +97,8 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         // should move to next step for non-blank step
         addViewAndMockStaticClasses();
         presenter.moveToNextStep("step1");
-        verify(view).hideKeyBoard();
-        verify(view).transactThis(eq(formFragment));
+        Mockito.verify(view).hideKeyBoard();
+        Mockito.verify(view).transactThis(eq(formFragment));
 
         // don't move to next step for blank step
         Mockito.clearInvocations(view);
@@ -109,23 +110,31 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
     public void testMoveToNextStepWithStepArg() throws JSONException {
         addViewAndMockStaticClasses();
         presenter.moveToNextStep("step1");
-        verify(view).hideKeyBoard();
-        verify(view).transactThis(eq(formFragment));
+        Mockito.verify(view).hideKeyBoard();
+        Mockito.verify(view).transactThis(eq(formFragment));
     }
 
     @Test
     public void testPerformNextButtonActionShouldNavigateToCorrectStepFromExpirationPage() throws Exception {
-        // valid rdt
+
+        // if no date exists
         mockStaticClasses();
         mockStaticMethods();
-        doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
+        Mockito.doReturn(new JSONObject()).when((JsonFormFragment) rdtFormFragment).getStep(ArgumentMatchers.anyString());
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragment).next();
+        Mockito.verify((JsonFormFragment) rdtFormFragment, Mockito.never()).next();
+        Mockito.verify((JsonFormFragment) rdtFormFragment, Mockito.never()).transactThis(ArgumentMatchers.any(JsonFormFragment.class));
+
+        // valid rdt
+        Mockito.doReturn(new JSONObject(getExpirationDatePage(false))).when((JsonFormFragment) rdtFormFragment).getStep(ArgumentMatchers.anyString());
+        invokePerformNextButtonActionFromExpirationPage();
+        Mockito.verify((JsonFormFragment) rdtFormFragment).next();
+
         // expired rdt
-        doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragment).getStep(anyString());
-        doNothing().when((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
+        Mockito.doReturn(new JSONObject(getExpirationDatePage(true))).when((JsonFormFragment) rdtFormFragment).getStep(ArgumentMatchers.anyString());
+        doNothing().when((JsonFormFragment) rdtFormFragment).transactThis(ArgumentMatchers.any(JsonFormFragment.class));
         invokePerformNextButtonActionFromExpirationPage();
-        verify((JsonFormFragment) rdtFormFragment).transactThis(any(JsonFormFragment.class));
+        Mockito.verify((JsonFormFragment) rdtFormFragment).transactThis(ArgumentMatchers.any(JsonFormFragment.class));
     }
 
     @Test
@@ -135,7 +144,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         addMockStepDetails();
         Whitebox.setInternalState(presenter, "mStepName", "step345");
         presenter.setUpToolBar();
-        verify(view).updateVisibilityOfNextAndSave(eq(false), eq(false));
+        Mockito.verify(view).updateVisibilityOfNextAndSave(eq(false), eq(false));
     }
 
     @Test
@@ -146,17 +155,17 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         JsonFormFragment jsonFormFragment = (JsonFormFragment) rdtFormFragment;
         jsonFormFragment.setOnFieldsInvalid(mock(OnFieldsInvalid.class));
         JsonApi jsonApi = jsonFormFragment.getJsonApi();
-        doReturn("step1").when(jsonApi).nextStep();
-        doReturn(jsonApi).when(jsonFormFragment).getJsonApi();
+        Mockito.doReturn("step1").when(jsonApi).nextStep();
+        Mockito.doReturn(jsonApi).when(jsonFormFragment).getJsonApi();
 
         presenter = Mockito.spy(presenter);
-        doReturn(false).when(presenter).executeRefreshLogicForNextStep();
-        doReturn(mock(RDTJsonFormFragment.class)).when(presenter).getNextJsonFormFragment(anyString());
+        Mockito.doReturn(false).when(presenter).executeRefreshLogicForNextStep();
+        Mockito.doReturn(mock(RDTJsonFormFragment.class)).when(presenter).getNextJsonFormFragment(ArgumentMatchers.anyString());
 
         presenter.onNextClick(mock(LinearLayout.class));
 
-        verify(view).hideKeyBoard();
-        verify(view).transactThis(any(JsonFormFragment.class));
+        Mockito.verify(view).hideKeyBoard();
+        Mockito.verify(view).transactThis(ArgumentMatchers.any(JsonFormFragment.class));
     }
 
     @Test
@@ -174,7 +183,7 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         ReflectionHelpers.setField(presenter, "mStepName", JsonFormConstants.STEP1);
 
         presenter.onNextClick(mock(LinearLayout.class));
-        verify(view).showSnackBar(DUMMY_STR_VAL);
+        Mockito.verify(view).showSnackBar(DUMMY_STR_VAL);
     }
 
     private void invokePerformNextButtonActionFromExpirationPage() {
@@ -185,13 +194,13 @@ public class RDTJsonFormFragmentPresenterTest extends BaseRDTJsonFormFragmentPre
         addMockStepDetails();
         mockStaticClasses();
         WeakReference<JsonFormFragmentView<JsonFormFragmentViewState>> viewRef = mock(WeakReference.class);
-        doReturn(RDT_TEST_JSON_FORM).when(view).getCurrentJsonState();
-        doReturn(view).when(viewRef).get();
+        Mockito.doReturn(RDT_TEST_JSON_FORM).when(view).getCurrentJsonState();
+        Mockito.doReturn(view).when(viewRef).get();
         Context context = mock(Context.class);
         Resources resources = mock(Resources.class);
-        doReturn(resources).when(context).getResources();
-        doReturn(DUMMY_STR_VAL).when(resources).getString(ArgumentMatchers.anyInt());
-        doReturn(context).when(view).getContext();
+        Mockito.doReturn(resources).when(context).getResources();
+        Mockito.doReturn(DUMMY_STR_VAL).when(resources).getString(ArgumentMatchers.anyInt());
+        Mockito.doReturn(context).when(view).getContext();
         Whitebox.setInternalState(presenter, "viewRef", viewRef);
     }
 

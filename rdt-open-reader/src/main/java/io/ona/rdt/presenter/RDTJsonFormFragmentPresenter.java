@@ -108,9 +108,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             } else {
                 submitOrMoveToNextStep(isSubmit);
             }
-        } catch (JSONException e) {
-            Timber.e(e);
-        } catch (ParseException e) {
+        } catch (JSONException | ParseException e) {
             Timber.e(e);
         }
     }
