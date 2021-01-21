@@ -52,7 +52,7 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetPatientHistoryEntries() throws Exception {
+    public void testGetPatientHistoryShouldReturnListOfPatientEntries() throws Exception {
         List<PatientHistoryEntry> list = interactor.getPatientHistoryEntries("", "", "");
 
         Assert.assertNotNull(list);
@@ -83,7 +83,7 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testShouldAddObs() throws Exception {
+    public void testShouldAddObsShouldReturnRelevantBoolean() throws Exception {
         Obs obs = new Obs();
         obs.setFormSubmissionField("rdt_id");
         List<Obs> list = new ArrayList<>();
@@ -109,7 +109,7 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetValues() throws Exception {
+    public void testGetValuesShouldReturnExpectedValueFromGivenMap() throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("travel_location", "");
 
@@ -122,7 +122,7 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetValue() throws Exception {
+    public void testGetValueShouldReturnExpectedValueFromGivenMap() throws Exception {
         formWidgetKeyToTextMap.put(PATIENT_KEY, "");
 
         Obs obs = new Obs();
