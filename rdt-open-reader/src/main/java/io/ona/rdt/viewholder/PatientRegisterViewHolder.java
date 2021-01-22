@@ -2,9 +2,6 @@ package io.ona.rdt.viewholder;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,14 +86,10 @@ public class PatientRegisterViewHolder implements RecyclerViewProvider<PatientRe
     @Override
     public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalCount, boolean hasNextPage, boolean hasPreviousPage) {
         FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
-        int textSize = footerViewHolder.itemView.getResources().getDimensionPixelSize(org.smartregister.R.dimen.pagination_page_info_size);
-        int startIndex = footerViewHolder.itemView.getResources().getString(org.smartregister.R.string.str_page_info).indexOf("{");
         footerViewHolder.pageInfoView.setText(
                 MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount,
                         totalCount));
-        SpannableString span = new SpannableString(footerViewHolder.pageInfoView.getText());
-        span.setSpan(new AbsoluteSizeSpan(textSize), startIndex, footerViewHolder.pageInfoView.getText().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        footerViewHolder.pageInfoView.setText(span);
+
         footerViewHolder.nextPageView.setVisibility(hasNextPage ? View.VISIBLE : View.INVISIBLE);
         footerViewHolder.previousPageView.setVisibility(hasPreviousPage ? View.VISIBLE : View.INVISIBLE);
 
