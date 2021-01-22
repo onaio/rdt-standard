@@ -102,7 +102,7 @@ public class RDTBarcodeFactoryTest {
 
     @Test
     public void testGetDateStrShouldReturnEmptyStringForNullDate() throws Exception {
-        String result = Whitebox.invokeMethod(barcodeFactory, "getDateStr", null);
+        String result = Whitebox.invokeMethod(barcodeFactory, "getDateStr", (Date) null);
         assertEquals(result, "");
     }
 

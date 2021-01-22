@@ -85,6 +85,9 @@ public class RDTDeviceSelectorSpinnerFactoryTest extends WidgetFactoryRobolectri
         materialSpinner.setSelection(2);
         Mockito.verify(formUtils).populateRDTDetailsConfirmationPage(widgetArgsArgumentCaptor.capture(), ArgumentMatchers.eq(DEVICE_2));
         verifyWidgetArgsMatch(widgetArgsArgumentCaptor.getValue());
+
+        materialSpinner.getOnItemSelectedListener().onNothingSelected(null);
+        Mockito.verify(listener).onNothingSelected(null);
     }
 
     private void verifyWidgetArgsMatch(WidgetArgs capturedWidgetArgs) {

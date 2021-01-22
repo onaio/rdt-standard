@@ -79,6 +79,14 @@ public class PatientProfileActivityTest extends ActivityRobolectricTest {
                 ReflectionHelpers.ClassParameter.from(Intent.class, intent));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testOnActivityResultShouldThrowExceptionIfJsonFormActivityThrewException() {
+        ReflectionHelpers.callInstanceMethod(patientProfileActivity, "onActivityResult",
+                ReflectionHelpers.ClassParameter.from(int.class, REQUEST_CODE_GET_JSON),
+                ReflectionHelpers.ClassParameter.from(int.class, Activity.RESULT_CANCELED),
+                ReflectionHelpers.ClassParameter.from(Intent.class, null));
+    }
+
     @Test
     public void testOnActivityResultShouldSaveForm() throws JSONException {
         JSONObject jsonObject = new JSONObject();

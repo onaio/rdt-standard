@@ -49,6 +49,12 @@ public class CovidDatePickerFactoryTest extends WidgetFactoryRobolectricTest {
         Assert.assertEquals(actualMinAllowedDateStr, expectedMinAllowedDateStr);
     }
 
+    @Test
+    public void testCatchDatePickerException() throws Exception {
+        MaterialEditText materialEditText = getDatePickerEditText(null);
+        Assert.assertFalse(materialEditText.hasValidators());
+    }
+
     private MaterialEditText getDatePickerEditText(String minAllowedDate) throws Exception {
         List<View> views = covidDatePickerFactory.getViewsFromJson(JsonFormConstants.STEP1, jsonFormActivity,
                 Mockito.mock(JsonFormFragment.class), getWidget(minAllowedDate), Mockito.mock(CommonListener.class));
