@@ -101,9 +101,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         });
         RDTJsonFormUtilsShadow.setJsonObject(deviceDetailsWidget);
 
-        Barcode barcode = new Barcode();
-        barcode.displayValue = barcodeVals;
-        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
+        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, getBarcode());
         oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_OK, intent);
 
         verifySingleScanDataIsCorrectlyPopulated();
@@ -129,10 +127,8 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
     @Test
     public void testGetBarcodeValsAsCSVShouldReturnCorrectDisplayValue() throws Exception {
-        Barcode barcode = new Barcode();
-        barcode.displayValue = barcodeVals;
         Intent intent = new Intent();
-        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, barcode);
+        intent.putExtra(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_KEY, getBarcode());
         String result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "getBarcodeValsAsCSV", intent);
         Assert.assertEquals(barcodeVals, result);
     }
@@ -140,7 +136,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
     @Test
     public void testSplitCSVShouldReturnCorrectArrays() throws Exception {
         String[] result = Whitebox.invokeMethod(oneScanCovidRDTBarcodeFactory, "splitCSV", barcodeVals);
-        Assert.assertArrayEquals(new String[]{VAL_0, DATE, VAL_2, VAL_3, SENSOR_TRIGGERED}, result);
+        Assert.assertArrayEquals(barcodeVals.split(","), result);
     }
 
     private void verifyWidgetArgsMatch(WidgetArgs capturedWidgetArgs) {
@@ -196,5 +192,11 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE, CovidConstants.Step.COVID_CONDUCT_RDT_PAGE);
         ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "stepStateConfig", stepStateConfig);
+    }
+
+    private Barcode getBarcode() {
+        Barcode barcode = new Barcode();
+        barcode.displayValue = barcodeVals;
+        return barcode;
     }
 }
