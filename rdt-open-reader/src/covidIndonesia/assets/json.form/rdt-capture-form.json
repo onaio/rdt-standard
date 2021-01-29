@@ -603,9 +603,9 @@
           "err": "{{rdt-capture-form-original.step11.antibody_type.v_required.err}}"
         },
         "relevance": {
-          "step11:chw_result_antigen": {
+          "step11:chw_rdt_type": {
             "type": "string",
-            "ex": "equalTo(., \"positive\")"
+            "ex": "equalTo(., \"antibody\")"
           }
         }
       }
