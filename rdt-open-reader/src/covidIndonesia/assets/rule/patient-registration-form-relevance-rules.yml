@@ -89,3 +89,17 @@ priority: 1
 condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
 actions:
   - "isRelevant = true"
+---
+name: step1_domicile_address_lbl
+description: Domicile address label
+priority: 1
+condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_domicile_address
+description: Domicile address
+priority: 1
+condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
+actions:
+  - "isRelevant = true"
