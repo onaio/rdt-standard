@@ -274,6 +274,23 @@
         "type": "edit_text"
       },
       {
+        "key": "gvt_id_street_address_lbl",
+        "type": "label",
+        "text": "Government ID street address",
+        "text_color": "#000000"
+      },
+      {
+        "key": "gvt_id_street_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        }
+      },
+      {
         "key": "gvt_id_province_lbl",
         "type": "label",
         "text": "Government ID province?",
@@ -327,6 +344,37 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        }
+      },
+      {
+        "key": "domicile_street_address_lbl",
+        "type": "label",
+        "text": "Domicile street address?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_street_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -607,7 +655,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "RDT result?",
+        "label": "COVID-19 Test Result",
         "options": [
           {
             "key": "reactive",
@@ -636,7 +684,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "RDT result?",
+        "label": "COVID-19 Test Result",
         "options": [
           {
             "key": "positive",
