@@ -276,7 +276,7 @@
       {
         "key": "gvt_id_address_lbl",
         "type": "label",
-        "text": "Government ID address?",
+        "text": "Government ID street address",
         "text_color": "#000000"
       },
       {
