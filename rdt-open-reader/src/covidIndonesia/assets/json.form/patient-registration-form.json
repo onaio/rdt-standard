@@ -274,6 +274,23 @@
         "type": "edit_text"
       },
       {
+        "key": "gvt_id_street_address_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.gvt_id_street_address_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "gvt_id_street_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.gvt_id_street_address.v_required.err}}"
+        }
+      },
+      {
         "key": "gvt_id_province_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.gvt_id_province_lbl.text}}",
@@ -327,6 +344,37 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.domicile_same_as_gvt_id_address.v_required.err}}"
+        }
+      },
+      {
+        "key": "domicile_street_address_lbl",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.domicile_street_address_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "domicile_street_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.domicile_street_address.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
