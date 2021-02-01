@@ -347,9 +347,9 @@
         }
       },
       {
-        "key": "domicile_address_lbl",
+        "key": "domicile_street_address_lbl",
         "type": "label",
-        "text": "Domicile address?",
+        "text": "Domicile street address?",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -360,7 +360,7 @@
         }
       },
       {
-        "key": "domicile_address",
+        "key": "domicile_street_address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
