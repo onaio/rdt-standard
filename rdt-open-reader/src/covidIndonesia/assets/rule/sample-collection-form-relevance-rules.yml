@@ -6,8 +6,8 @@ condition: "step1_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_serum_type
-description: Serum type
+name: step1_type_of_blood
+description: Type of blood
 priority: 1
 condition: "step1_sample_type.contains('serum')"
 actions:
@@ -55,45 +55,45 @@ condition: "step1_sample_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_vtm_brand
-description: VTM brand
+name: step1_type_of_media
+description: Type of media
 priority: 1
 condition: "step1_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_vtm_expiration_date
-description: VTM expiration date
+name: step1_media_expiration_date
+description: Media expiration date
 priority: 1
 condition: "step1_sample_type.contains('swab')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_other_vtm_brand_lbl
+name: step1_other_media_lbl
 description: Other VTM brand label
 priority: 1
-condition: "step1_vtm_brand.contains('other')"
+condition: "step1_type_of_media.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_other_vtm_brand
+name: step1_other_media
 description: Other VTM brand
 priority: 1
-condition: "step1_vtm_brand.contains('other')"
+condition: "step1_type_of_media.contains('other')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_other_health_facility_type_lbl
 description: Other health facility type label
 priority: 1
-condition: "step1_health_facility_type != '' && step1_health_facility_type == 'other'"
+condition: "step1_health_facility_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_other_health_facility_type
 description: Other health facility type
 priority: 1
-condition: "step1_health_facility_type != '' && step1_health_facility_type == 'other'"
+condition: "step1_health_facility_type.contains('other')"
 actions:
   - "isRelevant = true"
 ---
@@ -115,5 +115,40 @@ name: step10_quantity_of_serum
 description: Quantity of serum
 priority: 1
 condition: "step1_sample_type.contains('serum')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_blood_component
+description: Blood component collected
+priority: 1
+condition: "step1_sample_type.contains('serum')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_media_lot_number_lbl
+description: Media lot no label
+priority: 1
+condition: "step1_sample_type.contains('swab')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_media_lot_number
+description: Media lot no
+priority: 1
+condition: "step1_sample_type.contains('swab')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_facility_label
+description: Name of health facility label
+priority: 1
+condition: "step1_name_of_health_facility.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_facility
+description: Name of health facility
+priority: 1
+condition: "step1_name_of_health_facility.contains('other')"
 actions:
   - "isRelevant = true"
