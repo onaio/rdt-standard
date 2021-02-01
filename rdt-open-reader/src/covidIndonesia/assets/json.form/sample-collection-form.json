@@ -540,20 +540,6 @@
         }
       },
       {
-        "key": "gsi_sample_number_lbl",
-        "type": "label",
-        "text": "{{sample-collection-form-original.step1.gsi_sample_number_lbl.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "gsi_sample_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "edit_type": "name"
-      },
-      {
         "key": "hospital_sample_number_lbl",
         "type": "label",
         "text": "{{sample-collection-form-original.step1.hospital_sample_number_lbl.text}}",
