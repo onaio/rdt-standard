@@ -274,20 +274,20 @@
         "type": "edit_text"
       },
       {
-        "key": "gvt_id_address_lbl",
+        "key": "gvt_id_street_address_lbl",
         "type": "label",
-        "text": "{{patient-registration-form-original.step1.gvt_id_address_lbl.text}}",
+        "text": "{{patient-registration-form-original.step1.gvt_id_street_address_lbl.text}}",
         "text_color": "#000000"
       },
       {
-        "key": "gvt_id_address",
+        "key": "gvt_id_street_address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form-original.step1.gvt_id_address.text}}"
+          "err": "{{patient-registration-form-original.step1.gvt_id_street_address.v_required.err}}"
         }
       },
       {

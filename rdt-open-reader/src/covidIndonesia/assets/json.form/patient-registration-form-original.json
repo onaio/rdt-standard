@@ -274,13 +274,13 @@
         "type": "edit_text"
       },
       {
-        "key": "gvt_id_address_lbl",
+        "key": "gvt_id_street_address_lbl",
         "type": "label",
         "text": "Government ID street address",
         "text_color": "#000000"
       },
       {
-        "key": "gvt_id_address",
+        "key": "gvt_id_street_address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
