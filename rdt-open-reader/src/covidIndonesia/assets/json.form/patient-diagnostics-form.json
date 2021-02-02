@@ -1598,7 +1598,7 @@
             },
             "v_min_length": {
               "value": "8",
-              "err": "{{patient-diagnostics-form-original.step3.hospitalized_ard_patient_contacts.hospitalized_ard_patient_phone_number.v_min_length.err}"
+              "err": "{{patient-diagnostics-form-original.step3.hospitalized_ard_patient_contacts.hospitalized_ard_patient_phone_number.v_min_length.err}}"
             }
           },
           {
