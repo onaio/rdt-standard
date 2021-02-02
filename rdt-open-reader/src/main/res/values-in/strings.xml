@@ -11,7 +11,7 @@
     <string name="login_app_name">RDT Open Reader</string>
     <string name="login_enter_username">Masukkan nama pengguna</string>
     <string name="login_enter_password">Masukkan kata kunci</string>
-    <string name="login_attributions">Dikembangkan oleh <![CDATA[<b><font color=#467690>Ona</font></b>]]> <![CDATA[<br/>]]> Didukung oleh <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]> <![CDATA[<br/>]]> Diterjemahkan oleh <![CDATA[<b><font color=#467690>Summit Institute of Development (SID)</font></b>]]></string>
+    <string name="login_attributions">Dikembangkan oleh <![CDATA[<b><font color=#467690>Ona</font></b>]]> <![CDATA[<br/>]]> Didukung oleh <![CDATA[<b><font color=#467690>OpenSRP</font></b>]]> <![CDATA[<br/>]]> Diterjemahkan oleh <![CDATA[<b><font color=#467690>Summit Institute for Development (SID)</font></b>]]></string>
     <string name="confirm_close_msg">Apakah anda yakin ingin keluar dari formulir? Semua data yang dimasukkan pada formulir ini akan hilang.</string>
     <string name="confirm_close_title">Mohon konfirmasi</string>
     <string name="unique_id_fetch_error_msg">ID Unik tidak cukup. Mohon nyalakan koneksi internet Anda dan lakukan sinkronisasi manual untuk mengambil perintah.</string>
