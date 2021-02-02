@@ -22,12 +22,6 @@ import static io.ona.rdt.widget.RDTExpirationDateReaderFactory.EXPIRATION_DATE_C
  */
 public class RDTJsonFormInteractor extends JsonFormInteractor {
 
-    private static final RDTJsonFormInteractor INSTANCE = new RDTJsonFormInteractor();
-
-    public static JsonFormInteractor getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     protected void registerWidgets() {
         super.registerWidgets();
