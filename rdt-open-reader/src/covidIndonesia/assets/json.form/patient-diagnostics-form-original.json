@@ -545,10 +545,6 @@
         "type": "edit_text",
         "hint": "Body temperature ℃",
         "edit_type": "number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Must be a rounded number"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
