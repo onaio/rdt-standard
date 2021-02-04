@@ -2,7 +2,6 @@ package io.ona.rdt.widget.validator;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import io.ona.rdt.R;
 import io.ona.rdt.util.RDTJsonFormUtils;
 

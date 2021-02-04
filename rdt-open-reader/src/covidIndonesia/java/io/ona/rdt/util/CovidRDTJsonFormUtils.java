@@ -222,7 +222,10 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
+        populateRDTDetailsConfirmationPage(widgetArgs, deviceId, true);
+    }
 
+    public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId, boolean refreshDeviceDefinitionBundle) throws JSONException, IOException, FHIRParserException {
         if (StringUtils.isBlank(deviceId)) {
             return;
         }
@@ -232,7 +235,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             // reset details when other is selected or device id is blank
             writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected), "", "");
         } else {
-            DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
+            DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
             String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
                     deviceDefinitionProcessor.extractDeviceName(deviceId));
             JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);

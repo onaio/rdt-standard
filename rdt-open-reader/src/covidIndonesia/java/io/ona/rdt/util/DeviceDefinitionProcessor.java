@@ -34,11 +34,18 @@ public class DeviceDefinitionProcessor {
     }
 
     public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
+       return getInstance(context, true);
+    }
+
+    public static DeviceDefinitionProcessor getInstance(Context context, boolean refreshDeviceDefinitionBundle) throws IOException, FHIRParserException {
         if (deviceDefinitionProcessor == null) {
             deviceDefinitionProcessor = new DeviceDefinitionProcessor();
         }
-        // we need this to refresh the resource in case it changes in between two accesses
-        deviceDefinitionBundle = getDeviceDefinitionBundle(context);
+
+        if (refreshDeviceDefinitionBundle) {
+            // we may need this to refresh the resource in case it changes in between two accesses
+            deviceDefinitionBundle = getDeviceDefinitionBundle(context);
+        }
 
         return deviceDefinitionProcessor;
     }
