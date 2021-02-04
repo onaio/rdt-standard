@@ -3,6 +3,7 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
@@ -233,17 +234,17 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         Context context = widgetArgs.getContext();
         if (CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
             // reset details when other is selected or device id is blank
-            writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected), "", "");
+            writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected),  null);
         } else {
             DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
             String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
                     deviceDefinitionProcessor.extractDeviceName(deviceId));
             JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
-            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceConfig.toString());
+            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig);
         }
     }
 
-    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceDetails, String rdtImage, String deviceConfig) throws JSONException {
+    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceDetails, JSONObject deviceConfig) throws JSONException {
         Context context = widgetArgs.getContext();
         String rdtDetailsConfirmationPage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
@@ -251,11 +252,29 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // write device details to confirmation page
         deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
-        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
+        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG,
+                deviceConfig == null ? "" : deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG));
 
-        // save extracted device config
-        ((JsonApi) context).writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_CONFIG,
-                deviceConfig, "", "", "", false);
+        // we can do this population asynchronously
+        class RDTConfigPopulationTask extends AsyncTask<Void, Void, String> {
+            @Override
+            protected String doInBackground(Void... voids) {
+                return deviceConfig == null ? "" : deviceConfig.toString();
+            }
+
+            @Override
+            protected void onPostExecute(String rdtConfig) {
+                try {
+                    String rdtCapturePage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
+                    ((JsonApi) context).writeValue(rdtCapturePage, CovidConstants.FormFields.RDT_CONFIG, rdtConfig,
+                            "", "", "", false);
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+        }
+
+        new RDTConfigPopulationTask().execute();
     }
 
     private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {

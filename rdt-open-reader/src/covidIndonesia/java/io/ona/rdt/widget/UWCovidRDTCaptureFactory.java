@@ -27,27 +27,22 @@ import timber.log.Timber;
 public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
 
     protected void launchCamera(Intent intent, Context context) {
-        try {
-            Activity activity = (Activity) context;
+        Activity activity = (Activity) context;
 
-            String rdtDetailsConfirmationPage = stepStateConfig.getString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
-            JSONObject rdtConfigField = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
-                    CovidConstants.FormFields.RDT_CONFIG, context);
+        JSONObject rdtConfigField = RDTJsonFormUtils.getField(widgetArgs.getStepName(),
+                CovidConstants.FormFields.RDT_CONFIG, context);
 
-            String rdtConfig = rdtConfigField.optString(JsonFormConstants.VALUE);
-            if (Utils.isValidJSONObject(rdtConfig)) {
-                intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, rdtConfig);
-                intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
-                activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
-            } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtConfig)) {
-                activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
-            } else {
-                Utils.hideProgressDialogFromFG();
-                onActivityResult(-1, Activity.RESULT_CANCELED, null);
-                Utils.showToastInFG(context, context.getString(R.string.rdt_not_supported));
-            }
-        } catch (JSONException e) {
-            Timber.e(e);
+        String rdtConfig = rdtConfigField.optString(JsonFormConstants.VALUE);
+        if (Utils.isValidJSONObject(rdtConfig)) {
+            intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, rdtConfig);
+            intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
+            activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
+        } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtConfig)) {
+            activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
+        } else {
+            Utils.hideProgressDialogFromFG();
+            onActivityResult(-1, Activity.RESULT_CANCELED, null);
+            Utils.showToastInFG(context, context.getString(R.string.rdt_not_supported));
         }
     }
 }
