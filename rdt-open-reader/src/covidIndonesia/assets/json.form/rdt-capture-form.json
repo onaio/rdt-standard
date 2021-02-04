@@ -413,7 +413,7 @@
         "type": "rdt_capture"
       },
       {
-        "key": "rdt_config",
+        "key": "rdt_device_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

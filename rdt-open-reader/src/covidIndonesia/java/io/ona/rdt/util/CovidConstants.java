@@ -110,6 +110,7 @@ public interface CovidConstants extends Constants {
         String QR_CODE_READER = "qr_code_reader";
         String SELECTED_RDT_IMAGE = "selected_rdt_image";
         String RDT_CONFIG = "rdt_config";
+        String RDT_DEVICE_ID = "rdt_device_id";
     }
 
     interface RDTType {
