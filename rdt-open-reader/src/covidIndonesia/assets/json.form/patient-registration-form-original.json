@@ -55,6 +55,13 @@
     "submit_label": "SUBMIT",
     "fields": [
       {
+        "key": "fields_required_hint",
+        "type": "label",
+        "text": "All fields marked with an asterisk (*) are required",
+        "text_color": "#000000",
+        "label_text_style": "bold"
+      },
+      {
         "key": "patient_first_name_label",
         "type": "label",
         "text": "First name",
@@ -110,11 +117,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter medical record ID"
-        }
+        "type": "edit_text"
       },
       {
         "key": "national_id_type",
@@ -129,12 +132,12 @@
             "text": "Driver's License"
           },
           {
-            "key": "passport",
-            "text": "Passport"
-          },
-          {
             "key": "national_identity_card",
             "text": "National Identity Card"
+          },
+          {
+            "key": "passport",
+            "text": "Passport"
           }
         ],
         "v_required": {
@@ -180,6 +183,12 @@
           "value": "true",
           "err": "Patient gender is required"
         }
+      },
+      {
+        "key": "patient_dob_label",
+        "type": "label",
+        "text": "Date of birth",
+        "text_color": "#000000"
       },
       {
         "key": "patient_dob",
@@ -253,11 +262,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "number can't be more than 13 digits"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "number can't be less than 8 digits"
         }
       },
       {

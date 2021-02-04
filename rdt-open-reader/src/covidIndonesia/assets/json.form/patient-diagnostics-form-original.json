@@ -63,20 +63,20 @@
         "label": "Where is the assessment taking place?",
         "options": [
           {
-            "key": "hospital",
-            "text": "hospital"
-          },
-          {
             "key": "clinic",
             "text": "clinic"
           },
           {
-            "key": "office",
-            "text": "office"
-          },
-          {
             "key": "home",
             "text": "home"
+          },
+          {
+            "key": "hospital",
+            "text": "hospital"
+          },
+          {
+            "key": "office",
+            "text": "office"
           },
           {
             "key": "public_health_center",
