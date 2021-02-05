@@ -8,6 +8,7 @@ import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -29,13 +30,13 @@ public class UWCovidRDTCaptureFactory extends UWRDTCaptureFactory {
 
             String rdtDeviceId = RDTJsonFormUtils.getField(widgetArgs.getStepName(),
                     CovidConstants.FormFields.RDT_DEVICE_ID, context).optString(JsonFormConstants.VALUE);
-            String rdtConfig = DeviceDefinitionProcessor.getInstance(context, false)
-                    .extractDeviceConfig(rdtDeviceId).toString();
-            if (Utils.isValidJSONObject(rdtConfig)) {
-                intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, rdtConfig);
+            JSONObject rdtConfig = DeviceDefinitionProcessor.getInstance(context, false)
+                    .extractDeviceConfig(rdtDeviceId);
+            if (rdtConfig != null) {
+                intent.putExtra(edu.washington.cs.ubicomplab.rdt_reader.core.Constants.RDT_JSON_CONFIG, rdtConfig.toString());
                 intent.putExtra(CAPTURE_TIMEOUT, CAPTURE_TIMEOUT_MS);
                 activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
-            } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtConfig)) {
+            } else if (CovidConstants.FormFields.OTHER_KEY.equals(rdtDeviceId)) {
                 activity.startActivityForResult(intent, JsonFormConstants.RDT_CAPTURE_CODE);
             } else {
                 Utils.hideProgressDialogFromFG();

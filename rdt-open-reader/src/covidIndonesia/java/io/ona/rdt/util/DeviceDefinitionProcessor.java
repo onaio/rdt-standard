@@ -112,6 +112,6 @@ public class DeviceDefinitionProcessor {
             JSONArray valAsJsonArr = Utils.convertToJsonArr(val);
             deviceConfig.put(keyValPair.getKey(), valAsJsonArr == null ? val : valAsJsonArr);
         }
-        return deviceConfig;
+        return deviceConfig.length() == 0 ? null : deviceConfig;
     }
 }

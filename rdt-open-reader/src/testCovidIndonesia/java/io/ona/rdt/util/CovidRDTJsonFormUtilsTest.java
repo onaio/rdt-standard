@@ -35,6 +35,7 @@ import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
+import static io.ona.rdt.util.CovidConstants.FormFields.RDT_DEVICE_ID;
 import static org.junit.Assert.assertEquals;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -870,7 +871,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         DeviceDefinitionProcessorShadow.setJSONObject(deviceConfig);
 
         JSONObject stepStateConfig = new JSONObject();
-        stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
         RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(stepStateConfig);
 
         WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(jsonObject).withStepName(TEST_STEP)
@@ -879,8 +880,8 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         getCovidFormUtils().populateRDTDetailsConfirmationPage(widgetArgs, DEVICE_ID);
 
         verifyRDTDetailsConfirmationPageIsPopulated(jsonFormActivity, deviceDetailsWidget);
-        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.FormFields.RDT_CONFIG,
-                deviceConfig.toString(), "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, RDT_DEVICE_ID,
+                DEVICE_ID, "", "", "", false);
 
         jsonFormActivity.finish();
     }
@@ -929,10 +930,6 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
         Assert.assertEquals(deviceDetails, deviceDetailsWidget.getString(JsonFormConstants.TEXT));
         Assert.assertEquals(CovidConstants.FHIRResource.REF_IMG, deviceDetailsWidget.getString(CovidImageViewFactory.BASE64_ENCODED_IMG));
-
-        Mockito.verify(jsonFormActivity).writeValue(ArgumentMatchers.eq(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE),
-                ArgumentMatchers.eq(CovidConstants.FormFields.RDT_CONFIG), ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.getJsonObject().toString()),
-                ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {

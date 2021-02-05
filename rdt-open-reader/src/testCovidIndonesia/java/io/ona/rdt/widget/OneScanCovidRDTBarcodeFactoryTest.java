@@ -101,7 +101,8 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
 
         verifySingleScanDataIsCorrectlyPopulated();
         Assert.assertEquals(String.format("[{\"text\":\"%s\"}]", VAL_0), deviceDetailsWidget.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
-        Mockito.verify(formUtils).populateRDTDetailsConfirmationPage(widgetArgsArgumentCaptor.capture(), ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.DEVICE_ID));
+        Mockito.verify(formUtils).populateRDTDetailsConfirmationPage(widgetArgsArgumentCaptor.capture(),
+                ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.DEVICE_ID), ArgumentMatchers.eq(false));
         verifyWidgetArgsMatch(widgetArgsArgumentCaptor.getValue());
         Mockito.verify(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();
 
