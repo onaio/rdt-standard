@@ -34,7 +34,7 @@ public class DeviceDefinitionProcessor {
     }
 
     public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
-       return getInstance(context, true);
+        return getInstance(context, true);
     }
 
     public static DeviceDefinitionProcessor getInstance(Context context, boolean refreshDeviceDefinitionBundle) throws IOException, FHIRParserException {

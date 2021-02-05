@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -207,5 +208,12 @@ public class UtilsTest extends RobolectricTest {
     public void testGetParentLocationIdShouldGetCorrectParentLocationId() {
         RDTApplication.getInstance().getContext().allSharedPreferences().saveDefaultLocalityId("", "");
         Assert.assertEquals(OpenSRPContextShadow.PARENT_LOCATION_ID, Utils.getParentLocationId());
+    }
+
+    @Test
+    public void testIsValidJSONObjectShouldReturnCorrectStatus() {
+        Assert.assertTrue(Utils.isValidJSONObject(new JSONObject().toString()));
+        Assert.assertFalse(Utils.isValidJSONObject(null));
+        Assert.assertFalse(Utils.isValidJSONObject(""));
     }
 }

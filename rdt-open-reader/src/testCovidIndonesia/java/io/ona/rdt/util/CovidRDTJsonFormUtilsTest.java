@@ -35,7 +35,6 @@ import io.ona.rdt.shadow.DeviceDefinitionProcessorShadow;
 import io.ona.rdt.widget.validator.CovidImageViewFactory;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
-import static io.ona.rdt.util.CovidConstants.FormFields.RDT_DEVICE_ID;
 import static org.junit.Assert.assertEquals;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -880,7 +879,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         getCovidFormUtils().populateRDTDetailsConfirmationPage(widgetArgs, DEVICE_ID);
 
         verifyRDTDetailsConfirmationPageIsPopulated(jsonFormActivity, deviceDetailsWidget);
-        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, RDT_DEVICE_ID,
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.FormFields.RDT_DEVICE_ID,
                 DEVICE_ID, "", "", "", false);
 
         jsonFormActivity.finish();
