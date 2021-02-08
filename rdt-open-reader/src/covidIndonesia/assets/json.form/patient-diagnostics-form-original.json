@@ -64,19 +64,19 @@
         "options": [
           {
             "key": "clinic",
-            "text": "clinic"
+            "text": "Clinic"
           },
           {
             "key": "home",
-            "text": "home"
+            "text": "Home"
           },
           {
             "key": "hospital",
-            "text": "hospital"
+            "text": "Hospital"
           },
           {
             "key": "office",
-            "text": "office"
+            "text": "Office"
           },
           {
             "key": "public_health_center",
@@ -84,7 +84,7 @@
           },
           {
             "key": "other",
-            "text": "other"
+            "text": "Other"
           }
         ],
         "v_required": {
