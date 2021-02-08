@@ -215,6 +215,9 @@ public class Utils {
     }
 
     public static boolean isValidJSONObject(String str) {
+        if (str == null) {
+            return false;
+        }
         try {
             new JSONObject(str);
             return true;
