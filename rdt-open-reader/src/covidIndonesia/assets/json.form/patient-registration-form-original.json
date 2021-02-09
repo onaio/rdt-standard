@@ -74,6 +74,7 @@
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "edit_type": "name",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "This field is required"
@@ -83,7 +84,8 @@
         "key": "patient_last_name_label",
         "type": "label",
         "text": "Last name",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_last_name",
@@ -91,33 +93,38 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "top_padding": "0dp"
       },
       {
         "key": "patient_id_label",
         "type": "label",
         "text": "Patient ID",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "top_padding": "0dp"
       },
       {
         "key": "medical_record_id_label",
         "type": "label",
         "text": "Medical record ID",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "medical_record_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "top_padding": "0dp"
       },
       {
         "key": "national_id_type",
@@ -149,7 +156,8 @@
         "key": "government_id_no_label",
         "type": "label",
         "text": "Government ID number?",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "government_id_no",
@@ -157,6 +165,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "This field is required"
@@ -188,7 +197,8 @@
         "key": "patient_dob_label",
         "type": "label",
         "text": "Date of birth",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_dob",
@@ -227,7 +237,8 @@
         "key": "patient_occupation_label",
         "type": "label",
         "text": "Occupation",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_occupation",
@@ -235,6 +246,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
@@ -244,7 +256,8 @@
         "key": "patient_phone_number_lbl",
         "type": "label",
         "text": "Phone number",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_phone_number",
@@ -252,6 +265,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
@@ -273,20 +287,23 @@
         "key": "patient_email_address_label",
         "type": "label",
         "text": "Email address",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_email_address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "top_padding": "0dp"
       },
       {
         "key": "gvt_id_street_address_lbl",
         "type": "label",
         "text": "Government ID street address",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "gvt_id_street_address",
@@ -294,6 +311,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": ""
@@ -303,7 +321,8 @@
         "key": "gvt_id_province_lbl",
         "type": "label",
         "text": "Government ID province?",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "gvt_id_province",
@@ -311,6 +330,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": ""
@@ -320,7 +340,8 @@
         "key": "gvt_id_city_lbl",
         "type": "label",
         "text": "Government ID city?",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "gvt_id_city",
@@ -328,6 +349,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": ""
@@ -360,6 +382,7 @@
         "type": "label",
         "text": "Domicile street address?",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -374,6 +397,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": ""
@@ -391,6 +415,7 @@
         "type": "label",
         "text": "Domicile province?",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -405,6 +430,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": ""
@@ -422,6 +448,7 @@
         "type": "label",
         "text": "Domicile city?",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -436,6 +463,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": ""
@@ -452,7 +480,8 @@
         "key": "patient_whatsapp_lbl",
         "type": "label",
         "text": "WhatsApp",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_whatsapp",
@@ -460,6 +489,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
@@ -469,7 +499,8 @@
         "key": "head_of_household_lbl",
         "type": "label",
         "text": "Head of household",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "head_of_household",
@@ -477,6 +508,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
@@ -486,7 +518,8 @@
         "key": "head_of_household_no_lbl",
         "type": "label",
         "text": "Head of household phone number",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "head_of_household_no",
@@ -494,6 +527,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
@@ -503,7 +537,8 @@
         "key": "head_of_household_address_lbl",
         "type": "label",
         "text": "Head of household address",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "head_of_household_address",
@@ -511,6 +546,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
@@ -543,6 +579,7 @@
         "type": "label",
         "text": "How many covid tests has the patient taken?",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -557,6 +594,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -599,6 +637,7 @@
         "type": "label",
         "text": "Test location?",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -613,6 +652,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
