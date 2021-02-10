@@ -34,7 +34,7 @@ public class CovidPatientRegisterFragmentTest extends FragmentRobolectricTest {
 
         patientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class).create().resume().get();
         fragmentScenario = FragmentScenario.launchInContainer(CovidPatientRegisterFragment.class, null, R.style.Theme_AppCompat, null);
-        fragmentScenario.onFragment( fragment -> covidPatientRegisterFragment = fragment);
+        fragmentScenario.onFragment(fragment -> covidPatientRegisterFragment = fragment);
     }
 
     @Test
