@@ -3,8 +3,7 @@ package io.ona.rdt.robolectric.fragment;
 import android.content.ContextWrapper;
 import android.content.Intent;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.testing.FragmentScenario;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,26 +11,30 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 
+import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
-import io.ona.rdt.activity.PatientRegisterActivity;
+import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterFragmentPresenter;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
-import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.viewholder.CovidPatientRegisterViewHolder;
 import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 
-public class CovidPatientRegisterFragmentTest extends RobolectricTest {
+public class CovidPatientRegisterFragmentTest extends FragmentRobolectricTest {
 
     private CovidPatientRegisterFragment covidPatientRegisterFragment;
-    private PatientRegisterActivity patientRegisterActivity;
+    private CovidPatientRegisterActivity patientRegisterActivity;
+    private FragmentScenario<CovidPatientRegisterFragment> fragmentScenario;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        covidPatientRegisterFragment = buildFragment();
+
+        patientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class).create().resume().get();
+        fragmentScenario = FragmentScenario.launchInContainer(CovidPatientRegisterFragment.class, null, R.style.Theme_AppCompat, null);
+        fragmentScenario.onFragment( fragment -> covidPatientRegisterFragment = fragment);
     }
 
     @Test
@@ -59,16 +62,8 @@ public class CovidPatientRegisterFragmentTest extends RobolectricTest {
         Assert.assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
     }
 
-    private CovidPatientRegisterFragment buildFragment() {
-
-        CovidPatientRegisterFragment fragment = new CovidPatientRegisterFragment();
-
-        patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class).create().resume().get();
-        FragmentManager fragmentManager = patientRegisterActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null);
-        fragmentTransaction.commit();
-
-        return fragment;
+    @Override
+    public FragmentScenario<CovidPatientRegisterFragment> getFragmentScenario() {
+        return fragmentScenario;
     }
 }
