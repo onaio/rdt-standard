@@ -2,6 +2,7 @@ package io.ona.rdt.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -19,6 +20,7 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
+import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -85,24 +87,38 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         JsonApi jsonApi = (JsonApi) context;
         String stepName = widgetArgs.getStepName();
 
-        jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[UNIQUE_ID_INDEX], "", "", "", false);
-        jsonApi.writeValue(stepName, EXP_DATE, individualVals[EXP_DATE_INDEX], "", "", "", false);
-        jsonApi.writeValue(stepName, LOT_NO, individualVals[LOT_NO_INDEX], "", "", "", false);
-        jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX], "", "", "", false);
-        jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX], "", "", "", false);
-        jsonApi.writeValue(stepStateConfig.optString(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE), Constants.FormFields.LBL_RDT_ID, "RDT ID: " + individualVals[UNIQUE_ID_INDEX], "", "", "", false);
-
         // populate RDT device details confirmation page
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
         String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
-        formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
+        formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId, false);
 
-        // write unique id to confirmation page
-        String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
-        JSONObject uniqueIdCheckBox = CovidRDTJsonFormUtils.getField(patientInfoConfirmationPage,
-                CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
-                widgetArgs.getContext());
-        CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
+        // we can do this population asynchronously
+        class FormWidgetPopulationTask extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    // write barcode values to hidden fields
+                    jsonApi.writeValue(stepName, CovidConstants.FormFields.UNIQUE_ID, individualVals[UNIQUE_ID_INDEX], "", "", "", false);
+                    jsonApi.writeValue(stepName, EXP_DATE, individualVals[EXP_DATE_INDEX], "", "", "", false);
+                    jsonApi.writeValue(stepName, LOT_NO, individualVals[LOT_NO_INDEX], "", "", "", false);
+                    jsonApi.writeValue(stepName, GTIN, individualVals[GTIN_INDEX], "", "", "", false);
+                    jsonApi.writeValue(stepName, TEMP_SENSOR, individualVals[SENSOR_TRIGGER_INDEX], "", "", "", false);
+                    jsonApi.writeValue(stepStateConfig.optString(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE), Constants.FormFields.LBL_RDT_ID, "RDT ID: " + individualVals[UNIQUE_ID_INDEX], "", "", "", false);
+
+                    // write unique id to confirmation page
+                    String patientInfoConfirmationPage = stepStateConfig.optString(CovidConstants.Step.COVID_SAMPLE_COLLECTION_FORM_PATIENT_INFO_CONFIRMATION_PAGE);
+                    JSONObject uniqueIdCheckBox = CovidRDTJsonFormUtils.getField(patientInfoConfirmationPage,
+                            CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
+                            widgetArgs.getContext());
+                    CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+                return null;
+            }
+        }
+
+        new FormWidgetPopulationTask().execute();
     }
 
     protected void moveToNextStep(boolean isSensorTrigger, Date expDate) {

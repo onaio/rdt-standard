@@ -41,7 +41,7 @@ public class UWCovidRDTCaptureFactoryTest extends UWRDTCaptureFactoryTest {
         Assert.assertEquals(UWRDTCaptureFactory.CAPTURE_TIMEOUT_MS, actualIntent.getLongExtra(UWRDTCaptureFactory.CAPTURE_TIMEOUT, -1));
 
         // verify rdt capture is launched for other rdt selection
-        DeviceDefinitionProcessorShadow.setJSONObject(new JSONObject());
+        DeviceDefinitionProcessorShadow.setJSONObject(null);
         jsonObject.put(JsonFormConstants.VALUE, CovidConstants.FormFields.OTHER_KEY);
         RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
@@ -54,7 +54,6 @@ public class UWCovidRDTCaptureFactoryTest extends UWRDTCaptureFactoryTest {
         Assert.assertEquals(-1, actualIntent.getLongExtra(UWRDTCaptureFactory.CAPTURE_TIMEOUT, -1));
 
         // verify that rdt capture is not launched for rdt with no config and other is not selected
-        DeviceDefinitionProcessorShadow.setJSONObject(new JSONObject());
         jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
         RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,

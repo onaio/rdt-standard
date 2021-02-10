@@ -16,7 +16,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import io.ona.rdt.R;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
