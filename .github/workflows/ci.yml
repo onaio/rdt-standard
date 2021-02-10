@@ -24,7 +24,7 @@ jobs:
       - name: Run malaria flavor tests
         run: ./gradlew :rdt-open-reader:clean :rdt-open-reader:testMalariaKenyaDebugUnitTestCoverage
       - name: Run Covid-19 flavor tests
-        run: ./gradlew --info :rdt-open-reader:clean :rdt-open-reader:testCovidIndonesiaDebugUnitTestCoverage
+        run: ./gradlew :rdt-open-reader:clean :rdt-open-reader:testCovidIndonesiaDebugUnitTestCoverage
       - name: Upload coverage to Coveralls with Gradle
         run: ./gradlew coveralls --stacktrace
         env:
