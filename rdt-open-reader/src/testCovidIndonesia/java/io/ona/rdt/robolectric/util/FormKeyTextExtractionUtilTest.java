@@ -29,6 +29,13 @@ public class FormKeyTextExtractionUtilTest extends RobolectricTest {
         for (Map.Entry<String, String> entry : expectedData.entrySet()) {
             String expectedValue = entry.getValue();
             String actualValue = actualData.get(entry.getKey());
+            System.out.println("expected key: " + entry.getKey());
+            System.out.println("expected val: " + expectedValue + " - actual val: " + actualValue);
+        }
+
+        for (Map.Entry<String, String> entry : expectedData.entrySet()) {
+            String expectedValue = entry.getValue();
+            String actualValue = actualData.get(entry.getKey());
             System.out.println("expected: " + expectedValue + " - actual: " + actualValue);
             Assert.assertEquals(expectedValue, actualValue);
         }
