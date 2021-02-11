@@ -29,21 +29,13 @@ public class FormKeyTextExtractionUtilTest extends RobolectricTest {
         for (Map.Entry<String, String> entry : expectedData.entrySet()) {
             String expectedValue = entry.getValue();
             String actualValue = actualData.get(entry.getKey());
-            System.out.println("expected key: " + entry.getKey());
-            System.out.println("expected val: " + expectedValue + " - actual val: " + actualValue);
-        }
-
-        for (Map.Entry<String, String> entry : expectedData.entrySet()) {
-            String expectedValue = entry.getValue();
-            String actualValue = actualData.get(entry.getKey());
-            System.out.println("expected: " + expectedValue + " - actual: " + actualValue);
             Assert.assertEquals(expectedValue, actualValue);
         }
     }
 
     private Map<String, String> getTestFormWidgetKeyToTextMap() throws Exception {
         Map<String, String> formWidgetKeyToTextMap = new HashMap<>();
-        JSONObject formJsonObj = Whitebox.invokeMethod(FormKeyTextExtractionUtil.class, "getTranslatedForm", "patient-diagnostics-form.json");
+        JSONObject formJsonObj = FormKeyTextExtractionUtil.getTranslatedForm("patient-diagnostics-form.json");
         JSONArray fields = JsonFormUtils.fields(formJsonObj);
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
