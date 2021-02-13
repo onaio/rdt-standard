@@ -226,7 +226,7 @@ public class RDTJsonFormUtils {
     }
 
     public static Bitmap convertBase64StrToBitmap(String base64Str) {
-        return StringUtils.isBlank(base64Str) ? null : convertByteArrayToBitmap(Base64.decode(base64Str, Base64.DEFAULT));
+        return StringUtils.isBlank(base64Str) ? null : convertByteArrayToBitmap(Base64.decode(base64Str.getBytes(), Base64.DEFAULT));
     }
 
     public static Bitmap convertByteArrayToBitmap(final byte[] src) {

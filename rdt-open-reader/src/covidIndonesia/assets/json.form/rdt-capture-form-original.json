@@ -413,6 +413,13 @@
         "type": "rdt_capture"
       },
       {
+        "key": "rdt_device_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "rdt_capture_top_line_reading",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -603,9 +610,9 @@
           "err": "Please specify if positive for pv, pf or both"
         },
         "relevance": {
-          "step11:chw_rdt_type": {
+          "step11:chw_result_antibody": {
             "type": "string",
-            "ex": "equalTo(., \"antibody\")"
+            "ex": "equalTo(., \"reactive\")"
           }
         }
       }
@@ -669,13 +676,6 @@
         "label_text_size": "18sp",
         "text_color": "#000000",
         "base64_encoded_img": ""
-      },
-      {
-        "key": "rdt_config",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       }
     ]
   }
