@@ -127,6 +127,14 @@
         "top_padding": "0dp"
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
+      },
+      {
         "key": "national_id_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -170,6 +178,14 @@
           "value": "true",
           "err": "This field is required"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "sex",
@@ -354,6 +370,14 @@
           "value": "true",
           "err": ""
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "domicile_same_as_gvt_id_address",
@@ -553,6 +577,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
+      },
+      {
         "key": "taken_tests_before",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -664,6 +696,14 @@
           "value": "false",
           "err": ""
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "type_of_test",

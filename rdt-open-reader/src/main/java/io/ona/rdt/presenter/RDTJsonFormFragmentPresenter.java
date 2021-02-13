@@ -62,8 +62,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         }
     }
 
-    @Override
-    protected boolean moveToNextStep() {
+    private boolean moveToNextStep() {
         return hasNextStep() && moveToNextStep(getNextStep());
     }
 
