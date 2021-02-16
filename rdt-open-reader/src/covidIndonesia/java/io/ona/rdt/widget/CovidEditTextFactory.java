@@ -53,7 +53,6 @@ public class CovidEditTextFactory extends EditTextFactory {
         int bottomMargin = normalizeValue(context, jsonObject, JsonFormConstants.BOTTOM_MARGIN, layoutParams.bottomMargin);
 
         layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-        editText.setLayoutParams(layoutParams);
     }
 
     protected int getValueFromSpOrDpOrPx(Context context, String value) {
