@@ -67,7 +67,15 @@ public class CovidEditTextFactoryTest extends WidgetFactoryRobolectricTest {
     }
 
     private MaterialEditText getEditText(RelativeLayout rootLayout) throws Exception {
-        return (MaterialEditText) ((RelativeLayout) rootLayout.findViewById(R.id.edit_text_layout)).getChildAt(0);
+        MaterialEditText editText = null;
+        RelativeLayout parentLayout = rootLayout.findViewById(R.id.edit_text_layout);
+        for (int i = 0; i < parentLayout.getChildCount(); i++) {
+            View child = parentLayout.getChildAt(i);
+            if (child instanceof MaterialEditText) {
+                editText = (MaterialEditText) child;
+            }
+        }
+        return editText;
     }
 
     private JSONObject getWidget() throws JSONException {
