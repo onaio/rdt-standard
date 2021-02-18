@@ -57,9 +57,13 @@
       {
         "key": "fields_required_hint",
         "type": "label",
-        "text": "All fields marked with an asterisk (*) are required",
+        "text": "Required fields",
         "text_color": "#000000",
-        "label_text_style": "bold"
+        "label_text_style": "bold",
+        "v_required": {
+          "value": "true",
+          "err": "All fields marked with an asterisk (*) are required"
+        }
       },
       {
         "key": "patient_first_name_label",
