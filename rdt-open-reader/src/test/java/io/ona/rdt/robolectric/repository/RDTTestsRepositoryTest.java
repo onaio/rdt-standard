@@ -5,7 +5,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,8 +32,9 @@ public class RDTTestsRepositoryTest extends RobolectricTest {
 
     private RDTTestsRepository rdtTestsRepository;
 
-    @Before
-    public void setUp() {
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         rdtTestsRepository = new RDTTestsRepository();
     }
 
