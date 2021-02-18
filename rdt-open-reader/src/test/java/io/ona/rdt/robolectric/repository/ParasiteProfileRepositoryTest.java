@@ -3,7 +3,6 @@ package io.ona.rdt.robolectric.repository;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -34,8 +33,9 @@ public class ParasiteProfileRepositoryTest extends RobolectricTest {
 
     private ParasiteProfileRepository parasiteProfileRepository;
 
-    @Before
-    public void setUp() {
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         parasiteProfileRepository = new ParasiteProfileRepository();
     }
 
