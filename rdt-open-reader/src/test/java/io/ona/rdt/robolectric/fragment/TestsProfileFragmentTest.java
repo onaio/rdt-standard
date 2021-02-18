@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.fragment.app.testing.FragmentScenario;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.util.ReflectionHelpers;
 
-import androidx.fragment.app.testing.FragmentScenario;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.FormattedRDTTestDetails;
@@ -38,8 +38,9 @@ public class TestsProfileFragmentTest extends FragmentRobolectricTest {
     private FragmentScenario<TestsProfileFragment> fragmentScenario;
     private String testDate = "03 Dec 2020";
 
-    @Before
-    public void setUp() {
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         MockitoAnnotations.initMocks(this);
     }
 

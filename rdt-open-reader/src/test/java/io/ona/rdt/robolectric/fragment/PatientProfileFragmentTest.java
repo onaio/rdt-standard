@@ -3,7 +3,8 @@ package io.ona.rdt.robolectric.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import org.junit.Before;
+import androidx.fragment.app.testing.FragmentScenario;
+
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -11,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.util.ReflectionHelpers;
 
-import androidx.fragment.app.testing.FragmentScenario;
 import io.ona.rdt.R;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.PatientProfileFragment;
@@ -40,8 +40,9 @@ public class PatientProfileFragmentTest extends FragmentRobolectricTest {
     private FragmentScenario<PatientProfileFragment> fragmentScenario;
     private PatientProfileFragment patientProfileFragment;
 
-    @Before
-    public void setUp() {
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         MockitoAnnotations.initMocks(this);
         Bundle bundle = new Bundle();
         bundle.putParcelable(PATIENT, BaseFormSaverTest.expectedPatient);
