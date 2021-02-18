@@ -545,6 +545,10 @@
         "type": "edit_text",
         "hint": "{{patient-diagnostics-form-original.step2.fever_temperature.hint}}",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.fever_temperature.v_numeric.err}}"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
