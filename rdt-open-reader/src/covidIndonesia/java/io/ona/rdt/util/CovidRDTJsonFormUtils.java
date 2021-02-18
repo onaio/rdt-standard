@@ -3,7 +3,6 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
@@ -153,7 +152,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         super.prePopulateRDTPatientFields(patient, field);
         String key = field.getString(JsonFormUtils.KEY);
         if (PATIENT_SEX.equals(key)) {
-            field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
+            String translatedSex = patient.getPatientSex();
+            field.put(JsonFormUtils.VALUE, "Perempuan".equalsIgnoreCase(translatedSex) ? "female" : "male");
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         } else if (FACILITY_SET.contains(key)) {
