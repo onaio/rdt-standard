@@ -739,6 +739,35 @@
             }
           }
         }
+      },
+      {
+        "key": "genose_c19",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "GeNose C19",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive"
+          },
+          {
+            "key": "negative",
+            "text": "Negative"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-registration-form-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   }
