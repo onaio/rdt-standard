@@ -103,10 +103,3 @@ priority: 1
 condition: "step1_domicile_same_as_gvt_id_address.contains('no')"
 actions:
   - "isRelevant = true"
----
-name: step1_genose_c19
-description: GeNose C19
-priority: 1
-condition: "step1_taken_tests_before.contains('yes')"
-actions:
-  - "isRelevant = true"

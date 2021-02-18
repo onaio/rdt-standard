@@ -760,13 +760,6 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.genose_c19.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "patient-registration-form-relevance-rules.yml"
-            }
-          }
         }
       }
     ]
