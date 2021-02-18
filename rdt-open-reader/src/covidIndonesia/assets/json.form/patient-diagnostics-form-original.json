@@ -545,6 +545,10 @@
         "type": "edit_text",
         "hint": "Body temperature ℃",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
