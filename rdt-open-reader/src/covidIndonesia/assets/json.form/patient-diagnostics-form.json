@@ -63,20 +63,20 @@
         "label": "{{patient-diagnostics-form-original.step1.facility_type.label}}",
         "options": [
           {
-            "key": "hospital",
-            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.hospital.text}}"
-          },
-          {
             "key": "clinic",
             "text": "{{patient-diagnostics-form-original.step1.facility_type.options.clinic.text}}"
           },
           {
-            "key": "office",
-            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.office.text}}"
-          },
-          {
             "key": "home",
             "text": "{{patient-diagnostics-form-original.step1.facility_type.options.home.text}}"
+          },
+          {
+            "key": "hospital",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.hospital.text}}"
+          },
+          {
+            "key": "office",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.office.text}}"
           },
           {
             "key": "public_health_center",
@@ -545,6 +545,10 @@
         "type": "edit_text",
         "hint": "{{patient-diagnostics-form-original.step2.fever_temperature.hint}}",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.fever_temperature.v_numeric.err}}"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
