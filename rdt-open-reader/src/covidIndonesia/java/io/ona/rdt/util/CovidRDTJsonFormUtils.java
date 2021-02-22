@@ -208,7 +208,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         String defaultLocation = LocationHelper.getInstance().getDefaultLocation();
         Map<String, String> defaultLocations = new LinkedHashMap<String, String>() {
             {
-                put(defaultLocation.toLowerCase(), defaultLocation);
+                if (defaultLocation != null) {
+                    put(defaultLocation.toLowerCase(), defaultLocation);
+                }
                 put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
             }
         };
@@ -254,8 +256,10 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
 
         // write device details to confirmation page
-        deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
-        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
+        if (deviceDetailsWidget != null) {
+            deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
+            deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
+        }
 
         // write device ID to rdt capture page
         String rdtCapturePage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
