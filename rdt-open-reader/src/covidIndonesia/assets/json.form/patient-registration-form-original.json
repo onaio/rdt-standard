@@ -735,6 +735,10 @@
           {
             "key": "antibody",
             "text": "Antibody RDT"
+          },
+          {
+            "key": "genose_c19",
+            "text": "GeNose C19"
           }
         ],
         "v_required": {
@@ -772,7 +776,7 @@
         }
       },
       {
-        "key": "antigen_or_pcr_result",
+        "key": "antigen_pcr_or_genose_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -831,28 +835,6 @@
               "rules-file": "patient-registration-form-relevance-rules.yml"
             }
           }
-        }
-      },
-      {
-        "key": "genose_c19",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "GeNose C19",
-        "options": [
-          {
-            "key": "positive",
-            "text": "Positive"
-          },
-          {
-            "key": "negative",
-            "text": "Negative"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
         }
       }
     ]
