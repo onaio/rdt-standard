@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class PatientTest {
 
+    private static final int AGE = 10;
+
     private Patient patient;
 
     @Before
@@ -26,7 +28,6 @@ public class PatientTest {
 
     @Test
     public void testSetters() {
-        int age = 10;
 
         assertEquals("name", patient.getPatientName());
         assertEquals("sex", patient.getPatientSex());
@@ -36,14 +37,14 @@ public class PatientTest {
         patient.setPatientSex("sex_2");
         patient.setPatientName("name_2");
         patient.setPatientId("patient_id");
-        patient.setAge(age);
+        patient.setAge(AGE);
         patient.setDob("1989-11-08");
         patient.setFemaleTranslatedSex("female");
         assertEquals("name_2", patient.getPatientName());
         assertEquals("sex_2", patient.getPatientSex());
         assertEquals("entity_id_2", patient.getBaseEntityId());
         assertEquals("patient_id", patient.getPatientId());
-        assertEquals(age, patient.getAge());
+        assertEquals(AGE, patient.getAge());
         assertEquals("1989-11-08", patient.getDob());
         assertEquals("female", patient.getFemaleTranslatedSex());
     }
