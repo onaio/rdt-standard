@@ -33,8 +33,16 @@ public class PatientTest {
         patient.setBaseEntityId("entity_id_2");
         patient.setPatientSex("sex_2");
         patient.setPatientName("name_2");
+        patient.setPatientId("patient_id");
+        patient.setAge(10);
+        patient.setDob("1989-11-08");
+        patient.setFemaleTranslatedSex("female");
         assertEquals("name_2", patient.getPatientName());
         assertEquals("sex_2", patient.getPatientSex());
         assertEquals("entity_id_2", patient.getBaseEntityId());
+        assertEquals("patient_id", patient.getPatientId());
+        assertEquals(10, patient.getAge());
+        assertEquals("1989-11-08", patient.getDob());
+        assertEquals("female", patient.getFemaleTranslatedSex());
     }
 }
