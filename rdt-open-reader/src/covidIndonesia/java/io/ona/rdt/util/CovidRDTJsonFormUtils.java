@@ -49,7 +49,6 @@ import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
-import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_TRANSLATED_SEX;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
@@ -159,7 +158,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         } else if (FACILITY_SET.contains(key)) {
             field.put(JsonFormConstants.OPTIONS_FIELD_NAME, getLocations());
         }
-        else if (PATIENT_TRANSLATED_SEX.equals(key)) {
+        else if (CovidConstants.FormFields.PATIENT_TRANSLATED_SEX.equals(key)) {
             field.put(JsonFormConstants.VALUE, patient.getFemaleTranslatedSex().toLowerCase());
         }
     }
