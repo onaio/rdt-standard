@@ -1,7 +1,5 @@
 package io.ona.rdt.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * Created by Vincent Karuri on 13/07/2020
  */
@@ -91,6 +89,7 @@ public interface CovidConstants extends Constants {
         String PATIENT_FIRST_NAME = "patient_first_name";
         String PATIENT_LAST_NAME = "patient_last_name";
         String PATIENT_SEX = "patient_sex";
+        String PATIENT_TRANSLATED_SEX = "patient_translated_sex";
         String LAST_KNOWN_LOCATION = "last_known_location";
         String DRIVERS_LICENSE_NUMBER = "drivers_license_number";
         String PASSPORT_NO = "passport_no";

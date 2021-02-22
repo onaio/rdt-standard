@@ -141,6 +141,13 @@
         "type": "hidden"
       },
       {
+        "key": "patient_translated_sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "is_pregnant_or_post_partum",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

@@ -9,7 +9,7 @@ actions:
 name: step1_is_pregnant_or_post_partum
 description: Is the patient pregnant or post-partum?
 priority: 1
-condition: "step1_patient_age > 12 && step1_patient_sex == 'female'"
+condition: "step1_patient_age > 12 && step1_patient_sex == step1_patient_translated_sex"
 actions:
   - "isRelevant = true"
 ---

@@ -49,6 +49,7 @@ import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_COLLECTION_FORM;
 import static io.ona.rdt.util.CovidConstants.FormFields.COVID_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.LBL_RESPIRATORY_SAMPLE_ID;
 import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_SEX;
+import static io.ona.rdt.util.CovidConstants.FormFields.PATIENT_TRANSLATED_SEX;
 import static org.smartregister.util.JsonFormUtils.getMultiStepFormFields;
 
 /**
@@ -152,12 +153,14 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         super.prePopulateRDTPatientFields(patient, field);
         String key = field.getString(JsonFormUtils.KEY);
         if (PATIENT_SEX.equals(key)) {
-            String translatedSex = patient.getPatientSex();
-            field.put(JsonFormUtils.VALUE, "Perempuan".equalsIgnoreCase(translatedSex) ? "female" : "male");
+            field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         } else if (FACILITY_SET.contains(key)) {
             field.put(JsonFormConstants.OPTIONS_FIELD_NAME, getLocations());
+        }
+        else if (PATIENT_TRANSLATED_SEX.equals(key)) {
+            field.put(JsonFormConstants.VALUE, patient.getFemaleTranslatedSex().toLowerCase());
         }
     }
 

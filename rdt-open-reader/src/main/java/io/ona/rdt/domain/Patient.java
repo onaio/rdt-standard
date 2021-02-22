@@ -14,6 +14,7 @@ public class Patient implements Parcelable {
     private String patientId;
     private int age;
     private String dob;
+    private String femaleTranslatedSex;
 
     public Patient(String patientName, String patientSex, String baseEntityId) {
         this.patientName = patientName;
@@ -39,6 +40,7 @@ public class Patient implements Parcelable {
         patientId = in.readString();
         age = in.readInt();
         dob = in.readString();
+        femaleTranslatedSex = in.readString();
     }
 
     public static final Creator<Patient> CREATOR = new Creator<Patient>() {
@@ -101,6 +103,14 @@ public class Patient implements Parcelable {
         this.dob = dob;
     }
 
+    public String getFemaleTranslatedSex() {
+        return femaleTranslatedSex;
+    }
+
+    public void setFemaleTranslatedSex(String femaleTranslatedSex) {
+        this.femaleTranslatedSex = femaleTranslatedSex;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -114,5 +124,6 @@ public class Patient implements Parcelable {
         dest.writeString(this.patientSex);
         dest.writeInt(this.age);
         dest.writeString(this.dob);
+        dest.writeString(this.femaleTranslatedSex);
     }
 }
