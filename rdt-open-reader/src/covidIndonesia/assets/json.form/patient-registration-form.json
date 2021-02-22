@@ -735,6 +735,10 @@
           {
             "key": "antibody",
             "text": "{{patient-registration-form-original.step1.type_of_test.options.antibody.text}}"
+          },
+          {
+            "key": "genose_c19",
+            "text": "{{patient-registration-form-original.step1.type_of_test.options.genose_c19.text}}"
           }
         ],
         "v_required": {
@@ -772,25 +776,25 @@
         }
       },
       {
-        "key": "antigen_or_pcr_result",
+        "key": "antigen_pcr_or_genose_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form-original.step1.antigen_or_pcr_result.label}}",
+        "label": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.label}}",
         "options": [
           {
             "key": "positive",
-            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.positive.text}}"
+            "text": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.options.positive.text}}"
           },
           {
             "key": "negative",
-            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.negative.text}}"
+            "text": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.options.negative.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form-original.step1.antigen_or_pcr_result.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
