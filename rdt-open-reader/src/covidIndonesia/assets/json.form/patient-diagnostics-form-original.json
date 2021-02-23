@@ -63,20 +63,20 @@
         "label": "Where is the assessment taking place?",
         "options": [
           {
-            "key": "hospital",
-            "text": "hospital"
-          },
-          {
             "key": "clinic",
-            "text": "clinic"
-          },
-          {
-            "key": "office",
-            "text": "office"
+            "text": "Clinic"
           },
           {
             "key": "home",
-            "text": "home"
+            "text": "Home"
+          },
+          {
+            "key": "hospital",
+            "text": "Hospital"
+          },
+          {
+            "key": "office",
+            "text": "Office"
           },
           {
             "key": "public_health_center",
@@ -84,7 +84,7 @@
           },
           {
             "key": "other",
-            "text": "other"
+            "text": "Other"
           }
         ],
         "v_required": {
@@ -99,7 +99,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "relevance": {
@@ -475,7 +475,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "relevance": {
@@ -1031,7 +1031,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1130,7 +1130,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1165,7 +1165,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1295,7 +1295,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1345,7 +1345,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1460,7 +1460,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1510,7 +1510,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1599,7 +1599,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1649,7 +1649,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1698,7 +1698,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1759,7 +1759,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1809,7 +1809,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1858,7 +1858,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
