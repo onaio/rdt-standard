@@ -121,7 +121,7 @@ public class Patient implements Parcelable {
         dest.writeString(this.patientName);
         dest.writeString(this.patientSex);
         dest.writeString(this.baseEntityId);
-        dest.writeString(this.patientSex);
+        dest.writeString(this.patientId);
         dest.writeInt(this.age);
         dest.writeString(this.dob);
         dest.writeString(this.femaleTranslatedSex);
