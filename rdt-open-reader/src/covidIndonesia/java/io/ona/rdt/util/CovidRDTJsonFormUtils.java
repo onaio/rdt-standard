@@ -216,6 +216,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     private Map<String, String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
         LinkedHashMap<String, String> locations = new LinkedHashMap<>();
+        if (!map.entrySet().iterator().hasNext()) {
+            return locations;
+        }
         Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
         for (Map.Entry<String, TreeNode<String, Location>> childEntry : entry.getValue().getChildren().entrySet()) {
             TreeNode<String, Location> childNode = childEntry.getValue();
