@@ -83,7 +83,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                     prePopulateSampleShipmentDetailsFormFields(field);
                     break;
             }
-            prePopulateRDTPatientFields(patient, field);
+            prePopulateRDTPatientFields(patient, field, context);
         }
     }
 
@@ -148,11 +148,12 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     @Override
-    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
-        super.prePopulateRDTPatientFields(patient, field);
+    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field, Context context) throws JSONException {
+        super.prePopulateRDTPatientFields(patient, field, context);
         String key = field.getString(JsonFormUtils.KEY);
         if (PATIENT_SEX.equals(key)) {
-            field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
+            String translatedSex = patient.getPatientSex();
+            field.put(JsonFormUtils.VALUE, context.getString(R.string.female).equalsIgnoreCase(translatedSex) ? CovidConstants.FormFields.FEMALE : CovidConstants.FormFields.MALE);
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         } else if (FACILITY_SET.contains(key)) {

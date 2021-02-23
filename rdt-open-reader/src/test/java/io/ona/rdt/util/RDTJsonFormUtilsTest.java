@@ -944,7 +944,8 @@ public class RDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         jsonObject.put(JsonFormConstants.KEY, Constants.FormFields.LBL_PATIENT_NAME);
         ReflectionHelpers.callInstanceMethod(getFormUtils(), "prePopulateRDTPatientFields",
                 ReflectionHelpers.ClassParameter.from(Patient.class, null),
-                ReflectionHelpers.ClassParameter.from(JSONObject.class, jsonObject));
+                ReflectionHelpers.ClassParameter.from(JSONObject.class, jsonObject),
+                ReflectionHelpers.ClassParameter.from(Context.class, null));
         Assert.assertNull(jsonObject.optString(JsonFormConstants.VALUE, null));
         Assert.assertNull(jsonObject.optString(JsonFormConstants.TEXT, null));
     }
