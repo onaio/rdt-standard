@@ -111,6 +111,8 @@ public interface CovidConstants extends Constants {
         String SELECTED_RDT_IMAGE = "selected_rdt_image";
         String RDT_CONFIG = "rdt_config";
         String RDT_DEVICE_ID = "rdt_device_id";
+        String FEMALE = "female";
+        String MALE = "male";
     }
 
     interface RDTType {

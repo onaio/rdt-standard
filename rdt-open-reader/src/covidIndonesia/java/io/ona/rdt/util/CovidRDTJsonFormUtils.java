@@ -153,7 +153,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         String key = field.getString(JsonFormUtils.KEY);
         if (PATIENT_SEX.equals(key)) {
             String translatedSex = patient.getPatientSex();
-            field.put(JsonFormUtils.VALUE, context.getString(R.string.female).equalsIgnoreCase(translatedSex) ? "female" : "male");
+            field.put(JsonFormUtils.VALUE, context.getString(R.string.female).equalsIgnoreCase(translatedSex) ? CovidConstants.FormFields.FEMALE : CovidConstants.FormFields.MALE);
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         } else if (FACILITY_SET.contains(key)) {
