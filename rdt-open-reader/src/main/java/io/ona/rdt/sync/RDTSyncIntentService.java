@@ -33,7 +33,11 @@ public class RDTSyncIntentService extends SyncIntentService {
     }
 
     private void saveLocationTree() {
-        LocationTree locationTree = LocationServiceHelper.getInstance().getLocationHierarchy(Utils.getParentLocationId());
+        String parentLocationId = Utils.getParentLocationId();
+        if (parentLocationId == null) {
+            return;
+        }
+        LocationTree locationTree = LocationServiceHelper.getInstance().getLocationHierarchy(parentLocationId);
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         String locationTreeJson = new Gson().toJson(locationTree);
         allSharedPreferences.savePreference(Constants.Preference.LOCATION_TREE, locationTreeJson);

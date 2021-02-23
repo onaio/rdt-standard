@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.domain.Location;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
@@ -195,10 +196,9 @@ public class Utils {
     public static String getParentLocationId() {
         org.smartregister.Context context = RDTApplication.getInstance().getContext();
         AllSharedPreferences sharedPreferences = context.allSharedPreferences();
-        return context.getLocationRepository().getLocationById(sharedPreferences
-                .fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
-                .getProperties().getParentId();
-
+        Location location = context.getLocationRepository().getLocationById(sharedPreferences
+                .fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+        return location == null ? null : location.getProperties().getParentId();
     }
 
     public static String getUniqueId(List<UniqueId> uniqueIds) {
