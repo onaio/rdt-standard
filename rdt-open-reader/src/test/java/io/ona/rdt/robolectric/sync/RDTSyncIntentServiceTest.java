@@ -7,31 +7,41 @@ import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.job.LocationStructureServiceJob;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncServiceJob;
 import io.ona.rdt.robolectric.shadow.BaseJobShadow;
+import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.sync.RDTSettingsSyncIntentService;
+import io.ona.rdt.util.Constants;
 
 /**
  * Created by Vincent Karuri on 12/08/2020
  */
 
-@Config(shadows = { BaseJobShadow.class })
+@Config(shadows = {BaseJobShadow.class, UtilsShadow.class})
 public class RDTSyncIntentServiceTest extends IntentServiceRobolectricTest {
 
-    private RDTSettingsSyncIntentService settingsSyncIntentServicee;
+    private RDTSettingsSyncIntentService settingsSyncIntentService;
 
     @Before
     public void setUp() {
-        settingsSyncIntentServicee = new RDTSettingsSyncIntentService();
+        settingsSyncIntentService = new RDTSettingsSyncIntentService();
+    }
+
+    @Test
+    public void testOnHandleIntentShouldNotPopulateTreeForNullParentId() {
+        ReflectionHelpers.callInstanceMethod(settingsSyncIntentService, "onHandleIntent",
+                ReflectionHelpers.ClassParameter.from(Intent.class, null));
+        Assert.assertTrue(RDTApplication.getInstance().getContext().allSharedPreferences()
+                .getPreference(Constants.Preference.LOCATION_TREE).isEmpty());
     }
 
     @Test
     public void testOnHandleIntentShouldInitiateCoreSync() {
         Assert.assertTrue(BaseJobShadow.getJobTags().isEmpty());
-        ReflectionHelpers.callInstanceMethod(settingsSyncIntentServicee, "onHandleIntent",
-                ReflectionHelpers.ClassParameter.from(Intent.class, (Intent) null));
+        ReflectionHelpers.callInstanceMethod(settingsSyncIntentService, "onHandleIntent",
+                ReflectionHelpers.ClassParameter.from(Intent.class, null));
         Assert.assertEquals(RDTSyncServiceJob.TAG, BaseJobShadow.getJobTags().get(0));
     }
 }
