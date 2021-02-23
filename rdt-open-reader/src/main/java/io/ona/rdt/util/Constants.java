@@ -82,6 +82,7 @@ public interface Constants {
         String SEX = "sex";
         String PATIENT_ID = "patient_id";
         String DOB = "patient_dob";
+        String LAST_INTERACTED_WITH = "last_interacted_with";
     }
 
     interface Form {

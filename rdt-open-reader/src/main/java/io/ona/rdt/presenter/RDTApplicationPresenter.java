@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
+import io.ona.rdt.util.Constants;
 
 import static io.ona.rdt.util.Constants.DBConstants.FIRST_NAME;
 import static io.ona.rdt.util.Constants.DBConstants.LAST_NAME;
@@ -58,7 +59,7 @@ public class RDTApplicationPresenter {
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{FIRST_NAME, LAST_NAME, PATIENT_ID};
+        return new String[]{FIRST_NAME, LAST_NAME, PATIENT_ID, Constants.DBConstants.LAST_INTERACTED_WITH};
     }
 
     public static String getRegisterTableName() {
