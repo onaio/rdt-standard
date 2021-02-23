@@ -5,6 +5,7 @@ import java.lang.ref.WeakReference;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidPatientRegisterFragmentPresenter;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.viewholder.CovidPatientRegisterViewHolder;
 import io.ona.rdt.viewholder.PatientRegisterViewHolder;
@@ -35,5 +36,10 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
     @Override
     protected String getPatientRegistrationForm() {
         return COVID_PATIENT_REGISTRATION_FORM;
+    }
+
+    @Override
+    protected String getDefaultSortQuery() {
+        return Constants.DBConstants.LAST_INTERACTED_WITH + " DESC";
     }
 }
