@@ -28,13 +28,13 @@ public class RDTSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getSyncFilterParam() {
-        return SyncFilter.PROVIDER;
+        return BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.TEAM) ? SyncFilter.TEAM_ID : SyncFilter.PROVIDER;
     }
 
     @Override
     public String getSyncFilterValue() {
         AllSharedPreferences sharedPreferences = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences();
-        return sharedPreferences.fetchRegisteredANM();
+        return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
     }
 
     @Override

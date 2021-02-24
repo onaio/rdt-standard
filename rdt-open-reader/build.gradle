@@ -31,6 +31,7 @@ android {
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
         buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
+        buildConfigField "String", "SYNC_FILTER_PARAM", '"provider"'
 
         def oneScanClientId = System.getenv('ONE_SCAN_CLIENT_ID')
         def oneScanAuthToken = System.getenv('ONE_SCAN_AUTH_TOKEN')
@@ -133,6 +134,7 @@ android {
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
+            buildConfigField "String", "SYNC_FILTER_PARAM", '"team"'
         }
     }
 
