@@ -16,6 +16,7 @@ import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.application.RDTApplication;
 
 import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -35,9 +36,9 @@ public class RDTSyncConfigurationTest extends PowerMockTest {
         Assert.assertEquals(BuildConfig.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE, syncConfiguration.getUniqueIdInitialBatchSize());
         Assert.assertEquals(BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE, syncConfiguration.getUniqueIdBatchSize());
         Assert.assertEquals(BuildConfig.OPENMRS_UNIQUE_ID_SOURCE, syncConfiguration.getUniqueIdSource());
-        Assert.assertEquals(SyncFilter.PROVIDER, syncConfiguration.getSyncFilterParam());
+        Assert.assertEquals(SyncFilter.TEAM_ID, syncConfiguration.getSyncFilterParam());
         Assert.assertEquals(BuildConfig.MAX_SYNC_RETRIES, syncConfiguration.getSyncMaxRetries());
-        Assert.assertEquals("provider", syncConfiguration.getSyncFilterValue());
+        Assert.assertEquals(SyncFilter.TEAM.value(), syncConfiguration.getSyncFilterValue());
         Assert.assertEquals(BuildConfig.OAUTH_CLIENT_ID, syncConfiguration.getOauthClientId());
         Assert.assertEquals(BuildConfig.OAUTH_CLIENT_SECRET, syncConfiguration.getOauthClientSecret());
         Assert.assertTrue(BaseLoginActivity.class.isAssignableFrom(syncConfiguration.getAuthenticationActivity()));
@@ -56,7 +57,8 @@ public class RDTSyncConfigurationTest extends PowerMockTest {
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
         doReturn(userService).when(drishtiContext).userService();
         doReturn(allSharedPreferences).when(userService).getAllSharedPreferences();
-        doReturn("provider").when(allSharedPreferences).fetchRegisteredANM();
+        doReturn(SyncFilter.PROVIDER.value()).when(allSharedPreferences).fetchRegisteredANM();
+        doReturn(SyncFilter.TEAM.value()).when(allSharedPreferences).fetchDefaultTeamId(SyncFilter.PROVIDER.value());
 
         PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
     }
