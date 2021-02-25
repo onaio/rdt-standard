@@ -55,6 +55,45 @@
     "next_label": "CONTINUE",
     "fields": [
       {
+        "key": "health_worker_name_label",
+        "type": "label",
+        "text": "Name of health worker",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_id_label",
+        "type": "label",
+        "text": "Health worker ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_phone_number_label",
+        "type": "label",
+        "text": "Health worker phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
         "key": "facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -509,11 +548,7 @@
         "hint": "Date of onset of symptoms",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",

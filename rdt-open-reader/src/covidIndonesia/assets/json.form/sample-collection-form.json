@@ -70,6 +70,34 @@
         "edit_type": "name"
       },
       {
+        "key": "sampler_id_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step1.sampler_id_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sampler_phone_number_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step1.sampler_phone_number_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
         "key": "sample_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -290,6 +318,10 @@
             "text": "{{sample-collection-form-original.step1.type_of_media.options.saline_buffer.text}}"
           },
           {
+            "key": "no_media_dry_swab",
+            "text": "{{sample-collection-form-original.step1.type_of_media.options.no_media_dry_swab.text}}"
+          },
+          {
             "key": "other",
             "text": "{{sample-collection-form-original.step1.type_of_media.options.other.text}}"
           }
@@ -491,52 +523,6 @@
               "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
-        }
-      },
-      {
-        "key": "doctor_name_label",
-        "type": "label",
-        "text": "{{sample-collection-form-original.step1.doctor_name_label.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{sample-collection-form-original.step1.doctor_name.v_required.err}}"
-        }
-      },
-      {
-        "key": "doctor_phone_number_lbl",
-        "type": "label",
-        "text": "{{sample-collection-form-original.step1.doctor_phone_number_lbl.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_required.err}}"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_numeric.err}}"
-        },
-        "v_max_length": {
-          "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
-        },
-        "v_min_length": {
-          "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
