@@ -129,10 +129,6 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 // pre-populate the patient detail dob
                 fillPatientData(field, patient.getDob());
                 break;
-            case CovidConstants.FormFields.SAMPLER_NAME:
-                // pre-populate the sampler name
-                field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
-                break;
         }
     }
 

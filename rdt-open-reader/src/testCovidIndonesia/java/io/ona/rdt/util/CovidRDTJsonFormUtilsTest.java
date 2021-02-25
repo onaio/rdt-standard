@@ -932,7 +932,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(10, numOfPopulatedFields);
+        assertEquals(9, numOfPopulatedFields);
     }
 
     @Override
@@ -967,9 +967,6 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
                 assertEquals(childObject.getString(JsonFormConstants.TEXT), "01-09-2020");
                 numOfPopulatedFields++;
             }
-        } else if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
-            assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
-            numOfPopulatedFields++;
         } else if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
             assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
             numOfPopulatedFields++;
