@@ -55,6 +55,45 @@
     "next_label": "CONTINUE",
     "fields": [
       {
+        "key": "health_worker_name_label",
+        "type": "label",
+        "text": "Name of health worker",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_id_label",
+        "type": "label",
+        "text": "Health worker ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_phone_number_label",
+        "type": "label",
+        "text": "Health worker phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
         "key": "facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -112,6 +151,52 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        }
+      },
+      {
+        "key": "doctor_name_label",
+        "type": "label",
+        "text": "Doctor's name",
+        "text_color": "#000000"
+      },
+      {
+        "key": "doctor_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        }
+      },
+      {
+        "key": "doctor_phone_number_lbl",
+        "type": "label",
+        "text": "Doctor's phone number?",
+        "text_color": "#000000"
+      },
+      {
+        "key": "doctor_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_required": {
+          "value": "false",
+          "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -509,11 +594,7 @@
         "hint": "Date of onset of symptoms",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",
