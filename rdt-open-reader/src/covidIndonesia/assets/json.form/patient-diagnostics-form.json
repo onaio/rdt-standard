@@ -154,52 +154,6 @@
         }
       },
       {
-        "key": "doctor_name_label",
-        "type": "label",
-        "text": "{{patient-diagnostics-form-original.step1.doctor_name_label.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{patient-diagnostics-form-original.step1.doctor_name.v_required.err}}"
-        }
-      },
-      {
-        "key": "doctor_phone_number_lbl",
-        "type": "label",
-        "text": "{{patient-diagnostics-form-original.step1.doctor_phone_number_lbl.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{patient-diagnostics-form-original.step1.doctor_phone_number.v_required.err}}"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "{{patient-diagnostics-form-original.step1.doctor_phone_number.v_numeric.err}}"
-        },
-        "v_max_length": {
-          "value": "13",
-          "err": "{{patient-diagnostics-form-original.step1.doctor_phone_number.v_max_length.err}}"
-        },
-        "v_min_length": {
-          "value": "8",
-          "err": "{{patient-diagnostics-form-original.step1.doctor_phone_number.v_min_length.err}}"
-        }
-      },
-      {
         "key": "facility_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
