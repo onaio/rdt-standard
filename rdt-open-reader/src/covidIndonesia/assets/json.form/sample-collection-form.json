@@ -95,7 +95,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": "name"
+        "v_numeric": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step1.sampler_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{sample-collection-form-original.step1.sampler_phone_number.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{sample-collection-form-original.step1.sampler_phone_number.v_min_length.err}}"
+        }
       },
       {
         "key": "sample_type",
