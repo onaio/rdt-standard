@@ -91,7 +91,19 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.health_worker_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{patient-diagnostics-form-original.step1.health_worker_phone_number.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{patient-diagnostics-form-original.step1.health_worker_phone_number.v_min_length.err}}"
+        }
       },
       {
         "key": "facility_type",
