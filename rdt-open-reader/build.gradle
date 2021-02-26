@@ -25,12 +25,13 @@ android {
         applicationId "io.ona.rdt"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 10
+        versionCode 11
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
         buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
+        buildConfigField "String", "SYNC_FILTER_PARAM", '"provider"'
 
         def oneScanClientId = System.getenv('ONE_SCAN_CLIENT_ID')
         def oneScanAuthToken = System.getenv('ONE_SCAN_AUTH_TOKEN')
@@ -129,10 +130,11 @@ android {
             applicationId "io.ona.diagnostics.rdt.configurable.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.8.2"
+            versionName "v1.9.0"
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
+            buildConfigField "String", "SYNC_FILTER_PARAM", '"team"'
         }
     }
 
