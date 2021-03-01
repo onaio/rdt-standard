@@ -1,7 +1,10 @@
 package io.ona.rdt.fragment;
 
+import org.smartregister.domain.FetchStatus;
+
 import java.lang.ref.WeakReference;
 
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidPatientRegisterFragmentPresenter;
 import io.ona.rdt.presenter.PatientRegisterFragmentPresenter;
@@ -41,5 +44,14 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
     @Override
     protected String getDefaultSortQuery() {
         return Constants.DBConstants.LAST_INTERACTED_WITH + " DESC";
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        super.onSyncComplete(fetchStatus);
+        RDTApplication.getInstance()
+                .getContext()
+                .allSharedPreferences()
+                .saveLastSyncDate(System.currentTimeMillis());
     }
 }

@@ -26,7 +26,9 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -209,6 +211,16 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 return true;
             }
         });
+
+        long lastSyncTimestamp = RDTApplication.getInstance().getContext().allSharedPreferences().fetchLastSyncDate(0);
+        if (lastSyncTimestamp > 0) {
+            Date lastSyncDate = new Date(lastSyncTimestamp);
+            String lblSync = getString(R.string.drawer_menu_item_sync) + ": %1$s, %2$s";
+            MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
+            syncMenuItem.setTitle(String.format(lblSync,
+                    new SimpleDateFormat("hh:mm a", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate),
+                    new SimpleDateFormat("MMM dd", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate)));
+        }
     }
 
     public boolean selectDrawerItem(MenuItem menuItem) {
