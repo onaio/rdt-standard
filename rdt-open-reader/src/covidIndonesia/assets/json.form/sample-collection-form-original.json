@@ -70,6 +70,45 @@
         "edit_type": "name"
       },
       {
+        "key": "sampler_id_lbl",
+        "type": "label",
+        "text": "Sampler ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sampler_phone_number_lbl",
+        "type": "label",
+        "text": "Sampler's phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
+        }
+      },
+      {
         "key": "sample_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -87,7 +126,7 @@
           },
           {
             "key": "serum",
-            "text": "Serum / Serology Sputum"
+            "text": "Blood / Serology"
           },
           {
             "key": "saliva",
@@ -132,7 +171,7 @@
         }
       },
       {
-        "key": "serum_type",
+        "key": "type_of_blood",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -144,8 +183,33 @@
             "text": "Capillary"
           },
           {
-            "key": "venus",
-            "text": "Venus"
+            "key": "venous",
+            "text": "Venous"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_component",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood component collected?",
+        "options": [
+          {
+            "key": "serum",
+            "text": "Serum"
+          },
+          {
+            "key": "plasma",
+            "text": "Plasma"
           }
         ],
         "relevance": {
@@ -199,6 +263,10 @@
           {
             "key": "oropharyngeal",
             "text": "Oropharyngeal"
+          },
+          {
+            "key": "nares",
+            "text": "Nares"
           }
         ],
         "relevance": {
@@ -241,36 +309,28 @@
         }
       },
       {
-        "key": "vtm_brand",
+        "key": "type_of_media",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Brand of VTM?",
+        "label": "Type of media?",
         "options": [
           {
-            "key": "copan",
-            "text": "Copan"
+            "key": "itm",
+            "text": "ITM (Inactivation Transport Media)"
           },
           {
-            "key": "zeesan",
-            "text": "Zeesan"
+            "key": "vtm",
+            "text": "VTM (Viral Transport Media)"
           },
           {
-            "key": "nest",
-            "text": "NEST"
+            "key": "saline_buffer",
+            "text": "Saline buffer"
           },
           {
-            "key": "lmk",
-            "text": "LMK"
-          },
-          {
-            "key": "fkui",
-            "text": "FKUI"
-          },
-          {
-            "key": "i3l",
-            "text": "i3L"
+            "key": "no_media_dry_swab",
+            "text": "No media (Dry swab)"
           },
           {
             "key": "other",
@@ -290,9 +350,9 @@
         }
       },
       {
-        "key": "other_vtm_brand_lbl",
+        "key": "other_media_lbl",
         "type": "label",
-        "text": "Specify VTM brand?",
+        "text": "Specify the type of media",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -303,7 +363,7 @@
         }
       },
       {
-        "key": "other_vtm_brand",
+        "key": "other_media",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -321,16 +381,16 @@
         }
       },
       {
-        "key": "vtm_expiration_date",
+        "key": "media_expiration_date",
         "type": "date_picker",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "VTM expiration date",
+        "hint": "Media expiration date",
         "min_date": "today-100y",
         "v_min_allowed_date": {
           "value": "today+1d",
-          "err": "Expired VTM! Please use another."
+          "err": "Expired media! Please use another."
         },
         "v_required": {
           "value": true,
@@ -345,18 +405,32 @@
         }
       },
       {
-        "key": "manufacturing_lot_number_lbl",
+        "key": "media_lot_number_lbl",
         "type": "label",
-        "text": "Manufacturing lot number?",
-        "text_color": "#000000"
+        "text": "Media lot number?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
-        "key": "manufacturing_lot_number",
+        "key": "media_lot_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "health_facility_type",
@@ -391,7 +465,7 @@
       {
         "key": "other_health_facility_type_lbl",
         "type": "label",
-        "text": "Other facility type",
+        "text": "Facility type?",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -407,17 +481,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
-        },
-        "v_required": {
-          "value": "false",
-          "err": ""
         }
+
       },
       {
         "key": "name_of_health_facility",
@@ -432,76 +507,35 @@
         }
       },
       {
-        "key": "doctor_name_label",
+        "key": "other_facility_label",
         "type": "label",
-        "text": "Doctor's name",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": ""
+        "text": "Facility name?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
-        "key": "doctor_phone_number_lbl",
-        "type": "label",
-        "text": "Doctor's phone number?",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_phone_number",
+        "key": "other_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
-          "value": "false",
-          "err": ""
-        },
-        "v_numeric": {
           "value": "true",
-          "err": "Value must be numeric"
+          "err": ""
         },
-        "v_max_length": {
-          "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
-        },
-        "v_min_length": {
-          "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
-      },
-      {
-        "key": "booking_date",
-        "type": "date_picker",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "Testing booking slot",
-        "v_required": {
-          "value": true,
-          "err": "This field is required"
-        }
-      },
-      {
-        "key": "gsi_sample_number_lbl",
-        "type": "label",
-        "text": "GSI sample ID?",
-        "text_color": "#000000"
-      },
-      {
-        "key": "gsi_sample_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "edit_type": "name"
       },
       {
         "key": "hospital_sample_number_lbl",
@@ -525,6 +559,10 @@
         "type": "native_radio",
         "label": "Patient health status?",
         "options": [
+          {
+            "key": "healthy",
+            "text": "Healthy individual"
+          },
           {
             "key": "ill",
             "text": "Ill"
@@ -857,7 +895,7 @@
         "has_bg": true,
         "bg_color": "#ffffff",
         "label_text_style": "bold",
-        "text": "Safely store specimens in transport tube"
+        "text": "Store specimens under safe/secure conditions"
       }
     ]
   },

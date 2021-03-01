@@ -69,6 +69,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{wbc-form-original.step1.leukocyte.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "400",
+          "err": "{{wbc-form-original.step1.leukocyte.v_min.err}}"
+        },
+        "v_max": {
+          "value": "108000",
+          "err": "{{wbc-form-original.step1.leukocyte.v_max.err}}"
         }
       },
       {
@@ -86,6 +94,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{wbc-form-original.step1.lymphocytes.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "90",
+          "err": "{{wbc-form-original.step1.lymphocytes.v_min.err}}"
+        },
+        "v_max": {
+          "value": "52000",
+          "err": "{{wbc-form-original.step1.lymphocytes.v_max.err}}"
         }
       },
       {
@@ -103,6 +119,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{wbc-form-original.step1.platelets.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "13000",
+          "err": "{{wbc-form-original.step1.platelets.v_min.err}}"
+        },
+        "v_max": {
+          "value": "4000000",
+          "err": "{{wbc-form-original.step1.platelets.v_max.err}}"
         }
       },
       {

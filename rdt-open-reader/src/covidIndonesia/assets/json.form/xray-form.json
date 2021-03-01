@@ -55,17 +55,53 @@
     "submit_label": "{{xray-form-original.step1.submit_label}}",
     "fields": [
       {
+        "key": "is_xray_taken",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{xray-form-original.step1.is_xray_taken.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{xray-form-original.step1.is_xray_taken.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{xray-form-original.step1.is_xray_taken.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{xray-form-original.step1.is_xray_taken.v_required.err}}"
+        }
+      },
+      {
         "key": "lung_xray_result_lbl",
         "type": "label",
         "text": "{{xray-form-original.step1.lung_xray_result_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "x-ray-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "lung_xray_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "x-ray-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "date_xray_conducted",
@@ -79,7 +115,14 @@
           "label": "{{xray-form-original.step1.date_xray_conducted.duration.label}}"
         },
         "min_date": "today-100y",
-        "max_date": "today"
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "x-ray-form-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },

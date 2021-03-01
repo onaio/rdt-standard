@@ -16,6 +16,7 @@ public interface Constants {
         String MULTI_VERSION = "multi_version";
         String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
         String ENABLE_BATCH_SCAN = "enable_batch_scan";
+        String TEAM = "team";
     }
 
     interface Result {
@@ -82,6 +83,7 @@ public interface Constants {
         String SEX = "sex";
         String PATIENT_ID = "patient_id";
         String DOB = "patient_dob";
+        String LAST_INTERACTED_WITH = "last_interacted_with";
     }
 
     interface Form {

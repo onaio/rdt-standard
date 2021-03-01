@@ -10,6 +10,7 @@ import java.util.Map;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.widget.CovidDatePickerFactory;
+import io.ona.rdt.widget.CovidEditTextFactory;
 import io.ona.rdt.widget.CovidRDTLabelFactory;
 import io.ona.rdt.widget.CovidRepeatingGroupFactory;
 import io.ona.rdt.widget.GoogleCovidRDTBarcodeFactory;
@@ -44,6 +45,7 @@ public class CovidLoginActivity extends LoginActivity {
         widgetFactoryMap.put(CovidConstants.Widget.COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
         widgetFactoryMap.put(JsonFormConstants.IMAGE_VIEW, new CovidImageViewFactory());
         widgetFactoryMap.put(CovidConstants.Widget.RDT_DEVICE_SELECTOR_SPINNER, new RDTDeviceSelectorSpinnerFactory());
+        widgetFactoryMap.put(JsonFormConstants.EDIT_TEXT, new CovidEditTextFactory());
     }
 
     @Override

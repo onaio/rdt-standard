@@ -12,7 +12,6 @@ import org.smartregister.view.activity.BaseLoginActivity;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.PowerMockTest;
-import io.ona.rdt.activity.LoginActivity;
 import io.ona.rdt.application.RDTApplication;
 
 import static org.junit.Assert.assertFalse;
@@ -35,9 +34,16 @@ public class RDTSyncConfigurationTest extends PowerMockTest {
         Assert.assertEquals(BuildConfig.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE, syncConfiguration.getUniqueIdInitialBatchSize());
         Assert.assertEquals(BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE, syncConfiguration.getUniqueIdBatchSize());
         Assert.assertEquals(BuildConfig.OPENMRS_UNIQUE_ID_SOURCE, syncConfiguration.getUniqueIdSource());
-        Assert.assertEquals(SyncFilter.PROVIDER, syncConfiguration.getSyncFilterParam());
         Assert.assertEquals(BuildConfig.MAX_SYNC_RETRIES, syncConfiguration.getSyncMaxRetries());
-        Assert.assertEquals("provider", syncConfiguration.getSyncFilterValue());
+
+        final String filterParam = BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.TEAM)
+                ? SyncFilter.TEAM_ID.value() : SyncFilter.PROVIDER.value();
+        Assert.assertEquals(filterParam, syncConfiguration.getSyncFilterParam().value());
+
+        final String filterValue = BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.TEAM)
+                ? SyncFilter.TEAM.value() : SyncFilter.PROVIDER.value();
+        Assert.assertEquals(filterValue, syncConfiguration.getSyncFilterValue());
+
         Assert.assertEquals(BuildConfig.OAUTH_CLIENT_ID, syncConfiguration.getOauthClientId());
         Assert.assertEquals(BuildConfig.OAUTH_CLIENT_SECRET, syncConfiguration.getOauthClientSecret());
         Assert.assertTrue(BaseLoginActivity.class.isAssignableFrom(syncConfiguration.getAuthenticationActivity()));
@@ -56,7 +62,8 @@ public class RDTSyncConfigurationTest extends PowerMockTest {
         AllSharedPreferences allSharedPreferences = mock(AllSharedPreferences.class);
         doReturn(userService).when(drishtiContext).userService();
         doReturn(allSharedPreferences).when(userService).getAllSharedPreferences();
-        doReturn("provider").when(allSharedPreferences).fetchRegisteredANM();
+        doReturn(SyncFilter.PROVIDER.value()).when(allSharedPreferences).fetchRegisteredANM();
+        doReturn(SyncFilter.TEAM.value()).when(allSharedPreferences).fetchDefaultTeamId(SyncFilter.PROVIDER.value());
 
         PowerMockito.when(rdtApplication.getContext()).thenReturn(drishtiContext);
     }

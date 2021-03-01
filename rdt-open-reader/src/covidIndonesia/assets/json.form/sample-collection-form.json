@@ -70,6 +70,45 @@
         "edit_type": "name"
       },
       {
+        "key": "sampler_id_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step1.sampler_id_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sampler_phone_number_lbl",
+        "type": "label",
+        "text": "{{sample-collection-form-original.step1.sampler_phone_number_lbl.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step1.sampler_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{sample-collection-form-original.step1.sampler_phone_number.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{sample-collection-form-original.step1.sampler_phone_number.v_min_length.err}}"
+        }
+      },
+      {
         "key": "sample_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -132,20 +171,45 @@
         }
       },
       {
-        "key": "serum_type",
+        "key": "type_of_blood",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{sample-collection-form-original.step1.serum_type.label}}",
+        "label": "{{sample-collection-form-original.step1.type_of_blood.label}}",
         "options": [
           {
             "key": "capillary",
-            "text": "{{sample-collection-form-original.step1.serum_type.options.capillary.text}}"
+            "text": "{{sample-collection-form-original.step1.type_of_blood.options.capillary.text}}"
           },
           {
-            "key": "venus",
-            "text": "{{sample-collection-form-original.step1.serum_type.options.venus.text}}"
+            "key": "venous",
+            "text": "{{sample-collection-form-original.step1.type_of_blood.options.venous.text}}"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_component",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{sample-collection-form-original.step1.blood_component.label}}",
+        "options": [
+          {
+            "key": "serum",
+            "text": "{{sample-collection-form-original.step1.blood_component.options.serum.text}}"
+          },
+          {
+            "key": "plasma",
+            "text": "{{sample-collection-form-original.step1.blood_component.options.plasma.text}}"
           }
         ],
         "relevance": {
@@ -199,6 +263,10 @@
           {
             "key": "oropharyngeal",
             "text": "{{sample-collection-form-original.step1.swab_type.options.oropharyngeal.text}}"
+          },
+          {
+            "key": "nares",
+            "text": "{{sample-collection-form-original.step1.swab_type.options.nares.text}}"
           }
         ],
         "relevance": {
@@ -241,45 +309,37 @@
         }
       },
       {
-        "key": "vtm_brand",
+        "key": "type_of_media",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "{{sample-collection-form-original.step1.vtm_brand.label}}",
+        "label": "{{sample-collection-form-original.step1.type_of_media.label}}",
         "options": [
           {
-            "key": "copan",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.copan.text}}"
+            "key": "itm",
+            "text": "{{sample-collection-form-original.step1.type_of_media.options.itm.text}}"
           },
           {
-            "key": "zeesan",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.zeesan.text}}"
+            "key": "vtm",
+            "text": "{{sample-collection-form-original.step1.type_of_media.options.vtm.text}}"
           },
           {
-            "key": "nest",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.nest.text}}"
+            "key": "saline_buffer",
+            "text": "{{sample-collection-form-original.step1.type_of_media.options.saline_buffer.text}}"
           },
           {
-            "key": "lmk",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.lmk.text}}"
-          },
-          {
-            "key": "fkui",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.fkui.text}}"
-          },
-          {
-            "key": "i3l",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.i3l.text}}"
+            "key": "no_media_dry_swab",
+            "text": "{{sample-collection-form-original.step1.type_of_media.options.no_media_dry_swab.text}}"
           },
           {
             "key": "other",
-            "text": "{{sample-collection-form-original.step1.vtm_brand.options.other.text}}"
+            "text": "{{sample-collection-form-original.step1.type_of_media.options.other.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step1.vtm_brand.v_required.err}}"
+          "err": "{{sample-collection-form-original.step1.type_of_media.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -290,9 +350,9 @@
         }
       },
       {
-        "key": "other_vtm_brand_lbl",
+        "key": "other_media_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step1.other_vtm_brand_lbl.text}}",
+        "text": "{{sample-collection-form-original.step1.other_media_lbl.text}}",
         "text_color": "#000000",
         "relevance": {
           "rules-engine": {
@@ -303,7 +363,7 @@
         }
       },
       {
-        "key": "other_vtm_brand",
+        "key": "other_media",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -317,24 +377,24 @@
         },
         "v_required": {
           "value": "false",
-          "err": "{{sample-collection-form-original.step1.other_vtm_brand.v_required.err}}"
+          "err": "{{sample-collection-form-original.step1.other_media.v_required.err}}"
         }
       },
       {
-        "key": "vtm_expiration_date",
+        "key": "media_expiration_date",
         "type": "date_picker",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step1.vtm_expiration_date.hint}}",
+        "hint": "{{sample-collection-form-original.step1.media_expiration_date.hint}}",
         "min_date": "today-100y",
         "v_min_allowed_date": {
           "value": "today+1d",
-          "err": "{{sample-collection-form-original.step1.vtm_expiration_date.v_min_allowed_date.err}}"
+          "err": "Expired media! Please use another."
         },
         "v_required": {
           "value": true,
-          "err": "{{sample-collection-form-original.step1.vtm_expiration_date.v_required.err}}"
+          "err": "{{sample-collection-form-original.step1.media_expiration_date.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -345,18 +405,32 @@
         }
       },
       {
-        "key": "manufacturing_lot_number_lbl",
+        "key": "media_lot_number_lbl",
         "type": "label",
-        "text": "{{sample-collection-form-original.step1.manufacturing_lot_number_lbl.text}}",
-        "text_color": "#000000"
+        "text": "{{sample-collection-form-original.step1.media_lot_number_lbl.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
-        "key": "manufacturing_lot_number",
+        "key": "media_lot_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "health_facility_type",
@@ -407,16 +481,16 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{sample-collection-form-original.step1.other_health_facility_type.v_required.err}}"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{sample-collection-form-original.step1.other_health_facility_type.v_required.err}}"
         }
       },
       {
@@ -432,76 +506,35 @@
         }
       },
       {
-        "key": "doctor_name_label",
+        "key": "other_facility_label",
         "type": "label",
-        "text": "{{sample-collection-form-original.step1.doctor_name_label.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": "{{sample-collection-form-original.step1.doctor_name.v_required.err}}"
+        "text": "{{sample-collection-form-original.step1.other_facility_label.text}}",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
       },
       {
-        "key": "doctor_phone_number_lbl",
-        "type": "label",
-        "text": "{{sample-collection-form-original.step1.doctor_phone_number_lbl.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_phone_number",
+        "key": "other_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_required": {
-          "value": "false",
-          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_required.err}}"
-        },
-        "v_numeric": {
           "value": "true",
-          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_numeric.err}}"
+          "err": "{{sample-collection-form-original.step1.other_facility.v_required.err}}"
         },
-        "v_max_length": {
-          "value": "13",
-          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_max_length.err}}"
-        },
-        "v_min_length": {
-          "value": "8",
-          "err": "{{sample-collection-form-original.step1.doctor_phone_number.v_min_length.err}}"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-collection-form-relevance-rules.yml"
+            }
+          }
         }
-      },
-      {
-        "key": "booking_date",
-        "type": "date_picker",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "{{sample-collection-form-original.step1.booking_date.hint}}",
-        "v_required": {
-          "value": true,
-          "err": "{{sample-collection-form-original.step1.booking_date.v_required.err}}"
-        }
-      },
-      {
-        "key": "gsi_sample_number_lbl",
-        "type": "label",
-        "text": "{{sample-collection-form-original.step1.gsi_sample_number_lbl.text}}",
-        "text_color": "#000000"
-      },
-      {
-        "key": "gsi_sample_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "edit_type": "name"
       },
       {
         "key": "hospital_sample_number_lbl",
@@ -525,6 +558,10 @@
         "type": "native_radio",
         "label": "{{sample-collection-form-original.step1.patient_health_status.label}}",
         "options": [
+          {
+            "key": "healthy",
+            "text": "{{sample-collection-form-original.step1.patient_health_status.options.healthy.text}}"
+          },
           {
             "key": "ill",
             "text": "{{sample-collection-form-original.step1.patient_health_status.options.ill.text}}"
