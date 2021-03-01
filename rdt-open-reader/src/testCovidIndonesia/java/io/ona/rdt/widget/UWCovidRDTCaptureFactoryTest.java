@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
@@ -42,6 +43,7 @@ public class UWCovidRDTCaptureFactoryTest extends UWRDTCaptureFactoryTest {
         Assert.assertEquals(UWRDTCaptureFactory.CAPTURE_TIMEOUT_MS, actualIntent.getLongExtra(UWRDTCaptureFactory.CAPTURE_TIMEOUT, -1));
 
         // verify rdt capture is launched for other rdt selection
+        Whitebox.setInternalState(rdtCaptureFactory, "isRdtScannerLaunched", false);
         DeviceDefinitionProcessorShadow.setJSONObject(null);
         jsonObject.put(JsonFormConstants.VALUE, CovidConstants.FormFields.OTHER_KEY);
         RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
@@ -55,6 +57,7 @@ public class UWCovidRDTCaptureFactoryTest extends UWRDTCaptureFactoryTest {
         Assert.assertEquals(-1, actualIntent.getLongExtra(UWRDTCaptureFactory.CAPTURE_TIMEOUT, -1));
 
         // verify that rdt capture is not launched for rdt with no config and other is not selected
+        Whitebox.setInternalState(rdtCaptureFactory, "isRdtScannerLaunched", false);
         jsonObject.put(JsonFormConstants.VALUE, JsonFormConstants.VALUE);
         RDTJsonFormUtilsShadow.setJsonObject(jsonObject);
         rdtCaptureFactory.getViewsFromJson("step1", jsonFormActivity, formFragment,
