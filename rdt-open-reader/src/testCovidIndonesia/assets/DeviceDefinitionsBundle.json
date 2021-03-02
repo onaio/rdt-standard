@@ -37,7 +37,7 @@
                     "code": "G+M"
                   }
                 ],
-                "text": "IgG / IgM"
+                "text": "IgG/IgM"
               }
             ],
             "type": {
@@ -1225,7 +1225,7 @@
                     "code": "G+M"
                   }
                 ],
-                "text": "IgG / IgM"
+                "text": "IgG/IgM"
               }
             ],
             "type": {
@@ -1248,7 +1248,7 @@
         ],
         "deviceName": [
           {
-            "name": "Green Spring COVID-19 IgG / IgM Rapid Test Kit",
+            "name": "Green Spring COVID-19 IgG/IgM Rapid Test Kit",
             "type": "user-friendly-name"
           }
         ],
@@ -1464,7 +1464,7 @@
                     "code": "G+M"
                   }
                 ],
-                "text": "IgG / IgM"
+                "text": "IgG/IgM"
               }
             ],
             "type": {
@@ -1484,7 +1484,7 @@
         ],
         "deviceName": [
           {
-            "name": "Green Spring COVID-19 IgG / IgM Rapid Test Kit",
+            "name": "Green Spring COVID-19 IgG/IgM Rapid Test Kit",
             "type": "user-friendly-name"
           }
         ],
