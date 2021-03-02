@@ -424,7 +424,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic neurological or neuromuscular disease",
+        "label": "Does the patient have chronic neurological or neuromuscular disease?",
         "options": [
           {
             "key": "Yes",
