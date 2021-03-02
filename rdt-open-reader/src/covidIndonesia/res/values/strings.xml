@@ -1,4 +1,5 @@
 <resources>
+    <string name="cts_app_name">CTS Open Reader</string>
     <string name="login_app_name">RDT Open Reader</string>
     <string name="covid_patient_profile_symptoms_history">Symptoms and history</string>
     <string name="covid_patient_profile_rdt">RDT</string>
