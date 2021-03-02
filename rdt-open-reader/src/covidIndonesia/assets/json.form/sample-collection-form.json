@@ -390,7 +390,7 @@
         "min_date": "today-100y",
         "v_min_allowed_date": {
           "value": "today+1d",
-          "err": "Expired media! Please use another."
+          "err": "{{sample-collection-form-original.step1.media_expiration_date.v_min_allowed_date.err}}"
         },
         "v_required": {
           "value": true,
