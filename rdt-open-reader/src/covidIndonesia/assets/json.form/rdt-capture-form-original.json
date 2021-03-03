@@ -327,7 +327,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "label": "Manual unique ID?",
+        "label": "Manual unique ID",
         "type": "hidden"
       },
       {
@@ -456,7 +456,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "RDT Type?"
+        "text": "RDT Type"
       },
       {
         "key": "flash_on",
@@ -531,7 +531,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "native_radio",
-            "label": "RDT result?",
+            "label": "RDT result",
             "options": [
                 {
                     "key": "reactive",
@@ -539,7 +539,7 @@
                 },
                 {
                     "key": "nonreactive",
-                    "text": "NonReactive"
+                    "text": "Non-reactive"
                 }
             ],
             "v_required": {
@@ -559,19 +559,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "RDT result?",
+        "label": "RDT result",
         "options": [
           {
             "key": "positive",
-            "text": "positive"
+            "text": "Positive"
           },
           {
             "key": "negative",
-            "text": "negative"
+            "text": "Negative"
           },
           {
             "key": "invalid",
-            "text": "invalid"
+            "text": "Invalid"
           }
         ],
         "v_required": {
@@ -587,7 +587,7 @@
       },
       {
         "key": "antibody_type",
-        "label": "Antibody?",
+        "label": "Antibody",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
