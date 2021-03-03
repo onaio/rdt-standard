@@ -659,7 +659,7 @@
           }
         },
         "duration": {
-          "label": "Test Date"
+          "label": "Check Day"
         },
         "min_date": "today-10y",
         "max_date": "today",
