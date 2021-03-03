@@ -60,6 +60,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        RDTApplication.getInstance().getContext().allSharedPreferences().saveLastSyncDate(System.currentTimeMillis());
         patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
                 .create()
                 .resume()
