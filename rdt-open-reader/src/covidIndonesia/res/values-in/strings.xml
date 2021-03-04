@@ -36,4 +36,7 @@
     <string name="lbl_gender_id">Perempuan . ID: 99358357</string>
     <string name="lbl_visit">Kunjungan %d</string>
     <string name="label_continue">LANJUTKAN</string>
+    <string name="str_page_info">Halaman {0} dari {1}</string>
+    <string name="json_form_error_msg">Ditemukan %d kesalahan pada form. Mohon benarkan untuk mengirim.</string>
+    <string name="json_form_on_next_error_msg">Mohon benarkan kesalahan pada form untuk melanjutkan.</string>
 </resources>
