@@ -215,11 +215,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         long lastSyncTimestamp = RDTApplication.getInstance().getContext().allSharedPreferences().fetchLastSyncDate(0);
         if (lastSyncTimestamp > 0) {
             Date lastSyncDate = new Date(lastSyncTimestamp);
-            String lblSync = getString(R.string.drawer_menu_item_sync) + ": %1$s, %2$s";
+            String lblSync = getString(R.string.drawer_menu_item_sync) + ": %1$s";
             MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
-            syncMenuItem.setTitle(String.format(lblSync,
-                    new SimpleDateFormat("hh:mm a", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate),
-                    new SimpleDateFormat("MMM dd", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate)));
+            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd, yyyy", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate)));
         }
     }
 
