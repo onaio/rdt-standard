@@ -183,7 +183,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         Menu menu = navigationView.getMenu();
         MenuItem syncMenuItem = menu.findItem(R.id.menu_item_sync);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
-        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", Locale.getDefault()).format(new Date(currentTimeInMillis))), syncMenuItem.getTitle());
+        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), syncMenuItem.getTitle());
     }
 
     @Override

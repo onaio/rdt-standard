@@ -52,6 +52,8 @@ import static io.ona.rdt.util.Utils.updateLocale;
 
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
+    public static final String LATEST_SYNC_DATE_FORMAT = "dd MMM hh:mm a";
+
     private DrawerLayout drawerLayout;
     private RDTJsonFormUtils formUtils;
 
@@ -219,7 +221,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             Date lastSyncDate = new Date(Long.parseLong(latestSyncTimestamp));
             String lblSync = getString(R.string.lbl_latest_sync);
             MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
-            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", Locale.getDefault()).format(lastSyncDate)));
+            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
         }
     }
 
