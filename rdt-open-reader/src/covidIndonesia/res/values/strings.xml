@@ -37,4 +37,7 @@
     <string name="lbl_gender_id">Female . ID: 99358357</string>
     <string name="lbl_visit">Visit %d</string>
     <string name="label_continue">CONTINUE</string>
+    <string name="str_page_info">Page {0} of {1}</string>
+    <string name="json_form_error_msg">Found %d error(s) in the form. Please correct them to submit.</string>
+    <string name="json_form_on_next_error_msg">Please correct the error(s) in the form to proceed.</string>
 </resources>
