@@ -290,7 +290,7 @@
         "hint": "{{rdt-capture-form-original.step6.manual_expiration_date.hint}}",
         "v_min_allowed_date": {
           "value": "today+1d",
-          "err": "Expired RDT! Please use another."
+          "err": "{{rdt-capture-form-original.step6.manual_expiration_date.v_min_allowed_date.err}}"
         },
         "v_required": {
           "value": true,
