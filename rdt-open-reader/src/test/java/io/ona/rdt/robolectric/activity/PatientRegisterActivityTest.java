@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.material.navigation.NavigationView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
@@ -179,11 +179,10 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLatestSyncDateShouldVerifyCurrentDate() {
-        NavigationView navigationView = patientRegisterActivity.findViewById(R.id.nav_view);
-        Menu menu = navigationView.getMenu();
-        MenuItem syncMenuItem = menu.findItem(R.id.menu_item_sync);
+        TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
-        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), syncMenuItem.getTitle());
+        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), tvLatestSyncDate.getText().toString());
+        Assert.assertEquals(View.VISIBLE, tvLatestSyncDate.getVisibility());
     }
 
     @Override

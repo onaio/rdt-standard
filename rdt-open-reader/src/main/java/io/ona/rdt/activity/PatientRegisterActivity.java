@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -220,8 +221,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         if (StringUtils.isNotBlank(latestSyncTimestamp)) {
             Date lastSyncDate = new Date(Long.parseLong(latestSyncTimestamp));
             String lblSync = getString(R.string.lbl_latest_sync);
-            MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
-            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
+            TextView tvLatestSyncDate = findViewById(R.id.tv_latest_sync_date);
+            tvLatestSyncDate.setText(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
+            tvLatestSyncDate.setVisibility(View.VISIBLE);
         }
     }
 
