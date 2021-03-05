@@ -146,5 +146,6 @@ public interface Constants {
 
     interface Preference {
         String LOCATION_TREE = "location_tree";
+        String CTS_LATEST_SYNC_TIMESTAMP = "cts_latest_sync_timestamp";
     }
 }

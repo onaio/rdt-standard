@@ -126,8 +126,4 @@ public interface CovidConstants extends Constants {
     interface ScannerType {
         String SCANNER  = "scanner";
     }
-
-    interface SyncPreference {
-        String LAST_SYNC_DATE = "last_sync_date";
-    }
 }

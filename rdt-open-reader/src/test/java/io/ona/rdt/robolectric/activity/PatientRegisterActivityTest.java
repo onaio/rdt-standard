@@ -6,11 +6,11 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -33,8 +33,7 @@ import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
-import io.ona.rdt.robolectric.util.UtilsTest;
-import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -61,7 +60,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        RDTApplication.getInstance().getContext().allSharedPreferences().getPreferences().edit().putLong(CovidConstants.SyncPreference.LAST_SYNC_DATE, System.currentTimeMillis()).apply();
+        RDTApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
         patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
                 .create()
                 .resume()

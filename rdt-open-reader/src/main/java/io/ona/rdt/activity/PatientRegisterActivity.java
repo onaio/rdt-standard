@@ -1,7 +1,6 @@
 package io.ona.rdt.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import io.ona.rdt.R;
@@ -38,7 +39,7 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
-import io.ona.rdt.util.CovidConstants;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import timber.log.Timber;
@@ -213,12 +214,12 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             }
         });
 
-        long lastSyncTimestamp = RDTApplication.getInstance().getContext().allSharedPreferences().getPreferences().getLong(CovidConstants.SyncPreference.LAST_SYNC_DATE, 0);
-        if (lastSyncTimestamp > 0) {
-            Date lastSyncDate = new Date(lastSyncTimestamp);
-            String lblSync = getString(R.string.drawer_menu_item_sync) + ": %1$s";
+        String lastSyncTimestampStr = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP);
+        if (StringUtils.isNotBlank(lastSyncTimestampStr)) {
+            Date lastSyncDate = new Date(Long.parseLong(lastSyncTimestampStr));
+            String lblSync = getString(R.string.drawer_menu_item_sync) + getString(R.string.last_sync_date_placeholder);
             MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
-            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate)));
+            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", Locale.getDefault()).format(lastSyncDate)));
         }
     }
 
