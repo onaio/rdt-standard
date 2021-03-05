@@ -34,6 +34,7 @@ import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.robolectric.util.UtilsTest;
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -60,7 +61,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        RDTApplication.getInstance().getContext().allSharedPreferences().saveLastSyncDate(System.currentTimeMillis());
+        RDTApplication.getInstance().getContext().allSharedPreferences().getPreferences().edit().putLong(CovidConstants.SyncPreference.LAST_SYNC_DATE, System.currentTimeMillis()).apply();
         patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
                 .create()
                 .resume()

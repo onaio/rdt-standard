@@ -38,6 +38,7 @@ import io.ona.rdt.callback.OnFormSavedCallback;
 import io.ona.rdt.contract.PatientRegisterActivityContract;
 import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
+import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import timber.log.Timber;
@@ -212,12 +213,12 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             }
         });
 
-        long lastSyncTimestamp = RDTApplication.getInstance().getContext().allSharedPreferences().fetchLastSyncDate(0);
+        long lastSyncTimestamp = RDTApplication.getInstance().getContext().allSharedPreferences().getPreferences().getLong(CovidConstants.SyncPreference.LAST_SYNC_DATE, 0);
         if (lastSyncTimestamp > 0) {
             Date lastSyncDate = new Date(lastSyncTimestamp);
             String lblSync = getString(R.string.drawer_menu_item_sync) + ": %1$s";
             MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
-            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd, yyyy", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate)));
+            syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", org.smartregister.util.Utils.getDefaultLocale()).format(lastSyncDate)));
         }
     }
 
