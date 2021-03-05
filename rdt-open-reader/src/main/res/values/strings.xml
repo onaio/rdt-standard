@@ -63,5 +63,6 @@ Please click on the <i>Locate Me</i> button at the bottom of the screen and we w
     <string name="location_services_required">Location services enable efficient data collection. Please enable them to continue.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="lbl_latest_sync">Latest sync date: %1$s</string>
 </resources>
 
