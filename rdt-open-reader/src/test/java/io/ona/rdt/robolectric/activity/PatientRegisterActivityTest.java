@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.navigation.NavigationView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,6 +24,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -53,6 +58,7 @@ import static org.mockito.Mockito.verify;
 public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private PatientRegisterActivity patientRegisterActivity;
+    private long currentTimeInMillis = System.currentTimeMillis();
 
     @Mock
     private DrawerLayout drawerLayout;
@@ -60,7 +66,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        RDTApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
+        RDTApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(currentTimeInMillis));
         patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
                 .create()
                 .resume()
@@ -169,6 +175,15 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         assertEquals(0, UtilsShadow.getMockCounter().getCount());
         patientRegisterActivity.selectDrawerItem(menuItem);
         assertEquals(1, UtilsShadow.getMockCounter().getCount());
+    }
+
+    @Test
+    public void testLatestSyncDateShouldVerifyCurrentDate() {
+        NavigationView navigationView = patientRegisterActivity.findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        MenuItem syncMenuItem = menu.findItem(R.id.menu_item_sync);
+        String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
+        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", Locale.getDefault()).format(new Date(currentTimeInMillis))), syncMenuItem.getTitle());
     }
 
     @Override

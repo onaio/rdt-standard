@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -198,13 +199,12 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         Menu menuNav = navigationView.getMenu();
         MenuItem imgSyncToggle = menuNav.findItem(R.id.menu_item_toggle_img_sync);
         View actionView = imgSyncToggle.getActionView();
         Switch imgSyncToggleBtn = actionView.findViewById(R.id.img_sync_switch_button);
-        imgSyncToggleBtn.setOnCheckedChangeListener((buttonView, isChecked) -> RDTApplication.getInstance().getContext()
-                .allSharedPreferences()
-                .savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(!Utils.isImageSyncEnabled())));
+        imgSyncToggleBtn.setOnCheckedChangeListener((buttonView, isChecked) -> allSharedPreferences.savePreference(IS_IMG_SYNC_ENABLED, String.valueOf(!Utils.isImageSyncEnabled())));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -214,10 +214,10 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             }
         });
 
-        String lastSyncTimestampStr = RDTApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP);
-        if (StringUtils.isNotBlank(lastSyncTimestampStr)) {
-            Date lastSyncDate = new Date(Long.parseLong(lastSyncTimestampStr));
-            String lblSync = getString(R.string.drawer_menu_item_sync) + getString(R.string.last_sync_date_placeholder);
+        String latestSyncTimestamp = allSharedPreferences.getPreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP);
+        if (StringUtils.isNotBlank(latestSyncTimestamp)) {
+            Date lastSyncDate = new Date(Long.parseLong(latestSyncTimestamp));
+            String lblSync = getString(R.string.lbl_latest_sync);
             MenuItem syncMenuItem = menuNav.findItem(R.id.menu_item_sync);
             syncMenuItem.setTitle(String.format(lblSync, new SimpleDateFormat("hh:mm a, MMM dd", Locale.getDefault()).format(lastSyncDate)));
         }
