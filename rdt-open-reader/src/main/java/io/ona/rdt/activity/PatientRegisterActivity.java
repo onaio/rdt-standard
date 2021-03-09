@@ -63,6 +63,13 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     private DrawerLayout drawerLayout;
     private RDTJsonFormUtils formUtils;
 
+    private final BroadcastReceiver latestSyncDateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateSyncDate(RDTApplication.getInstance().getContext().allSharedPreferences());
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         updateLocale(this);
@@ -281,11 +288,4 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             tvLatestSyncDate.setVisibility(View.VISIBLE);
         }
     }
-
-    private final BroadcastReceiver latestSyncDateReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateSyncDate(RDTApplication.getInstance().getContext().allSharedPreferences());
-        }
-    };
 }
