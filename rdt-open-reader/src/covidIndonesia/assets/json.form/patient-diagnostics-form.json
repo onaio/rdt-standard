@@ -560,11 +560,7 @@
         "hint": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.hint}}",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.v_required.err}}"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",

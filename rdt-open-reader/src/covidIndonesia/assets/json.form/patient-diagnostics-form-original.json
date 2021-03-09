@@ -560,11 +560,7 @@
         "hint": "Date of onset of symptoms",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",
