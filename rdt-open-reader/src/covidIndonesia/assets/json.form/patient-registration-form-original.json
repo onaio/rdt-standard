@@ -316,7 +316,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_email": {
+          "value": "true",
+          "err": "Please enter a valid email address"
+        }
       },
       {
         "key": "gvt_id_street_address_lbl",
