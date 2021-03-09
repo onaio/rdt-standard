@@ -1,7 +1,9 @@
 package io.ona.rdt.activity;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -54,6 +57,7 @@ import static io.ona.rdt.util.Utils.updateLocale;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     public static final String LATEST_SYNC_DATE_FORMAT = "dd MMM hh:mm a";
+    public static final String ACTION_UPDATE_LATEST_SYNC_DATE = "action_update_latest_sync_date";
 
     private DrawerLayout drawerLayout;
     private RDTJsonFormUtils formUtils;
@@ -67,6 +71,13 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         NavigationView navigationView = findViewById(R.id.nav_view);
         setupDrawerContent(navigationView);
         requestPermissions();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(android.content.Context context, Intent intent) {
+                updateSyncDate(RDTApplication.getInstance().getContext().allSharedPreferences());
+            }
+        }, new IntentFilter(ACTION_UPDATE_LATEST_SYNC_DATE));
     }
 
     private RDTJsonFormUtils getFormUtils() {

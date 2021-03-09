@@ -1,7 +1,10 @@
 package io.ona.rdt.fragment;
 
+import android.content.Intent;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 
@@ -51,11 +54,11 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
         super.onSyncComplete(fetchStatus);
-        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
-        allSharedPreferences.savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
+        RDTApplication.getInstance()
+                .getContext()
+                .allSharedPreferences()
+                .savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
 
-        if (getActivity() instanceof PatientRegisterActivity) {
-            ((PatientRegisterActivity) getActivity()).updateSyncDate(allSharedPreferences);
-        }
+        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(PatientRegisterActivity.ACTION_UPDATE_LATEST_SYNC_DATE));
     }
 }
