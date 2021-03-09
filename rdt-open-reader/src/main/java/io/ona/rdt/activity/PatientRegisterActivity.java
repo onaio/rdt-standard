@@ -2,6 +2,7 @@ package io.ona.rdt.activity;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -57,7 +58,7 @@ import static io.ona.rdt.util.Utils.updateLocale;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     public static final String LATEST_SYNC_DATE_FORMAT = "dd MMM hh:mm a";
-    public static final String ACTION_UPDATE_LATEST_SYNC_DATE = "action_update_latest_sync_date";
+    public static final String ACTION_UPDATE_LATEST_SYNC_DATE = "io.ona.rdt.action_update_latest_sync_date";
 
     private DrawerLayout drawerLayout;
     private RDTJsonFormUtils formUtils;
@@ -72,12 +73,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         setupDrawerContent(navigationView);
         requestPermissions();
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(android.content.Context context, Intent intent) {
-                updateSyncDate(RDTApplication.getInstance().getContext().allSharedPreferences());
-            }
-        }, new IntentFilter(ACTION_UPDATE_LATEST_SYNC_DATE));
+        LocalBroadcastManager.getInstance(this).registerReceiver(latestSyncDateReceiver, new IntentFilter(ACTION_UPDATE_LATEST_SYNC_DATE));
     }
 
     private RDTJsonFormUtils getFormUtils() {
@@ -85,6 +81,12 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             formUtils = initializeFormUtils();
         }
         return formUtils;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(latestSyncDateReceiver);
     }
 
     protected RDTJsonFormUtils initializeFormUtils() {
@@ -279,4 +281,11 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             tvLatestSyncDate.setVisibility(View.VISIBLE);
         }
     }
+
+    private final BroadcastReceiver latestSyncDateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateSyncDate(RDTApplication.getInstance().getContext().allSharedPreferences());
+        }
+    };
 }

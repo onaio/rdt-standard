@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -179,6 +180,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLatestSyncDateShouldVerifyCurrentDate() {
+        LocalBroadcastManager.getInstance(patientRegisterActivity).sendBroadcast(new Intent(PatientRegisterActivity.ACTION_UPDATE_LATEST_SYNC_DATE));
         TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
         Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), tvLatestSyncDate.getText().toString());
