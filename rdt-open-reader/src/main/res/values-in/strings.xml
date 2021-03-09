@@ -60,5 +60,8 @@ Silakan klik tombol <i>Temukan Saya</i> di bagian bawah layar dan kami akan seca
     <string name="settings">Pengaturan</string>
     <string name="location_settings_disabled_msg">Layanan lokasi dinonaktifkan. Silahkan pergi ke pengaturan telepon untuk mengaktifkannya.</string>
     <string name="location_services_required">Layanan lokasi memungkinkan pengumpulan data yang efisien. Mohon aktifkan layanan lokasi untuk melanjutkan.</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="lbl_latest_sync">Waktu sinkronisasi terakhir: %1$s</string>
 </resources>
 
