@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
@@ -59,6 +60,7 @@ import static org.mockito.Mockito.verify;
 public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private PatientRegisterActivity patientRegisterActivity;
+    private ActivityController<PatientRegisterActivity> controller;
     private long currentTimeInMillis = System.currentTimeMillis();
 
     @Mock
@@ -68,8 +70,8 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         RDTApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(currentTimeInMillis));
-        patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
-                .create()
+        controller = Robolectric.buildActivity(PatientRegisterActivity.class);
+        patientRegisterActivity = controller.create()
                 .resume()
                 .get();
         ReflectionHelpers.setField(patientRegisterActivity, "drawerLayout", drawerLayout);
@@ -185,6 +187,12 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
         Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), tvLatestSyncDate.getText().toString());
         Assert.assertEquals(View.VISIBLE, tvLatestSyncDate.getVisibility());
+    }
+
+    @Override
+    public void tearDown() {
+        controller.destroy();
+        super.tearDown();
     }
 
     @Override
