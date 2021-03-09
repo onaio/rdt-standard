@@ -1,9 +1,11 @@
 package io.ona.rdt.fragment;
 
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.presenter.CovidPatientRegisterFragmentPresenter;
@@ -49,9 +51,11 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
         super.onSyncComplete(fetchStatus);
-        RDTApplication.getInstance()
-                .getContext()
-                .allSharedPreferences()
-                .savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
+        AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
+        allSharedPreferences.savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
+
+        if (getActivity() instanceof PatientRegisterActivity) {
+            ((PatientRegisterActivity) getActivity()).updateSyncDate(allSharedPreferences);
+        }
     }
 }

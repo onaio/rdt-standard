@@ -217,14 +217,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             }
         });
 
-        String latestSyncTimestamp = allSharedPreferences.getPreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP);
-        if (StringUtils.isNotBlank(latestSyncTimestamp)) {
-            Date lastSyncDate = new Date(Long.parseLong(latestSyncTimestamp));
-            String lblSync = getString(R.string.lbl_latest_sync);
-            TextView tvLatestSyncDate = findViewById(R.id.tv_latest_sync_date);
-            tvLatestSyncDate.setText(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
-            tvLatestSyncDate.setVisibility(View.VISIBLE);
-        }
+        updateSyncDate(allSharedPreferences);
     }
 
     public boolean selectDrawerItem(MenuItem menuItem) {
@@ -263,5 +256,16 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     protected PatientRegisterActivityPresenter createPatientRegisterActivityPresenter() {
         return new PatientRegisterActivityPresenter(this);
+    }
+
+    public void updateSyncDate(AllSharedPreferences allSharedPreferences) {
+        String latestSyncTimestamp = allSharedPreferences.getPreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP);
+        if (StringUtils.isNotBlank(latestSyncTimestamp)) {
+            Date lastSyncDate = new Date(Long.parseLong(latestSyncTimestamp));
+            String lblSync = getString(R.string.lbl_latest_sync);
+            TextView tvLatestSyncDate = findViewById(R.id.tv_latest_sync_date);
+            tvLatestSyncDate.setText(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
+            tvLatestSyncDate.setVisibility(View.VISIBLE);
+        }
     }
 }
