@@ -54,11 +54,6 @@ public class CovidPatientRegisterFragment extends PatientRegisterFragment {
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
         super.onSyncComplete(fetchStatus);
-        RDTApplication.getInstance()
-                .getContext()
-                .allSharedPreferences()
-                .savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(System.currentTimeMillis()));
-
         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(PatientRegisterActivity.ACTION_UPDATE_LATEST_SYNC_DATE));
     }
 }

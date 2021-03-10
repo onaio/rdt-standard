@@ -40,7 +40,6 @@ import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -61,7 +60,6 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private PatientRegisterActivity patientRegisterActivity;
     private ActivityController<PatientRegisterActivity> controller;
-    private long currentTimeInMillis = System.currentTimeMillis();
 
     @Mock
     private DrawerLayout drawerLayout;
@@ -69,7 +67,6 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        RDTApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(currentTimeInMillis));
         controller = Robolectric.buildActivity(PatientRegisterActivity.class);
         patientRegisterActivity = controller.create()
                 .resume()
@@ -185,7 +182,7 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         LocalBroadcastManager.getInstance(patientRegisterActivity).sendBroadcast(new Intent(PatientRegisterActivity.ACTION_UPDATE_LATEST_SYNC_DATE));
         TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
-        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), tvLatestSyncDate.getText().toString());
+        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(System.currentTimeMillis()))), tvLatestSyncDate.getText().toString());
         Assert.assertEquals(View.VISIBLE, tvLatestSyncDate.getVisibility());
     }
 
