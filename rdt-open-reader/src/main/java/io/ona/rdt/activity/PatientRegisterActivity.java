@@ -58,7 +58,6 @@ import static io.ona.rdt.util.Utils.updateLocale;
 public class PatientRegisterActivity extends BaseRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener, OnFormSavedCallback, PatientRegisterActivityContract.View {
 
     public static final String LATEST_SYNC_DATE_FORMAT = "dd MMM hh:mm a";
-    public static final String ACTION_UPDATE_LATEST_SYNC_DATE = "io.ona.rdt.action_update_latest_sync_date";
 
     private DrawerLayout drawerLayout;
     private RDTJsonFormUtils formUtils;
