@@ -63,13 +63,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     private DrawerLayout drawerLayout;
     private RDTJsonFormUtils formUtils;
 
-    private final BroadcastReceiver latestSyncDateReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateSyncDate();
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         updateLocale(this);
@@ -80,7 +73,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         setupDrawerContent(navigationView);
         requestPermissions();
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(latestSyncDateReceiver, new IntentFilter(ACTION_UPDATE_LATEST_SYNC_DATE));
+        SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
     }
 
     private RDTJsonFormUtils getFormUtils() {
@@ -93,7 +86,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(latestSyncDateReceiver);
+        SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
     }
 
     protected RDTJsonFormUtils initializeFormUtils() {
@@ -186,7 +179,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
-        // TODO: implement this
+        updateSyncDate();
     }
 
     @Override
