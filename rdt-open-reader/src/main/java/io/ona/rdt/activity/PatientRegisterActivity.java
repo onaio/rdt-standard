@@ -179,7 +179,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
-        updateSyncDate();
+        if (fetchStatus.equals(FetchStatus.fetched) || fetchStatus.equals(FetchStatus.nothingFetched)) {
+            updateSyncDate();
+        }
     }
 
     @Override
