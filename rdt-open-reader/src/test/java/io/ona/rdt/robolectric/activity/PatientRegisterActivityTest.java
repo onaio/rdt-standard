@@ -8,17 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
@@ -31,6 +29,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.LoginActivity;
@@ -184,12 +185,13 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
         Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(timeInMills))), tvLatestSyncDate.getText().toString());
-
     }
 
     @Test
     public void testLatestSyncDateShouldVisible() {
+        patientRegisterActivity = Mockito.spy(patientRegisterActivity);
         patientRegisterActivity.onSyncComplete(FetchStatus.fetched);
+        Mockito.verify(patientRegisterActivity).updateSyncDate(ArgumentMatchers.anyLong());
         Assert.assertEquals(View.VISIBLE, patientRegisterActivity.findViewById(R.id.tv_latest_sync_date).getVisibility());
     }
 

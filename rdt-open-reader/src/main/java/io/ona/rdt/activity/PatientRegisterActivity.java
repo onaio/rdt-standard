@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -270,6 +271,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         return new PatientRegisterActivityPresenter(this);
     }
 
+    @VisibleForTesting
     public void updateSyncDate(long timeInMills) {
         Date lastSyncDate = new Date(timeInMills);
         String lblSync = getString(R.string.lbl_latest_sync);
