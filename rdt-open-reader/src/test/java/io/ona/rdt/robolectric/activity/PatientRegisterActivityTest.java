@@ -184,7 +184,13 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
         TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
         Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(timeInMills))), tvLatestSyncDate.getText().toString());
-        Assert.assertEquals(View.VISIBLE, tvLatestSyncDate.getVisibility());
+
+    }
+
+    @Test
+    public void testLatestSyncDateShouldVisible() {
+        patientRegisterActivity.onSyncComplete(FetchStatus.fetched);
+        Assert.assertEquals(View.VISIBLE, patientRegisterActivity.findViewById(R.id.tv_latest_sync_date).getVisibility());
     }
 
     @Override
