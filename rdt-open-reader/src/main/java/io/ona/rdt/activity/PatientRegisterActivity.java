@@ -1,7 +1,10 @@
 package io.ona.rdt.activity;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,10 +15,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -67,6 +72,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         NavigationView navigationView = findViewById(R.id.nav_view);
         setupDrawerContent(navigationView);
         requestPermissions();
+
+        SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
     }
 
     private RDTJsonFormUtils getFormUtils() {
@@ -74,6 +81,12 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
             formUtils = initializeFormUtils();
         }
         return formUtils;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
     }
 
     protected RDTJsonFormUtils initializeFormUtils() {
@@ -166,7 +179,9 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
-        // TODO: implement this
+        if (fetchStatus.equals(FetchStatus.fetched) || fetchStatus.equals(FetchStatus.nothingFetched)) {
+            updateSyncDate(System.currentTimeMillis());
+        }
     }
 
     @Override
@@ -216,15 +231,6 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
                 return true;
             }
         });
-
-        String latestSyncTimestamp = allSharedPreferences.getPreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP);
-        if (StringUtils.isNotBlank(latestSyncTimestamp)) {
-            Date lastSyncDate = new Date(Long.parseLong(latestSyncTimestamp));
-            String lblSync = getString(R.string.lbl_latest_sync);
-            TextView tvLatestSyncDate = findViewById(R.id.tv_latest_sync_date);
-            tvLatestSyncDate.setText(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
-            tvLatestSyncDate.setVisibility(View.VISIBLE);
-        }
     }
 
     public boolean selectDrawerItem(MenuItem menuItem) {
@@ -263,5 +269,14 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
 
     protected PatientRegisterActivityPresenter createPatientRegisterActivityPresenter() {
         return new PatientRegisterActivityPresenter(this);
+    }
+
+    @VisibleForTesting
+    public void updateSyncDate(long timeInMills) {
+        Date lastSyncDate = new Date(timeInMills);
+        String lblSync = getString(R.string.lbl_latest_sync);
+        TextView tvLatestSyncDate = findViewById(R.id.tv_latest_sync_date);
+        tvLatestSyncDate.setText(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));
+        tvLatestSyncDate.setVisibility(View.VISIBLE);
     }
 }
