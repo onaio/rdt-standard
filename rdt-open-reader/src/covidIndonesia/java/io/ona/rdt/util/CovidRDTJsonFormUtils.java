@@ -238,11 +238,11 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected),  "", "", "", "");
         } else {
             DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
-            String manufacturer = deviceDefinitionProcessor.extractManufacturerName(deviceId);
-            String deviceName = deviceDefinitionProcessor.extractDeviceName(deviceId);
-            String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), manufacturer, deviceName);
+            String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
+                    deviceDefinitionProcessor.extractDeviceName(deviceId));
             JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
-            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceId, manufacturer, deviceName);
+            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceId,
+                    deviceDefinitionProcessor.extractManufacturerName(deviceId), deviceDefinitionProcessor.extractDeviceName(deviceId));
         }
     }
 
