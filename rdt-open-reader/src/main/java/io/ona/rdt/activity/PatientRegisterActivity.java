@@ -179,7 +179,7 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
         if (fetchStatus.equals(FetchStatus.fetched) || fetchStatus.equals(FetchStatus.nothingFetched)) {
-            updateSyncDate();
+            updateSyncDate(System.currentTimeMillis());
         }
     }
 
@@ -270,8 +270,8 @@ public class PatientRegisterActivity extends BaseRegisterActivity implements Syn
         return new PatientRegisterActivityPresenter(this);
     }
 
-    public void updateSyncDate() {
-        Date lastSyncDate = new Date(System.currentTimeMillis());
+    public void updateSyncDate(long timeInMills) {
+        Date lastSyncDate = new Date(timeInMills);
         String lblSync = getString(R.string.lbl_latest_sync);
         TextView tvLatestSyncDate = findViewById(R.id.tv_latest_sync_date);
         tvLatestSyncDate.setText(String.format(lblSync, new SimpleDateFormat(LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(lastSyncDate)));

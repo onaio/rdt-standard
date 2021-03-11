@@ -179,10 +179,11 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLatestSyncDateShouldVerifyCurrentDate() {
-        patientRegisterActivity.onSyncComplete(FetchStatus.fetched);
+        long timeInMills = System.currentTimeMillis();
+        patientRegisterActivity.updateSyncDate(timeInMills);
         TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
-        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(System.currentTimeMillis()))), tvLatestSyncDate.getText().toString());
+        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(timeInMills))), tvLatestSyncDate.getText().toString());
         Assert.assertEquals(View.VISIBLE, tvLatestSyncDate.getVisibility());
     }
 
