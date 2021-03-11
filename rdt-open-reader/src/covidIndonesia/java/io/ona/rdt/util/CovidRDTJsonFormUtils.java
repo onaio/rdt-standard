@@ -235,18 +235,16 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         Context context = widgetArgs.getContext();
         if (CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
             // reset details when other is selected or device id is blank
-            writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected),  "", "", "", "");
+            writeRDTDetailsToWidgets(widgetArgs, "", "", "", "");
         } else {
             DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
-            String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
-                    deviceDefinitionProcessor.extractDeviceName(deviceId));
             JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
-            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceId,
+            writeRDTDetailsToWidgets(widgetArgs, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceId,
                     deviceDefinitionProcessor.extractManufacturerName(deviceId), deviceDefinitionProcessor.extractDeviceName(deviceId));
         }
     }
 
-    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceDetails, String rdtImage, String deviceId, String manufacturer, String deviceName) throws JSONException {
+    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String rdtImage, String deviceId, String manufacturer, String deviceName) throws JSONException {
         Context context = widgetArgs.getContext();
         String rdtDetailsConfirmationPage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
@@ -254,6 +252,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // write device details to confirmation page
         if (deviceDetailsWidget != null) {
+            String deviceDetails = StringUtils.isNotBlank(deviceId) ? getFormattedRDTDetails(widgetArgs.getContext(), manufacturer, deviceName)
+                    : context.getString(R.string.unknown_rdt_selected);
             deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
             deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
         }
