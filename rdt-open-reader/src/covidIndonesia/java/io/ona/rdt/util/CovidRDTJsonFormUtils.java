@@ -236,7 +236,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
         if (CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
             // reset details when other is selected or device id is blank
-            writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected), deviceDefinitionProcessor);
+            writeRDTDetailsToWidgets(widgetArgs, "", deviceDefinitionProcessor);
         } else {
             writeRDTDetailsToWidgets(widgetArgs, deviceId, deviceDefinitionProcessor);
         }
@@ -248,7 +248,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 deviceDefinitionProcessor.extractDeviceName(deviceId));
 
         JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
-        String rdtImage = deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG);
+        String rdtImage = deviceConfig == null ? "" : deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG);
 
         Context context = widgetArgs.getContext();
         String rdtDetailsConfirmationPage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
@@ -267,12 +267,18 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         jsonApi.writeValue(rdtCapturePage, CovidConstants.FormFields.RDT_DEVICE_ID, deviceId, "", "", "", false);
 
         // populate RDT detected component type
+        String detectedComponentType = deviceDefinitionProcessor.extractDeviceDetectedComponentType(deviceId);
         jsonApi.writeValue(getStepStateConfigObj().getString(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE),
                 CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
-                deviceDefinitionProcessor.extractDeviceDetectedComponentType(deviceId), "", "", "", false);
+                detectedComponentType == null ? "" : detectedComponentType,
+                "", "", "", false);
     }
 
     private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {
+        if (StringUtils.isBlank(manufacturer) || StringUtils.isBlank(deviceName)) {
+            return context.getString(R.string.unknown_rdt_selected);
+        }
+
         final String htmlLineBreak = "<br>";
         final String doubleHtmlLineBreak = "<br><br>";
 

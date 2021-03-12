@@ -75,7 +75,7 @@ public class DeviceDefinitionProcessor {
     public String extractManufacturerName(String deviceId) {
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')))", deviceId);
         DeviceDefinition deviceDefinition = (DeviceDefinition) PathEvaluatorLibrary.getInstance().extractResourceFromBundle(deviceDefinitionBundle, expression);
-        return deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
+        return deviceDefinition == null ? null : deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
     }
 
     public Map<String, String> getDeviceIDToDeviceNameMap() {
