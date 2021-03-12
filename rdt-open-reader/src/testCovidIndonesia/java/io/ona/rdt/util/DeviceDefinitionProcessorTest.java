@@ -77,6 +77,6 @@ public class DeviceDefinitionProcessorTest extends RobolectricTest {
         Assert.assertEquals("Realy Tech 2019-nCOV IgG/IgM", deviceIDToDeviceName.get("22a46031-0b56-a237-044a-76904b9b193e"));
 
         // get device id from product code
-        Assert.assertEquals("cf4443a1-f582-74ea-be89-ae53b5fd7bfe", deviceDefinitionProcessor.getDeviceId("INCP-402"));
+        Assert.assertEquals("cf4443a1-f582-74ea-be89-ae53b5fd7bfe", deviceDefinitionProcessor.getDeviceId("06970277514699"));
     }
 }
