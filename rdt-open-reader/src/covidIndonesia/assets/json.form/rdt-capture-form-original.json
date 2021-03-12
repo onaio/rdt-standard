@@ -504,28 +504,6 @@
     "next": "step12",
     "fields": [
         {
-            "key": "chw_rdt_type",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "native_radio",
-            "label": "RDT Type",
-            "options": [
-                {
-                    "key": "antigen",
-                    "text": "Antigen"
-                },
-                {
-                    "key": "antibody",
-                    "text": "Antibody"
-                }
-            ],
-            "v_required": {
-                "value": "true",
-                "err": "This field is required"
-            }
-        },
-        {
             "key": "chw_result_antibody",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",

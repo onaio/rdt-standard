@@ -504,28 +504,6 @@
     "next": "step12",
     "fields": [
       {
-        "key": "chw_rdt_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step11.chw_rdt_type.label}}",
-        "options": [
-          {
-            "key": "antigen",
-            "text": "{{rdt-capture-form-original.step11.chw_rdt_type.options.antigen.text}}"
-          },
-          {
-            "key": "antibody",
-            "text": "{{rdt-capture-form-original.step11.chw_rdt_type.options.antibody.text}}"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{rdt-capture-form-original.step11.chw_rdt_type.v_required.err}}"
-        }
-      },
-      {
         "key": "chw_result_antibody",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
