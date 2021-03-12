@@ -34,7 +34,8 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 
-public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
+public class
+OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
 
     @Mock
     private RDTJsonFormFragment formFragment;
@@ -137,6 +138,9 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.GTIN, VAL_3, "", "", "", false);
         Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.TEMP_SENSOR, SENSOR_TRIGGERED, "", "", "", false);
         Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE, Constants.FormFields.LBL_RDT_ID, "RDT ID: " + VAL_0, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE,
+                CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
+                DeviceDefinitionProcessorShadow.DETECTED_COMPONENT_TYPE, "", "", "", false);
     }
 
     private void mockMethods() throws JSONException {
@@ -167,6 +171,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         stepStateConfig.put(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE, CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE, CovidConstants.Step.COVID_CONDUCT_RDT_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE, CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE);
         ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "stepStateConfig", stepStateConfig);
     }
 }
