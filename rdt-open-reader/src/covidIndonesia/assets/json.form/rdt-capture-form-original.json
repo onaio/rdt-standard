@@ -533,9 +533,10 @@
           "err": "This field is required"
         },
         "relevance": {
-          "step11:chw_rdt_type": {
-            "type": "string",
-            "ex": "equalTo(., \"antibody\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       },
@@ -565,9 +566,10 @@
           "err": "This field is required"
         },
         "relevance": {
-          "step11:chw_rdt_type": {
-            "type": "string",
-            "ex": "equalTo(., \"antigen\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       },
@@ -596,9 +598,10 @@
           "err": "Please specify if positive for pv, pf or both"
         },
         "relevance": {
-          "step11:chw_result_antibody": {
-            "type": "string",
-            "ex": "equalTo(., \"reactive\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       }
