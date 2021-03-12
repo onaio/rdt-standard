@@ -102,7 +102,7 @@ OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
 
         verifySingleScanDataIsCorrectlyPopulated();
         Assert.assertEquals(String.format("[{\"text\":\"%s\"}]", VAL_0), deviceDetailsWidget.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
-        Mockito.verify(formUtils).populateRDTDetailsConfirmationPage(widgetArgsArgumentCaptor.capture(),
+        Mockito.verify(formUtils).populateFormWithRDTDetails(widgetArgsArgumentCaptor.capture(),
                 ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.DEVICE_ID), ArgumentMatchers.eq(false));
         verifyWidgetArgsMatch(widgetArgsArgumentCaptor.getValue());
         Mockito.verify(oneScanCovidRDTBarcodeFactory).navigateToUnusableProductPage();
@@ -138,9 +138,6 @@ OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
         Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.GTIN, VAL_3, "", "", "", false);
         Mockito.verify(jsonFormActivity).writeValue(TEST_STEP, CovidRDTBarcodeFactory.TEMP_SENSOR, SENSOR_TRIGGERED, "", "", "", false);
         Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE, Constants.FormFields.LBL_RDT_ID, "RDT ID: " + VAL_0, "", "", "", false);
-        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE,
-                CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
-                DeviceDefinitionProcessorShadow.DETECTED_COMPONENT_TYPE, "", "", "", false);
     }
 
     private void mockMethods() throws JSONException {
