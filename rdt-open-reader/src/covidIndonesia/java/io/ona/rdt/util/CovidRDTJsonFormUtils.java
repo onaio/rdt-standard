@@ -244,8 +244,10 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceId, DeviceDefinitionProcessor deviceDefinitionProcessor) throws JSONException {
 
-        String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
-                deviceDefinitionProcessor.extractDeviceName(deviceId));
+        String manufacturerName = deviceDefinitionProcessor.extractManufacturerName(deviceId);
+        String deviceName = deviceDefinitionProcessor.extractDeviceName(deviceId);
+
+        String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), manufacturerName, deviceName);
 
         JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
         String rdtImage = deviceConfig == null ? "" : deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG);
@@ -273,8 +275,8 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 detectedComponentType == null ? "" : detectedComponentType,
                 "", "", "", false);
 
-        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_MANUFACTURER, deviceDefinitionProcessor.extractManufacturerName(deviceId), "", "", "", false);
-        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_DEVICE_NAME, deviceDefinitionProcessor.extractDeviceName(deviceId), "", "", "", false);
+        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_MANUFACTURER, manufacturerName, "", "", "", false);
+        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_DEVICE_NAME, deviceName, "", "", "", false);
     }
 
     private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {
