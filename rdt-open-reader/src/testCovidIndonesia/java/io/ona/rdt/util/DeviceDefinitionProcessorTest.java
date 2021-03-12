@@ -78,5 +78,9 @@ public class DeviceDefinitionProcessorTest extends RobolectricTest {
 
         // get device id from product code
         Assert.assertEquals("cf4443a1-f582-74ea-be89-ae53b5fd7bfe", deviceDefinitionProcessor.getDeviceId("06970277514699"));
+
+        // verify the detected component type matches
+        Assert.assertEquals("Antigen", deviceDefinitionProcessor.extractDeviceDetectedComponentType("67f22cc6-435a-bc8c-5c48-bb77a7659f59"));
+        Assert.assertEquals("Antibody", deviceDefinitionProcessor.extractDeviceDetectedComponentType("d3fdac0e-061e-b068-2bed-5a95e803636f"));
     }
 }

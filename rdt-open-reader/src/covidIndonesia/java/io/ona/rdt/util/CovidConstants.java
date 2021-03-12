@@ -21,6 +21,7 @@ public interface CovidConstants extends Constants {
         String TOP_LINE_NAME = "TOP_LINE_NAME";
         String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
         String INSTRUCTIONS = "instructions";
+        String DETECTED_COMPONENT_TYPE = "detected component types";
         String FHIR_RESOURCE_FOLDER = "fhir.resource/";
         String DEVICE_RESOURCE_FILE = CovidConstants.FHIRResource.FHIR_RESOURCE_FOLDER + "DeviceDefinitionsBundle.json";
     }

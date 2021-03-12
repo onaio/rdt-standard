@@ -66,6 +66,12 @@ public class DeviceDefinitionProcessor {
         return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
     }
 
+    public String extractDeviceDetectedComponentType(String deviceId) {
+        String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).capability.where(type.where(text='%s')).description.text",
+                deviceId, CovidConstants.FHIRResource.DETECTED_COMPONENT_TYPE);
+        return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
+    }
+
     public String extractManufacturerName(String deviceId) {
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')))", deviceId);
         DeviceDefinition deviceDefinition = (DeviceDefinition) PathEvaluatorLibrary.getInstance().extractResourceFromBundle(deviceDefinitionBundle, expression);
