@@ -78,6 +78,7 @@ public interface CovidConstants extends Constants {
         String COVID_DEVICE_DETAILS_CONFIRMATION_PAGE = "covid_device_details_confirmation_page";
         String COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE = "covid_sample_delivery_details_unique_batch_id_page";
         String COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE = "covid_rdt_capture_form_rdt_capture_page";
+        String COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE = "covid_chw_manual_rdt_result_entry_page";
     }
 
     interface FormFields {
@@ -113,6 +114,7 @@ public interface CovidConstants extends Constants {
         String RDT_DEVICE_ID = "rdt_device_id";
         String FEMALE = "female";
         String MALE = "male";
+        String DETECTED_COMPONENT_TYPE = "detected_component_type";
     }
 
     interface RDTType {

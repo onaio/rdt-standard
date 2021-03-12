@@ -111,6 +111,11 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                             CovidConstants.FormFields.PATIENT_INFO_UNIQUE_ID,
                             widgetArgs.getContext());
                     CovidRDTJsonFormUtils.fillPatientData(uniqueIdCheckBox, individualVals[0]);
+
+                    // populate RDT detected component type
+                    jsonApi.writeValue(stepStateConfig.getString(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE),
+                            CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
+                            deviceDefinitionProcessor.extractDeviceDetectedComponentType(deviceId), "", "", "", false);
                 } catch (JSONException e) {
                     Timber.e(e);
                 }

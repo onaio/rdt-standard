@@ -504,6 +504,14 @@
     "next": "step12",
     "fields": [
       {
+        "key": "detected_component_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Detected component",
+        "type": "hidden"
+      },
+      {
         "key": "chw_result_antibody",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

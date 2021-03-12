@@ -19,5 +19,6 @@
   "covid_select_rdt_type_page" : "step6",
   "covid_sample_delivery_details_unique_batch_id_page": "step5",
   "covid_device_details_confirmation_page": "step14",
-  "covid_rdt_capture_form_rdt_capture_page": "step10"
+  "covid_rdt_capture_form_rdt_capture_page": "step10",
+  "covid_chw_manual_rdt_result_entry_page": "step12"
 }
