@@ -504,26 +504,12 @@
     "next": "step12",
     "fields": [
       {
-        "key": "chw_rdt_type",
+        "key": "detected_component_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{rdt-capture-form-original.step11.chw_rdt_type.label}}",
-        "options": [
-          {
-            "key": "antigen",
-            "text": "{{rdt-capture-form-original.step11.chw_rdt_type.options.antigen.text}}"
-          },
-          {
-            "key": "antibody",
-            "text": "{{rdt-capture-form-original.step11.chw_rdt_type.options.antibody.text}}"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{rdt-capture-form-original.step11.chw_rdt_type.v_required.err}}"
-        }
+        "label": "Detected component",
+        "type": "hidden"
       },
       {
         "key": "chw_result_antibody",
@@ -547,9 +533,10 @@
           "err": "{{rdt-capture-form-original.step11.chw_result_antibody.v_required.err}}"
         },
         "relevance": {
-          "step11:chw_rdt_type": {
-            "type": "string",
-            "ex": "equalTo(., \"antibody\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       },
@@ -579,9 +566,10 @@
           "err": "{{rdt-capture-form-original.step11.chw_result_antigen.v_required.err}}"
         },
         "relevance": {
-          "step11:chw_rdt_type": {
-            "type": "string",
-            "ex": "equalTo(., \"antigen\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       },
@@ -610,9 +598,10 @@
           "err": "{{rdt-capture-form-original.step11.antibody_type.v_required.err}}"
         },
         "relevance": {
-          "step11:chw_result_antibody": {
-            "type": "string",
-            "ex": "equalTo(., \"reactive\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       }

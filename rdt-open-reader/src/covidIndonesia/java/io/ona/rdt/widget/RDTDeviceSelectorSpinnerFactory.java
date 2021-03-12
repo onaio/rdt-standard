@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import timber.log.Timber;
 
@@ -62,7 +61,7 @@ public class RDTDeviceSelectorSpinnerFactory extends SpinnerFactory {
             JSONObject rdtTypeField = formUtils.getField(widgetArgs.getStepName(),
                     widgetArgs.getJsonObject().getString(JsonFormConstants.KEY), widgetArgs.getContext());
             String deviceId = rdtTypeField.getString(JsonFormConstants.VALUE);
-            formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId);
+            formUtils.populateFormWithRDTDetails(widgetArgs, deviceId);
         } catch (JSONException | IOException | FHIRParserException e) {
             Timber.e(e);
         }
