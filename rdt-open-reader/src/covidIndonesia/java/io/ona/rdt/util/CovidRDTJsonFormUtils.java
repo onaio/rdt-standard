@@ -257,8 +257,6 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
         // write device details to confirmation page
         if (deviceDetailsWidget != null) {
-            String deviceDetails = StringUtils.isNotBlank(deviceId) ? getFormattedRDTDetails(widgetArgs.getContext(), manufacturer, deviceName)
-                    : context.getString(R.string.unknown_rdt_selected);
             deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
             deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
         }
@@ -274,6 +272,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
                 detectedComponentType == null ? "" : detectedComponentType,
                 "", "", "", false);
+
+        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_MANUFACTURER, deviceDefinitionProcessor.extractManufacturerName(deviceId), "", "", "", false);
+        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_DEVICE_NAME, deviceDefinitionProcessor.extractDeviceName(deviceId), "", "", "", false);
     }
 
     private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {
