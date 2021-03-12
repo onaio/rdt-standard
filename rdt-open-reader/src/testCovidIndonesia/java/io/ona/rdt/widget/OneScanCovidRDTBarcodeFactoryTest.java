@@ -34,8 +34,7 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 
-public class
-OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
+public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricTest {
 
     @Mock
     private RDTJsonFormFragment formFragment;

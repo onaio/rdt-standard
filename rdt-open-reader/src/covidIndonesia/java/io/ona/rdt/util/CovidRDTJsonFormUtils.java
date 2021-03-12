@@ -261,7 +261,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
             deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
         }
 
-        JsonApi jsonApi = ((JsonApi) context);
+        JsonApi jsonApi = (JsonApi) context;
         // write device ID to rdt capture page
         String rdtCapturePage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
         jsonApi.writeValue(rdtCapturePage, CovidConstants.FormFields.RDT_DEVICE_ID, deviceId, "", "", "", false);
