@@ -8,27 +8,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.domain.FetchStatus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.LoginActivity;
@@ -38,7 +41,6 @@ import io.ona.rdt.fragment.PatientRegisterFragment;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
-import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -58,7 +60,7 @@ import static org.mockito.Mockito.verify;
 public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private PatientRegisterActivity patientRegisterActivity;
-    private long currentTimeInMillis = System.currentTimeMillis();
+    private ActivityController<PatientRegisterActivity> controller;
 
     @Mock
     private DrawerLayout drawerLayout;
@@ -66,9 +68,8 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        RDTApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.Preference.CTS_LATEST_SYNC_TIMESTAMP, String.valueOf(currentTimeInMillis));
-        patientRegisterActivity = Robolectric.buildActivity(PatientRegisterActivity.class)
-                .create()
+        controller = Robolectric.buildActivity(PatientRegisterActivity.class);
+        patientRegisterActivity = controller.create()
                 .resume()
                 .get();
         ReflectionHelpers.setField(patientRegisterActivity, "drawerLayout", drawerLayout);
@@ -179,10 +180,25 @@ public class PatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testLatestSyncDateShouldVerifyCurrentDate() {
+        long timeInMills = System.currentTimeMillis();
+        patientRegisterActivity.updateSyncDate(timeInMills);
         TextView tvLatestSyncDate = patientRegisterActivity.findViewById(R.id.tv_latest_sync_date);
         String lblSync = patientRegisterActivity.getResources().getString(R.string.lbl_latest_sync);
-        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(currentTimeInMillis))), tvLatestSyncDate.getText().toString());
-        Assert.assertEquals(View.VISIBLE, tvLatestSyncDate.getVisibility());
+        Assert.assertEquals(String.format(lblSync, new SimpleDateFormat(PatientRegisterActivity.LATEST_SYNC_DATE_FORMAT, Locale.getDefault()).format(new Date(timeInMills))), tvLatestSyncDate.getText().toString());
+    }
+
+    @Test
+    public void testLatestSyncDateShouldVisible() {
+        patientRegisterActivity = Mockito.spy(patientRegisterActivity);
+        patientRegisterActivity.onSyncComplete(FetchStatus.fetched);
+        Mockito.verify(patientRegisterActivity).updateSyncDate(ArgumentMatchers.anyLong());
+        Assert.assertEquals(View.VISIBLE, patientRegisterActivity.findViewById(R.id.tv_latest_sync_date).getVisibility());
+    }
+
+    @Override
+    public void tearDown() {
+        controller.destroy();
+        super.tearDown();
     }
 
     @Override

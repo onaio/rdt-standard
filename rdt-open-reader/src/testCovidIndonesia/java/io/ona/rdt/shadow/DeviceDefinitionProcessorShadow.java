@@ -21,6 +21,7 @@ public class DeviceDefinitionProcessorShadow {
     public static final String DEVICE_ID = "device_id";
     public static final String MANUFACTURER = "manufacturer";
     public static final String DEVICE_NAME = "device_name";
+    public static final String DETECTED_COMPONENT_TYPE = "Antigen";
 
     @Implementation
     public JSONObject extractDeviceConfig(String deviceId) throws JSONException {
@@ -45,6 +46,11 @@ public class DeviceDefinitionProcessorShadow {
     @Implementation
     public String extractDeviceName(String deviceId) {
         return DEVICE_NAME;
+    }
+
+    @Implementation
+    public String extractDeviceDetectedComponentType(String deviceId) {
+        return DETECTED_COMPONENT_TYPE;
     }
 
     public static Map<String, String> getDeviceIdToNameMap() {

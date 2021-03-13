@@ -59,6 +59,16 @@
             "type": {
               "text": "sample types"
             }
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antibody"
+              }
+            ]
           }
         ],
         "deviceName": [
@@ -287,6 +297,16 @@
             "type": {
               "text": "sample types"
             }
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antibody"
+              }
+            ]
           }
         ],
         "deviceName": [
@@ -530,6 +550,16 @@
             "type": {
               "text": "sample types"
             }
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antibody"
+              }
+            ]
           }
         ],
         "deviceName": [
@@ -769,6 +799,16 @@
             "type": {
               "text": "sample types"
             }
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antibody"
+              }
+            ]
           }
         ],
         "deviceName": [
@@ -1003,6 +1043,16 @@
             "type": {
               "text": "sample types"
             }
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antibody"
+              }
+            ]
           }
         ],
         "deviceName": [
@@ -1244,6 +1294,16 @@
                 "text": "Nasopharyngeal Swab"
               }
             ]
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antigen"
+              }
+            ]
           }
         ],
         "resourceType": "DeviceDefinition",
@@ -1395,7 +1455,7 @@
         "udiDeviceIdentifier": [
           {
             "jurisdiction": "urn:global",
-            "deviceIdentifier": "69702775157196",
+            "deviceIdentifier": "06970277515719",
             "issuer": "urn:gtin"
           },
           {
@@ -1449,6 +1509,16 @@
             "description": [
               {
                 "text": "Nasopharyngeal Swab"
+              }
+            ]
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antigen"
               }
             ]
           }
@@ -1602,7 +1672,7 @@
         "udiDeviceIdentifier": [
           {
             "jurisdiction": "urn:global",
-            "deviceIdentifier": "69702775140952",
+            "deviceIdentifier": "06970277514095",
             "issuer": "urn:gtin"
           },
           {
@@ -1656,6 +1726,16 @@
               },
               {
                 "text": "Plasma, Fingerstick Whole Blood, or Venipuncture Whole Blood"
+              }
+            ]
+          },
+          {
+            "type": {
+              "text": "detected component types"
+            },
+            "description": [
+              {
+                "text": "Antibody"
               }
             ]
           }

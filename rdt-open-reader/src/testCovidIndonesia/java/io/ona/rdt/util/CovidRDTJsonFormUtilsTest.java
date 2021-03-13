@@ -843,7 +843,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Config(shadows = {DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
     @Test
-    public void testPopulateRDTDetailsConfirmationPageShouldCorrectlyPopulateDetails() throws Exception {
+    public void testPopulateFormWithRDTDetailsShouldCorrectlyPopulateDetails() throws Exception {
         JSONObject jsonObject = new JSONObject();
         RDTJsonFormActivity jsonFormActivity = WidgetFactoryRobolectricTest.getRDTJsonFormActivity();
         Mockito.doNothing().when(jsonFormActivity).writeValue(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(),
@@ -871,16 +871,20 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
         JSONObject stepStateConfig = new JSONObject();
         stepStateConfig.put(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE, CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE);
         RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(stepStateConfig);
 
         WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(jsonObject).withStepName(TEST_STEP)
                 .withContext(jsonFormActivity).withFormFragment(formFragment);
 
-        getCovidFormUtils().populateRDTDetailsConfirmationPage(widgetArgs, DEVICE_ID);
+        getCovidFormUtils().populateFormWithRDTDetails(widgetArgs, DEVICE_ID);
 
         verifyRDTDetailsConfirmationPageIsPopulated(jsonFormActivity, deviceDetailsWidget);
         Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.FormFields.RDT_DEVICE_ID,
                 DEVICE_ID, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE,
+                CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
+                DeviceDefinitionProcessorShadow.DETECTED_COMPONENT_TYPE, "", "", "", false);
 
         jsonFormActivity.finish();
     }
