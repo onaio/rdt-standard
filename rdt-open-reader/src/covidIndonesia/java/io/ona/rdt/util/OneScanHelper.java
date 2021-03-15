@@ -25,8 +25,8 @@ public class OneScanHelper {
     private final SparseArray<IntentResultCallback> mCallbacks = new SparseArray<>();
 
     private static final String TAG = "OneScanScanner";
-    private static final String PACKAGE_NAME = "com.temptimecorp.onescan";
-    private static final String ACTIVITY_NAME = "CameraActivityLolipop";
+    public static final String PACKAGE_NAME = "com.temptimecorp.onescan";
+    public static final String ACTIVITY_NAME = "CameraActivityLolipop";
     private static final String ACTION_GET_VERSION = "action.version";
     private static final String ACTION_SCANNER = "action.scanner";
 
@@ -62,7 +62,7 @@ public class OneScanHelper {
         send(request.action, request.getBundle(), callback);
     }
 
-    private static boolean isCallable(Activity activity, Intent intent) {
+    public static boolean isCallable(Activity activity, Intent intent) {
         List<ResolveInfo> list = activity.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }

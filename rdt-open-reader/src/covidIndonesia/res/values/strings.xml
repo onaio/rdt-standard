@@ -40,4 +40,7 @@
     <string name="str_page_info">Page {0} of {1}</string>
     <string name="json_form_error_msg">Found %d error(s) in the form. Please correct them to submit.</string>
     <string name="json_form_on_next_error_msg">Please correct the error(s) in the form to proceed.</string>
+    <string name="onescan_is_not_installed">OneScan app is required to continue this process</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
 </resources>
