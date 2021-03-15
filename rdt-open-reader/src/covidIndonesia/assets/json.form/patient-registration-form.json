@@ -529,15 +529,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "Value must be numeric"
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_numeric.err}}"
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_min_length.err}}"
         }
       },
       {
@@ -580,15 +580,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "Value must be numeric"
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_numeric.err}}"
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_min_length.err}}"
         }
       },
       {
