@@ -872,6 +872,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         JSONObject stepStateConfig = new JSONObject();
         stepStateConfig.put(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE, CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(stepStateConfig);
 
         WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(jsonObject).withStepName(TEST_STEP)
@@ -885,6 +886,14 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE,
                 CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
                 DeviceDefinitionProcessorShadow.DETECTED_COMPONENT_TYPE, "", "", "", false);
+
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE,
+                CovidConstants.FormFields.RDT_MANUFACTURER,
+                DeviceDefinitionProcessorShadow.MANUFACTURER, "", "", "", false);
+
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE,
+                CovidConstants.FormFields.RDT_DEVICE_NAME,
+                DeviceDefinitionProcessorShadow.DEVICE_NAME, "", "", "", false);
 
         jsonFormActivity.finish();
     }

@@ -115,6 +115,8 @@ public interface CovidConstants extends Constants {
         String FEMALE = "female";
         String MALE = "male";
         String DETECTED_COMPONENT_TYPE = "detected_component_type";
+        String RDT_MANUFACTURER = "rdt_manufacturer";
+        String RDT_DEVICE_NAME = "rdt_device_name";
     }
 
     interface RDTType {

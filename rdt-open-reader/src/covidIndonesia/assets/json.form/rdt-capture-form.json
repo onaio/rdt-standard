@@ -665,6 +665,22 @@
         "label_text_size": "18sp",
         "text_color": "#000000",
         "base64_encoded_img": ""
+      },
+      {
+        "key": "rdt_manufacturer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "{{rdt-capture-form-original.step14.rdt_manufacturer.label}}"
+      },
+      {
+        "key": "rdt_device_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "{{rdt-capture-form-original.step14.rdt_device_name.label}}"
       }
     ]
   },
