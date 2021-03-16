@@ -45,7 +45,9 @@ public class OneScanHelper {
         if (!isCallable(mActivity, intent)) {
             Log.e(TAG, "Intent is not Callable!");
             if (callback != null) {
-                callback.onResult(Activity.RESULT_CANCELED, null);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("is_not_exist", true);
+                callback.onResult(Activity.RESULT_CANCELED, bundle);
             }
             return;
         }

@@ -1,9 +1,7 @@
 package io.ona.rdt.widget;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.inputmethod.InputMethodManager;
 
@@ -18,7 +16,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.ParseException;
 
-import io.ona.rdt.R;
 import io.ona.rdt.activity.OneScanActivity;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
@@ -44,21 +41,10 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
 
         Intent scannerIntent = new Intent();
         scannerIntent.setClassName(OneScanHelper.PACKAGE_NAME, OneScanHelper.ACTIVITY_NAME);
-
-        if (OneScanHelper.isCallable(activity, scannerIntent)) {
-            Intent intent = new Intent(activity, OneScanActivity.class);
-            intent.putExtra(OneScanActivity.ENABLE_BACK_PRESS, widgetArgs.getJsonObject().optBoolean(OneScanActivity.ENABLE_BACK_PRESS));
-            intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, widgetArgs.getJsonObject().optBoolean(Constants.Config.ENABLE_BATCH_SCAN));
-            activity.startActivityForResult(intent, BARCODE_REQUEST_CODE);
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setTitle(R.string.error)
-                    .setMessage(R.string.onescan_is_not_installed)
-                    .setPositiveButton(R.string.ok, (dialog, id) -> activity.onBackPressed());
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
+        Intent intent = new Intent(activity, OneScanActivity.class);
+        intent.putExtra(OneScanActivity.ENABLE_BACK_PRESS, widgetArgs.getJsonObject().optBoolean(OneScanActivity.ENABLE_BACK_PRESS));
+        intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, widgetArgs.getJsonObject().optBoolean(Constants.Config.ENABLE_BATCH_SCAN));
+        activity.startActivityForResult(intent, BARCODE_REQUEST_CODE);
     }
 
     @Override
