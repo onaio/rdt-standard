@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
+import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
@@ -57,7 +59,18 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-            ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
+            if (data.getBooleanExtra("is_not_exist", false)) {
+                RDTJsonFormFragment fragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+                Utils.showAlertDialog(fragment.getContext(),
+                        fragment.getString(R.string.error),
+                        fragment.getString(R.string.onescan_is_not_installed),
+                        null,
+                        fragment.getString(R.string.ok),
+                        null,
+                        (dialog, id) -> fragment.getActivity().onBackPressed());
+            } else {
+                ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
+            }
         } else if (data == null) {
             Timber.i("No result for qr code");
         }

@@ -83,14 +83,11 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 if (enableBatchScan) {
                     handler.postDelayed(() -> doScan(reader), 1);
                 }
-            } else if (resultCode == Activity.RESULT_CANCELED && bundle.getBoolean("is_not_exist")) {
-                com.vijay.jsonwizard.utils.Utils.showAlertDialog(this,
-                        getString(R.string.error),
-                        getString(R.string.onescan_is_not_installed),
-                        null,
-                        getString(R.string.ok),
-                        null,
-                        (dialog, id) -> finish());
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                setResult(Activity.RESULT_CANCELED, intent);
+                finish();
             }
         });
     }
