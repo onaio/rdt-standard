@@ -1043,7 +1043,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
