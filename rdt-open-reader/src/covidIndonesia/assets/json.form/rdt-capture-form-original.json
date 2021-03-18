@@ -94,7 +94,7 @@
     "title": "RDT",
     "display_back_button": "true",
     "next": "step4",
-    "bottom_navigation" : "true",
+    "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
     "fields": [
@@ -123,7 +123,7 @@
     "title": "RDT",
     "next": "step5",
     "display_back_button": "true",
-    "bottom_navigation" : "true",
+    "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "CONTINUE",
     "fields": [
@@ -327,7 +327,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "label": "Manual unique ID?",
+        "label": "Manual unique ID",
         "type": "hidden"
       },
       {
@@ -456,7 +456,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "text": "RDT Type?"
+        "text": "RDT Type"
       },
       {
         "key": "flash_on",
@@ -503,91 +503,79 @@
     "next_label": "CONTINUE",
     "next": "step12",
     "fields": [
-        {
-            "key": "chw_rdt_type",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "native_radio",
-            "label": "RDT Type",
-            "options": [
-                {
-                    "key": "antigen",
-                    "text": "Antigen"
-                },
-                {
-                    "key": "antibody",
-                    "text": "Antibody"
-                }
-            ],
-            "v_required": {
-                "value": "true",
-                "err": "This field is required"
-            }
-        },
-        {
-            "key": "chw_result_antibody",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "native_radio",
-            "label": "RDT result?",
-            "options": [
-                {
-                    "key": "reactive",
-                    "text": "Reactive"
-                },
-                {
-                    "key": "nonreactive",
-                    "text": "NonReactive"
-                }
-            ],
-            "v_required": {
-                "value": "true",
-                "err": "This field is required"
-            },
-            "relevance": {
-                "step11:chw_rdt_type": {
-                    "type": "string",
-                    "ex": "equalTo(., \"antibody\")"
-                }
-            }
-        },
       {
-        "key": "chw_result_antigen",
+        "key": "detected_component_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Detected component",
+        "type": "hidden"
+      },
+      {
+        "key": "chw_result_antibody",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "RDT result?",
+        "label": "RDT result",
         "options": [
           {
-            "key": "positive",
-            "text": "positive"
+            "key": "reactive",
+            "text": "Reactive"
           },
           {
-            "key": "negative",
-            "text": "negative"
-          },
-          {
-            "key": "invalid",
-            "text": "invalid"
+            "key": "nonreactive",
+            "text": "Non-reactive"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "This field is required"
         },
-          "relevance": {
-              "step11:chw_rdt_type": {
-                  "type": "string",
-                  "ex": "equalTo(., \"antigen\")"
-              }
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
+        }
+      },
+      {
+        "key": "chw_result_antigen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "RDT result",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive"
+          },
+          {
+            "key": "negative",
+            "text": "Negative"
+          },
+          {
+            "key": "invalid",
+            "text": "Invalid"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "antibody_type",
-        "label": "Antibody?",
+        "label": "Antibody",
         "type": "check_box",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -610,9 +598,10 @@
           "err": "Please specify if positive for pv, pf or both"
         },
         "relevance": {
-          "step11:chw_result_antibody": {
-            "type": "string",
-            "ex": "equalTo(., \"reactive\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rdt-capture-form-relevance-rules.yml"
+            }
           }
         }
       }
@@ -676,6 +665,22 @@
         "label_text_size": "18sp",
         "text_color": "#000000",
         "base64_encoded_img": ""
+      },
+      {
+        "key": "rdt_manufacturer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "Manufacturer"
+      },
+      {
+        "key": "rdt_device_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "label": "Device Name"
       }
     ]
   }

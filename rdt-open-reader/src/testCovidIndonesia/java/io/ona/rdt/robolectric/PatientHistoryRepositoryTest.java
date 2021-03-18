@@ -31,7 +31,7 @@ public class PatientHistoryRepositoryTest extends RobolectricTest {
     @Test
     public void testGetEventsByEventTypeShouldExecuteCorrectQueryOnECRepository() {
         patientHistoryRepository.getEvent(BASE_ENTITY_ID, EVENT_TYPE, DATE);
-        String query = "SELECT json, eventDate, SUBSTR(eventDate, 1, 10) AS visit_date FROM event WHERE baseEntityId=? AND eventType=? AND visit_date=? ORDER BY eventDate DESC LIMIT 1";
+        String query = "SELECT json, eventDate, SUBSTR(eventDate, 1, 10) AS visit_date FROM event WHERE baseEntityId=? AND eventType=? AND visit_date=? ORDER BY dateCreated DESC LIMIT 1";
         String[] params = new String[]{BASE_ENTITY_ID, EVENT_TYPE, DATE};
         Mockito.verify(eventClientRepository).fetchEventClientsCore(ArgumentMatchers.eq(query), ArgumentMatchers.eq(params));
     }
