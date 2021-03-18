@@ -59,7 +59,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-            if (data.getBooleanExtra("is_not_exist", false)) {
+            if (data != null && data.getBooleanExtra(Constants.Result.ONESCAN_IS_NOT_INSTALLED, false)) {
                 RDTJsonFormFragment fragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
                 Utils.showAlertDialog(fragment.getContext(),
                         fragment.getString(R.string.error),

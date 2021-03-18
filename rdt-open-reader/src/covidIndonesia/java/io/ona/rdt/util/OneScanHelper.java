@@ -25,8 +25,8 @@ public class OneScanHelper {
     private final SparseArray<IntentResultCallback> mCallbacks = new SparseArray<>();
 
     private static final String TAG = "OneScanScanner";
-    public static final String PACKAGE_NAME = "com.temptimecorp.onescan";
-    public static final String ACTIVITY_NAME = "CameraActivityLolipop";
+    private static final String PACKAGE_NAME = "com.temptimecorp.onescan";
+    private static final String ACTIVITY_NAME = "CameraActivityLolipop";
     private static final String ACTION_GET_VERSION = "action.version";
     private static final String ACTION_SCANNER = "action.scanner";
 
@@ -46,7 +46,7 @@ public class OneScanHelper {
             Log.e(TAG, "Intent is not Callable!");
             if (callback != null) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean("is_not_exist", true);
+                bundle.putBoolean(Constants.Result.ONESCAN_IS_NOT_INSTALLED, true);
                 callback.onResult(Activity.RESULT_CANCELED, bundle);
             }
             return;
@@ -64,7 +64,7 @@ public class OneScanHelper {
         send(request.action, request.getBundle(), callback);
     }
 
-    public static boolean isCallable(Activity activity, Intent intent) {
+    private static boolean isCallable(Activity activity, Intent intent) {
         List<ResolveInfo> list = activity.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }

@@ -19,7 +19,6 @@ import java.text.ParseException;
 import io.ona.rdt.activity.OneScanActivity;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
-import io.ona.rdt.util.OneScanHelper;
 import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
@@ -38,9 +37,6 @@ public class OneScanCovidRDTBarcodeFactory extends CovidRDTBarcodeFactory {
     protected void launchBarcodeScanner(Activity activity, MaterialEditText editText, String barcodeType) {
         InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(editText.getWindowToken(), HIDE_NOT_ALWAYS);
-
-        Intent scannerIntent = new Intent();
-        scannerIntent.setClassName(OneScanHelper.PACKAGE_NAME, OneScanHelper.ACTIVITY_NAME);
         Intent intent = new Intent(activity, OneScanActivity.class);
         intent.putExtra(OneScanActivity.ENABLE_BACK_PRESS, widgetArgs.getJsonObject().optBoolean(OneScanActivity.ENABLE_BACK_PRESS));
         intent.putExtra(Constants.Config.ENABLE_BATCH_SCAN, widgetArgs.getJsonObject().optBoolean(Constants.Config.ENABLE_BATCH_SCAN));
