@@ -68,10 +68,11 @@ public class OneScanHelperTest {
 
     @Test
     public void sendShouldVerifyScenarioFirst() {
-
+        request = Mockito.spy(request);
+        Bundle bundle = Mockito.mock(Bundle.class);
+        Mockito.when(request.getBundle()).thenReturn(bundle);
         oneScanHelper.send(request, callback);
-
-        Mockito.verify(callback, Mockito.times(1)).onResult(Activity.RESULT_CANCELED, null);
+        Mockito.verify(callback, Mockito.times(1)).onResult(Activity.RESULT_CANCELED, bundle);
     }
 
     @Test

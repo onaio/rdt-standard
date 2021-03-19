@@ -45,9 +45,8 @@ public class OneScanHelper {
         if (!isCallable(mActivity, intent)) {
             Log.e(TAG, "Intent is not Callable!");
             if (callback != null) {
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(Constants.Result.ONESCAN_IS_NOT_INSTALLED, true);
-                callback.onResult(Activity.RESULT_CANCELED, bundle);
+                extras.putBoolean(Constants.Result.ONESCAN_IS_NOT_INSTALLED, true);
+                callback.onResult(Activity.RESULT_CANCELED, extras);
             }
             return;
         }
