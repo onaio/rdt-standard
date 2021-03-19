@@ -92,6 +92,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     @Override
     public void onBackPress() {
         setPreviousPressed(true);
+        getSupportFragmentManager().popBackStack();
     }
 
     public String getRdtType() {
