@@ -43,6 +43,10 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
         currPatient = getIntent().getParcelableExtra(Constants.FormFields.PATIENT);
         presenter = new CovidPatientHistoryActivityPresenter(this);
 
+        TextView tv = findViewById(R.id.visit_date_label);
+        String visitDateLabel = getString(R.string.visit_date_label);
+        tv.setText(visitDateLabel + ": " + getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE));
+
         populatePatientHistory();
     }
 
