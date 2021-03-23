@@ -25,7 +25,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         updateLocale(this);
         updateFTSDetails();
         super.onCreate(savedInstanceState);
-        updateLocale(this);
     }
 
     private void updateFTSDetails() {
