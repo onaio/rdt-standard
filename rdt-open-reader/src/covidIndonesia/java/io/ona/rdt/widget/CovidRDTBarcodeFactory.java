@@ -59,8 +59,8 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+            RDTJsonFormFragment fragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
             if (data != null && data.getBooleanExtra(Constants.Result.ONESCAN_IS_NOT_INSTALLED, false)) {
-                RDTJsonFormFragment fragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
                 Utils.showAlertDialog(fragment.getContext(),
                         fragment.getString(R.string.error),
                         fragment.getString(R.string.onescan_is_not_installed),
@@ -69,7 +69,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                         null,
                         (dialog, id) -> fragment.getActivity().onBackPressed());
             } else {
-                ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
+                fragment.setMoveBackOneStep(true);
             }
         } else if (data == null) {
             Timber.i("No result for qr code");
