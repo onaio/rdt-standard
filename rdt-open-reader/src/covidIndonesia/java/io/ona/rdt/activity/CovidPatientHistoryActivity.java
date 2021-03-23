@@ -31,6 +31,7 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
 
     private Patient currPatient;
     private CovidPatientHistoryActivityPresenter presenter;
+    private String patientVisitDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +43,11 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
 
         currPatient = getIntent().getParcelableExtra(Constants.FormFields.PATIENT);
         presenter = new CovidPatientHistoryActivityPresenter(this);
+        patientVisitDate = getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE);
 
         TextView tv = findViewById(R.id.visit_date_label);
         String visitDateLabel = getString(R.string.visit_date_label);
-        tv.setText(visitDateLabel + ": " + getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE));
+        tv.setText(visitDateLabel + ": " + patientVisitDate);
 
         populatePatientHistory();
     }
@@ -78,7 +80,7 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
         patientHistoryEntryList.setHasFixedSize(true);
         patientHistoryEntryList.setLayoutManager(new LinearLayoutManager(this));
         fetchHistory(patientHistoryEntryList, eventType,
-                getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE),
+                patientVisitDate,
                 patientHistorySection.findViewById(R.id.tv_no_entries_found));
     }
 
