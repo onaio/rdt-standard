@@ -1043,7 +1043,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step3.international_country.v_regex.err}}"
         },
         "v_required": {

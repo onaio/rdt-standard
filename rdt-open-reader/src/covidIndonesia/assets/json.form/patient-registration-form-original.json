@@ -316,7 +316,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_email": {
+          "value": "true",
+          "err": "Please enter a valid email address"
+        }
       },
       {
         "key": "gvt_id_street_address_lbl",
@@ -517,10 +521,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
         "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -555,10 +572,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
         "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -760,7 +790,7 @@
           },
           {
             "key": "nonreactive",
-            "text": "NonReactive"
+            "text": "Non-reactive"
           }
         ],
         "v_required": {
