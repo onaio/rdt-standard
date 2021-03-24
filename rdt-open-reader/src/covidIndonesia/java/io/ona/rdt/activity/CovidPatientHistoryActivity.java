@@ -45,10 +45,6 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
         presenter = new CovidPatientHistoryActivityPresenter(this);
         patientVisitDate = getIntent().getStringExtra(Constants.FormFields.PATIENT_VISIT_DATE);
 
-        TextView tv = findViewById(R.id.visit_date_label);
-        String visitDateLabel = getString(R.string.visit_date_label);
-        tv.setText(visitDateLabel + ": " + patientVisitDate);
-
         populatePatientHistory();
     }
 
@@ -72,6 +68,10 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
         for (Map.Entry<Integer, String> sectionIdAndEvent : getPatientHistorySectionsMap().entrySet()) {
             fetchAndPopulateHistory(sectionIdAndEvent.getKey(), sectionIdAndEvent.getValue());
         }
+
+        TextView tv = findViewById(R.id.visit_date_label);
+        String visitDateLabel = getString(R.string.visit_date_label);
+        tv.setText(visitDateLabel + ": " + patientVisitDate);
     }
 
     private void fetchAndPopulateHistory(int layoutId, String eventType) {
