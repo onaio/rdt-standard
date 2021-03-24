@@ -61,17 +61,17 @@
             android:id="@+id/middle_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_above="@id/bottom_section"
+            android:layout_below="@id/top_section"
             android:orientation="vertical"
             android:paddingLeft="@dimen/login_horizontal_margin"
-            android:paddingTop="160dp"
             android:paddingRight="@dimen/login_horizontal_margin">
 
             <EditText
                 android:id="@+id/login_user_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_view_component_height"
-                android:layout_weight="8"
                 android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/login_enter_username"
@@ -92,7 +92,6 @@
                 android:layout_height="@dimen/login_view_component_height"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_weight="8"
                 android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/login_enter_password"
@@ -142,7 +141,6 @@
                 android:layout_height="@dimen/login_view_component_height"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_weight="8"
                 android:ems="10"
                 android:onClick="login"
                 android:shadowDx="0"
@@ -155,14 +153,47 @@
                 android:gravity="center"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_login_attributions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/login_attributions"
-            android:textColor="#A2A2A2"
-            android:gravity="center_horizontal"
-            android:textSize="16sp"/>
+        <LinearLayout
+                android:id="@+id/bottom_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_developed_by"
+                    android:textColor="#A2A2A2"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/login_logo_height"
+                        android:layout_marginHorizontal="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_sid_logo" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/login_logo_height"
+                        android:layout_marginHorizontal="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_ona_logo" />
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_powered_by"
+                    android:textColor="#A2A2A2"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>

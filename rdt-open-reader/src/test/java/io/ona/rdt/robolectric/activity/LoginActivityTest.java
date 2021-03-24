@@ -97,13 +97,6 @@ public class LoginActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testAddAttributionTextShouldSetCorrectAttributionText() {
-        TextView tvAttributions = loginActivity.findViewById(R.id.tv_login_attributions);
-        assertEquals(Html.fromHtml(loginActivity.getResources().getString(R.string.login_attributions)).toString(),
-                tvAttributions.getText().toString());
-    }
-
-    @Test
     public void testUpdateFTSDetailShouldUpdateCorrectDetails() {
         verify(presenter).setRegisterTableName(eq(RDT_PATIENTS));
         verify(context).updateCommonFtsObject(commonFtsObjectCaptor.capture());
