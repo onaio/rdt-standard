@@ -154,6 +154,13 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
+    public void testConvertDateShouldReturnNullForInvalidDateFormat() throws Exception {
+        String dateStr = null;
+        String result = Utils.convertDate(dateStr, "dd/MM/yyyy", "yyyy-MM-dd");
+        Assert.assertNull(result);
+    }
+
+    @Test
     public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
         Assert.assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
     }
