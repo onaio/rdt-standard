@@ -109,6 +109,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
+        "label": "Date conducted",
         "hint": "Date conducted",
         "expanded": false,
         "duration": {
