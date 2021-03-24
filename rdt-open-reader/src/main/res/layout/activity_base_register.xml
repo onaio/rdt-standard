@@ -23,7 +23,21 @@
         app:menu="@menu/menu_patient_register"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
-        android:background="#2C2C2C" />
+        android:background="#2C2C2C">
+
+        <TextView
+            android:id="@+id/tv_latest_sync_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom|center_horizontal"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:text="@string/lbl_latest_sync"
+            tools:visibility="visible"/>
+
+    </com.google.android.material.navigation.NavigationView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

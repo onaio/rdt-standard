@@ -20,7 +20,6 @@ import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
-import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -90,7 +89,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         // populate RDT device details confirmation page
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
         String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
-        formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId, false);
+        formUtils.populateFormWithRDTDetails(widgetArgs, deviceId, false);
 
         // we can do this population asynchronously
         class FormWidgetPopulationTask extends AsyncTask<Void, Void, Void> {
