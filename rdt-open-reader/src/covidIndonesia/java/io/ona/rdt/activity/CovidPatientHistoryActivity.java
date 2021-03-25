@@ -69,9 +69,9 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
             fetchAndPopulateHistory(sectionIdAndEvent.getKey(), sectionIdAndEvent.getValue());
         }
 
-        TextView tv = findViewById(R.id.visit_date_label);
+        TextView tvVisitDate = findViewById(R.id.visit_date_label);
         String visitDateLabel = getString(R.string.visit_date_label);
-        tv.setText(visitDateLabel + ": " + patientVisitDate);
+        tvVisitDate.setText(visitDateLabel + ": " + patientVisitDate);
     }
 
     private void fetchAndPopulateHistory(int layoutId, String eventType) {

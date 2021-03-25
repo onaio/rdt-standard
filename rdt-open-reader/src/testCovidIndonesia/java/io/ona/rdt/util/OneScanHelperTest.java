@@ -73,6 +73,7 @@ public class OneScanHelperTest {
         Mockito.when(request.getBundle()).thenReturn(bundle);
         oneScanHelper.send(request, callback);
         Mockito.verify(callback, Mockito.times(1)).onResult(Activity.RESULT_CANCELED, bundle);
+        Mockito.verify(bundle, Mockito.times(1)).putBoolean(Constants.Result.ONESCAN_IS_NOT_INSTALLED, true);
     }
 
     @Test
