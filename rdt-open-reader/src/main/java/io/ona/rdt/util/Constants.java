@@ -23,6 +23,7 @@ public interface Constants {
         String JSON_FORM_PARAM_JSON = "json";
         String EXPIRATION_DATE_RESULT = "expiration_date_result";
         String EXPIRATION_DATE = "expiration_date";
+        String ONESCAN_IS_NOT_INSTALLED = "onescan_is_not_installed";
     }
 
     interface RDTType {

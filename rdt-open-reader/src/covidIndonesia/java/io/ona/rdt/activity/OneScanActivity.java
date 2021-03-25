@@ -28,7 +28,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
-import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 import io.ona.rdt.widget.RDTBarcodeFactory;
@@ -84,6 +83,11 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 if (enableBatchScan) {
                     handler.postDelayed(() -> doScan(reader), 1);
                 }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                setResult(Activity.RESULT_CANCELED, intent);
+                finish();
             }
         });
     }
