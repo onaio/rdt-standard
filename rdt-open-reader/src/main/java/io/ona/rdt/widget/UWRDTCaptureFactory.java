@@ -79,7 +79,7 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
     @Override
     protected void launchRDTCaptureActivity() {
         Context context = widgetArgs.getContext();
-        if (!isRdtScannerLaunched && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+        if (!isRdtScannerLaunched) {
             isRdtScannerLaunched = true;
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(JsonFormUtils.ENTITY_ID, baseEntityId);
