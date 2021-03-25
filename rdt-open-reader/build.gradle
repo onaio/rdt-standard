@@ -83,7 +83,7 @@ android {
 
     buildTypes {
         debug {
-            resValue "string", 'opensrp_base_url', '"https://rdt-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_base_url', '"https://rdt.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '50'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50'
             buildConfigField "boolean", "SAVE_IMAGES_TO_GALLERY", 'true'
