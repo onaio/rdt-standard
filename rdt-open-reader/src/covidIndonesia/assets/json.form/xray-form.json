@@ -109,6 +109,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
+        "label": "{{xray-form-original.step1.date_xray_conducted.label}}",
         "hint": "{{xray-form-original.step1.date_xray_conducted.hint}}",
         "expanded": false,
         "duration": {
