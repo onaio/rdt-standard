@@ -44,4 +44,6 @@
     <string name="error">Error</string>
     <string name="ok">OK</string>
     <string name="visit_date_label">Visit Date</string>
+    <string name="account_disabled">Session Expired</string>
+    <string name="account_disabled_logged_off">Your session has expired. Please login again to continue working.</string>
 </resources>
