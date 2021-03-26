@@ -3,9 +3,12 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
+
+import androidx.annotation.StringRes;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -22,6 +25,7 @@ import org.smartregister.domain.UniqueId;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import androidx.annotation.StringRes;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
@@ -224,5 +227,26 @@ public class Utils {
         } catch (JSONException e) {
             return false;
         }
+    }
+
+    public static void verifyUserAuthorization() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                SyncUtils syncUtils = new SyncUtils(RDTApplication.getInstance());
+                boolean isUserAuthorized = syncUtils.verifyAuthorization();
+                try {
+                    if (!isUserAuthorized) {
+                        syncUtils.logoutUser();
+                    }
+                } catch (Exception ex) {
+                    Timber.e(ex);
+                }
+
+                return null;
+            }
+        }.execute();
     }
 }

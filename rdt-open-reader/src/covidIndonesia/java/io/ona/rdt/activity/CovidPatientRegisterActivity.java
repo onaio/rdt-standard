@@ -10,12 +10,12 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 
@@ -35,7 +35,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     @Override
     public void onResume() {
         super.onResume();
-        RDTApplication.getInstance().verifyUserAuthorization();
+        Utils.verifyUserAuthorization();
     }
 
     @Override
