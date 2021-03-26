@@ -1,6 +1,7 @@
 package io.ona.rdt.application;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 
 import com.evernote.android.job.JobManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -16,10 +17,6 @@ import org.smartregister.repository.Repository;
 import org.smartregister.util.SyncUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.job.RDTJobCreator;
@@ -46,9 +43,8 @@ public class RDTApplication extends DrishtiApplication {
     private RDTTestsRepository rdtTestsRepository;
     private ParasiteProfileRepository parasiteProfileRepository;
 
-    private ExecutorService executor;
+    private VerifyUserAuthTask verifyUserAuthTask;
     private SyncUtils syncUtils;
-    private Future<?> future;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -84,7 +80,6 @@ public class RDTApplication extends DrishtiApplication {
             sharedPreferences.savePreference(AllConstants.LANGUAGE_PREFERENCE_KEY, BuildConfig.LOCALE);
         }
 
-        executor = Executors.newSingleThreadExecutor();
         syncUtils = new SyncUtils(this);
     }
 
@@ -168,20 +163,39 @@ public class RDTApplication extends DrishtiApplication {
 
     public void verifyUserAuthorization() {
 
-        if (future != null) {
-            future.cancel(true);
+        if (verifyUserAuthTask != null) {
+            verifyUserAuthTask.cancel(true);
         }
 
-        future = executor.submit(() -> {
-            boolean isUserAuthorized = syncUtils.verifyAuthorization();
-            try {
-                if (!isUserAuthorized) {
-                    syncUtils.logoutUser();
-                }
-            } catch (Exception ex) {
-                Timber.e(ex);
-            }
-        });
+        verifyUserAuthTask = new VerifyUserAuthTask(syncUtils);
+        verifyUserAuthTask.execute();
     }
 
+    private static class VerifyUserAuthTask extends AsyncTask<Void, Void, Void> {
+
+        private final SyncUtils syncUtils;
+
+        public VerifyUserAuthTask(SyncUtils syncUtils) {
+            this.syncUtils = syncUtils;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            if (!isCancelled()) {
+
+
+                boolean isUserAuthorized = syncUtils.verifyAuthorization();
+                try {
+                    if (!isUserAuthorized) {
+                        syncUtils.logoutUser();
+                    }
+                } catch (Exception ex) {
+                    Timber.e(ex);
+                };
+            }
+
+            return null;
+        }
+    }
 }
