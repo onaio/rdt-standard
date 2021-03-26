@@ -175,7 +175,7 @@ public class RDTApplication extends DrishtiApplication {
 
         private final SyncUtils syncUtils;
 
-        public VerifyUserAuthTask(SyncUtils syncUtils) {
+        VerifyUserAuthTask(SyncUtils syncUtils) {
             this.syncUtils = syncUtils;
         }
 
@@ -184,7 +184,6 @@ public class RDTApplication extends DrishtiApplication {
 
             if (!isCancelled()) {
 
-
                 boolean isUserAuthorized = syncUtils.verifyAuthorization();
                 try {
                     if (!isUserAuthorized) {
@@ -192,7 +191,7 @@ public class RDTApplication extends DrishtiApplication {
                     }
                 } catch (Exception ex) {
                     Timber.e(ex);
-                };
+                }
             }
 
             return null;
