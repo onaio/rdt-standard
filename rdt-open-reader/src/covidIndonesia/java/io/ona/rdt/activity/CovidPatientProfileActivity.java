@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.ProfileFragmentAdapter;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.CovidPatientProfileActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
@@ -38,6 +39,12 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         addListeners();
         setUpTabs();
         initializeFormWidgetKeyToTextMap();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RDTApplication.getInstance().verifyUserAuthorization();
     }
 
     private void initializeFormWidgetKeyToTextMap() {

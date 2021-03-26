@@ -10,6 +10,7 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
@@ -29,6 +30,12 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerLanguageSwitcher();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        RDTApplication.getInstance().verifyUserAuthorization();
     }
 
     @Override

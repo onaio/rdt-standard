@@ -65,6 +65,12 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        RDTApplication.getInstance().verifyUserAuthorization();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         stopLocationUpdates();
