@@ -229,24 +229,36 @@ public class Utils {
         }
     }
 
+    private static boolean isAuthInProgress = false;
+
     public static void verifyUserAuthorization() {
-        new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... voids) {
+        if (!isAuthInProgress) {
+            isAuthInProgress = true;
+            new AsyncTask<Void, Void, Void>() {
 
-                SyncUtils syncUtils = new SyncUtils(RDTApplication.getInstance());
-                boolean isUserAuthorized = syncUtils.verifyAuthorization();
-                try {
+                @Override
+                protected Void doInBackground(Void... voids) {
+
+                    final SyncUtils syncUtils = new SyncUtils(RDTApplication.getInstance());
+                    boolean isUserAuthorized = syncUtils.verifyAuthorization();
                     if (!isUserAuthorized) {
-                        syncUtils.logoutUser();
+                        try {
+                            syncUtils.logoutUser();
+                        } catch (Exception ex) {
+                            Timber.e(ex);
+                        }
                     }
-                } catch (Exception ex) {
-                    Timber.e(ex);
+
+                    return null;
                 }
 
-                return null;
-            }
-        }.execute();
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    isAuthInProgress = false;
+                }
+            }.execute();
+        }
     }
 }
