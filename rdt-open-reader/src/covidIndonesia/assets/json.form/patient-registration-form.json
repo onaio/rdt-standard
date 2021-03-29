@@ -82,6 +82,10 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.patient_first_name.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "{{patient-registration-form-original.step1.patient_first_name.v_regex.err}}"
         }
       },
       {
@@ -98,7 +102,11 @@
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "edit_type": "name",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "{{patient-registration-form-original.step1.patient_last_name.v_regex.err}}"
+        }
       },
       {
         "key": "patient_id_label",
@@ -113,7 +121,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.patient_id.v_regex.err}}"
+        }
       },
       {
         "key": "medical_record_id_label",
@@ -128,7 +140,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.medical_record_id.v_regex.err}}"
+        }
       },
       {
         "key": "spacer",
@@ -181,6 +197,10 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.government_id_no.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.government_id_no.v_regex.err}}"
         }
       },
       {
