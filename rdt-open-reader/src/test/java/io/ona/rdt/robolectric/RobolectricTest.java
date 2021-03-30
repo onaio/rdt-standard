@@ -35,6 +35,7 @@ import io.ona.rdt.robolectric.shadow.MatShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteDatabaseShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
+import io.ona.rdt.shadow.SyncUtilsShadow;
 
 @RunWith(AndroidJUnit4.class)
 @Config(sdk = Build.VERSION_CODES.O_MR1,
@@ -43,7 +44,7 @@ import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,
         SQLiteDatabaseShadow.class, GpsDialogShadow.class, MatShadow.class,
-        ClientProcessorForJavaShadow.class, ImageUtilShadow.class})
+        ClientProcessorForJavaShadow.class, ImageUtilShadow.class, SyncUtilsShadow.class})
 public abstract class RobolectricTest {
 
     @Before

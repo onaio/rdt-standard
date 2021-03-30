@@ -40,11 +40,6 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         addListeners();
         setUpTabs();
         initializeFormWidgetKeyToTextMap();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         Utils.verifyUserAuthorization();
     }
 

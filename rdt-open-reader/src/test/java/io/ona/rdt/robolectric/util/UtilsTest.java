@@ -223,4 +223,11 @@ public class UtilsTest extends RobolectricTest {
         Assert.assertFalse(Utils.isValidJSONObject(null));
         Assert.assertFalse(Utils.isValidJSONObject(""));
     }
+
+    @Test
+    public void testVerifyUserAuthorizationShouldCallOnlyOnce() {
+        Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
+        Utils.verifyUserAuthorization();
+        Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
+    }
 }

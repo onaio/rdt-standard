@@ -35,6 +35,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
         MockitoAnnotations.initMocks(this);
         covidPatientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class)
                 .create()
+                .resume()
                 .get();
     }
 

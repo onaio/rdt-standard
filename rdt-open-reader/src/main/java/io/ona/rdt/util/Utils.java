@@ -51,6 +51,7 @@ import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 public class Utils {
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String DEFAULT_LOCATION_LEVEL = Constants.Tags.LOCATION;
+    public static boolean IS_AUTH_IN_PROGRESS = false;
 
     static {
         ALLOWED_LEVELS = new ArrayList<>();
@@ -229,12 +230,10 @@ public class Utils {
         }
     }
 
-    private static boolean isAuthInProgress = false;
-
     public static void verifyUserAuthorization() {
 
-        if (!isAuthInProgress) {
-            isAuthInProgress = true;
+        if (!IS_AUTH_IN_PROGRESS) {
+            IS_AUTH_IN_PROGRESS = true;
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
@@ -256,7 +255,7 @@ public class Utils {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    isAuthInProgress = false;
+                    IS_AUTH_IN_PROGRESS = false;
                 }
             }.execute();
         }

@@ -30,11 +30,6 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerLanguageSwitcher();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         Utils.verifyUserAuthorization();
     }
 
