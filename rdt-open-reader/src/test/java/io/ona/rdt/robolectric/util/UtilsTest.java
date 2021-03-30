@@ -1,5 +1,7 @@
 package io.ona.rdt.robolectric.util;
 
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -18,11 +20,14 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -225,9 +230,18 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
-    public void testVerifyUserAuthorizationShouldCallOnlyOnce() {
+    public void testVerifyUserAuthorizationShouldCallOnlyOnce() throws AuthenticatorException, OperationCanceledException, IOException {
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+        Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
+        ReflectionHelpers.setField(RDTApplication.getInstance(), "syncUtils", syncUtils);
+
         Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
         Utils.verifyUserAuthorization();
+        Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
+        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
+        Utils.verifyUserAuthorization();
         Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
+
     }
 }
