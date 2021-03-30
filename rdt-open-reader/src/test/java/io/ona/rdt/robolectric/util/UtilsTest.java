@@ -17,7 +17,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowToast;
 import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -38,7 +37,6 @@ import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import io.ona.rdt.robolectric.RobolectricTest;
 import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
-import io.ona.rdt.robolectric.shadow.SyncUtilsShadow;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
 
@@ -230,8 +228,6 @@ public class UtilsTest extends RobolectricTest {
     public void testVerifyUserAuthorizationShouldCallOnlyOnce() {
         Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
         Utils.verifyUserAuthorization();
-        SyncUtilsShadow syncUtilsShadow = Shadow.extract(RDTApplication.getInstance().getSyncUtils());
-        Assert.assertTrue(syncUtilsShadow.isLogout());
         Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
     }
 }
