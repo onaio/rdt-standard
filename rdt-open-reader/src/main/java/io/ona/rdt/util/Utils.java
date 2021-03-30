@@ -239,13 +239,16 @@ public class Utils {
         private boolean isFinish = true;
 
         public static UserVerifyAuthTask getInstance() {
-            return INSTANCE == null ? INSTANCE = new UserVerifyAuthTask() : INSTANCE;
+            if (INSTANCE == null) {
+                INSTANCE = new UserVerifyAuthTask();
+            }
+            return INSTANCE;
         }
 
         public void run() {
             if (isFinish) {
                 isFinish = false;
-                new AsyncTask<Void, Void, Void>(){
+                new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
                         final SyncUtils syncUtils = RDTApplication.getInstance().getSyncUtils();
