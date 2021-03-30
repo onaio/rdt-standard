@@ -1,4 +1,4 @@
-package io.ona.rdt.shadow;
+package io.ona.rdt.robolectric.shadow;
 
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;

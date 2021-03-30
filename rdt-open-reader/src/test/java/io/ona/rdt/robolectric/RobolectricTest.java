@@ -35,7 +35,7 @@ import io.ona.rdt.robolectric.shadow.MatShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteDatabaseShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
-import io.ona.rdt.shadow.SyncUtilsShadow;
+import io.ona.rdt.robolectric.shadow.SyncUtilsShadow;
 
 @RunWith(AndroidJUnit4.class)
 @Config(sdk = Build.VERSION_CODES.O_MR1,
