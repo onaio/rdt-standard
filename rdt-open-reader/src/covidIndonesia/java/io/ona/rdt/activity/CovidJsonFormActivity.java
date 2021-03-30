@@ -31,7 +31,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidJsonFormFragment;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
-import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 import static io.ona.rdt.util.CovidConstants.FormFields.LAST_KNOWN_LOCATION;
@@ -63,12 +62,6 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
             fusedLocationProviderClient.requestLocationUpdates(getLocationRequest(), locationCallback, null);
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, getOnLocationSuccessListener());
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Utils.verifyUserAuthorization();
     }
 
     @Override
