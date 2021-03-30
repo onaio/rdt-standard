@@ -1,5 +1,6 @@
 package io.ona.rdt.robolectric.application;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -40,5 +41,10 @@ public class RDTApplicationTest extends RobolectricTest {
     @Test
     public void testGetRdtTestsRepositoryShouldReturnNonNullRepository() {
         assertNotNull(application.getRdtTestsRepository());
+    }
+
+    @Test
+    public void testGetSyncUtilsShouldReturnNoNull() {
+        Assert.assertNotNull(application.getSyncUtils());
     }
 }
