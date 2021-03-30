@@ -13,6 +13,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.util.SyncUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -40,6 +41,7 @@ public class RDTApplication extends DrishtiApplication {
     private Activity currentActivity;
     private RDTTestsRepository rdtTestsRepository;
     private ParasiteProfileRepository parasiteProfileRepository;
+    private SyncUtils syncUtils;
 
     public static synchronized RDTApplication getInstance() {
         return (RDTApplication) mInstance;
@@ -74,6 +76,8 @@ public class RDTApplication extends DrishtiApplication {
         if (StringUtils.isEmpty(sharedPreferences.getPreference(AllConstants.LANGUAGE_PREFERENCE_KEY))) {
             sharedPreferences.savePreference(AllConstants.LANGUAGE_PREFERENCE_KEY, BuildConfig.LOCALE);
         }
+
+        syncUtils = new SyncUtils(RDTApplication.getInstance());
     }
 
     private void initializeCrashlyticsAndLogging() {
@@ -152,5 +156,9 @@ public class RDTApplication extends DrishtiApplication {
             parasiteProfileRepository = new ParasiteProfileRepository();
         }
         return parasiteProfileRepository;
+    }
+
+    public SyncUtils getSyncUtils() {
+        return syncUtils;
     }
 }

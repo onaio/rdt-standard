@@ -239,7 +239,7 @@ public class Utils {
                 @Override
                 protected Void doInBackground(Void... voids) {
 
-                    final SyncUtils syncUtils = new SyncUtils(RDTApplication.getInstance());
+                    final SyncUtils syncUtils = RDTApplication.getInstance().getSyncUtils();
                     boolean isUserAuthorized = syncUtils.verifyAuthorization();
                     if (!isUserAuthorized) {
                         try {
