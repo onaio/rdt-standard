@@ -51,7 +51,6 @@ import static io.ona.rdt.util.Constants.Config.IS_IMG_SYNC_ENABLED;
 public class Utils {
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String DEFAULT_LOCATION_LEVEL = Constants.Tags.LOCATION;
-    public static boolean IS_AUTH_IN_PROGRESS = false;
 
     static {
         ALLOWED_LEVELS = new ArrayList<>();
@@ -231,33 +230,43 @@ public class Utils {
     }
 
     public static void verifyUserAuthorization() {
+        UserVerifyAuthTask.getInstance().run();
+    }
 
-        if (!IS_AUTH_IN_PROGRESS) {
-            IS_AUTH_IN_PROGRESS = true;
-            new AsyncTask<Void, Void, Void>() {
+    private static class UserVerifyAuthTask {
 
-                @Override
-                protected Void doInBackground(Void... voids) {
+        private static UserVerifyAuthTask INSTANCE;
+        private boolean isFinish = true;
 
-                    final SyncUtils syncUtils = RDTApplication.getInstance().getSyncUtils();
-                    boolean isUserAuthorized = syncUtils.verifyAuthorization();
-                    if (!isUserAuthorized) {
-                        try {
-                            syncUtils.logoutUser();
-                        } catch (Exception ex) {
-                            Timber.e(ex);
+        public static UserVerifyAuthTask getInstance() {
+            return INSTANCE == null ? INSTANCE = new UserVerifyAuthTask() : INSTANCE;
+        }
+
+        public void run() {
+            if (isFinish) {
+                isFinish = false;
+                new AsyncTask<Void, Void, Void>(){
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        final SyncUtils syncUtils = RDTApplication.getInstance().getSyncUtils();
+                        boolean isUserAuthorized = syncUtils.verifyAuthorization();
+                        if (!isUserAuthorized) {
+                            try {
+                                syncUtils.logoutUser();
+                            } catch (Exception ex) {
+                                Timber.e(ex);
+                            }
                         }
+                        return null;
                     }
 
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-                    IS_AUTH_IN_PROGRESS = false;
-                }
-            }.execute();
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        isFinish = true;
+                    }
+                }.execute();
+            }
         }
     }
 }

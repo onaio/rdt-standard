@@ -236,12 +236,9 @@ public class UtilsTest extends RobolectricTest {
         Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
         ReflectionHelpers.setField(RDTApplication.getInstance(), "syncUtils", syncUtils);
 
-        Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
         Utils.verifyUserAuthorization();
         Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
         Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
         Utils.verifyUserAuthorization();
-        Assert.assertFalse(Utils.IS_AUTH_IN_PROGRESS);
-
     }
 }
