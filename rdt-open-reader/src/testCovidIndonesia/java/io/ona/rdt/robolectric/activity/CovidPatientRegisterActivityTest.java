@@ -8,11 +8,14 @@ import androidx.appcompat.app.AlertDialog;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowAlertDialog;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientRegisterActivity;
@@ -33,6 +36,11 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+        Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
+        ReflectionHelpers.setField(RDTApplication.getInstance(), "syncUtils", syncUtils);
+
         covidPatientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class)
                 .create()
                 .resume()
