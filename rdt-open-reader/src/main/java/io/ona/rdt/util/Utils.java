@@ -236,7 +236,7 @@ public class Utils {
     private static class UserAuthorizationVerificationTask {
 
         private static UserAuthorizationVerificationTask INSTANCE;
-        private boolean isFinish = true;
+        private AsyncTask<Void, Void, Void> asyncTask;
 
         public static UserAuthorizationVerificationTask getInstance() {
             if (INSTANCE == null) {
@@ -246,9 +246,8 @@ public class Utils {
         }
 
         public void run() {
-            if (isFinish) {
-                isFinish = false;
-                new AsyncTask<Void, Void, Void>() {
+            if (asyncTask == null || asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+                asyncTask = new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
                         final SyncUtils syncUtils = RDTApplication.getInstance().getSyncUtils();
@@ -262,13 +261,8 @@ public class Utils {
                         }
                         return null;
                     }
-
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        super.onPostExecute(aVoid);
-                        isFinish = true;
-                    }
-                }.execute();
+                };
+                asyncTask.execute();
             }
         }
     }
