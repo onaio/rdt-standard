@@ -16,7 +16,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.apache.commons.collections.functors.IfClosure;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -230,13 +229,14 @@ public class Utils {
         }
     }
 
-    public static void verifyUserAuthorization(SyncUtils syncUtils) {
+    public static void verifyUserAuthorization() {
+        SyncUtils syncUtils = new SyncUtils(RDTApplication.getInstance());
         UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(syncUtils);
         if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.PENDING)) {
             userAuthorizationVerificationTask.execute();
         } else if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
-            userAuthorizationVerificationTask.destroy();
-            verifyUserAuthorization(syncUtils);
+            userAuthorizationVerificationTask.destroyInstance();
+            UserAuthorizationVerificationTask.getInstance(syncUtils).execute();
         }
     }
 
@@ -252,7 +252,7 @@ public class Utils {
             return INSTANCE;
         }
 
-        public UserAuthorizationVerificationTask(SyncUtils syncUtils) {
+        private UserAuthorizationVerificationTask(SyncUtils syncUtils) {
             this.syncUtils = syncUtils;
         }
 
@@ -269,7 +269,7 @@ public class Utils {
             return null;
         }
 
-        public void destroy() {
+        public void destroyInstance() {
             INSTANCE = null;
         }
     }

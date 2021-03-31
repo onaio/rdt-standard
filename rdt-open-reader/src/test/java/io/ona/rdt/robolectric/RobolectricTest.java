@@ -6,6 +6,8 @@ package io.ona.rdt.robolectric;
 
 import android.os.Build;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -19,7 +21,6 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.CredentialsHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.robolectric.shadow.BaseLoaderCallbackShadow;
 import io.ona.rdt.robolectric.shadow.CameraBridgeViewBaseShadow;
@@ -35,6 +36,7 @@ import io.ona.rdt.robolectric.shadow.MatShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteDatabaseShadow;
 import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
+import io.ona.rdt.robolectric.shadow.SyncUtilsShadow;
 
 @RunWith(AndroidJUnit4.class)
 @Config(sdk = Build.VERSION_CODES.O_MR1,
@@ -43,7 +45,7 @@ import io.ona.rdt.robolectric.shadow.SQLiteOpenHelperShadow;
         BaseLoaderCallbackShadow.class, OpenSRPContextShadow.class, JsonFormFragmentShadow.class,
         JsonFormFragmentPresenterShadow.class, SQLiteOpenHelperShadow.class,
         SQLiteDatabaseShadow.class, GpsDialogShadow.class, MatShadow.class,
-        ClientProcessorForJavaShadow.class, ImageUtilShadow.class})
+        ClientProcessorForJavaShadow.class, ImageUtilShadow.class, SyncUtilsShadow.class})
 public abstract class RobolectricTest {
 
     @Before

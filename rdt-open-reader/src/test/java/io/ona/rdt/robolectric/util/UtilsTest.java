@@ -1,8 +1,7 @@
 package io.ona.rdt.robolectric.util;
 
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
@@ -25,9 +24,7 @@ import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
-import org.smartregister.util.SyncUtils;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -230,14 +227,19 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
-    public void testVerifyUserAuthorizationShouldCallOnlyOnce() throws AuthenticatorException, OperationCanceledException, IOException {
+    public void testVerifyUserAuthorizationShouldCallOnlyOnce() {
 
-        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
-        Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
-        Utils.verifyUserAuthorization(syncUtils);
+        // verify pending state
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.mock(Utils.UserAuthorizationVerificationTask.class);
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
+        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.PENDING);
+        Utils.verifyUserAuthorization();
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
-        Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
-        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
-        Utils.verifyUserAuthorization(syncUtils);
+        // verify finished state
+        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
+        Utils.verifyUserAuthorization();
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();;
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
     }
 }
