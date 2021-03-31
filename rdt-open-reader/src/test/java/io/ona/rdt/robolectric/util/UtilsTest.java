@@ -239,7 +239,7 @@ public class UtilsTest extends RobolectricTest {
         // verify finished state
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
         Utils.verifyUserAuthorization();
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();;
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
     }
 }
