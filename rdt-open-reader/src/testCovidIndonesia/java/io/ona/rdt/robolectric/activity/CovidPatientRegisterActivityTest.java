@@ -1,6 +1,7 @@
 package io.ona.rdt.robolectric.activity;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -38,6 +39,11 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
                 .create()
                 .resume()
                 .get();
+    }
+
+    @Test
+    public void testUserAuthorizationVerificationTaskShouldReturnFinishedStatus() {
+        Assert.assertEquals(AsyncTask.Status.FINISHED, Utils.UserAuthorizationVerificationTask.getInstance(null).getStatus());
     }
 
     @Test

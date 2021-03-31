@@ -9,7 +9,6 @@ import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import java.util.Map;
 
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
-import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.widget.CovidDatePickerFactory;
 import io.ona.rdt.widget.CovidEditTextFactory;
@@ -63,6 +62,6 @@ public class CovidLoginActivity extends LoginActivity {
     @Override
     public void onResume() {
         super.onResume();
-        JobManager.instance().cancelAllForTag(RDTSyncSettingsServiceJob.TAG);
+        JobManager.instance().cancelAll();
     }
 }
