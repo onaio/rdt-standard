@@ -234,8 +234,7 @@ public class Utils {
         UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(syncUtils);
         if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.PENDING)) {
             userAuthorizationVerificationTask.execute();
-        }
-        else if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+        } else if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
             userAuthorizationVerificationTask.destroy();
             verifyUserAuthorization(syncUtils);
         }
