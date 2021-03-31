@@ -246,6 +246,7 @@ public class UtilsTest extends RobolectricTest {
         Utils.verifyUserAuthorization();
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
     }
 
     @Test
