@@ -230,17 +230,17 @@ public class Utils {
     }
 
     public static void verifyUserAuthorization() {
-        UserVerifyAuthTask.getInstance().run();
+        UserAuthorizationVerificationTask.getInstance().run();
     }
 
-    private static class UserVerifyAuthTask {
+    private static class UserAuthorizationVerificationTask {
 
-        private static UserVerifyAuthTask INSTANCE;
+        private static UserAuthorizationVerificationTask INSTANCE;
         private boolean isFinish = true;
 
-        public static UserVerifyAuthTask getInstance() {
+        public static UserAuthorizationVerificationTask getInstance() {
             if (INSTANCE == null) {
-                INSTANCE = new UserVerifyAuthTask();
+                INSTANCE = new UserAuthorizationVerificationTask();
             }
             return INSTANCE;
         }
