@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.json.JSONException;
+import org.smartregister.util.SyncUtils;
 
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.ProfileFragmentAdapter;
@@ -45,7 +46,7 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     @Override
     protected void onResume() {
         super.onResume();
-        Utils.verifyUserAuthorization();
+        Utils.verifyUserAuthorization(new SyncUtils(this));
     }
 
     private void initializeFormWidgetKeyToTextMap() {

@@ -16,6 +16,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.collections.functors.IfClosure;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -229,41 +230,48 @@ public class Utils {
         }
     }
 
-    public static void verifyUserAuthorization() {
-        UserAuthorizationVerificationTask.getInstance().run();
+    public static void verifyUserAuthorization(SyncUtils syncUtils) {
+        UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(syncUtils);
+        if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.PENDING)) {
+            userAuthorizationVerificationTask.execute();
+        }
+        else if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+            userAuthorizationVerificationTask.destroy();
+            verifyUserAuthorization(syncUtils);
+        }
     }
 
-    private static class UserAuthorizationVerificationTask {
+    public static class UserAuthorizationVerificationTask extends AsyncTask<Void, Void, Void> {
 
         private static UserAuthorizationVerificationTask INSTANCE;
-        private AsyncTask<Void, Void, Void> asyncTask;
+        private final SyncUtils syncUtils;
 
-        public static UserAuthorizationVerificationTask getInstance() {
+        public static UserAuthorizationVerificationTask getInstance(SyncUtils syncUtils) {
             if (INSTANCE == null) {
-                INSTANCE = new UserAuthorizationVerificationTask();
+                INSTANCE = new UserAuthorizationVerificationTask(syncUtils);
             }
             return INSTANCE;
         }
 
-        public void run() {
-            if (asyncTask == null || asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
-                asyncTask = new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        final SyncUtils syncUtils = RDTApplication.getInstance().getSyncUtils();
-                        boolean isUserAuthorized = syncUtils.verifyAuthorization();
-                        if (!isUserAuthorized) {
-                            try {
-                                syncUtils.logoutUser();
-                            } catch (Exception ex) {
-                                Timber.e(ex);
-                            }
-                        }
-                        return null;
-                    }
-                };
-                asyncTask.execute();
+        public UserAuthorizationVerificationTask(SyncUtils syncUtils) {
+            this.syncUtils = syncUtils;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            boolean isUserAuthorized = syncUtils.verifyAuthorization();
+            if (!isUserAuthorized) {
+                try {
+                    syncUtils.logoutUser();
+                } catch (Exception ex) {
+                    Timber.e(ex);
+                }
             }
+            return null;
+        }
+
+        public void destroy() {
+            INSTANCE = null;
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AlertDialog;
 
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
@@ -35,7 +36,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Utils.verifyUserAuthorization();
+        Utils.verifyUserAuthorization(new SyncUtils(this));
     }
 
     @Override
