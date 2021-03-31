@@ -1,5 +1,7 @@
 package io.ona.rdt.robolectric.util;
 
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -24,7 +26,9 @@ import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,6 +45,7 @@ import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
+import timber.log.Timber;
 
 import static org.mockito.Mockito.verify;
 
@@ -241,5 +246,26 @@ public class UtilsTest extends RobolectricTest {
         Utils.verifyUserAuthorization();
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
+    }
+
+    @Test
+    public void TestUserAuthorizationVerificationTaskShouldVerifyAllCases() throws AuthenticatorException, OperationCanceledException, IOException {
+
+        Timber.Tree tree = Mockito.mock(Timber.Tree.class);
+        ReflectionHelpers.setStaticField(Timber.class, "TREE_OF_SOULS", tree);
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+        Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(syncUtils);
+        userAuthorizationVerificationTask.execute();
+
+        Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
+
+        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
+        userAuthorizationVerificationTask.destroyInstance();
+        Utils.UserAuthorizationVerificationTask.getInstance(syncUtils).execute();
+
+        Mockito.verify(tree, Mockito.times(1)).e(ArgumentMatchers.any(RuntimeException.class));
     }
 }
