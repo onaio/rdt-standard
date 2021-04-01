@@ -46,7 +46,7 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     @Override
     protected void onResume() {
         super.onResume();
-        Utils.verifyUserAuthorization();
+        Utils.verifyUserAuthorization(this);
     }
 
     private void initializeFormWidgetKeyToTextMap() {

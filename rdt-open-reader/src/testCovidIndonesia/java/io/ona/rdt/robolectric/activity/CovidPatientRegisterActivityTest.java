@@ -43,7 +43,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testUserAuthorizationVerificationTaskShouldReturnFinishedStatus() {
-        Assert.assertEquals(AsyncTask.Status.FINISHED, Utils.UserAuthorizationVerificationTask.getInstance(null).getStatus());
+        Assert.assertEquals(AsyncTask.Status.FINISHED, Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance()).getStatus());
     }
 
     @Test

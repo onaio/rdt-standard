@@ -232,18 +232,18 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
-    public void testVerifyUserAuthorizationShouldCallOnlyOnce() {
+    public void testVerifyUserAuthorizationShouldExecuteAuthorizationTask() {
 
         // verify pending state
         Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.mock(Utils.UserAuthorizationVerificationTask.class);
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.PENDING);
-        Utils.verifyUserAuthorization();
+        Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
         // verify finished state
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
-        Utils.verifyUserAuthorization();
+        Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
@@ -258,14 +258,17 @@ public class UtilsTest extends RobolectricTest {
         SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
         Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
 
-        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(syncUtils);
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
         userAuthorizationVerificationTask.execute();
 
         Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
 
         Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
         userAuthorizationVerificationTask.destroyInstance();
-        Utils.UserAuthorizationVerificationTask.getInstance(syncUtils).execute();
+        userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
+        userAuthorizationVerificationTask.execute();
 
         Mockito.verify(tree, Mockito.times(1)).e(ArgumentMatchers.any(RuntimeException.class));
     }

@@ -36,7 +36,7 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Utils.verifyUserAuthorization();
+        Utils.verifyUserAuthorization(this);
     }
 
     @Override

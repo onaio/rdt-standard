@@ -229,14 +229,13 @@ public class Utils {
         }
     }
 
-    public static void verifyUserAuthorization() {
-        SyncUtils syncUtils = new SyncUtils(RDTApplication.getInstance());
-        UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(syncUtils);
+    public static void verifyUserAuthorization(Context context) {
+        UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(context);
         if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.PENDING)) {
             userAuthorizationVerificationTask.execute();
         } else if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
             userAuthorizationVerificationTask.destroyInstance();
-            UserAuthorizationVerificationTask.getInstance(syncUtils).execute();
+            UserAuthorizationVerificationTask.getInstance(context).execute();
         }
     }
 
@@ -245,15 +244,15 @@ public class Utils {
         private static UserAuthorizationVerificationTask INSTANCE;
         private final SyncUtils syncUtils;
 
-        public static UserAuthorizationVerificationTask getInstance(SyncUtils syncUtils) {
+        public static UserAuthorizationVerificationTask getInstance(Context context) {
             if (INSTANCE == null) {
-                INSTANCE = new UserAuthorizationVerificationTask(syncUtils);
+                INSTANCE = new UserAuthorizationVerificationTask(context);
             }
             return INSTANCE;
         }
 
-        private UserAuthorizationVerificationTask(SyncUtils syncUtils) {
-            this.syncUtils = syncUtils;
+        private UserAuthorizationVerificationTask(Context context) {
+            syncUtils = new SyncUtils(context);
         }
 
         @Override
