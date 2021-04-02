@@ -53,6 +53,13 @@
                         android:layout_height="wrap_content"
                         app:sectionTitle="@{@string/covid_wbc}" />
 
+                <include
+                    android:id="@+id/patient_shipping_preparation_history_section"
+                    layout="@layout/patient_history_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:sectionTitle="@{@string/shipping_preparation}" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
