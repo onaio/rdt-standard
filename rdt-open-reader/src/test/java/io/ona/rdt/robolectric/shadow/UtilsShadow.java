@@ -1,5 +1,7 @@
 package io.ona.rdt.robolectric.shadow;
 
+import android.content.Context;
+
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
@@ -15,6 +17,7 @@ public class UtilsShadow extends Shadow {
 
     private static MockCounter mockCounter;
     private static String parentLocationId = OpenSRPContextShadow.PARENT_LOCATION_ID;
+    private static Context context;
 
     public static String getParentLocationId() {
         return parentLocationId;
@@ -40,5 +43,13 @@ public class UtilsShadow extends Shadow {
 
     public static synchronized MockCounter getMockCounter() {
         return mockCounter;
+    }
+
+    public static void verifyUserAuthorization(Context context) {
+        UtilsShadow.context = context;
+    }
+
+    public static Context getActiveContext() {
+        return context;
     }
 }

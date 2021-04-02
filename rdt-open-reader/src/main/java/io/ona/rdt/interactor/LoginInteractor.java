@@ -1,7 +1,10 @@
 package io.ona.rdt.interactor;
 
+import org.smartregister.CoreLibrary;
 import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
+
+import java.lang.ref.WeakReference;
 
 import io.ona.rdt.util.Utils;
 
@@ -22,5 +25,11 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     @Override
     public void scheduleJobsImmediately() {
         Utils.scheduleJobsImmediately();
+    }
+
+    @Override
+    public void login(WeakReference<BaseLoginContract.View> view, String userName, char[] password) {
+        CoreLibrary.getInstance().context().allSharedPreferences().saveForceRemoteLogin(true, userName);
+        super.login(view, userName, password);
     }
 }

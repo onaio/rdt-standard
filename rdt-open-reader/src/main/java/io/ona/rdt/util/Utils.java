@@ -230,13 +230,18 @@ public class Utils {
     }
 
     public static void verifyUserAuthorization(Context context) {
+
         UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(context);
-        if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.PENDING)) {
-            userAuthorizationVerificationTask.execute();
-        } else if (userAuthorizationVerificationTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
-            userAuthorizationVerificationTask.destroyInstance();
-            UserAuthorizationVerificationTask.getInstance(context).execute();
+
+        switch (userAuthorizationVerificationTask.getStatus()) {
+            case RUNNING:
+                return;
+            case FINISHED:
+                userAuthorizationVerificationTask.destroyInstance();
+                userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(context);
         }
+
+        userAuthorizationVerificationTask.execute();
     }
 
     public static class UserAuthorizationVerificationTask extends AsyncTask<Void, Void, Void> {
