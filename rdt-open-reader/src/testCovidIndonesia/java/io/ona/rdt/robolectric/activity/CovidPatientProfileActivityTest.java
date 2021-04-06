@@ -25,6 +25,7 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
         MockCounter counter = new MockCounter();
         UtilsShadow.setMockCounter(counter);
+        Assert.assertEquals(0, UtilsShadow.getMockCounter().getCount());
 
         Intent intent = new Intent();
         intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", "entity_id"));
@@ -33,7 +34,7 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testUserAuthorizationVerificationTaskShouldReturnReturnValidActivityName() {
+    public void testUserAuthorizationVerificationTaskShouldVerifyMethodCalled() {
         Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
     }
 

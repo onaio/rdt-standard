@@ -236,14 +236,14 @@ public class UtilsTest extends RobolectricTest {
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
-        Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.RUNNING);
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
+        Utils.verifyUserAuthorization(RDTApplication.getInstance());
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(3)).execute();
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
     }

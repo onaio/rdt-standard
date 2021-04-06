@@ -40,6 +40,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
         MockCounter counter = new MockCounter();
         UtilsShadow.setMockCounter(counter);
+        Assert.assertEquals(0, UtilsShadow.getMockCounter().getCount());
 
         covidPatientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class)
                 .create()
@@ -48,7 +49,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testUserAuthorizationVerificationTaskShouldReturnReturnValidActivityName() {
+    public void testUserAuthorizationVerificationTaskShouldVerifyMethodCalled() {
         Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
     }
 
