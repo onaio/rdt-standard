@@ -51,6 +51,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Test
     public void testUserAuthorizationVerificationTaskShouldVerifyMethodCalled() {
         Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
+        UtilsShadow.setMockCounter(null);
     }
 
     @Test
