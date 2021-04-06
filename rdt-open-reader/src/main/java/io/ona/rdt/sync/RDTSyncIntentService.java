@@ -1,11 +1,6 @@
 package io.ona.rdt.sync;
 
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.content.Context;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 
@@ -14,12 +9,7 @@ import org.smartregister.job.LocationStructureServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.helper.LocationServiceHelper;
 import org.smartregister.sync.intent.SyncIntentService;
-import org.smartregister.util.SyncUtils;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-
-import io.ona.rdt.activity.CovidLoginActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.ImageUploadSyncServiceJob;
 import io.ona.rdt.util.Constants;
@@ -51,31 +41,5 @@ public class RDTSyncIntentService extends SyncIntentService {
         AllSharedPreferences allSharedPreferences = RDTApplication.getInstance().getContext().allSharedPreferences();
         String locationTreeJson = new Gson().toJson(locationTree);
         allSharedPreferences.savePreference(Constants.Preference.LOCATION_TREE, locationTreeJson);
-    }
-
-    @Override
-    protected void init(@NonNull Context context) {
-        super.init(context);
-        try {
-            Field syncUtilField = getClass().getSuperclass().getDeclaredField("syncUtils");
-            syncUtilField.setAccessible(true);
-            syncUtilField.set(this, new RDTSyncUtils(getBaseContext()));
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static class RDTSyncUtils extends SyncUtils {
-
-        public RDTSyncUtils(Context context) {
-            super(context);
-        }
-
-        @Override
-        public void logoutUser() throws AuthenticatorException, OperationCanceledException, IOException {
-            if (!CovidLoginActivity.isRunning) {
-                super.logoutUser();
-            }
-        }
     }
 }
