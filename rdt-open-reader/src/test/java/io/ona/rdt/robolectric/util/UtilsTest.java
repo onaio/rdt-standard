@@ -19,7 +19,6 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
-import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.util.JsonFormUtils;
@@ -228,23 +227,8 @@ public class UtilsTest extends RobolectricTest {
 
     @Test
     public void testVerifyUserAuthorizationShouldExecuteAuthorizationTask() {
-
-        // verify pending state
-        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.mock(Utils.UserAuthorizationVerificationTask.class);
-        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
-        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.PENDING);
+        Assert.assertEquals(AsyncTask.Status.PENDING, Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance()).getStatus());
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
-
-        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.RUNNING);
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
-
-        // verify finished state
-        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
-        Utils.verifyUserAuthorization(RDTApplication.getInstance());
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
-        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        Assert.assertEquals(AsyncTask.Status.FINISHED, Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance()).getStatus());
     }
-
 }

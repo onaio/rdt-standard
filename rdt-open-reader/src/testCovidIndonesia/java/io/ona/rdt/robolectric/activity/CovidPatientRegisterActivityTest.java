@@ -44,8 +44,8 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testUserAuthorizationVerificationTaskShouldReturnReturnRuntimeException() {
-        Assert.assertEquals(CovidPatientRegisterActivity.class.getSimpleName(), UtilsShadow.getActiveContext().getClass().getSimpleName());
+    public void testUserAuthorizationVerificationTaskShouldReturnReturnValidActivityName() {
+        Assert.assertEquals(covidPatientRegisterActivity.getClass().getSimpleName(), UtilsShadow.getActiveContext().getClass().getSimpleName());
     }
 
     @Test
