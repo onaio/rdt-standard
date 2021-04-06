@@ -1,5 +1,7 @@
 package io.ona.rdt.robolectric.util;
 
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -8,6 +10,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +28,9 @@ import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,6 +47,7 @@ import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
+import timber.log.Timber;
 
 import static org.mockito.Mockito.verify;
 
@@ -246,6 +253,43 @@ public class UtilsTest extends RobolectricTest {
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+    }
+
+    @Test
+    public void testVerifyUserAuthorizationExecutions() throws AuthenticatorException, OperationCanceledException, IOException {
+
+        TestTree testTree = new TestTree();
+        Timber.plant(testTree);
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+        Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
+
+        userAuthorizationVerificationTask.execute();
+        Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
+
+        userAuthorizationVerificationTask.destroyInstance();
+        Assert.assertNull(ReflectionHelpers.getStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE"));
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask1 = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask1, "syncUtils", syncUtils);
+
+        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
+        userAuthorizationVerificationTask1.execute();
+        Assert.assertEquals(RuntimeException.class.getSimpleName(), testTree.throwable.getClass().getSimpleName());
+
+    }
+
+    private static class TestTree extends Timber.Tree {
+
+        private Throwable throwable;
+
+        @Override
+        protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
+            throwable = t;
+        }
     }
 
 }
