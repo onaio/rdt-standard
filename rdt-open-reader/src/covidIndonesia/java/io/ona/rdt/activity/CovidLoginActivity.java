@@ -30,6 +30,8 @@ import static io.ona.rdt.util.CovidConstants.Widget.ONE_SCAN_COVID_BARCODE_READE
  */
 public class CovidLoginActivity extends LoginActivity {
 
+    public static boolean isRunning;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,13 @@ public class CovidLoginActivity extends LoginActivity {
     @Override
     public void onResume() {
         super.onResume();
+        CovidLoginActivity.isRunning = true;
         JobManager.instance().cancelAll();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CovidLoginActivity.isRunning = false;
     }
 }

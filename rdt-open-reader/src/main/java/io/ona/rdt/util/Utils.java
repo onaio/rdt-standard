@@ -39,6 +39,7 @@ import java.util.Map;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
+import io.ona.rdt.sync.RDTSyncIntentService;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
@@ -257,7 +258,7 @@ public class Utils {
         }
 
         private UserAuthorizationVerificationTask(Context context) {
-            syncUtils = new SyncUtils(context);
+            syncUtils = new RDTSyncIntentService.RDTSyncUtils(context);
         }
 
         @Override
