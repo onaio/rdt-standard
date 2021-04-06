@@ -60,6 +60,8 @@ public class CovidPatientHistoryActivity extends AppCompatActivity implements Co
                     CovidConstants.Encounter.COVID_XRAY);
             patientHistorySectionsMap.put(R.id.patient_white_blood_cell_count_history_section,
                     CovidConstants.Encounter.COVID_WBC);
+            patientHistorySectionsMap.put(R.id.patient_shipping_preparation_history_section,
+                    CovidConstants.Encounter.SAMPLE_DELIVERY_DETAILS);
         }
         return patientHistorySectionsMap;
     }

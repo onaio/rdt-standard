@@ -46,4 +46,5 @@
     <string name="visit_date_label">Visit Date</string>
     <string name="account_disabled">Session Expired</string>
     <string name="account_disabled_logged_off">Your session has expired. Please login again to continue working.</string>
+    <string name="shipping_preparation">Shipping Preparation</string>
 </resources>
