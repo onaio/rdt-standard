@@ -21,6 +21,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
+import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
@@ -37,6 +38,9 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
+        MockCounter counter = new MockCounter();
+        UtilsShadow.setMockCounter(counter);
+
         covidPatientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class)
                 .create()
                 .resume()
@@ -45,7 +49,7 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testUserAuthorizationVerificationTaskShouldReturnReturnValidActivityName() {
-        Assert.assertEquals(covidPatientRegisterActivity.getClass().getSimpleName(), UtilsShadow.getActiveContext().getClass().getSimpleName());
+        Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
     }
 
     @Test

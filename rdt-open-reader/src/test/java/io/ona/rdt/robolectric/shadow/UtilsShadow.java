@@ -17,7 +17,6 @@ public class UtilsShadow extends Shadow {
 
     private static MockCounter mockCounter;
     private static String parentLocationId = OpenSRPContextShadow.PARENT_LOCATION_ID;
-    private static Context context;
 
     public static String getParentLocationId() {
         return parentLocationId;
@@ -45,11 +44,8 @@ public class UtilsShadow extends Shadow {
         return mockCounter;
     }
 
+    @Implementation
     public static void verifyUserAuthorization(Context context) {
-        UtilsShadow.context = context;
-    }
-
-    public static Context getActiveContext() {
-        return context;
+        getMockCounter().setCount(2);
     }
 }

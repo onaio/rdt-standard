@@ -11,6 +11,7 @@ import org.robolectric.annotation.Config;
 
 import io.ona.rdt.activity.CovidPatientProfileActivity;
 import io.ona.rdt.domain.Patient;
+import io.ona.rdt.robolectric.shadow.MockCounter;
 import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.util.Constants;
 
@@ -21,6 +22,10 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Before
     public void setUp() {
+
+        MockCounter counter = new MockCounter();
+        UtilsShadow.setMockCounter(counter);
+
         Intent intent = new Intent();
         intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", "entity_id"));
         covidPatientProfileActivity = Robolectric.buildActivity(CovidPatientProfileActivity.class, intent)
@@ -29,7 +34,7 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testUserAuthorizationVerificationTaskShouldReturnReturnValidActivityName() {
-        Assert.assertEquals(covidPatientProfileActivity.getClass().getSimpleName(), UtilsShadow.getActiveContext().getClass().getSimpleName());
+        Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
     }
 
     @Override
