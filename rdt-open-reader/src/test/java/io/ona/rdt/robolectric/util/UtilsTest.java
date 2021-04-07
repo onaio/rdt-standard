@@ -234,35 +234,48 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
-    public void testVerifyUserAuthorizationShouldExecuteAuthorizationTask() throws AuthenticatorException, OperationCanceledException, IOException {
+    public void testVerifyUserAuthorizationShouldExecuteAuthorizationTaskIfNotRunning() throws AuthenticatorException, OperationCanceledException, IOException {
 
         Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
 
+        // pending task
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.PENDING);
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
+        // running task
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.RUNNING);
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
+        // finished task
         userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
+        // assert a new instance is created
+        AsyncTask recreatedAsyncTask = Utils.UserAuthorizationVerificationTask.getInstance(RuntimeEnvironment.application);
+        Assert.assertNotEquals(recreatedAsyncTask, userAuthorizationVerificationTask);
+        // verify that task is restarted if finished
+        AsyncTask.Status taskStatus = recreatedAsyncTask.getStatus();
+        boolean isTaskRunningOrFinished = taskStatus == AsyncTask.Status.RUNNING || taskStatus == AsyncTask.Status.FINISHED;
+        Assert.assertTrue(isTaskRunningOrFinished);
 
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+    }
+
+    @Test
+    public void testExceptionIsCaughtFromUserAuthorizationTask() throws Exception {
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
 
         SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
         Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
 
-        TestTree testTree = new TestTree();
-        Timber.plant(testTree);
-        userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
         ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
         userAuthorizationVerificationTask.execute();
-        Assert.assertEquals(RuntimeException.class.getSimpleName(), testTree.throwable.getClass().getSimpleName());
 
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
     }
 
     private Utils.UserAuthorizationVerificationTask getUserAuthorizationVerificationTask() {
@@ -270,15 +283,5 @@ public class UtilsTest extends RobolectricTest {
         Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.spy(Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance()));
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
         return userAuthorizationVerificationTask;
-    }
-
-    private static class TestTree extends Timber.Tree {
-
-        private Throwable throwable;
-
-        @Override
-        protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
-            throwable = t;
-        }
     }
 }
