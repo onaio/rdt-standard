@@ -234,10 +234,9 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
-    public void testVerifyUserAuthorizationShouldExecuteAuthorizationTask() {
+    public void testVerifyUserAuthorizationShouldExecuteAuthorizationTask() throws AuthenticatorException, OperationCanceledException, IOException {
 
-        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.mock(Utils.UserAuthorizationVerificationTask.class);
-        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
 
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.PENDING);
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
@@ -247,39 +246,30 @@ public class UtilsTest extends RobolectricTest {
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
 
+        userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
         Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
         Utils.verifyUserAuthorization(RDTApplication.getInstance());
         Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
-        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(2)).execute();
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
-    }
 
-    @Test
-    public void testVerifyUserAuthorizationExecutions() throws AuthenticatorException, OperationCanceledException, IOException {
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
 
         TestTree testTree = new TestTree();
         Timber.plant(testTree);
-
-        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
-        Mockito.when(syncUtils.verifyAuthorization()).thenReturn(false);
-
-        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
         ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
-
         userAuthorizationVerificationTask.execute();
-        Mockito.verify(syncUtils, Mockito.times(1)).logoutUser();
-
-        userAuthorizationVerificationTask.destroyInstance();
-        Assert.assertNull(ReflectionHelpers.getStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE"));
-
-        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask1 = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
-        ReflectionHelpers.setField(userAuthorizationVerificationTask1, "syncUtils", syncUtils);
-
-        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
-        userAuthorizationVerificationTask1.execute();
         Assert.assertEquals(RuntimeException.class.getSimpleName(), testTree.throwable.getClass().getSimpleName());
 
+    }
+
+    private Utils.UserAuthorizationVerificationTask getUserAuthorizationVerificationTask() {
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.spy(Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance()));
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
+        return userAuthorizationVerificationTask;
     }
 
     private static class TestTree extends Timber.Tree {
@@ -291,5 +281,4 @@ public class UtilsTest extends RobolectricTest {
             throwable = t;
         }
     }
-
 }

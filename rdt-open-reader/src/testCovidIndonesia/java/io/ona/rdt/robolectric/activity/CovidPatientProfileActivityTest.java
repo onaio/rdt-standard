@@ -6,6 +6,7 @@ import android.content.Intent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
@@ -23,10 +24,6 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
 
-        MockCounter counter = new MockCounter();
-        UtilsShadow.setMockCounter(counter);
-        Assert.assertEquals(0, UtilsShadow.getMockCounter().getCount());
-
         Intent intent = new Intent();
         intent.putExtra(Constants.FormFields.PATIENT, new Patient("name", "sex", "entity_id"));
         covidPatientProfileActivity = Robolectric.buildActivity(CovidPatientProfileActivity.class, intent)
@@ -34,7 +31,11 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testUserAuthorizationVerificationTaskShouldVerifyMethodCalled() {
+    public void testUserAuthorizationVerificationTaskShouldVerifyMethodCalled() throws Exception {
+        MockCounter counter = new MockCounter();
+        UtilsShadow.setMockCounter(counter);
+        Assert.assertEquals(0, UtilsShadow.getMockCounter().getCount());
+        Whitebox.invokeMethod(covidPatientProfileActivity, "onResume");
         Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
         UtilsShadow.setMockCounter(null);
     }

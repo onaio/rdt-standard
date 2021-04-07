@@ -46,6 +46,9 @@ public class UtilsShadow extends Shadow {
 
     @Implementation
     public static void verifyUserAuthorization(Context context) {
-        getMockCounter().setCount(2);
+        MockCounter counter = getMockCounter();
+        if (counter != null) {
+            counter.setCount(2);
+        }
     }
 }
