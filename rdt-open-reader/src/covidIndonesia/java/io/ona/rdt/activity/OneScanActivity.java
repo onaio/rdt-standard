@@ -85,7 +85,9 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Intent intent = new Intent();
-                intent.putExtras(bundle);
+                if (bundle != null) {
+                    intent.putExtras(bundle);
+                }
                 setResult(Activity.RESULT_CANCELED, intent);
                 finish();
             }
