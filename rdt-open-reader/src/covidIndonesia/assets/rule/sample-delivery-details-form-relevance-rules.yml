@@ -1,5 +1,5 @@
 ---
-name: step3_manual_sample_id_label
+name: step3_manual_sample_id_lbl
 description: Sample ID label
 priority: 1
 condition: "step2_unique_id == ''"

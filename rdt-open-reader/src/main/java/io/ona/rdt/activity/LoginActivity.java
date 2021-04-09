@@ -2,8 +2,6 @@ package io.ona.rdt.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
-import android.widget.TextView;
 
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
@@ -27,7 +25,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         updateLocale(this);
         updateFTSDetails();
         super.onCreate(savedInstanceState);
-        addAttributionText();
     }
 
     private void updateFTSDetails() {
@@ -40,13 +37,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     protected String getRegisterTableName() {
         return RDT_PATIENTS;
-    }
-
-    private void addAttributionText() {
-        updateLocale(this);
-        TextView tvLoginAttributions = findViewById(R.id.tv_login_attributions);
-        String attributionsTxt = getResources().getString(R.string.login_attributions);
-        tvLoginAttributions.setText(Html.fromHtml(attributionsTxt));
     }
 
     @Override

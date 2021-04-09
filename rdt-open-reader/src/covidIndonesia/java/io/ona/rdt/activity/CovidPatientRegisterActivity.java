@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AlertDialog;
 
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
@@ -15,6 +16,7 @@ import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 
 import static io.ona.rdt.util.CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM;
 
@@ -29,6 +31,12 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerLanguageSwitcher();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Utils.verifyUserAuthorization(this);
     }
 
     @Override

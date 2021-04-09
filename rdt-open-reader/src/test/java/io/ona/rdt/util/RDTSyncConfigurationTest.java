@@ -48,6 +48,7 @@ public class RDTSyncConfigurationTest extends PowerMockTest {
         Assert.assertEquals(BuildConfig.OAUTH_CLIENT_SECRET, syncConfiguration.getOauthClientSecret());
         Assert.assertTrue(BaseLoginActivity.class.isAssignableFrom(syncConfiguration.getAuthenticationActivity()));
         assertFalse(syncConfiguration.updateClientDetailsTable());
+        Assert.assertTrue(syncConfiguration.disableSyncToServerIfUserIsDisabled());
     }
 
     private void mockStaticMethods() {

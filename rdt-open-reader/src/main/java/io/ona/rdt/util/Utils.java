@@ -3,9 +3,12 @@ package io.ona.rdt.util;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
+
+import androidx.annotation.StringRes;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -22,6 +25,7 @@ import org.smartregister.domain.UniqueId;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import androidx.annotation.StringRes;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
@@ -223,6 +226,55 @@ public class Utils {
             return true;
         } catch (JSONException e) {
             return false;
+        }
+    }
+
+    public static void verifyUserAuthorization(Context context) {
+
+        UserAuthorizationVerificationTask userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(context);
+
+        switch (userAuthorizationVerificationTask.getStatus()) {
+            case RUNNING:
+                return;
+            case FINISHED:
+                userAuthorizationVerificationTask.destroyInstance();
+                userAuthorizationVerificationTask = UserAuthorizationVerificationTask.getInstance(context);
+        }
+
+        userAuthorizationVerificationTask.execute();
+    }
+
+    public static class UserAuthorizationVerificationTask extends AsyncTask<Void, Void, Void> {
+
+        private static UserAuthorizationVerificationTask INSTANCE;
+        private final SyncUtils syncUtils;
+
+        public static UserAuthorizationVerificationTask getInstance(Context context) {
+            if (INSTANCE == null) {
+                INSTANCE = new UserAuthorizationVerificationTask(context);
+            }
+            return INSTANCE;
+        }
+
+        private UserAuthorizationVerificationTask(Context context) {
+            syncUtils = new SyncUtils(context);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            boolean isUserAuthorized = syncUtils.verifyAuthorization();
+            if (!isUserAuthorized) {
+                try {
+                    syncUtils.logoutUser();
+                } catch (Exception ex) {
+                    Timber.e(ex);
+                }
+            }
+            return null;
+        }
+
+        public void destroyInstance() {
+            INSTANCE = null;
         }
     }
 }
