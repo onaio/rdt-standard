@@ -1,5 +1,7 @@
 package io.ona.rdt.robolectric.shadow;
 
+import android.content.Context;
+
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadow.api.Shadow;
@@ -40,5 +42,13 @@ public class UtilsShadow extends Shadow {
 
     public static synchronized MockCounter getMockCounter() {
         return mockCounter;
+    }
+
+    @Implementation
+    public static void verifyUserAuthorization(Context context) {
+        MockCounter counter = getMockCounter();
+        if (counter != null) {
+            counter.setCount(2);
+        }
     }
 }

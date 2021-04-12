@@ -105,4 +105,9 @@ public class RDTSyncConfiguration extends SyncConfiguration {
         }
         return loginActivityClass;
     }
+
+    @Override
+    public boolean disableSyncToServerIfUserIsDisabled() {
+        return true;
+    }
 }

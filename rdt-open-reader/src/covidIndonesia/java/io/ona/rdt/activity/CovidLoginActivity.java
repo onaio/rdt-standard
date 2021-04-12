@@ -2,6 +2,7 @@ package io.ona.rdt.activity;
 
 import android.os.Bundle;
 
+import com.evernote.android.job.JobManager;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 
@@ -56,5 +57,11 @@ public class CovidLoginActivity extends LoginActivity {
     @Override
     protected String getRegisterTableName() {
         return COVID_PATIENTS;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        JobManager.instance().cancelAll();
     }
 }
