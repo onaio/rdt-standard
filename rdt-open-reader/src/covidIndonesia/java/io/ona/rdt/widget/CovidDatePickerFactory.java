@@ -29,7 +29,7 @@ public class CovidDatePickerFactory extends DatePickerFactory {
 
         super.attachLayout(stepName, context, formFragment, jsonObject, editText, duration);
         try {
-            JSONObject maxAllowDateObj = jsonObject.getJSONObject(V_MIN_ALLOWED_DATE);
+            JSONObject maxAllowDateObj = jsonObject.optJSONObject(V_MIN_ALLOWED_DATE);
             if (maxAllowDateObj != null) {
                 editText.setId(R.id.edit_text);
                 editText.addValidator(new MinAllowedDateValidator(maxAllowDateObj.getString(JsonFormConstants.ERR),

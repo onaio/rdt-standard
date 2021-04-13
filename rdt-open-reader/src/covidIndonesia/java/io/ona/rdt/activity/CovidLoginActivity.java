@@ -43,7 +43,7 @@ public class CovidLoginActivity extends LoginActivity {
         widgetFactoryMap.put(LABEL, new CovidRDTLabelFactory());
         widgetFactoryMap.put(JsonFormConstants.DATE_PICKER, new CovidDatePickerFactory());
         widgetFactoryMap.put(JsonFormConstants.REPEATING_GROUP, new CovidRepeatingGroupFactory());
-        widgetFactoryMap.put(JsonFormConstants.RDT_CAPTURE, new UWCovidRDTCaptureFactory());
+        widgetFactoryMap.put(CovidConstants.Widget.COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
         widgetFactoryMap.put(JsonFormConstants.IMAGE_VIEW, new CovidImageViewFactory());
         widgetFactoryMap.put(CovidConstants.Widget.RDT_DEVICE_SELECTOR_SPINNER, new RDTDeviceSelectorSpinnerFactory());
         widgetFactoryMap.put(JsonFormConstants.EDIT_TEXT, new CovidEditTextFactory());

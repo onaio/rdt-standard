@@ -10,12 +10,14 @@ import org.robolectric.util.ReflectionHelpers;
 
 import java.util.Locale;
 
+import androidx.test.core.app.ActivityScenario;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
 import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormActivityPresenter;
+import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.StepStateConfig;
 
@@ -39,7 +41,6 @@ public class RDTJsonFormActivityTest extends JsonFormActivityTest {
     public void setUp() throws Exception {
         super.setUp();
         rdtJsonFormActivity = Robolectric.buildActivity(RDTJsonFormActivity.class, intent).create()
-                .resume()
                 .get();
     }
 
@@ -61,6 +62,9 @@ public class RDTJsonFormActivityTest extends JsonFormActivityTest {
     public void testOnStopShouldDestroyStepStateConfigInstance() {
         StepStateConfig initialStepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
         assertNotNull(initialStepStateConfig);
+        RDTJsonFormFragment formFragment = (RDTJsonFormFragment) rdtJsonFormActivity
+                .getSupportFragmentManager().findFragmentById(R.id.container);
+        ReflectionHelpers.setField(formFragment, "presenter", mock(RDTJsonFormFragmentPresenter.class));
         rdtJsonFormActivity.onStop();
         assertNotEquals(initialStepStateConfig, RDTApplication.getInstance().getStepStateConfiguration());
     }
@@ -81,15 +85,6 @@ public class RDTJsonFormActivityTest extends JsonFormActivityTest {
         ReflectionHelpers.setField(rdtJsonFormActivity, "presenter", presenter);
         rdtJsonFormActivity.onBackPressed();
         verify(presenter).onBackPress();
-    }
-
-    @Test
-    public void testOnBackPressShouldSetCurrStepBeforeNavigatingBack() {
-        assertEquals(1, RDTJsonFormFragment.getCurrentStep());
-        rdtJsonFormActivity.getSupportFragmentManager().beginTransaction()
-                .addToBackStack("step2").commit();
-        rdtJsonFormActivity.onBackPress();
-        assertEquals(2, RDTJsonFormFragment.getCurrentStep());
     }
 
     @Override

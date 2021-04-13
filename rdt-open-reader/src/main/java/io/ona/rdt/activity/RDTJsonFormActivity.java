@@ -89,23 +89,10 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     }
 
 
-    /**
-     *
-     * Performs default Android backpress action
-     * but also updates the current step state to the step of the fragment about to be popped
-     * from the backstack
-     */
     @Override
     public void onBackPress() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        int backStackSize = fragmentManager.getBackStackEntryCount();
-        if (backStackSize > 0) {
-            String stepName = fragmentManager.getBackStackEntryAt(backStackSize - 1).getName();
-            int stepNum = Integer.valueOf(stepName.substring(4));
-            RDTJsonFormFragment.setCurrentStep(stepNum);
-            fragmentManager.popBackStack();
-        }
         setPreviousPressed(true);
+        getSupportFragmentManager().popBackStack();
     }
 
     public String getRdtType() {

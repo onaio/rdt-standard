@@ -36,7 +36,6 @@ public abstract class WidgetFactoryRobolectricTest extends RobolectricTest {
         return Mockito.spy(Robolectric.buildActivity(RDTJsonFormActivity.class,
                 getJsonFormActivityIntent())
                 .create()
-                .resume()
                 .get());
     }
 

@@ -116,7 +116,7 @@ public class PatientRegisterFragmentPresenterTest {
 
     @Test
     public void testMainColumnsShouldReturnCorrectMainColumns() throws Exception {
-        String[] columns = new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID, Constants.DBConstants.DOB};
+        String[] columns = new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID};
         for (int i = 0; i < columns.length; i++) {
             columns[i] = TextUtils.join(".", new String[]{RDT_PATIENTS, columns[i]});
         }
