@@ -11,7 +11,6 @@ import edu.washington.cs.ubicomplab.rdt_reader.activity.RDTCaptureActivity;
 import edu.washington.cs.ubicomplab.rdt_reader.core.RDTCaptureResult;
 import edu.washington.cs.ubicomplab.rdt_reader.core.RDTInterpretationResult;
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.CustomRDTCaptureContract;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
@@ -30,8 +29,6 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
  * Created by Vincent Karuri on 27/06/2019
  */
 public class CustomRDTCaptureActivity extends RDTCaptureActivity implements CustomRDTCaptureContract.View {
-
-    private final RDTApplication rdtApplication = RDTApplication.getInstance();
 
     private CustomRDTCapturePresenter presenter;
     private String baseEntityId;
