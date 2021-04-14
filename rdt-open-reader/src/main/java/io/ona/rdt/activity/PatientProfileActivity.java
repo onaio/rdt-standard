@@ -65,7 +65,10 @@ public class PatientProfileActivity extends FragmentActivity implements PatientP
             // for exceptions thrown and caught during widget instantiation
             Bundle bundle = data.getExtras();
             throw  (RuntimeException) bundle.getSerializable(JsonFormConstants.RESULT_INTENT.RUNTIME_EXCEPTION);
-        } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
+        } else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_CANCELED) {
+            // for general uncaught runtime exceptions thrown by json form activity
+            throw new RuntimeException("Runtime exception thrown by json form activity!");
+        }  else if (requestCode == REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK && data != null) {
             String jsonForm = data.getStringExtra("json");
             Timber.d(jsonForm);
             presenter.saveForm(jsonForm, null);
