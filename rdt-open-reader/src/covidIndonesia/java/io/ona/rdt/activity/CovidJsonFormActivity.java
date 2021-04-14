@@ -29,6 +29,7 @@ import androidx.core.app.ActivityCompat;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidJsonFormFragment;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
@@ -104,6 +105,7 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSIONS && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            setResult(Constants.RESULT_CODE.PERMISSIONS_DENIED, null);
             formUtils.showToast(this, getString(R.string.location_permissions));
             finish();
         }
