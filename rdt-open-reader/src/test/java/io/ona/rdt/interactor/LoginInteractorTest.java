@@ -51,7 +51,7 @@ public class LoginInteractorTest {
     }
 
     @Test
-    public void testLoginShouldBeRemote() {
+    public void testLoginShouldBeRemote() throws Exception {
 
         PowerMockito.mockStatic(CoreLibrary.class);
         PowerMockito.mockStatic(NetworkUtils.class);
@@ -60,6 +60,7 @@ public class LoginInteractorTest {
 
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
         PowerMockito.doReturn(allSharedPreferences).when(loginInteractor).getSharedPreferences();
+        PowerMockito.doReturn(true).when(allSharedPreferences).fetchForceRemoteLogin(Mockito.eq(dummyUser));
 
         BaseLoginContract.View loginView = Mockito.mock(BaseLoginContract.View.class);
         PowerMockito.doReturn(loginView).when(loginInteractor).getLoginView();
@@ -74,6 +75,7 @@ public class LoginInteractorTest {
 
         loginInteractor.login(null, dummyUser, new char[]{'a'});
         Mockito.verify(allSharedPreferences, Mockito.times(1)).saveForceRemoteLogin(true, dummyUser);
+        PowerMockito.verifyPrivate(loginInteractor, Mockito.times(1)).invoke("remoteLogin", Mockito.eq(dummyUser), Mockito.eq(new char[]{'a'}), null);
     }
 
     private void mockStaticClasses() {
