@@ -417,6 +417,7 @@ public class RDTJsonFormUtils {
         DialogInterface.OnClickListener positiveOnClickListener = (paramDialogInterface, paramInt) -> activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         DialogInterface.OnClickListener negativeOnClickListener = (dialog, which) -> {
             Utils.showToast(activity, activity.getString(R.string.location_services_required));
+            activity.setResult(Constants.RESULT_CODE.PERMISSION_FAILED, null);
             activity.finish();
         };
         Utils.showAlertDialog(activity, "", activity.getString(R.string.location_settings_disabled_msg),

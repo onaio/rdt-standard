@@ -1,5 +1,7 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
+
 import io.ona.rdt.BuildConfig;
 
 /**
@@ -147,5 +149,9 @@ public interface Constants {
 
     interface Preference {
         String LOCATION_TREE = "location_tree";
+    }
+
+    interface RESULT_CODE {
+        int PERMISSION_FAILED = Activity.RESULT_FIRST_USER + 1;
     }
 }
