@@ -105,7 +105,7 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSIONS && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            setResult(Constants.RESULT_CODE.PERMISSION_FAILED, null);
+            setResult(Constants.RESULT_CODE.PERMISSIONS_DENIED, null);
             formUtils.showToast(this, getString(R.string.location_permissions));
             finish();
         }

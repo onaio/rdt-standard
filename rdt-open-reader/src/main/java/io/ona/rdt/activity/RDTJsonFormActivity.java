@@ -72,7 +72,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
        if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0
                && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            setResult(Constants.RESULT_CODE.PERMISSION_FAILED, null);
+            setResult(Constants.RESULT_CODE.PERMISSIONS_DENIED, null);
             formUtils.showToast(this, getString(R.string.phone_state_permissions_required));
             finish();
        }

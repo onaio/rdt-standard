@@ -152,6 +152,6 @@ public interface Constants {
     }
 
     interface RESULT_CODE {
-        int PERMISSION_FAILED = Activity.RESULT_FIRST_USER + 1;
+        int PERMISSIONS_DENIED = Activity.RESULT_FIRST_USER + 1;
     }
 }
