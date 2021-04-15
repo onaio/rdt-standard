@@ -1,12 +1,20 @@
 package io.ona.rdt.util;
 
+import android.text.TextUtils;
+
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
+import org.smartregister.domain.jsonmapping.Location;
+import org.smartregister.domain.jsonmapping.util.LocationTree;
+import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.sync.helper.LocationServiceHelper;
 import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.LoginActivity;
@@ -28,16 +36,41 @@ public class RDTSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getSyncFilterParam() {
-        return BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.TEAM)
-                ? SyncFilter.TEAM_ID : SyncFilter.PROVIDER;
+        return BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.LOCATION)
+                ? SyncFilter.LOCATION_ID : SyncFilter.PROVIDER;
     }
 
     @Override
     public String getSyncFilterValue() {
         AllSharedPreferences sharedPreferences = RDTApplication.getInstance().getContext().userService().getAllSharedPreferences();
         String provider = sharedPreferences.fetchRegisteredANM();
-        return BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.TEAM)
-                ? sharedPreferences.fetchDefaultTeamId(provider) : provider;
+        if (BuildConfig.SYNC_FILTER_PARAM.equals(Constants.Config.LOCATION)) {
+            LocationServiceHelper locationServiceHelper = LocationServiceHelper.getInstance();
+
+            String locationId = sharedPreferences.fetchDefaultLocalityId(provider);
+            LocationTree locationTree = locationServiceHelper.getLocationHierarchy(locationId);
+
+            if (locationTree != null) {
+                List<String> locationIds = fetchLocationIds(locationTree.getLocationsHierarchy(), new ArrayList<>());
+                return TextUtils.join(",", locationIds);
+            } else {
+                return locationId;
+            }
+        } else {
+            return provider;
+        }
+    }
+
+    private List<String> fetchLocationIds(LinkedHashMap<String, TreeNode<String, Location>> map, List<String> locationIds) {
+        if (map != null) {
+            for (Map.Entry<String, TreeNode<String, Location>> e : map.entrySet()) {
+                locationIds.add(e.getKey());
+
+                TreeNode<String, Location> node = e.getValue();
+                fetchLocationIds(node.getChildren(), locationIds);
+            }
+        }
+        return locationIds;
     }
 
     @Override

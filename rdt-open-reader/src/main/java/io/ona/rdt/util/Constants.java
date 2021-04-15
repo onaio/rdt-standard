@@ -19,6 +19,7 @@ public interface Constants {
         String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
         String ENABLE_BATCH_SCAN = "enable_batch_scan";
         String TEAM = "team";
+        String LOCATION = "location";
     }
 
     interface Result {
