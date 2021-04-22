@@ -29,7 +29,6 @@ public class CovidEditTextFactory extends EditTextFactory {
 
     @Override
     protected void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView editButton) throws Exception {
-        super.attachLayout(stepName, context, formFragment, jsonObject, editText, editButton);
 
         if (!jsonObject.has(JsonFormConstants.HINT)) {
             editText.setFloatingLabel(MaterialEditText.FLOATING_LABEL_NONE);
@@ -37,6 +36,8 @@ public class CovidEditTextFactory extends EditTextFactory {
 
         updateMargin(editText, jsonObject, context);
         updateTopPadding(editText, jsonObject, context);
+
+        super.attachLayout(stepName, context, formFragment, jsonObject, editText, editButton);
     }
 
     protected void updateTopPadding(MaterialEditText editText, JSONObject jsonObject, Context context) {
