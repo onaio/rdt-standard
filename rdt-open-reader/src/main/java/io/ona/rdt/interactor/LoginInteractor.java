@@ -30,9 +30,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     public void login(WeakReference<BaseLoginContract.View> view, String userName, char[] password) {
-        if (NetworkUtils.isNetworkAvailable()) {
-            getSharedPreferences().saveForceRemoteLogin(true, userName);
-        }
+        getSharedPreferences().saveForceRemoteLogin(NetworkUtils.isNetworkAvailable(), userName);
         super.login(view, userName, password);
     }
 }
