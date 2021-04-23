@@ -47,6 +47,7 @@ public class OneScanHelper {
             if (callback != null) {
                 extras.putBoolean(Constants.Result.ONESCAN_IS_NOT_INSTALLED, true);
                 callback.onResult(Activity.RESULT_CANCELED, extras);
+                mActivity.finish();
             }
             return;
         }

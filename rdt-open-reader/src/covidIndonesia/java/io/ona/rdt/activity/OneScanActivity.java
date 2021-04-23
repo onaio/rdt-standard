@@ -89,7 +89,6 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                     intent.putExtras(bundle);
                 }
                 setResult(Activity.RESULT_CANCELED, intent);
-                finish();
             }
         });
     }
