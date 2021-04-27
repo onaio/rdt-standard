@@ -88,9 +88,9 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 if (bundle != null) {
                     intent.putExtras(bundle);
                 }
-                setResult(Activity.RESULT_CANCELED, intent);
 
                 if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
+                    setResult(Activity.RESULT_CANCELED, intent);
                     super.onBackPressed();
                 } else if (enableBatchScan) {
                     setResultAndFinish(response);
