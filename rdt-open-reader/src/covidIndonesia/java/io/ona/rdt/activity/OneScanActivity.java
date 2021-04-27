@@ -89,6 +89,12 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                     intent.putExtras(bundle);
                 }
                 setResult(Activity.RESULT_CANCELED, intent);
+
+                if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
+                    super.onBackPressed();
+                } else if (enableBatchScan) {
+                    setResultAndFinish(response);
+                }
             }
         });
     }
@@ -190,13 +196,6 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_CANCELED) {
-            if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
-                super.onBackPressed();
-            } else if (enableBatchScan) {
-                setResultAndFinish(response);
-            }
-        }
     }
 
     @Override
