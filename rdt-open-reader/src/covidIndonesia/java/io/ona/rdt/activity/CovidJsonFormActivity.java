@@ -52,6 +52,8 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        RDTApplication.getInstance().setCurrentActivity(this);
+
         if (RDTJsonFormUtils.isLocationServiceDisabled(this)) {
             RDTJsonFormUtils.showLocationServicesDialog(this);
         }
@@ -68,6 +70,7 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
     @Override
     public void onStop() {
         super.onStop();
+        RDTApplication.getInstance().clearCurrActivityReference(this);
         stopLocationUpdates();
     }
 
