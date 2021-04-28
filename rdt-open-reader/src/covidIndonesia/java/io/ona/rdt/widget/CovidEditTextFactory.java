@@ -36,16 +36,14 @@ public class CovidEditTextFactory extends EditTextFactory {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            if (!jsonObject.has(JsonFormConstants.HINT)) {
-                editText.setFloatingLabel(MaterialEditText.FLOATING_LABEL_NONE);
-            }
-
-            updateMargin(editText, jsonObject, context);
-            updateTopPadding(editText, jsonObject, context);
         });
 
+        if (!jsonObject.has(JsonFormConstants.HINT)) {
+            editText.setFloatingLabel(MaterialEditText.FLOATING_LABEL_NONE);
+        }
 
+        updateMargin(editText, jsonObject, context);
+        updateTopPadding(editText, jsonObject, context);
     }
 
     protected void updateTopPadding(MaterialEditText editText, JSONObject jsonObject, Context context) {
