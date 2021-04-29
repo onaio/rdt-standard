@@ -38,7 +38,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
-import io.ona.rdt.activity.CovidJsonFormActivity;
+import io.ona.rdt.activity.RDTJsonFormActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import timber.log.Timber;
@@ -267,7 +267,7 @@ public class Utils {
             boolean isUserAuthorized = syncUtils.verifyAuthorization();
 
             Activity currentActivity = RDTApplication.getInstance().getCurrentActivity();
-            boolean isFormActivity = currentActivity instanceof CovidJsonFormActivity;
+            boolean isFormActivity = currentActivity instanceof RDTJsonFormActivity;
 
             if (!isUserAuthorized && !isFormActivity) {
                 try {
