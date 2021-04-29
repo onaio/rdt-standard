@@ -266,8 +266,8 @@ public class Utils {
         protected Void doInBackground(Void... voids) {
             boolean isUserAuthorized = syncUtils.verifyAuthorization();
 
-            Activity covidJsonFormActivity = RDTApplication.getInstance().getCurrentActivity();
-            boolean isFormActivity = covidJsonFormActivity != null && CovidJsonFormActivity.class.getSimpleName().equals(covidJsonFormActivity.getClass().getSimpleName());
+            Activity currentActivity = RDTApplication.getInstance().getCurrentActivity();
+            boolean isFormActivity = currentActivity instanceof CovidJsonFormActivity;
 
             if (!isUserAuthorized && !isFormActivity) {
                 try {
