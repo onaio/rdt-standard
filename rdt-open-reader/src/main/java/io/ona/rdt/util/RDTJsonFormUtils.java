@@ -239,6 +239,7 @@ public class RDTJsonFormUtils {
         intent.putExtra(JSON_FORM_PARAM_JSON, form.toString());
         intent.putExtra(PERFORM_FORM_TRANSLATION, true);
         context.startActivityForResult(intent, requestCode);
+        RDTApplication.getInstance().clearCurrActivityReference(context);
     }
 
     protected Class getJsonFormActivityClass() {
