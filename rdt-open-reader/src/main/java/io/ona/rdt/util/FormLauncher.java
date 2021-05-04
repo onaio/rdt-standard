@@ -2,16 +2,17 @@ package io.ona.rdt.util;
 
 import android.app.Activity;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.smartregister.domain.UniqueId;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import io.ona.rdt.R;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.callback.OnUniqueIdsFetchedCallback;
 import io.ona.rdt.domain.Patient;
 
@@ -27,7 +28,6 @@ public class FormLauncher implements OnUniqueIdsFetchedCallback {
     private Set<String> formsThatRequireUniqueIDs = getFormsThatRequireUniqueIDs();
 
     public void launchForm(Activity activity, String formName, Patient patient) throws JSONException {
-        RDTApplication.getInstance().setCurrentActivity(activity);
         if (formRequiresUniqueId(formName)) {
             FormLaunchArgs args = new FormLaunchArgs();
             args.withActivity(activity)
