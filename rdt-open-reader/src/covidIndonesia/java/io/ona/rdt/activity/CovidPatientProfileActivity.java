@@ -16,7 +16,6 @@ import org.smartregister.util.SyncUtils;
 
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.ProfileFragmentAdapter;
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.CovidPatientProfileActivityContract;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientProfileFragment;
@@ -38,7 +37,6 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RDTApplication.getInstance().setCurrentActivity(this);
         populatePatientDetails();
         addListeners();
         setUpTabs();
@@ -46,9 +44,9 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        RDTApplication.getInstance().clearCurrActivityReference(this);
+    protected void onResume() {
+        super.onResume();
+        Utils.verifyUserAuthorization(this);
     }
 
     private void initializeFormWidgetKeyToTextMap() {

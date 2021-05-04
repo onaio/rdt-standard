@@ -39,6 +39,7 @@ import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.activity.PatientProfileActivity;
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import timber.log.Timber;
@@ -267,9 +268,9 @@ public class Utils {
             boolean isUserAuthorized = syncUtils.verifyAuthorization();
 
             Activity currentActivity = RDTApplication.getInstance().getCurrentActivity();
-            boolean isFormSourceActivity = currentActivity instanceof PatientProfileActivity;
+            boolean isRegisterActivity = currentActivity instanceof PatientRegisterActivity;
 
-            if (!isUserAuthorized && !isFormSourceActivity) {
+            if (!isUserAuthorized && isRegisterActivity) {
                 try {
                     syncUtils.logoutUser();
                 } catch (Exception ex) {
