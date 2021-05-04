@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Set;
 
 import io.ona.rdt.TestUtils;
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import io.ona.rdt.robolectric.RobolectricTest;
@@ -266,6 +267,8 @@ public class UtilsTest extends RobolectricTest {
 
     @Test
     public void testExceptionIsCaughtFromUserAuthorizationTask() throws Exception {
+        PatientRegisterActivity patientRegisterActivity = Mockito.mock(PatientRegisterActivity.class);
+        RDTApplication.getInstance().setCurrentActivity(patientRegisterActivity);
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
 
         SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
@@ -276,6 +279,7 @@ public class UtilsTest extends RobolectricTest {
         userAuthorizationVerificationTask.execute();
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        RDTApplication.getInstance().clearCurrActivityReference(patientRegisterActivity);
     }
 
     private Utils.UserAuthorizationVerificationTask getUserAuthorizationVerificationTask() {
