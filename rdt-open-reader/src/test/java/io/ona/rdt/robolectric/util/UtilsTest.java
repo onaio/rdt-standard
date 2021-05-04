@@ -237,6 +237,9 @@ public class UtilsTest extends RobolectricTest {
     @Test
     public void testVerifyUserAuthorizationShouldExecuteAuthorizationTaskIfNotRunning() throws AuthenticatorException, OperationCanceledException, IOException {
 
+        PatientRegisterActivity patientRegisterActivity = Mockito.mock(PatientRegisterActivity.class);
+        RDTApplication.getInstance().setCurrentActivity(patientRegisterActivity);
+
         Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
 
         // pending task
@@ -263,6 +266,7 @@ public class UtilsTest extends RobolectricTest {
         Assert.assertTrue(isTaskRunningOrFinished);
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        RDTApplication.getInstance().clearCurrActivityReference(patientRegisterActivity);
     }
 
     @Test
