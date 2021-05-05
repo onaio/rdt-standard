@@ -5,6 +5,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +43,19 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
                 .create()
                 .resume()
                 .get();
+    }
+
+    @Test
+    public void testOnResumeShouldSetCurrentActivityToCovidPatientRegisterActivity() throws Exception {
+        RDTApplication.getInstance().clearCurrActivityReference(covidPatientRegisterActivity);
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "onResume");
+        Assert.assertThat(RDTApplication.getInstance().getCurrentActivity(), CoreMatchers.instanceOf(CovidPatientRegisterActivity.class));
+    }
+
+    @Test
+    public void testOnPauseShouldClearCurrentActivity() throws Exception {
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "onPause");
+        Assert.assertNull(RDTApplication.getInstance().getCurrentActivity());
     }
 
     @Test

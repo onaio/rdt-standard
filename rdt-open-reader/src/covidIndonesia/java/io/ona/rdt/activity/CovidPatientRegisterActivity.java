@@ -7,10 +7,10 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AlertDialog;
 
 import org.smartregister.util.LangUtils;
-import org.smartregister.util.SyncUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import io.ona.rdt.R;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
@@ -34,8 +34,15 @@ public class CovidPatientRegisterActivity extends PatientRegisterActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        RDTApplication.getInstance().clearCurrActivityReference(this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        RDTApplication.getInstance().setCurrentActivity(this);
         Utils.verifyUserAuthorization(this);
     }
 
