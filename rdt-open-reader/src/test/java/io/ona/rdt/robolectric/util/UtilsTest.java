@@ -10,8 +10,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +46,6 @@ import io.ona.rdt.robolectric.shadow.BaseJobShadow;
 import io.ona.rdt.robolectric.shadow.OpenSRPContextShadow;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.MalariaRDTBarcodeFactory;
-import timber.log.Timber;
 
 import static org.mockito.Mockito.verify;
 
@@ -284,6 +281,22 @@ public class UtilsTest extends RobolectricTest {
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
         RDTApplication.getInstance().clearCurrActivityReference(patientRegisterActivity);
+    }
+
+    @Test
+    public void testLogoutShouldNotCallWhenCurrentActivityIsNotPatientRegisterActivity() throws Exception {
+
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
+        userAuthorizationVerificationTask.execute();
+
+        Mockito.verify(syncUtils, Mockito.never()).logoutUser();
+
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
     }
 
     private Utils.UserAuthorizationVerificationTask getUserAuthorizationVerificationTask() {
