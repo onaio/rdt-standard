@@ -284,7 +284,7 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
-    public void testLogoutShouldNotCallWhenCurrentActivityIsNotPatientRegisterActivity() throws Exception {
+    public void testVerifyUserAuthorizationShouldNotLogoutUserIfNotOnRegistrationPage() throws Exception {
 
         ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
 

@@ -46,14 +46,14 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     }
 
     @Test
-    public void testVerifyGlobalActivityShouldBeCovidPatientRegisterActivity() throws Exception {
+    public void testOnResumeShouldSetCurrentActivityToCovidPatientRegisterActivity() throws Exception {
         RDTApplication.getInstance().clearCurrActivityReference(covidPatientRegisterActivity);
         Whitebox.invokeMethod(covidPatientRegisterActivity, "onResume");
         Assert.assertThat(RDTApplication.getInstance().getCurrentActivity(), CoreMatchers.instanceOf(CovidPatientRegisterActivity.class));
     }
 
     @Test
-    public void testVerifyGlobalActivityShouldBeNull() throws Exception {
+    public void testOnPauseShouldClearCurrentActivity() throws Exception {
         Whitebox.invokeMethod(covidPatientRegisterActivity, "onPause");
         Assert.assertNull(RDTApplication.getInstance().getCurrentActivity());
     }
