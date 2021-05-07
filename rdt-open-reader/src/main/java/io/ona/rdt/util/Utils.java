@@ -1,5 +1,6 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -37,6 +38,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.ona.rdt.BuildConfig;
+import io.ona.rdt.activity.PatientProfileActivity;
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import timber.log.Timber;
@@ -263,7 +266,11 @@ public class Utils {
         @Override
         protected Void doInBackground(Void... voids) {
             boolean isUserAuthorized = syncUtils.verifyAuthorization();
-            if (!isUserAuthorized) {
+
+            Activity currentActivity = RDTApplication.getInstance().getCurrentActivity();
+            boolean isRegisterActivity = currentActivity instanceof PatientRegisterActivity;
+
+            if (!isUserAuthorized && isRegisterActivity) {
                 try {
                     syncUtils.logoutUser();
                 } catch (Exception ex) {
