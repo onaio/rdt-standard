@@ -16,6 +16,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class CovidEditTextFactory extends EditTextFactory {
 
     private static final String RIGHT_MARGIN = "right_margin";
@@ -33,7 +35,7 @@ public class CovidEditTextFactory extends EditTextFactory {
             try {
                 CovidEditTextFactory.super.attachLayout(stepName, context, formFragment, jsonObject, editText, editButton);
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         });
 
