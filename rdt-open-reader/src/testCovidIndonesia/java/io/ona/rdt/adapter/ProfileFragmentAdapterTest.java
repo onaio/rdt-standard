@@ -22,11 +22,12 @@ public class ProfileFragmentAdapterTest extends RobolectricTest {
     private static final int INDEX_COVID_PATIENT_VISIT_FRAGMENT = 1;
 
     private ProfileFragmentAdapter adapter;
+    private CovidPatientProfileActivity activity;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        CovidPatientProfileActivity activity = Robolectric.buildActivity(CovidPatientProfileActivity.class, getIntent()).create().resume().get();
+        activity = Robolectric.buildActivity(CovidPatientProfileActivity.class, getIntent()).create().resume().get();
         adapter = new ProfileFragmentAdapter(activity);
     }
 
@@ -52,5 +53,11 @@ public class ProfileFragmentAdapterTest extends RobolectricTest {
         Intent intent = new Intent();
         intent.putExtra(Constants.FormFields.PATIENT, patient);
         return intent;
+    }
+
+    @Override
+    public void tearDown() {
+        super.tearDown();
+        activity.finish();
     }
 }
