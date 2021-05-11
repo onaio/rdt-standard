@@ -60,20 +60,20 @@ public class RDTJsonFormActivityPresenterTest extends PowerMockTest {
         doReturn(jsonObject).when(activity).getmJSONObject();
 
         // verify back-press can be disabled
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(6);
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn("step6");
         presenter.onBackPress();
         verify(activity, never()).onBackPress();
 
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(13);
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn("step13");
         presenter.onBackPress();
         verify(activity, never()).onBackPress();
 
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(14);
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn("step14");
         presenter.onBackPress();
         verify(activity, never()).onBackPress();
 
         // verify back-press is allowed for all steps that are not flagged
-        when(RDTJsonFormFragment.getCurrentStep()).thenReturn(3);
+        when(RDTJsonFormFragment.getCurrentStep()).thenReturn("step3");
         presenter.onBackPress();
         verify(activity).onBackPress();
     }

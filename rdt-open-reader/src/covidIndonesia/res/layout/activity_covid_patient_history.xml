@@ -1,51 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_height="match_parent"
+    <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/patient_symptoms_history_section"
-                layout="@layout/patient_history_section"
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sectionTitle="@{@string/covid_patient_profile_symptoms_history}" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true">
 
-            <include
-                android:id="@+id/patient_rdt_history_section"
-                layout="@layout/patient_history_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sectionTitle="@{@string/covid_patient_profile_rdt}" />
+            <LinearLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
 
-            <include
-                android:id="@+id/patient_samples_history_section"
-                layout="@layout/patient_history_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sectionTitle="@{@string/covid_patient_profile_sample_collection}" />
+                <include
+                        android:id="@+id/patient_symptoms_history_section"
+                        layout="@layout/patient_history_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:sectionTitle="@{@string/covid_patient_profile_symptoms_history}" />
 
-            <include
-                android:id="@+id/patient_x_ray_history_section"
-                layout="@layout/patient_history_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sectionTitle="@{@string/covid_xray}" />
+                <include
+                        android:id="@+id/patient_rdt_history_section"
+                        layout="@layout/patient_history_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:sectionTitle="@{@string/covid_patient_profile_rdt}" />
 
-            <include
-                android:id="@+id/patient_white_blood_cell_count_history_section"
-                layout="@layout/patient_history_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sectionTitle="@{@string/covid_wbc}" />
+                <include
+                        android:id="@+id/patient_samples_history_section"
+                        layout="@layout/patient_history_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:sectionTitle="@{@string/covid_patient_profile_sample_collection}" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <include
+                        android:id="@+id/patient_x_ray_history_section"
+                        layout="@layout/patient_history_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:sectionTitle="@{@string/covid_xray}" />
+
+                <include
+                        android:id="@+id/patient_white_blood_cell_count_history_section"
+                        layout="@layout/patient_history_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:sectionTitle="@{@string/covid_wbc}" />
+
+                <include
+                    android:id="@+id/patient_shipping_preparation_history_section"
+                    layout="@layout/patient_history_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:sectionTitle="@{@string/shipping_preparation}" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+                android:id="@+id/visit_date_label"
+                android:layout_margin="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+    </LinearLayout>
 </layout>

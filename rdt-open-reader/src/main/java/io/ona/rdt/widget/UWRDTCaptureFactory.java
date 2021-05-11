@@ -23,8 +23,10 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
+import edu.washington.cs.ubicomplab.rdt_reader.activities.ImageQualityActivity;
 import io.ona.rdt.activity.CustomRDTCaptureActivity;
 import io.ona.rdt.activity.RDTJsonFormActivity;
+import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.domain.LineReadings;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
@@ -52,6 +54,8 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     protected abstract void launchCamera(Intent intent, Context context);
 
+    private boolean isRdtScannerLaunched = false; // needed to avoid launching scanner twice
+
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         this.baseEntityId = ((JsonApi) context).getmJSONObject().optString(JsonFormUtils.ENTITY_ID);
@@ -75,7 +79,8 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
     @Override
     protected void launchRDTCaptureActivity() {
         Context context = widgetArgs.getContext();
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+        if (!isRdtScannerLaunched) {
+            isRdtScannerLaunched = true;
             Intent intent = new Intent(context, CustomRDTCaptureActivity.class);
             intent.putExtra(JsonFormUtils.ENTITY_ID, baseEntityId);
             intent.putExtra(RDT_NAME, ((RDTJsonFormActivity) context).getRdtType());
@@ -85,6 +90,7 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        isRdtScannerLaunched = false;
         hideProgressDialog();
 
         RDTJsonFormFragment formFragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
@@ -129,7 +135,7 @@ public abstract class UWRDTCaptureFactory extends RDTCaptureFactory {
 
         @Override
         protected void onPreExecute() {
-            Utils.showProgressDialogInFG((Activity) context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
+            Utils.showProgressDialogInFG(context, com.vijay.jsonwizard.R.string.please_wait_title, com.vijay.jsonwizard.R.string.launching_rdt_capture_message);
         }
 
         @Override

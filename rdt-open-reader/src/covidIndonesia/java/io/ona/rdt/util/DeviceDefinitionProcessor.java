@@ -34,11 +34,18 @@ public class DeviceDefinitionProcessor {
     }
 
     public static DeviceDefinitionProcessor getInstance(Context context) throws IOException, FHIRParserException {
+        return getInstance(context, true);
+    }
+
+    public static DeviceDefinitionProcessor getInstance(Context context, boolean refreshDeviceDefinitionBundle) throws IOException, FHIRParserException {
         if (deviceDefinitionProcessor == null) {
             deviceDefinitionProcessor = new DeviceDefinitionProcessor();
         }
-        // we need this to refresh the resource in case it changes in between two accesses
-        deviceDefinitionBundle = getDeviceDefinitionBundle(context);
+
+        if (refreshDeviceDefinitionBundle) {
+            // we may need this to refresh the resource in case it changes in between two accesses
+            deviceDefinitionBundle = getDeviceDefinitionBundle(context);
+        }
 
         return deviceDefinitionProcessor;
     }
@@ -59,10 +66,16 @@ public class DeviceDefinitionProcessor {
         return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
     }
 
+    public String extractDeviceDetectedComponentType(String deviceId) {
+        String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')).capability.where(type.where(text='%s')).description.text",
+                deviceId, CovidConstants.FHIRResource.DETECTED_COMPONENT_TYPE);
+        return PathEvaluatorLibrary.getInstance().extractStringFromBundle(deviceDefinitionBundle, expression);
+    }
+
     public String extractManufacturerName(String deviceId) {
         String expression = String.format("$this.entry.resource.where(identifier.where(value='%s')))", deviceId);
         DeviceDefinition deviceDefinition = (DeviceDefinition) PathEvaluatorLibrary.getInstance().extractResourceFromBundle(deviceDefinitionBundle, expression);
-        return deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
+        return deviceDefinition == null ? null : deviceDefinition.getManufacturer().as(com.ibm.fhir.model.type.String.class).getValue();
     }
 
     public Map<String, String> getDeviceIDToDeviceNameMap() {
@@ -105,6 +118,6 @@ public class DeviceDefinitionProcessor {
             JSONArray valAsJsonArr = Utils.convertToJsonArr(val);
             deviceConfig.put(keyValPair.getKey(), valAsJsonArr == null ? val : valAsJsonArr);
         }
-        return deviceConfig;
+        return deviceConfig.length() == 0 ? null : deviceConfig;
     }
 }

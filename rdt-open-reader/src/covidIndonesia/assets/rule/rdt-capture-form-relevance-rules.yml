@@ -26,3 +26,24 @@ priority: 1
 condition: "step4_health_facility_name.contains('other')"
 actions:
   - "isRelevant = true"
+---
+name: step11_chw_result_antibody
+description: Antibody manual selection
+priority: 1
+condition: "step11_detected_component_type == 'Antibody'"
+actions:
+  - "isRelevant = true"
+---
+name: step11_chw_result_antigen
+description: Antigen manual selection
+priority: 1
+condition: "step11_detected_component_type == 'Antigen'"
+actions:
+  - "isRelevant = true"
+---
+name: step11_antibody_type
+description: Antibody type
+priority: 1
+condition: "step11_chw_result_antibody.contains('reactive')"
+actions:
+  - "isRelevant = true"

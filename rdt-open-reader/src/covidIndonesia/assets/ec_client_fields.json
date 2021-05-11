@@ -61,6 +61,13 @@
             "field": "obs.fieldCode",
             "concept": "patient_occupation"
           }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
         }
       ]
     }

@@ -55,6 +55,17 @@
     "submit_label": "{{patient-registration-form-original.step1.submit_label}}",
     "fields": [
       {
+        "key": "fields_required_hint",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.fields_required_hint.text}}",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.fields_required_hint.v_required.err}}"
+        }
+      },
+      {
         "key": "patient_first_name_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_first_name_label.text}}",
@@ -67,16 +78,22 @@
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "edit_type": "name",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.patient_first_name.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "{{patient-registration-form-original.step1.patient_first_name.v_regex.err}}"
         }
       },
       {
         "key": "patient_last_name_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_last_name_label.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_last_name",
@@ -84,26 +101,38 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "edit_type": "name"
+        "edit_type": "name",
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "{{patient-registration-form-original.step1.patient_last_name.v_regex.err}}"
+        }
       },
       {
         "key": "patient_id_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_id_label.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.patient_id.v_regex.err}}"
+        }
       },
       {
         "key": "medical_record_id_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.medical_record_id_label.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "medical_record_id",
@@ -111,10 +140,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "{{patient-registration-form-original.step1.medical_record_id.v_required.err}}"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.medical_record_id.v_regex.err}}"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "national_id_type",
@@ -129,12 +167,12 @@
             "text": "{{patient-registration-form-original.step1.national_id_type.options.drivers_license.text}}"
           },
           {
-            "key": "passport",
-            "text": "{{patient-registration-form-original.step1.national_id_type.options.passport.text}}"
-          },
-          {
             "key": "national_identity_card",
             "text": "{{patient-registration-form-original.step1.national_id_type.options.national_identity_card.text}}"
+          },
+          {
+            "key": "passport",
+            "text": "{{patient-registration-form-original.step1.national_id_type.options.passport.text}}"
           }
         ],
         "v_required": {
@@ -146,7 +184,8 @@
         "key": "government_id_no_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.government_id_no_label.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "government_id_no",
@@ -154,10 +193,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.government_id_no.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.government_id_no.v_regex.err}}"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "sex",
@@ -180,6 +232,13 @@
           "value": "true",
           "err": "{{patient-registration-form-original.step1.sex.v_required.err}}"
         }
+      },
+      {
+        "key": "patient_dob_label",
+        "type": "label",
+        "text": "{{patient-registration-form-original.step1.patient_dob_label.text}}",
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_dob",
@@ -218,7 +277,8 @@
         "key": "patient_occupation_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_occupation_label.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_occupation",
@@ -226,6 +286,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_occupation.v_required.err}}"
@@ -235,7 +296,8 @@
         "key": "patient_phone_number_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_phone_number_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_phone_number",
@@ -243,6 +305,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_phone_number.v_required.err}}"
@@ -253,31 +316,38 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
+          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
+          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_min_length.err}}"
         }
       },
       {
         "key": "patient_email_address_label",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_email_address_label.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_email_address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text"
+        "type": "edit_text",
+        "top_padding": "0dp",
+        "v_email": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_email_address.v_email.err}}"
+        }
       },
       {
         "key": "gvt_id_street_address_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.gvt_id_street_address_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "gvt_id_street_address",
@@ -285,6 +355,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.gvt_id_street_address.v_required.err}}"
@@ -294,7 +365,8 @@
         "key": "gvt_id_province_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.gvt_id_province_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "gvt_id_province",
@@ -302,6 +374,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.gvt_id_province.v_required.err}}"
@@ -311,7 +384,8 @@
         "key": "gvt_id_city_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.gvt_id_city_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "gvt_id_city",
@@ -319,10 +393,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.gvt_id_city.v_required.err}}"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "domicile_same_as_gvt_id_address",
@@ -351,6 +434,7 @@
         "type": "label",
         "text": "{{patient-registration-form-original.step1.domicile_street_address_lbl.text}}",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -365,6 +449,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.domicile_street_address.v_required.err}}"
@@ -382,6 +467,7 @@
         "type": "label",
         "text": "{{patient-registration-form-original.step1.domicile_province_lbl.text}}",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -396,6 +482,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.domicile_province.v_required.err}}"
@@ -413,6 +500,7 @@
         "type": "label",
         "text": "{{patient-registration-form-original.step1.domicile_city_lbl.text}}",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -427,6 +515,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.domicile_city.v_required.err}}"
@@ -443,7 +532,8 @@
         "key": "patient_whatsapp_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.patient_whatsapp_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "patient_whatsapp",
@@ -451,16 +541,31 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_min_length.err}}"
         }
       },
       {
         "key": "head_of_household_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.head_of_household_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "head_of_household",
@@ -468,6 +573,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.head_of_household.v_required.err}}"
@@ -477,7 +583,8 @@
         "key": "head_of_household_no_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.head_of_household_no_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "head_of_household_no",
@@ -485,16 +592,31 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.head_of_household_no.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_min_length.err}}"
         }
       },
       {
         "key": "head_of_household_address_lbl",
         "type": "label",
         "text": "{{patient-registration-form-original.step1.head_of_household_address_lbl.text}}",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "top_margin": "20dp"
       },
       {
         "key": "head_of_household_address",
@@ -502,10 +624,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.head_of_household_address.v_required.err}}"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "taken_tests_before",
@@ -534,6 +665,7 @@
         "type": "label",
         "text": "{{patient-registration-form-original.step1.no_of_covid_tests_lbl.text}}",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -548,6 +680,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -590,6 +723,7 @@
         "type": "label",
         "text": "{{patient-registration-form-original.step1.test_location_lbl.text}}",
         "text_color": "#000000",
+        "top_margin": "20dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -604,6 +738,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "top_padding": "0dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -615,6 +750,14 @@
           "value": "false",
           "err": "{{patient-registration-form-original.step1.test_location.v_required.err}}"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
       },
       {
         "key": "type_of_test",
@@ -642,6 +785,10 @@
           {
             "key": "antibody",
             "text": "{{patient-registration-form-original.step1.type_of_test.options.antibody.text}}"
+          },
+          {
+            "key": "genose_c19",
+            "text": "{{patient-registration-form-original.step1.type_of_test.options.genose_c19.text}}"
           }
         ],
         "v_required": {
@@ -679,25 +826,25 @@
         }
       },
       {
-        "key": "antigen_or_pcr_result",
+        "key": "antigen_pcr_or_genose_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form-original.step1.antigen_or_pcr_result.label}}",
+        "label": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.label}}",
         "options": [
           {
             "key": "positive",
-            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.positive.text}}"
+            "text": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.options.positive.text}}"
           },
           {
             "key": "negative",
-            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.negative.text}}"
+            "text": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.options.negative.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form-original.step1.antigen_or_pcr_result.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {

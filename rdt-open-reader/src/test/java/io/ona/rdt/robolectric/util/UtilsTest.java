@@ -1,6 +1,9 @@
 package io.ona.rdt.robolectric.util;
 
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
@@ -9,6 +12,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,11 +21,14 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.SyncUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +38,7 @@ import java.util.Map;
 import java.util.Set;
 
 import io.ona.rdt.TestUtils;
+import io.ona.rdt.activity.PatientRegisterActivity;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.job.RDTSyncSettingsServiceJob;
 import io.ona.rdt.robolectric.RobolectricTest;
@@ -153,6 +161,13 @@ public class UtilsTest extends RobolectricTest {
     }
 
     @Test
+    public void testConvertDateShouldReturnNullForInvalidDateFormat() throws Exception {
+        String dateStr = null;
+        String result = Utils.convertDate(dateStr, "dd/MM/yyyy", "yyyy-MM-dd");
+        Assert.assertNull(result);
+    }
+
+    @Test
     public void testConvertDateShouldReturnCorrectDateFormat() throws ParseException {
         Assert.assertEquals("1990-09-12", Utils.convertDate("12/09/1990", "dd/MM/yyyy", "yyyy-MM-dd"));
     }
@@ -207,5 +222,87 @@ public class UtilsTest extends RobolectricTest {
     public void testGetParentLocationIdShouldGetCorrectParentLocationId() {
         RDTApplication.getInstance().getContext().allSharedPreferences().saveDefaultLocalityId("", "");
         Assert.assertEquals(OpenSRPContextShadow.PARENT_LOCATION_ID, Utils.getParentLocationId());
+    }
+
+    @Test
+    public void testIsValidJSONObjectShouldReturnCorrectStatus() {
+        Assert.assertTrue(Utils.isValidJSONObject(new JSONObject().toString()));
+        Assert.assertFalse(Utils.isValidJSONObject(null));
+        Assert.assertFalse(Utils.isValidJSONObject(""));
+    }
+
+    @Test
+    public void testVerifyUserAuthorizationShouldExecuteAuthorizationTaskIfNotRunning() throws AuthenticatorException, OperationCanceledException, IOException {
+
+        PatientRegisterActivity patientRegisterActivity = Mockito.mock(PatientRegisterActivity.class);
+        RDTApplication.getInstance().setCurrentActivity(patientRegisterActivity);
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
+
+        // pending task
+        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.PENDING);
+        Utils.verifyUserAuthorization(RDTApplication.getInstance());
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
+
+        // running task
+        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.RUNNING);
+        Utils.verifyUserAuthorization(RDTApplication.getInstance());
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).execute();
+
+        // finished task
+        userAuthorizationVerificationTask = getUserAuthorizationVerificationTask();
+        Mockito.when(userAuthorizationVerificationTask.getStatus()).thenReturn(AsyncTask.Status.FINISHED);
+        Utils.verifyUserAuthorization(RDTApplication.getInstance());
+        Mockito.verify(userAuthorizationVerificationTask, Mockito.times(1)).destroyInstance();
+        // assert a new instance is created
+        AsyncTask recreatedAsyncTask = Utils.UserAuthorizationVerificationTask.getInstance(RuntimeEnvironment.application);
+        Assert.assertNotEquals(recreatedAsyncTask, userAuthorizationVerificationTask);
+        // verify that task is restarted if finished
+        AsyncTask.Status taskStatus = recreatedAsyncTask.getStatus();
+        boolean isTaskRunningOrFinished = taskStatus == AsyncTask.Status.RUNNING || taskStatus == AsyncTask.Status.FINISHED;
+        Assert.assertTrue(isTaskRunningOrFinished);
+
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        RDTApplication.getInstance().clearCurrActivityReference(patientRegisterActivity);
+    }
+
+    @Test
+    public void testExceptionIsCaughtFromUserAuthorizationTask() throws Exception {
+        PatientRegisterActivity patientRegisterActivity = Mockito.mock(PatientRegisterActivity.class);
+        RDTApplication.getInstance().setCurrentActivity(patientRegisterActivity);
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+        Mockito.doThrow(RuntimeException.class).when(syncUtils).logoutUser();
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
+        userAuthorizationVerificationTask.execute();
+
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        RDTApplication.getInstance().clearCurrActivityReference(patientRegisterActivity);
+    }
+
+    @Test
+    public void testVerifyUserAuthorizationShouldNotLogoutUserIfNotOnRegistrationPage() throws Exception {
+
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+
+        SyncUtils syncUtils = Mockito.mock(SyncUtils.class);
+
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance());
+        ReflectionHelpers.setField(userAuthorizationVerificationTask, "syncUtils", syncUtils);
+        userAuthorizationVerificationTask.execute();
+
+        Mockito.verify(syncUtils, Mockito.never()).logoutUser();
+
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+    }
+
+    private Utils.UserAuthorizationVerificationTask getUserAuthorizationVerificationTask() {
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", null);
+        Utils.UserAuthorizationVerificationTask userAuthorizationVerificationTask = Mockito.spy(Utils.UserAuthorizationVerificationTask.getInstance(RDTApplication.getInstance()));
+        ReflectionHelpers.setStaticField(Utils.UserAuthorizationVerificationTask.class, "INSTANCE", userAuthorizationVerificationTask);
+        return userAuthorizationVerificationTask;
     }
 }

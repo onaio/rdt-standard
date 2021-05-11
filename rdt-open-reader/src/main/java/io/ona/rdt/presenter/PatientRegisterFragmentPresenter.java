@@ -71,11 +71,15 @@ public class PatientRegisterFragmentPresenter implements PatientRegisterFragment
     }
 
     private String[] mainColumns(String tableName) {
-        String[] columns = new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID, Constants.DBConstants.DOB};
+        String[] columns = getMainColumns();
         for (int i = 0; i < columns.length; i++) {
             columns[i] = TextUtils.join(".", new String[]{tableName, columns[i]});
         }
         return columns;
+    }
+
+    protected String[] getMainColumns() {
+        return new String[] {"relationalid", FIRST_NAME, LAST_NAME, AGE, SEX, PATIENT_ID};
     }
 
     @Override

@@ -1,9 +1,7 @@
 package io.ona.rdt.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.utils.Utils;
@@ -29,7 +27,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.presenter.RDTJsonFormFragmentPresenter;
-import timber.log.Timber;
 
 import static io.ona.rdt.util.Constants.Encounter.RDT_TEST;
 import static io.ona.rdt.util.Constants.FormFields.ENCOUNTER_TYPE;
@@ -40,12 +37,12 @@ import static io.ona.rdt.util.Constants.Step.TWENTY_MIN_COUNTDOWN_TIMER_PAGE;
  */
 public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonFormFragmentContract.View {
 
-    protected static int currentStep = 1; // step of the fragment coming into view
-    protected static int prevStep; // step of the fragment coming out of view
     private boolean moveBackOneStep = false;
     private View rootLayout;
+    private static String currentStep;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        currentStep = getArguments().getString(JsonFormConstants.STEPNAME);
         rootLayout = super.onCreateView(inflater, container, savedInstanceState);
         return rootLayout;
     }
@@ -60,9 +57,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     }
 
     public static JsonFormFragment getFormFragment(String stepName) {
-        String stepNum = stepName.substring(4);
-        prevStep = currentStep;
-        currentStep = Integer.parseInt(stepNum);
         RDTJsonFormFragment jsonFormFragment = new RDTJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", stepName);
@@ -74,7 +68,7 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
     protected void initializeBottomNavigation(final JSONObject step, View rootView) {
         super.initializeBottomNavigation(step, rootView);
 
-        String currStep = "step" + currentStep;
+        String currStep = getCurrentStep();
         boolean isNextButtonEnabled = true;
 
         // Disable bottom navigation for the 20min countdown timer
@@ -157,17 +151,6 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-       return getRDTJsonFormFragmentPresenter();
-    }
-
-    protected RDTJsonFormFragmentPresenter getRDTJsonFormFragmentPresenter() {
-        if (presenter == null) {
-            presenter = createRDTJsonFormFragmentPresenter();
-        }
-        return (RDTJsonFormFragmentPresenter) presenter;
-    }
-
-    protected RDTJsonFormFragmentPresenter createRDTJsonFormFragmentPresenter() {
         return new RDTJsonFormFragmentPresenter(this, RDTJsonFormInteractor.getInstance());
     }
 
@@ -197,27 +180,8 @@ public class RDTJsonFormFragment extends JsonFormFragment implements RDTJsonForm
         return (RDTJsonFormFragmentContract.Presenter) presenter;
     }
 
-    public static int getCurrentStep() {
+    public static String getCurrentStep() {
         return currentStep;
-    }
-
-    public static void setCurrentStep(int currStep) {
-        currentStep = currStep;
-    }
-
-    /**
-     *
-     * Replace current fragment in container with the next {@link JsonFormFragment}
-     * Also uses the step name as the name of the fragment to be replaced and added to the backstack
-     *
-     * @param next
-     */
-    @Override
-    public void transactThis(JsonFormFragment next) {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(com.vijay.jsonwizard.R.anim.enter_from_right, com.vijay.jsonwizard.R.anim.exit_to_left, com.vijay.jsonwizard.R.anim.enter_from_left,
-                        com.vijay.jsonwizard.R.anim.exit_to_right).replace(com.vijay.jsonwizard.R.id.container, next).addToBackStack("step" + prevStep)
-                .commitAllowingStateLoss(); // use https://stackoverflow.com/a/10261449/9782187
     }
 
     public View getRootLayout() {

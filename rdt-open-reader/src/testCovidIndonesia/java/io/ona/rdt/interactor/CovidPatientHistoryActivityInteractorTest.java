@@ -1,6 +1,5 @@
 package io.ona.rdt.interactor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -52,38 +51,24 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetPatientHistoryEntries() throws Exception {
+    public void testGetPatientHistoryShouldReturnListOfPatientEntries() throws Exception {
         List<PatientHistoryEntry> list = interactor.getPatientHistoryEntries("", "", "");
 
         Assert.assertNotNull(list);
 
+        Map<String, String> expectedMap = new HashMap<>();
+        expectedMap.put("Dimana assessment ini dilakukan?", "rumah");
+
         for (PatientHistoryEntry entry : list) {
             Assert.assertNotEquals("", entry.getValue());
-            if ("Dimana assessment ini dilakukan?".equals(entry.getKey())) {
-                Assert.assertEquals("rumah", entry.getValue());
+            if (expectedMap.containsKey(entry.getKey())) {
+                Assert.assertEquals(expectedMap.get(entry.getKey()), entry.getValue());
             }
         }
-
-        int fieldCount = 0;
-        EventClient eventClient = patientHistoryRepository.getEvent("", "", "");
-        if (eventClient != null) {
-            Event event = eventClient.getEvent();
-            for (Obs obs : event.getObs()) {
-                if (!((boolean) Whitebox.invokeMethod(interactor, "shouldAddObs", obs, event))) {
-                    continue;
-                }
-                String text = formWidgetKeyToTextMap.get(obs.getFormSubmissionField());
-                if (StringUtils.isNotBlank(text)) {
-                    fieldCount += 1;
-                }
-            }
-        }
-
-        Assert.assertEquals(fieldCount, list.size());
     }
 
     @Test
-    public void testShouldAddObs() throws Exception {
+    public void testShouldAddObsShouldReturnRelevantBoolean() throws Exception {
         Obs obs = new Obs();
         obs.setFormSubmissionField("rdt_id");
         List<Obs> list = new ArrayList<>();
@@ -109,7 +94,7 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     }
 
     @Test
-    public void testGetValues() throws Exception {
+    public void testGetValuesShouldReturnExpectedValueFromGivenMap() throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("travel_location", "");
 
@@ -118,11 +103,11 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
 
         String values = Whitebox.invokeMethod(interactor, "getValues", obs, formWidgetKeyToTextMap);
 
-        Assert.assertEquals("Location travelled?", values);
+        Assert.assertEquals("travel_location", values);
     }
 
     @Test
-    public void testGetValue() throws Exception {
+    public void testGetValueShouldReturnExpectedValueFromGivenMap() throws Exception {
         formWidgetKeyToTextMap.put(PATIENT_KEY, "");
 
         Obs obs = new Obs();
@@ -135,6 +120,6 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
     @Override
     public void tearDown() {
         super.tearDown();
-        formWidgetKeyToTextMap.remove(PATIENT_KEY);
+        FormKeyTextExtractionUtil.destroyFormWidgetKeyToTextMap();
     }
 }

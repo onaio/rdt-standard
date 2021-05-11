@@ -21,6 +21,7 @@ public interface CovidConstants extends Constants {
         String TOP_LINE_NAME = "TOP_LINE_NAME";
         String RDT_SCAN_CONFIGURATION = "RDTScan Configuration";
         String INSTRUCTIONS = "instructions";
+        String DETECTED_COMPONENT_TYPE = "detected component types";
         String FHIR_RESOURCE_FOLDER = "fhir.resource/";
         String DEVICE_RESOURCE_FILE = CovidConstants.FHIRResource.FHIR_RESOURCE_FOLDER + "DeviceDefinitionsBundle.json";
     }
@@ -28,6 +29,7 @@ public interface CovidConstants extends Constants {
     interface Widget {
         String GOOGLE_COVID_BARCODE_READER = "google_covid_barcode_reader";
         String ONE_SCAN_COVID_BARCODE_READER = "one_scan_covid_barcode_reader";
+        String COVID_RDT_CAPTURE = "covid_rdt_capture";
         String RDT_DEVICE_SELECTOR_SPINNER = "rdt_device_selector_spinner";
     }
 
@@ -76,6 +78,8 @@ public interface CovidConstants extends Constants {
         String COVID_SELECT_RDT_TYPE_PAGE = "covid_select_rdt_type_page";
         String COVID_DEVICE_DETAILS_CONFIRMATION_PAGE = "covid_device_details_confirmation_page";
         String COVID_SAMPLE_DELIVERY_DETAILS_UNIQUE_BATCH_ID_PAGE = "covid_sample_delivery_details_unique_batch_id_page";
+        String COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE = "covid_rdt_capture_form_rdt_capture_page";
+        String COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE = "covid_chw_manual_rdt_result_entry_page";
     }
 
     interface FormFields {
@@ -99,7 +103,6 @@ public interface CovidConstants extends Constants {
         String PATIENT_INFO_UNIQUE_ID = "patient_info_unique_id";
         String PATIENT_INFO_NAME = "patient_info_name";
         String PATIENT_INFO_DOB = "patient_info_dob";
-        String SAMPLER_NAME = "sampler_name";
         String SENDER_NAME = "sender_name";
         String OTHER_KEY = "other";
         String OTHER_VALUE = "Other";
@@ -109,6 +112,12 @@ public interface CovidConstants extends Constants {
         String QR_CODE_READER = "qr_code_reader";
         String SELECTED_RDT_IMAGE = "selected_rdt_image";
         String RDT_CONFIG = "rdt_config";
+        String RDT_DEVICE_ID = "rdt_device_id";
+        String FEMALE = "female";
+        String MALE = "male";
+        String DETECTED_COMPONENT_TYPE = "detected_component_type";
+        String RDT_MANUFACTURER = "rdt_manufacturer";
+        String RDT_DEVICE_NAME = "rdt_device_name";
     }
 
     interface RDTType {

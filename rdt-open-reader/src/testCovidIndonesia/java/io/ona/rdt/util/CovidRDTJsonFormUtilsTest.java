@@ -843,7 +843,7 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
     @Config(shadows = {DeviceDefinitionProcessorShadow.class, RDTJsonFormUtilsShadow.class})
     @Test
-    public void testPopulateRDTDetailsConfirmationPageShouldCorrectlyPopulateDetails() throws Exception {
+    public void testPopulateFormWithRDTDetailsShouldCorrectlyPopulateDetails() throws Exception {
         JSONObject jsonObject = new JSONObject();
         RDTJsonFormActivity jsonFormActivity = WidgetFactoryRobolectricTest.getRDTJsonFormActivity();
         Mockito.doNothing().when(jsonFormActivity).writeValue(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(),
@@ -870,17 +870,30 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
         DeviceDefinitionProcessorShadow.setJSONObject(deviceConfig);
 
         JSONObject stepStateConfig = new JSONObject();
+        stepStateConfig.put(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE, CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         RDTApplication.getInstance().getStepStateConfiguration().setStepStateObj(stepStateConfig);
 
         WidgetArgs widgetArgs = new WidgetArgs().withJsonObject(jsonObject).withStepName(TEST_STEP)
                 .withContext(jsonFormActivity).withFormFragment(formFragment);
 
-        getCovidFormUtils().populateRDTDetailsConfirmationPage(widgetArgs, DEVICE_ID);
+        getCovidFormUtils().populateFormWithRDTDetails(widgetArgs, DEVICE_ID);
 
         verifyRDTDetailsConfirmationPageIsPopulated(jsonFormActivity, deviceDetailsWidget);
-        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.FormFields.RDT_CONFIG,
-                deviceConfig.toString(), "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE, CovidConstants.FormFields.RDT_DEVICE_ID,
+                DEVICE_ID, "", "", "", false);
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE,
+                CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
+                DeviceDefinitionProcessorShadow.DETECTED_COMPONENT_TYPE, "", "", "", false);
+
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE,
+                CovidConstants.FormFields.RDT_MANUFACTURER,
+                DeviceDefinitionProcessorShadow.MANUFACTURER, "", "", "", false);
+
+        Mockito.verify(jsonFormActivity).writeValue(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE,
+                CovidConstants.FormFields.RDT_DEVICE_NAME,
+                DeviceDefinitionProcessorShadow.DEVICE_NAME, "", "", "", false);
 
         jsonFormActivity.finish();
     }
@@ -929,14 +942,10 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
 
         Assert.assertEquals(deviceDetails, deviceDetailsWidget.getString(JsonFormConstants.TEXT));
         Assert.assertEquals(CovidConstants.FHIRResource.REF_IMG, deviceDetailsWidget.getString(CovidImageViewFactory.BASE64_ENCODED_IMG));
-
-        Mockito.verify(jsonFormActivity).writeValue(ArgumentMatchers.eq(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE),
-                ArgumentMatchers.eq(CovidConstants.FormFields.RDT_CONFIG), ArgumentMatchers.eq(DeviceDefinitionProcessorShadow.getJsonObject().toString()),
-                ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean());
     }
 
     protected void assertAllFieldsArePopulated(int numOfPopulatedFields) {
-        assertEquals(10, numOfPopulatedFields);
+        assertEquals(9, numOfPopulatedFields);
     }
 
     @Override
@@ -971,9 +980,6 @@ public class CovidRDTJsonFormUtilsTest extends BaseRDTJsonFormUtilsTest {
                 assertEquals(childObject.getString(JsonFormConstants.TEXT), "01-09-2020");
                 numOfPopulatedFields++;
             }
-        } else if (CovidConstants.FormFields.SAMPLER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
-            assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
-            numOfPopulatedFields++;
         } else if (CovidConstants.FormFields.SENDER_NAME.equals(field.getString(JsonFormConstants.KEY))) {
             assertEquals(field.getString(VALUE), ANM_PREFERRED_NAME);
             numOfPopulatedFields++;

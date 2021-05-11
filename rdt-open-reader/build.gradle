@@ -23,14 +23,15 @@ android {
 
     defaultConfig {
         applicationId "io.ona.rdt"
-        minSdkVersion 22
+        minSdkVersion 26
         targetSdkVersion 29
-        versionCode 10
+        versionCode 12
         versionName "v1.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
         buildConfigField "long", "SYNC_INTERVAL_MINUTES", '15'
+        buildConfigField "String", "SYNC_FILTER_PARAM", '"provider"'
 
         def oneScanClientId = System.getenv('ONE_SCAN_CLIENT_ID')
         def oneScanAuthToken = System.getenv('ONE_SCAN_AUTH_TOKEN')
@@ -78,6 +79,7 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
         exclude("META-INF/*.kotlin_module")
+        exclude 'META-INF/INDEX.LIST'
     }
 
     buildTypes {
@@ -129,10 +131,11 @@ android {
             applicationId "io.ona.diagnostics.rdt.configurable.id"
             resValue "string", 'opensrp_base_url', '"https://covid.opensrp.id/opensrp/"'
             buildConfigField "String", "LOCALE", "\"id\""
-            versionName "v1.8.2"
+            versionName "v1.9.2"
             versionNameSuffix "-CONFIGURABLE-RDT"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", "LOGIN_ACTIVITY", '"io.ona.rdt.activity.CovidLoginActivity"'
+            buildConfigField "String", "SYNC_FILTER_PARAM", '"team"'
         }
     }
 
@@ -166,7 +169,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.14.8.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:2.0.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -178,7 +181,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:4.2.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.3.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.robolectric'
         exclude group: 'com.crashlytics.sdk.android'
@@ -188,7 +191,6 @@ dependencies {
         exclude group: 'com.google.android.gms', module: 'play-services-vision'
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-        exclude group: 'com.ibm.fhir', module: 'fhir-model'
     }
 
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.0.0'
@@ -197,9 +199,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
-
-    jarJar 'com.ibm.fhir:fhir-model:4.2.3'
-    implementation fileTree(dir: "./build/libs", include: ['*.jar'])
 
     testImplementation "org.robolectric:shadows-multidex:4.3.1"
     testImplementation "org.robolectric:robolectric:4.3.1"
@@ -211,7 +210,6 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
-    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
@@ -220,12 +218,6 @@ dependencies {
     debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
     testImplementation 'androidx.test.ext:junit:1.1.1'
 }
-
-jarJar {
-    // Dependencies and related JarJar rules
-    remove = ['fhir-model-4.2.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
-}
-
 
 project.afterEvaluate {
     // Grab all build types and product flavors

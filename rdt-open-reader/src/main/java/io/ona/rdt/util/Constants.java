@@ -1,5 +1,7 @@
 package io.ona.rdt.util;
 
+import android.app.Activity;
+
 import io.ona.rdt.BuildConfig;
 
 /**
@@ -16,12 +18,14 @@ public interface Constants {
         String MULTI_VERSION = "multi_version";
         String IS_IMG_SYNC_ENABLED = "is_img_sync_enabled";
         String ENABLE_BATCH_SCAN = "enable_batch_scan";
+        String TEAM = "team";
     }
 
     interface Result {
         String JSON_FORM_PARAM_JSON = "json";
         String EXPIRATION_DATE_RESULT = "expiration_date_result";
         String EXPIRATION_DATE = "expiration_date";
+        String ONESCAN_IS_NOT_INSTALLED = "onescan_is_not_installed";
     }
 
     interface RDTType {
@@ -82,6 +86,7 @@ public interface Constants {
         String SEX = "sex";
         String PATIENT_ID = "patient_id";
         String DOB = "patient_dob";
+        String LAST_INTERACTED_WITH = "last_interacted_with";
     }
 
     interface Form {
@@ -144,5 +149,9 @@ public interface Constants {
 
     interface Preference {
         String LOCATION_TREE = "location_tree";
+    }
+
+    interface RESULT_CODE {
+        int PERMISSIONS_DENIED = Activity.RESULT_FIRST_USER + 1;
     }
 }

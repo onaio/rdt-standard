@@ -28,7 +28,6 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.OneScanHelper;
-import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 import io.ona.rdt.widget.CovidRDTBarcodeFactory;
 import io.ona.rdt.widget.RDTBarcodeFactory;
@@ -83,6 +82,18 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
                 performPostScanActions(bundle);
                 if (enableBatchScan) {
                     handler.postDelayed(() -> doScan(reader), 1);
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Intent intent = new Intent();
+                if (bundle != null) {
+                    intent.putExtras(bundle);
+                }
+
+                if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
+                    setResult(Activity.RESULT_CANCELED, intent);
+                    super.onBackPressed();
+                } else if (enableBatchScan) {
+                    setResultAndFinish(response);
                 }
             }
         });
@@ -185,13 +196,6 @@ public class OneScanActivity extends AppCompatActivity implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         oneScanHelper.doActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_CANCELED) {
-            if (com.vijay.jsonwizard.utils.Utils.isEmptyJsonArray(dataArray)) {
-                super.onBackPressed();
-            } else if (enableBatchScan) {
-                setResultAndFinish(response);
-            }
-        }
     }
 
     @Override

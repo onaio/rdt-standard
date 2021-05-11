@@ -70,6 +70,45 @@
         "edit_type": "name"
       },
       {
+        "key": "sampler_id_lbl",
+        "type": "label",
+        "text": "Sampler ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "edit_type": "name"
+      },
+      {
+        "key": "sampler_phone_number_lbl",
+        "type": "label",
+        "text": "Sampler's phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "sampler_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
+        }
+      },
+      {
         "key": "sample_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -290,6 +329,10 @@
             "text": "Saline buffer"
           },
           {
+            "key": "no_media_dry_swab",
+            "text": "No media (Dry swab)"
+          },
+          {
             "key": "other",
             "text": "Other"
           }
@@ -492,53 +535,6 @@
               "rules-file": "sample-collection-form-relevance-rules.yml"
             }
           }
-        }
-
-      },
-      {
-        "key": "doctor_name_label",
-        "type": "label",
-        "text": "Doctor's name",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": ""
-        }
-      },
-      {
-        "key": "doctor_phone_number_lbl",
-        "type": "label",
-        "text": "Doctor's phone number?",
-        "text_color": "#000000"
-      },
-      {
-        "key": "doctor_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "v_required": {
-          "value": "false",
-          "err": ""
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Value must be numeric"
-        },
-        "v_max_length": {
-          "value": "13",
-          "err": "Phone number cannot be more than 13 digits"
-        },
-        "v_min_length": {
-          "value": "8",
-          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {

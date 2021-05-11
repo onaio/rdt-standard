@@ -55,6 +55,57 @@
     "next_label": "CONTINUE",
     "fields": [
       {
+        "key": "health_worker_name_label",
+        "type": "label",
+        "text": "Name of health worker",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_id_label",
+        "type": "label",
+        "text": "Health worker ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_phone_number_label",
+        "type": "label",
+        "text": "Health worker phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
+        }
+      },
+      {
         "key": "facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -63,20 +114,20 @@
         "label": "Where is the assessment taking place?",
         "options": [
           {
-            "key": "hospital",
-            "text": "hospital"
-          },
-          {
             "key": "clinic",
-            "text": "clinic"
-          },
-          {
-            "key": "office",
-            "text": "office"
+            "text": "Clinic"
           },
           {
             "key": "home",
-            "text": "home"
+            "text": "Home"
+          },
+          {
+            "key": "hospital",
+            "text": "Hospital"
+          },
+          {
+            "key": "office",
+            "text": "Office"
           },
           {
             "key": "public_health_center",
@@ -84,7 +135,7 @@
           },
           {
             "key": "other",
-            "text": "other"
+            "text": "Other"
           }
         ],
         "v_required": {
@@ -98,6 +149,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z ]*$",
+          "err": "only alphabetic characters are allowed"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -298,28 +353,6 @@
         }
       },
       {
-        "key": "has_urinary_or_kidney_disease_history",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Does the patient have a history with urinary or kidney disease?",
-        "options": [
-          {
-            "key": "Yes",
-            "text": "Yes"
-          },
-          {
-            "key": "No",
-            "text": "No"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
-      },
-      {
         "key": "has_diabetes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -391,7 +424,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic neurological or neuromuscular disease",
+        "label": "Does the patient have chronic neurological or neuromuscular disease?",
         "options": [
           {
             "key": "Yes",
@@ -492,6 +525,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z ]*$",
+          "err": "only alphabetic characters are allowed"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -523,11 +560,7 @@
         "hint": "Date of onset of symptoms",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",
@@ -558,12 +591,25 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Body temperature ℃",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "patient-diagnostics-form-relevance-rules.yml"
             }
           }
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Temperature should be equal or under in 35 to 45"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Temperature should be equal or under in 35 to 45"
         },
         "v_required": {
           "value": "true",
@@ -725,12 +771,12 @@
         }
       },
       {
-        "key": "has_shortness_of_breath",
+        "key": "has_decreased_taste_sensitivity",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have shortness of breath?",
+        "label": "Does the patient have decreased taste sensitivity?",
         "options": [
           {
             "key": "Yes",
@@ -747,12 +793,12 @@
         }
       },
       {
-        "key": "has_decreased_taste_sensitivity",
+        "key": "has_shortness_of_breath",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have decreased taste sensitivity?",
+        "label": "Does the patient have shortness of breath?",
         "options": [
           {
             "key": "Yes",
@@ -996,6 +1042,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z ]*$",
+          "err": "only alphabetic characters are allowed"
+        },
         "v_required": {
           "value": "true",
           "err": ""
@@ -1027,6 +1077,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z ]*$",
+          "err": "only alphabetic characters are allowed"
+        },
         "v_required": {
           "value": "true",
           "err": ""
@@ -1048,7 +1102,7 @@
         "hint": "Date of international travel",
         "expanded": false,
         "duration": {
-          "label": "Date of international travel"
+          "label": "duration"
         },
         "min_date": "today-100y",
         "max_date": "today",
@@ -1069,7 +1123,7 @@
         "hint": "Date of international arrival",
         "expanded": false,
         "duration": {
-          "label": "Date of international arrival"
+          "label": "duration"
         },
         "min_date": "today-100y",
         "max_date": "today",
@@ -1122,6 +1176,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z ]*$",
+          "err": "only alphabetic characters are allowed"
+        },
         "v_required": {
           "value": "true",
           "err": ""
@@ -1153,6 +1211,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z ]*$",
+          "err": "only alphabetic characters are allowed"
+        },
         "v_required": {
           "value": "true",
           "err": ""
@@ -1174,7 +1236,7 @@
         "hint": "Date of local area travel",
         "expanded": false,
         "duration": {
-          "label": "Date of local area travel"
+          "label": "duration"
         },
         "min_date": "today-100y",
         "max_date": "today",
@@ -1195,7 +1257,7 @@
         "hint": "Date of local area arrival",
         "expanded": false,
         "duration": {
-          "label": "Date of local area arrival"
+          "label": "duration"
         },
         "min_date": "today-100y",
         "max_date": "today",
@@ -1279,6 +1341,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1325,6 +1391,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1365,7 +1435,7 @@
             "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "Date of first contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1379,7 +1449,7 @@
             "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "Date of last contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1436,6 +1506,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1482,6 +1556,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1496,7 +1574,7 @@
             "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "Date of first contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1510,7 +1588,7 @@
             "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "Date of last contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1567,6 +1645,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1613,6 +1695,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1627,7 +1713,7 @@
             "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "Date of first contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1641,7 +1727,7 @@
             "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "Date of last contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1658,6 +1744,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1715,6 +1805,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1761,6 +1855,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""
@@ -1775,7 +1873,7 @@
             "hint": "Date of first contact",
             "expanded": false,
             "duration": {
-              "label": "Date of first contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1789,7 +1887,7 @@
             "hint": "Date of last contact",
             "expanded": false,
             "duration": {
-              "label": "Date of last contact"
+              "label": "duration"
             },
             "min_date": "today-100y",
             "max_date": "today"
@@ -1806,6 +1904,10 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z ]*$",
+              "err": "only alphabetic characters are allowed"
+            },
             "v_required": {
               "value": "false",
               "err": ""

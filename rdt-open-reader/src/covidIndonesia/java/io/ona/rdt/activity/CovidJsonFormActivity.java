@@ -7,10 +7,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -24,11 +26,10 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import io.ona.rdt.R;
 import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidJsonFormFragment;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import timber.log.Timber;
@@ -104,6 +105,7 @@ public class CovidJsonFormActivity extends RDTJsonFormActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSIONS && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            setResult(Constants.RESULT_CODE.PERMISSIONS_DENIED, null);
             formUtils.showToast(this, getString(R.string.location_permissions));
             finish();
         }

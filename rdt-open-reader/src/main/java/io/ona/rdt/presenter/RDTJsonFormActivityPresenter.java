@@ -27,7 +27,7 @@ public class RDTJsonFormActivityPresenter implements RDTJsonFormActivityContract
     @Override
     public void onBackPress() {
         try {
-            String currentStep = "step" + RDTJsonFormFragment.getCurrentStep();
+            String currentStep = RDTJsonFormFragment.getCurrentStep();
             // disable backpress for timer, rdt capture and expiration date screens
             if (!isDisabledBackPress(currentStep, activity.getmJSONObject().optString(ENCOUNTER_TYPE))) {
                 activity.onBackPress();
