@@ -8,12 +8,10 @@ import androidx.fragment.app.testing.FragmentScenario;
 import org.junit.Assert;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 
 import io.ona.rdt.R;
 import io.ona.rdt.activity.CovidPatientProfileActivity;
-import io.ona.rdt.activity.CovidPatientRegisterActivity;
 import io.ona.rdt.domain.Patient;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterFragmentPresenter;
@@ -25,14 +23,12 @@ import io.ona.rdt.viewholder.PatientRegisterViewHolder;
 public class CovidPatientRegisterFragmentTest extends FragmentRobolectricTest {
 
     private CovidPatientRegisterFragment covidPatientRegisterFragment;
-    private CovidPatientRegisterActivity patientRegisterActivity;
     private FragmentScenario<CovidPatientRegisterFragment> fragmentScenario;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
 
-        patientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class).create().resume().get();
         fragmentScenario = FragmentScenario.launchInContainer(CovidPatientRegisterFragment.class, null, R.style.Theme_AppCompat, null);
         fragmentScenario.onFragment(fragment -> covidPatientRegisterFragment = fragment);
     }
@@ -57,8 +53,8 @@ public class CovidPatientRegisterFragmentTest extends FragmentRobolectricTest {
     @Test
     public void testLaunchPatientProfileShouldVerifyStartCovidPatientProfileActivity() {
         covidPatientRegisterFragment.launchPatientProfile(new Patient("", "", ""));
-        Intent expectedIntent = new Intent(patientRegisterActivity, CovidPatientProfileActivity.class);
-        Intent actualIntent = Shadows.shadowOf(new ContextWrapper(patientRegisterActivity)).getNextStartedActivity();
+        Intent expectedIntent = new Intent(covidPatientRegisterFragment.getActivity(), CovidPatientProfileActivity.class);
+        Intent actualIntent = Shadows.shadowOf(new ContextWrapper(covidPatientRegisterFragment.getActivity())).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
     }
 
