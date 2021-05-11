@@ -69,6 +69,14 @@
         "v_numeric": {
           "value": "true",
           "err": "Value must be numeric"
+        },
+        "v_min": {
+          "value": "400",
+          "err": "Value cannot be this low"
+        },
+        "v_max": {
+          "value": "108000",
+          "err": "Value cannot be this high"
         }
       },
       {
@@ -86,6 +94,14 @@
         "v_numeric": {
           "value": "true",
           "err": "Value must be numeric"
+        },
+        "v_min": {
+          "value": "90",
+          "err": "Value cannot be this low"
+        },
+        "v_max": {
+          "value": "52000",
+          "err": "Value cannot be this high"
         }
       },
       {
@@ -103,6 +119,14 @@
         "v_numeric": {
           "value": "true",
           "err": "Value must be numeric"
+        },
+        "v_min": {
+          "value": "13000",
+          "err": "Value cannot be this low"
+        },
+        "v_max": {
+          "value": "4000000",
+          "err": "Value cannot be this high"
         }
       },
       {

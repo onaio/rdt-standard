@@ -93,7 +93,7 @@
   "step3": {
     "title": "{{rdt-capture-form-original.step3.title}}",
     "display_back_button": "true",
-    "next": "step11",
+    "next": "step4",
     "bottom_navigation": "true",
     "bottom_navigation_orientation": "vertical",
     "next_label": "{{rdt-capture-form-original.step3.next_label}}",
@@ -603,9 +603,9 @@
           "err": "{{rdt-capture-form-original.step11.antibody_type.v_required.err}}"
         },
         "relevance": {
-          "step11:chw_result_antigen": {
+          "step11:chw_rdt_type": {
             "type": "string",
-            "ex": "equalTo(., \"positive\")"
+            "ex": "equalTo(., \"antibody\")"
           }
         }
       }
