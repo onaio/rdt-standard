@@ -3,7 +3,9 @@ package io.ona.rdt.widget;
 import android.view.View;
 
 import org.json.JSONException;
+import org.junit.Assert;
 import org.junit.Test;
+import org.robolectric.util.ReflectionHelpers;
 
 import io.ona.rdt.callback.CovidOnLabelClickedListener;
 import io.ona.rdt.callback.OnLabelClickedListener;
@@ -55,6 +57,13 @@ public class CovidRDTLabelFactoryTest extends BaseRDTLabelFactoryTest {
         onLabelClickedListener = new CovidOnLabelClickedListener(getWidgetArgs(CovidConstants.FormFields.LBL_ENTER_SAMPLE_DETAILS_MANUALLY));
         onLabelClickedListener.onClick(mock(View.class));
         verify(presenter).moveToNextStep(eq(COVID_ENTER_DELIVERY_DETAILS_PAGE));
+    }
+
+    @Test
+    public void verifyLabelClickListenerShouldReturnCovidOnLabelClickedListenerClassName() throws JSONException {
+        mockStaticMethods();
+        ReflectionHelpers.setField(rdtLabelFactory, "widgetArgs", getWidgetArgs(""));
+        Assert.assertEquals(CovidOnLabelClickedListener.class.getName(), rdtLabelFactory.getOnLabelClickedListener().getClass().getName());
     }
 
     @Override

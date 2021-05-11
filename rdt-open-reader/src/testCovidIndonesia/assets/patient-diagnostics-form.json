@@ -1,0 +1,266 @@
+{
+  "count": "4",
+  "encounter_type": "patient_diagnostics",
+  "entity_id": "",
+  "step1": {
+    "title": "{{patient-diagnostics-form-original.step1.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step2",
+    "next_label": "{{patient-diagnostics-form-original.step1.next_label}}",
+    "fields": [
+      {
+        "key": "facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step1.facility_type.label}}",
+        "options": [
+          {
+            "key": "hospital",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.hospital.text}}"
+          },
+          {
+            "key": "clinic",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.clinic.text}}"
+          },
+          {
+            "key": "office",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.office.text}}"
+          },
+          {
+            "key": "home",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.home.text}}"
+          },
+          {
+            "key": "public_health_center",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.public_health_center.text}}"
+          },
+          {
+            "key": "other",
+            "text": "{{patient-diagnostics-form-original.step1.facility_type.options.other.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.facility_type.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_facility_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_regex": {
+          "value": "^[a-zA-Z]*$",
+          "err": "{{patient-diagnostics-form-original.step1.other_facility_type.v_regex.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.other_facility_type.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "{{patient-diagnostics-form-original.step2.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step3",
+    "next_label": "{{patient-diagnostics-form-original.step2.next_label}}",
+    "fields": [
+      {
+        "key": "feels_malaised",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step2.feels_malaised.label}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{patient-diagnostics-form-original.step2.feels_malaised.options.yes.text}}"
+          },
+          {
+            "key": "no",
+            "text": "{{patient-diagnostics-form-original.step2.feels_malaised.options.no.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step2.feels_malaised.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "{{patient-diagnostics-form-original.step3.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next": "step4",
+    "next_label": "{{patient-diagnostics-form-original.step3.next_label}}",
+    "fields": [
+      {
+        "key": "covid_close_contacts",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "{{patient-diagnostics-form-original.step3.covid_close_contacts.reference_edit_text_hint}}",
+        "repeating_group_label": "{{patient-diagnostics-form-original.step3.covid_close_contacts.repeating_group_label}}",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        },
+        "value": [
+          {
+            "key": "covid_close_contacts_name_label",
+            "type": "label",
+            "text": "{{patient-diagnostics-form-original.step3.covid_close_contacts.covid_close_contacts_name_label.text}}",
+            "text_color": "#000000"
+          },
+          {
+            "key": "covid_close_contacts_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "v_regex": {
+              "value": "^[a-zA-Z]*$",
+              "err": "{{patient-diagnostics-form-original.step3.covid_close_contacts.covid_close_contacts_name.v_regex.err}}"
+            },
+            "v_required": {
+              "value": "false",
+              "err": "{{patient-diagnostics-form-original.step3.covid_close_contacts.covid_close_contacts_name.v_required.err}}"
+            }
+          }
+        ]
+      },
+      {
+        "key": "what_ppe",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{patient-diagnostics-form-original.step3.what_ppe.label}}",
+        "options": [
+          {
+            "key": "gown",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.gown.text}}"
+          },
+          {
+            "key": "mask",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.mask.text}}"
+          },
+          {
+            "key": "gloves",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.gloves.text}}"
+          },
+          {
+            "key": "masker",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.masker.text}}"
+          },
+          {
+            "key": "ffp3",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.ffp3.text}}"
+          },
+          {
+            "key": "goggles",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.goggles.text}}"
+          },
+          {
+            "key": "none",
+            "text": "{{patient-diagnostics-form-original.step3.what_ppe.options.none.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step3.what_ppe.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "patient-diagnostics-form-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "{{patient-diagnostics-form-original.step4.title}}",
+    "display_back_button": "true",
+    "bottom_navigation": "true",
+    "bottom_navigation_orientation": "vertical",
+    "next_type": "submit",
+    "submit_label": "{{patient-diagnostics-form-original.step4.submit_label}}",
+    "fields": [
+      {
+        "key": "patient_case_category",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{patient-diagnostics-form-original.step4.patient_case_category.label}}",
+        "options": [
+          {
+            "key": "negative_screening_result",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.negative_screening_result.text}}"
+          },
+          {
+            "key": "traveler",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.traveler.text}}"
+          },
+          {
+            "key": "close_contact",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.close_contact.text}}"
+          },
+          {
+            "key": "suspected",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.suspected.text}}"
+          },
+          {
+            "key": "probable",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.probable.text}}"
+          },
+          {
+            "key": "symptomatic_confirmed",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.symptomatic_confirmed.text}}"
+          },
+          {
+            "key": "asymptomatic_confirmed",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.asymptomatic_confirmed.text}}"
+          },
+          {
+            "key": "discarded",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.discarded.text}}"
+          },
+          {
+            "key": "isolation_completed",
+            "text": "{{patient-diagnostics-form-original.step4.patient_case_category.options.isolation_completed.text}}"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step4.patient_case_category.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "properties_file_name": "patient-diagnostics-form"
+}

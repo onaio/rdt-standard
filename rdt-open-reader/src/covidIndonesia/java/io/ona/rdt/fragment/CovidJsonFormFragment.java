@@ -21,7 +21,7 @@ import static io.ona.rdt.util.CovidConstants.Encounter.COVID_RDT_TEST;
  */
 public class CovidJsonFormFragment extends RDTJsonFormFragment {
 
-    private Set<String> formsWithSpecialNavigationRules = new HashSet<>(Arrays.asList(RDT_TEST, COVID_RDT_TEST));
+    public Set<String> formsWithSpecialNavigationRules = new HashSet<>(Arrays.asList(RDT_TEST, COVID_RDT_TEST));
 
     @Override
     protected boolean formHasSpecialNavigationRules(String formName) {

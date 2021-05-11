@@ -49,7 +49,7 @@ public abstract class BaseRDTLabelFactoryTest extends PowerMockTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        rdtLabelFactory = new RDTLabelFactory();
+        rdtLabelFactory = getRdtLabelFactory();
         jsonObject = new JSONObject();
     }
 

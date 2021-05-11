@@ -24,7 +24,7 @@ public abstract class WidgetFactoryRobolectricTest extends RobolectricTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        jsonFormActivity = getRDTJsonFormActivity();
+        jsonFormActivity = getRDTJsonFormActivity(getStepObject());
     }
 
     @After
@@ -33,18 +33,26 @@ public abstract class WidgetFactoryRobolectricTest extends RobolectricTest {
     }
 
     public static RDTJsonFormActivity getRDTJsonFormActivity() throws JSONException {
+        return getRDTJsonFormActivity(new JSONObject());
+    }
+
+    public static RDTJsonFormActivity getRDTJsonFormActivity(JSONObject stepObject) throws JSONException {
         return Mockito.spy(Robolectric.buildActivity(RDTJsonFormActivity.class,
-                getJsonFormActivityIntent())
+                getJsonFormActivityIntent(stepObject))
                 .create()
                 .get());
     }
 
-    private static Intent getJsonFormActivityIntent() throws JSONException {
+    private static Intent getJsonFormActivityIntent(JSONObject stepObject) throws JSONException {
         JSONObject mJSONObject = new JSONObject();
-        mJSONObject.put(JsonFormConstants.STEP1, new JSONObject());
+        mJSONObject.put(JsonFormConstants.STEP1, stepObject);
         mJSONObject.put(JsonFormConstants.ENCOUNTER_TYPE, "encounter_type");
         Intent intent = new Intent();
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, mJSONObject.toString());
         return intent;
+    }
+
+    protected JSONObject getStepObject() throws JSONException {
+        return new JSONObject();
     }
 }
