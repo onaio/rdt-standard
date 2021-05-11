@@ -24,9 +24,12 @@ public class CovidRepeatingGroupFactoryTest extends WidgetFactoryRobolectricTest
 
     @Test
     public void verifyEditTextListenersShouldPerformFocusChangeListener() throws Exception {
+        JsonFormFragment jsonFormFragment = Mockito.spy(new JsonFormFragment());
+        Mockito.when(jsonFormFragment.getStep(ArgumentMatchers.anyString())).thenReturn(getStepObject());
+
         MockCovidRepeatingGroupFactory covidRepeatingGroupFactory = Mockito.spy(new MockCovidRepeatingGroupFactory());
         JSONObject jsonObject = new JSONObject("{\"value\": [], \"key\": \"test\", \"reference_edit_text_hint\": \"\"}");
-        List<View> views = covidRepeatingGroupFactory.getViewsFromJson("step1", jsonFormActivity, new JsonFormFragment(), jsonObject, null);
+        List<View> views = covidRepeatingGroupFactory.getViewsFromJson("step1", jsonFormActivity, jsonFormFragment, jsonObject, null);
         MaterialEditText materialEditText = views.get(0).findViewById(R.id.reference_edit_text);
         materialEditText.getOnFocusChangeListener().onFocusChange(materialEditText, false);
         Assert.assertEquals(1, views.size());

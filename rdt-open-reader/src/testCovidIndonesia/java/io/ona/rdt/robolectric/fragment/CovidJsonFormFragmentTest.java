@@ -33,7 +33,7 @@ public class CovidJsonFormFragmentTest extends RobolectricTest {
 
     @Test
     public void testCreateRDTJsonFormFragmentPresenterShouldReturnCovidJsonFormFragmentPresenter() throws Exception {
-        RDTJsonFormFragmentPresenter presenter = Whitebox.invokeMethod(covidJsonFormFragment, "createRDTJsonFormFragmentPresenter");
+        RDTJsonFormFragmentPresenter presenter = Whitebox.invokeMethod(covidJsonFormFragment, "createPresenter");
         Assert.assertEquals(CovidJsonFormFragmentPresenter.class.getName(), presenter.getClass().getName());
     }
 }

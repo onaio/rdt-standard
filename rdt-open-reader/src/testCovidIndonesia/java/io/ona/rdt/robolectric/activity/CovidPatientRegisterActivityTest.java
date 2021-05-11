@@ -122,6 +122,8 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testSelectDrawerItemShouldReturnRelevantBoolean() {
+
+        UtilsShadow.setMockCounter(new MockCounter());
         MenuItem menuItem = Mockito.mock(MenuItem.class);
 
         Mockito.when(menuItem.getItemId()).thenReturn(R.id.menu_item_sync);
