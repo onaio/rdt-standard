@@ -31,7 +31,7 @@ public class CovidJsonFormFragmentTest extends FragmentRobolectricTest {
         super.setUp();
         Bundle bundle = new Bundle();
         bundle.putString("stepName", "step1");
-        fragmentScenario = FragmentScenario.launchInContainer(CovidJsonFormFragment.class, bundle, R.style.AppTheme, new FragmentFactory(){
+        fragmentScenario = FragmentScenario.launchInContainer(CovidJsonFormFragment.class, bundle, R.style.AppTheme, new FragmentFactory() {
             @NonNull
             @NotNull
             @Override
