@@ -12,6 +12,8 @@ import android.provider.Settings;
 import android.util.Base64;
 import android.widget.Toast;
 
+import androidx.core.util.Pair;
+
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.Utils;
@@ -46,7 +48,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import androidx.core.util.Pair;
 import edu.washington.cs.ubicomplab.rdt_reader.utils.ImageUtil;
 import io.ona.rdt.BuildConfig;
 import io.ona.rdt.R;
@@ -290,7 +291,7 @@ public class RDTJsonFormUtils {
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
             prePopulateRDTFormFields(context, field, uniqueID);
-            prePopulateRDTPatientFields(patient, field);
+            prePopulateRDTPatientFields(patient, field, context);
         }
     }
 
@@ -306,7 +307,7 @@ public class RDTJsonFormUtils {
         }
     }
 
-    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
+    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field, Context context) throws JSONException {
         if (patient == null) {
             return;
         }
@@ -416,6 +417,7 @@ public class RDTJsonFormUtils {
         DialogInterface.OnClickListener positiveOnClickListener = (paramDialogInterface, paramInt) -> activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         DialogInterface.OnClickListener negativeOnClickListener = (dialog, which) -> {
             Utils.showToast(activity, activity.getString(R.string.location_services_required));
+            activity.setResult(Constants.RESULT_CODE.PERMISSIONS_DENIED, null);
             activity.finish();
         };
         Utils.showAlertDialog(activity, "", activity.getString(R.string.location_settings_disabled_msg),

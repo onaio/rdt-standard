@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 
 import java.util.HashMap;
@@ -192,6 +193,7 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         stepStateConfig.put(CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE, CovidConstants.Step.COVID_SELECT_RDT_TYPE_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE, CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         stepStateConfig.put(CovidConstants.Step.COVID_CONDUCT_RDT_PAGE, CovidConstants.Step.COVID_CONDUCT_RDT_PAGE);
+        stepStateConfig.put(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE, CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE);
         ReflectionHelpers.setField(oneScanCovidRDTBarcodeFactory, "stepStateConfig", stepStateConfig);
     }
 
@@ -199,5 +201,18 @@ public class OneScanCovidRDTBarcodeFactoryTest extends WidgetFactoryRobolectricT
         Barcode barcode = new Barcode();
         barcode.displayValue = barcodeVals;
         return barcode;
+    }
+
+    @Test
+    public void testOnActivityResultShouldShowAlert() {
+        RDTJsonFormFragment fragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+        Mockito.when(fragment.getActivity()).thenReturn(jsonFormActivity);
+        Mockito.when(fragment.getContext()).thenReturn(jsonFormActivity);
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.Result.ONESCAN_IS_NOT_INSTALLED, true);
+        oneScanCovidRDTBarcodeFactory.onActivityResult(JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE, Activity.RESULT_CANCELED, intent);
+
+        Assert.assertTrue(ShadowAlertDialog.getLatestAlertDialog().isShowing());
     }
 }

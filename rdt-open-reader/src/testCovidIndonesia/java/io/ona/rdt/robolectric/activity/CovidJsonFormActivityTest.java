@@ -37,7 +37,7 @@ public class CovidJsonFormActivityTest extends JsonFormActivityTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        jsonFormActivity = Robolectric.buildActivity(CovidJsonFormActivity.class, intent).create().resume().get();
+        jsonFormActivity = Robolectric.buildActivity(CovidJsonFormActivity.class, intent).create().get();
         jsonFormActivity = Mockito.spy(jsonFormActivity);
     }
 

@@ -18,10 +18,8 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.List;
 
-import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.RDTJsonFormUtils;
-import io.ona.rdt.util.StepStateConfig;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.BARCODE_CONSTANTS.BARCODE_REQUEST_CODE;
 import static io.ona.rdt.util.Constants.Step.PRODUCT_EXPIRED_PAGE;
@@ -51,7 +49,7 @@ public abstract class RDTBarcodeFactory extends BarcodeFactory implements OnActi
 
         RelativeLayout rootLayout = views == null ? null : (RelativeLayout) views.get(0);
 
-        clickThenHideScanButton(rootLayout);
+        formFragment.getJsonApi().getAppExecutors().mainThread().execute(() -> clickThenHideScanButton(rootLayout));
 
         ((JsonApi) context).getFormDataViews().clear(); // we do not need the edit text and it causes weird validation issues
 

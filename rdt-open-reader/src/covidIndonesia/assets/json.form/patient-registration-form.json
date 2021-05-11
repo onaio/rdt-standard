@@ -82,6 +82,10 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.patient_first_name.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "{{patient-registration-form-original.step1.patient_first_name.v_regex.err}}"
         }
       },
       {
@@ -98,7 +102,11 @@
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "edit_type": "name",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "{{patient-registration-form-original.step1.patient_last_name.v_regex.err}}"
+        }
       },
       {
         "key": "patient_id_label",
@@ -113,7 +121,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.patient_id.v_regex.err}}"
+        }
       },
       {
         "key": "medical_record_id_label",
@@ -128,7 +140,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.medical_record_id.v_regex.err}}"
+        }
       },
       {
         "key": "spacer",
@@ -181,6 +197,10 @@
         "v_required": {
           "value": "true",
           "err": "{{patient-registration-form-original.step1.government_id_no.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "{{patient-registration-form-original.step1.government_id_no.v_regex.err}}"
         }
       },
       {
@@ -296,11 +316,11 @@
         },
         "v_max_length": {
           "value": "13",
-          "err": "number can\u0027t be more than 13 digits"
+          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_max_length.err}}"
         },
         "v_min_length": {
           "value": "8",
-          "err": "number can\u0027t be less than 8 digits"
+          "err": "{{patient-registration-form-original.step1.patient_phone_number.v_min_length.err}}"
         }
       },
       {
@@ -316,7 +336,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_email": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_email_address.v_email.err}}"
+        }
       },
       {
         "key": "gvt_id_street_address_lbl",
@@ -517,10 +541,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
         "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{patient-registration-form-original.step1.patient_whatsapp.v_min_length.err}}"
         }
       },
       {
@@ -555,10 +592,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
         "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": "{{patient-registration-form-original.step1.head_of_household_no.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{patient-registration-form-original.step1.head_of_household_no.v_min_length.err}}"
         }
       },
       {
@@ -735,6 +785,10 @@
           {
             "key": "antibody",
             "text": "{{patient-registration-form-original.step1.type_of_test.options.antibody.text}}"
+          },
+          {
+            "key": "genose_c19",
+            "text": "{{patient-registration-form-original.step1.type_of_test.options.genose_c19.text}}"
           }
         ],
         "v_required": {
@@ -772,25 +826,25 @@
         }
       },
       {
-        "key": "antigen_or_pcr_result",
+        "key": "antigen_pcr_or_genose_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{patient-registration-form-original.step1.antigen_or_pcr_result.label}}",
+        "label": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.label}}",
         "options": [
           {
             "key": "positive",
-            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.positive.text}}"
+            "text": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.options.positive.text}}"
           },
           {
             "key": "negative",
-            "text": "{{patient-registration-form-original.step1.antigen_or_pcr_result.options.negative.text}}"
+            "text": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.options.negative.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "{{patient-registration-form-original.step1.antigen_or_pcr_result.v_required.err}}"
+          "err": "{{patient-registration-form-original.step1.antigen_pcr_or_genose_result.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {

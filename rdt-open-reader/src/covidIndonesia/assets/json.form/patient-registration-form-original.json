@@ -82,6 +82,10 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "Please enter a valid name"
         }
       },
       {
@@ -98,7 +102,11 @@
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "edit_type": "name",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9 ']*$",
+          "err": "Please enter a valid name"
+        }
       },
       {
         "key": "patient_id_label",
@@ -113,7 +121,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "Please enter a valid ID"
+        }
       },
       {
         "key": "medical_record_id_label",
@@ -128,7 +140,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "Please enter a valid ID"
+        }
       },
       {
         "key": "spacer",
@@ -181,6 +197,10 @@
         "v_required": {
           "value": "true",
           "err": "This field is required"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z0-9]*$",
+          "err": "Please enter a valid ID"
         }
       },
       {
@@ -316,7 +336,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "top_padding": "0dp"
+        "top_padding": "0dp",
+        "v_email": {
+          "value": "true",
+          "err": "Please enter a valid email address"
+        }
       },
       {
         "key": "gvt_id_street_address_lbl",
@@ -517,10 +541,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
         "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -555,10 +592,23 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "number",
         "top_padding": "0dp",
         "v_required": {
           "value": "false",
           "err": ""
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
         }
       },
       {
@@ -735,6 +785,10 @@
           {
             "key": "antibody",
             "text": "Antibody RDT"
+          },
+          {
+            "key": "genose_c19",
+            "text": "GeNose C19"
           }
         ],
         "v_required": {
@@ -756,7 +810,7 @@
           },
           {
             "key": "nonreactive",
-            "text": "NonReactive"
+            "text": "Non-reactive"
           }
         ],
         "v_required": {
@@ -772,7 +826,7 @@
         }
       },
       {
-        "key": "antigen_or_pcr_result",
+        "key": "antigen_pcr_or_genose_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

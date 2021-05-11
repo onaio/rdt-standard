@@ -16,6 +16,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class CovidEditTextFactory extends EditTextFactory {
 
     private static final String RIGHT_MARGIN = "right_margin";
@@ -29,7 +31,13 @@ public class CovidEditTextFactory extends EditTextFactory {
 
     @Override
     protected void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView editButton) throws Exception {
-        super.attachLayout(stepName, context, formFragment, jsonObject, editText, editButton);
+        formFragment.getJsonApi().getAppExecutors().mainThread().execute(() -> {
+            try {
+                CovidEditTextFactory.super.attachLayout(stepName, context, formFragment, jsonObject, editText, editButton);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        });
 
         if (!jsonObject.has(JsonFormConstants.HINT)) {
             editText.setFloatingLabel(MaterialEditText.FLOATING_LABEL_NONE);

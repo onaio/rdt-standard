@@ -42,7 +42,7 @@ public class PatientHistoryRepository {
                     EventClientRepository.event_column.eventDate.toString(), DATE_START_INDEX, DATE_END_INDEX,
                     EventClientRepository.event_column.baseEntityId.toString(),
                     EventClientRepository.event_column.eventType.toString(),
-                    EventClientRepository.event_column.eventDate.toString()
+                    EventClientRepository.event_column.dateCreated.toString()
             ),
             new String[]{baseEntityId, eventType, date}
         );

@@ -55,6 +55,57 @@
     "next_label": "CONTINUE",
     "fields": [
       {
+        "key": "health_worker_name_label",
+        "type": "label",
+        "text": "Name of health worker",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_id_label",
+        "type": "label",
+        "text": "Health worker ID",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_phone_number_label",
+        "type": "label",
+        "text": "Health worker phone number",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Value must be numeric"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "Phone number cannot be more than 13 digits"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "Phone number cannot be less than 8 digits"
+        }
+      },
+      {
         "key": "facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -99,7 +150,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "relevance": {
@@ -373,7 +424,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Does the patient have chronic neurological or neuromuscular disease",
+        "label": "Does the patient have chronic neurological or neuromuscular disease?",
         "options": [
           {
             "key": "Yes",
@@ -475,7 +526,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "relevance": {
@@ -509,11 +560,7 @@
         "hint": "Date of onset of symptoms",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "This field is required"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",
@@ -996,7 +1043,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1031,7 +1078,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1130,7 +1177,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1165,7 +1212,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "only alphabetic characters are allowed"
         },
         "v_required": {
@@ -1295,7 +1342,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1345,7 +1392,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1460,7 +1507,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1510,7 +1557,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1599,7 +1646,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1649,7 +1696,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1698,7 +1745,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1759,7 +1806,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1809,7 +1856,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {
@@ -1858,7 +1905,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "only alphabetic characters are allowed"
             },
             "v_required": {

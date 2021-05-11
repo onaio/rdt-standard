@@ -1,12 +1,7 @@
 package io.ona.rdt.widget;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.location.LocationManager;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -14,7 +9,6 @@ import com.rey.material.widget.Button;
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
-import com.vijay.jsonwizard.utils.Utils;
 import com.vijay.jsonwizard.widgets.GpsFactory;
 
 import org.json.JSONObject;
@@ -25,7 +19,6 @@ import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.RDTGpsDialog;
 import io.ona.rdt.util.RDTJsonFormUtils;
-import timber.log.Timber;
 
 import static io.ona.rdt.util.Utils.convertDpToPixels;
 
@@ -51,18 +44,20 @@ public class RDTGpsFactory extends GpsFactory {
         List<View> views = super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         View rootLayout = views.get(0);
 
-        hideTextFields(rootLayout);
 
-        stretchWidgetToFullScreen(formFragment, context);
+        formFragment.getJsonApi().getAppExecutors().mainThread().execute(() -> {
+            hideTextFields(rootLayout);
 
-        new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
+            stretchWidgetToFullScreen(formFragment, context);
 
-        rootLayout.findViewById(R.id.record_button).setOnClickListener(v -> {
-            if (RDTJsonFormUtils.isLocationServiceDisabled(context)) {
-                RDTJsonFormUtils.showLocationServicesDialog((Activity) context);
-            } else {
-                requestPermissionsForLocation(context);
-            }
+            new RDTJsonFormFragment().setNextButtonState(rootLayout.findViewById(R.id.record_button), true);
+            rootLayout.findViewById(R.id.record_button).setOnClickListener(v -> {
+                if (RDTJsonFormUtils.isLocationServiceDisabled(context)) {
+                    RDTJsonFormUtils.showLocationServicesDialog((Activity) context);
+                } else {
+                    requestPermissionsForLocation(context);
+                }
+            });
         });
 
         return views;

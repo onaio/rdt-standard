@@ -5,6 +5,8 @@ import android.widget.ScrollView;
 
 import com.vijay.jsonwizard.domain.WidgetArgs;
 import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.AppExecutors;
 
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -107,6 +109,10 @@ public class RDTGpsFactoryTest extends WidgetFactoryRobolectricTest {
     private void mockMethods() {
         formFragmentRootLayout = Mockito.mock(View.class);
         Mockito.doReturn(formFragmentRootLayout).when(formFragment).getRootLayout();
+
+        JsonApi jsonApi = Mockito.mock(JsonApi.class);
+        Mockito.doReturn(new AppExecutors()).when(jsonApi).getAppExecutors();
+        Mockito.doReturn(jsonApi).when(formFragment).getJsonApi();
 
         scrollView = Mockito.mock(ScrollView.class);
         Mockito.doReturn(scrollView).when(formFragmentRootLayout).findViewById(ArgumentMatchers.eq(com.vijay.jsonwizard.R.id.scroll_view));

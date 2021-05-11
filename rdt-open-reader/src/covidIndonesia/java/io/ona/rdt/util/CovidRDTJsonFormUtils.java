@@ -3,7 +3,6 @@ package io.ona.rdt.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
@@ -84,7 +83,7 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                     prePopulateSampleShipmentDetailsFormFields(field);
                     break;
             }
-            prePopulateRDTPatientFields(patient, field);
+            prePopulateRDTPatientFields(patient, field, context);
         }
     }
 
@@ -130,10 +129,6 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
                 // pre-populate the patient detail dob
                 fillPatientData(field, patient.getDob());
                 break;
-            case CovidConstants.FormFields.SAMPLER_NAME:
-                // pre-populate the sampler name
-                field.put(JsonFormConstants.VALUE, getLoggedInUserPreferredName());
-                break;
         }
     }
 
@@ -149,11 +144,12 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
     }
 
     @Override
-    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field) throws JSONException {
-        super.prePopulateRDTPatientFields(patient, field);
+    protected void prePopulateRDTPatientFields(Patient patient, JSONObject field, Context context) throws JSONException {
+        super.prePopulateRDTPatientFields(patient, field, context);
         String key = field.getString(JsonFormUtils.KEY);
         if (PATIENT_SEX.equals(key)) {
-            field.put(JsonFormUtils.VALUE, patient.getPatientSex().toLowerCase());
+            String translatedSex = patient.getPatientSex();
+            field.put(JsonFormUtils.VALUE, context.getString(R.string.female).equalsIgnoreCase(translatedSex) ? CovidConstants.FormFields.FEMALE : CovidConstants.FormFields.MALE);
         } else if (PATIENT_AGE.equals(key)) {
             field.put(JsonFormUtils.VALUE, patient.getAge());
         } else if (FACILITY_SET.contains(key)) {
@@ -205,7 +201,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         String defaultLocation = LocationHelper.getInstance().getDefaultLocation();
         Map<String, String> defaultLocations = new LinkedHashMap<String, String>() {
             {
-                put(defaultLocation.toLowerCase(), defaultLocation);
+                if (defaultLocation != null) {
+                    put(defaultLocation.toLowerCase(), defaultLocation);
+                }
                 put(CovidConstants.FormFields.OTHER_KEY, CovidConstants.FormFields.OTHER_VALUE);
             }
         };
@@ -214,6 +212,9 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
 
     private Map<String, String> filterLocations(LinkedHashMap<String, TreeNode<String, Location>> map) {
         LinkedHashMap<String, String> locations = new LinkedHashMap<>();
+        if (!map.entrySet().iterator().hasNext()) {
+            return locations;
+        }
         Map.Entry<String, TreeNode<String, Location>> entry = map.entrySet().iterator().next();
         for (Map.Entry<String, TreeNode<String, Location>> childEntry : entry.getValue().getChildren().entrySet()) {
             TreeNode<String, Location> childNode = childEntry.getValue();
@@ -222,44 +223,67 @@ public class CovidRDTJsonFormUtils extends RDTJsonFormUtils {
         return locations;
     }
 
-    public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
-        populateRDTDetailsConfirmationPage(widgetArgs, deviceId, true);
+    public void populateFormWithRDTDetails(WidgetArgs widgetArgs, String deviceId) throws JSONException, IOException, FHIRParserException {
+        populateFormWithRDTDetails(widgetArgs, deviceId, true);
     }
 
-    public void populateRDTDetailsConfirmationPage(WidgetArgs widgetArgs, String deviceId, boolean refreshDeviceDefinitionBundle) throws JSONException, IOException, FHIRParserException {
+    public void populateFormWithRDTDetails(WidgetArgs widgetArgs, String deviceId, boolean refreshDeviceDefinitionBundle) throws JSONException, IOException, FHIRParserException {
         if (StringUtils.isBlank(deviceId)) {
             return;
         }
 
         Context context = widgetArgs.getContext();
+        DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
         if (CovidConstants.FormFields.OTHER_KEY.equals(deviceId)) {
             // reset details when other is selected or device id is blank
-            writeRDTDetailsToWidgets(widgetArgs, context.getString(R.string.unknown_rdt_selected),  "", "");
+            writeRDTDetailsToWidgets(widgetArgs, "", deviceDefinitionProcessor);
         } else {
-            DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context, refreshDeviceDefinitionBundle);
-            String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), deviceDefinitionProcessor.extractManufacturerName(deviceId),
-                    deviceDefinitionProcessor.extractDeviceName(deviceId));
-            JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
-            writeRDTDetailsToWidgets(widgetArgs, deviceDetails, deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG), deviceId);
+            writeRDTDetailsToWidgets(widgetArgs, deviceId, deviceDefinitionProcessor);
         }
     }
 
-    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceDetails, String rdtImage, String deviceId) throws JSONException {
+    private void writeRDTDetailsToWidgets(WidgetArgs widgetArgs, String deviceId, DeviceDefinitionProcessor deviceDefinitionProcessor) throws JSONException {
+
+        String manufacturerName = deviceDefinitionProcessor.extractManufacturerName(deviceId);
+        String deviceName = deviceDefinitionProcessor.extractDeviceName(deviceId);
+
+        String deviceDetails = getFormattedRDTDetails(widgetArgs.getContext(), manufacturerName, deviceName);
+
+        JSONObject deviceConfig = deviceDefinitionProcessor.extractDeviceConfig(deviceId);
+        String rdtImage = deviceConfig == null ? "" : deviceConfig.optString(CovidConstants.FHIRResource.REF_IMG);
+
         Context context = widgetArgs.getContext();
         String rdtDetailsConfirmationPage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_DEVICE_DETAILS_CONFIRMATION_PAGE);
         JSONObject deviceDetailsWidget = RDTJsonFormUtils.getField(rdtDetailsConfirmationPage,
                 CovidConstants.FormFields.SELECTED_RDT_IMAGE, context);
 
         // write device details to confirmation page
-        deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
-        deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
+        if (deviceDetailsWidget != null) {
+            deviceDetailsWidget.put(JsonFormConstants.TEXT, deviceDetails);
+            deviceDetailsWidget.put(CovidImageViewFactory.BASE64_ENCODED_IMG, rdtImage);
+        }
 
+        JsonApi jsonApi = (JsonApi) context;
         // write device ID to rdt capture page
         String rdtCapturePage = getStepStateConfigObj().optString(CovidConstants.Step.COVID_RDT_CAPTURE_FORM_RDT_CAPTURE_PAGE);
-        ((JsonApi) context).writeValue(rdtCapturePage, CovidConstants.FormFields.RDT_DEVICE_ID, deviceId, "", "", "", false);
+        jsonApi.writeValue(rdtCapturePage, CovidConstants.FormFields.RDT_DEVICE_ID, deviceId, "", "", "", false);
+
+        // populate RDT detected component type
+        String detectedComponentType = deviceDefinitionProcessor.extractDeviceDetectedComponentType(deviceId);
+        jsonApi.writeValue(getStepStateConfigObj().getString(CovidConstants.Step.COVID_CHW_MANUAL_RDT_RESULT_ENTRY_PAGE),
+                CovidConstants.FormFields.DETECTED_COMPONENT_TYPE,
+                detectedComponentType == null ? "" : detectedComponentType,
+                "", "", "", false);
+
+        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_MANUFACTURER, manufacturerName, "", "", "", false);
+        jsonApi.writeValue(rdtDetailsConfirmationPage, CovidConstants.FormFields.RDT_DEVICE_NAME, deviceName, "", "", "", false);
     }
 
     private String getFormattedRDTDetails(Context context, String manufacturer, String deviceName) {
+        if (StringUtils.isBlank(manufacturer) || StringUtils.isBlank(deviceName)) {
+            return context.getString(R.string.unknown_rdt_selected);
+        }
+
         final String htmlLineBreak = "<br>";
         final String doubleHtmlLineBreak = "<br><br>";
 

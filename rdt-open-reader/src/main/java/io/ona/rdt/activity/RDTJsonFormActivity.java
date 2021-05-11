@@ -18,6 +18,7 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.contract.RDTJsonFormActivityContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.presenter.RDTJsonFormActivityPresenter;
+import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.RDTJsonFormUtils;
 
 import static com.vijay.jsonwizard.utils.PermissionUtils.PHONE_STATE_PERMISSION;
@@ -71,7 +72,7 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
        if (requestCode == PHONE_STATE_PERMISSION && grantResults.length > 0
                && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            setResult(RESULT_CANCELED, null);
+            setResult(Constants.RESULT_CODE.PERMISSIONS_DENIED, null);
             formUtils.showToast(this, getString(R.string.phone_state_permissions_required));
             finish();
        }
@@ -89,23 +90,10 @@ public class RDTJsonFormActivity extends JsonFormActivity implements RDTJsonForm
     }
 
 
-    /**
-     *
-     * Performs default Android backpress action
-     * but also updates the current step state to the step of the fragment about to be popped
-     * from the backstack
-     */
     @Override
     public void onBackPress() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        int backStackSize = fragmentManager.getBackStackEntryCount();
-        if (backStackSize > 0) {
-            String stepName = fragmentManager.getBackStackEntryAt(backStackSize - 1).getName();
-            int stepNum = Integer.valueOf(stepName.substring(4));
-            RDTJsonFormFragment.setCurrentStep(stepNum);
-            fragmentManager.popBackStack();
-        }
         setPreviousPressed(true);
+        getSupportFragmentManager().popBackStack();
     }
 
     public String getRdtType() {

@@ -1,4 +1,5 @@
 <resources>
+    <string name="cts_app_name">CTS Open Reader</string>
     <string name="login_app_name">RDT Open Reader</string>
     <string name="covid_patient_profile_symptoms_history">Symptoms and history</string>
     <string name="covid_patient_profile_rdt">RDT</string>
@@ -36,4 +37,14 @@
     <string name="lbl_gender_id">Female . ID: 99358357</string>
     <string name="lbl_visit">Visit %d</string>
     <string name="label_continue">CONTINUE</string>
+    <string name="str_page_info">Page {0} of {1}</string>
+    <string name="json_form_error_msg">Found %d error(s) in the form. Please correct them to submit.</string>
+    <string name="json_form_on_next_error_msg">Please correct the error(s) in the form to proceed.</string>
+    <string name="onescan_is_not_installed">OneScan app is required to continue this process</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="visit_date_label">Visit Date</string>
+    <string name="account_disabled">Session Expired</string>
+    <string name="account_disabled_logged_off">Your session has expired. Please login again to continue working.</string>
+    <string name="shipping_preparation">Shipping Preparation</string>
 </resources>

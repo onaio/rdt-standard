@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.json.JSONException;
+import org.smartregister.util.SyncUtils;
 
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 import io.ona.rdt.R;
 import io.ona.rdt.adapter.ProfileFragmentAdapter;
 import io.ona.rdt.contract.CovidPatientProfileActivityContract;
@@ -23,6 +25,7 @@ import io.ona.rdt.presenter.PatientProfileActivityPresenter;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import io.ona.rdt.util.RDTJsonFormUtils;
+import io.ona.rdt.util.Utils;
 import timber.log.Timber;
 
 /**
@@ -38,6 +41,12 @@ public class CovidPatientProfileActivity extends PatientProfileActivity implemen
         addListeners();
         setUpTabs();
         initializeFormWidgetKeyToTextMap();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utils.verifyUserAuthorization(this);
     }
 
     private void initializeFormWidgetKeyToTextMap() {

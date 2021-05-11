@@ -1,8 +1,5 @@
 package io.ona.rdt.presenter;
 
-import android.widget.LinearLayout;
-
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -43,36 +40,15 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
     private StepStateConfig stepStateConfig;
     private RDTJsonFormFragmentInteractor rdtJsonFormFragmentInteractor;
 
-    public RDTJsonFormFragmentPresenter(RDTJsonFormFragmentContract.View rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
-        super((JsonFormFragment) rdtFormFragment, jsonFormInteractor);
+    public RDTJsonFormFragmentPresenter(RDTJsonFormFragment rdtFormFragment, JsonFormInteractor jsonFormInteractor) {
+        super(rdtFormFragment, jsonFormInteractor);
         this.rdtFormFragment = rdtFormFragment;
         this.rdtJsonFormFragmentInteractor = new RDTJsonFormFragmentInteractor();
     }
 
     @Override
-    public boolean onNextClick(LinearLayout mainView) {
-        checkAndStopCountdownAlarm();
-        this.validateAndWriteValues();
-        boolean validateOnSubmit = this.validateOnSubmit();
-        if (validateOnSubmit || this.isFormValid()) {
-            return this.moveToNextStep();
-        } else {
-            this.getView().showSnackBar(this.getView().getContext().getResources().getString(com.vijay.jsonwizard.R.string.json_form_on_next_error_msg));
-            return false;
-        }
-    }
-
-    private boolean moveToNextStep() {
-        return hasNextStep() && moveToNextStep(getNextStep());
-    }
-
-    @Override
-    public boolean hasNextStep() {
-        return !getNextStep().isEmpty();
-    }
-
-    private String getNextStep() {
-        return mStepDetails.optString(JsonFormConstants.NEXT);
+    protected JsonFormFragment getNextJsonFormFragment(String nextStep) {
+        return RDTJsonFormFragment.getFormFragment(nextStep);
     }
 
     public boolean moveToNextStep(String stepName) {
@@ -112,7 +88,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             } else {
                 rdtFormFragment.navigateToNextStep();
             }
-        }  else {
+        } else {
             handleCommonTestFormClicks(isSubmit, currentStep);
         }
     }
@@ -128,13 +104,11 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
             if (isCurrentStep(PRODUCT_EXPIRED_PAGE, currentStep)) {
                 saveFormAndMoveToNextStep();
             } else if (isCurrentStep(MANUAL_EXPIRATION_DATE_ENTRY_PAGE, currentStep)) {
-                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(PRODUCT_EXPIRED_PAGE));;
-            }  else {
+                navigateFromManualExpirationDateEntryPage(getStepStateConfig().getStepStateObj().optString(PRODUCT_EXPIRED_PAGE));
+            } else {
                 submitOrMoveToNextStep(isSubmit);
             }
-        } catch (JSONException e) {
-            Timber.e(e);
-        } catch (ParseException e) {
+        } catch (JSONException | ParseException e) {
             Timber.e(e);
         }
     }
@@ -152,7 +126,9 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
         JsonFormFragment formFragment = (JsonFormFragment) rdtFormFragment;
         String dateStr = getDateStr(formFragment, stepStateConfig);
 
-        if (StringUtils.isBlank((dateStr))) { return; }
+        if (StringUtils.isBlank(dateStr)) {
+            return;
+        }
 
         Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
         conditionallyMoveToNextStep(formFragment, expiredPageStep, isExpired(date));
@@ -170,7 +146,7 @@ public class RDTJsonFormFragmentPresenter extends JsonFormFragmentPresenter impl
 
     private StepStateConfig getStepStateConfig() {
         if (this.stepStateConfig == null) {
-            this.stepStateConfig =  RDTApplication.getInstance().getStepStateConfiguration();
+            this.stepStateConfig = RDTApplication.getInstance().getStepStateConfiguration();
         }
         return this.stepStateConfig;
     }

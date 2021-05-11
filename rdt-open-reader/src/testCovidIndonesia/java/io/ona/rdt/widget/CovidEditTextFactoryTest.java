@@ -8,6 +8,8 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.AppExecutors;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONException;
@@ -61,8 +63,15 @@ public class CovidEditTextFactoryTest extends WidgetFactoryRobolectricTest {
     }
 
     private RelativeLayout getRootLayout() throws Exception {
+
+        JsonApi jsonApi = Mockito.mock(JsonApi.class);
+        Mockito.when(jsonApi.getAppExecutors()).thenReturn(new AppExecutors());
+
+        JsonFormFragment jsonFormFragment = Mockito.mock(JsonFormFragment.class);
+        Mockito.when(jsonFormFragment.getJsonApi()).thenReturn(jsonApi);
+
         List<View> views = covidEditTextFactory.getViewsFromJson(JsonFormConstants.STEP1, jsonFormActivity,
-                Mockito.mock(JsonFormFragment.class), getWidget(), Mockito.mock(CommonListener.class));
+                jsonFormFragment, getWidget(), Mockito.mock(CommonListener.class));
         return (RelativeLayout) views.get(0);
     }
 

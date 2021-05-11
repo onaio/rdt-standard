@@ -13,7 +13,6 @@ import org.smartregister.repository.EventClientRepository;
 
 import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.contract.RDTJsonFormFragmentContract;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
@@ -44,7 +43,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public abstract class BaseRDTJsonFormFragmentPresenterTest extends PowerMockTest {
 
     protected RDTJsonFormFragmentPresenter presenter;
-    protected RDTJsonFormFragmentContract.View rdtFormFragmentView;
+    protected RDTJsonFormFragment rdtFormFragment;
     protected RDTJsonFormFragment formFragment;
     protected String BLOT_PAPER_TASK_PAGE_NO = "step9";
 
@@ -66,8 +65,8 @@ public abstract class BaseRDTJsonFormFragmentPresenterTest extends PowerMockTest
     @Before
     public void setUp() throws JSONException {
         mockStaticMethods();
-        rdtFormFragmentView = spy(new PatientRegisterFragmentStub());
-        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragmentView, mock(RDTJsonFormInteractor.class));
+        rdtFormFragment = spy(new RDTFormFragmentStub());
+        presenter = new RDTJsonFormFragmentPresenter(rdtFormFragment, mock(RDTJsonFormInteractor.class));
         Whitebox.setInternalState(presenter, "rdtJsonFormFragmentInteractor", interactor);
     }
 

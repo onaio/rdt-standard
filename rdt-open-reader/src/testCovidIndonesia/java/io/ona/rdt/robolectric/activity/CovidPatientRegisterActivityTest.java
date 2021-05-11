@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.smartregister.util.LangUtils;
 
@@ -23,10 +25,13 @@ import io.ona.rdt.application.RDTApplication;
 import io.ona.rdt.fragment.CovidPatientRegisterFragment;
 import io.ona.rdt.presenter.CovidPatientRegisterActivityPresenter;
 import io.ona.rdt.presenter.PatientRegisterActivityPresenter;
+import io.ona.rdt.robolectric.shadow.MockCounter;
+import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.RDTJsonFormUtils;
 import io.ona.rdt.util.Utils;
 
+@Config(shadows = {UtilsShadow.class})
 public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
 
     private CovidPatientRegisterActivity covidPatientRegisterActivity;
@@ -36,10 +41,35 @@ public class CovidPatientRegisterActivityTest extends ActivityRobolectricTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
         covidPatientRegisterActivity = Robolectric.buildActivity(CovidPatientRegisterActivity.class)
                 .create()
                 .resume()
                 .get();
+    }
+
+    @Test
+    public void testOnResumeShouldSetCurrentActivityToCovidPatientRegisterActivity() throws Exception {
+        RDTApplication.getInstance().clearCurrActivityReference(covidPatientRegisterActivity);
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "onResume");
+        Assert.assertThat(RDTApplication.getInstance().getCurrentActivity(), CoreMatchers.instanceOf(CovidPatientRegisterActivity.class));
+    }
+
+    @Test
+    public void testOnPauseShouldClearCurrentActivity() throws Exception {
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "onPause");
+        Assert.assertNull(RDTApplication.getInstance().getCurrentActivity());
+    }
+
+    @Test
+    public void testUserAuthorizationVerificationTaskShouldVerifyMethodCalled() throws Exception {
+
+        MockCounter counter = new MockCounter();
+        UtilsShadow.setMockCounter(counter);
+        Assert.assertEquals(0, UtilsShadow.getMockCounter().getCount());
+        Whitebox.invokeMethod(covidPatientRegisterActivity, "onResume");
+        Assert.assertEquals(2, UtilsShadow.getMockCounter().getCount());
+        UtilsShadow.setMockCounter(null);
     }
 
     @Test

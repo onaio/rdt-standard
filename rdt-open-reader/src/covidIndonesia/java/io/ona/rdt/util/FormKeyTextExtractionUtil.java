@@ -26,7 +26,8 @@ public class FormKeyTextExtractionUtil {
 
     private static final Set<String> FORMS_TO_EXTRACT_TEXT_FROM = new HashSet<>(Arrays.asList(
             CovidConstants.Form.PATIENT_DIAGNOSTICS_FORM, CovidConstants.Form.SAMPLE_COLLECTION_FORM,
-            CovidConstants.Form.COVID_RDT_TEST_FORM, CovidConstants.Form.XRAY_FORM, CovidConstants.Form.WBC_FORM));
+            CovidConstants.Form.COVID_RDT_TEST_FORM, CovidConstants.Form.XRAY_FORM, CovidConstants.Form.WBC_FORM,
+            CovidConstants.Form.SAMPLE_DELIVERY_DETAILS_FORM));
     private static Map<String, String> formWidgetKeyToTextMap;
 
     public static Map<String, String> getFormWidgetKeyToTextMap() throws JSONException {

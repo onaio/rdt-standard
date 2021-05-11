@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import com.ibm.fhir.model.parser.exception.FHIRParserException;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,12 +16,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
+import io.ona.rdt.R;
 import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.CovidConstants;
 import io.ona.rdt.util.CovidRDTJsonFormUtils;
 import io.ona.rdt.util.DeviceDefinitionProcessor;
-import io.ona.rdt.util.FormKeyTextExtractionUtil;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -58,7 +59,18 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
                 Timber.e(e);
             }
         } else if (requestCode == BARCODE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-            ((RDTJsonFormFragment) widgetArgs.getFormFragment()).setMoveBackOneStep(true);
+            RDTJsonFormFragment fragment = (RDTJsonFormFragment) widgetArgs.getFormFragment();
+            if (data != null && data.getBooleanExtra(Constants.Result.ONESCAN_IS_NOT_INSTALLED, false)) {
+                Utils.showAlertDialog(fragment.getContext(),
+                        fragment.getString(R.string.error),
+                        fragment.getString(R.string.onescan_is_not_installed),
+                        null,
+                        fragment.getString(R.string.ok),
+                        null,
+                        (dialog, id) -> fragment.getActivity().onBackPressed());
+            } else {
+                fragment.setMoveBackOneStep(true);
+            }
         } else if (data == null) {
             Timber.i("No result for qr code");
         }
@@ -90,7 +102,7 @@ public abstract class CovidRDTBarcodeFactory extends RDTBarcodeFactory {
         // populate RDT device details confirmation page
         DeviceDefinitionProcessor deviceDefinitionProcessor = DeviceDefinitionProcessor.getInstance(context);
         String deviceId = deviceDefinitionProcessor.getDeviceId(individualVals[GTIN_INDEX]);
-        formUtils.populateRDTDetailsConfirmationPage(widgetArgs, deviceId, false);
+        formUtils.populateFormWithRDTDetails(widgetArgs, deviceId, false);
 
         // we can do this population asynchronously
         class FormWidgetPopulationTask extends AsyncTask<Void, Void, Void> {

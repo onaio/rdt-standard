@@ -15,6 +15,7 @@ import io.ona.rdt.contract.CustomRDTCaptureContract;
 import io.ona.rdt.domain.CompositeImage;
 import io.ona.rdt.domain.ParcelableImageMetadata;
 import io.ona.rdt.presenter.CustomRDTCapturePresenter;
+import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.Utils.hideProgressDialog;
 import static io.ona.rdt.util.Constants.Test.PARCELABLE_IMAGE_METADATA;
@@ -28,8 +29,6 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
  * Created by Vincent Karuri on 27/06/2019
  */
 public class CustomRDTCaptureActivity extends RDTCaptureActivity implements CustomRDTCaptureContract.View {
-
-    private static final String TAG = CustomRDTCaptureActivity.class.getName();
 
     private CustomRDTCapturePresenter presenter;
     private String baseEntityId;
@@ -48,7 +47,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
 
     @Override
     public void useCapturedImage(RDTCaptureResult rdtCaptureResult, RDTInterpretationResult rdtInterpretationResult, long timeTaken) {
-        Log.i(TAG, "Processing captured image");
+        Timber.i("Processing captured image");
         showProgressDialogInFG(this, R.string.saving_image, R.string.please_wait);
         presenter.saveImage(this, presenter.buildCompositeImage(rdtCaptureResult, rdtInterpretationResult, timeTaken), this);
     }
@@ -65,7 +64,7 @@ public class CustomRDTCaptureActivity extends RDTCaptureActivity implements Cust
             resultIntent.putExtra(PARCELABLE_IMAGE_METADATA, parcelableImageMetadata);
             setResult(RESULT_OK, resultIntent);
         } else {
-            Log.e(TAG, "Could not save image due to incomplete data");
+            Timber.e("Could not save image due to incomplete data");
         }
         finish();
     }

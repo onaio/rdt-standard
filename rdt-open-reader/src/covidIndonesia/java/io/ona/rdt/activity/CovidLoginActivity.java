@@ -2,6 +2,7 @@ package io.ona.rdt.activity;
 
 import android.os.Bundle;
 
+import com.evernote.android.job.JobManager;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 
@@ -42,7 +43,7 @@ public class CovidLoginActivity extends LoginActivity {
         widgetFactoryMap.put(LABEL, new CovidRDTLabelFactory());
         widgetFactoryMap.put(JsonFormConstants.DATE_PICKER, new CovidDatePickerFactory());
         widgetFactoryMap.put(JsonFormConstants.REPEATING_GROUP, new CovidRepeatingGroupFactory());
-        widgetFactoryMap.put(JsonFormConstants.RDT_CAPTURE, new UWCovidRDTCaptureFactory());
+        widgetFactoryMap.put(CovidConstants.Widget.COVID_RDT_CAPTURE, new UWCovidRDTCaptureFactory());
         widgetFactoryMap.put(JsonFormConstants.IMAGE_VIEW, new CovidImageViewFactory());
         widgetFactoryMap.put(CovidConstants.Widget.RDT_DEVICE_SELECTOR_SPINNER, new RDTDeviceSelectorSpinnerFactory());
         widgetFactoryMap.put(JsonFormConstants.EDIT_TEXT, new CovidEditTextFactory());
@@ -56,5 +57,11 @@ public class CovidLoginActivity extends LoginActivity {
     @Override
     protected String getRegisterTableName() {
         return COVID_PATIENTS;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        JobManager.instance().cancelAll();
     }
 }

@@ -55,6 +55,57 @@
     "next_label": "{{patient-diagnostics-form-original.step1.next_label}}",
     "fields": [
       {
+        "key": "health_worker_name_label",
+        "type": "label",
+        "text": "{{patient-diagnostics-form-original.step1.health_worker_name_label.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_id_label",
+        "type": "label",
+        "text": "{{patient-diagnostics-form-original.step1.health_worker_id_label.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text"
+      },
+      {
+        "key": "health_worker_phone_number_label",
+        "type": "label",
+        "text": "{{patient-diagnostics-form-original.step1.health_worker_phone_number_label.text}}",
+        "text_color": "#000000"
+      },
+      {
+        "key": "health_worker_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{patient-diagnostics-form-original.step1.health_worker_phone_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "13",
+          "err": "{{patient-diagnostics-form-original.step1.health_worker_phone_number.v_max_length.err}}"
+        },
+        "v_min_length": {
+          "value": "8",
+          "err": "{{patient-diagnostics-form-original.step1.health_worker_phone_number.v_min_length.err}}"
+        }
+      },
+      {
         "key": "facility_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -99,7 +150,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step1.other_facility_type.v_regex.err}}"
         },
         "relevance": {
@@ -475,7 +526,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step1.additional_health_issues.v_regex.err}}"
         },
         "relevance": {
@@ -509,11 +560,7 @@
         "hint": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.hint}}",
         "expanded": false,
         "min_date": "today-100y",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "{{patient-diagnostics-form-original.step2.date_of_onset_of_symptoms.v_required.err}}"
-        }
+        "max_date": "today"
       },
       {
         "key": "has_fever",
@@ -996,7 +1043,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step3.international_country.v_regex.err}}"
         },
         "v_required": {
@@ -1031,7 +1078,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step3.international_city.v_regex.err}}"
         },
         "v_required": {
@@ -1130,7 +1177,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step3.local_area_province.v_regex.err}}"
         },
         "v_required": {
@@ -1165,7 +1212,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "v_regex": {
-          "value": "^[a-zA-Z]*$",
+          "value": "^[a-zA-Z ]*$",
           "err": "{{patient-diagnostics-form-original.step3.local_area_city.v_regex.err}}"
         },
         "v_required": {
@@ -1295,7 +1342,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.covid_close_contacts.covid_close_contacts_name.v_regex.err}}"
             },
             "v_required": {
@@ -1345,7 +1392,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.covid_close_contacts.covid_close_contacts_relationship.v_regex.err}}"
             },
             "v_required": {
@@ -1460,7 +1507,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.close_ari_patient_contacts.close_contact_ari_patient_name.v_regex.err}}"
             },
             "v_required": {
@@ -1510,7 +1557,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.close_ari_patient_contacts.close_contact_ari_patient_relationship.v_regex.err}}"
             },
             "v_required": {
@@ -1599,7 +1646,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.hospitalized_ard_patient_contacts.hospitalized_ard_patient_name.v_regex.err}}"
             },
             "v_required": {
@@ -1649,7 +1696,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.hospitalized_ard_patient_contacts.hospitalized_ard_patient_relationship.v_regex.err}}"
             },
             "v_required": {
@@ -1698,7 +1745,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.hospitalized_ard_patient_contacts.hospitalized_ard_patient_location.v_regex.err}}"
             },
             "v_required": {
@@ -1759,7 +1806,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.dead_ard_patient_contacts.dead_ard_patient_name.v_regex.err}}"
             },
             "v_required": {
@@ -1809,7 +1856,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.dead_ard_patient_contacts.dead_ard_patient_relationship.v_regex.err}}"
             },
             "v_required": {
@@ -1858,7 +1905,7 @@
             "openmrs_entity_id": "",
             "type": "edit_text",
             "v_regex": {
-              "value": "^[a-zA-Z]*$",
+              "value": "^[a-zA-Z ]*$",
               "err": "{{patient-diagnostics-form-original.step3.dead_ard_patient_contacts.dead_ard_patient_location.v_regex.err}}"
             },
             "v_required": {

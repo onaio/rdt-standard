@@ -48,17 +48,17 @@ condition: "step1_type_of_test.contains('antibody')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_antigen_or_pcr_result
+name: step1_antigen_pcr_or_genose_result
 description: Antigen or PCR test result
 priority: 1
-condition: "step1_type_of_test.contains('antigen') || step1_type_of_test.contains('pcr')"
+condition: "step1_type_of_test.contains('antigen') || step1_type_of_test.contains('pcr') || step1_type_of_test.contains('genose_c19')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_follow_up
 description: Test type
 priority: 1
-condition: "step1_antibody_test_result.contains('reactive') || step1_antigen_or_pcr_result.contains('positive')"
+condition: "step1_antibody_test_result.contains('reactive') || step1_antigen_pcr_or_genose_result.contains('positive')"
 actions:
   - "isRelevant = true"
 ---
