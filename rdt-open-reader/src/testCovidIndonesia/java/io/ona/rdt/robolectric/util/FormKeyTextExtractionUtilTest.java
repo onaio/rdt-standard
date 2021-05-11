@@ -34,34 +34,37 @@ public class FormKeyTextExtractionUtilTest extends RobolectricTest {
     }
 
     private Map<String, String> getTestFormWidgetKeyToTextMap() throws Exception {
-        Map<String, String> formWidgetKeyToTextMap = new HashMap<>();
-        JSONObject formJsonObj = FormKeyTextExtractionUtil.getTranslatedForm("patient-diagnostics-form.json");
-        JSONArray fields = JsonFormUtils.fields(formJsonObj);
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-            String fieldType = field.getString(JsonFormConstants.TYPE);
-            // add main widget text
-            String widgetKey = Whitebox.invokeMethod(FormKeyTextExtractionUtil.class, "getWidgetKey", field.optString(JsonFormConstants.KEY));
-            String widgetText = Whitebox.invokeMethod(FormKeyTextExtractionUtil.class, "getWidgetText", field);
-            if (StringUtils.isNotBlank(widgetText)) {
-                formWidgetKeyToTextMap.put(widgetKey, widgetText);
-            }
-            // for repeating group, use text hint to populate its _count field
-            if (JsonFormConstants.REPEATING_GROUP.equals(fieldType)) {
-                formWidgetKeyToTextMap.put(widgetKey + "_count",
-                        field.getString(RepeatingGroupFactory.REFERENCE_EDIT_TEXT_HINT));
-            }
-            // add options text
-            if (JsonFormConstants.CHECK_BOX.equals(fieldType)
-                    || JsonFormConstants.NATIVE_RADIO_BUTTON.equals(fieldType)) {
-                JSONArray options = field.getJSONArray(AllConstants.OPTIONS);
-                for (int j = 0; j < options.length(); j++) {
-                    JSONObject option = options.getJSONObject(j);
-                    formWidgetKeyToTextMap.put(option.getString(JsonFormConstants.KEY),
-                            option.getString(JsonFormConstants.TEXT));
-                }
-            }
-        }
-        return formWidgetKeyToTextMap;
+        Map<String, String> expectedData = new HashMap<>();
+        expectedData.put("no", "Tidak");
+        expectedData.put("other", "Lainnya");
+        expectedData.put("discarded", "Discarded");
+        expectedData.put("traveler", "Pelaku Perjalanan");
+        expectedData.put("office", "Kantor");
+        expectedData.put("none", "Tidak memakai APD");
+        expectedData.put("negative_screening_result", "Skrining negatif");
+        expectedData.put("gown", "Gown");
+        expectedData.put("close_contact", "Kontak erat");
+        expectedData.put("gloves", "Sarung tangan");
+        expectedData.put("masker", "Masker NIOSH-N95. AN EU STANDARD FFP2");
+        expectedData.put("symptomatic_confirmed", "Konfirmasi dengan gejala");
+        expectedData.put("facility_type", "Di mana pemeriksaan ini dilakukan?");
+        expectedData.put("hospital", "Rumah Sakit");
+        expectedData.put("mask", "Masker medis");
+        expectedData.put("what_ppe", "Alat Pelindung Diri (APD) apa yang dipakai saat melakukan perawatan pada pasien suspek/probable/konfirmasi?");
+        expectedData.put("yes", "Ya");
+        expectedData.put("suspected", "Suspek");
+        expectedData.put("probable", "Probabel");
+        expectedData.put("ffp3", "FFP3");
+        expectedData.put("home", "Rumah");
+        expectedData.put("feels_malaised", "Apakah pasien merasakan malaise?");
+        expectedData.put("isolation_completed", "Selesai Isolasi");
+        expectedData.put("goggles", "Kacamata pelindung");
+        expectedData.put("asymptomatic_confirmed", "Konfirmasi tanpa gejala");
+        expectedData.put("clinic", "Klinik");
+        expectedData.put("public_health_center", "Puskesmas");
+        expectedData.put("covid_close_contacts_count", "# jumlah kontak erat");
+        expectedData.put("patient_case_category", "Kategori Kasus Pasien?");
+
+        return expectedData;
     }
 }

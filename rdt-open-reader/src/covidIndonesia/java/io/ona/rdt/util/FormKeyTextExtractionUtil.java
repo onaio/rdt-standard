@@ -70,7 +70,7 @@ public class FormKeyTextExtractionUtil {
         formWidgetKeyToTextMap = null;
     }
 
-    public static JSONObject getTranslatedForm(String formName) throws JSONException {
+    private static JSONObject getTranslatedForm(String formName) throws JSONException {
         String placeholderInjectedForm = new CovidRDTJsonFormUtils()
                 .getFormJsonObject(formName, RDTApplication.getInstance()).toString();
         String translatedForm = NativeFormLangUtils

@@ -1,6 +1,5 @@
 package io.ona.rdt.interactor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -57,29 +56,15 @@ public class CovidPatientHistoryActivityInteractorTest extends RobolectricTest {
 
         Assert.assertNotNull(list);
 
+        Map<String, String> expectedMap = new HashMap<>();
+        expectedMap.put("Dimana assessment ini dilakukan?", "rumah");
+
         for (PatientHistoryEntry entry : list) {
             Assert.assertNotEquals("", entry.getValue());
-            if ("Dimana assessment ini dilakukan?".equals(entry.getKey())) {
-                Assert.assertEquals("rumah", entry.getValue());
+            if (expectedMap.containsKey(entry.getKey())) {
+                Assert.assertEquals(expectedMap.get(entry.getKey()), entry.getValue());
             }
         }
-
-        int fieldCount = 0;
-        EventClient eventClient = patientHistoryRepository.getEvent("", "", "");
-        if (eventClient != null) {
-            Event event = eventClient.getEvent();
-            for (Obs obs : event.getObs()) {
-                if (!((boolean) Whitebox.invokeMethod(interactor, "shouldAddObs", obs, event))) {
-                    continue;
-                }
-                String text = formWidgetKeyToTextMap.get(obs.getFormSubmissionField());
-                if (StringUtils.isNotBlank(text)) {
-                    fieldCount += 1;
-                }
-            }
-        }
-
-        Assert.assertEquals(fieldCount, list.size());
     }
 
     @Test

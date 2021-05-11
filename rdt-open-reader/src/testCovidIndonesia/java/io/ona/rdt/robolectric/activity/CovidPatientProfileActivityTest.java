@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
 import io.ona.rdt.R;
@@ -33,6 +33,7 @@ import io.ona.rdt.robolectric.shadow.UtilsShadow;
 import io.ona.rdt.util.Constants;
 import io.ona.rdt.util.FormKeyTextExtractionUtil;
 
+@Config(shadows = {UtilsShadow.class})
 public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
     private static final int AGE = 10;
@@ -56,12 +57,12 @@ public class CovidPatientProfileActivityTest extends ActivityRobolectricTest {
 
     @Test
     public void testGetContentViewIdShouldReturnActivityCovidPatientProfileId() throws Exception {
-        Assert.assertEquals(R.layout.activity_covid_patient_profile, (int) Whitebox.invokeMethod(activity, "getContentViewId"));
+        Assert.assertEquals(R.layout.activity_covid_patient_profile, (int) Whitebox.invokeMethod(covidPatientProfileActivity, "getContentViewId"));
     }
 
     @Test
     public void testVerifyActivityPresenterShouldReturnCovidPatientProfileActivityPresenter() {
-        PatientProfileActivityPresenter presenter = ReflectionHelpers.getField(activity, "presenter");
+        PatientProfileActivityPresenter presenter = ReflectionHelpers.getField(covidPatientProfileActivity, "presenter");
         Assert.assertEquals(CovidPatientProfileActivityPresenter.class.getName(), presenter.getClass().getName());
     }
 

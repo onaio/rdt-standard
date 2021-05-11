@@ -37,8 +37,13 @@ public class CovidPatientProfileFragmentPresenterTest extends PowerMockTest {
     public void testLaunchFormShouldVerifyCorrectFormLaunch() throws JSONException {
 
         Mockito.doNothing().when(interactor).launchForm(ArgumentMatchers.any(Activity.class), ArgumentMatchers.anyString(), ArgumentMatchers.any(Patient.class));
-        covidPatientProfileFragmentPresenter.launchForm(null, null, null);
-        Mockito.verify(interactor).launchForm(null, null, null);
+
+        Activity activity = Mockito.mock(Activity.class);
+        String formName = "dummyForm";
+        Patient patient = Mockito.mock(Patient.class);
+
+        covidPatientProfileFragmentPresenter.launchForm(activity, formName, patient);
+        Mockito.verify(interactor).launchForm(activity, formName, patient);
     }
 
     @Test

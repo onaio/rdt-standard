@@ -11,7 +11,7 @@ import org.powermock.reflect.Whitebox;
 
 import io.ona.rdt.PowerMockTest;
 import io.ona.rdt.application.RDTApplication;
-import io.ona.rdt.contract.RDTJsonFormFragmentContract;
+import io.ona.rdt.fragment.RDTJsonFormFragment;
 import io.ona.rdt.interactor.RDTJsonFormFragmentInteractor;
 import io.ona.rdt.interactor.RDTJsonFormInteractor;
 import io.ona.rdt.util.StepStateConfig;
@@ -21,7 +21,7 @@ public class CovidJsonFormFragmentPresenterTest extends PowerMockTest {
 
     private CovidJsonFormFragmentPresenter presenter;
 
-    private RDTJsonFormFragmentContract.View rdtFormFragmentView;
+    private RDTJsonFormFragment rdtFormFragmentView;
 
     @Before
     public void setUp() throws JSONException {
