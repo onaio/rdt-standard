@@ -1,4 +1,4 @@
-![Build status](https://github.com/onaio/rdt-standard/workflows/Android%20CI%20with%20Gradle/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/onaio/rdt-standard/badge.svg?branch=master)](https://coveralls.io/github/onaio/rdt-standard?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/97b0f387f0fa484caffea641f4762fbe)](https://www.codacy.com/app/onaio/rdt-standard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=onaio/rdt-standard&amp;utm_campaign=Badge_Grade)
+![Build status](https://github.com/onaio/rdt-standard/workflows/Android%20CI%20with%20Gradle/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/onaio/rdt-standard/badge.svg?branch=master)](https://coveralls.io/github/onaio/rdt-standard?branch=master) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e9849a7eae70495a93684cf4f59e227c)](https://www.codacy.com/gh/onaio/rdt-standard/dashboard)
 
 ## OpenRDP - Open Rapid Diagnostic Platform
 
